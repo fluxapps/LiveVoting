@@ -64,12 +64,13 @@ class ctrlmmMenuGUI {
 		/**
 		 * @var $entry ctrlmmEntry
 		 */
+
 		foreach ($this->object->getEntries() as $entry) {
+
 			if ($entry->getType() == ctrlmmMenu::TYPE_SEPARATOR) {
 				if ($replace_full) {
 					$this->object->setAfterSeparator(true);
 				}
-
 				continue;
 			}
 

@@ -140,6 +140,6 @@ require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHoo
 require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/Menu/class.ctrlmmMenu.php');
 require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/class.ilCtrlMainMenuConfig.php');
 if(ctrlmmEntry::entriesExistForType(ctrlmmMenu::TYPE_SEPARATOR)) {
-	ilCtrlMainMenuConfig::getInstance()->setValue('replace_full_header', true);
+	ilCtrlMainMenuConfig::getInstance()->setValue('replace_full_header', false);
 }
 ?>

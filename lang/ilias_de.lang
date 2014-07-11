@@ -76,7 +76,8 @@ perm_userid#:#Einschränkung auf Benutzer
 perm_input_user#:#Benutzer-IDs
 perm_input_user_info#:#Benutzer-IDs kommasepariert
 
-doubleclick_prevention#:#Verhindere Doppelklicks systemweit
-simple_form_validation#:#Einfache Formular-Validierung aktivieren
+doubleclick_prevention#:#Verhindere Doppelklicks systemweit (experimental)
+simple_form_validation#:#Einfache Formular-Validierung aktivieren (experimental)
 
 settentr_button_save#:#Speichern
+replace_full_header#:#Ganzen Header ersetzen (experimental)

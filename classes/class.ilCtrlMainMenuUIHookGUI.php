@@ -6,7 +6,7 @@ require_once('./Services/UIComponent/classes/class.ilUIHookPluginGUI.php');
 require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/Menu/class.ctrlmmMenuGUI.php');
 require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/Menu/class.ctrlmmMenu.php');
 require_once('class.ilCtrlMainMenuPlugin.php');
-
+require_once('./Modules/SystemFolder/classes/class.ilObjSystemFolder.php');
 
 /**
  * User interface hook class
@@ -21,6 +21,12 @@ require_once('class.ilCtrlMainMenuPlugin.php');
 class ilCtrlMainMenuUIHookGUI extends ilUIHookPluginGUI {
 
 	/**
+	 * @var bool
+	 */
+	protected static $replaced = false;
+
+
+	/**
 	 * @param       $a_comp
 	 * @param       $a_part
 	 * @param array $a_par
@@ -28,31 +34,29 @@ class ilCtrlMainMenuUIHookGUI extends ilUIHookPluginGUI {
 	 * @return array
 	 */
 	public function getHTML($a_comp, $a_part, $a_par = array()) {
-		if ($a_part == 'template_get' AND $a_par['tpl_id'] == 'Services/MainMenu/tpl.main_menu.html') {
-			return array(
-				'mode' => ilUIHookPluginGUI::REPLACE,
-				'html' => $this->getMainMenuHTML()
-			);
+		$full_header = ($a_part == 'template_get' AND $a_par['tpl_id'] == 'Services/MainMenu/tpl.main_menu.html');
+		$replace = (bool)ilCtrlMainMenuConfig::getInstance()->get('replace_full_header');
+		if ($full_header AND ! self::$replaced) {
+			if ($full_header AND $replace) {
+				self::$replaced = true;
+
+				return array(
+					'mode' => ilUIHookPluginGUI::REPLACE,
+					'html' => $this->getMainMenuHTML()
+				);
+			}
 		}
 
-		//		if ($a_comp == 'Services/MainMenu' AND $a_part == 'main_menu_list_entries') {
-		//			$mm = new ctrlmmMenuGUI(0);
-		//
-		//			return array(
-		//				'mode' => ilUIHookPluginGUI::REPLACE,
-		//				'html' => $mm->getHTML()
-		//			);
-		//		}
-		//
-		//		if ($a_comp == 'Services/MainMenu' AND $a_part == 'main_menu_search') {
-		//			$mm = new ctrlmmMenuGUI(0);
-		//			$mm->setSide(ctrlmmMenuGUI::SIDE_RIGHT);
-		//
-		//			return array(
-		//				'mode' => ilUIHookPluginGUI::REPLACE,
-		//				'html' => $mm->getHTML()
-		//			);
-		//		}
+		$menu_only = ($a_comp == 'Services/MainMenu' AND $a_part == 'main_menu_list_entries');
+		if ($menu_only AND ! self::$replaced AND ! $replace) {
+			$mm = new ctrlmmMenuGUI(0);
+			self::$replaced = true;
+
+			return array(
+				'mode' => ilUIHookPluginGUI::REPLACE,
+				'html' => $mm->getHTML()
+			);
+		}
 
 		return array( 'mode' => ilUIHookPluginGUI::KEEP, 'html' => '' );
 	}

@@ -75,7 +75,8 @@ perm_userid#:#Only for some Users
 perm_input_user#:#User-IDs
 perm_input_user_info#:#User-IDs commaseperated
 
-doubleclick_prevention#:#Prevent Doubleclicks
-simple_form_validation#:#Activate Simple Form-Validation
+doubleclick_prevention#:#Prevent Doubleclicks (experimental)
+simple_form_validation#:#Activate Simple Form-Validation (experimental)
 
 settentr_button_save#:#Save
+replace_full_header#:#Replace Full Header (experimental)
