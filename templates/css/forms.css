@@ -1,0 +1,7 @@
+div.form_alert input {
+	background-color:   #FFE0D7;
+	border-color:       #FF1C05;
+	-webkit-box-shadow: 0px 0px 5px #FF1C05; /* webkit browser*/
+	-moz-box-shadow:    0px 0px 5px #FF1C05; /* firefox */
+	box-shadow:         0px 0px 5px #FF1C05;
+}

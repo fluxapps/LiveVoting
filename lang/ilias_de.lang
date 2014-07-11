@@ -1,0 +1,82 @@
+list_title#:#Menu-Einträge
+title#:#Titel
+type#:#Typ
+css_prefix#:#CSS-Prefix
+configuration#:#Konfiguration
+add_new#:#Neuen Eintrag hinzufügen
+save_sorting#:#Reihenfolge speichern
+sorting_saved#:#Reihenfolge gespeichert
+css_active#:#CSS-Klasse aktiv
+css_inactive#:#CSS-Klasse inaktiv
+actions#:#Aktionen
+edit#:#Bearbeiten
+delete#:#Löschen
+add_new#:#Eintrag hinzufügen
+select#:#Typ wählen
+cancel#:#Abbrechen
+select_type#:#Typ wählen
+form_title#:#Eintrag erstellen
+permission_type#:#Zugriff wählen
+create#:#Speichern und schliessen
+perm_none#:#Keine Zugriffsregelung
+perm_input#:#Eingabe:
+perm_role#:#Auf Rollen-IDs einschränken
+perm_role_exeption#:#Alle Rollen-IDs ausser die Genannten
+perm_ref_read#:#Leserecht auf RefID
+perm_ref_write#:#Schreibrecht auf RefID
+
+gui_class#:#GUI-Klassen, komma-separiert
+cmd#:#Command
+
+type_ctrl#:#ilCtrl
+type_link#:#URL
+type_dropdown#:#Dropdown
+type_refid#:#Ref-ID
+type_admin#:#Administration
+type_lastvisited#:#Zuletzt besucht
+type_repository#:#Magazin
+type_desktop#:#Persönlicher Schreibtisch
+type_settings#:#Benutzereinstellungen
+type_separator#:#Umbruch
+type_search#:#Schnellsuche
+type_statusbox#:#Mail-Status
+
+title_en#:#Englischer Titel
+title_de#:#Deutscher Titel
+title_fr#:#Französischer Titel
+title_it#:#Italienischer Titel
+settings#:#Typ-spezifische Einstellungen
+link#:#URL
+target#:#Linkziel
+ref_id#:#Ref-ID
+entry_added#:#Eintrag wurde hinzugefügt
+entry_updated#:#Eintrag wurde aktualisiert
+entry_deleted#:#Eintrag wurde gelöscht
+qst_delete_entry#:#Möchten Sie den folgenden Eintrag wirklich löschen?
+edit_childs#:#Einträge bearbeiten
+
+back_to_main#:#Hauptmenu bearbeiten
+tabs_title_childs#:#Dropdown bearbeiten
+tab_main#:#Hauptmenu bearbeiten
+use_image#:#Pfeilbild verwenden
+
+same_page#:#Gleiche Seite
+new_page#:#Neue Seite
+not_visible_for_admin#:#<p class='warning'>Für aktuellen Benutzer nicht sichtbar.</p>
+no_childs#:#<p class='warning'>Nicht sichtbar, da keine Einträge.</p>
+css_settings#:#CSS-Einstellungen
+recursive#:#Menü-Eintrag soll auch bei Unterobjekten Aktiv sein
+show_icons#:#Icons der Einträge anzeigen
+
+conf_saved#:#Gespeichert
+create_and_stay#:#Speichern
+perm_input_locale#:#Lokale Rollen
+perm_input_locale_info#:#IDs von lokalen Rollen kommasepariert
+perm_userid#:#Einschränkung auf Benutzer
+perm_input_user#:#Benutzer-IDs
+perm_input_user_info#:#Benutzer-IDs kommasepariert
+
+doubleclick_prevention#:#Verhindere Doppelklicks systemweit
+simple_form_validation#:#Einfache Formular-Validierung aktivieren
+
+settentr_button_save#:#Speichern

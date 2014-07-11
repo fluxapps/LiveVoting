@@ -1,0 +1,85 @@
+div.ilMainMenuSection, ul#fbMainMenu {
+	background-color: #3B5998 !important;
+	background-image: none !important;
+}
+
+div.ilMainMenuSection {
+	border-bottom: 1px solid #133783;
+}
+
+ul#fbMainMenu {
+
+
+	height:        32px;
+	display:       block;
+	margin:        0;
+	padding:       0;
+	/*padding-left:  30px;*/
+	float:         left;
+}
+
+li.fbMainMenu a.MMInactive, li.fbMainMenu a.MMInactive:hover, li.fbMainMenu a.MMActive, li.fbMainMenu a.MMActive:hover {
+	background-color: transparent;
+	margin:           0px;
+	padding:          0px;
+	/*padding-top:      1px;*/
+}
+
+li.fbMainMenu, li.fbMainMenu a.MMInactive, li.fbMainMenu a.MMInactive:hover, li.fbMainMenu a.MMActive, li.fbMainMenu a.MMActive:hover {
+	display:          block;
+	float:            left;
+	font-size:        12px;
+	line-height:      30px;
+	/*font-weight:      bold;*/
+	padding-left:     5px;
+	padding-right:    5px;
+	margin-right:     1px;
+	background-image: none;
+	height:           32px;
+}
+
+a.fbMainMenu, li.fbMainMenu a.MMInactive, li.fbMainMenu a.MMActive {
+	color: rgb(216, 223, 234) !important;
+}
+
+li.fbMainMenu span.MMSpan {
+	background-color: transparent;
+	background-image: none;
+	margin:           0px;
+	padding:          0px;
+}
+
+li.fbMainMenu:hover {
+	background-color: rgb(75, 103, 161);
+}
+
+li.fbMainMenu:hover a.fbMainMenu {
+	color:           #FFFFFF !important;
+	text-decoration: none;
+}
+
+div.ilMainMenuHeadSection {
+	display: none;
+}
+
+div.ilMainHeader {
+	background: none !important;
+	min-height: 0px !important;
+}
+
+li.ilMainMenu {
+	background-image: none !important;;
+	background-color: transparent !important;;
+	border: none !important;
+}
+
+div.ilMainMenuSearch {
+	background-image: none !important;;
+}
+
+
+span.ctrlmmNewMail {
+	font-size:   0.6em !important;
+	margin-left: 0px !important;
+	margin-top: inherit !important;
+}

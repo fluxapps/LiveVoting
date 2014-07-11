@@ -1,0 +1,81 @@
+list_title#:#Menu Entries
+title#:#Title
+type#:#Type
+css_prefix#:#CSS Prefix
+configuration#:#Configuration
+add_new#:#Add New Entry
+save_sorting#:#Save Order
+sorting_saved#:#Order save
+css_active#:#CSS Class active
+css_inactive#:#CSS Class inactive
+actions#:#Actions
+edit#:#Edit
+delete#:#Delete
+add_new#:#Add Entry
+select#:#Select Type
+cancel#:#Cancel
+select_type#:#Select Type
+form_title#:#Add New Entry
+permission_type#:#Select Access Type
+create#:#Save and close
+perm_none#:#No Access Control
+perm_input#:#Input:
+perm_role#:#Restrict to Role
+perm_role_exeption#:#All Roles except the following
+perm_ref_read#:#Read Permission to Ref-ID
+perm_ref_write#:#Write Permission to Ref-ID
+
+gui_class#:#GUI Classes, comma-separated
+cmd#:#Command
+
+type_ctrl#:#ilCtrl
+type_link#:#URL
+type_dropdown#:#Dropdown
+type_refid#:#Ref-ID
+type_admin#:#Administration
+type_lastvisited#:#Last Visited
+type_repository#:#Repository
+type_desktop#:#Personal Desktop
+type_settings#:#User Settings
+type_separator#:#Separator
+type_search#:#Quick-Search
+type_statusbox#:#Mail-Status
+
+title_en#:#English Title
+title_de#:#German Title
+title_fr#:#French Title
+title_it#:#Italien Title
+settings#:#Type Specific Settings
+link#:#URL
+target#:#Target
+ref_id#:#Ref-ID
+entry_added#:#Entry added
+entry_updated#:#Entry updated
+entry_deleted#:#Entry deleted
+qst_delete_entry#:#Are you sure that you want to delete the following entry?
+edit_childs#:#Edit Entries
+
+back_to_main#:#Back
+tabs_title_childs#:#Edit Dropdown
+tab_main#:#Edit Entries
+use_image#:#Use Arrow Image
+
+same_page#:#Same Window
+new_page#:#New Window
+not_visible_for_admin#:#<p class='warning'>For current user not visible.</p>
+no_childs#:#<p class='warning'>Not visible because no Entries.</p>
+css_settings#:#CSS Settings
+recursive#:#Entry should be active even at sub-objects
+
+conf_saved#:#Saved
+create_and_stay#:#Save
+perm_input_locale#:#Locale Roles
+perm_input_locale_info#:#Enter IDs of locale Roles commaseperated
+perm_userid#:#Only for some Users
+perm_input_user#:#User-IDs
+perm_input_user_info#:#User-IDs commaseperated
+
+doubleclick_prevention#:#Prevent Doubleclicks
+simple_form_validation#:#Activate Simple Form-Validation
+
+settentr_button_save#:#Save

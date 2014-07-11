@@ -1,0 +1,89 @@
+p.warning {
+	font-size: 10px;
+	color:     red;
+}
+
+tr.fsxSortable {
+	background-color: #FDFDFD;
+	border-bottom:    1px solid #D6D6D6;
+}
+
+tr.fsxSortable:last-of-type {
+	border-bottom: none;
+}
+
+img.headerImage {
+	height: 25px;
+}
+
+li.ctrlmmSeparator {
+	float:       left;
+	margin:      0;
+	padding-top: 0;
+	height:      31px;
+	width:       10px;
+	/*border-left: 1px solid #a3c8ff;*/
+	/*border-right: 1px solid #a3c8ff;*/
+}
+
+li.ctrlmmLeft {
+	/*float: left;*/
+	clear: both;
+}
+
+li.ctrlmmRight {
+	float: right !important;
+}
+
+ul#ctrlmmMainMenu {
+	background-color: red;
+	width:            100%;
+	float:            none;
+	background-image: none;
+}
+
+span.ctrlmmNewMail {
+	font-size:   0.6em !important;
+	position:    relative;
+	margin-left: -16px !important;
+	margin-top:  2px !important;
+}
+
+td.ctrlmmSeparator {
+	background-color: #D6D6D6;
+
+}
+
+a.MMInactive, a.MMActive {
+	float: left;
+}
+
+span.ctrlmmNonLink {
+	float:           left;
+	color:           rgba(0, 62, 149, 0.54);
+	display:         block;
+	font-size:       85%;
+	font-weight:     normal;
+	height:          26px;
+	line-height:     26px;
+	margin:          1px 0 2px -1px;
+	padding:         0 10px 3px;
+	text-decoration: none;
+	vertical-align:  middle;
+	white-space:     nowrap;
+	background:      url("../../../../../../../../../templates/default/images/mm_back2.png") repeat-x scroll 0 0 rgba(0, 0, 0, 0);
+}
+
+div.ilMainMenuLeft {
+	float: left;
+
+}
+
+div.ilMainMenu {
+	clear: none !important;
+}
+
+div.ilMainMenuRight {
+	float: right !important;
+	padding-right: 20px !important;
+}
