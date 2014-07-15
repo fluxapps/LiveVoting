@@ -7,6 +7,7 @@ require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHoo
 require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/Menu/class.ctrlmmMenu.php');
 require_once('class.ilCtrlMainMenuPlugin.php');
 require_once('./Modules/SystemFolder/classes/class.ilObjSystemFolder.php');
+require_once('Services/Style/classes/class.ilStyleDefinition.php');
 
 /**
  * User interface hook class
@@ -67,10 +68,13 @@ class ilCtrlMainMenuUIHookGUI extends ilUIHookPluginGUI {
 	 */
 	protected function getMainMenuHTML() {
 		global $ilUser;
-		if (is_file('./Customizing/global/skin/unibas44/Plugins/CtrlMainMenu/templates/default/tpl.mainmenu.html')) {
-			$tpl = new ilTemplate('tpl.mainmenu.html', false, false, 'Customizing/global/skin/unibas44/Plugins/CtrlMainMenu');
+
+		$current_skin = ilStyleDefinition::getCurrentSkin();
+
+		if (is_file('./Customizing/global/skin/' . $current_skin . '/Plugins/CtrlMainMenu/templates/default/tpl.mainmenu.html')) {
+			$tpl = new ilTemplate('tpl.mainmenu.html', true, true, 'Customizing/global/skin/' . $current_skin . '/Plugins/CtrlMainMenu');
 		} else {
-			$tpl = ilCtrlMainMenuPlugin::get()->getTemplate('tpl.mainmenu.html', false, false);
+			$tpl = ilCtrlMainMenuPlugin::get()->getTemplate('tpl.mainmenu.html', true, true);
 		}
 
 		$tpl->setVariable("CSS_PREFIX", ctrlmmMenu::getCssPrefix());
@@ -85,25 +89,27 @@ class ilCtrlMainMenuUIHookGUI extends ilUIHookPluginGUI {
 
 		$notificationSettings = new ilSetting('notifications');
 		$chatSettings = new ilSetting('chatroom');
-		require_once 'Services/Notifications/classes/class.ilNotificationOSDHandler.php';
-		$notifications = ilNotificationOSDHandler::getNotificationsForUser($ilUser->getId());
-		$tpl->setVariable('INITIAL_NOTIFICATIONS', json_encode($notifications));
-		$tpl->setVariable('OSD_POLLING_INTERVALL', $notificationSettings->get('osd_polling_intervall') ? $notificationSettings->get('osd_polling_intervall') : '5');
-		$tpl->setVariable('OSD_PLAY_SOUND',
-			$chatSettings->get('play_invitation_sound') && $ilUser->getPref('chat_play_invitation_sound') ? 'true' : 'false');
-		foreach ($notifications as $notification) {
-			if ($notification['type'] == 'osd_maint') {
-				continue;
-			}
-			$tpl->setCurrentBlock('osd_notification_item');
+		if ($chatSettings->get('chat_enabled') && $notificationSettings->get('enable_osd')) {
+			require_once 'Services/Notifications/classes/class.ilNotificationOSDHandler.php';
+			$notifications = ilNotificationOSDHandler::getNotificationsForUser($ilUser->getId());
+			$tpl->setVariable('INITIAL_NOTIFICATIONS', json_encode($notifications));
+			$tpl->setVariable('OSD_POLLING_INTERVALL', $notificationSettings->get('osd_polling_intervall') ? $notificationSettings->get('osd_polling_intervall') : '5');
+			$tpl->setVariable('OSD_PLAY_SOUND',
+				$chatSettings->get('play_invitation_sound') && $ilUser->getPref('chat_play_invitation_sound') ? 'true' : 'false');
+			foreach ($notifications as $notification) {
+				if ($notification['type'] == 'osd_maint') {
+					continue;
+				}
+				$tpl->setCurrentBlock('osd_notification_item');
 
-			$tpl->setVariable('NOTIFICATION_ICON_PATH', $notification['data']->iconPath);
-			$tpl->setVariable('NOTIFICATION_TITLE', $notification['data']->title);
-			$tpl->setVariable('NOTIFICATION_LINK', $notification['data']->link);
-			$tpl->setVariable('NOTIFICATION_LINKTARGET', $notification['data']->linktarget);
-			$tpl->setVariable('NOTIFICATION_ID', $notification['notification_osd_id']);
-			$tpl->setVariable('NOTIFICATION_SHORT_DESCRIPTION', $notification['data']->shortDescription);
-			$tpl->parseCurrentBlock();
+				$tpl->setVariable('NOTIFICATION_ICON_PATH', $notification['data']->iconPath);
+				$tpl->setVariable('NOTIFICATION_TITLE', $notification['data']->title);
+				$tpl->setVariable('NOTIFICATION_LINK', $notification['data']->link);
+				$tpl->setVariable('NOTIFICATION_LINKTARGET', $notification['data']->linktarget);
+				$tpl->setVariable('NOTIFICATION_ID', $notification['notification_osd_id']);
+				$tpl->setVariable('NOTIFICATION_SHORT_DESCRIPTION', $notification['data']->shortDescription);
+				$tpl->parseCurrentBlock();
+			}
 		}
 
 		$ilObjSystemFolder = new ilObjSystemFolder(SYSTEM_FOLDER_ID);
