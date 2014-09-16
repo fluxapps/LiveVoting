@@ -64,20 +64,29 @@ class ctrlmmMenu {
 	 * @var bool
 	 */
 	protected $after_separator = false;
+	/**
+	 * @var
+	 */
+	protected static $cache_active;
 
 
 	/**
 	 * @return bool
 	 */
 	public static function checkGlobalCache() {
-		$is_file = is_file('./Services/GlobalCache/classes/class.ilGlobalCache.php');
+		if (isset(self::$cache_active)) {
+			return self::$cache_active;
+		}
+		$is_file = file_exists('./Services/GlobalCache/classes/class.ilGlobalCache.php');
 		if ($is_file) {
 			require_once('./Services/GlobalCache/classes/class.ilGlobalCache.php');
 
-			return ilGlobalCache::getInstance('ctrl_mm')->isActive();
+			self::$cache_active = ilGlobalCache::getInstance('ctrl_mm')->isActive();
 		} else {
-			return false;
+			self::$cache_active = false;
 		}
+
+		return self::$cache_active;
 	}
 
 
