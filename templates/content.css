@@ -4,6 +4,7 @@ div.lvo_cipher_pin {
 
 div.lvo_actions {
 	float: left;
+	clear: both; /* force toolbar bellow the question */
 }
 
 
@@ -15,7 +16,6 @@ div.fullscreen {
     height: 100%;
     padding: 50px;
     padding-right: 200px;
-    width: 100%;
     background-color: white;
     margin: 0px;
 }
@@ -43,7 +43,6 @@ div.lvo_fullscreendummy {
     top: 0px;
     left: 0px;
     right: 0px;
-    width: 100%;
     height: 100%;
     background-color: white;
     /*padding-top: 20px;*/
@@ -80,8 +79,8 @@ div.lvo_qr_hidden_canvas_close:hover {
 }
 
 #xlvo_pin_field {
-	font-size: 60px !important;
-	text-align: center !important;
+	font-size: 60px;
+	text-align: center;
 	padding: 5px;
 }
 
@@ -91,7 +90,6 @@ div.lvo_qr_hidden_canvas {
     z-index: 100000;
     top: 0px;
     left: 0px;
-    width: 100%;
     height: 100%;
     background-color: white;
     text-align: center;
@@ -131,7 +129,7 @@ div.lvo_qr_hidden {
 	-moz-border-radius-topright: 5px;
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
-	height: 80%;
+	height: 300px;
 	position: relative;
 	bottom: 0px;
 	margin-bottom: 0px;
@@ -142,10 +140,10 @@ div.lvo_qr_hidden {
 }
 
 .lvo_choice_chiper {
-	position: absolute;
+	position: relative;
 	top: 0;
-	width: 100%;
-	font-size: 8em;
+	font-size: 8em; /* fallback font size */
+	font-size: 4vw;
 	text-align: center;
 	color: gray;
 	z-index: 100;
@@ -154,7 +152,7 @@ div.lvo_qr_hidden {
 
 .lvo_choice_footer {
 	position: relative;
-	bottom: 0;
+	margin-bottom: 20px;
 	background-color: #ededed;
 	border: 1px solid #dedede;
 	text-align: center;
@@ -172,7 +170,12 @@ div.lvo_qr_hidden {
 
 .lvo_choice_container {
 	float: left;
-	height: 400px;
+	position: relative;
+	min-width: 120px;
+}
+
+.lvo_choice_container a:hover {
+	text-decoration: none;
 }
 
 div.fullscreen .lvo_choice_container {
@@ -182,7 +185,6 @@ div.fullscreen .lvo_choice_container {
 table.lvo_cipher_titles {
 	margin-top: 12px;
 	margin-bottom: 10px;
-	width: 100%;
 	display: table;
 }
 
@@ -194,11 +196,8 @@ table.lvo_cipher_titles td {
 }
 
 .lvo_body {
-	overflow: auto;
 	padding-top: 30px;
 	margin-top: 12px;
-	width: 100%;
-    height: 450px;
     border: 1px solid #cfcfcf;
 	background: rgb(255,255,255); /* Old browsers */
 	/* IE9 SVG, needs conditional override of 'filter' to 'none' */
@@ -211,6 +210,10 @@ table.lvo_cipher_titles td {
 	background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 ); /* IE6-8 */
 
+}
+
+.lvo_clearboth {
+	clear: both;
 }
 
 .lvo_header_title {
@@ -287,23 +290,27 @@ img#lvo_qr_img {
 	border-radius: 6px;
 	border: 1px solid #dcdcdc;
 	display: inline-block;
-	color: #454545 !important;
 	font-family: arial;
 	font-size: 15px;
 	font-weight: bold;
-	padding: 6px 24px;
+	padding: 6px 0;
+	width: 100%;
 	text-decoration: none;
 	text-shadow: 1px 1px 0px #ffffff;
 }
 
-.lvo_vote_link: hover {
+div.lvo_choice_footer .lvo_vote_link {
+	color: #454545; /* override standard link color */
+}
+
+.lvo_vote_link:hover {
 	background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
 	background: -moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
 	filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
 	background-color: #dfdfdf;
 }
 
-.lvo_vote_link: active {
+.lvo_vote_link:active {
 	position: relative;
 	top: 1px;
 }
@@ -337,4 +344,8 @@ div.ilvo_actions div.ilToolbar {
 
 .hidden {
 	display: none;
+}
+
+#backtopin {
+	margin-bottom: 10px; /* spacing between "New Pin" and the question */
 }

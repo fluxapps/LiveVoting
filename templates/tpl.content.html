@@ -206,20 +206,22 @@
 					<div id="choice_{CHOICE_ID}" class="lvo_percentage{GLOW} color{CHOICE_COLOR}" style="height: {VOTE_PERCENTAGE}%;"></div>
 				</div>
 			</div>
-
-			<div class="lvo_choice_footer">
-				<p>
-					<span>{CHOICE_CIPHER}</span><span class='{HIDE}'>:</span>
-					<span id="choice_count_{CHOICE_ID}" class="lvo_choice_count {HIDE}">{VOTE_COUNT}</span>
-				</p>
-				<!-- BEGIN vote_link -->
-				<a class="lvo_vote_link" href="{VOTE_LINK}">{VOTE_TEXT}</a>
-				<!-- END vote_link -->
-			</div>
 		</a>
+
+		<div class="lvo_choice_footer">
+			<p>
+				<span>{CHOICE_CIPHER}</span><span class='{HIDE}'>:</span>
+				<span id="choice_count_{CHOICE_ID}" class="lvo_choice_count {HIDE}">{VOTE_COUNT}</span>
+			</p>
+			<!-- BEGIN vote_link -->
+			<a class="lvo_vote_link" href="{VOTE_LINK}">{VOTE_TEXT}</a>
+			<!-- END vote_link -->
+		</div>
+
 	</div>
 	<!-- END choice_view -->
 	<!-- END choice -->
+	<br class="lvo_clearboth" />
 </div>
 </div>
 </div>
