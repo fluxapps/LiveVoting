@@ -5,15 +5,16 @@ require_once('class.ilObjLiveVoting.php');
 require_once('class.ilLiveVotingSMS.php');
 require_once('class.ilLiveVotingConfigGUI.php');
 
-
 class ilLiveVotingSragSMS extends ilLiveVotingSMS {
+
 	/**
 	 * @var int
 	 */
 	protected $costs;
 
+
 	/**
-	 * @param array           $data
+	 * @param array $data
 	 */
 	public function __construct($data) {
 		if (!ilLiveVotingConfigGUI::_getValue('sragsms')) {
@@ -39,6 +40,7 @@ class ilLiveVotingSragSMS extends ilLiveVotingSMS {
 		parent::__construct();
 	}
 
+
 	/**
 	 * Send SMS
 	 */
@@ -54,12 +56,14 @@ class ilLiveVotingSragSMS extends ilLiveVotingSMS {
 		exit;
 	}
 
+
 	/**
 	 * @param int $costs
 	 */
 	public function setCosts($costs) {
 		$this->costs = $costs;
 	}
+
 
 	/**
 	 * @return int

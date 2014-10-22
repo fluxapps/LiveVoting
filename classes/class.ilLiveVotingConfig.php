@@ -71,7 +71,7 @@ class ilLiveVotingConfig {
 	 */
 	public function setValue($key, $value) {
 		global $ilDB;
-		if (! is_string($this->getValue($key))) {
+		if (!is_string($this->getValue($key))) {
 			$ilDB->insert($this->getTableName(), array(
 				"config_key" => array(
 					"text",
@@ -108,10 +108,9 @@ class ilLiveVotingConfig {
 	 * @return bool|string
 	 */
 	public function getValue($key) {
-		if (! isset(self::$cache[$key])) {
+		if (!isset(self::$cache[$key])) {
 			global $ilDB;
-			$result = $ilDB->query("SELECT config_value FROM " . $this->getTableName() . " WHERE config_key = "
-				. $ilDB->quote($key, "text"));
+			$result = $ilDB->query("SELECT config_value FROM " . $this->getTableName() . " WHERE config_key = " . $ilDB->quote($key, "text"));
 			if ($result->numRows() == 0) {
 				return false;
 			}
@@ -128,7 +127,7 @@ class ilLiveVotingConfig {
 	 */
 	public function initDB() {
 		global $ilDB;
-		if (! $ilDB->tableExists($this->getTableName())) {
+		if (!$ilDB->tableExists($this->getTableName())) {
 			$fields = array(
 				'config_key' => array(
 					'type' => 'text',

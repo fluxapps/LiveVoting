@@ -56,7 +56,6 @@ if (is_file('./Services/Object/classes/class.ilDummyAccessHandler.php')) {
  * @ilCtrl_Calls      ilObjLiveVotingGUI: ilPermissionGUI, ilInfoScreenGUI, ilObjectCopyGUI, ilCommonactionDispatcherGUI
  *
  */
-
 class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 
 	/**
@@ -248,7 +247,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 		$qu = new ilTextAreaInputGUI($pl->txt("question"), "question");
 		$qu->setUseRte(true);
 		$qu->usePurifier(true);
-		$qu->setRTESupport($this->object->getId(), "xlvo", "xlvo_question", null, false, "3.4.7");
+		$qu->setRTESupport($this->object->getId(), "xlvo", "xlvo_question", NULL, false, "3.4.7");
 		$this->form->addItem($qu);
 		// online
 		$cb = new ilCheckboxInputGUI($this->lng->txt("online"), "online");
@@ -348,13 +347,13 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 	 *
 	 * @return bool|string returns false if there's no obj with such a pin and the link otherwise.
 	 */
-	public static function _getLinkByPin($pin, $use_http_path=NULL) {
+	public static function _getLinkByPin($pin, $use_http_path = NULL) {
 		$obj = ilObjLiveVoting::_getObjectByPin($pin);
 		// Notes:
 		// - ILIAS_HTTP_PATH isn't the path from ilias.ini.php config file.
 		//   it's assembled dynamically from $_SERVER array.
 		//   see Services/Init/classes/class.ilInitialisation.php  function buildHTTPPath()
-		if( $use_http_path === NULL) {
+		if ($use_http_path === NULL) {
 			$link = ILIAS_HTTP_PATH; // e.g: "http://ilias.uni-mainz.de/ILIAS-TEST/ilias436"
 		} else {
 			$link = $use_http_path;
@@ -374,10 +373,9 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 			$ref = ilObject::_getAllReferences($obj->getId());
 			$link .= '/goto.php?target=xlvo_' . array_pop($ref) . '&full=1';
 		}
+
 		return $link;
 	}
-
-
 
 
 	/**
@@ -488,7 +486,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 
 
 	function asyncIsActive() {
-		if ( $this->object->isActive() ) {
+		if ($this->object->isActive()) {
 			$json['is_active'] = 'true';
 		} else {
 			$json['is_active'] = 'false';

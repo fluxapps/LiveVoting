@@ -7,7 +7,7 @@ require_once('class.ilLiveVotingConfigGUI.php');
 class ilLiveVotingAspSMS extends ilLiveVotingSMS {
 
 	/**
-	 * @param array           $data
+	 * @param array $data
 	 */
 	public function __construct(array $data) {
 		if (!ilLiveVotingConfigGUI::_getValue('aspsms')) {
@@ -29,6 +29,7 @@ class ilLiveVotingAspSMS extends ilLiveVotingSMS {
 		}
 		parent::__construct();
 	}
+
 
 	/**
 	 * Send SMS

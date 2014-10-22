@@ -7,11 +7,11 @@ require_once('class.ilObjLiveVoting.php');
 require_once('class.ilLiveVotingConfigGUI.php');
 
 class ilLiveVotingSMS {
+
 	const SMS_ERROR_ANONYMOUS = 1;
 	const SMS_ERROR_WRONGPIN = 2;
 	const SMS_ERROR_VOTEOVER = 3;
 	const SMS_ERROR_NOSUCHVOTE = 4;
-
 	/**
 	 * @var
 	 */
@@ -77,14 +77,14 @@ class ilLiveVotingSMS {
 	 */
 	protected $port;
 
+
 	/**
 	 * __construct
 	 */
 	function __construct() {
 		if (ilLiveVotingConfigGUI::_getValue('use_smslog')) {
 			$this->log = new ilLog(dirname(__FILE__) . "/..", "sms.log", "SMS:" . time(), true);
-		}
-		else {
+		} else {
 			$this->log = new DummyLog();
 		}
 
@@ -103,12 +103,14 @@ class ilLiveVotingSMS {
 		$this->vote();
 	}
 
+
 	/**
 	 * Send SMS
 	 */
 	public function send() {
 		// Defined in SubClasses
 	}
+
 
 	/**
 	 * Vote
@@ -121,10 +123,10 @@ class ilLiveVotingSMS {
 			foreach ($options as $option) {
 				$ids[] = $option->getId();
 			}
-			for ($i = 0; $i < 30; $i++) {
+			for ($i = 0; $i < 30; $i ++) {
 				$this->object->vote($ids[0], 0, rand(0, 100000000));
 			}
-			for ($i = 0; $i < 15; $i++) {
+			for ($i = 0; $i < 15; $i ++) {
 				$this->object->vote($ids[1], 0, rand(0, 100000000));
 				$this->object->vote($ids[2], 0, rand(0, 100000000));
 			}
@@ -140,26 +142,23 @@ class ilLiveVotingSMS {
 			if (chr(65 + $i) == strtoupper($this->getVote())) {
 				$id = $option->getId();
 			}
-			$i++;
+			$i ++;
 		}
 		if ($id) {
 			if (!$this->object->vote($id, 0, $this->getRecipient())) {
 				$this->setError(self::SMS_ERROR_VOTEOVER);
 
 				return false;
-			}
-			elseif ($this->getSendsmsOk()) {
+			} elseif ($this->getSendsmsOk()) {
 				$this->log->write("Vote " . $this->getVote() . " for PIN " . $this->getPin() . " from " . $this->getRecipient());
 				$this->setMessage($this->lng->txt('sms_vote_ok'));
 				$this->send();
 
 				return true;
-			}
-			else {
+			} else {
 				$this->log->write("Vote " . $this->getVote() . " for PIN " . $this->getPin() . " from " . $this->getRecipient());
 			}
-		}
-		else {
+		} else {
 			$this->setError(self::SMS_ERROR_NOSUCHVOTE);
 
 			return false;
@@ -177,11 +176,11 @@ class ilLiveVotingSMS {
 
 		if ($this->getSendsmsError()) {
 			$this->send();
-		}
-		else {
+		} else {
 			exit;
 		}
 	}
+
 
 	/**
 	 * @return mixed
@@ -190,12 +189,14 @@ class ilLiveVotingSMS {
 		return $this->error;
 	}
 
+
 	/**
 	 * @param $originator
 	 */
 	public function setOriginator($originator) {
 		$this->originator = $originator;
 	}
+
 
 	/**
 	 * @return mixed
@@ -204,12 +205,14 @@ class ilLiveVotingSMS {
 		return $this->originator;
 	}
 
+
 	/**
 	 * @param $pin
 	 */
 	public function setPin($pin) {
 		$this->pin = $pin;
 	}
+
 
 	/**
 	 * @return mixed
@@ -218,12 +221,14 @@ class ilLiveVotingSMS {
 		return $this->pin;
 	}
 
+
 	/**
 	 * @param $vote
 	 */
 	public function setVote($vote) {
 		$this->vote = $vote;
 	}
+
 
 	/**
 	 * @return mixed
@@ -232,12 +237,14 @@ class ilLiveVotingSMS {
 		return $this->vote;
 	}
 
+
 	/**
 	 * @param $request_url
 	 */
 	public function setRequestUrl($request_url) {
 		$this->request_url = $request_url;
 	}
+
 
 	/**
 	 * @return mixed
@@ -246,12 +253,14 @@ class ilLiveVotingSMS {
 		return $this->request_url;
 	}
 
+
 	/**
 	 * @param $xml
 	 */
 	public function setXml($xml) {
 		$this->xml = $xml;
 	}
+
 
 	/**
 	 * @return mixed
@@ -260,12 +269,14 @@ class ilLiveVotingSMS {
 		return $this->xml;
 	}
 
+
 	/**
 	 * @param $password
 	 */
 	public function setPassword($password) {
 		$this->password = $password;
 	}
+
 
 	/**
 	 * @return mixed
@@ -274,12 +285,14 @@ class ilLiveVotingSMS {
 		return $this->password;
 	}
 
+
 	/**
 	 * @param $sendsms_error
 	 */
 	public function setSendsmsError($sendsms_error) {
 		$this->sendsms_error = $sendsms_error;
 	}
+
 
 	/**
 	 * @return mixed
@@ -288,12 +301,14 @@ class ilLiveVotingSMS {
 		return $this->sendsms_error;
 	}
 
+
 	/**
 	 * @param $sendsms_flash
 	 */
 	public function setSendsmsFlash($sendsms_flash) {
 		$this->sendsms_flash = $sendsms_flash;
 	}
+
 
 	/**
 	 * @return mixed
@@ -302,12 +317,14 @@ class ilLiveVotingSMS {
 		return $this->sendsms_flash;
 	}
 
+
 	/**
 	 * @param $sendsms_ok
 	 */
 	public function setSendsmsOk($sendsms_ok) {
 		$this->sendsms_ok = $sendsms_ok;
 	}
+
 
 	/**
 	 * @return mixed
@@ -316,6 +333,7 @@ class ilLiveVotingSMS {
 		return $this->sendsms_ok;
 	}
 
+
 	/**
 	 * @param $userkey
 	 */
@@ -323,12 +341,14 @@ class ilLiveVotingSMS {
 		$this->userkey = $userkey;
 	}
 
+
 	/**
 	 * @return mixed
 	 */
 	public function getUserkey() {
 		return $this->userkey;
 	}
+
 
 	public function getErrorString() {
 		$errorCodes = array(
@@ -341,12 +361,14 @@ class ilLiveVotingSMS {
 		return $errorCodes[$this->getError()];
 	}
 
+
 	/**
 	 * @param  $message
 	 */
 	public function setMessage($message) {
 		$this->message = $message;
 	}
+
 
 	/**
 	 * @return
@@ -355,12 +377,14 @@ class ilLiveVotingSMS {
 		return $this->message;
 	}
 
+
 	/**
 	 * @param  $recipient
 	 */
 	public function setRecipient($recipient) {
 		$this->recipient = sha1($recipient);
 	}
+
 
 	/**
 	 * @return
@@ -369,6 +393,7 @@ class ilLiveVotingSMS {
 		return $this->recipient;
 	}
 
+
 	/**
 	 * @param  $port
 	 */
@@ -376,24 +401,23 @@ class ilLiveVotingSMS {
 		$this->port = $port;
 	}
 
+
 	/**
 	 * @return
 	 */
 	public function getPort() {
 		return $this->port;
 	}
-
-
 }
 
 class DummyLog {
+
 	function __construct() {
 	}
 
+
 	function write($dummy) {
-
 	}
-
 }
 
 ?>
