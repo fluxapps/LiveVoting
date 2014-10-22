@@ -25,9 +25,6 @@ As ILIAS administrator go to "Administration->Plugins" and install/activate the 
 ```apacheconf
 <IfModule mod_rewrite.c>
 	RewriteEngine on
-	# Notes:
-	# - don't match something like "/votetest.php?pin=23"
-	# - use \? to mask question mark, because it's special in regular expressions
 	RewriteRule ^vote$ Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php [L]
 	RewriteRule ^vote\?(.*)$ Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?$1 [L]
 </IfModule>
