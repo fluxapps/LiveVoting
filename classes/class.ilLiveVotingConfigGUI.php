@@ -12,7 +12,6 @@ require_once('class.ilObjLiveVoting.php');
  * @version $Id$
  *
  */
-
 class ilLiveVotingConfigGUI extends ilPluginConfigGUI {
 
 	/**
@@ -43,7 +42,7 @@ class ilLiveVotingConfigGUI extends ilPluginConfigGUI {
 		 */
 		$this->ctrl = $ilCtrl;
 		$this->tpl = $tpl;
-		$this->tabs = & $ilTabs;
+		$this->tabs = &$ilTabs;
 		$this->pl = new ilLiveVotingPlugin();
 		$this->object = new ilLiveVotingConfig($this->pl->getConfigTableName());
 	}

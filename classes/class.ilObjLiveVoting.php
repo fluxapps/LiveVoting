@@ -143,8 +143,7 @@ class ilObjLiveVoting extends ilObjectPlugin {
 	 */
 	function doRead() {
 		global $ilDB;
-		$set = $ilDB->query("SELECT * FROM rep_robj_xlvo_data " . " WHERE id = "
-			. $ilDB->quote($this->getId(), "integer"));
+		$set = $ilDB->query("SELECT * FROM rep_robj_xlvo_data " . " WHERE id = " . $ilDB->quote($this->getId(), "integer"));
 		//echo "<pre>".print_r($ilDB->fetchAssoc($set), 1)."</pre>";
 		while ($rec = $ilDB->fetchAssoc($set)) {
 			$this->setOnline($rec["is_online"]); // is_online
@@ -166,9 +165,7 @@ class ilObjLiveVoting extends ilObjectPlugin {
 	 */
 	function doUpdate() {
 		global $ilDB;
-		$ilDB->manipulate($up =
-			"UPDATE rep_robj_xlvo_data SET " . " is_online = " . $ilDB->quote($this->getOnline(), "integer") . ","
-			. // is_online
+		$ilDB->manipulate($up = "UPDATE rep_robj_xlvo_data SET " . " is_online = " . $ilDB->quote($this->getOnline(), "integer") . "," . // is_online
 			" is_anonym = " . $ilDB->quote($this->getAnonym(), "text") . "," . // is_anonym
 			" is_colorful= " . $ilDB->quote($this->getColorful(), "text") . "," . // is_colorful
 			" options_type = " . $ilDB->quote($this->getOptionsType(), "text") . "," . // options_type
@@ -209,7 +206,7 @@ class ilObjLiveVoting extends ilObjectPlugin {
 		$new_obj->setEnd($this->getEnd());
 		$new_obj->update();
 
-		foreach($this->getOptions() as $key => $option ) {
+		foreach ($this->getOptions() as $key => $option) {
 			$new_obj->addOption($option->getTitle());
 		}
 	}
@@ -249,7 +246,7 @@ class ilObjLiveVoting extends ilObjectPlugin {
 		$query = "SELECT id FROM rep_robj_xlvo_data WHERE pin NOT LIKE '" . self::EXPIRED . "'";
 		$set = $ilDB->query($query);
 		//if we still have enough pins it's ok.
-		if (! $this->toManyPins($set->numRows())) {
+		if (!$this->toManyPins($set->numRows())) {
 			return;
 		}
 		//save all livevotings in a list in order to only have to load them once.
@@ -314,9 +311,9 @@ class ilObjLiveVoting extends ilObjectPlugin {
 	 * @return bool Returns true iff voting is succesful
 	 */
 	public function vote($option_id, $usr_id, $session) {
-		if ( $this->isActive() ) {
+		if ($this->isActive()) {
 			$options = $this->getOptions();
-			if (! array_key_exists($option_id, $options)) {
+			if (!array_key_exists($option_id, $options)) {
 				return false;
 			}
 			//if single vote is active only one vote per user can be given.
@@ -343,12 +340,12 @@ class ilObjLiveVoting extends ilObjectPlugin {
 	 * @return bool Returns true iff unvoting is succesful
 	 */
 	public function unvote($option_id, $usr_id, $session) {
-		if ( ! $this->isActive() ) {
+		if (!$this->isActive()) {
 			return false; // cannot change votes, because the LiveVoting isn't active
 		}
 
 		$options = $this->getOptions();
-		if (! array_key_exists($option_id, $options)) {
+		if (!array_key_exists($option_id, $options)) {
 			return false;
 		}
 		//unvote for option.
@@ -430,7 +427,7 @@ class ilObjLiveVoting extends ilObjectPlugin {
 			}
 		}
 		foreach ($options as $option) {
-			if (! array_key_exists($option->getId(), $array)) {
+			if (!array_key_exists($option->getId(), $array)) {
 				$this->deleteOption($option->getId());
 			}
 		}
@@ -454,7 +451,7 @@ class ilObjLiveVoting extends ilObjectPlugin {
 	 */
 	public function deleteOption($option_id) {
 		$options = $this->getOptions();
-		if (! array_key_exists($option_id, $options)) {
+		if (!array_key_exists($option_id, $options)) {
 			return false;
 		}
 		$options[$option_id]->doDelete();
@@ -532,8 +529,7 @@ class ilObjLiveVoting extends ilObjectPlugin {
 	 */
 	public static function getShortLinkByPin($pin) {
 		$pl = new ilLiveVotingPlugin();
-		if ($pl->getConfigObject()->getValue('allow_shortlink') AND $pl->getConfigObject()
-				->getValue('allow_shortlink_link')
+		if ($pl->getConfigObject()->getValue('allow_shortlink') AND $pl->getConfigObject()->getValue('allow_shortlink_link')
 		) {
 			return $pl->getConfigObject()->getValue('allow_shortlink_link') . '?pin=' . $pin;
 		} else {
@@ -616,22 +612,29 @@ class ilObjLiveVoting extends ilObjectPlugin {
 		return $this->options[$option_id];
 	}
 
+
 	/**
 	 * Checks whether users can submit votes currently
+	 *
 	 * @return boolean
 	 */
 	public function isActive() {
-		if( ! $this->getOnline() ) // only allow votes, if the object is available itself
-			return False;
-		if( $this->getFreezed() )
-			return False;
-		if( $this->getTerminated() ) {
+		if (!$this->getOnline()) // only allow votes, if the object is available itself
+		{
+			return false;
+		}
+		if ($this->getFreezed()) {
+			return false;
+		}
+		if ($this->getTerminated()) {
 			$t = time();
+
 			return $this->getStart() < $t AND $t < $this->getEnd();
 		} else {
-			return True;
+			return true;
 		}
 	}
+
 
 	/**
 	 * @param boolean $online
@@ -684,6 +687,7 @@ class ilObjLiveVoting extends ilObjectPlugin {
 	public function setColorful($colorful) {
 		$this->colorful = $colorful;
 	}
+
 
 	public function getColorful() {
 		return $this->colorful;
@@ -794,7 +798,6 @@ class ilObjLiveVoting extends ilObjectPlugin {
 	public function getConfigValue($key) {
 		return ilLiveVotingConfigGUI::_getValue($key);
 	}
-
 }
 
 ?>

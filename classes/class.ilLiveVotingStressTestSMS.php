@@ -3,6 +3,7 @@ require_once('class.ilObjLiveVotingGUI.php');
 require_once('class.ilObjLiveVoting.php');
 require_once('class.ilLiveVotingSMS.php');
 require_once('class.ilLiveVotingConfigGUI.php');
+
 class ilLiveVotingStressTestSMS extends ilLiveVotingSMS {
 
 	/**
