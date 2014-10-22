@@ -1,0 +1,83 @@
+/**
+ * Basic Responsiveness (beta)
+ *
+ * @author Jochen Erkens <j.erkens@fh-aachen.de>
+ *
+ * Special Thanks to Jochen Erkens, FH Aachen
+ */
+@media only screen and (max-width: 640px), only screen and (min-device-width: 640px) and (max-device-width: 1136px) and (-webkit-min-device-pixel-ratio: 2) {
+	.lvo_pin, div.ilToolbar, .lvo_choice, .lvo_total_votes, .lvo_choice_header, .lvo_choice_count, .il_Tab, .ilAccHidden, .lvo_choice_footer br {
+		display: none;
+	}
+
+	.lvo_header_title {
+		margin-bottom: 0px;
+		font-size:     1.2em;
+	}
+
+	.lvo_header {
+		padding-left: 10px;
+	}
+
+	.lvo_body {
+		border:     none;
+		background: none;
+		padding:    0px;
+		margin:     0px;
+		height:     auto;
+		width:      100%;
+	}
+
+	.lvo_choice_container {
+		float:         none;
+		height:        50px;
+		width:         90% !important;
+		margin-bottom: 20px;
+		padding:       0px;
+	}
+
+	.lvo_choice_footer {
+		margin:        0px;
+		width:         100%;
+		background:    none;
+		border:        none;
+		text-align:    left;
+		color:         #FFFFFF;
+		padding-right: 0px;
+	}
+
+	.lvo_choice_cipher {
+		font-size: 2em;
+		color:     #000000;
+	}
+
+	a.lvo_vote_link {
+		width:      70%;
+		text-align: center;
+		height:     30px;
+	}
+
+	a.lvo_vote_link:hover {
+		text-decoration: none;
+	}
+
+	table.lvo_cipher_titles td {
+		display:   block;
+		font-size: 1.0em;
+		padding:   0px;
+	}
+
+	div.ilTabContentOuter {
+		float: none !important;
+	}
+
+	table.lvo_cipher_titles {
+		margin: 0px;
+	}
+
+	#il_center_col {
+		float:  none !important;
+		width:  100%;
+		margin: 0px;
+	}
+}
