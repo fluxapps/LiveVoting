@@ -30,6 +30,7 @@ $tpl_form = $pl->getTemplate('tpl.pin_form.html');
 $tpl_form->setVariable('PIN_URL', ilObjLiveVotingGUI::getHttpPath() . $pin_url);
 $tpl_form->setVariable('TXT_BUTTON', $lng->txt('rep_robj_xlvo_send_pin'));
 $tpl_form->setVariable('PINFORM_INFO', $pl->txt('pinform_info'));
+$tpl_form->setVariable('IL_LIVEVOTE_PINSIZE', ilObjLiveVoting::IL_LIVEVOTE_PINSIZE);
 $tpl->addCSS('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/content.css');
 $tpl->addCSS('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/pin_hider.css');
 $tpl->addCSS('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/responsive.css');
