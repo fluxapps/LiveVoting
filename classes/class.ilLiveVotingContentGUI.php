@@ -168,6 +168,7 @@ class ilLiveVotingContentGUI {
 				} else {
 					$tpl->setVariable("VOTE_LINK", $this->local_ctrl->getLinkTargetByClass("ilObjLiveVotingGUI", "unvote") . '#lvo_isactive');
 					$tpl->setVariable("VOTE_TEXT", $pl->txt("unvote"));
+					$tpl->setVariable("VOTED_CLASS", " lvo_voted");
 					$tpl->setVariable("GLOW", " glow");
 				}
 			} elseif ($numKeys[$i]->isVoter($ilUser->getId(), session_id())) {
