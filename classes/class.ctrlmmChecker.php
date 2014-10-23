@@ -65,10 +65,19 @@ class ctrlmmChecker {
 	//
 	// Helpers
 	//
-	private function initILIAS() {
-		$path = stristr(__FILE__, 'Customizing', true);
-		chdir($path);
-		require_once('include/inc.header.php');
+	//
+
+	public function initILIAS() {
+		chdir(substr($_SERVER['SCRIPT_FILENAME'], 0, strpos($_SERVER['SCRIPT_FILENAME'], "/Customizing")));
+		require_once('include/inc.ilias_version.php');
+		require_once('Services/Component/classes/class.ilComponent.php');
+		if (ilComponent::isVersionGreaterString(ILIAS_VERSION_NUMERIC, '4.2.999')) {
+			include_once "Services/Context/classes/class.ilContext.php";
+			ilContext::init(ilContext::CONTEXT_CRON);
+			include_once 'Services/Authentication/classes/class.ilAuthFactory.php';
+			ilAuthFactory::setContext(ilAuthFactory::CONTEXT_CRON);
+			include_once './include/inc.header.php';
+		}
 	}
 
 

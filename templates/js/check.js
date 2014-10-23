@@ -14,7 +14,6 @@ $(document).ready(function () {
 					$('#gui_class').removeClass('ilctrl_ok');
 					$('#gui_class').addClass('ilctrl_failure');
 				}
-
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
 				console.log('error...', xhr);
