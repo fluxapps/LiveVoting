@@ -56,7 +56,7 @@ file_depatched#:#File depatched
 allow_fullscreen#:#Fullscreenmodus aktivieren
 allow_fullscreen_jquery#:#Benutze jQuery (experimental)
 reset_canceled#:#Reset abgebrochen
-pinform_info#:#Bitte den LiveVoting-PIN eingeben
+pinform_info#:#Bitte die LiveVoting-PIN eingeben
 send_pin#:#PIN absenden
 send_sms#:#Sende
 to_nr#:#an
@@ -70,7 +70,7 @@ aspsms_sendsms_ok#:#Sende Bestätigungs-SMS
 aspsms_sendsms_error#:#Sende Fehler-SMS
 
 sms_err_notanonimous#:#Dieses LiveVoting erlaubt leider keine SMS.
-sms_err_wrongpin#:#Dieser LiveVoting-PIN konnte keinem aktiven Voting zugeordnet werden.
+sms_err_wrongpin#:#Diese LiveVoting-PIN konnte keinem aktiven Voting zugeordnet werden.
 sms_err_voteover#:#Dieses LiveVoting ist geschlossen.
 sms_err_nosuchvote#:#Für das gewünschte Voting ist diese Option nicht verfügbar.
 sms_vote_ok#:#Vielen Dank für Ihre Stimme mit ILIAS LiveVoting.

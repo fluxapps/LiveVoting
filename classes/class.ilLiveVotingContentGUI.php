@@ -163,18 +163,22 @@ class ilLiveVotingContentGUI {
 
 			if ($this->live_voting->isActive()) {
 				if (!$numKeys[$i]->isVoter($ilUser->getId(), session_id())) {
-					$tpl->setVariable("VOTE_LINK", $this->local_ctrl->getLinkTargetByClass("ilObjLiveVotingGUI", "vote"));
+					$tpl->setVariable("VOTE_LINK", $this->local_ctrl->getLinkTargetByClass("ilObjLiveVotingGUI", "vote") . '#lvo_isactive');
 					$tpl->setVariable("VOTE_TEXT", $pl->txt("vote"));
 				} else {
-					$tpl->setVariable("VOTE_LINK", $this->local_ctrl->getLinkTargetByClass("ilObjLiveVotingGUI", "unvote"));
+					$tpl->setVariable("VOTE_LINK", $this->local_ctrl->getLinkTargetByClass("ilObjLiveVotingGUI", "unvote") . '#lvo_isactive');
 					$tpl->setVariable("VOTE_TEXT", $pl->txt("unvote"));
+					$tpl->setVariable("VOTED_CLASS", " lvo_voted");
 					$tpl->setVariable("GLOW", " glow");
 				}
 			} elseif ($numKeys[$i]->isVoter($ilUser->getId(), session_id())) {
 				$tpl->setVariable("GLOW", " glow");
 				$tpl->setVariable("VOTE_LINK", "javascript:void(0)"); // when the voting is over, don't allow clicking on the bars
+				$tpl->setVariable("INACTIVE", "inactive");
+
 			} else {
 				$tpl->setVariable("VOTE_LINK", "javascript:void(0)"); // when the voting is over, don't allow clicking on the bars
+				$tpl->setVariable("INACTIVE", "inactive");
 			}
 			// set color
 			if ($this->live_voting->getColorful()) {
