@@ -315,6 +315,25 @@ div.lvo_choice_footer .lvo_vote_link {
 	top: 1px;
 }
 
+.lvo_voted {
+	background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #a1a1a1), color-stop(1, #747474) );
+	background: -moz-linear-gradient( center top, #a1a1a1 5%, #747474 100% );
+	filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#a1a1a1', endColorstr='#747474');
+	background-color: #a1a1a1;
+	text-shadow: 1px 1px 0px #000000;
+}
+
+.lvo_voted:hover {
+	background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #747474), color-stop(1, #a1a1a1) );
+	background: -moz-linear-gradient( center top, #747474 5%, #a1a1a1 100% );
+	filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#747474', endColorstr='#a1a1a1');
+	background-color: #626262;
+}
+
+div.lvo_choice_footer .lvo_voted {
+	color: #F4F4F4;
+}
+
 .glow {
     /*outline:none;*/
     /*border-style: solid;
