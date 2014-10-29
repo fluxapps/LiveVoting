@@ -1,16 +1,14 @@
 <?php
 
-include_once('./Services/Component/classes/class.ilPluginConfigGUI.php');
+require_once('./Services/Component/classes/class.ilPluginConfigGUI.php');
 require_once('class.ilLiveVotingConfig.php');
 require_once('class.ilLiveVotingPlugin.php');
 require_once('class.ilObjLiveVoting.php');
 
 /**
- * LiveVoting Configuration
- *
- * @author  Fabian Schmid <fs@studer-raimann.ch>
- * @version $Id$
- *
+ * Class ilLiveVotingConfigGUI
+ * 
+ * @author Fabian Schmid <fs@studer-raimann.ch>
  */
 class ilLiveVotingConfigGUI extends ilPluginConfigGUI {
 
@@ -43,7 +41,7 @@ class ilLiveVotingConfigGUI extends ilPluginConfigGUI {
 		$this->ctrl = $ilCtrl;
 		$this->tpl = $tpl;
 		$this->tabs = &$ilTabs;
-		$this->pl = new ilLiveVotingPlugin();
+		$this->pl = ilLiveVotingPlugin::getInstance();
 		$this->object = new ilLiveVotingConfig($this->pl->getConfigTableName());
 	}
 
@@ -282,7 +280,7 @@ class ilLiveVotingConfigGUI extends ilPluginConfigGUI {
 	 * @return mixed
 	 */
 	public static function _getValue($key) {
-		$pl = new ilLiveVotingPlugin();
+		$pl = ilLiveVotingPlugin::getInstance();
 
 		return $pl->getConfigObject()->getValue($key);
 	}

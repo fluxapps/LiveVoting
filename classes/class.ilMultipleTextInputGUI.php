@@ -40,7 +40,7 @@ class ilMultipleTextInputGUI extends ilCustomInputGUI {
 
 
 	private function buildHTML() {
-		$pl = new ilLiveVotingPlugin();
+		$pl = ilLiveVotingPlugin::getInstance();
 		$tpl = $pl->getTemplate("tpl.multiple_input.html");
 
 		$tpl->setCurrentBlock("title");
@@ -103,6 +103,14 @@ class ilMultipleTextInputGUI extends ilCustomInputGUI {
 	 */
 	public function getDisableOldFields() {
 		return $this->disableOldFields;
+	}
+
+
+	/**
+	 * @return bool
+	 */
+	public function checkInput() {
+		return true;
 	}
 }
 

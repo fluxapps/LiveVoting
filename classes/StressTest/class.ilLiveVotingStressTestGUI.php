@@ -25,7 +25,7 @@ class ilLiveVotingStressTestGUI {
 		$this->parent = $parent;
 		$this->toolbar = $ilToolbar;
 		$this->tabs_gui = $ilTabs;
-		$this->pl = new ilLiveVotingPlugin();
+		$this->pl = ilLiveVotingPlugin::getInstance();
 	}
 
 

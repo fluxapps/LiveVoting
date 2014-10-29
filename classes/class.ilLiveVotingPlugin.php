@@ -13,6 +13,24 @@ require_once('class.ilLiveVotingConfig.php');
 class ilLiveVotingPlugin extends ilRepositoryObjectPlugin {
 
 	/**
+	 * @var ilLiveVotingPlugin
+	 */
+	protected static $instance;
+
+
+	/**
+	 * @return ilLiveVotingPlugin
+	 */
+	public static function getInstance() {
+		if (!isset(self::$instance)) {
+			self::$instance = new self();
+		}
+
+		return self::$instance;
+	}
+
+
+	/**
 	 * @return string
 	 */
 	function getPluginName() {
