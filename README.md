@@ -24,9 +24,7 @@ As ILIAS administrator go to "Administration->Plugins" and install/activate the 
 - Config Rewrite Rule in .htaccess or Apache-Config:
 ```apacheconf
 <IfModule mod_rewrite.c>
-	RewriteEngine on
-	RewriteRule ^vote$ Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php [L]
-	RewriteRule ^vote\?(.*)$ Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?$1 [L]
+	RewriteRule ^vote([|/|/0-9]*)$ Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?pin=$1 [L]
 </IfModule>
 ```
 

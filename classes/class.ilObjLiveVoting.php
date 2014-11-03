@@ -480,6 +480,9 @@ class ilObjLiveVoting extends ilObjectPlugin {
 	 * @return ilObjLiveVoting|false
 	 */
 	public static function _getObjectByPin($pin) {
+		if (!ilLiveVotingPlugin::getInstance()->isActive()) {
+			return false;
+		}
 		global $ilDB;
 		$query = "SELECT id FROM rep_robj_xlvo_data WHERE pin = " . $ilDB->quote($pin, "text");
 		$set = $ilDB->query($query);

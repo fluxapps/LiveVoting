@@ -9,7 +9,8 @@ $pl = ilLiveVotingPlugin::getInstance();
 
 $_GET['pin'] = str_ireplace('/', '', $_GET['pin']);
 
-if ($_POST['pin'] || $_GET['pin']) {
+
+if ($_POST['pin'] OR $_GET['pin']) {
 	$pin = ((!$_POST['pin'] AND $_GET['pin']) ? $_GET['pin'] : $_POST['pin']);
 	$link = ilObjLiveVotingGUI::getLinkByPin($pin);
 	if ($link) {
