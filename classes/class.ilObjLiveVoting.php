@@ -528,12 +528,12 @@ class ilObjLiveVoting extends ilObjectPlugin {
 	 * @return string
 	 */
 	public static function getShortLinkByPin($pin) {
-		$pl = new ilLiveVotingPlugin();
+		$pl = ilLiveVotingPlugin::getInstance();
 		if ($pl->getConfigObject()->getValue('allow_shortlink') AND $pl->getConfigObject()->getValue('allow_shortlink_link')
 		) {
 			return $pl->getConfigObject()->getValue('allow_shortlink_link') . '?pin=' . $pin;
 		} else {
-			return ilObjLiveVotingGUI::_getLinkByPin($pin);
+			return ilObjLiveVotingGUI::getLinkByPin($pin);
 		}
 	}
 

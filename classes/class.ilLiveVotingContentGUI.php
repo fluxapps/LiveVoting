@@ -48,7 +48,7 @@ class ilLiveVotingContentGUI {
 
 	public function getHTML() {
 		global $ilUser;
-		$pl = new ilLiveVotingPlugin();
+		$pl = ilLiveVotingPlugin::getInstance();
 		$tpl = $pl->getTemplate('tpl.content.html');
 		$options = $this->live_voting->getOptions();
 		$this->local_ctrl->saveParameterByClass('ilObjLiveVotingGUI', 'full', 1);

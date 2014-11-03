@@ -78,17 +78,14 @@ class ilLiveVotingSMS {
 	protected $port;
 
 
-	/**
-	 * __construct
-	 */
-	function __construct() {
+	public function __construct() {
 		if (ilLiveVotingConfigGUI::_getValue('use_smslog')) {
 			$this->log = new ilLog(dirname(__FILE__) . "/..", "sms.log", "SMS:" . time(), true);
 		} else {
 			$this->log = new DummyLog();
 		}
 
-		$this->lng = new ilLiveVotingPlugin();
+		$this->lng = ilLiveVotingPlugin::getInstance();
 		$this->log->write("SMS Voting initiated");
 		$this->object = ilObjLiveVoting::_getObjectByPin($this->getPin());
 

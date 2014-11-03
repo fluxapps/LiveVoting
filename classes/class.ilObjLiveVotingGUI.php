@@ -68,9 +68,6 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 	protected $plugin;
 
 
-	/**
-	 * Initialisation
-	 */
 	protected function afterConstructor() {
 		global $tpl;
 		$this->live_voting = $this->object;
@@ -82,6 +79,9 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 	}
 
 
+	/**
+	 * @return bool|void
+	 */
 	public function &executeCommand() {
 		switch ($this->ctrl->getNextClass()) {
 			case 'ilcommonactiondispatchergui':
@@ -99,7 +99,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 	/**
 	 * @param $a_target
 	 */
-	function _goto($a_target) {
+	public function _goto($a_target) {
 		global $ilCtrl, $ilAccess, $lng;
 		$t = explode("_", $a_target[0]);
 		$ref_id = (int)$t[0];
@@ -134,7 +134,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 
 
 	/**
-	 * Get type.
+	 * @return string
 	 */
 	final function getType() {
 		return "xlvo";
@@ -142,9 +142,9 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 
 
 	/**
-	 * Handles all commmands of this class, centralizes permission checks
+	 * @param $cmd
 	 */
-	function performCommand($cmd) {
+	public function performCommand($cmd) {
 		switch ($cmd) {
 			case "editProperties": // list all commands that need write permission here
 			case "updateProperties":
@@ -171,33 +171,32 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 
 
 	/**
-	 * After object has been created -> jump to this command
+	 * @return string
 	 */
-	function getAfterCreationCmd() {
+	public function getAfterCreationCmd() {
 		return "editProperties";
 	}
 
 
 	/**
-	 * Get standard command
+	 * @return string
 	 */
-	function getStandardCmd() {
+	public function getStandardCmd() {
 		return "showContent";
 	}
 
 
-	function hasPermission($perm) {
+	/**
+	 * @param $perm
+	 *
+	 * @return bool
+	 */
+	public function hasPermission($perm) {
 		return $this->checkPermissionBool($perm);
 	}
 
 
-	//
-	// DISPLAY TABS
-	//
-	/**
-	 * Set tabs
-	 */
-	function setTabs() {
+	public function setTabs() {
 		global $ilTabs, $ilCtrl, $ilAccess;
 		// tab for the "show content" command
 		if ($ilAccess->checkAccess("read", "", $this->object->getRefId())) {
@@ -214,15 +213,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 	}
 
 
-	// THE FOLLOWING METHODS IMPLEMENT SOME EXAMPLE COMMANDS WITH COMMON FEATURES
-	// YOU MAY REMOVE THEM COMPLETELY AND REPLACE THEM WITH YOUR OWN METHODS.
-	//
-	// Edit properties form
-	//
-	/**
-	 * Edit Properties. This commands uses the form class to display an input form.
-	 */
-	function editProperties() {
+	public function editProperties() {
 		global $tpl, $ilTabs;
 		$ilTabs->activateTab("properties");
 		$this->initPropertiesForm();
@@ -233,7 +224,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 
 	public function initPropertiesForm() {
 		global $ilCtrl, $ilUser;
-		$pl = new ilLiveVotingPlugin();
+		$pl = ilLiveVotingPlugin::getInstance();
 		include_once("Services/Form/classes/class.ilPropertyFormGUI.php");
 		$this->form = new ilPropertyFormGUI();
 		// title
@@ -286,10 +277,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 	}
 
 
-	/**
-	 * Get values for edit properties form
-	 */
-	function getPropertiesValues() {
+	public function getPropertiesValues() {
 		$values["title"] = $this->object->getTitle();
 		$values["desc"] = $this->object->getDescription();
 		$values["online"] = $this->object->getOnline();
@@ -342,22 +330,28 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 
 
 	/**
-	 * @param $pin  string the pin of the ilObjLiveVote you're looking for.
-	 * @param $full bool
-	 *
-	 * @return bool|string returns false if there's no obj with such a pin and the link otherwise.
+	 * @return string
 	 */
-	public static function _getLinkByPin($pin, $use_http_path = NULL) {
-		$obj = ilObjLiveVoting::_getObjectByPin($pin);
-		// Notes:
-		// - ILIAS_HTTP_PATH isn't the path from ilias.ini.php config file.
-		//   it's assembled dynamically from $_SERVER array.
-		//   see Services/Init/classes/class.ilInitialisation.php  function buildHTTPPath()
-		if ($use_http_path === NULL) {
-			$link = ILIAS_HTTP_PATH; // e.g: "http://ilias.uni-mainz.de/ILIAS-TEST/ilias436"
-		} else {
-			$link = $use_http_path;
+	public static function getHttpPath() {
+		$httpPath = ilUtil::_getHttpPath();
+		preg_match('/(\/Customizing|\/vote)/', $httpPath, $matches, PREG_OFFSET_CAPTURE);
+		$position = $matches[0][1];
+		if ($position) {
+			$httpPath = substr($httpPath, 0, $position);
 		}
+
+		return $httpPath;
+	}
+
+
+	/**
+	 * @param $pin
+	 *
+	 * @return string
+	 */
+	public static function getLinkByPin($pin) {
+		$obj = ilObjLiveVoting::_getObjectByPin($pin);
+		$link = self::getHttpPath();
 		if ($obj) {
 			$anonym = $obj->getAnonym();
 			$global_anonym = ilLiveVotingConfigGUI::_getValue('global_anonymous');
@@ -385,7 +379,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 		global $ilCtrl;
 		$this->live_voting->setFreezed(1);
 		$this->live_voting->doUpdate();
-		$pl = new ilLiveVotingPlugin();
+		$pl = ilLiveVotingPlugin::getInstance();
 		ilUtil::sendInfo($pl->txt("voting_freezed"), true);
 		$ilCtrl->redirect($this, "showContent");
 	}
@@ -398,7 +392,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 		global $ilCtrl;
 		$this->live_voting->setFreezed(0);
 		$this->live_voting->doUpdate();
-		$pl = new ilLiveVotingPlugin();
+		$pl = ilLiveVotingPlugin::getInstance();
 		ilUtil::sendInfo($pl->txt("voting_unfreezed"), true);
 		$ilCtrl->redirect($this, "showContent");
 	}
@@ -410,7 +404,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 	public function confirmReset() {
 		global $ilCtrl, $lng, $tpl, $ilTabs;
 		$ilTabs->setTabActive("content");
-		$pl = new ilLiveVotingPlugin();
+		$pl = ilLiveVotingPlugin::getInstance();
 		include_once './Services/Utilities/classes/class.ilConfirmationGUI.php';
 		$conf = new ilConfirmationGUI();
 		$conf->setFormAction($ilCtrl->getFormAction($this));
@@ -427,7 +421,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 	 */
 	public function cancelReset() {
 		global $ilCtrl;
-		$pl = new ilLiveVotingPlugin();
+		$pl = ilLiveVotingPlugin::getInstance();
 		ilUtil::sendInfo($pl->txt("reset_canceled"), true);
 		$ilCtrl->redirect($this, "showContent");
 	}
@@ -467,7 +461,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 	 */
 	public static function _addWaitBox($selector) {
 		global $tpl;
-		$pl = new ilLiveVotingPlugin();
+		$pl = ilLiveVotingPlugin::getInstance();
 		$box = $pl->getTemplate('tpl.wait.html');
 		$id = $selector;
 		foreach (array(

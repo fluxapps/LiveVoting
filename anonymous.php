@@ -12,7 +12,7 @@ if (ilObjLiveVoting::_isGlobalAnonymForPin($_GET['pin'])) {
 	$xlvObj = ilObjLiveVoting::_getObjectByPin($_GET['pin']);
 	if ($xlvObj->getOnline()) {
 		$xlvObjGUI = new ilObjLiveVotingGUI($xlvObj->getId(), ilObjLiveVotingGUI::OBJECT_ID);
-		$ctrl = new AlternativeCtrl($ilias_root_relative);
+		$ctrl = new AlternativeCtrl();
 		if ($_GET['cmd']) {
 			$router = new LiveVotingRouter($xlvObj, $xlvObjGUI);
 			$router->executeCommand($_GET['cmdClass'], $_GET['cmd']);
@@ -21,7 +21,7 @@ if (ilObjLiveVoting::_isGlobalAnonymForPin($_GET['pin'])) {
 		$ctrl->setParameterByClass('ilObjLiveVotingGUI', 'pin', $_GET['pin']);
 		$xlvObjContentGUI = new ilLiveVotingContentGUI($xlvObj, $xlvObjGUI, $ctrl);
 		$pin_url = ILIAS_HTTP_PATH . '/Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php';
-		$pl = new ilLiveVotingPlugin();
+		$pl = ilLiveVotingPlugin::getInstance();
 		$tpl->addCss($pl->getStyleSheetLocation('pin_hider.css'));
 		$tpl->getStandardTemplate();
 		$tpl->setCurrentBlock('HeadBaseTag');
@@ -96,12 +96,20 @@ class LiveVotingRouter {
 }
 
 /**
- * AlternativeCtrl
- * an ugly alternative ilCtrl for out of ILIAS ctrling.
+ * Class AlternativeCtrl
+ *
+ * @author Fabian Schmid <fs@studer-raimann.ch>
  */
 class AlternativeCtrl {
 
+	const BASE = 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/';
+	/**
+	 * @var array
+	 */
 	protected $parameters = array();
+	/**
+	 * @var null
+	 */
 	protected $client;
 
 
@@ -120,8 +128,7 @@ class AlternativeCtrl {
 	 * @return string
 	 */
 	public function getLinkTargetByClass($class_name, $cmd) {
-		$link = str_replace($_SERVER['DOCUMENT_ROOT'], '', $_SERVER['SCRIPT_FILENAME']) . '?cmdClass=' . strtolower($class_name)
-			. '&cmd=' . strtolower($cmd);;
+		$link = self::BASE . basename(__FILE__) . '?cmdClass=' . strtolower($class_name) . '&cmd=' . strtolower($cmd);
 		foreach ($this->parameters[$class_name] as $parameter => $value) {
 			$link .= '&' . $parameter . '=' . $value;
 		}
