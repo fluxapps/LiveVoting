@@ -73,6 +73,7 @@
 	}
 
 	table.lvo_cipher_titles td {
+		width:      auto;
 		display:    block;
 		font-size:  1.0em;
 		padding:    0;
@@ -87,5 +88,10 @@
 
 	#il_center_col {
 		margin: 0;
+	}
+
+	div #lvo_content_canvas {
+		padding-left:  5px;
+		padding-right: 5px;
 	}
 }
