@@ -87,3 +87,7 @@ div.ilMainMenuRight {
 	float: right !important;
 	padding-right: 20px !important;
 }
+
+#ilAdvSelListAnchorElement_dd_adm {
+	height: inherit;
+}
