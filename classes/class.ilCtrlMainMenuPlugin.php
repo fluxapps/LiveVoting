@@ -2,6 +2,7 @@
 
 require_once('./Services/UIComponent/classes/class.ilUserInterfaceHookPlugin.php');
 require_once('class.ilCtrlMainMenuConfig.php');
+require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/class.ctrlmm.php');
 
 /**
  * @author  Alex Killing <alex.killing@gmx.de>
@@ -34,7 +35,7 @@ class ilCtrlMainMenuPlugin extends ilUserInterfaceHookPlugin {
 	 * @return ilCtrlMainMenuPlugin
 	 */
 	public static function get() {
-		if (! isset(self::$plugin_cache)) {
+		if (!isset(self::$plugin_cache)) {
 			self::$plugin_cache = new ilCtrlMainMenuPlugin();
 		}
 
@@ -47,7 +48,7 @@ class ilCtrlMainMenuPlugin extends ilUserInterfaceHookPlugin {
 	 * @deprecated
 	 */
 	public function getConfigObject() {
-		if (! isset(self::$config_cache)) {
+		if (!isset(self::$config_cache)) {
 			self::$config_cache = new ilCtrlMainMenuConfig(self::CONFIG_TABLE);
 		}
 
@@ -70,6 +71,22 @@ class ilCtrlMainMenuPlugin extends ilUserInterfaceHookPlugin {
 	 */
 	public function conf() {
 		return self::getConf();
+	}
+
+
+	/**
+	 * @param      $a_template
+	 * @param bool $a_par1
+	 * @param bool $a_par2
+	 *
+	 * @return ilTemplate
+	 */
+	public function getVersionTemplate($a_template, $a_par1 = true, $a_par2 = true) {
+		if (ctrlmm::is50()) {
+			$a_template = 'ilias5/' . $a_template;
+		}
+
+		return $this->getTemplate($a_template, $a_par1, $a_par2);
 	}
 }
 
