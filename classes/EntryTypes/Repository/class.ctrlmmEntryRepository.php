@@ -75,6 +75,7 @@ class ctrlmmEntryRepository extends ctrlmmEntry {
 	 * @return bool
 	 */
 	protected function hasNoOtherActive() {
+		return true;
 		$active = 0;
 		foreach (self::getAllChildsForId($this->getParent()) as $entry) {
 			if ($entry->getId() == $this->getId()) {

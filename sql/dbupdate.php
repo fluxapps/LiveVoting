@@ -69,14 +69,18 @@ $pl->initDB();
 
 $pl = new ctrlmmTranslation();
 $pl->initDB();
-
-
-foreach (ctrlmmEntry::getAll() as $e) {
-	$e->migrate();
+if($ilDB->tableColumnExists(ctrlmmEntry::TABLE_NAME, "title") AND $ilDB->tableColumnExists(ctrlmmEntry::TABLE_NAME, "data")) {
+	foreach (ctrlmmEntry::getAll() as $e) {
+		$e->migrate();
+	}
 }
 
-$ilDB->dropTableColumn(ctrlmmEntry::TABLE_NAME, "title");
-$ilDB->dropTableColumn(ctrlmmEntry::TABLE_NAME, "data");
+if($ilDB->tableColumnExists(ctrlmmEntry::TABLE_NAME, "title")) {
+	$ilDB->dropTableColumn(ctrlmmEntry::TABLE_NAME, "title");
+}
+if($ilDB->tableColumnExists(ctrlmmEntry::TABLE_NAME, "data")) {
+	$ilDB->dropTableColumn(ctrlmmEntry::TABLE_NAME, "data");
+}
 
 ctrlmmMenu::includeAllTypes();
 
