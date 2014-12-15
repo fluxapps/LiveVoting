@@ -1,3 +1,11 @@
 #il_status_box {
 	display: none;
 }
+
+#ilMainMenuEntries .badge {
+    font-size: 9px;
+    padding: 2px 4px;
+    margin-top: -23px;
+    margin-left: 9px;
+    position: absolute;
+}

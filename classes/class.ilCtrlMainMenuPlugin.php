@@ -1,7 +1,5 @@
 <?php
-
 require_once('./Services/UIComponent/classes/class.ilUserInterfaceHookPlugin.php');
-require_once('class.ilCtrlMainMenuConfig.php');
 require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/class.ctrlmm.php');
 
 /**
@@ -22,7 +20,6 @@ class ilCtrlMainMenuPlugin extends ilUserInterfaceHookPlugin {
 	 */
 	protected static $plugin_cache;
 
-
 	/**
 	 * @return string
 	 */
@@ -30,47 +27,20 @@ class ilCtrlMainMenuPlugin extends ilUserInterfaceHookPlugin {
 		return 'CtrlMainMenu';
 	}
 
+    protected function init() {
+        self::loadActiveRecord();
+    }
+
 
 	/**
 	 * @return ilCtrlMainMenuPlugin
 	 */
-	public static function get() {
+	public static function getInstance() {
 		if (!isset(self::$plugin_cache)) {
 			self::$plugin_cache = new ilCtrlMainMenuPlugin();
 		}
 
 		return self::$plugin_cache;
-	}
-
-
-	/**
-	 * @return ilCtrlMainMenuConfig
-	 * @deprecated
-	 */
-	public function getConfigObject() {
-		if (!isset(self::$config_cache)) {
-			self::$config_cache = new ilCtrlMainMenuConfig(self::CONFIG_TABLE);
-		}
-
-		return self::$config_cache;
-	}
-
-
-	/**
-	 * @return ilCtrlMainMenuConfig
-	 * @deprecated Use ilCtrlMainMenuConfig::getInstance() instead
-	 */
-	public static function getConf() {
-		return ilCtrlMainMenuConfig::getInstance();
-	}
-
-
-	/**
-	 * @return ilCtrlMainMenuConfig
-	 * @deprecated
-	 */
-	public function conf() {
-		return self::getConf();
 	}
 
 
@@ -88,6 +58,15 @@ class ilCtrlMainMenuPlugin extends ilUserInterfaceHookPlugin {
 
 		return $this->getTemplate($a_template, $a_par1, $a_par2);
 	}
+
+    public static function loadActiveRecord() {
+        if(ctrlmm::is50()) {
+            require_once('./Services/ActiveRecord/class.ActiveRecord.php');
+        } else {
+            require_once('./Customizing/global/plugins/Libraries/ActiveRecord/class.ActiveRecord.php');
+        }
+
+    }
 }
 
 ?>

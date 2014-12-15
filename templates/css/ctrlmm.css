@@ -50,7 +50,7 @@ span.ctrlmmNewMail {
 }
 
 td.ctrlmmSeparator {
-	background-color: #D6D6D6;
+	background-color: #D6D6D6 !important;
 
 }
 
@@ -64,7 +64,7 @@ span.ctrlmmNonLink {
 	display:         block;
 	font-size:       85%;
 	font-weight:     normal;
-	height:          26px;
+	height:          15px;
 	line-height:     26px;
 	margin:          1px 0 2px -1px;
 	padding:         0 10px 3px;
@@ -86,4 +86,9 @@ div.ilMainMenu {
 div.ilMainMenuRight {
 	float: right !important;
 	padding-right: 20px !important;
+}
+
+#mm_entry_list > tbody .dropdown_image {
+	height: 25px;
+	width: 25px;
 }

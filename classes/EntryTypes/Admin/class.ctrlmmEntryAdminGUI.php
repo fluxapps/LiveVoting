@@ -44,16 +44,14 @@ class ctrlmmEntryAdminGUI extends ctrlmmEntryAdvancedSelectionListDropdownGUI {
 	 */
 	public function renderEntry() {
 		if(ctrlmm::is50()) {
-			ilYuiUtil::initConnection();
-			$tpl = $this->pl->getVersionTemplate('tpl.main_menu_list_entries.html');
-			$tpl->setVariable('TXT_ADMINISTRATION', $this->entry->getTitle());
-			$tpl->setVariable('ACC_KEY_ADMINISTRATION', 'Administration');
+            ilYuiUtil::initConnection();
+        }
+		return parent::renderEntry();
+	}
 
-			return $tpl->get();
-		}
-		else {
-			return parent::renderEntry();
-		}
+	public function createEntry() {
+		parent::createEntry();
+		$this->entry->update();
 	}
 }
 

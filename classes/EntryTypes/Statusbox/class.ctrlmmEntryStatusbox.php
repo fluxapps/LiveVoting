@@ -48,8 +48,12 @@ class ctrlmmEntryStatusbox extends ctrlmmEntry {
 	/**
 	 * @var int
 	 */
-	protected $type = ctrlmmMenu::TYPE_STATUSBOX;
+	//protected $type = ctrlmmMenu::TYPE_STATUSBOX;
+    public function __construct($primary_key = 0) {
+        $this->setType(ctrlmmMenu::TYPE_STATUSBOX);
 
+        parent::__construct($primary_key);
+    }
 
 	/**
 	 * @return string

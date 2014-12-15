@@ -31,7 +31,7 @@ require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHoo
  */
 class ctrlmmEntryCtrl extends ctrlmmEntry {
 
-	const DEBUG = false;
+	const DEBUG = true;
 	/**
 	 * @var string
 	 */
@@ -49,19 +49,24 @@ class ctrlmmEntryCtrl extends ctrlmmEntry {
 	 */
 	protected $ref_id = NULL;
 
+    protected $ctrl;
+
 
 	/**
 	 * @param int $id
 	 */
 	function __construct($id = 0) {
+        global $ilCtrl;
+
 		$this->setType(ctrlmmMenu::TYPE_CTRL);
+
 		$this->restricted = ctrlmmMenu::isOldILIAS();
+        /**
+         * @var $ilCtrl ilCtrl
+         */
+        $this->ctrl = $ilCtrl;
+
 		parent::__construct($id);
-		global $ilCtrl;
-		/**
-		 * @var $ilCtrl ilCtrl
-		 */
-		$this->ctrl = $ilCtrl;
 	}
 
 

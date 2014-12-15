@@ -47,7 +47,7 @@ class ctrlmmEntryGUI {
 		 */
 		$this->ctrl = $ilCtrl;
 		$this->tpl = $tpl;
-		$this->pl = ilCtrlMainMenuPlugin::get();
+		$this->pl = ilCtrlMainMenuPlugin::getInstance();
 		$this->entry = $entry;
 		$this->parent_gui = $parent_gui;
 	}
@@ -92,13 +92,14 @@ class ctrlmmEntryGUI {
 	public function renderEntry() {
 		$this->entry->replacePlaceholders();
 		$this->html = $this->pl->getVersionTemplate('tpl.ctrl_menu_entry.html', true, true);
+
 		$this->html->setVariable('TITLE', $this->entry->getTitle());
 		$this->html->setVariable('CSS_ID', 'ctrl_mm_e_' . $this->entry->getId());
 		$this->html->setVariable('LINK', $this->entry->getLink());
-		$this->html->setVariable('CSS_PREFIX', ctrlmmMenu::getCssPrefix());
+		$this->html->setVariable('CSS_PREFIX', ilCtrlMainMenuConfig::get(ilCtrlMainMenuConfig::F_CSS_PREFIX));
 		$this->html->setVariable('TARGET', $this->entry->getTarget());
-		$cssActive = ilCtrlMainMenuPlugin::getConf()->getCssActive();
-		$cssInactive = ilCtrlMainMenuPlugin::getConf()->getCssInactive();
+		$cssActive = ilCtrlMainMenuConfig::get(ilCtrlMainMenuConfig::F_CSS_ACTIVE);
+		$cssInactive = ilCtrlMainMenuConfig::get(ilCtrlMainMenuConfig::F_CSS_INACTIVE);
 		$this->html->setVariable('STATE', ($this->entry->isActive() ? $cssActive : $cssInactive));
 
 		return $this->html->get();
@@ -141,6 +142,7 @@ class ctrlmmEntryGUI {
 		$this->form->addItem($type);
 		$link = new ilHiddenInputGUI('link');
 		$this->form->addItem($link);
+
 		if (count(ctrlmmEntry::getAdditionalFieldsAsArray($this->entry)) > 0) {
 			$te = new ilFormSectionHeaderGUI();
 			$te->setTitle($this->pl->txt('settings'));

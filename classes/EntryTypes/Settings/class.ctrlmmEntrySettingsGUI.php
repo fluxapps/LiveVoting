@@ -46,6 +46,8 @@ class ctrlmmEntrySettingsGUI extends ctrlmmEntryGroupedListDropdownGUI {
 		$lng->loadLanguageModule('mail');
 
 		$this->tpl->addJavaScript($this->pl->getDirectory() . '/templates/js/settings.js');
+        $this->tpl->addCss('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/templates/css/settings.css');
+
 		$form = new ilPropertyFormGUI();
 
 		$form->setId('ctrl_mm_settings_entry_form');
@@ -143,7 +145,10 @@ class ctrlmmEntrySettingsGUI extends ctrlmmEntryGroupedListDropdownGUI {
 
 		$form->addCommandButton('#', $this->pl->txt('settentr_button_save'));
 
-		return $form->getHTML();
+        $setting_tpl = $this->pl->getVersionTemplate('tpl.settings_entry.html');
+        $setting_tpl->setVariable('CONTENT', $form->getHTML());
+
+        return $setting_tpl->get();
 	}
 
 

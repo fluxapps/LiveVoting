@@ -17,7 +17,7 @@ class ctrlmmEntrySearchGUI extends ctrlmmEntryGUI {
 	 */
 	public function renderEntry() {
 		$main_search = new ilMainMenuSearchGUI();
-		$this->html = $this->pl->getTemplate('tpl.admin_entry.html', false, false);
+		$this->html = $this->pl->getVersionTemplate('tpl.search_entry.html', false, false);
 		$this->html->setVariable('DROPDOWN', str_ireplace('ilMainMenuSearch',
 			ctrlmmMenu::getCssPrefix() . 'MainMenuSearch', $main_search->getHTML()));
 		$this->html->setVariable('CSS_PREFIX', ctrlmmMenu::getCssPrefix());

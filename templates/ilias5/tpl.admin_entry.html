@@ -1,0 +1,30 @@
+<!-- BEGIN entry_administration -->
+<li class="ilMainMenu dropdown yamm">
+    <a id="mm_adm_tr" href="#" data-loaded="0" class="dropdown-toggle" data-toggle="dropdown" {ACC_KEY_ADMINISTRATION}>{TITLE}<span class="caret"></span></a>{SEL}
+    <div id="adm_ajax_target"></div>
+    <script>
+        $(function() {
+            $("#mm_adm_tr").on("click", function () {
+                if ($("#mm_adm_tr").attr("data-loaded") == 0) {
+                    $("#mm_adm_tr").attr("data-loaded", "1");
+                    il.Util.sendAjaxGetRequestToUrl ("ilias.php?baseClass=ilAdministrationGUI&cmd=getDropDown&cmdMode=asynch", {}, {el_id: "adm_ajax_target", inner: false}, function(o) {
+                        // perform page modification
+                        if(o.responseText !== undefined) {
+                            $('#' + o.argument.el_id).replaceWith(o.responseText);
+                            il.Util.fixPosition($("#mm_adm_tr").next());
+                            if (il.Help) {
+                                il.Help.updateTooltips();
+                            }
+                            var el = $(".ilMainMenu.ilTopFixed");
+                            if (el) {
+                                il.UICore.shrinkFixedElementToViewport(el);
+                            }
+                        }
+
+                    });
+                }
+            });
+        });
+    </script>
+</li>
+<!-- END entry_administration -->

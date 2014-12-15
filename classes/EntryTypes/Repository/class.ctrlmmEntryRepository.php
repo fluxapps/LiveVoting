@@ -34,7 +34,7 @@ class ctrlmmEntryRepository extends ctrlmmEntry {
 	/**
 	 * @var int
 	 */
-	protected $max_history_items = 10;
+	private $max_history_items = 10;
 	/**
 	 * @var bool
 	 */
@@ -42,7 +42,13 @@ class ctrlmmEntryRepository extends ctrlmmEntry {
 	/**
 	 * @var int
 	 */
-	protected $type = ctrlmmMenu::TYPE_REPOSITORY;
+	//protected $type = ctrlmmMenu::TYPE_REPOSITORY;
+
+    public function __construct($primary_key = 0) {
+        parent::__construct($primary_key);
+
+		$this->setType(ctrlmmMenu::TYPE_REPOSITORY);
+    }
 
 
 	/**
@@ -76,7 +82,7 @@ class ctrlmmEntryRepository extends ctrlmmEntry {
 	 */
 	protected function hasNoOtherActive() {
 		$active = 0;
-		foreach (self::getAllChildsForId($this->getParent()) as $entry) {
+		foreach (ctrlmmEntryInstaceFactory::getAllChildsForId($this->getParent()) as $entry) {
 			if ($entry->getId() == $this->getId()) {
 				continue;
 			}
