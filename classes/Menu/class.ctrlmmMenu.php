@@ -121,6 +121,7 @@ class ctrlmmMenu {
 		$this->pl = ilCtrlMainMenuPlugin::getInstance();
 
 		self::includeAllTypes();
+
 		$this->setEntries(ctrlmmEntryInstaceFactory::getAllChildsForId($id));
 	}
 

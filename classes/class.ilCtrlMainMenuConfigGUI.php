@@ -20,12 +20,7 @@ require_once('./Services/jQuery/classes/class.iljQueryUtil.php');
  *
  */
 class ilCtrlMainMenuConfigGUI extends ilPluginConfigGUI {
-
 	/**
-	 * @var ctrlmmMenuConfig
-	 */
-	//protected $object;
-	/**q
 	 *
 	 * @var array
 	 */
@@ -53,13 +48,14 @@ class ilCtrlMainMenuConfigGUI extends ilPluginConfigGUI {
 		if (! ctrlmmMenu::isOldILIAS()) {
             if(!ctrlmm::is50()) {
                 $this->tpl->addJavaScript('https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', true, 1);
+
+				ctrlmmEntry::addRestrictedType(ctrlmmMenu::TYPE_REPOSITORY);
             }
 
 			$this->tpl->addJavaScript($this->pl->getDirectory() . '/templates/js/sortable.js');
 		}
 
 		ctrlmmMenu::includeAllTypes();
-		//$this->object = ilCtrlMainMenuConfig::getInstance();
 	}
 
 
@@ -104,23 +100,6 @@ class ilCtrlMainMenuConfigGUI extends ilPluginConfigGUI {
 
 		return $this->fields;
 	}
-
-
-	/**
-	 * @return string
-	 */
-	public function getTableName() {
-		return $this->table_name;
-	}
-
-
-	/**
-	 * @return ilCtrlMainMenuConfig
-	 */
-	public function getObject() {
-		return $this->object;
-	}
-
 
 	/**
 	 * Handles all commmands, default is 'configure'

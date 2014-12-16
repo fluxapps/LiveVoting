@@ -1,5 +1,6 @@
 <?php
-
+require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/Menu/class.ctrlmmMenu.php');
+require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/Entry/class.ctrlmmEntry.php');
 /**
  * Class ctrlmmEntryInstaceFactory
  *
@@ -114,6 +115,7 @@ class ctrlmmEntryInstaceFactory {
 			$lngs[$lng] = $admin->getTitle();
 		}
 		$admin->setTranslations($lngs);
+		$admin->setPosition(3);
 		$admin->create();
 
 		return $admin;

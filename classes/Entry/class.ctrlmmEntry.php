@@ -686,4 +686,8 @@ class ctrlmmEntry extends ActiveRecord {
 	public function setIcon($icon) {
 		$this->icon = $icon;
 	}
+
+	public static function addRestrictedType($type) {
+		self::$restricted_types[] = $type;
+	}
 }

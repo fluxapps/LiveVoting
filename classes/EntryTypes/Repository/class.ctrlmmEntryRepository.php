@@ -48,10 +48,6 @@ class ctrlmmEntryRepository extends ctrlmmEntry {
         parent::__construct($primary_key);
 
 		$this->setType(ctrlmmMenu::TYPE_REPOSITORY);
-
-		if(!ctrlmm::is50()) {
-			self::$restricted_types[] = $this->getType();
-		}
     }
 
 

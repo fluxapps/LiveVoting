@@ -20,6 +20,7 @@ ilCtrlMainMenuConfig::set(ilCtrlMainMenuConfig::F_SIMPLE_FORM_VALIDATION, false)
 
 require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/class.ctrlmmData.php');
 require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/class.ctrlmmTranslation.php');
+require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/EntryInstaceFactory/class.ctrlmmEntryInstaceFactory.php');
 
 ctrlmmData::installDB();
 ctrlmmTranslation::installDB();
@@ -34,10 +35,15 @@ $repo = new ctrlmmEntryRepository();
 $repo->setPosition(2);
 $repo->create();
 
-$admin = new ctrlmmEntryAdmin();
-$admin->setPosition(3);
-$admin->create();
+ctrlmmEntryInstaceFactory::createAdminEntry();
+
 ?>
+<#2>
+
+<#3>
+
+<#4>
+
 <#5>
 <?php
 require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/class.ilCtrlMainMenuConfig.php');
@@ -51,6 +57,6 @@ global $ilDB;
  * @var $ilDB ilDB
  */
 require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/Entry/class.ctrlmmEntry.php');
-$ilDB->modifyTableColumn(ctrlmmEntry::returnDbTableName(), 'parent', 'config_value', array(
+$ilDB->modifyTableColumn(ctrlmmEntry::returnDbTableName(), 'parent', array(
     'length' => '8',
 ));
