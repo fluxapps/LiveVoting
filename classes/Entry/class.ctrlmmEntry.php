@@ -263,29 +263,6 @@ class ctrlmmEntry extends ActiveRecord {
 		return ($set->count() > 0 ? true : false);
 	}
 
-	/**
-	 * @param bool $as_array
-	 *
-	 * @return ctrlmmEntry[]
-	 */
-	public static function getAll($as_array = false) {
-		ctrlmmMenu::includeAllTypes();
-
-		$childs = array();
-		$sets = self::getArray();
-        foreach($sets as $set) {
-            $type = 'ctrlmmEntry' . self::getClassAppendForValue($set->type);
-
-            if ($as_array) {
-                $childs[] = (array)new $type($set->id);
-            } else {
-                $childs[] = new $type($set->id);
-            }
-        }
-
-		return $childs;
-	}
-
 
 	//
 	// Static

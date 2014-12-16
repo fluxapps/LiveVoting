@@ -1,6 +1,6 @@
 <#1>
 <?php
-require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/Menu/class.ilCtrlMainMenuPlugin.php');
+require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/class.ilCtrlMainMenuPlugin.php');
 ilCtrlMainMenuPlugin::loadActiveRecord();
 
 
@@ -8,13 +8,15 @@ require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHoo
 ctrlmmEntry::installDB();
 
 
-require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/Menu/class.ilCtrlMainMenuConfig.php');
+require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/class.ilCtrlMainMenuConfig.php');
 ilCtrlMainMenuConfig::installDB();
 
 ilCtrlMainMenuConfig::set(ilCtrlMainMenuConfig::F_CSS_PREFIX, 'il');
 ilCtrlMainMenuConfig::set(ilCtrlMainMenuConfig::F_CSS_ACTIVE, 'MMActive');
 ilCtrlMainMenuConfig::set(ilCtrlMainMenuConfig::F_CSS_INACTIVE, 'MMInactive');
 ilCtrlMainMenuConfig::set(ilCtrlMainMenuConfig::F_REPLACE_FULL_HEADER, false);
+ilCtrlMainMenuConfig::set(ilCtrlMainMenuConfig::F_DOUBLECLICK_PREVENTION, false);
+ilCtrlMainMenuConfig::set(ilCtrlMainMenuConfig::F_SIMPLE_FORM_VALIDATION, false);
 
 require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/class.ctrlmmData.php');
 require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/class.ctrlmmTranslation.php');
@@ -38,5 +40,17 @@ $admin->create();
 ?>
 <#5>
 <?php
-
+require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/class.ilCtrlMainMenuConfig.php');
+ilCtrlMainMenuConfig::renameDBField('config_key', 'name');
+ilCtrlMainMenuConfig::renameDBField('config_value', 'value');
 ?>
+<#6>
+<?php
+global $ilDB;
+/**
+ * @var $ilDB ilDB
+ */
+require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/Entry/class.ctrlmmEntry.php');
+$ilDB->modifyTableColumn(ctrlmmEntry::returnDbTableName(), 'parent', 'config_value', array(
+    'length' => '8',
+));

@@ -92,3 +92,12 @@ div.ilMainMenuRight {
 	height: 25px;
 	width: 25px;
 }
+
+.ilMainMenu .dropdown_image {
+	height: 20px;
+	width: 20px;
+}
+
+#ilTopBarNav, #ilTopBarNav .ilMainMenu {
+	background-color: transparent !important;
+}

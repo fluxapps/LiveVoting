@@ -83,6 +83,29 @@ class ctrlmmEntryInstaceFactory {
 		return $return;
 	}
 
+	/**
+	 * @param bool $as_array
+	 *
+	 * @return ctrlmmEntry[]
+	 */
+	public static function getAll($as_array = false) {
+		ctrlmmMenu::includeAllTypes();
+
+		$childs = array();
+		$sets = ctrlmmEntry::getArray();
+		foreach($sets as $set) {
+			$type = 'ctrlmmEntry' . self::getClassAppendForValue($set->type);
+
+			if ($as_array) {
+				$childs[] = (array)new $type($set->id);
+			} else {
+				$childs[] = new $type($set->id);
+			}
+		}
+
+		return $childs;
+	}
+
 	public static function createAdminEntry() {
 		$admin = self::getInstanceByTypeId(ctrlmmMenu::TYPE_ADMIN)->getObject();
 

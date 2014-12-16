@@ -80,50 +80,79 @@ class ilCtrlMainMenuUIHookGUI extends ilUIHookPluginGUI {
 	 * @return string
 	 */
 	protected function getMainMenuHTML50() {
-		global $ilUser;
+		global $ilUser, $lng;
 
-		$tpl = ilCtrlMainMenuPlugin::getInstance()->getVersionTemplate('tpl.mainmenu.html', false, false);
+		$mainMenu = ilCtrlMainMenuPlugin::getInstance()->getVersionTemplate('tpl.mainmenu.html', true, true);
 
-		$tpl->setVariable("CSS_PREFIX", ilCtrlMainMenuConfig::get(ilCtrlMainMenuConfig::F_CSS_PREFIX));
+		$mainMenu->setVariable("CSS_PREFIX", ilCtrlMainMenuConfig::get(ilCtrlMainMenuConfig::F_CSS_PREFIX));
 
-		$tpl->setVariable("HEADER_URL", $this->getHeaderURL());
-		$tpl->setVariable("HEADER_ICON", ilUtil::getImagePath("HeaderIcon.png"));
+		$mainMenu->setVariable("HEADER_URL", $this->getHeaderURL());
+		$mainMenu->setVariable("HEADER_ICON", ilUtil::getImagePath("HeaderIcon.png"));
 		$mm = new ctrlmmMenuGUI(0);
-		$tpl->setVariable("MAIN_MENU_LEFT", $mm->getHTML());
+		$mainMenu->setVariable("MAIN_MENU_LEFT", $mm->getHTML());
 		$mm = new ctrlmmMenuGUI(0);
 		$mm->setSide(ctrlmmMenuGUI::SIDE_RIGHT);
         $mm->setCssId('ilTopBarNav');
-		$tpl->setVariable("MAIN_MENU_RIGHT", $mm->getHTML());
+		$mainMenu->setVariable("MAIN_MENU_RIGHT", $mm->getHTML());
 
 		$notificationSettings = new ilSetting('notifications');
 		$chatSettings = new ilSetting('chatroom');
 
-        /*require_once 'Services/Notifications/classes/class.ilNotificationOSDHandler.php';
-		$notifications = ilNotificationOSDHandler::getNotificationsForUser($ilUser->getId());
-		$tpl->setVariable('INITIAL_NOTIFICATIONS', json_encode($notifications));
-		$tpl->setVariable('OSD_POLLING_INTERVALL', $notificationSettings->get('osd_polling_intervall') ? $notificationSettings->get('osd_polling_intervall') : '5');
-		$tpl->setVariable('OSD_PLAY_SOUND',
-			$chatSettings->get('play_invitation_sound') && $ilUser->getPref('chat_play_invitation_sound') ? 'true' : 'false');
-		foreach ($notifications as $notification) {
-			if ($notification['type'] == 'osd_maint') {
-				continue;
-			}
-			$tpl->setCurrentBlock('osd_notification_item');
+		//iljQueryUtil::initjQuery();
 
-			$tpl->setVariable('NOTIFICATION_ICON_PATH', $notification['data']->iconPath);
-			$tpl->setVariable('NOTIFICATION_TITLE', $notification['data']->title);
-			$tpl->setVariable('NOTIFICATION_LINK', $notification['data']->link);
-			$tpl->setVariable('NOTIFICATION_LINKTARGET', $notification['data']->linktarget);
-			$tpl->setVariable('NOTIFICATION_ID', $notification['notification_osd_id']);
-			$tpl->setVariable('NOTIFICATION_SHORT_DESCRIPTION', $notification['data']->shortDescription);
-			$tpl->parseCurrentBlock();
-		}*/
+		if($chatSettings->get('chat_enabled') && $notificationSettings->get('enable_osd'))
+		{
+			$mainMenu->touchBlock('osd_enabled');
+			$mainMenu->touchBlock('osd_container');
+
+			include_once "Services/jQuery/classes/class.iljQueryUtil.php";
+			iljQueryUtil::initjQuery();
+
+			include_once 'Services/MediaObjects/classes/class.ilPlayerUtil.php';
+			ilPlayerUtil::initMediaElementJs();
+
+			$mainMenu->addJavaScript('Services/Notifications/templates/default/notifications.js');
+			$mainMenu->addCSS('Services/Notifications/templates/default/osd.css');
+
+			require_once 'Services/Notifications/classes/class.ilNotificationOSDHandler.php';
+			require_once 'Services/UIComponent/Glyph/classes/class.ilGlyphGUI.php';
+
+			$notifications = ilNotificationOSDHandler::getNotificationsForUser($ilUser->getId());
+			$mainMenu->setVariable('NOTIFICATION_CLOSE_HTML', json_encode(ilGlyphGUI::get(ilGlyphGUI::CLOSE, $lng->txt('close'))));
+			$mainMenu->setVariable('INITIAL_NOTIFICATIONS', json_encode($notifications));
+			$mainMenu->setVariable('OSD_POLLING_INTERVALL', $notificationSettings->get('osd_polling_intervall') ? $notificationSettings->get('osd_polling_intervall') : '5');
+			$mainMenu->setVariable(
+				'OSD_PLAY_SOUND',
+				$chatSettings->get('play_invitation_sound') && $ilUser->getPref('chat_play_invitation_sound') ? 'true' : 'false');
+			foreach($notifications as $notification)
+			{
+				if($notification['type'] == 'osd_maint')
+				{
+					continue;
+				}
+				$mainMenu->setCurrentBlock('osd_notification_item');
+
+				$mainMenu->setVariable('NOTIFICATION_ICON_PATH', $notification['data']->iconPath);
+				$mainMenu->setVariable('NOTIFICATION_TITLE', $notification['data']->title);
+				$mainMenu->setVariable('NOTIFICATION_LINK', $notification['data']->link);
+				$mainMenu->setVariable('NOTIFICATION_LINKTARGET', $notification['data']->linktarget);
+				$mainMenu->setVariable('NOTIFICATION_ID', $notification['notification_osd_id']);
+				$mainMenu->setVariable('NOTIFICATION_SHORT_DESCRIPTION', $notification['data']->shortDescription);
+				$mainMenu->parseCurrentBlock();
+			}
+		}
 
 		$ilObjSystemFolder = new ilObjSystemFolder(SYSTEM_FOLDER_ID);
 		$header_top_title = $ilObjSystemFolder->_getHeaderTitle();
-		$tpl->setVariable("TXT_HEADER_TITLE", $header_top_title);
+		$mainMenu->setVariable("TXT_HEADER_TITLE", $header_top_title);
 
-		return $tpl->get();
+		$mainMenu->setVariable("LOCATION_STYLESHEET", ilUtil::getStyleSheetLocation());
+
+		$mainMenu->setVariable("TXT_LOGOUT", $lng->txt("logout"));
+		$mainMenu->setVariable("HEADER_URL", $this->getHeaderURL());
+		$mainMenu->setVariable("HEADER_ICON", ilUtil::getImagePath("HeaderIcon.png"));
+
+		return $mainMenu->get();
 	}
 
 

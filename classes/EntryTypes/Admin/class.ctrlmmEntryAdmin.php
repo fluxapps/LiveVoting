@@ -58,7 +58,7 @@ class ctrlmmEntryAdmin extends ctrlmmEntry {
 	public function isActive() {
 		global $ilMainMenu;
 
-		return $ilMainMenu->active == 'administration';
+		return ($ilMainMenu->active == 'administration');
 	}
 
 

@@ -48,6 +48,10 @@ class ctrlmmEntryRepository extends ctrlmmEntry {
         parent::__construct($primary_key);
 
 		$this->setType(ctrlmmMenu::TYPE_REPOSITORY);
+
+		if(!ctrlmm::is50()) {
+			self::$restricted_types[] = $this->getType();
+		}
     }
 
 
@@ -81,18 +85,21 @@ class ctrlmmEntryRepository extends ctrlmmEntry {
 	 * @return bool
 	 */
 	protected function hasNoOtherActive() {
-		$active = 0;
-		foreach (ctrlmmEntryInstaceFactory::getAllChildsForId($this->getParent()) as $entry) {
-			if ($entry->getId() == $this->getId()) {
-				continue;
+		if(!ctrlmm::is50()) {
+			$active = 0;
+			foreach (ctrlmmEntryInstaceFactory::getAll() as $entry) {
+				if ($entry->getId() == $this->getId()) {
+					continue;
+				}
+
+				if($entry->getType() == $this->getType())
+					return false;
 			}
 
-			if ($entry->isActive()) {
-				$active ++;
-			}
+			return true;
+		} else {
+			return true;
 		}
-
-		return $active == 0;
 	}
 
 
