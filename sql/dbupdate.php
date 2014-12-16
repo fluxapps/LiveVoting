@@ -1,6 +1,6 @@
 <#1>
 <?php
-require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/Menu/class.ilCtrlMainMenuPlugin.php');
+require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/class.ilCtrlMainMenuPlugin.php');
 ilCtrlMainMenuPlugin::loadActiveRecord();
 
 
@@ -8,7 +8,7 @@ require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHoo
 ctrlmmEntry::installDB();
 
 
-require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/Menu/class.ilCtrlMainMenuConfig.php');
+require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/class.ilCtrlMainMenuConfig.php');
 ilCtrlMainMenuConfig::installDB();
 
 ilCtrlMainMenuConfig::set(ilCtrlMainMenuConfig::F_CSS_PREFIX, 'il');
@@ -35,8 +35,4 @@ $repo->create();
 $admin = new ctrlmmEntryAdmin();
 $admin->setPosition(3);
 $admin->create();
-?>
-<#5>
-<?php
-
 ?>

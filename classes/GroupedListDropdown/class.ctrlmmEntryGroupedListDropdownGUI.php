@@ -59,6 +59,7 @@ abstract class ctrlmmEntryGroupedListDropdownGUI extends ctrlmmEntryGUI {
 
 		$this->html->setVariable('CONTENT', $this->getContent());
 		$this->html->setVariable('ENTRY_ID', $this->getDropdownId());
+		$this->html->setVariable('OVERLAY_ID', $this->getDropdownId('ov'));
 		$this->html->setVariable('TARGET_REPOSITORY', '_top');
 
 		$list_id = ($this->entry->getListId()!='')? ' id="'.$this->entry->getListId().'"' : '';
@@ -72,12 +73,13 @@ abstract class ctrlmmEntryGroupedListDropdownGUI extends ctrlmmEntryGUI {
 		}
 
 		$this->accessKey();
-
-		$this->ov = new ilOverlayGUI($this->getDropdownId('ov'));
-		$this->ov->setTrigger($this->getDropdownId());
-		$this->ov->setAnchor($this->getDropdownId());
-		$this->ov->setAutoHide(false);
-		$this->ov->add();
+		if(!ctrlmm::is50()) {
+			$this->ov = new ilOverlayGUI($this->getDropdownId('ov'));
+			$this->ov->setTrigger($this->getDropdownId());
+			$this->ov->setAnchor($this->getDropdownId());
+			$this->ov->setAutoHide(false);
+			$this->ov->add();
+		}
 
 		$html = $this->html->get();
 
