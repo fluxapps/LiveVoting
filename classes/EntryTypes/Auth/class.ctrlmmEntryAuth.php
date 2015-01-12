@@ -95,7 +95,7 @@ class ctrlmmEntryAuth extends ctrlmmEntry {
 			return 'logout.php?lang=' . $this->ilUser->getLanguage();
 		} else {
 			$target_str = '';
-			if (ilCtrlMainMenuConfig::is44()) {
+			if (ctrlmm::is44()) {
 				$target_str = ilTemplate::buildLoginTarget();
 			}
 			$language = $this->ilUser->getLanguage();
