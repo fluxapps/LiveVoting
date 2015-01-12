@@ -32,7 +32,6 @@ abstract class ctrlmmEntryGroupedListDropdownGUI extends ctrlmmEntryGUI {
 	 */
 	protected $html;
 
-
 	/**
 	 * @return string
 	 */
@@ -40,12 +39,17 @@ abstract class ctrlmmEntryGroupedListDropdownGUI extends ctrlmmEntryGUI {
 		global $lng;
 
 		$this->gl = new ilGroupedListGUI();
+
+		if(ctrlmm::is50()) {
+			$this->gl->setAsDropDown(true);
+		}
+
 		$this->setGroupedListContent();
 
-		$this->html = $this->pl->getTemplate('tpl.grouped_list_dropdown.html');
+		$this->html = $this->pl->getVersionTemplate('tpl.grouped_list_dropdown.html');
 
 		$this->html->setVariable('TXT_TITLE', $this->entry->getTitle());
-		$this->html->setVariable('PREFIX', ilCtrlMainMenuPlugin::getConf()->getCssPrefix());
+		$this->html->setVariable('PREFIX', ilCtrlMainMenuConfig::get(ilCtrlMainMenuConfig::F_CSS_PREFIX));
 		if ($this->show_arrow) {
 			$this->html->setVariable('ARROW_IMG', ilUtil::getImagePath('mm_down_arrow.png'));
 		}
@@ -54,27 +58,36 @@ abstract class ctrlmmEntryGroupedListDropdownGUI extends ctrlmmEntryGUI {
 		}
 
 		$this->html->setVariable('CONTENT', $this->getContent());
-		$this->html->setVariable('ENTRY_ID', $this->entry->getId());
+		$this->html->setVariable('ENTRY_ID', $this->getDropdownId());
+		$this->html->setVariable('OVERLAY_ID', $this->getDropdownId('ov'));
 		$this->html->setVariable('TARGET_REPOSITORY', '_top');
 
+		$list_id = ($this->entry->getListId()!='')? ' id="'.$this->entry->getListId().'"' : '';
+		$this->html->setVariable('LIST_ID', $list_id);
+
 		if ($this->entry->isActive()) {
-			$this->html->setVariable('MM_CLASS', ilCtrlMainMenuPlugin::getConf()->getCssActive());
+			$this->html->setVariable('MM_CLASS', ilCtrlMainMenuConfig::get(ilCtrlMainMenuConfig::F_CSS_ACTIVE));
 			$this->html->setVariable('SEL', '<span class=\'ilAccHidden\'>(' . $lng->txt('stat_selected') . ')</span>');
 		} else {
-			$this->html->setVariable('MM_CLASS', ilCtrlMainMenuPlugin::getConf()->getCssInactive());
+			$this->html->setVariable('MM_CLASS', ilCtrlMainMenuConfig::get(ilCtrlMainMenuConfig::F_CSS_INACTIVE));
 		}
 
 		$this->accessKey();
-
-		$this->ov = new ilOverlayGUI('mm_' . $this->entry->getId() . '_ov');
-		$this->ov->setTrigger('mm_' . $this->entry->getId() . '_tr');
-		$this->ov->setAnchor('mm_' . $this->entry->getId() . '_tr');
-		$this->ov->setAutoHide(false);
-		$this->ov->add();
+		if(!ctrlmm::is50()) {
+			$this->ov = new ilOverlayGUI($this->getDropdownId('ov'));
+			$this->ov->setTrigger($this->getDropdownId());
+			$this->ov->setAnchor($this->getDropdownId());
+			$this->ov->setAutoHide(false);
+			$this->ov->add();
+		}
 
 		$html = $this->html->get();
 
 		return $html;
+	}
+
+	public function getDropdownId($post_fix = 'tr') {
+		return 'mm_'.$this->entry->getId().'_'.$post_fix;
 	}
 
 

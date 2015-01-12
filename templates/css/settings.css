@@ -1,0 +1,11 @@
+#ilMainMenuEntries .settings-menu {
+    width: 300px !important;
+    padding: 5px 0 0 0 !important;
+
+}
+
+
+#ilMainMenuEntries > ul > li.MainMenu.dropdown > ul .form-horizontal {
+    margin-bottom: 0 !important;
+}
+

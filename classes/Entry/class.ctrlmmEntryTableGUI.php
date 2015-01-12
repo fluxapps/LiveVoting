@@ -2,6 +2,7 @@
 require_once('./Services/Table/classes/class.ilTable2GUI.php');
 require_once('class.ctrlmmEntry.php');
 require_once('./Services/UIComponent/AdvancedSelectionList/classes/class.ilAdvancedSelectionListGUI.php');
+require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/EntryInstaceFactory/class.ctrlmmEntryInstaceFactory.php');
 
 /**
  * TableGUI ctrlmmEntryTableGUI
@@ -26,9 +27,10 @@ class ctrlmmEntryTableGUI extends ilTable2GUI {
 		 * @var $ilTabs    ilTabsGUI
 		 * @var $ilToolbar ilToolbarGUI
 		 */
-		$this->pl = ilCtrlMainMenuPlugin::get();
+		$this->pl = ilCtrlMainMenuPlugin::getInstance();
 		$this->ctrl = $ilCtrl;
 		$this->tabs = $ilTabs;
+
 		$this->setId('mm_entry_list');
 		parent::__construct($a_parent_obj, $a_parent_cmd);
 		$this->setRowTemplate('tpl.entry_list.html', $this->pl->getDirectory());
@@ -50,8 +52,9 @@ class ctrlmmEntryTableGUI extends ilTable2GUI {
 		}
 		// $this->setExternalSorting(true);
 		// $this->setExternalSegmentation(true);
+
 		ctrlmmMenu::includeAllTypes();
-		$this->setData(ctrlmmEntry::getAllChildsForIdAsArray($parent_id));
+		$this->setData(ctrlmmEntryInstaceFactory::getAllChildsForIdAsArray($parent_id));
 	}
 
 
@@ -68,12 +71,14 @@ class ctrlmmEntryTableGUI extends ilTable2GUI {
 		/**
 		 * @var $obj ctrlmmEntry
 		 */
-		$obj = ctrlmmEntry::find($a_set['id']);
+		$obj = ctrlmmEntryInstaceFactory::getInstanceByEntryId($a_set['id'])->getObject();
+
 		if ($obj->getType() == ctrlmmMenu::TYPE_SEPARATOR) {
 			$this->tpl->setVariable('CLASS', 'ctrlmmSeparator');
 		}
-		$this->tpl->setVariable('TITLE', $obj->getRawTitle() . ' ' . ($obj->checkPermission() ? '' : '*'));
-		$this->tpl->setVariable('TYPE', ctrlmmEntry::getClassAppendForValue($obj->getType()));
+
+		$this->tpl->setVariable('TITLE', $obj->getTitle() . ' ' . ($obj->checkPermission() ? '' : '*'));
+		$this->tpl->setVariable('TYPE', ctrlmmEntryInstaceFactory::getClassAppendForValue($obj->getType()));
 		$this->ctrl->setParameter($this->parent_obj, 'entry_id', $obj->getId());
 		if (ctrlmmMenu::isOldILIAS()) {
 			$this->tpl->setVariable('ID_OLD', $obj->getId());

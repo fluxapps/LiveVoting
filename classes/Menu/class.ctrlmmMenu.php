@@ -46,6 +46,7 @@ class ctrlmmMenu {
 	const TYPE_SEARCH = 11;
 	const TYPE_STATUSBOX = 12;
 	const TYPE_AUTH = 13;
+
 	const PERM_NONE = 100;
 	const PERM_ROLE = 101;
 	const PERM_ROLE_EXEPTION = 104;
@@ -69,12 +70,14 @@ class ctrlmmMenu {
 	 */
 	protected static $cache_active;
 
+	protected $pl;
+
 
 	/**
 	 * @return bool
 	 */
 	public static function checkGlobalCache() {
-		if (isset(self::$cache_active)) {
+		/*if (isset(self::$cache_active)) {
 			return self::$cache_active;
 		}
 		$is_file = file_exists('./Services/GlobalCache/classes/class.ilGlobalCache.php');
@@ -84,9 +87,14 @@ class ctrlmmMenu {
 			self::$cache_active = ilGlobalCache::getInstance('ctrl_mm')->isActive();
 		} else {
 			self::$cache_active = false;
-		}
+		}*/
+		return false;
 
-		return self::$cache_active;
+		//return self::$cache_active;
+	}
+
+	public static function getCssPrefix() {
+		return ilCtrlMainMenuConfig::get(ilCtrlMainMenuConfig::F_CSS_PREFIX);
 	}
 
 
@@ -110,13 +118,11 @@ class ctrlmmMenu {
 	 * @param int $id
 	 */
 	public function __construct($id = 0) {
-		global $ilDB;
-		/**
-		 * @var $ilDB ilDB
-		 */
-		$this->db = $ilDB;
+		$this->pl = ilCtrlMainMenuPlugin::getInstance();
+
 		self::includeAllTypes();
-		$this->setEntries(ctrlmmEntry::getAllChildsForId($id));
+
+		$this->setEntries(ctrlmmEntryInstaceFactory::getAllChildsForId($id));
 	}
 
 
@@ -149,9 +155,9 @@ class ctrlmmMenu {
 	/**
 	 * @return string
 	 */
-	public static function getCssPrefix() {
-		return ilCtrlMainMenuPlugin::getConf()->getCssPrefix();
-	}
+	/*public function getCssPrefix() {
+		return ilCtrlMainMenuConfig::get(ilCtrlMainMenuConfig::F_CSS_PREFIX);
+	}*/
 
 
 	/**
@@ -161,7 +167,7 @@ class ctrlmmMenu {
 	 */
 	public static function getAllTypesAsArray($filter = false) {
 		foreach (self::getAllTypeConstants() as $name => $value) {
-			$names[$value] = ilCtrlMainMenuPlugin::get()->txt(strtolower($name));
+			$names[$value] = ilCtrlMainMenuPlugin::getInstance()->txt(strtolower($name));
 		}
 		if ($filter) {
 			foreach ($names as $type_id => $name) {
@@ -195,7 +201,7 @@ class ctrlmmMenu {
 	public static function includeAllTypes() {
 		if (! self::$types_included) {
 			foreach (self::getAllTypeConstants() as $name => $value) {
-				$name = ctrlmmEntry::getClassAppendForValue($value);
+				$name = ctrlmmEntryInstaceFactory::getClassAppendForValue($value);
 				$type = './Customizing/global/plugins/Services/' . 'UIComponent/UserInterfaceHook/CtrlMainMenu/classes/EntryTypes/' . $name
 					. '/class.ctrlmmEntry' . $name;
 				require_once($type . '.php');
@@ -218,7 +224,7 @@ class ctrlmmMenu {
 		foreach ($fooClass->getConstants() as $name => $value) {
 			$b = strpos($name, 'PERM_REF_') === false;
 			if (strpos($name, 'PERM_') === 0) {
-				$names[$value] = ilCtrlMainMenuPlugin::get()->txt(strtolower($name));
+				$names[$value] = ilCtrlMainMenuPlugin::getInstance()->txt(strtolower($name));
 			}
 		}
 

@@ -7,6 +7,7 @@ require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHoo
 require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/Menu/class.ctrlmmMenu.php');
 require_once('class.ilCtrlMainMenuPlugin.php');
 require_once('./Modules/SystemFolder/classes/class.ilObjSystemFolder.php');
+require_once('class.ilCtrlMainMenuConfig.php');
 require_once('Services/Style/classes/class.ilStyleDefinition.php');
 
 /**
@@ -25,6 +26,11 @@ class ilCtrlMainMenuUIHookGUI extends ilUIHookPluginGUI {
 	 * @var bool
 	 */
 	protected static $replaced = false;
+	protected $pl;
+
+	public function __construct() {
+		$this->pl = ilCtrlMainMenuPlugin::getInstance();
+	}
 
 
 	/**
@@ -35,21 +41,29 @@ class ilCtrlMainMenuUIHookGUI extends ilUIHookPluginGUI {
 	 * @return array
 	 */
 	public function getHTML($a_comp, $a_part, $a_par = array()) {
+
 		$full_header = ($a_part == 'template_get' AND $a_par['tpl_id'] == 'Services/MainMenu/tpl.main_menu.html');
-		$replace = (bool)ilCtrlMainMenuConfig::getInstance()->get('replace_full_header');
-		if ($full_header AND ! self::$replaced) {
+		$replace = (bool)ilCtrlMainMenuConfig::get(ilCtrlMainMenuConfig::F_REPLACE_FULL_HEADER);
+		if ($full_header AND !self::$replaced) {
 			if ($full_header AND $replace) {
 				self::$replaced = true;
 
-				return array(
-					'mode' => ilUIHookPluginGUI::REPLACE,
-					'html' => $this->getMainMenuHTML()
-				);
+				if (ctrlmm::is50()) {
+					return array(
+						'mode' => ilUIHookPluginGUI::REPLACE,
+						'html' => $this->getMainMenuHTML50()
+					);
+				} else {
+					return array(
+						'mode' => ilUIHookPluginGUI::REPLACE,
+						'html' => $this->getMainMenuHTML()
+					);
+				}
 			}
 		}
 
 		$menu_only = ($a_comp == 'Services/MainMenu' AND $a_part == 'main_menu_list_entries');
-		if ($menu_only AND ! self::$replaced AND ! $replace) {
+		if ($menu_only AND !self::$replaced AND !$replace) {
 			$mm = new ctrlmmMenuGUI(0);
 			self::$replaced = true;
 
@@ -66,15 +80,95 @@ class ilCtrlMainMenuUIHookGUI extends ilUIHookPluginGUI {
 	/**
 	 * @return string
 	 */
+	protected function getMainMenuHTML50() {
+		global $ilUser, $lng;
+
+		$mainMenu = ilCtrlMainMenuPlugin::getInstance()->getVersionTemplate('tpl.mainmenu.html', true, true);
+
+		$mainMenu->setVariable("CSS_PREFIX", ilCtrlMainMenuConfig::get(ilCtrlMainMenuConfig::F_CSS_PREFIX));
+
+		$mainMenu->setVariable("HEADER_URL", $this->getHeaderURL());
+		$mainMenu->setVariable("HEADER_ICON", ilUtil::getImagePath("HeaderIcon.png"));
+		$mm = new ctrlmmMenuGUI(0);
+		$mainMenu->setVariable("MAIN_MENU_LEFT", $mm->getHTML());
+		$mm = new ctrlmmMenuGUI(0);
+		$mm->setSide(ctrlmmMenuGUI::SIDE_RIGHT);
+        $mm->setCssId('ilTopBarNav');
+		$mainMenu->setVariable("MAIN_MENU_RIGHT", $mm->getHTML());
+
+		$notificationSettings = new ilSetting('notifications');
+		$chatSettings = new ilSetting('chatroom');
+
+		//iljQueryUtil::initjQuery();
+
+		if($chatSettings->get('chat_enabled') && $notificationSettings->get('enable_osd'))
+		{
+			$mainMenu->touchBlock('osd_enabled');
+			$mainMenu->touchBlock('osd_container');
+
+			include_once "Services/jQuery/classes/class.iljQueryUtil.php";
+			iljQueryUtil::initjQuery();
+
+			include_once 'Services/MediaObjects/classes/class.ilPlayerUtil.php';
+			ilPlayerUtil::initMediaElementJs();
+
+			$mainMenu->addJavaScript('Services/Notifications/templates/default/notifications.js');
+			$mainMenu->addCSS('Services/Notifications/templates/default/osd.css');
+
+			require_once 'Services/Notifications/classes/class.ilNotificationOSDHandler.php';
+			require_once 'Services/UIComponent/Glyph/classes/class.ilGlyphGUI.php';
+
+			$notifications = ilNotificationOSDHandler::getNotificationsForUser($ilUser->getId());
+			$mainMenu->setVariable('NOTIFICATION_CLOSE_HTML', json_encode(ilGlyphGUI::get(ilGlyphGUI::CLOSE, $lng->txt('close'))));
+			$mainMenu->setVariable('INITIAL_NOTIFICATIONS', json_encode($notifications));
+			$mainMenu->setVariable('OSD_POLLING_INTERVALL', $notificationSettings->get('osd_polling_intervall') ? $notificationSettings->get('osd_polling_intervall') : '5');
+			$mainMenu->setVariable(
+				'OSD_PLAY_SOUND',
+				$chatSettings->get('play_invitation_sound') && $ilUser->getPref('chat_play_invitation_sound') ? 'true' : 'false');
+			foreach($notifications as $notification)
+			{
+				if($notification['type'] == 'osd_maint')
+				{
+					continue;
+				}
+				$mainMenu->setCurrentBlock('osd_notification_item');
+
+				$mainMenu->setVariable('NOTIFICATION_ICON_PATH', $notification['data']->iconPath);
+				$mainMenu->setVariable('NOTIFICATION_TITLE', $notification['data']->title);
+				$mainMenu->setVariable('NOTIFICATION_LINK', $notification['data']->link);
+				$mainMenu->setVariable('NOTIFICATION_LINKTARGET', $notification['data']->linktarget);
+				$mainMenu->setVariable('NOTIFICATION_ID', $notification['notification_osd_id']);
+				$mainMenu->setVariable('NOTIFICATION_SHORT_DESCRIPTION', $notification['data']->shortDescription);
+				$mainMenu->parseCurrentBlock();
+			}
+		}
+
+		$ilObjSystemFolder = new ilObjSystemFolder(SYSTEM_FOLDER_ID);
+		$header_top_title = $ilObjSystemFolder->_getHeaderTitle();
+		$mainMenu->setVariable("TXT_HEADER_TITLE", $header_top_title);
+
+		$mainMenu->setVariable("LOCATION_STYLESHEET", ilUtil::getStyleSheetLocation());
+
+		$mainMenu->setVariable("TXT_LOGOUT", $lng->txt("logout"));
+		$mainMenu->setVariable("HEADER_URL", $this->getHeaderURL());
+		$mainMenu->setVariable("HEADER_ICON", ilUtil::getImagePath("HeaderIcon.png"));
+
+		return $mainMenu->get();
+	}
+
+
+	/**
+	 * @return string
+	 */
 	protected function getMainMenuHTML() {
 		global $ilUser;
 
 		$current_skin = ilStyleDefinition::getCurrentSkin();
 
 		if (is_file('./Customizing/global/skin/' . $current_skin . '/Plugins/CtrlMainMenu/templates/default/tpl.mainmenu.html')) {
-			$tpl = new ilTemplate('tpl.mainmenu.html', true, true, 'Customizing/global/skin/' . $current_skin . '/Plugins/CtrlMainMenu');
+			$tpl = new ilTemplate('tpl.mainmenu.html', false, false, 'Customizing/global/skin/' . $current_skin . '/Plugins/CtrlMainMenu');
 		} else {
-			$tpl = ilCtrlMainMenuPlugin::get()->getTemplate('tpl.mainmenu.html', true, true);
+			$tpl = ilCtrlMainMenuPlugin::getInstance()->getVersionTemplate('tpl.mainmenu.html', false, false);
 		}
 
 		$tpl->setVariable("CSS_PREFIX", ctrlmmMenu::getCssPrefix());
@@ -124,7 +218,7 @@ class ilCtrlMainMenuUIHookGUI extends ilUIHookPluginGUI {
 		include_once './Services/User/classes/class.ilUserUtil.php';
 		$url = ilUserUtil::getStartingPointAsUrl();
 
-		if (! $url) {
+		if (!$url) {
 			$url = "./goto.php?target=root_1";
 		}
 

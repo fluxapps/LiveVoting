@@ -7,152 +7,62 @@
  *
  * @version 2.0.02
  */
-class ctrlmmTranslation {
+class ctrlmmTranslation extends ActiveRecord {
 
 	const TABLE_NAME = 'ui_uihk_ctrlmm_t';
-	/**
-	 * @var int
-	 */
+
+    /**
+     * @var int
+     *
+     * @con_is_primary true
+     * @con_sequence  true
+     * @con_has_field  true
+     * @con_fieldtype  integer
+     * @con_is_notnull true
+     * @con_length     8
+     */
 	protected $id = 0;
+
+    /**
+     * @var int
+     *
+     * @con_has_field  true
+     * @con_fieldtype  integer
+     * @con_is_notnull true
+     * @con_length     8
+     */
 	protected $entry_id = 0;
+
+    /**
+     * @var string
+     *
+     * @con_has_field  true
+     * @con_fieldtype  text
+     * @con_is_notnull true
+     * @con_length     255
+     */
 	protected $language_key = '';
+
+    /**
+     * @var string
+     *
+     * @con_has_field  true
+     * @con_fieldtype  text
+     * @con_is_notnull true
+     * @con_length     500
+     */
 	protected $title = '';
 
 
-	/**
-	 * @param $id
-	 */
-	function __construct($id = 0) {
-		global $ilDB;
-		/**
-		 * @var $ilDB ilDB
-		 */
-		$this->id = $id;
-		$this->db = $ilDB;
-		//		$this->updateDB();
-		if ($id != 0) {
-			$this->read();
-		}
-	}
-
-
-	public function read() {
-		$set = $this->db->query('SELECT * FROM ' . self::TABLE_NAME . ' ' . ' WHERE id = ' . $this->db->quote($this->getId(), 'integer'));
-		while ($rec = $this->db->fetchObject($set)) {
-			foreach ($this->getArrayForDb() as $k => $v) {
-				$this->{$k} = $rec->{$k};
-			}
-		}
-	}
-
-
-	/**
-	 * @return array
-	 */
-	public function getArrayForDb() {
-		$e = array();
-		foreach (get_object_vars($this) as $k => $v) {
-			if (! in_array($k, array( 'db' ))) {
-				$e[$k] = array( self::_getType($v), $this->$k );
-			}
-		}
-
-		return $e;
-	}
-
-
-	final function initDB() {
-		foreach ($this->getArrayForDb() as $k => $v) {
-			$fields[$k] = array(
-				'type' => $v[0],
-			);
-			switch ($v[0]) {
-				case 'integer':
-					$fields[$k]['length'] = 4;
-					break;
-				case 'text':
-					$fields[$k]['length'] = 1024;
-					break;
-			}
-			if ($k == 'id') {
-				$fields[$k]['notnull'] = true;
-			}
-		}
-		if (! $this->db->tableExists(self::TABLE_NAME)) {
-			$this->db->createTable(self::TABLE_NAME, $fields);
-			$this->db->addPrimaryKey(self::TABLE_NAME, array( 'id' ));
-			$this->db->createSequence(self::TABLE_NAME);
-		}
-	}
-
-
-	final function updateDB() {
-		if (! $this->db->tableExists(self::TABLE_NAME)) {
-			$this->initDB();
-
-			return true;
-		}
-		foreach ($this->getArrayForDb() as $k => $v) {
-			if (! $this->db->tableColumnExists(self::TABLE_NAME, $k)) {
-				$field = array(
-					'type' => $v[0],
-				);
-				switch ($v[0]) {
-					case 'integer':
-						$field['length'] = 4;
-						break;
-					case 'text':
-						$field['length'] = 1024;
-						break;
-				}
-				if ($k == 'id') {
-					$field['notnull'] = true;
-				}
-				$this->db->addTableColumn(self::TABLE_NAME, $k, $field);
-			}
-		}
-	}
-
-
-	final private function resetDB() {
-		$this->db->dropTable(self::TABLE_NAME);
-		$this->initDB();
-	}
-
-
-	public function create() {
-		if ($this->getId() != 0) {
-			$this->update();
-
-			return true;
-		}
-		$this->setId($this->db->nextID(self::TABLE_NAME));
-		$this->db->insert(self::TABLE_NAME, $this->getArrayForDb());
-	}
-
-
-	/**
-	 * @return int
-	 */
-	public function delete() {
-		return $this->db->manipulate('DELETE FROM ' . self::TABLE_NAME . ' WHERE id = ' . $this->db->quote($this->getId(), 'integer'));
-	}
-
-
-	public function update() {
-		if ($this->getId() == 0) {
-			$this->create();
-
-			return true;
-		}
-		$this->db->update(self::TABLE_NAME, $this->getArrayForDb(), array(
-			'id' => array(
-				'integer',
-				$this->getId()
-			),
-		));
-	}
-
+    /**
+     * @return string
+     * @description Return the Name of your Database Table
+     * @deprecated
+     */
+    static function returnDbTableName()
+    {
+        return self::TABLE_NAME;
+    }
 
 	//
 	// Static
@@ -164,18 +74,18 @@ class ctrlmmTranslation {
 	 * @return ctrlmmTranslation
 	 */
 	public static function _getInstanceForLanguageKey($entry_id, $language_key) {
-		global $ilDB;
-		// Existing Object
-		$set = $ilDB->query('SELECT id FROM ' . self::TABLE_NAME . ' ' . ' WHERE language_key = ' . $ilDB->quote($language_key, 'text')
-			. ' AND entry_id = ' . $ilDB->quote($entry_id, 'integer'));
-		while ($rec = $ilDB->fetchObject($set)) {
-			return new self($rec->id);
-		}
-		$obj = new self();
-		$obj->setLanguageKey($language_key);
-		$obj->setEntryId($entry_id);
 
-		return $obj;
+        $result = self::where(array('entry_id'=>$entry_id, 'language_key'=>$language_key));
+
+		if($result->hasSets()) {
+			return $result->first();
+		} else {
+			$instace = new self();
+			$instace->setLanguageKey($language_key);
+			$instace->setEntryId($entry_id);
+
+			return $instace;
+		}
 	}
 
 
@@ -185,14 +95,15 @@ class ctrlmmTranslation {
 	 * @return mixed
 	 */
 	public static function _getAllTranslationsAsArray($entry_id) {
-		global $ilDB;
-		$return = array();
-		$set = $ilDB->query('SELECT language_key, title FROM ' . self::TABLE_NAME . ' WHERE entry_id = ' . $ilDB->quote($entry_id, 'integer'));
-		while ($rec = $ilDB->fetchObject($set)) {
-			$return[$rec->language_key] = $rec->title;
-		}
+        $query =self::where(array('entry_id'=>$entry_id));
 
-		return $return;
+        $entries = $query->getArray();
+        $return = array();
+        foreach($entries as $set) {
+            $return[$set['language_key']] = $set['title'];
+        }
+
+        return $return;
 	}
 
 
@@ -202,9 +113,10 @@ class ctrlmmTranslation {
 	 * @return bool|string
 	 */
 	public static function _getTitleForEntryId($entry_id) {
-		global $ilDB, $ilUser;
+		global $ilUser;
 		$obj = self::_getInstanceForLanguageKey($entry_id, $ilUser->getLanguage());
-		if ($obj->getId() == 0) {
+
+		if (!isset($obj)) {
 			require_once('./Services/Language/classes/class.ilLanguage.php');
 			$lngs = new ilLanguage('en');
 			$obj = self::_getInstanceForLanguageKey($entry_id, $lngs->getDefaultLanguage());
@@ -223,14 +135,9 @@ class ctrlmmTranslation {
 	 * @return ctrlmmTranslation[]
 	 */
 	public function _getAllInstancesForEntryId($entry_id) {
-		global $ilDB;
-		$return = array();
-		$set = $ilDB->query('SELECT id FROM ' . self::TABLE_NAME . ' WHERE entry_id = ' . $ilDB->quote($entry_id, 'integer'));
-		while ($rec = $ilDB->fetchObject($set)) {
-			$return[] = new self($rec->id);
-		}
+        $result =self::where(array('entry_id'=>$entry_id));
 
-		return $return;
+        return $result->get();
 	}
 
 
@@ -307,28 +214,6 @@ class ctrlmmTranslation {
 		return $this->title;
 	}
 
-
-	//
-	// Helper
-	//
-	/**
-	 * @param $var
-	 *
-	 * @return string
-	 */
-	public static function _getType($var) {
-		switch (gettype($var)) {
-			case 'string':
-			case 'array':
-			case 'object':
-				return 'text';
-			case 'NULL':
-			case 'boolean':
-				return 'integer';
-			default:
-				return gettype($var);
-		}
-	}
 }
 
 ?>

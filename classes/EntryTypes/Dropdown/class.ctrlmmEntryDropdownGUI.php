@@ -13,11 +13,6 @@ require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHoo
 class ctrlmmEntryDropdownGUI extends ctrlmmEntryGroupedListDropdownGUI {
 
 	const DOWN_ARROW_DARK = 'mm_down_arrow.png'; // ilAdvancedSelectionListGUI::DOWN_ARROW_DARK
-	/**
-	 * @var ctrlmmEntryDropdown
-	 */
-	public $entry;
-
 
 	/**
 	 * Render main menu entry
@@ -43,12 +38,16 @@ class ctrlmmEntryDropdownGUI extends ctrlmmEntryGroupedListDropdownGUI {
 		parent::initForm($mode);
 		$use_image = new ilCheckboxInputGUI($this->pl->txt('use_image'), 'use_image');
 		$this->form->addItem($use_image);
+
+		$use_user_image = new ilCheckboxInputGUI($this->pl->txt('use_user_image'), 'use_user_image');
+		$this->form->addItem($use_user_image);
 	}
 
 
 	public function setFormValuesByArray() {
 		$values = parent::setFormValuesByArray();
 		$values['use_image'] = $this->entry->getUseImage();
+		$values['use_user_image'] = $this->entry->getUseUserImage();
 		$this->form->setValuesByArray($values);
 
 		return $values;
@@ -58,8 +57,10 @@ class ctrlmmEntryDropdownGUI extends ctrlmmEntryGroupedListDropdownGUI {
 	public function createEntry() {
 		parent::createEntry();
 		$this->entry->setUseImage($this->form->getInput('use_image'));
+		$this->entry->setUseUserImage($this->form->getInput('use_user_image'));
 		$this->entry->update();
 	}
+
 }
 
 ?>

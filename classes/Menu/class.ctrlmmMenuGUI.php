@@ -29,6 +29,23 @@ class ctrlmmMenuGUI {
 	 */
 	protected $side = self::SIDE_LEFT;
 
+    protected $css_id = '';
+
+    /**
+     * @return mixed
+     */
+    public function getCssId()
+    {
+        return $this->css_id;
+    }
+
+    /**
+     * @param mixed $css_id
+     */
+    public function setCssId($css_id)
+    {
+        $this->css_id = $css_id;
+    }
 
 	/**
 	 * @param int $id
@@ -36,18 +53,18 @@ class ctrlmmMenuGUI {
 	public function __construct($id = 0) {
 		global $tpl;
 
-		$this->pl = ilCtrlMainMenuPlugin::get();
+		$this->pl = ilCtrlMainMenuPlugin::getInstance();
 		$this->object = new ctrlmmMenu($id);
 
 		$tpl->addCss($this->pl->getDirectory() . '/templates/css/ctrlmm.css');
-		if (ilCtrlMainMenuConfig::getInstance()->getValue('css_prefix') == 'fb') {
+		if (ilCtrlMainMenuConfig::get(ilCtrlMainMenuConfig::F_CSS_PREFIX) == 'fb') {
 			$tpl->addCss($this->pl->getDirectory() . '/templates/css/fb.css');
 		}
-		if (ilCtrlMainMenuConfig::getInstance()->getValue('simple_form_validation')) {
+		if (ilCtrlMainMenuConfig::get(ilCtrlMainMenuConfig::F_SIMPLE_FORM_VALIDATION)) {
 			$tpl->addCss($this->pl->getDirectory() . '/templates/css/forms.css');
 			$tpl->addJavaScript($this->pl->getDirectory() . '/templates/js/forms.js');
 		}
-		if (ilCtrlMainMenuConfig::getInstance()->getValue('doubleclick_prevention')) {
+		if (ilCtrlMainMenuConfig::get(ilCtrlMainMenuConfig::F_DOUBLECLICK_PREVENTION)) {
 			$tpl->addCss($this->pl->getDirectory() . '/templates/css/click.css');
 			$tpl->addJavaScript($this->pl->getDirectory() . '/templates/js/click.js');
 		}
@@ -58,9 +75,11 @@ class ctrlmmMenuGUI {
 	 * @return string
 	 */
 	public function getHTML() {
-		$this->html = $this->pl->getTemplate('tpl.ctrl_menu.html');
+		require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/class.ctrlmm.php');
+
+		$this->html = $this->pl->getVersionTemplate('tpl.ctrl_menu.html');
 		$entry_html = '';
-		$replace_full = ilCtrlMainMenuConfig::get('replace_full_header');
+		$replace_full = ilCtrlMainMenuConfig::get(ilCtrlMainMenuConfig::F_REPLACE_FULL_HEADER);
 		/**
 		 * @var $entry ctrlmmEntry
 		 */
@@ -88,7 +107,8 @@ class ctrlmmMenuGUI {
 			}
 		}
 		$this->html->setVariable('ENTRIES', $entry_html);
-		$this->html->setVariable('CSS_PREFIX', ctrlmmMenu::getCssPrefix());
+		$this->html->setVariable('CSS_PREFIX', ilCtrlMainMenuConfig::get(ilCtrlMainMenuConfig::F_CSS_PREFIX));
+        $this->html->setVariable('ID', $this->css_id);
 
 		return $this->html->get();
 	}

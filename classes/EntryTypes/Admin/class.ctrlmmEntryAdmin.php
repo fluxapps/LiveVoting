@@ -35,11 +35,12 @@ class ctrlmmEntryAdmin extends ctrlmmEntry {
 	 * @var bool
 	 */
 	protected $restricted = true;
-	/**
-	 * @var int
-	 */
-	protected $type = ctrlmmMenu::TYPE_ADMIN;
 
+    public function __construct($primary_key = 0) {
+        $this->setType(ctrlmmMenu::TYPE_ADMIN);
+
+        parent::__construct($primary_key);
+    }
 
 	/**
 	 * @return string
@@ -57,7 +58,7 @@ class ctrlmmEntryAdmin extends ctrlmmEntry {
 	public function isActive() {
 		global $ilMainMenu;
 
-		return $ilMainMenu->active == 'administration';
+		return ($ilMainMenu->active == 'administration');
 	}
 
 

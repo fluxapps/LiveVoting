@@ -37,6 +37,22 @@ class ctrlmmEntryAdminGUI extends ctrlmmEntryAdvancedSelectionListDropdownGUI {
 		$permission_type = $this->form->getItemByPostVar('permission_type');
 		$permission_type->setDisabled(true);
 	}
+
+
+	/**
+	 * @return string
+	 */
+	public function renderEntry() {
+		if(ctrlmm::is50()) {
+            ilYuiUtil::initConnection();
+        }
+		return parent::renderEntry();
+	}
+
+	public function createEntry() {
+		parent::createEntry();
+		$this->entry->update();
+	}
 }
 
 ?>
