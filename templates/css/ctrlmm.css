@@ -88,6 +88,7 @@ div.ilMainMenuRight {
 	padding-right: 20px !important;
 }
 
+<<<<<<< HEAD
 #mm_entry_list > tbody .dropdown_image {
 	height: 25px;
 	width: 25px;
@@ -100,4 +101,8 @@ div.ilMainMenuRight {
 
 #ilTopBarNav, #ilTopBarNav .ilMainMenu {
 	background-color: transparent !important;
+=======
+#ilAdvSelListAnchorElement_dd_adm {
+	height: inherit;
+>>>>>>> origin/develop
 }
