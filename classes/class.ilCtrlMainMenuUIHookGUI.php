@@ -7,11 +7,8 @@ require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHoo
 require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/Menu/class.ctrlmmMenu.php');
 require_once('class.ilCtrlMainMenuPlugin.php');
 require_once('./Modules/SystemFolder/classes/class.ilObjSystemFolder.php');
-<<<<<<< HEAD
 require_once('class.ilCtrlMainMenuConfig.php');
-=======
 require_once('Services/Style/classes/class.ilStyleDefinition.php');
->>>>>>> origin/develop
 
 /**
  * User interface hook class
@@ -166,17 +163,13 @@ class ilCtrlMainMenuUIHookGUI extends ilUIHookPluginGUI {
 	protected function getMainMenuHTML() {
 		global $ilUser;
 
-<<<<<<< HEAD
-		$tpl = ilCtrlMainMenuPlugin::getInstance()->getVersionTemplate('tpl.mainmenu.html', false, false);
-=======
 		$current_skin = ilStyleDefinition::getCurrentSkin();
 
 		if (is_file('./Customizing/global/skin/' . $current_skin . '/Plugins/CtrlMainMenu/templates/default/tpl.mainmenu.html')) {
-			$tpl = new ilTemplate('tpl.mainmenu.html', true, true, 'Customizing/global/skin/' . $current_skin . '/Plugins/CtrlMainMenu');
+			$tpl = new ilTemplate('tpl.mainmenu.html', false, false, 'Customizing/global/skin/' . $current_skin . '/Plugins/CtrlMainMenu');
 		} else {
-			$tpl = ilCtrlMainMenuPlugin::get()->getTemplate('tpl.mainmenu.html', true, true);
+			$tpl = ilCtrlMainMenuPlugin::getInstance()->getVersionTemplate('tpl.mainmenu.html', false, false);
 		}
->>>>>>> origin/develop
 
 		$tpl->setVariable("CSS_PREFIX", ctrlmmMenu::getCssPrefix());
 
