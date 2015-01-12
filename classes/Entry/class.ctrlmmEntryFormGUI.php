@@ -186,7 +186,7 @@ abstract class ctrlmmEntryFormGUI extends ilPropertyFormGUI {
 	 * @return bool
 	 */
 	public function fillObject() {
-		if (! $this->checkInput()) {
+		if (!$this->checkInput()) {
 			return false;
 		}
 		$lngs = array();
@@ -220,7 +220,7 @@ abstract class ctrlmmEntryFormGUI extends ilPropertyFormGUI {
 	 * @return bool
 	 */
 	public function saveObject() {
-		if (! $this->fillObject()) {
+		if (!$this->fillObject()) {
 			return false;
 		}
 		$this->entry->create();

@@ -20,6 +20,7 @@ class ilCtrlMainMenuPlugin extends ilUserInterfaceHookPlugin {
 	 */
 	protected static $plugin_cache;
 
+
 	/**
 	 * @return string
 	 */
@@ -27,9 +28,10 @@ class ilCtrlMainMenuPlugin extends ilUserInterfaceHookPlugin {
 		return 'CtrlMainMenu';
 	}
 
-    protected function init() {
-        self::loadActiveRecord();
-    }
+
+	protected function init() {
+		self::loadActiveRecord();
+	}
 
 
 	/**
@@ -59,14 +61,14 @@ class ilCtrlMainMenuPlugin extends ilUserInterfaceHookPlugin {
 		return $this->getTemplate($a_template, $a_par1, $a_par2);
 	}
 
-    public static function loadActiveRecord() {
-        if(ctrlmm::is50()) {
-            require_once('./Services/ActiveRecord/class.ActiveRecord.php');
-        } else {
-            require_once('./Customizing/global/plugins/Libraries/ActiveRecord/class.ActiveRecord.php');
-        }
 
-    }
+	public static function loadActiveRecord() {
+		if (ctrlmm::is50()) {
+			require_once('./Services/ActiveRecord/class.ActiveRecord.php');
+		} else {
+			require_once('./Customizing/global/plugins/Libraries/ActiveRecord/class.ActiveRecord.php');
+		}
+	}
 }
 
 ?>

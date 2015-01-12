@@ -14,6 +14,7 @@ class ctrlmmEntryDropdownGUI extends ctrlmmEntryGroupedListDropdownGUI {
 
 	const DOWN_ARROW_DARK = 'mm_down_arrow.png'; // ilAdvancedSelectionListGUI::DOWN_ARROW_DARK
 
+
 	/**
 	 * Render main menu entry
 	 *
@@ -24,8 +25,8 @@ class ctrlmmEntryDropdownGUI extends ctrlmmEntryGroupedListDropdownGUI {
 	protected function setGroupedListContent() {
 		foreach ($this->entry->getEntries() as $entry) {
 			if ($entry->checkPermission()) {
-				$this->gl->addEntry($entry->getTitle(), $entry->getLink(), $entry->getTarget(), '', '',
-					'mm_pd_sel_items' . $entry->getId(), '', 'left center', 'right center', false);
+				$this->gl->addEntry($entry->getTitle(), $entry->getLink(), $entry->getTarget(), '', '', 'mm_pd_sel_items'
+					. $entry->getId(), '', 'left center', 'right center', false);
 			}
 		}
 	}
@@ -60,7 +61,6 @@ class ctrlmmEntryDropdownGUI extends ctrlmmEntryGroupedListDropdownGUI {
 		$this->entry->setUseUserImage($this->form->getInput('use_user_image'));
 		$this->entry->update();
 	}
-
 }
 
 ?>
