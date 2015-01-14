@@ -84,7 +84,7 @@ class ctrlmmMenuGUI {
 		 * @var $entry ctrlmmEntry
 		 */
 
-		foreach ($this->object->getEntries() as $entry) {
+		foreach ($this->object->getEntries() as $k => $entry) {
 
 			if ($entry->getType() == ctrlmmMenu::TYPE_SEPARATOR) {
 				if ($replace_full) {
@@ -92,7 +92,6 @@ class ctrlmmMenuGUI {
 				}
 				continue;
 			}
-
 			if ($this->object->getAfterSeparator() AND $this->getSide() == self::SIDE_LEFT) {
 				continue;
 			}
@@ -102,14 +101,19 @@ class ctrlmmMenuGUI {
 			}
 
 			if ($entry->checkPermission()) {
-				$entryGui = ctrlmmEntryInstaceFactory::getInstanceByEntryId($entry->getId())->getGUIObject();
-				$entry_html .= $entryGui->prepareAndRenderEntry();
+				if ($entry->getId() == 0) {
+					$gui_class = ctrlmmEntryInstaceFactory::getInstanceByTypeId($entry->getType())->getGUIObjectClass();
+					$entryGui = new $gui_class($entry, $this);
+				} else {
+					$entryGui = ctrlmmEntryInstaceFactory::getInstanceByEntryId($entry->getId())->getGUIObject();
+				}
+				$entry_html .= $entryGui->prepareAndRenderEntry($entry->getParent() . '_' . $k);
 			}
+
 		}
 		$this->html->setVariable('ENTRIES', $entry_html);
 		$this->html->setVariable('CSS_PREFIX', ilCtrlMainMenuConfig::get(ilCtrlMainMenuConfig::F_CSS_PREFIX));
         $this->html->setVariable('ID', $this->css_id);
-
 		return $this->html->get();
 	}
 
