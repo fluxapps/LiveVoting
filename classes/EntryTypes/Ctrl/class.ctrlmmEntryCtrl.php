@@ -48,23 +48,22 @@ class ctrlmmEntryCtrl extends ctrlmmEntry {
 	 * @var int
 	 */
 	protected $ref_id = NULL;
-
-    protected $ctrl;
+	protected $ctrl;
 
 
 	/**
 	 * @param int $id
 	 */
 	function __construct($id = 0) {
-        global $ilCtrl;
+		global $ilCtrl;
 
 		$this->setType(ctrlmmMenu::TYPE_CTRL);
 
 		$this->restricted = ctrlmmMenu::isOldILIAS();
-        /**
-         * @var $ilCtrl ilCtrl
-         */
-        $this->ctrl = $ilCtrl;
+		/**
+		 * @var $ilCtrl ilCtrl
+		 */
+		$this->ctrl = $ilCtrl;
 
 		parent::__construct($id);
 	}
@@ -74,7 +73,7 @@ class ctrlmmEntryCtrl extends ctrlmmEntry {
 	 * @return bool
 	 */
 	public function isActive() {
-		if (! $this->isActiveStateCached()) {
+		if (!$this->isActiveStateCached()) {
 			$this->setCachedActiveState(false);
 			$classes = array();
 			foreach (explode(',', $this->getGuiClass()) as $classname) {

@@ -43,11 +43,13 @@ class ctrlmmEntryAdminGUI extends ctrlmmEntryAdvancedSelectionListDropdownGUI {
 	 * @return string
 	 */
 	public function renderEntry() {
-		if(ctrlmm::is50()) {
-            ilYuiUtil::initConnection();
-        }
+		if (ctrlmm::is50()) {
+			ilYuiUtil::initConnection();
+		}
+
 		return parent::renderEntry();
 	}
+
 
 	public function createEntry() {
 		parent::createEntry();

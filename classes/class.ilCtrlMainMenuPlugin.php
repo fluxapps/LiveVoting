@@ -20,6 +20,7 @@ class ilCtrlMainMenuPlugin extends ilUserInterfaceHookPlugin {
 	 */
 	protected static $plugin_cache;
 
+
 	/**
 	 * @return string
 	 */
@@ -27,9 +28,10 @@ class ilCtrlMainMenuPlugin extends ilUserInterfaceHookPlugin {
 		return 'CtrlMainMenu';
 	}
 
-    protected function init() {
-        self::loadActiveRecord();
-    }
+
+	protected function init() {
+		self::loadActiveRecord();
+	}
 
 
 	/**
@@ -66,4 +68,5 @@ class ilCtrlMainMenuPlugin extends ilUserInterfaceHookPlugin {
             require_once('./Services/ActiveRecord/class.ActiveRecord.php');
 		}
     }
+
 }
