@@ -58,6 +58,17 @@ a.MMInactive, a.MMActive {
 	float: left;
 }
 
+/*
+	CSS fixes for responsive design in ILIAS 5
+*/
+.ilias5 a.MMInactive, .ilias5 a.MMActive {
+	float: none !important;
+}
+
+.ilias5.ilMainMenu, .ilias5 li.ilMainMenu {
+	background-color: transparent !important;
+}
+
 span.ctrlmmNonLink {
 	float:           left;
 	color:           rgba(0, 62, 149, 0.54);
