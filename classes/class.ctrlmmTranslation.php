@@ -10,59 +10,54 @@
 class ctrlmmTranslation extends ActiveRecord {
 
 	const TABLE_NAME = 'ui_uihk_ctrlmm_t';
-
-    /**
-     * @var int
-     *
-     * @con_is_primary true
-     * @con_sequence  true
-     * @con_has_field  true
-     * @con_fieldtype  integer
-     * @con_is_notnull true
-     * @con_length     8
-     */
+	/**
+	 * @var int
+	 *
+	 * @con_is_primary true
+	 * @con_sequence   true
+	 * @con_has_field  true
+	 * @con_fieldtype  integer
+	 * @con_is_notnull true
+	 * @con_length     8
+	 */
 	protected $id = 0;
-
-    /**
-     * @var int
-     *
-     * @con_has_field  true
-     * @con_fieldtype  integer
-     * @con_is_notnull true
-     * @con_length     8
-     */
+	/**
+	 * @var int
+	 *
+	 * @con_has_field  true
+	 * @con_fieldtype  integer
+	 * @con_is_notnull true
+	 * @con_length     8
+	 */
 	protected $entry_id = 0;
-
-    /**
-     * @var string
-     *
-     * @con_has_field  true
-     * @con_fieldtype  text
-     * @con_is_notnull true
-     * @con_length     255
-     */
+	/**
+	 * @var string
+	 *
+	 * @con_has_field  true
+	 * @con_fieldtype  text
+	 * @con_is_notnull true
+	 * @con_length     255
+	 */
 	protected $language_key = '';
-
-    /**
-     * @var string
-     *
-     * @con_has_field  true
-     * @con_fieldtype  text
-     * @con_is_notnull true
-     * @con_length     500
-     */
+	/**
+	 * @var string
+	 *
+	 * @con_has_field  true
+	 * @con_fieldtype  text
+	 * @con_is_notnull true
+	 * @con_length     500
+	 */
 	protected $title = '';
 
 
-    /**
-     * @return string
-     * @description Return the Name of your Database Table
-     * @deprecated
-     */
-    static function returnDbTableName()
-    {
-        return self::TABLE_NAME;
-    }
+	/**
+	 * @return string
+	 * @description Return the Name of your Database Table
+	 * @deprecated
+	 */
+	static function returnDbTableName() {
+		return self::TABLE_NAME;
+	}
 
 	//
 	// Static
@@ -74,10 +69,9 @@ class ctrlmmTranslation extends ActiveRecord {
 	 * @return ctrlmmTranslation
 	 */
 	public static function _getInstanceForLanguageKey($entry_id, $language_key) {
+		$result = self::where(array( 'entry_id' => $entry_id, 'language_key' => $language_key ));
 
-        $result = self::where(array('entry_id'=>$entry_id, 'language_key'=>$language_key));
-
-		if($result->hasSets()) {
+		if ($result->hasSets()) {
 			return $result->first();
 		} else {
 			$instace = new self();
@@ -95,15 +89,15 @@ class ctrlmmTranslation extends ActiveRecord {
 	 * @return mixed
 	 */
 	public static function _getAllTranslationsAsArray($entry_id) {
-        $query =self::where(array('entry_id'=>$entry_id));
+		$query = self::where(array( 'entry_id' => $entry_id ));
 
-        $entries = $query->getArray();
-        $return = array();
-        foreach($entries as $set) {
-            $return[$set['language_key']] = $set['title'];
-        }
+		$entries = $query->getArray();
+		$return = array();
+		foreach ($entries as $set) {
+			$return[$set['language_key']] = $set['title'];
+		}
 
-        return $return;
+		return $return;
 	}
 
 
@@ -135,9 +129,9 @@ class ctrlmmTranslation extends ActiveRecord {
 	 * @return ctrlmmTranslation[]
 	 */
 	public function _getAllInstancesForEntryId($entry_id) {
-        $result =self::where(array('entry_id'=>$entry_id));
+		$result = self::where(array( 'entry_id' => $entry_id ));
 
-        return $result->get();
+		return $result->get();
 	}
 
 
@@ -213,7 +207,6 @@ class ctrlmmTranslation extends ActiveRecord {
 	public function getTitle() {
 		return $this->title;
 	}
-
 }
 
 ?>

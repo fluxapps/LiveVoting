@@ -8,11 +8,16 @@ require_once("./Services/Link/classes/class.ilLink.php");
  *
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @author  Timon Amstutz <timon.amstutz@ilub.unibe.ch>
+ * @author  Michael Herren <mh@studer-raimann.ch>
  * @version 2.0.02
  *
  */
 class ctrlmmEntryRepositoryGUI extends ctrlmmEntryGroupedListDropdownGUI {
 
+	/**
+	 * @var ctrlmmEntryRepository
+	 */
+	public $entry;
 	/**
 	 * @var int
 	 */
@@ -46,6 +51,9 @@ class ctrlmmEntryRepositoryGUI extends ctrlmmEntryGroupedListDropdownGUI {
 	 */
 	protected function setRecentlyVisitedEntries() {
 		global $lng, $ilNavigationHistory;
+		/**
+		 * @var $ilNavigationHistory ilNavigationHistory
+		 */
 
 		$items = $ilNavigationHistory->getItems();
 		reset($items);
@@ -58,9 +66,9 @@ class ctrlmmEntryRepositoryGUI extends ctrlmmEntryGroupedListDropdownGUI {
 			}
 
 			// do not list current item
-			if (! isset($item["ref_id"]) || ! isset($_GET["ref_id"])
+			if (!isset($item["ref_id"]) || !isset($_GET["ref_id"])
 				|| ($item["ref_id"] != $_GET["ref_id"]
-					|| ! $first)
+					|| !$first)
 			) {
 				if ($this->nr_of_items == 0) {
 					$this->gl->addGroupHeader($lng->txt("last_visited"), "ilLVNavEnt");
@@ -77,11 +85,11 @@ class ctrlmmEntryRepositoryGUI extends ctrlmmEntryGroupedListDropdownGUI {
 
 
 	protected function setRemoveEntryButton() {
-		global $ilCtrl, $lng;
+		global $lng;
 
 		if ($this->nr_of_items > 0) {
 			$this->gl->addEntry("» " . $lng->txt("remove_entries"), "#", "",
-				"return il.MainMenu.removeLastVisitedItems('" . $ilCtrl->getLinkTargetByClass("ilnavigationhistorygui", "removeEntries", "", true)
+				"return il.MainMenu.removeLastVisitedItems('" . $this->ctrl->getLinkTargetByClass("ilnavigationhistorygui", "removeEntries", "", true)
 				. "');", "ilLVNavEnt");
 		}
 	}

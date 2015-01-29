@@ -354,7 +354,7 @@ class ctrlmmEntry extends ActiveRecord {
 			ilUtil::sendFailure('Wrong Child-Type');
 		} else {
 			if ($this->getId() != 0) {
-				parent::update();
+				$this->update();
 			} else {
 				parent::create();
 

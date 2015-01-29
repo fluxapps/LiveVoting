@@ -40,7 +40,7 @@ type_settings#:#User Settings
 type_separator#:#Separator
 type_search#:#Quick-Search
 type_statusbox#:#Mail-Status
-type_auth#:#Authentification
+type_auth#:#Authentication
 
 title_en#:#English Title
 title_de#:#German Title
