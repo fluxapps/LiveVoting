@@ -1,5 +1,6 @@
 <?php
-
+require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/Menu/class.ctrlmmMenu.php');
+require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/Entry/class.ctrlmmEntry.php');
 /**
  * Class ctrlmmEntryInstaceFactory
  *
@@ -46,28 +47,78 @@ class ctrlmmEntryInstaceFactory {
 	 *
 	 * @return ctrlmmEntry[]
 	 */
-	public static function getAllChildsForId($id) {
-		if (! isset(self::$childs_cache[$id])) {
-			global $ilDB;
-			/**
-			 * @var $ilDB ilDB
-			 */
-			$childs = array();
-			$set = $ilDB->query('SELECT id FROM ' . ctrlmmEntry::TABLE_NAME . ' ' . ' WHERE parent = ' . $ilDB->quote($id, 'integer')
-				. ' ORDER by position ASC');
-			while ($rec = $ilDB->fetchObject($set)) {
-				$childs[] = self::getInstanceByEntryId($rec->id);
-			}
-			if (count($childs) == 0 AND $id == 0) {
-				$childs[] = self::getInstanceByTypeId(ctrlmmMenu::TYPE_ADMIN);
-			}
+    public static function getAllChildsForId($id) {
+        if(!isset(self::$childs_cache[$id])) {
+            $childs = array();
+            $sets = ctrlmmEntry::where(array('parent'=>$id))->orderBy('position', 'ASC');
 
-			$childs = array_merge($childs, self::getPluginEntries($id));
+            foreach($sets->get() as $set) {
+				$instance = self::getInstanceByEntryId($set->getId())->getObject();
+                $childs[] = $instance;
+            }
 
-			self::$childs_cache[$id] = $childs;
+            if (count($childs) === 0 AND $id === 0) {
+
+                $childs[] = self::createAdminEntry();
+            }
+
+            $childs = array_merge($childs, self::getPluginEntries($id));
+
+            self::$childs_cache[$id] = $childs;
+        }
+
+        return self::$childs_cache[$id];
+    }
+
+	/**
+	 * @param int $id
+	 *
+	 * @return array
+	 */
+	public static function getAllChildsForIdAsArray($id = 0) {
+		$return = array();
+		foreach (ctrlmmEntryInstaceFactory::getAllChildsForId($id) as $child) {
+			$return[] = (array)$child;
 		}
 
-		return self::$childs_cache[$id];
+		return $return;
+	}
+
+	/**
+	 * @param bool $as_array
+	 *
+	 * @return ctrlmmEntry[]
+	 */
+	public static function getAll($as_array = false) {
+		ctrlmmMenu::includeAllTypes();
+
+		$childs = array();
+		$sets = ctrlmmEntry::getArray();
+		foreach($sets as $set) {
+			$type = 'ctrlmmEntry' . self::getClassAppendForValue($set->type);
+
+			if ($as_array) {
+				$childs[] = (array)new $type($set->id);
+			} else {
+				$childs[] = new $type($set->id);
+			}
+		}
+
+		return $childs;
+	}
+
+	public static function createAdminEntry() {
+		$admin = self::getInstanceByTypeId(ctrlmmMenu::TYPE_ADMIN)->getObject();
+
+		$lngs = array();
+		foreach (ctrlmmEntry::getAllLanguageIds() as $lng) {
+			$lngs[$lng] = $admin->getTitle();
+		}
+		$admin->setTranslations($lngs);
+		$admin->setPosition(3);
+		$admin->create();
+
+		return $admin;
 	}
 
 
@@ -112,22 +163,14 @@ class ctrlmmEntryInstaceFactory {
 	 */
 	public static function getInstanceByEntryId($entry_id) {
 		if (! isset(self::$type_id_cache[$entry_id])) {
-			global $ilDB;
-
-			/**
-			 * @var $ilDB ilDB
-			 */
-
-			$sql = 'SELECT type FROM ui_uihk_ctrlmm_e WHERE id = ' . $ilDB->quote($entry_id, 'integer');
-			$set = $ilDB->query($sql);
-			$res = $ilDB->fetchObject($set);
-
-			self::$type_id_cache[$entry_id] = $res->type;
+			$obj = ctrlmmEntry::find($entry_id);
+		  if($obj) {
+			  self::$type_id_cache[$entry_id] = $obj->getType();
+		   }
 		}
 
 		return new self(self::$type_id_cache[$entry_id], $entry_id);
 	}
-
 
 	/**
 	 * @return ctrlmmEntryCtrl
@@ -155,8 +198,7 @@ class ctrlmmEntryInstaceFactory {
 		 * @var $gui_class    ctrlmmEntryCtrlGUI
 		 * @var $gui_object   ctrlmmEntryCtrlGUI
 		 */
-		$entry_class = $this->getClassName();
-		$gui_class = $entry_class . 'GUI';
+		$gui_class = $this->getGUIObjectClass();
 
 		$gui_object = new $gui_class($this->getObject(), $parent_gui);
 
@@ -231,21 +273,6 @@ class ctrlmmEntryInstaceFactory {
 		return $this->type_id;
 	}
 
-
-	/**
-	 * @param $type_id
-	 *
-	 * @return ctrlmmEntry
-	 */
-	public static function getNewInstanceForTypeId($type_id) {
-		ctrlmmMenu::includeAllTypes();
-		$type = 'ctrlmmEntry' . self::getClassAppendForValue($type_id);
-		$object = new $type(0);
-
-		return $object;
-	}
-
-
 	/**
 	 * @param $id
 	 *
@@ -265,6 +292,17 @@ class ctrlmmEntryInstaceFactory {
 	 */
 	public static function getClassAppendForValue($id) {
 		return ucfirst(strtolower(str_ireplace('TYPE_', '', self::getClassConstantForId($id))));
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getGUIObjectClass()
+	{
+		$entry_class = $this->getClassName();
+		$gui_class = $entry_class . 'GUI';
+		return $gui_class;
 	}
 }
 

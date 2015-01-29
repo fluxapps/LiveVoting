@@ -8,23 +8,20 @@ require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHoo
 require_once('./Services/Component/classes/class.ilPluginConfigGUI.php');
 require_once('./Services/Form/classes/class.ilPropertyFormGUI.php');
 require_once('./Services/Utilities/classes/class.ilConfirmationGUI.php');
+require_once('./Services/jQuery/classes/class.iljQueryUtil.php');
 
 
 /**
  * CtrlMainMenu Configuration
  *
- * @author  Alex Killing <alex.killing@gmx.de>
  * @author  Fabian Schmid <fs@studer-raimann.ch>
+ * @author  Michael Herren <mh@studer-raimann.ch>
  * @version 2.0.02
  *
  */
 class ilCtrlMainMenuConfigGUI extends ilPluginConfigGUI {
 
 	/**
-	 * @var ctrlmmMenuConfig
-	 */
-	protected $object;
-	/**q
 	 *
 	 * @var array
 	 */
@@ -44,17 +41,22 @@ class ilCtrlMainMenuConfigGUI extends ilPluginConfigGUI {
 		 */
 		$this->ctrl = $ilCtrl;
 		$this->tpl = $tpl;
-		$this->tabs = & $ilTabs;
-		$this->pl = ilCtrlMainMenuPlugin::get();
+		$this->tabs = &$ilTabs;
+		$this->pl = ilCtrlMainMenuPlugin::getInstance();
 		if ($_GET['rl']) {
 			$this->pl->updateLanguages();
 		}
-		if (! ctrlmmMenu::isOldILIAS()) {
-			$this->tpl->addJavaScript('https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', true, 1);
+		if (!ctrlmmMenu::isOldILIAS()) {
+			if (!ctrlmm::is50()) {
+				$this->tpl->addJavaScript('https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', true, 1);
+
+				ctrlmmEntry::addRestrictedType(ctrlmmMenu::TYPE_REPOSITORY);
+			}
+
 			$this->tpl->addJavaScript($this->pl->getDirectory() . '/templates/js/sortable.js');
 		}
+
 		ctrlmmMenu::includeAllTypes();
-		$this->object = ilCtrlMainMenuConfig::getInstance();
 	}
 
 
@@ -86,34 +88,18 @@ class ilCtrlMainMenuConfigGUI extends ilPluginConfigGUI {
 			'css_inactive' => array(
 				'type' => 'ilTextInputGUI',
 			),
-			'doubleclick_prevention' => array(
-				'type' => 'ilCheckboxInputGUI',
-			),
-			'simple_form_validation' => array(
-				'type' => 'ilCheckboxInputGUI',
-			),
+//			'doubleclick_prevention' => array(
+//				'type' => 'ilCheckboxInputGUI',
+//			),
+//			'simple_form_validation' => array(
+//				'type' => 'ilCheckboxInputGUI',
+//			),
 			'replace_full_header' => array(
 				'type' => 'ilCheckboxInputGUI',
 			),
 		);
 
 		return $this->fields;
-	}
-
-
-	/**
-	 * @return string
-	 */
-	public function getTableName() {
-		return $this->table_name;
-	}
-
-
-	/**
-	 * @return ilCtrlMainMenuConfig
-	 */
-	public function getObject() {
-		return $this->object;
 	}
 
 
@@ -175,7 +161,7 @@ class ilCtrlMainMenuConfigGUI extends ilPluginConfigGUI {
 
 	public function saveSorting() {
 		foreach ($_POST['position'] as $k => $v) {
-			$obj = ctrlmmEntry::find($v);
+			$obj = ctrlmmEntryInstaceFactory::getInstanceByEntryId($v)->getObject();
 			$obj->setPosition($k);
 			$obj->update();
 		}
@@ -186,7 +172,7 @@ class ilCtrlMainMenuConfigGUI extends ilPluginConfigGUI {
 
 	public function saveSortingOld() {
 		foreach ($_POST['id'] as $k => $v) {
-			$obj = ctrlmmEntry::find($k);
+			$obj = ctrlmmEntryInstaceFactory::getInstanceByEntryId($k)->getObject();
 			$obj->setPosition($v);
 			$obj->update();
 		}
@@ -301,6 +287,7 @@ class ilCtrlMainMenuConfigGUI extends ilPluginConfigGUI {
 		 */
 		$entry = ctrlmmEntryInstaceFactory::getInstanceByEntryId($_POST['entry_id'])->getObject();
 		$entry->delete();
+
 		ilUtil::sendSuccess($this->pl->txt('entry_deleted'));
 		$this->ctrl->redirect($this, 'configure');
 	}
@@ -357,10 +344,10 @@ class ilCtrlMainMenuConfigGUI extends ilPluginConfigGUI {
 		$this->initConfigurationForm();
 		if ($this->form->checkInput()) {
 			foreach ($this->getFields() as $key => $item) {
-				$this->object->setValue($key, $this->form->getInput($key));
+				ilCtrlMainMenuConfig::set($key, $this->form->getInput($key));
 				if (is_array($item['subelements'])) {
 					foreach ($item['subelements'] as $subkey => $subitem) {
-						$this->object->setValue($key . '_' . $subkey, $this->form->getInput($key . '_' . $subkey));
+						ilCtrlMainMenuConfig::set($key . '_' . $subkey, $this->form->getInput($key . '_' . $subkey));
 					}
 				}
 			}

@@ -1,11 +1,12 @@
 <?php
-
 require_once('./Services/UIComponent/classes/class.ilUserInterfaceHookPlugin.php');
-require_once('class.ilCtrlMainMenuConfig.php');
+require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/class.ctrlmm.php');
 
 /**
- * @author  Alex Killing <alex.killing@gmx.de>
+ * Class ilCtrlMainMenuPlugin
+ *
  * @author  Fabian Schmid <fs@studer-raimann.ch>
+ * @author  Michael Herren <mh@studer-raimann.ch>
  * @version 2.0.02
  *
  */
@@ -30,11 +31,17 @@ class ilCtrlMainMenuPlugin extends ilUserInterfaceHookPlugin {
 	}
 
 
+	protected function init() {
+		$this->checkAR44();
+		self::loadActiveRecord();
+	}
+
+
 	/**
 	 * @return ilCtrlMainMenuPlugin
 	 */
-	public static function get() {
-		if (! isset(self::$plugin_cache)) {
+	public static function getInstance() {
+		if (!isset(self::$plugin_cache)) {
 			self::$plugin_cache = new ilCtrlMainMenuPlugin();
 		}
 
@@ -43,33 +50,50 @@ class ilCtrlMainMenuPlugin extends ilUserInterfaceHookPlugin {
 
 
 	/**
-	 * @return ilCtrlMainMenuConfig
-	 * @deprecated
+	 * @param      $a_template
+	 * @param bool $a_par1
+	 * @param bool $a_par2
+	 *
+	 * @return ilTemplate
 	 */
-	public function getConfigObject() {
-		if (! isset(self::$config_cache)) {
-			self::$config_cache = new ilCtrlMainMenuConfig(self::CONFIG_TABLE);
+	public function getVersionTemplate($a_template, $a_par1 = true, $a_par2 = true) {
+		if (ctrlmm::is50()) {
+			$a_template = 'ilias5/' . $a_template;
 		}
 
-		return self::$config_cache;
+		return $this->getTemplate($a_template, $a_par1, $a_par2);
+	}
+
+
+	public static function loadActiveRecord() {
+		if (ctrlmm::is50()) {
+			require_once('./Services/ActiveRecord/class.ActiveRecord.php');
+		} else {
+			require_once('./Customizing/global/plugins/Libraries/ActiveRecord/class.ActiveRecord.php');
+		}
 	}
 
 
 	/**
-	 * @return ilCtrlMainMenuConfig
-	 * @deprecated Use ilCtrlMainMenuConfig::getInstance() instead
+	 * @return bool
+	 * @throws ilPluginException
 	 */
-	public static function getConf() {
-		return ilCtrlMainMenuConfig::getInstance();
+	protected function beforeActivation() {
+		$this->checkAR44();
+
+		return true;
 	}
 
 
 	/**
-	 * @return ilCtrlMainMenuConfig
-	 * @deprecated
+	 * @throws ilPluginException
 	 */
-	public function conf() {
-		return self::getConf();
+	protected function checkAR44() {
+		if (ctrlmm::getILIASVersion() < ctrlmm::ILIAS_50) {
+			if (!is_file('./Customizing/global/plugins/Libraries/ActiveRecord/class.ActiveRecord.php')) {
+				throw new ilPluginException('Please install ActiveRecord First');
+			}
+		}
 	}
 }
 

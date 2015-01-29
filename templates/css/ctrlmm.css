@@ -50,12 +50,31 @@ span.ctrlmmNewMail {
 }
 
 td.ctrlmmSeparator {
-	background-color: #D6D6D6;
+	background-color: #D6D6D6 !important;
 
 }
 
 a.MMInactive, a.MMActive {
 	float: left;
+}
+
+/*
+	CSS fixes for responsive design in ILIAS 5
+*/
+
+.ilias5 a.MMInactive, .ilias5 a.MMActive {
+	float: left !important;
+}
+
+@media (max-width: 768px) {
+	.ilias5 a.MMInactive, .ilias5 a.MMActive {
+		float: none !important;
+	}
+
+}
+
+.ilias5.ilMainMenu, .ilias5 li.ilMainMenu {
+	background-color: transparent !important;
 }
 
 span.ctrlmmNonLink {
@@ -74,9 +93,32 @@ span.ctrlmmNonLink {
 	background:      url("../../../../../../../../../templates/default/images/mm_back2.png") repeat-x scroll 0 0 rgba(0, 0, 0, 0);
 }
 
+.ilias5 span.ctrlmmNonLink {
+	height:          15px;
+	background:  none;
+	line-height: inherit;
+	line-height: 37px;
+	font-size:   14px;
+	margin:      0;
+	padding:     0;
+}
+
+.ilias5 span.ctrlmmNonLink:before {
+	content:     "\e008";
+	font-family: "Glyphicons Halflings";
+	line-height: 1;
+	margin:      10px;
+
+}
+
+#ilTopBarNav.ilias5 span.ctrlmmNonLink {
+	height:           40px;
+	padding-right:    12px;
+	background-color: #B5B5B5 !important;
+}
+
 div.ilMainMenuLeft {
 	float: left;
-
 }
 
 div.ilMainMenu {
@@ -84,8 +126,22 @@ div.ilMainMenu {
 }
 
 div.ilMainMenuRight {
-	float: right !important;
+	float:         right !important;
 	padding-right: 20px !important;
+}
+
+#mm_entry_list > tbody .dropdown_image {
+	height: 25px;
+	width:  25px;
+}
+
+.ilMainMenu .dropdown_image {
+	height: 20px;
+	width:  20px;
+}
+
+#ilTopBarNav, #ilTopBarNav .ilMainMenu {
+	background-color: transparent !important;
 }
 
 #ilAdvSelListAnchorElement_dd_adm {

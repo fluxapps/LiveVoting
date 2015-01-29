@@ -50,11 +50,20 @@ class ctrlmmEntryLastvisited extends ctrlmmEntryDropdown {
 	/**
 	 * @var int
 	 */
-	protected $type = ctrlmmMenu::TYPE_LASTVISITED;
+	//protected $type = ctrlmmMenu::TYPE_LASTVISITED;
+
+	public function __construct($primary_key = 0) {
+		parent::__construct($primary_key);
+
+		$this->setType(ctrlmmMenu::TYPE_LASTVISITED);
+
+		if ($primary_key != 0) {
+			$this->setHistory();
+		}
+	}
 
 
-	public function read() {
-		parent::read();
+	protected function setHistory() {
 		$entries = array();
 		$hist = new ilNavigationHistory();
 		foreach ($hist->getItems() as $v) {

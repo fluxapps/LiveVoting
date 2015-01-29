@@ -46,6 +46,8 @@ class ctrlmmEntrySettingsGUI extends ctrlmmEntryGroupedListDropdownGUI {
 		$lng->loadLanguageModule('mail');
 
 		$this->tpl->addJavaScript($this->pl->getDirectory() . '/templates/js/settings.js');
+		$this->tpl->addCss('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/templates/css/settings.css');
+
 		$form = new ilPropertyFormGUI();
 
 		$form->setId('ctrl_mm_settings_entry_form');
@@ -66,7 +68,7 @@ class ctrlmmEntrySettingsGUI extends ctrlmmEntryGroupedListDropdownGUI {
 		//
 		// Template/Skin
 		//
-		if (! $ilSetting->get('usr_settings_disable_skin_style')) {
+		if (!$ilSetting->get('usr_settings_disable_skin_style')) {
 			$templates = $styleDefinition->getAllTemplates();
 			if (is_array($templates)) {
 				$options = array();
@@ -80,7 +82,7 @@ class ctrlmmEntrySettingsGUI extends ctrlmmEntryGroupedListDropdownGUI {
 						if ($style['id'] == 'mobile') {
 							continue;
 						}
-						if (! ilObjStyleSettings::_lookupActivatedStyle($template['id'], $style['id'])) {
+						if (!ilObjStyleSettings::_lookupActivatedStyle($template['id'], $style['id'])) {
 							continue;
 						}
 
@@ -123,7 +125,7 @@ class ctrlmmEntrySettingsGUI extends ctrlmmEntryGroupedListDropdownGUI {
 			);
 			$si = new ilSelectInputGUI($lng->txt('mail_incoming'), ctrlmmSettings::INCOMING_TYPE);
 			$si->setOptions($options);
-			if (! strlen(ilObjUser::_lookupEmail($ilUser->getId())) OR $ilSetting->get('usr_settings_disable_mail_incoming_mail') == '1'
+			if (!strlen(ilObjUser::_lookupEmail($ilUser->getId())) OR $ilSetting->get('usr_settings_disable_mail_incoming_mail') == '1'
 			) {
 				$si->setDisabled(true);
 			}
@@ -143,7 +145,10 @@ class ctrlmmEntrySettingsGUI extends ctrlmmEntryGroupedListDropdownGUI {
 
 		$form->addCommandButton('#', $this->pl->txt('settentr_button_save'));
 
-		return $form->getHTML();
+		$setting_tpl = $this->pl->getVersionTemplate('tpl.settings_entry.html');
+		$setting_tpl->setVariable('CONTENT', $form->getHTML());
+
+		return $setting_tpl->get();
 	}
 
 

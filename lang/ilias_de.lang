@@ -41,6 +41,7 @@ type_separator#:#Umbruch
 type_search#:#Schnellsuche
 type_statusbox#:#Mail-Status
 type_auth#:#Authentifizierung
+type_user#:#Benutzer
 
 title_en#:#Englischer Titel
 title_de#:#Deutscher Titel
@@ -60,6 +61,8 @@ back_to_main#:#Hauptmenu bearbeiten
 tabs_title_childs#:#Dropdown bearbeiten
 tab_main#:#Hauptmenu bearbeiten
 use_image#:#Pfeilbild verwenden
+use_user_image#:#Benutzerbild statt Titel verwenden
+
 
 same_page#:#Gleiche Seite
 new_page#:#Neue Seite
@@ -76,6 +79,10 @@ perm_input_locale_info#:#IDs von lokalen Rollen kommasepariert
 perm_userid#:#Einschränkung auf Benutzer
 perm_input_user#:#Benutzer-IDs
 perm_input_user_info#:#Benutzer-IDs kommasepariert
+
+show_logout#:#Show logout
+
+show_icons#:#Icons anzeigen
 
 doubleclick_prevention#:#Verhindere Doppelklicks systemweit (experimental)
 simple_form_validation#:#Einfache Formular-Validierung aktivieren (experimental)

@@ -40,7 +40,7 @@ type_settings#:#User Settings
 type_separator#:#Separator
 type_search#:#Quick-Search
 type_statusbox#:#Mail-Status
-type_auth#:#Authentification
+type_auth#:#Authentication
 
 title_en#:#English Title
 title_de#:#German Title
@@ -60,6 +60,7 @@ back_to_main#:#Back
 tabs_title_childs#:#Edit Dropdown
 tab_main#:#Edit Entries
 use_image#:#Use Arrow Image
+use_user_image#:#Use User-Image as Title
 
 same_page#:#Same Window
 new_page#:#New Window
@@ -75,6 +76,10 @@ perm_input_locale_info#:#Enter IDs of locale Roles commaseperated
 perm_userid#:#Only for some Users
 perm_input_user#:#User-IDs
 perm_input_user_info#:#User-IDs commaseperated
+
+show_logout#:#Show logout
+
+show_icons#:#Show icons
 
 doubleclick_prevention#:#Prevent Doubleclicks (experimental)
 simple_form_validation#:#Activate Simple Form-Validation (experimental)

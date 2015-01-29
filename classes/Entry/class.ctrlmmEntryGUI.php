@@ -47,7 +47,7 @@ class ctrlmmEntryGUI {
 		 */
 		$this->ctrl = $ilCtrl;
 		$this->tpl = $tpl;
-		$this->pl = ilCtrlMainMenuPlugin::get();
+		$this->pl = ilCtrlMainMenuPlugin::getInstance();
 		$this->entry = $entry;
 		$this->parent_gui = $parent_gui;
 	}
@@ -87,18 +87,18 @@ class ctrlmmEntryGUI {
 
 
 	/**
+	 * @param string $entry_div_id If set, the value is used to construct the unique ID of the entry (HTML)
 	 * @return string
 	 */
-	public function renderEntry() {
-		$this->entry->replacePlaceholders();
-		$this->html = $this->pl->getTemplate('tpl.ctrl_menu_entry.html', true, true);
+	protected function renderEntry($entry_div_id = '') {
+		$this->html = $this->pl->getVersionTemplate('tpl.ctrl_menu_entry.html', true, true);
 		$this->html->setVariable('TITLE', $this->entry->getTitle());
-		$this->html->setVariable('CSS_ID', 'ctrl_mm_e_' . $this->entry->getId());
+		$this->html->setVariable('CSS_ID', 'ctrl_mm_e_' . ($entry_div_id) ? $entry_div_id : $this->entry->getId());
 		$this->html->setVariable('LINK', $this->entry->getLink());
-		$this->html->setVariable('CSS_PREFIX', ctrlmmMenu::getCssPrefix());
+		$this->html->setVariable('CSS_PREFIX', ilCtrlMainMenuConfig::get(ilCtrlMainMenuConfig::F_CSS_PREFIX));
 		$this->html->setVariable('TARGET', $this->entry->getTarget());
-		$cssActive = ilCtrlMainMenuPlugin::getConf()->getCssActive();
-		$cssInactive = ilCtrlMainMenuPlugin::getConf()->getCssInactive();
+		$cssActive = ilCtrlMainMenuConfig::get(ilCtrlMainMenuConfig::F_CSS_ACTIVE);
+		$cssInactive = ilCtrlMainMenuConfig::get(ilCtrlMainMenuConfig::F_CSS_INACTIVE);
 		$this->html->setVariable('STATE', ($this->entry->isActive() ? $cssActive : $cssInactive));
 
 		return $this->html->get();
@@ -106,12 +106,13 @@ class ctrlmmEntryGUI {
 
 
 	/**
+	 * @param string $entry_div_id If set, the value is used to construct the unique ID of the entry (HTML)
 	 * @return string
 	 */
-	public function prepareAndRenderEntry() {
+	public function prepareAndRenderEntry($entry_div_id = '') {
 		$this->entry->replacePlaceholders();
 
-		return $this->renderEntry();
+		return $this->renderEntry($entry_div_id);
 	}
 
 
@@ -141,6 +142,7 @@ class ctrlmmEntryGUI {
 		$this->form->addItem($type);
 		$link = new ilHiddenInputGUI('link');
 		$this->form->addItem($link);
+
 		if (count(ctrlmmEntry::getAdditionalFieldsAsArray($this->entry)) > 0) {
 			$te = new ilFormSectionHeaderGUI();
 			$te->setTitle($this->pl->txt('settings'));

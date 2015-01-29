@@ -1,7 +1,8 @@
-.ilctrl_failure {
-	background-color: indianred;
+.ilctrl_ok {
+	background-color: #dff0d8 !important;
 }
 
-.ilctrl_ok {
-	background-color: lightgreen;
+.ilctrl_failure {
+	background-color: #f2dede !important;
 }
+

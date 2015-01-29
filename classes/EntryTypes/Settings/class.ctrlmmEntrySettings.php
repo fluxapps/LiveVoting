@@ -34,15 +34,22 @@ class ctrlmmEntrySettings extends ctrlmmEntry {
 	/**
 	 * @var int
 	 */
-	protected $type = ctrlmmMenu::TYPE_SETTINGS;
+	//protected $type = ctrlmmMenu::TYPE_SETTINGS;
 	/**
 	 * @var bool
 	 */
-	protected $show_icon = true;
+	private $show_icon = true;
 	/**
 	 * @var bool
 	 */
-	protected $show_title = false;
+	private $show_title = false;
+
+
+	public function __construct($primary_key = 0) {
+		$this->setType(ctrlmmMenu::TYPE_SETTINGS);
+
+		parent::__construct($primary_key);
+	}
 
 
 	/**
@@ -50,7 +57,11 @@ class ctrlmmEntrySettings extends ctrlmmEntry {
 	 */
 	public function getIcon() {
 		if ($this->getShowIcon()) {
-			return ilUtil::img(ilUtil::getImagePath('icon_extt_s.png'));
+			if (ctrlmm::is50()) {
+				return ilUtil::img(ilUtil::getImagePath('icon_adm.svg'), 16, 16);
+			} else {
+				return ilUtil::img(ilUtil::getImagePath('icon_extt_s.png'));
+			}
 		}
 
 		return NULL;

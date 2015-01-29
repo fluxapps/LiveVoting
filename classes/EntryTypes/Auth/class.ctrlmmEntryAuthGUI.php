@@ -24,14 +24,14 @@ class ctrlmmEntryAuthGUI extends ctrlmmEntryGUI {
 	public function renderEntry() {
 		$this->tpl->addCss('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/templates/css/login.css');
 		global $lng;
-		$this->html = $this->pl->getTemplate('tpl.ctrl_menu_entry.html', true, true);
+		$this->html = $this->pl->getVersionTemplate('tpl.ctrl_menu_entry.html', true, true);
 		$this->html->setVariable('TITLE', $this->entry->getTitle());
 		$this->html->setVariable('CSS_ID', 'ctrl_mm_e_' . $this->entry->getId());
 		$this->html->setVariable('LINK', $this->entry->getLink());
-		$pr = ctrlmmMenu::getCssPrefix();
-		$this->html->setVariable('CSS_PREFIX', $pr);
+
+		$this->html->setVariable('CSS_PREFIX', ctrlmmMenu::getCssPrefix());
 		$this->html->setVariable('TARGET', $this->entry->getTarget());
-		$this->html->setVariable('STATE', ilCtrlMainMenuPlugin::getConf()->getCssInactive());
+		$this->html->setVariable('STATE', ilCtrlMainMenuConfig::get(ilCtrlMainMenuConfig::F_CSS_INACTIVE));
 		$this->html->setVariable('CTRLMM_CLASS', $this->entry->isLoggedIn() ? 'ctrlMMLoggedIn' : 'ctrlMMLoggedout');
 
 		if ($this->entry->isLoggedIn()) {

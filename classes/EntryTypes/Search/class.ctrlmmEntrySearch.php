@@ -45,8 +45,15 @@ class ctrlmmEntrySearch extends ctrlmmEntry {
 	}
 
 
+	public function __construct($primary_key = 0) {
+		$this->setType(ctrlmmMenu::TYPE_SEARCH);
+
+		parent::__construct($primary_key);
+	}
+
+
 	/**
 	 * @var int
 	 */
-	protected $type = ctrlmmMenu::TYPE_SEARCH;
+	//protected $type = ctrlmmMenu::TYPE_SEARCH;
 }

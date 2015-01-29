@@ -30,7 +30,7 @@ abstract class ctrlmmEntryFormGUI extends ilPropertyFormGUI {
 		$this->parent_gui = $parent_gui;
 		$this->ctrl = $ilCtrl;
 		$this->entry = $entry;
-		$this->pl = ilCtrlMainMenuPlugin::get();
+		$this->pl = ilCtrlMainMenuPlugin::getInstance();
 		$this->setFormAction($this->ctrl->getFormAction($this->parent_gui));
 		$this->initPermissionSelectionForm();
 		$this->initForm();
@@ -186,7 +186,7 @@ abstract class ctrlmmEntryFormGUI extends ilPropertyFormGUI {
 	 * @return bool
 	 */
 	public function fillObject() {
-		if (! $this->checkInput()) {
+		if (!$this->checkInput()) {
 			return false;
 		}
 		$lngs = array();
@@ -220,7 +220,7 @@ abstract class ctrlmmEntryFormGUI extends ilPropertyFormGUI {
 	 * @return bool
 	 */
 	public function saveObject() {
-		if (! $this->fillObject()) {
+		if (!$this->fillObject()) {
 			return false;
 		}
 		$this->entry->create();

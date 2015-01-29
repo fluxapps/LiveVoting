@@ -1,86 +1,29 @@
 <#1>
 <?php
-require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/Menu/class.ctrlmmMenu.php');
-require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/Entry/class.ctrlmmEntry.php');
-$fields = array(
-	'id' => array(
-		'type' => 'integer',
-		'length' => 4,
-		'notnull' => true
-	),
-	'position' => array(
-		'type' => 'integer',
-		'length' => 4,
-		'notnull' => true
-	),
-	'type' => array(
-		'type' => 'integer',
-		'length' => 4,
-		'notnull' => true
-	),
-	'title' => array(
-		'type' => 'text',
-		'length' => 128,
-	),
-	'link' => array(
-		'type' => 'text',
-		'length' => 256,
-	),
-	'data' => array(
-		'type' => 'text',
-		'length' => 1024,
-	),
-	'permission' => array(
-		'type' => 'text',
-		'length' => 256,
-	),
-	'permission_type' => array(
-		'type' => 'integer',
-		'length' => 4,
-	),
-	'parent' => array(
-		'type' => 'integer',
-		'length' => 1,
-	)
-);
-/**
- * @var $ilDB ilDB
- */
-if (! $ilDB->tableExists(ctrlmmEntry::TABLE_NAME)) {
-	$ilDB->createTable(ctrlmmEntry::TABLE_NAME, $fields);
-	$ilDB->addPrimaryKey(ctrlmmEntry::TABLE_NAME, array( 'id' ));
-	//	if (! $ilDB->sequenceExists(ctrlmmEntry::TABLE_NAME)) {
-	$ilDB->createSequence(ctrlmmEntry::TABLE_NAME);
-	//	}
-}
-
 require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/class.ilCtrlMainMenuPlugin.php');
-//$pl = new ilCtrlMainMenuPlugin();
-ilCtrlMainMenuPlugin::getConf()->initDB();
-ilCtrlMainMenuPlugin::getConf()->setValue('css_prefix', 'il');
-ilCtrlMainMenuPlugin::getConf()->setValue('css_active', 'MMActive');
-ilCtrlMainMenuPlugin::getConf()->setValue('css_inactive', 'MMInactive');
+ilCtrlMainMenuPlugin::loadActiveRecord();
+
+
+require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/Entry/class.ctrlmmEntry.php');
+ctrlmmEntry::installDB();
+
+
+require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/class.ilCtrlMainMenuConfig.php');
+ilCtrlMainMenuConfig::installDB();
+
+ilCtrlMainMenuConfig::set(ilCtrlMainMenuConfig::F_CSS_PREFIX, 'il');
+ilCtrlMainMenuConfig::set(ilCtrlMainMenuConfig::F_CSS_ACTIVE, 'MMActive');
+ilCtrlMainMenuConfig::set(ilCtrlMainMenuConfig::F_CSS_INACTIVE, 'MMInactive');
+ilCtrlMainMenuConfig::set(ilCtrlMainMenuConfig::F_REPLACE_FULL_HEADER, false);
+ilCtrlMainMenuConfig::set(ilCtrlMainMenuConfig::F_DOUBLECLICK_PREVENTION, false);
+ilCtrlMainMenuConfig::set(ilCtrlMainMenuConfig::F_SIMPLE_FORM_VALIDATION, false);
 
 require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/class.ctrlmmData.php');
-require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/Entry/class.ctrlmmEntry.php');
 require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/class.ctrlmmTranslation.php');
-$pl = new ctrlmmData();
-$pl->initDB();
+require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/EntryInstaceFactory/class.ctrlmmEntryInstaceFactory.php');
 
-$pl = new ctrlmmTranslation();
-$pl->initDB();
-if($ilDB->tableColumnExists(ctrlmmEntry::TABLE_NAME, "title") AND $ilDB->tableColumnExists(ctrlmmEntry::TABLE_NAME, "data")) {
-	foreach (ctrlmmEntry::getAll() as $e) {
-		$e->migrate();
-	}
-}
-
-if($ilDB->tableColumnExists(ctrlmmEntry::TABLE_NAME, "title")) {
-	$ilDB->dropTableColumn(ctrlmmEntry::TABLE_NAME, "title");
-}
-if($ilDB->tableColumnExists(ctrlmmEntry::TABLE_NAME, "data")) {
-	$ilDB->dropTableColumn(ctrlmmEntry::TABLE_NAME, "data");
-}
+ctrlmmData::installDB();
+ctrlmmTranslation::installDB();
 
 ctrlmmMenu::includeAllTypes();
 
@@ -92,58 +35,28 @@ $repo = new ctrlmmEntryRepository();
 $repo->setPosition(2);
 $repo->create();
 
-$admin = new ctrlmmEntryAdmin();
-$admin->setPosition(3);
-$admin->create();
-?>
+ctrlmmEntryInstaceFactory::createAdminEntry();
 
+?>
 <#2>
+
+<#3>
+
+<#4>
+
+<#5>
 <?php
+require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/class.ilCtrlMainMenuConfig.php');
+ilCtrlMainMenuConfig::renameDBField('config_key', 'name');
+ilCtrlMainMenuConfig::renameDBField('config_value', 'value');
+?>
+<#6>
+<?php
+global $ilDB;
 /**
  * @var $ilDB ilDB
  */
-$q = "DELETE FROM ctrl_calls WHERE comp_prefix = " . $ilDB->quote('ui_uihk_ctrlmainmenu', 'text');
-$ilDB->query($q);
-
-$q = "DELETE FROM ctrl_classfile WHERE comp_prefix = " . $ilDB->quote('ui_uihk_ctrlmainmenu', 'text');
-$ilDB->query($q);
-
-$q = "UPDATE il_plugin SET plugin_id = " . $ilDB->quote('ctrlmm', 'text')
-	. " WHERE name = " . $ilDB->quote('CtrlMainMenu', 'text');
-$ilDB->query($q);
-?>
-<#3>
-<?php
 require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/Entry/class.ctrlmmEntry.php');
-ctrlmmMenu::includeAllTypes();
-
-//$desktop = new ctrlmmEntrySeparator();
-//$desktop->setPosition(4);
-//$desktop->create();
-
-$repo = new ctrlmmEntryStatusbox();
-$repo->setPosition(5);
-$repo->setPermissionType(ctrlmmMenu::PERM_ROLE_EXEPTION);
-$repo->setPermission(json_encode(array(14)));
-$repo->create();
-
-$repo = new ctrlmmEntrySettings();
-$repo->setPosition(6);
-$repo->setPermissionType(ctrlmmMenu::PERM_ROLE);
-$repo->setPermission(json_encode(array(2)));
-$repo->create();
-
-$admin = new ctrlmmEntrySearch();
-$admin->setPosition(7);
-$admin->create();
-
-?>
-<#4>
-<?php
-require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/Entry/class.ctrlmmEntry.php');
-require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/Menu/class.ctrlmmMenu.php');
-require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/class.ilCtrlMainMenuConfig.php');
-if(ctrlmmEntry::entriesExistForType(ctrlmmMenu::TYPE_SEPARATOR)) {
-	ilCtrlMainMenuConfig::getInstance()->setValue('replace_full_header', false);
-}
-?>
+$ilDB->modifyTableColumn(ctrlmmEntry::returnDbTableName(), 'parent', array(
+    'length' => '8',
+));

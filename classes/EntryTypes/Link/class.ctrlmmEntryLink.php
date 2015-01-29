@@ -46,5 +46,11 @@ class ctrlmmEntryLink extends ctrlmmEntry {
 	/**
 	 * @var int
 	 */
-	protected $type = ctrlmmMenu::TYPE_LINK;
+	//protected $type = ctrlmmMenu::TYPE_LINK;
+
+	public function __construct($primary_key = 0) {
+		$this->setType(ctrlmmMenu::TYPE_LINK);
+
+		parent::__construct($primary_key);
+	}
 }
