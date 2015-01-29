@@ -44,11 +44,12 @@ class ctrlmmEntryDesktop extends ctrlmmEntry {
 	 */
 	//protected $type = ctrlmmMenu::TYPE_DESKTOP;
 
-    public function __construct($primary_key = 0) {
-        $this->setType(ctrlmmMenu::TYPE_DESKTOP);
+	public function __construct($primary_key = 0) {
+		$this->setType(ctrlmmMenu::TYPE_DESKTOP);
 
-        parent::__construct($primary_key);
-    }
+		parent::__construct($primary_key);
+	}
+
 
 	/**
 	 * @param boolean $show_logout

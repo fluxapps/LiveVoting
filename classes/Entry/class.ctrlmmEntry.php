@@ -40,7 +40,7 @@ class ctrlmmEntry extends ActiveRecord {
 	/**
 	 * @var array
 	 */
-	protected static $restricted_types = array(ctrlmmMenu::TYPE_ADMIN);
+	protected static $restricted_types = array( ctrlmmMenu::TYPE_ADMIN );
 	/**
 	 * @var array
 	 */
@@ -57,73 +57,64 @@ class ctrlmmEntry extends ActiveRecord {
 	 * @var array
 	 */
 	protected static $permission_cache = array();
-
-
 	/**
 	 * @var int
-     *
-     * @con_is_primary true
-     * @con_sequence   true
-     * @con_has_field  true
-     * @con_fieldtype  integer
-     * @con_length     8
+	 *
+	 * @con_is_primary true
+	 * @con_sequence   true
+	 * @con_has_field  true
+	 * @con_fieldtype  integer
+	 * @con_length     8
 	 */
 	public $id;
-
-    /**
-     * @var int
-     *
-     * @con_has_field  true
-     * @con_fieldtype  integer
-     * @con_length     8
-     */
-    protected $position = 99;
-
 	/**
 	 * @var int
-     *
-     * @con_has_field  true
-     * @con_fieldtype  integer
-     * @con_length     8
+	 *
+	 * @con_has_field  true
+	 * @con_fieldtype  integer
+	 * @con_length     8
+	 */
+	protected $position = 99;
+	/**
+	 * @var int
+	 *
+	 * @con_has_field  true
+	 * @con_fieldtype  integer
+	 * @con_length     8
 	 */
 	protected $type = ctrlmmMenu::TYPE_LINK;
-
 	/**
 	 * @var string
-     *
-     * @con_has_field true
-     * @con_fieldtype text
-     * @con_length    255
+	 *
+	 * @con_has_field true
+	 * @con_fieldtype text
+	 * @con_length    255
 	 */
 	protected $link = '';
-
 	/**
 	 * @var string
-     *
-     * @con_has_field true
-     * @con_fieldtype text
-     * @con_length    255
+	 *
+	 * @con_has_field true
+	 * @con_fieldtype text
+	 * @con_length    255
 	 */
 	protected $permission = '';
-
 	/**
 	 * @var int
-     *
-     * @con_has_field  true
-     * @con_fieldtype  integer
-     * @con_length     8
+	 *
+	 * @con_has_field  true
+	 * @con_fieldtype  integer
+	 * @con_length     8
 	 */
 	protected $permission_type = ctrlmmMenu::PERM_NONE;
-
 	/**
 	 * @var int
-     *
-     * @con_has_field  true
-     * @con_fieldtype  integer
-     * @con_length     8
+	 *
+	 * @con_has_field  true
+	 * @con_fieldtype  integer
+	 * @con_length     8
 	 */
 	protected $parent = 0;
-
 	/**
 	 * @var string
 	 */
@@ -136,7 +127,6 @@ class ctrlmmEntry extends ActiveRecord {
 	 * @var bool
 	 */
 	protected $restricted = false;
-
 	/**
 	 * @var bool
 	 */
@@ -145,37 +135,37 @@ class ctrlmmEntry extends ActiveRecord {
 	 * @var string
 	 */
 	protected $icon = NULL;
+	/**
+	 * @var string
+	 */
+	protected $title = '';
 
-    /**
-     * @var string
-     */
-    protected $title = '';
 
-    /**
-     * @return string
-     * @description Return the Name of your Database Table
-     * @deprecated
-     */
-    static function returnDbTableName()
-    {
-        return self::TABLE_NAME;
-    }
+	/**
+	 * @return string
+	 * @description Return the Name of your Database Table
+	 * @deprecated
+	 */
+	static function returnDbTableName() {
+		return self::TABLE_NAME;
+	}
 
-    public function __construct($primary_key = 0) {
-        parent::__construct($primary_key);
 
-        if(isset($primary_key)) {
-            foreach (ctrlmmData::getDataForEntry($this->getId()) as $k => $v) {
-                if (self::isAdditionalField(get_class($this), $k)) {
-                    $this->{$k} = $v;
-                }
-            }
+	public function __construct($primary_key = 0) {
+		parent::__construct($primary_key);
 
-            $this->setTitle(ctrlmmTranslation::_getTitleForEntryId($this->getId()));
-            $this->setTranslations(ctrlmmTranslation::_getAllTranslationsAsArray($this->getId()));
-        }
+		if (isset($primary_key)) {
+			foreach (ctrlmmData::getDataForEntry($this->getId()) as $k => $v) {
+				if (self::isAdditionalField(get_class($this), $k)) {
+					$this->{$k} = $v;
+				}
+			}
 
-    }
+			$this->setTitle(ctrlmmTranslation::_getTitleForEntryId($this->getId()));
+			$this->setTranslations(ctrlmmTranslation::_getAllTranslationsAsArray($this->getId()));
+		}
+	}
+
 
 	/**
 	 * @return int
@@ -240,7 +230,7 @@ class ctrlmmEntry extends ActiveRecord {
 	 * @return bool
 	 */
 	public static function isSecondInstanceAllowed($type_id) {
-		if (! in_array($type_id, self::$restricted_types)) {
+		if (!in_array($type_id, self::$restricted_types)) {
 			return true;
 		} else {
 			if ($type_id == ctrlmmMenu::TYPE_CTRL) {
@@ -258,7 +248,7 @@ class ctrlmmEntry extends ActiveRecord {
 	 * @return bool
 	 */
 	public static function entriesExistForType($type_id) {
-        $set = self::where(array('type'=>$type_id));
+		$set = self::where(array( 'type' => $type_id ));
 
 		return ($set->count() > 0 ? true : false);
 	}
@@ -276,12 +266,12 @@ class ctrlmmEntry extends ActiveRecord {
 	 * @return array ctrlmmEntry[]
 	 */
 	public static function getEntriesByCmdClass($cmdClass) {
-		$sets = ctrlmmData::where(array('data_value' => '%'.$cmdClass), 'LIKE');
+		$sets = ctrlmmData::where(array( 'data_value' => '%' . $cmdClass ), 'LIKE');
 
 		$entries = array();
-        foreach($sets->get() as $set) {
-            $entries[] = new self($set->getParentId());
-        }
+		foreach ($sets->get() as $set) {
+			$entries[] = new self($set->getParentId());
+		}
 
 		return $entries;
 	}
@@ -339,6 +329,7 @@ class ctrlmmEntry extends ActiveRecord {
 		$this->title = $title;
 	}
 
+
 	/**
 	 * @return array
 	 */
@@ -350,11 +341,11 @@ class ctrlmmEntry extends ActiveRecord {
 
 
 	public function create() {
-		if ($this->getParent() > 0 AND in_array($this->getType(), array(ctrlmmMenu::TYPE_ADMIN, ctrlmmMenu::TYPE_DROPDOWN))) {
+		if ($this->getParent() > 0 AND in_array($this->getType(), array( ctrlmmMenu::TYPE_ADMIN, ctrlmmMenu::TYPE_DROPDOWN ))) {
 			ilUtil::sendFailure('Wrong Child-Type');
 		} else {
 			if ($this->getId() != 0) {
-				parent::update();
+				$this->update();
 			} else {
 				parent::create();
 
@@ -527,7 +518,7 @@ class ctrlmmEntry extends ActiveRecord {
 	 */
 	public function delete() {
 
-        $deleted_id = $this->getId();
+		$deleted_id = $this->getId();
 
 		if ($this->getType() == ctrlmmMenu::TYPE_DROPDOWN) {
 			/**
@@ -538,17 +529,18 @@ class ctrlmmEntry extends ActiveRecord {
 			}
 		}
 
-        ctrlmmTranslation::_deleteAllInstancesForEntryId($deleted_id);
-        ctrlmmData::_deleteAllInstancesForParentId($deleted_id);
+		ctrlmmTranslation::_deleteAllInstancesForEntryId($deleted_id);
+		ctrlmmData::_deleteAllInstancesForParentId($deleted_id);
 
-        parent::delete();
+		parent::delete();
 	}
+
 
 	/**
 	 * @return bool
 	 */
 	public function checkPermission() {
-		if (! $this->isPermissionCached()) {
+		if (!$this->isPermissionCached()) {
 			$this->setCachedPermission(false);
 			global $ilAccess, $ilUser, $rbacreview;
 			switch ($this->getPermissionType()) {
@@ -686,6 +678,7 @@ class ctrlmmEntry extends ActiveRecord {
 	public function setIcon($icon) {
 		$this->icon = $icon;
 	}
+
 
 	public static function addRestrictedType($type) {
 		self::$restricted_types[] = $type;

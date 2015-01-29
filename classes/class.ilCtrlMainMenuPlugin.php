@@ -3,8 +3,10 @@ require_once('./Services/UIComponent/classes/class.ilUserInterfaceHookPlugin.php
 require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/class.ctrlmm.php');
 
 /**
- * @author  Alex Killing <alex.killing@gmx.de>
+ * Class ilCtrlMainMenuPlugin
+ *
  * @author  Fabian Schmid <fs@studer-raimann.ch>
+ * @author  Michael Herren <mh@studer-raimann.ch>
  * @version 2.0.02
  *
  */
@@ -30,6 +32,7 @@ class ilCtrlMainMenuPlugin extends ilUserInterfaceHookPlugin {
 
 
 	protected function init() {
+		$this->checkAR44();
 		self::loadActiveRecord();
 	}
 
@@ -61,12 +64,37 @@ class ilCtrlMainMenuPlugin extends ilUserInterfaceHookPlugin {
 		return $this->getTemplate($a_template, $a_par1, $a_par2);
 	}
 
-    public static function loadActiveRecord() {
-        if (is_file('./Customizing/global/plugins/Libraries/ActiveRecord/class.ActiveRecord.php')) {
-			require_once('./Customizing/global/plugins/Libraries/ActiveRecord/class.ActiveRecord.php');
-		} else {
-            require_once('./Services/ActiveRecord/class.ActiveRecord.php');
-		}
-    }
 
+	public static function loadActiveRecord() {
+		if (ctrlmm::is50()) {
+			require_once('./Services/ActiveRecord/class.ActiveRecord.php');
+		} else {
+			require_once('./Customizing/global/plugins/Libraries/ActiveRecord/class.ActiveRecord.php');
+		}
+	}
+
+
+	/**
+	 * @return bool
+	 * @throws ilPluginException
+	 */
+	protected function beforeActivation() {
+		$this->checkAR44();
+
+		return true;
+	}
+
+
+	/**
+	 * @throws ilPluginException
+	 */
+	protected function checkAR44() {
+		if (ctrlmm::is44() OR ctrlmm::is43()) {
+			if (!is_file('./Customizing/global/plugins/Libraries/ActiveRecord/class.ActiveRecord.php')) {
+				throw new ilPluginException('Please install ActiveRecord First');
+			}
+		}
+	}
 }
+
+?>

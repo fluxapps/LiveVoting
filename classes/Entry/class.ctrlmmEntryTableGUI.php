@@ -87,7 +87,7 @@ class ctrlmmEntryTableGUI extends ilTable2GUI {
 		} else {
 			$this->tpl->setVariable('ID_NEW', $obj->getId());
 		}
-		if (! $obj->getPlugin()) {
+		if (!$obj->getPlugin()) {
 
 			$actions = new ilAdvancedSelectionListGUI();
 			$actions->setId('actions_' . $obj->getId());
