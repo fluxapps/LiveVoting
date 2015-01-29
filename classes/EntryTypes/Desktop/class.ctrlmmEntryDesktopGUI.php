@@ -55,12 +55,12 @@ class ctrlmmEntryDesktopGUI extends ctrlmmEntryGroupedListDropdownGUI {
 		}
 
 		// bookmarks
-		if (! $ilias->getSetting('disable_bookmarks')) {
+		if (!$ilias->getSetting('disable_bookmarks')) {
 			$this->gl->addEntry($lng->txt('bookmarks'), 'ilias.php?baseClass=ilPersonalDesktopGUI&amp;cmd=jumpToBookmarks', '_top', '', '', 'mm_pd_bookm', ilHelp::getMainMenuTooltip('mm_pd_bookm'), 'left center', 'right center', false);
 		}
 
 		// private notes
-		if (! $ilias->getSetting('disable_notes')) {
+		if (!$ilias->getSetting('disable_notes')) {
 			$this->gl->addEntry($lng->txt('notes_and_comments'), 'ilias.php?baseClass=ilPersonalDesktopGUI&amp;cmd=jumpToNotes', '_top', '', '', 'mm_pd_notes', ilHelp::getMainMenuTooltip('mm_pd_notes'), 'left center', 'right center', false);
 		}
 
@@ -74,7 +74,7 @@ class ctrlmmEntryDesktopGUI extends ctrlmmEntryGroupedListDropdownGUI {
 
 		$separator = false;
 
-		if (! $ilSetting->get('disable_personal_workspace')) {
+		if (!$ilSetting->get('disable_personal_workspace')) {
 			// workspace
 			$this->gl->addEntry($lng->txt('personal_workspace'), 'ilias.php?baseClass=ilPersonalDesktopGUI&amp;cmd=jumpToWorkspace', '_top', '', '', 'mm_pd_wsp', ilHelp::getMainMenuTooltip('mm_pd_wsp'), 'left center', 'right center', false);
 
@@ -128,7 +128,7 @@ class ctrlmmEntryDesktopGUI extends ctrlmmEntryGroupedListDropdownGUI {
 		}
 
 		// contacts
-		if (! $ilias->getSetting('disable_contacts') AND ($ilias->getSetting('disable_contacts_require_mail')
+		if (!$ilias->getSetting('disable_contacts') AND ($ilias->getSetting('disable_contacts_require_mail')
 				OR $rbacsystem->checkAccess('internal_mail', ilMailGlobalServices::getMailObjectRefId()))
 		) {
 			$this->gl->addEntry($lng->txt('mail_addressbook'), 'ilias.php?baseClass=ilPersonalDesktopGUI&amp;cmd=jumpToContacts', '_top', '', '', 'mm_pd_contacts', ilHelp::getMainMenuTooltip('mm_pd_contacts'), 'left center', 'right center', false);

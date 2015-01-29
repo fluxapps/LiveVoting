@@ -36,11 +36,13 @@ class ctrlmmEntryAdmin extends ctrlmmEntry {
 	 */
 	protected $restricted = true;
 
-    public function __construct($primary_key = 0) {
-        $this->setType(ctrlmmMenu::TYPE_ADMIN);
 
-        parent::__construct($primary_key);
-    }
+	public function __construct($primary_key = 0) {
+		$this->setType(ctrlmmMenu::TYPE_ADMIN);
+
+		parent::__construct($primary_key);
+	}
+
 
 	/**
 	 * @return string

@@ -3,6 +3,7 @@
 require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/Entry/class.ctrlmmEntryGUI.php');
 require_once('./Services/Search/classes/class.ilMainMenuSearchGUI.php');
 require_once('./Services/Search/classes/class.ilSearchSettings.php');
+
 /**
  * ctrlmmEntrySearchGUI
  *
@@ -18,8 +19,8 @@ class ctrlmmEntrySearchGUI extends ctrlmmEntryGUI {
 	public function renderEntry() {
 		$main_search = new ilMainMenuSearchGUI();
 		$this->html = $this->pl->getVersionTemplate('tpl.search_entry.html', false, false);
-		$this->html->setVariable('DROPDOWN', str_ireplace('ilMainMenuSearch',
-			ctrlmmMenu::getCssPrefix() . 'MainMenuSearch', $main_search->getHTML()));
+		$this->html->setVariable('DROPDOWN', str_ireplace('ilMainMenuSearch', ctrlmmMenu::getCssPrefix()
+			. 'MainMenuSearch', $main_search->getHTML()));
 		$this->html->setVariable('CSS_PREFIX', ctrlmmMenu::getCssPrefix());
 
 		return $this->html->get();
