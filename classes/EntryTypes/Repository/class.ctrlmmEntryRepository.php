@@ -54,6 +54,7 @@ class ctrlmmEntryRepository extends ctrlmmEntry {
 	}
 
 
+
 	/**
 	 * @param int $max_history_items
 	 */
