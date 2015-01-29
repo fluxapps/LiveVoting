@@ -28,8 +28,8 @@ class ctrlmmEntryLastvisitedGUI extends ctrlmmEntryDropdownGUI {
 	protected function setGroupedListContent() {
 		foreach ($this->entry->getEntries() as $entry) {
 			if ($entry->checkPermission()) {
-				$this->gl->addEntry($entry->getTitle(), $entry->getLink(), $entry->getTarget(), '', '',
-					'mm_pd_sel_items' . $entry->getId(), '', 'left center', 'right center', false);
+				$this->gl->addEntry($entry->getTitle(), $entry->getLink(), $entry->getTarget(), '', '', 'mm_pd_sel_items'
+					. $entry->getId(), '', 'left center', 'right center', false);
 			}
 		}
 	}

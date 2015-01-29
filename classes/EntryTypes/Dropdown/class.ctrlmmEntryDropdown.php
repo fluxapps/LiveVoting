@@ -39,23 +39,23 @@ class ctrlmmEntryDropdown extends ctrlmmEntry {
 	 * @var bool
 	 */
 	protected $use_image = false;
-
 	protected $list_id = '';
-
 	/**
 	 * @var bool
 	 */
 	protected $use_user_image = false;
 
-    public function __construct($primary_key = 0) {
+
+	public function __construct($primary_key = 0) {
 		parent::__construct($primary_key);
 
-        $this->setType(ctrlmmMenu::TYPE_DROPDOWN);
+		$this->setType(ctrlmmMenu::TYPE_DROPDOWN);
 
-		if($primary_key != 0) {
+		if ($primary_key != 0) {
 			$this->setEntries(ctrlmmEntryInstaceFactory::getAllChildsForId($this->getId()));
 		}
-    }
+	}
+
 
 	/**
 	 * @return bool
@@ -70,13 +70,15 @@ class ctrlmmEntryDropdown extends ctrlmmEntry {
 		return false;
 	}
 
+
 	public function getTitle() {
-		if($this->getUseUserImage()) {
+		if ($this->getUseUserImage()) {
 			global $ilias;
 
 			$user_img_src = $ilias->account->getPersonalPicturePath("small", true);
 			$user_img_alt = $ilias->account->getFullname();
-			return '<img src="'.$user_img_src.'" alt="'.$user_img_alt.'" class="dropdown_image" />';
+
+			return '<img src="' . $user_img_src . '" alt="' . $user_img_alt . '" class="dropdown_image" />';
 		} else {
 			return $this->title;
 		}
@@ -114,30 +116,32 @@ class ctrlmmEntryDropdown extends ctrlmmEntry {
 		return $this->use_image;
 	}
 
+
 	public function getUseUserImage() {
 		return $this->use_user_image;
 	}
 
+
 	public function setUseUserImage($useUserImage) {
 		$this->use_user_image = $useUserImage;
-		if($useUserImage) {
+		if ($useUserImage) {
 			$this->setListId('userlog');
 		}
 	}
 
+
 	/**
 	 * @return string
 	 */
-	public function getListId()
-	{
+	public function getListId() {
 		return $this->list_id;
 	}
+
 
 	/**
 	 * @param string $override_id
 	 */
-	public function setListId($list_id)
-	{
+	public function setListId($list_id) {
 		$this->list_id = $list_id;
 	}
 }

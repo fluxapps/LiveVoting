@@ -58,9 +58,9 @@ class ctrlmmEntryRepositoryGUI extends ctrlmmEntryGroupedListDropdownGUI {
 			}
 
 			// do not list current item
-			if (! isset($item["ref_id"]) || ! isset($_GET["ref_id"])
+			if (!isset($item["ref_id"]) || !isset($_GET["ref_id"])
 				|| ($item["ref_id"] != $_GET["ref_id"]
-					|| ! $first)
+					|| !$first)
 			) {
 				if ($this->nr_of_items == 0) {
 					$this->gl->addGroupHeader($lng->txt("last_visited"), "ilLVNavEnt");

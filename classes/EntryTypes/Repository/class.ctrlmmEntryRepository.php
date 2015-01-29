@@ -44,11 +44,11 @@ class ctrlmmEntryRepository extends ctrlmmEntry {
 	 */
 	//protected $type = ctrlmmMenu::TYPE_REPOSITORY;
 
-    public function __construct($primary_key = 0) {
-        parent::__construct($primary_key);
+	public function __construct($primary_key = 0) {
+		parent::__construct($primary_key);
 
 		$this->setType(ctrlmmMenu::TYPE_REPOSITORY);
-    }
+	}
 
 
 	/**
@@ -81,15 +81,16 @@ class ctrlmmEntryRepository extends ctrlmmEntry {
 	 * @return bool
 	 */
 	protected function hasNoOtherActive() {
-		if(!ctrlmm::is50()) {
+		if (!ctrlmm::is50()) {
 			$active = 0;
 			foreach (ctrlmmEntryInstaceFactory::getAll() as $entry) {
 				if ($entry->getId() == $this->getId()) {
 					continue;
 				}
 
-				if($entry->getType() == $this->getType())
+				if ($entry->getType() == $this->getType()) {
 					return false;
+				}
 			}
 
 			return true;

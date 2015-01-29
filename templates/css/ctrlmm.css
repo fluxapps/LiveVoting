@@ -83,7 +83,7 @@ span.ctrlmmNonLink {
 	display:         block;
 	font-size:       85%;
 	font-weight:     normal;
-	height:          15px;
+	height:          26px;
 	line-height:     26px;
 	margin:          1px 0 2px -1px;
 	padding:         0 10px 3px;
@@ -94,28 +94,28 @@ span.ctrlmmNonLink {
 }
 
 .ilias5 span.ctrlmmNonLink {
+	height:          15px;
 	background:  none;
 	line-height: inherit;
 	line-height: 37px;
-	font-size: 14px;
-	margin: 0;
-	padding: 0;
+	font-size:   14px;
+	margin:      0;
+	padding:     0;
 }
 
-.ilias5 span.ctrlmmNonLink:before{
-	content:"\e008";
-	font-family:"Glyphicons Halflings";
-	line-height:1;
-	margin:10px;
+.ilias5 span.ctrlmmNonLink:before {
+	content:     "\e008";
+	font-family: "Glyphicons Halflings";
+	line-height: 1;
+	margin:      10px;
 
 }
 
 #ilTopBarNav.ilias5 span.ctrlmmNonLink {
-	height: 40px;
-	padding-right: 12px;
+	height:           40px;
+	padding-right:    12px;
 	background-color: #B5B5B5 !important;
 }
-
 
 div.ilMainMenuLeft {
 	float: left;
