@@ -87,14 +87,13 @@ class ctrlmmEntryGUI {
 
 
 	/**
+	 * @param string $entry_div_id If set, the value is used to construct the unique ID of the entry (HTML)
 	 * @return string
 	 */
-	public function renderEntry() {
-		$this->entry->replacePlaceholders();
+	protected function renderEntry($entry_div_id = '') {
 		$this->html = $this->pl->getVersionTemplate('tpl.ctrl_menu_entry.html', true, true);
-
 		$this->html->setVariable('TITLE', $this->entry->getTitle());
-		$this->html->setVariable('CSS_ID', 'ctrl_mm_e_' . $this->entry->getId());
+		$this->html->setVariable('CSS_ID', 'ctrl_mm_e_' . ($entry_div_id) ? $entry_div_id : $this->entry->getId());
 		$this->html->setVariable('LINK', $this->entry->getLink());
 		$this->html->setVariable('CSS_PREFIX', ilCtrlMainMenuConfig::get(ilCtrlMainMenuConfig::F_CSS_PREFIX));
 		$this->html->setVariable('TARGET', $this->entry->getTarget());
@@ -107,12 +106,13 @@ class ctrlmmEntryGUI {
 
 
 	/**
+	 * @param string $entry_div_id If set, the value is used to construct the unique ID of the entry (HTML)
 	 * @return string
 	 */
-	public function prepareAndRenderEntry() {
+	public function prepareAndRenderEntry($entry_div_id = '') {
 		$this->entry->replacePlaceholders();
 
-		return $this->renderEntry();
+		return $this->renderEntry($entry_div_id);
 	}
 
 

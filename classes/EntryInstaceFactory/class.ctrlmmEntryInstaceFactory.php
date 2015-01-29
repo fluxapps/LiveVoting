@@ -163,7 +163,7 @@ class ctrlmmEntryInstaceFactory {
 	 */
 	public static function getInstanceByEntryId($entry_id) {
 		if (! isset(self::$type_id_cache[$entry_id])) {
-		  $obj = ctrlmmEntry::find($entry_id);
+			$obj = ctrlmmEntry::find($entry_id);
 		  if($obj) {
 			  self::$type_id_cache[$entry_id] = $obj->getType();
 		   }
@@ -198,8 +198,7 @@ class ctrlmmEntryInstaceFactory {
 		 * @var $gui_class    ctrlmmEntryCtrlGUI
 		 * @var $gui_object   ctrlmmEntryCtrlGUI
 		 */
-		$entry_class = $this->getClassName();
-		$gui_class = $entry_class . 'GUI';
+		$gui_class = $this->getGUIObjectClass();
 
 		$gui_object = new $gui_class($this->getObject(), $parent_gui);
 
@@ -293,6 +292,17 @@ class ctrlmmEntryInstaceFactory {
 	 */
 	public static function getClassAppendForValue($id) {
 		return ucfirst(strtolower(str_ireplace('TYPE_', '', self::getClassConstantForId($id))));
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getGUIObjectClass()
+	{
+		$entry_class = $this->getClassName();
+		$gui_class = $entry_class . 'GUI';
+		return $gui_class;
 	}
 }
 
