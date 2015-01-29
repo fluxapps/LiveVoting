@@ -120,6 +120,10 @@ class ctrlmmMenu {
 	public function __construct($id = 0) {
 		$this->pl = ilCtrlMainMenuPlugin::getInstance();
 
+		ctrlmmEntry::get();
+		ctrlmmTranslation::get();
+		ctrlmmData::get();
+
 		self::includeAllTypes();
 
 		$this->setEntries(ctrlmmEntryInstaceFactory::getAllChildsForId($id));

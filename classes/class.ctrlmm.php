@@ -10,10 +10,9 @@ require_once('./Services/Component/classes/class.ilComponent.php');
  */
 class ctrlmm {
 
-	const ILIAS_43 = 43;
 	const ILIAS_44 = 44;
 	const ILIAS_50 = 50;
-	const MIN_ILIAS_VERSION = self::ILIAS_43;
+	const MIN_ILIAS_VERSION = self::ILIAS_44;
 
 
 	/**
@@ -25,9 +24,6 @@ class ctrlmm {
 		}
 		if (ilComponent::isVersionGreaterString(ILIAS_VERSION_NUMERIC, '4.3.999')) {
 			return self::ILIAS_44;
-		}
-		if (ilComponent::isVersionGreaterString(ILIAS_VERSION_NUMERIC, '4.2.999')) {
-			return self::ILIAS_43;
 		}
 
 		return 0;
@@ -47,14 +43,6 @@ class ctrlmm {
 	 */
 	public static function is44() {
 		return self::getILIASVersion() >= self::ILIAS_44;
-	}
-
-
-	/**
-	 * @return bool
-	 */
-	public static function is43() {
-		return self::getILIASVersion() >= self::ILIAS_43;
 	}
 
 

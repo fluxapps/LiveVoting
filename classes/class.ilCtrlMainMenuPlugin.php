@@ -89,7 +89,7 @@ class ilCtrlMainMenuPlugin extends ilUserInterfaceHookPlugin {
 	 * @throws ilPluginException
 	 */
 	protected function checkAR44() {
-		if (ctrlmm::is44() OR ctrlmm::is43()) {
+		if (ctrlmm::getILIASVersion() < ctrlmm::ILIAS_50) {
 			if (!is_file('./Customizing/global/plugins/Libraries/ActiveRecord/class.ActiveRecord.php')) {
 				throw new ilPluginException('Please install ActiveRecord First');
 			}
