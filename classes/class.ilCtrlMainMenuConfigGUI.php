@@ -14,12 +14,13 @@ require_once('./Services/jQuery/classes/class.iljQueryUtil.php');
 /**
  * CtrlMainMenu Configuration
  *
- * @author  Alex Killing <alex.killing@gmx.de>
  * @author  Fabian Schmid <fs@studer-raimann.ch>
+ * @author  Michael Herren <mh@studer-raimann.ch>
  * @version 2.0.02
  *
  */
 class ilCtrlMainMenuConfigGUI extends ilPluginConfigGUI {
+
 	/**
 	 *
 	 * @var array
@@ -40,17 +41,17 @@ class ilCtrlMainMenuConfigGUI extends ilPluginConfigGUI {
 		 */
 		$this->ctrl = $ilCtrl;
 		$this->tpl = $tpl;
-		$this->tabs = & $ilTabs;
+		$this->tabs = &$ilTabs;
 		$this->pl = ilCtrlMainMenuPlugin::getInstance();
 		if ($_GET['rl']) {
 			$this->pl->updateLanguages();
 		}
-		if (! ctrlmmMenu::isOldILIAS()) {
-            if(!ctrlmm::is50()) {
-                $this->tpl->addJavaScript('https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', true, 1);
+		if (!ctrlmmMenu::isOldILIAS()) {
+			if (!ctrlmm::is50()) {
+				$this->tpl->addJavaScript('https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', true, 1);
 
 				ctrlmmEntry::addRestrictedType(ctrlmmMenu::TYPE_REPOSITORY);
-            }
+			}
 
 			$this->tpl->addJavaScript($this->pl->getDirectory() . '/templates/js/sortable.js');
 		}
@@ -87,12 +88,12 @@ class ilCtrlMainMenuConfigGUI extends ilPluginConfigGUI {
 			'css_inactive' => array(
 				'type' => 'ilTextInputGUI',
 			),
-			'doubleclick_prevention' => array(
-				'type' => 'ilCheckboxInputGUI',
-			),
-			'simple_form_validation' => array(
-				'type' => 'ilCheckboxInputGUI',
-			),
+//			'doubleclick_prevention' => array(
+//				'type' => 'ilCheckboxInputGUI',
+//			),
+//			'simple_form_validation' => array(
+//				'type' => 'ilCheckboxInputGUI',
+//			),
 			'replace_full_header' => array(
 				'type' => 'ilCheckboxInputGUI',
 			),
@@ -100,6 +101,7 @@ class ilCtrlMainMenuConfigGUI extends ilPluginConfigGUI {
 
 		return $this->fields;
 	}
+
 
 	/**
 	 * Handles all commmands, default is 'configure'
@@ -159,7 +161,7 @@ class ilCtrlMainMenuConfigGUI extends ilPluginConfigGUI {
 
 	public function saveSorting() {
 		foreach ($_POST['position'] as $k => $v) {
-            $obj = ctrlmmEntryInstaceFactory::getInstanceByEntryId($v)->getObject();
+			$obj = ctrlmmEntryInstaceFactory::getInstanceByEntryId($v)->getObject();
 			$obj->setPosition($k);
 			$obj->update();
 		}
