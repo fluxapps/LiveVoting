@@ -186,7 +186,7 @@ class ilCtrlMainMenuConfigGUI extends ilPluginConfigGUI {
 		$select->setFormAction($this->ctrl->getFormAction($this));
 		$select->setTitle($this->pl->txt('select_type'));
 		$se = new ilSelectInputGUI($this->pl->txt('type'), 'type');
-		$se->setOptions(ctrlmmMenu::getAllTypesAsArray(true));
+		$se->setOptions(ctrlmmMenu::getAllTypesAsArray(true, $_GET['parent_id']));
 		$select->addItem($se);
 		$select->addCommandButton('addEntry', $this->pl->txt('select'));
 		$select->addCommandButton('configure', $this->pl->txt('cancel'));

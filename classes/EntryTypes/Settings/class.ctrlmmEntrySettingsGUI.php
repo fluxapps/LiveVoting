@@ -16,6 +16,7 @@ require_once('class.ctrlmmSettings.php');
  */
 class ctrlmmEntrySettingsGUI extends ctrlmmEntryGroupedListDropdownGUI {
 
+	const F_SHOW_TITLE = 'show_title';
 	/**
 	 * @var bool
 	 */
@@ -152,38 +153,26 @@ class ctrlmmEntrySettingsGUI extends ctrlmmEntryGroupedListDropdownGUI {
 	}
 
 
-
-
 	//	/**
 	//	 * @param string $mode
 	//	 */
 	//	public function initForm($mode = 'create') {
 	//		parent::initForm($mode);
-	//		$te = new ilCheckboxInputGUI($this->pl->txt('logout'), 'logout');
-	//		$this->form->addItem($te);
-	//
-	//		$te = new ilCheckboxInputGUI($this->pl->txt('personal_desktop'), 'personal_desktop');
-	//		$this->form->addItem($te);
-	//
-	//		$te = new ilCheckboxInputGUI($this->pl->txt('user_image'), 'user_image');
+	//		$te = new ilCheckboxInputGUI($this->pl->txt(self::F_SHOW_TITLE), self::F_SHOW_TITLE);
 	//		$this->form->addItem($te);
 	//	}
 	//
 	//
 	//	public function setFormValuesByArray() {
 	//		$values = parent::setFormValuesByArray();
-	//		$values['logout'] = $this->entry->getLogout();
-	//		$values['personal_desktop'] = $this->entry->getPersonalDesktop();
-	//		$values['user_image'] = $this->entry->getUserImage();
+	//		$values[self::F_SHOW_TITLE] = $this->entry->getShowTitle();
 	//		$this->form->setValuesByArray($values);
 	//	}
 	//
 	//
 	//	public function createEntry() {
 	//		parent::createEntry();
-	//		$this->entry->setLogout($this->form->getInput('logout'));
-	//		$this->entry->setPersonalDesktop($this->form->getInput('personal_desktop'));
-	//		$this->entry->setUserImage($this->form->getInput('user_image'));
+	//		$this->entry->setShowTitle($this->form->getInput(self::F_SHOW_TITLE));
 	//		$this->entry->update();
 	//	}
 }
