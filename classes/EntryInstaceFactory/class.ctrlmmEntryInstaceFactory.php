@@ -225,9 +225,6 @@ class ctrlmmEntryInstaceFactory {
 	 * @return ctrlmmEntryCtrlGUI
 	 */
 	public function getGUIObject($parent_gui = NULL) {
-//		if (!isset($this->object_gui[get_class($parent_gui)])) {
-//
-//		}
 
 		/**
 		 * @var $entry_class  ctrlmmEntryCtrl
