@@ -51,7 +51,8 @@ class ctrlmmEntryTableGUI extends ilTable2GUI {
 			$this->addCommandButton('saveSorting', $this->pl->txt('save_sorting'));
 		}
 		// $this->setExternalSorting(true);
-		// $this->setExternalSegmentation(true);
+		// $this->setExternalSegmentation(true);s
+		$this->setLimit(500);
 
 		ctrlmmMenu::includeAllTypes();
 		$this->setData(ctrlmmEntryInstaceFactory::getAllChildsForIdAsArray($parent_id));
@@ -77,7 +78,7 @@ class ctrlmmEntryTableGUI extends ilTable2GUI {
 			$this->tpl->setVariable('CLASS', 'ctrlmmSeparator');
 		}
 
-		$this->tpl->setVariable('TITLE', $obj->getTitle() . ' ' . ($obj->checkPermission() ? '' : '*'));
+		$this->tpl->setVariable('TITLE', $obj->getTitleInAdministration() . ' ' . ($obj->checkPermission() ? '' : '*'));
 		$this->tpl->setVariable('TYPE', ctrlmmEntryInstaceFactory::getClassAppendForValue($obj->getType()));
 		$this->ctrl->setParameter($this->parent_obj, 'entry_id', $obj->getId());
 		if (ctrlmmMenu::isOldILIAS()) {

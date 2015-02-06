@@ -34,7 +34,7 @@ class ctrlmmEntryRepository extends ctrlmmEntry {
 	/**
 	 * @var int
 	 */
-	private $max_history_items = 10;
+	protected $max_history_items = 10;
 	/**
 	 * @var bool
 	 */

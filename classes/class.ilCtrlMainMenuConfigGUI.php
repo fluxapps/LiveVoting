@@ -49,10 +49,8 @@ class ilCtrlMainMenuConfigGUI extends ilPluginConfigGUI {
 		if (!ctrlmmMenu::isOldILIAS()) {
 			if (!ctrlmm::is50()) {
 				$this->tpl->addJavaScript('https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', true, 1);
-
 				ctrlmmEntry::addRestrictedType(ctrlmmMenu::TYPE_REPOSITORY);
 			}
-
 			$this->tpl->addJavaScript($this->pl->getDirectory() . '/templates/js/sortable.js');
 		}
 
@@ -88,12 +86,12 @@ class ilCtrlMainMenuConfigGUI extends ilPluginConfigGUI {
 			'css_inactive' => array(
 				'type' => 'ilTextInputGUI',
 			),
-//			'doubleclick_prevention' => array(
-//				'type' => 'ilCheckboxInputGUI',
-//			),
-//			'simple_form_validation' => array(
-//				'type' => 'ilCheckboxInputGUI',
-//			),
+			//			'doubleclick_prevention' => array(
+			//				'type' => 'ilCheckboxInputGUI',
+			//			),
+			//			'simple_form_validation' => array(
+			//				'type' => 'ilCheckboxInputGUI',
+			//			),
 			'replace_full_header' => array(
 				'type' => 'ilCheckboxInputGUI',
 			),
@@ -117,6 +115,9 @@ class ilCtrlMainMenuConfigGUI extends ilPluginConfigGUI {
 			$this->tabs->activateTab('mm_admin');
 		}
 		$this->tabs->addTab('css', $this->pl->txt('css_settings'), $this->ctrl->getLinkTarget($this, 'cssSettings'));
+		if (ctrlmm::hasGlobalCache()) {
+			$this->tabs->addTab('cache', $this->pl->txt('cache_settings'), $this->ctrl->getLinkTarget($this, 'cacheSettings'));
+		}
 		switch ($cmd) {
 			case 'configure':
 			case 'save':
@@ -133,7 +134,42 @@ class ilCtrlMainMenuConfigGUI extends ilPluginConfigGUI {
 	}
 
 
-	public function cssSettings() {
+	public function clearCache() {
+		if(ctrlmm::hasGlobalCache()) {
+			ilGlobalCache::flushAll();
+		}
+		ilUtil::sendInfo($this->pl->txt('cache_cleared'), true);
+		$this->ctrl->redirect($this, 'cacheSettings');
+	}
+
+	protected function cacheSettings() {
+		global $ilToolbar;
+		/**
+		 * @var $ilToolbar ilToolbarGUI
+		 */
+		$ilToolbar->addButton($this->pl->txt('clear_cache'), $this->ctrl->getLinkTarget($this, 'clearCache'));
+		$this->tabs->setTabActive('cache');
+		$form = new ilPropertyFormGUI();
+		$form->setTitle($this->pl->txt('cache_settings'));
+		$form->setFormAction($this->ctrl->getFormAction($this));
+
+		$cb = new ilCheckboxInputGUI($this->pl->txt('activate_cache'), 'activate_cache');
+		$form->addItem($cb);
+		$form->setValuesByArray(array( 'activate_cache' => ilCtrlMainMenuConfig::get('activate_cache') ));
+		$form->addCommandButton('updateCacheSettings', $this->pl->txt('update_cache_settings'));
+
+		$this->tpl->setContent($form->getHTML());
+	}
+
+
+	protected function updateCacheSettings() {
+		ilCtrlMainMenuConfig::set('activate_cache', $_POST['activate_cache']);
+		ilUtil::sendInfo($this->pl->txt('cache_settings_updated'), true);
+		$this->ctrl->redirect($this, 'cacheSettings');
+	}
+
+
+	protected function cssSettings() {
 		$this->tabs->setTabActive('css');
 		$this->initConfigurationForm();
 		$this->getValues();
@@ -186,7 +222,7 @@ class ilCtrlMainMenuConfigGUI extends ilPluginConfigGUI {
 		$select->setFormAction($this->ctrl->getFormAction($this));
 		$select->setTitle($this->pl->txt('select_type'));
 		$se = new ilSelectInputGUI($this->pl->txt('type'), 'type');
-		$se->setOptions(ctrlmmMenu::getAllTypesAsArray(true));
+		$se->setOptions(ctrlmmMenu::getAllTypesAsArray(true, $_GET['parent_id']));
 		$select->addItem($se);
 		$select->addCommandButton('addEntry', $this->pl->txt('select'));
 		$select->addCommandButton('configure', $this->pl->txt('cancel'));

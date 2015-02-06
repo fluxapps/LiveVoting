@@ -26,7 +26,6 @@ require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHoo
  * Application class for ctrlmmEntryCtrl Object.
  *
  * @author         Fabian Schmid <fs@studer-raimann.ch>
- *
  * @version        2.0.02
  */
 class ctrlmmEntryLink extends ctrlmmEntry {
@@ -43,11 +42,11 @@ class ctrlmmEntryLink extends ctrlmmEntry {
 	 * @var bool
 	 */
 	protected $target = '_blank';
-	/**
-	 * @var int
-	 */
-	//protected $type = ctrlmmMenu::TYPE_LINK;
 
+
+	/**
+	 * @param int $primary_key
+	 */
 	public function __construct($primary_key = 0) {
 		$this->setType(ctrlmmMenu::TYPE_LINK);
 

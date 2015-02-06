@@ -52,6 +52,27 @@ class ctrlmm {
 	public static function is50() {
 		return self::getILIASVersion() >= self::ILIAS_50;
 	}
+
+
+	/**
+	 * @return bool
+	 */
+	public static function isGlobalCacheActive() {
+		static $has_global_cache;
+		if (!isset($has_global_cache)) {
+			$has_global_cache = ilCtrlMainMenuConfig::get('activate_cache') AND self::hasGlobalCache();
+		}
+
+		return $has_global_cache;
+	}
+
+
+	/**
+	 * @return bool
+	 */
+	public static function hasGlobalCache() {
+		return is_file('./Services/GlobalCache/classes/class.ilGlobalCache.php');
+	}
 }
 
 ?>

@@ -46,7 +46,6 @@ class ctrlmmMenu {
 	const TYPE_SEARCH = 11;
 	const TYPE_STATUSBOX = 12;
 	const TYPE_AUTH = 13;
-
 	const PERM_NONE = 100;
 	const PERM_ROLE = 101;
 	const PERM_ROLE_EXEPTION = 104;
@@ -69,7 +68,6 @@ class ctrlmmMenu {
 	 * @var
 	 */
 	protected static $cache_active;
-
 	protected $pl;
 
 
@@ -89,10 +87,14 @@ class ctrlmmMenu {
 			self::$cache_active = false;
 		}*/
 		return false;
-
 		//return self::$cache_active;
 	}
 
+
+	/**
+	 * @return string
+	 * @deprecated use ilCtrlMainMenuConfig::get(ilCtrlMainMenuConfig::F_CSS_PREFIX)
+	 */
 	public static function getCssPrefix() {
 		return ilCtrlMainMenuConfig::get(ilCtrlMainMenuConfig::F_CSS_PREFIX);
 	}
@@ -163,20 +165,28 @@ class ctrlmmMenu {
 		return ilCtrlMainMenuConfig::get(ilCtrlMainMenuConfig::F_CSS_PREFIX);
 	}*/
 
-
 	/**
 	 * @param bool $filter
 	 *
 	 * @return array
 	 */
-	public static function getAllTypesAsArray($filter = false) {
+	public static function getAllTypesAsArray($filter = false, $parent_id = NULL) {
+		$names = array();
 		foreach (self::getAllTypeConstants() as $name => $value) {
 			$names[$value] = ilCtrlMainMenuPlugin::getInstance()->txt(strtolower($name));
 		}
 		if ($filter) {
+			if ($parent_id) {
+				$entry = ctrlmmEntryInstaceFactory::getInstanceByEntryId($parent_id)->getObject();
+			}
 			foreach ($names as $type_id => $name) {
-				if (! ctrlmmEntry::isSecondInstanceAllowed($type_id)) {
+				if (!ctrlmmEntry::isSecondInstanceAllowed($type_id)) {
 					unset($names[$type_id]);
+				}
+				if ($parent_id) {
+					if (!$entry->isChildAllowed($type_id)) {
+						unset($names[$type_id]);
+					}
 				}
 			}
 		}
@@ -203,7 +213,7 @@ class ctrlmmMenu {
 
 
 	public static function includeAllTypes() {
-		if (! self::$types_included) {
+		if (!self::$types_included) {
 			foreach (self::getAllTypeConstants() as $name => $value) {
 				$name = ctrlmmEntryInstaceFactory::getClassAppendForValue($value);
 				$type = './Customizing/global/plugins/Services/' . 'UIComponent/UserInterfaceHook/CtrlMainMenu/classes/EntryTypes/' . $name
@@ -243,6 +253,6 @@ class ctrlmmMenu {
 		require_once('./include/inc.ilias_version.php');
 		require_once('./Services/Component/classes/class.ilComponent.php');
 
-		return ! ilComponent::isVersionGreaterString(ILIAS_VERSION_NUMERIC, '4.2.999');
+		return !ilComponent::isVersionGreaterString(ILIAS_VERSION_NUMERIC, '4.2.999');
 	}
 }

@@ -38,13 +38,16 @@ class ctrlmmEntrySettings extends ctrlmmEntry {
 	/**
 	 * @var bool
 	 */
-	private $show_icon = true;
+	protected $show_icon = true;
 	/**
 	 * @var bool
 	 */
-	private $show_title = false;
+	protected $show_title = false;
 
 
+	/**
+	 * @param int $primary_key
+	 */
 	public function __construct($primary_key = 0) {
 		$this->setType(ctrlmmMenu::TYPE_SETTINGS);
 
@@ -62,18 +65,6 @@ class ctrlmmEntrySettings extends ctrlmmEntry {
 			} else {
 				return ilUtil::img(ilUtil::getImagePath('icon_extt_s.png'));
 			}
-		}
-
-		return NULL;
-	}
-
-
-	/**
-	 * @return null|string
-	 */
-	public function getTitle() {
-		if ($this->getShowTitle()) {
-			return parent::getTitle();
 		}
 
 		return NULL;

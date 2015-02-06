@@ -37,6 +37,11 @@ class ctrlmmEntryCtrlGUI extends ctrlmmEntryGUI {
 		$te = new ilHiddenInputGUI('type_id');
 		$te->setValue($this->entry->getType());
 		$this->form->addItem($te);
+
+		$se = new ilSelectInputGUI($this->pl->txt('target'), 'target');
+		$opt = array( '_top' => $this->pl->txt('same_page'), '_blank' => $this->pl->txt('new_page') );
+		$se->setOptions($opt);
+		$this->form->addItem($se);
 	}
 
 
@@ -46,6 +51,7 @@ class ctrlmmEntryCtrlGUI extends ctrlmmEntryGUI {
 		$values['my_cmd'] = $this->entry->getCmd();
 		$values['additions'] = $this->entry->getAdditions();
 		$values['ref_id'] = $this->entry->getRefId();
+		$values['target'] = $this->entry->getTarget();
 		$this->form->setValuesByArray($values);
 	}
 
@@ -56,6 +62,7 @@ class ctrlmmEntryCtrlGUI extends ctrlmmEntryGUI {
 		$this->entry->setCmd($this->form->getInput('my_cmd'));
 		$this->entry->setAdditions($this->form->getInput('additions'));
 		$this->entry->setRefId($this->form->getInput('ref_id'));
+		$this->entry->setTarget($this->form->getInput('target'));
 		$this->entry->update();
 	}
 }

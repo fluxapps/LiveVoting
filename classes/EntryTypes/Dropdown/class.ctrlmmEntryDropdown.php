@@ -39,13 +39,34 @@ class ctrlmmEntryDropdown extends ctrlmmEntry {
 	 * @var bool
 	 */
 	protected $use_image = false;
-	protected $list_id = '';
+	/**
+	 * @var string
+	 */
+	private $list_id = '';
 	/**
 	 * @var bool
 	 */
 	protected $use_user_image = false;
+	/**
+	 * @var
+	 */
+	protected $forbidden_children = array(
+		ctrlmmMenu::TYPE_ADMIN,
+		ctrlmmMenu::TYPE_AUTH,
+		ctrlmmMenu::TYPE_DESKTOP,
+		ctrlmmMenu::TYPE_DROPDOWN,
+		ctrlmmMenu::TYPE_LASTVISITED,
+		ctrlmmMenu::TYPE_REPOSITORY,
+		ctrlmmMenu::TYPE_SEARCH,
+		ctrlmmMenu::TYPE_SETTINGS,
+		ctrlmmMenu::TYPE_STATUSBOX,
+		ctrlmmMenu::TYPE_STATUSBOX,
+	);
 
 
+	/**
+	 * @param int $primary_key
+	 */
 	public function __construct($primary_key = 0) {
 		parent::__construct($primary_key);
 
