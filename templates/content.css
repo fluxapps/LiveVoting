@@ -139,7 +139,7 @@ div.lvo_qr_hidden {
 	-webkit-box-shadow: inset 0px 0px 10px #878787; /* webkit browser*/ -moz-box-shadow: inset 0px 0px 10px #878787;	/* firefox */ box-shadow: inset 0px 0px 10px #878787;
 }
 
-.lvo_choice_chiper {
+.lvo_choice_cipher {
 	position: relative;
 	top: 0;
 	font-size: 8em; /* fallback font size */
@@ -178,7 +178,7 @@ div.lvo_qr_hidden {
 	text-decoration: none;
 }
 
-div.fullscreen .lvo_choice_container {
+div.fullscreen .lvo_choice {
     height: 500px;
 }
 
