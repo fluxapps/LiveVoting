@@ -2,7 +2,7 @@
 /* Copyright (c) 1998-2009 ILIAS open source, Extended GPL, see docs/LICENSE */
 
 include_once("./Services/Form/classes/class.ilCustomInputGUI.php");
-
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Config/class.xlvoConfig.php');
 /**
  * Class ilMultipleTextInputGUI
  *
@@ -42,10 +42,25 @@ class ilMultipleTextInputGUI extends ilCustomInputGUI {
 	private function buildHTML() {
 		$pl = ilLiveVotingPlugin::getInstance();
 		$tpl = $pl->getTemplate("tpl.multiple_input.html");
-
+//		if (xlvoConfig::is50()) {
+//			$tpl = $pl->getTemplate("tpl.multiple_input.html");
+//		} else {
+//			$tpl = $pl->getTemplate("tpl.multiple_input_50.html");
+//		}
+//
 		$tpl->setCurrentBlock("title");
 		//		$tpl->setVariable("CSS_PATH", $pl->getStyleSheetLocation("content.css"));
-		$tpl->setVariable("X_IMAGE_PATH", $pl->getImagePath("x_image.png"));
+
+		if (xlvoConfig::is50()) {
+//			ilUtil::sendInfo(ilGlyphGUI::get(ilGlyphGUI::ADD));
+//			$ilGlyphGUI = new ilGlyphGUI();
+
+
+			$tpl->setVariable("X_IMAGE_PATH", $pl->getImagePath("x_image.png"));
+		} else {
+			$tpl->setVariable("X_IMAGE_PATH", $pl->getImagePath("x_image.png"));
+		}
+
 		$tpl->setVariable("PLACEHOLDER", $this->placeholder);
 		$tpl->setVariable("POSTVAR", $this->getPostVar());
 		$tpl->parseCurrentBlock();

@@ -21,15 +21,15 @@
 	+-----------------------------------------------------------------------------+
 */
 
-include_once("./Services/Repository/classes/class.ilObjectPluginGUI.php");
+require_once("./Services/Repository/classes/class.ilObjectPluginGUI.php");
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilLiveVotingPlugin.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilObjLiveVoting.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilMultipleTextInputGUI.php');
 require_once('./Services/Form/classes/class.ilSubEnabledFormPropertyGUI.php');
-@include_once('./classes/class.ilLink.php');
-@include_once('./Services/Link/classes/class.ilLink.php');
+//@include_once('./classes/class.ilLink.php');
+//@include_once('./Services/Link/classes/class.ilLink.php');
 require_once('class.ilLiveVotingContentGUI.php');
-include_once('./Services/Calendar/classes/class.ilDateTime.php');
+require_once('./Services/Calendar/classes/class.ilDateTime.php');
 
 if (is_file('./Services/Object/classes/class.ilDummyAccessHandler.php')) {
 	include_once('./Services/Object/classes/class.ilDummyAccessHandler.php');
@@ -58,6 +58,9 @@ if (is_file('./Services/Object/classes/class.ilDummyAccessHandler.php')) {
  */
 class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 
+	const CMD_DEFAULT_BS = 'showContentBootStrap';
+	const CMD_SHOW_CONTENT = "showContent";
+	const CMD_EDIT_PROPERTIES = "editProperties";
 	/**
 	 * @var ilObjLiveVoting
 	 */
@@ -99,7 +102,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 	/**
 	 * @param $a_target
 	 */
-	public function _goto($a_target) {
+	public static function _goto($a_target) {
 		global $ilCtrl, $ilAccess, $lng;
 		$t = explode("_", $a_target[0]);
 		$ref_id = (int)$t[0];
@@ -146,7 +149,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 	 */
 	public function performCommand($cmd) {
 		switch ($cmd) {
-			case "editProperties": // list all commands that need write permission here
+			case self::CMD_EDIT_PROPERTIES: // list all commands that need write permission here
 			case "updateProperties":
 			case "resetVotes":
 			case "confirmReset":
@@ -156,13 +159,14 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 				$this->checkPermission("write");
 				$this->$cmd();
 				break;
-			case "showContent": // list all commands that need read permission here
+			case self::CMD_SHOW_CONTENT: // list all commands that need read permission here
 			case "vote":
 			case "unvote":
 			case "asyncShowContent":
 			case "asyncVote":
 			case "asyncUnvote":
 			case "asyncIsActive":
+			case self::CMD_DEFAULT_BS:
 				$this->checkPermission("read");
 				$this->$cmd();
 				break;
@@ -174,7 +178,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 	 * @return string
 	 */
 	public function getAfterCreationCmd() {
-		return "editProperties";
+		return self::CMD_EDIT_PROPERTIES;
 	}
 
 
@@ -182,7 +186,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 	 * @return string
 	 */
 	public function getStandardCmd() {
-		return "showContent";
+		return self::CMD_SHOW_CONTENT;
 	}
 
 
@@ -200,13 +204,14 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 		global $ilTabs, $ilCtrl, $ilAccess;
 		// tab for the "show content" command
 		if ($ilAccess->checkAccess("read", "", $this->object->getRefId())) {
-			$ilTabs->addTab("content", $this->txt("content"), $ilCtrl->getLinkTarget($this, "showContent"));
+			$ilTabs->addTab("content", $this->txt("content"), $ilCtrl->getLinkTarget($this, self::CMD_SHOW_CONTENT));
+//			$ilTabs->addTab("content", $this->txt("content"), $ilCtrl->getLinkTarget($this, self::CMD_DEFAULT_BS));
 		}
 		// standard info screen tab
 		$this->addInfoTab();
 		// a "properties" tab
 		if ($ilAccess->checkAccess("write", "", $this->object->getRefId())) {
-			$ilTabs->addTab("properties", $this->txt("properties"), $ilCtrl->getLinkTarget($this, "editProperties"));
+			$ilTabs->addTab("properties", $this->txt("properties"), $ilCtrl->getLinkTarget($this, self::CMD_EDIT_PROPERTIES));
 		}
 		// standard epermission tab
 		$this->addPermissionTab();
@@ -322,7 +327,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 			$this->live_voting->setOptionsByArray($_REQUEST['choices']);
 			$this->live_voting->update();
 			ilUtil::sendSuccess($lng->txt("msg_obj_modified"), true);
-			$ilCtrl->redirect($this, "editProperties");
+			$ilCtrl->redirect($this, self::CMD_EDIT_PROPERTIES);
 		}
 		$this->form->setValuesByPost();
 		$tpl->setContent($this->form->getHtml());
@@ -381,7 +386,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 		$this->live_voting->doUpdate();
 		$pl = ilLiveVotingPlugin::getInstance();
 		ilUtil::sendInfo($pl->txt("voting_freezed"), true);
-		$ilCtrl->redirect($this, "showContent");
+		$ilCtrl->redirect($this, self::CMD_SHOW_CONTENT);
 	}
 
 
@@ -394,7 +399,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 		$this->live_voting->doUpdate();
 		$pl = ilLiveVotingPlugin::getInstance();
 		ilUtil::sendInfo($pl->txt("voting_unfreezed"), true);
-		$ilCtrl->redirect($this, "showContent");
+		$ilCtrl->redirect($this, self::CMD_SHOW_CONTENT);
 	}
 
 
@@ -423,7 +428,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 		global $ilCtrl;
 		$pl = ilLiveVotingPlugin::getInstance();
 		ilUtil::sendInfo($pl->txt("reset_canceled"), true);
-		$ilCtrl->redirect($this, "showContent");
+		$ilCtrl->redirect($this, self::CMD_SHOW_CONTENT);
 	}
 
 
@@ -435,6 +440,17 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 		$ilTabs->setTabActive("content");
 		$contentGUI = new ilLiveVotingContentGUI($this->live_voting, $this);
 		$tpl->setContent($contentGUI->getHTML());
+	}
+
+
+	protected function showContentBootStrap() {
+		require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/class.xlvoDisplayGUI.php');
+		$xlvoDisplayGUI = new xlvoDisplayGUI($this->live_voting);
+		$xlvoDisplayGUI->addQRCode('lorem');
+
+
+
+		$this->tpl->setContent($xlvoDisplayGUI->getHTML());
 	}
 
 
@@ -525,7 +541,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 	function resetVotes() {
 		global $ilCtrl;
 		$this->live_voting->deleteAllVotes();
-		$ilCtrl->redirect($this, "showContent");
+		$ilCtrl->redirect($this, self::CMD_SHOW_CONTENT);
 		//$this->showContent();
 	}
 
