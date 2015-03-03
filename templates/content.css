@@ -17,6 +17,11 @@ div.fullscreen {
 	padding-right:    200px;
 	background-color: white;
 	margin:           0px;
+	position:         fixed;
+	top:              0;
+	left:             0;
+	width:            100%;
+	z-index: 100000;
 }
 
 /*div.fullscreen div.lvo_pin_container {

@@ -1,8 +1,8 @@
 <!-- BEGIN jquery_fullscreen -->
-<script src="./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/jquery.fullscreen-min.js" type="text/javascript"></script><!-- END jquery_fullscreen -->
+<!--<script src="./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/jquery.fullscreen-min.js" type="text/javascript"></script>&lt;!&ndash; END jquery_fullscreen &ndash;&gt;-->
 <div id="lvo_content_canvas" class="">
 	<div class="lvo_qr_hidden_canvas_close">{FS_CLOSE}</div>
-	<div id="lvo_content">
+	<div id="lvo_content" class="">
 		<div class="lvo_header">
 			<div>
 				<div class="lvo_pin_container">
@@ -43,14 +43,14 @@
 							</tr>
 							<!-- END title_choice -->
 						</table>
-						<br class="lvo_clearboth" />
+						<br class="lvo_clearboth"/>
 					</div>
 					<div class="lvo_actions">
 						{ACTIONS}
 					</div>
 				</div>
 			</div>
-			<br class="lvo_clearboth" />
+			<br class="lvo_clearboth"/>
 		</div>
 		<script type="text/javascript">
 			(function () { // dont mess with global namespace, use anonymous function
@@ -68,14 +68,14 @@
 						$(".lvo_choice").fadeToggle("fast");
 					});
 
-					$("#lvo_fullscreen_button").click(function (event) {
-						$('#lvo_content_canvas').toggleClass("lvo_fullscreendummy", 100);
-						$('body').fullScreen(true);
-					});
-					$(".lvo_qr_hidden_canvas_close").click(function (event) {
-						$('#lvo_content_canvas').toggleClass("lvo_fullscreendummy", 100);
-						$('body').fullScreen(false);
-					});
+//					$("#lvo_fullscreen_button").click(function (event) {
+//						$('#lvo_content_canvas').toggleClass("lvo_fullscreendummy", 100);
+//						$('body').fullScreen(true);
+//					});
+//					$(".lvo_qr_hidden_canvas_close").click(function (event) {
+//						$('#lvo_content_canvas').toggleClass("lvo_fullscreendummy", 100);
+//						$('body').fullScreen(false);
+//					});
 
 					$("div.lvo_qr").click(function (event) {
 						$('.lvo_qr_hidden_canvas').fadeIn();
@@ -158,31 +158,37 @@
 			})();
 		</script>
 		<script type="text/javascript">
-			$(function () {
-				$(".fullscreen-supported").toggle($(document).fullScreen() != null);
-				$(".fullscreen-not-supported").toggle($(document).fullScreen() == null);
+			//			$(function () {
+			//				$(".fullscreen-supported").toggle($(document).fullScreen() != null);
+			//				$(".fullscreen-not-supported").toggle($(document).fullScreen() == null);
+			//
+			//				$(document).bind("fullscreenchange", function (e) {
+			//					console.log("Full screen changed.");
+			//					if ($(document).fullScreen()) {
+			//						$('#lvo_content').addClass("fullscreen");
+			//					}
+			//					else {
+			//						$('#lvo_content').removeClass("fullscreen");
+			//					}
+			//				});
+			//
+			//				$(document).bind("fullscreenerror", function (e) {
+			//					console.log("Full screen error.");
+			//					$("#status").text("Browser won't enter full screen mode for some reason.");
+			//				});
+			//
+			//			});
+			$(document).ready(function () {
+				$('#lvo_fullscreen_button').click(function () {
+					$('#lvo_content_canvas').toggleClass("fullscreen");
+					$('#lvo_qr_hidden_canvas_close').toggleClass("fullscreen");
 
-				$(document).bind("fullscreenchange", function (e) {
-					console.log("Full screen changed.");
-
-					if ($(document).fullScreen()) {
-						$('#lvo_content').addClass("fullscreen");
-					}
-					else {
-						$('#lvo_content').removeClass("fullscreen");
-					}
 				});
-
-				$(document).bind("fullscreenerror", function (e) {
-					console.log("Full screen error.");
-					$("#status").text("Browser won't enter full screen mode for some reason.");
-				});
-
 			});
 		</script>
 		<div class="lvo_body">
 			<div id="sound_element"></div>
-			<!-- BEGIN choice -->	<!-- BEGIN choice_view -->
+			<!-- BEGIN choice -->    <!-- BEGIN choice_view -->
 			<div class="lvo_choice_container {INACTIVE}" style="width: {WIDTH_PERCENTAGE}%">
 				<div class="lvo_choice_header {HIDE}">
 					<p id="lvo_choice_pro_{CHOICE_ID}">{VOTE_PERCENTAGE_SHOW}%</p>
@@ -195,20 +201,18 @@
 						</div>
 					</div>
 				</a> <a href="{VOTE_LINK}" style="color: black;">
-					<div class="lvo_choice_footer">
-						<p>
-							<span>{CHOICE_CIPHER}</span><span class='{HIDE}'>:</span>
-							<span id="choice_count_{CHOICE_ID}" class="lvo_choice_count {HIDE}">{VOTE_COUNT}</span>
-						</p>
-						<!-- BEGIN vote_link -->
-						<a class="lvo_vote_link{VOTED_CLASS}" href="{VOTE_LINK}">{VOTE_TEXT}</a>
-						<!-- END vote_link -->
-					</div>
-				</a>
+				<div class="lvo_choice_footer">
+					<p>
+						<span>{CHOICE_CIPHER}</span><span class='{HIDE}'>:</span>
+						<span id="choice_count_{CHOICE_ID}" class="lvo_choice_count {HIDE}">{VOTE_COUNT}</span>
+					</p>
+					<!-- BEGIN vote_link -->
+					<a class="lvo_vote_link{VOTED_CLASS}" href="{VOTE_LINK}">{VOTE_TEXT}</a>
+					<!-- END vote_link -->
+				</div>
+			</a>
 			</div>
-			<!-- END choice_view -->
-			<!-- END choice -->
-			<br class="lvo_clearboth" />
+			<!-- END choice_view -->			<!-- END choice -->			<br class="lvo_clearboth"/>
 		</div>
 	</div>
 </div>
