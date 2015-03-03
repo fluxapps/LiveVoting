@@ -41,7 +41,7 @@ class xlvoBarGUI {
 
 
 	protected function render() {
-		$this->tpl->setVariable('PERCENT', $this->ilObjLiveVoting->getRelativePercentageForOption($this->ilLiveVotingOption->getId()));
+		$this->tpl->setVariable('PERCENT', $this->ilObjLiveVoting->getPercentageForOption($this->ilLiveVotingOption->getId()));
 		$this->tpl->setVariable('ID', $this->ilLiveVotingOption->getId());
 		$this->tpl->setVariable('CIPHER', $this->ilLiveVotingOption->countVotes());
 		$this->tpl->setVariable('COUNT', $this->ilLiveVotingOption->countVotes());

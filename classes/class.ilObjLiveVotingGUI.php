@@ -205,7 +205,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 		// tab for the "show content" command
 		if ($ilAccess->checkAccess("read", "", $this->object->getRefId())) {
 			$ilTabs->addTab("content", $this->txt("content"), $ilCtrl->getLinkTarget($this, self::CMD_SHOW_CONTENT));
-			$ilTabs->addTab("content", $this->txt("content"), $ilCtrl->getLinkTarget($this, self::CMD_DEFAULT_BS));
+//			$ilTabs->addTab("content", $this->txt("content"), $ilCtrl->getLinkTarget($this, self::CMD_DEFAULT_BS));
 		}
 		// standard info screen tab
 		$this->addInfoTab();
