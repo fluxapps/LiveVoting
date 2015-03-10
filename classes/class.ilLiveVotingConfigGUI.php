@@ -7,7 +7,7 @@ require_once('class.ilObjLiveVoting.php');
 
 /**
  * Class ilLiveVotingConfigGUI
- * 
+ *
  * @author Fabian Schmid <fs@studer-raimann.ch>
  */
 class ilLiveVotingConfigGUI extends ilPluginConfigGUI {
@@ -100,9 +100,9 @@ class ilLiveVotingConfigGUI extends ilPluginConfigGUI {
 					),
 				)
 			),
-			/*'use_stresstest' => array(
+			'use_responsive' => array(
 				'type' => 'ilCheckboxInputGUI',
-			),*/
+			),
 		);
 
 		return $this->fields;
