@@ -48,6 +48,9 @@ class ctrlmmEntryCtrl extends ctrlmmEntry {
 	 * @var int
 	 */
 	protected $ref_id = NULL;
+	/**
+	 * @var ilCtrl
+	 */
 	protected $ctrl;
 
 
@@ -58,7 +61,6 @@ class ctrlmmEntryCtrl extends ctrlmmEntry {
 		global $ilCtrl;
 
 		$this->setType(ctrlmmMenu::TYPE_CTRL);
-
 		$this->restricted = ctrlmmMenu::isOldILIAS();
 		/**
 		 * @var $ilCtrl ilCtrl
@@ -93,47 +95,69 @@ class ctrlmmEntryCtrl extends ctrlmmEntry {
 
 
 	/**
+	 * @return null|string
+	 */
+	protected function getError() {
+		if (!$this->checkCtrl()) {
+			return 'ilCtrl-Error';
+		}
+
+		return NULL;
+	}
+
+
+	/**
+	 * @return bool
+	 */
+	protected function checkCtrl() {
+		$gui_classes = @explode(',', $this->getGuiClass());
+		if (ctrlmm::is50()) {
+			try {
+				$this->ctrl->getLinkTargetByClass($gui_classes, $this->getCmd());
+			} catch (Exception $e) {
+				return false;
+			}
+		} else {
+			$ctrlTwo = new ilCtrl();
+
+			if (!$ctrlTwo->checkTargetClass($gui_classes)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+
+	/**
 	 * @return string
 	 */
 	public function getLink() {
-		$link = '';
-		global $ilUser;
-		/**
-		 * @var $ilUser ilObjUser
-		 */
+		if (!$this->checkCtrl()) {
+			return NULL;
+		}
 		$gui_classes = @explode(',', $this->getGuiClass());
 		if (ctrlmmMenu::isOldILIAS()) {
 			$ctrlTwo = new ilCtrl();
-			if ($ctrlTwo->checkTargetClass($gui_classes)) {
-				$ctrlTwo->setTargetScript('ilias.php');
-				$a_base_class = $_GET['baseClass'];
-				$cmd = $_GET['cmd'];
-				$cmdClass = $_GET['cmdClass'];
-				$cmdNode = $_GET['cmdNode'];
-				$ctrlTwo->initBaseClass($gui_classes[0]);
-				$link = $ctrlTwo->getLinkTargetByClass($gui_classes, $this->getCmd());
-				$_GET['baseClass'] = $a_base_class;
-				$_GET['cmd'] = $cmd;
-				$_GET['cmdClass'] = $cmdClass;
-				$_GET['cmdNode'] = $cmdNode;
-			} else {
-				if (self::DEBUG) {
-					ilUtil::sendFailure('ctrlmmEntryCtrl::getLink() : ERROR parsing ilCtrl-Link', true);
-				}
-			}
+			$ctrlTwo->setTargetScript('ilias.php');
+			$a_base_class = $_GET['baseClass'];
+			$cmd = $_GET['cmd'];
+			$cmdClass = $_GET['cmdClass'];
+			$cmdNode = $_GET['cmdNode'];
+			$ctrlTwo->initBaseClass($gui_classes[0]);
+			$link = $ctrlTwo->getLinkTargetByClass($gui_classes, $this->getCmd());
+			$_GET['baseClass'] = $a_base_class;
+			$_GET['cmd'] = $cmd;
+			$_GET['cmdClass'] = $cmdClass;
+			$_GET['cmdNode'] = $cmdNode;
 		} else {
-			try {
-				$link = $this->ctrl->getLinkTargetByClass($gui_classes, $this->getCmd());
-				if ($this->getAdditions()) {
-					$link .= '&' . $this->getAdditions();
-				}
-				if ($this->getRefId()) {
-					$link .= '&ref_id=' . $this->getRefId();
-				}
-			} catch (Exception $e) {
-				if (self::DEBUG AND $ilUser->getId() == 6) {
-					ilUtil::sendFailure('ctrlmmEntryCtrl::getLink() : ERROR parsing ilCtrl-Link (' . $e->getMessage() . ')', true);
-				}
+
+			$link = $this->ctrl->getLinkTargetByClass($gui_classes, $this->getCmd());
+			if ($this->getAdditions()) {
+				$link .= '&' . $this->getAdditions();
+			}
+			if ($this->getRefId()) {
+				$link .= '&ref_id=' . $this->getRefId();
 			}
 		}
 

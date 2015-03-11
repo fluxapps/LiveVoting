@@ -60,7 +60,7 @@ class ctrlmmSettings {
 	 *
 	 * @internal param $gui_classes
 	 */
-	private function __construct(array $post) {
+	protected function __construct(array $post) {
 		self::initILIAS();
 		$this->setIncomingType((int)$post[self::INCOMING_TYPE]);
 		$this->setLanguage($post[self::LANGUAGE]);
@@ -212,7 +212,7 @@ class ctrlmmSettings {
 	//
 	// Helpers
 	//
-	private static function initILIAS() {
+	protected static function initILIAS() {
 		$path = stristr(__FILE__, 'Customizing', true);
 		chdir($path);
 		require_once('include/inc.header.php');

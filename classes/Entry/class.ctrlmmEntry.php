@@ -44,10 +44,6 @@ class ctrlmmEntry extends ActiveRecord {
 	/**
 	 * @var array
 	 */
-	//protected static $cache = array();
-	/**
-	 * @var array
-	 */
 	protected static $childs_cache = array();
 	/**
 	 * @var array
@@ -57,6 +53,10 @@ class ctrlmmEntry extends ActiveRecord {
 	 * @var array
 	 */
 	protected static $permission_cache = array();
+	/**
+	 * @var array
+	 */
+	protected $forbidden_children = array();
 	/**
 	 * @var int
 	 *
@@ -196,7 +196,7 @@ class ctrlmmEntry extends ActiveRecord {
 			$properties[] = $property->getName();
 		}
 
-		return in_array($field_name, array_diff($properties, array(
+		$array_diff = array_diff($properties, array(
 			'ctrl',
 			'permission',
 			'permission_type',
@@ -218,9 +218,13 @@ class ctrlmmEntry extends ActiveRecord {
 			'childs_cache',
 			'active_cache',
 			'permission_cache',
-			'target',
-			'icon'
-		)));
+//			'target',
+			'icon',
+			'is_new',
+			'forbidden_children',
+		));
+
+		return in_array($field_name, $array_diff);
 	}
 
 
@@ -300,6 +304,32 @@ class ctrlmmEntry extends ActiveRecord {
 	}
 
 
+	/**
+	 * @param $type_id
+	 *
+	 * @return bool
+	 */
+	public function isChildAllowed($type_id) {
+		return !in_array($type_id, $this->forbidden_children);
+	}
+
+
+	/**
+	 * @return null
+	 */
+	protected function getError() {
+		return NULL;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getTitleInAdministration() {
+		return $this->getTitle() . ($this->getError() ? ' (' . $this->getError() . ')' : '');
+	}
+
+
 	public function replacePlaceholders() {
 		global $ilUser;
 		$replacements = array(
@@ -341,17 +371,21 @@ class ctrlmmEntry extends ActiveRecord {
 
 
 	public function create() {
-		if ($this->getParent() > 0 AND in_array($this->getType(), array( ctrlmmMenu::TYPE_ADMIN, ctrlmmMenu::TYPE_DROPDOWN ))) {
-			ilUtil::sendFailure('Wrong Child-Type');
-		} else {
-			if ($this->getId() != 0) {
-				$this->update();
-			} else {
-				parent::create();
+		if ($this->getParent() > 0) {
+			$entry = ctrlmmEntryInstaceFactory::getInstanceByEntryId($this->getParent())->getObject();
+			if (!$entry->isChildAllowed($this->getType())) {
+				ilUtil::sendFailure('Wrong Child-Type');
 
-				$this->writeAdditionalData();
-				$this->writeTranslations();
+				return false;
 			}
+		}
+		if ($this->getId() != 0) {
+			$this->update();
+		} else {
+			parent::create();
+
+			$this->writeAdditionalData();
+			$this->writeTranslations();
 		}
 	}
 
@@ -517,9 +551,7 @@ class ctrlmmEntry extends ActiveRecord {
 	 * @return int
 	 */
 	public function delete() {
-
 		$deleted_id = $this->getId();
-
 		if ($this->getType() == ctrlmmMenu::TYPE_DROPDOWN) {
 			/**
 			 * @var $entry ctrlmmEntry

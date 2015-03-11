@@ -1,6 +1,7 @@
 <?php
 require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/Menu/class.ctrlmmMenu.php');
 require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/Entry/class.ctrlmmEntry.php');
+
 /**
  * Class ctrlmmEntryInstaceFactory
  *
@@ -47,28 +48,26 @@ class ctrlmmEntryInstaceFactory {
 	 *
 	 * @return ctrlmmEntry[]
 	 */
-    public static function getAllChildsForId($id) {
-        if(!isset(self::$childs_cache[$id])) {
-            $childs = array();
-            $sets = ctrlmmEntry::where(array('parent'=>$id))->orderBy('position', 'ASC');
-
-            foreach($sets->get() as $set) {
+	public static function getAllChildsForId($id) {
+		if (!isset(self::$childs_cache[$id])) {
+			$children = array();
+			$sets = ctrlmmEntry::where(array( 'parent' => $id ))->orderBy('position', 'ASC');
+			foreach ($sets->get() as $set) {
 				$instance = self::getInstanceByEntryId($set->getId())->getObject();
-                $childs[] = $instance;
-            }
+				$children[] = $instance;
+			}
+			if (count($children) === 0 AND $id === 0) {
+				$children[] = self::createAdminEntry();
+			}
 
-            if (count($childs) === 0 AND $id === 0) {
+			$children = array_merge($children, self::getPluginEntries($id));
 
-                $childs[] = self::createAdminEntry();
-            }
+			self::$childs_cache[$id] = $children;
+		}
 
-            $childs = array_merge($childs, self::getPluginEntries($id));
+		return self::$childs_cache[$id];
+	}
 
-            self::$childs_cache[$id] = $childs;
-        }
-
-        return self::$childs_cache[$id];
-    }
 
 	/**
 	 * @param int $id
@@ -84,6 +83,7 @@ class ctrlmmEntryInstaceFactory {
 		return $return;
 	}
 
+
 	/**
 	 * @param bool $as_array
 	 *
@@ -94,7 +94,7 @@ class ctrlmmEntryInstaceFactory {
 
 		$childs = array();
 		$sets = ctrlmmEntry::getArray();
-		foreach($sets as $set) {
+		foreach ($sets as $set) {
 			$type = 'ctrlmmEntry' . self::getClassAppendForValue($set->type);
 
 			if ($as_array) {
@@ -106,6 +106,7 @@ class ctrlmmEntryInstaceFactory {
 
 		return $childs;
 	}
+
 
 	public static function createAdminEntry() {
 		$admin = self::getInstanceByTypeId(ctrlmmMenu::TYPE_ADMIN)->getObject();
@@ -135,7 +136,10 @@ class ctrlmmEntryInstaceFactory {
 					foreach ($pls as $pl) {
 						$plugin_class = 'il' . $pl . 'Plugin';
 						if (method_exists($plugin_class, 'getMenuEntries')) {
-							$childs = array_merge($childs, $plugin_class::getMenuEntries($id));
+							$menuEntries = $plugin_class::getMenuEntries($id);
+							if (is_array($menuEntries)) {
+								$childs = array_merge($childs, $menuEntries);
+							}
 						}
 					}
 				}
@@ -162,15 +166,40 @@ class ctrlmmEntryInstaceFactory {
 	 * @return \ctrlmmEntryInstaceFactory
 	 */
 	public static function getInstanceByEntryId($entry_id) {
-		if (! isset(self::$type_id_cache[$entry_id])) {
+		if (!isset(self::$type_id_cache[$entry_id])) {
 			$obj = ctrlmmEntry::find($entry_id);
-		  if($obj) {
-			  self::$type_id_cache[$entry_id] = $obj->getType();
-		   }
+			if ($obj) {
+				self::$type_id_cache[$entry_id] = $obj->getType();
+			}
+		}
+
+		if (ctrlmm::isGlobalCacheActive()) {
+			require_once('./Services/GlobalCache/classes/class.ilGlobalCache.php');
+			$ilGlobalCache = ilGlobalCache::getInstance(ilGlobalCache::COMP_ILCTRL);
+			if ($ilGlobalCache->isActive()) {
+				$entry = $ilGlobalCache->get('ctrlmm_e_' . $entry_id);
+				if (!$entry instanceof ctrlmmEntryInstaceFactory) {
+					$entry = new self(self::$type_id_cache[$entry_id], $entry_id);
+					$ilGlobalCache->set('ctrlmm_e_' . $entry_id, $entry, 120);
+				}
+
+				return $entry;
+			}
 		}
 
 		return new self(self::$type_id_cache[$entry_id], $entry_id);
 	}
+
+
+	/**
+	 * @var ctrlmmEntryCtrlGUI
+	 */
+	protected $object;
+	/**
+	 * @var ctrlmmEntryCtrl
+	 */
+	protected $object_gui;
+
 
 	/**
 	 * @return ctrlmmEntryCtrl
@@ -178,12 +207,15 @@ class ctrlmmEntryInstaceFactory {
 	 * TODO FSX add caching
 	 */
 	public function getObject() {
-		/**
-		 * @var $entry_class  ctrlmmEntryCtrl
-		 */
-		$entry_class = $this->getClassName();
+		if (!isset($this->object)) {
+			/**
+			 * @var $entry_class  ctrlmmEntryCtrl
+			 */
+			$entry_class = $this->getClassName();
+			$this->object = $entry_class::find($this->getEntryId());
+		}
 
-		return new $entry_class($this->getEntryId());
+		return $this->object;
 	}
 
 
@@ -193,6 +225,7 @@ class ctrlmmEntryInstaceFactory {
 	 * @return ctrlmmEntryCtrlGUI
 	 */
 	public function getGUIObject($parent_gui = NULL) {
+
 		/**
 		 * @var $entry_class  ctrlmmEntryCtrl
 		 * @var $gui_class    ctrlmmEntryCtrlGUI
@@ -273,6 +306,7 @@ class ctrlmmEntryInstaceFactory {
 		return $this->type_id;
 	}
 
+
 	/**
 	 * @param $id
 	 *
@@ -298,10 +332,10 @@ class ctrlmmEntryInstaceFactory {
 	/**
 	 * @return string
 	 */
-	public function getGUIObjectClass()
-	{
+	public function getGUIObjectClass() {
 		$entry_class = $this->getClassName();
 		$gui_class = $entry_class . 'GUI';
+
 		return $gui_class;
 	}
 }

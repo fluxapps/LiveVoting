@@ -86,3 +86,11 @@ simple_form_validation#:#Activate Simple Form-Validation (experimental)
 
 settentr_button_save#:#Save
 replace_full_header#:#Replace Full Header (experimental)
+
+cache_settings#:#Cache
+update_cache_settings#:#Save
+cache_settings_updated#:#Cache-Settings saved
+activate_cache#:#Activate GlobalCache (experimental)
+activate_cache_info#:#Entries will be stores i Webserver's Memory for 120 seconds.
+cache_cleared#:#Cache cleared
+clear_cache#:#Clear Cache

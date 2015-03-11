@@ -10,55 +10,51 @@
 class ctrlmmData extends ActiveRecord {
 
 	const TABLE_NAME = 'ui_uihk_ctrlmm_d';
-
 	/**
 	 * @var int
-     *
-     * @con_is_primary true
-     * @con_is_unique  true
-     * @con_sequence   true
-     * @con_has_field  true
-     * @con_fieldtype  integer
-     * @con_length     8
+	 *
+	 * @con_is_primary true
+	 * @con_is_unique  true
+	 * @con_sequence   true
+	 * @con_has_field  true
+	 * @con_fieldtype  integer
+	 * @con_length     8
 	 */
 	public $id = 0;
-
 	/**
 	 * @var int
-     *
-     * @con_has_field  true
-     * @con_fieldtype  integer
-     * @con_length     8
+	 *
+	 * @con_has_field  true
+	 * @con_fieldtype  integer
+	 * @con_length     8
 	 */
 	public $parent_id = 0;
-
 	/**
 	 * @var string
-     *
-     * @con_has_field  true
-     * @con_fieldtype  text
-     * @con_length     1024
+	 *
+	 * @con_has_field  true
+	 * @con_fieldtype  text
+	 * @con_length     1024
 	 */
 	public $data_key = '';
-
 	/**
 	 * @var string
-     *
-     * @con_has_field  true
-     * @con_fieldtype  text
-     * @con_length     1024
+	 *
+	 * @con_has_field  true
+	 * @con_fieldtype  text
+	 * @con_length     1024
 	 */
 	public $data_value = '';
 
-    /**
-     * @return string
-     * @description Return the Name of your Database Table
-     * @deprecated
-     */
-    static function returnDbTableName()
-    {
-        return self::TABLE_NAME;
-    }
+
+	/**
+	 * @return string
+	 * @description Return the Name of your Database Table
+	 * @deprecated
+	 */
+	static function returnDbTableName() {
+		return self::TABLE_NAME;
+	}
 
 	//
 	// Static
@@ -70,17 +66,17 @@ class ctrlmmData extends ActiveRecord {
 	 * @return ctrlmmData
 	 */
 	public static function _getInstanceForDataKey($parent_id, $data_key) {
-        $result = self::where(array('parent_id'=>$parent_id, 'data_key'=>$data_key));
+		$result = self::where(array( 'parent_id' => $parent_id, 'data_key' => $data_key ));
 
-        if($result->hasSets()) {
-            return $result->first();
-        } else {
-            $instance = new self();
-            $instance->setParentId($parent_id);
-            $instance->setDataKey($data_key);
+		if ($result->hasSets()) {
+			return $result->first();
+		} else {
+			$instance = new self();
+			$instance->setParentId($parent_id);
+			$instance->setDataKey($data_key);
 
-            return $instance;
-        }
+			return $instance;
+		}
 	}
 
 
@@ -88,25 +84,26 @@ class ctrlmmData extends ActiveRecord {
 	 * @param      $parent_id
 	 * @param bool $as_array
 	 *
-	 * @return ctrlmmData[]
+	 * @return ctrlmmData[]|array
 	 */
 	public static function _getAllInstancesForParentId($parent_id, $as_array = false) {
-        $result = self::where(array('parent_id'=>$parent_id));
+		$result = self::where(array( 'parent_id' => $parent_id ));
 
-        if($as_array) {
-            return $result->getArray();
-        } else {
-            return $result->get();
-        }
+		if ($as_array) {
+			return $result->getArray();
+		} else {
+			return $result->get();
+		}
 	}
 
 
 	public static function _deleteAllInstancesForParentId($parent_id) {
-        $deleteChilds = self::_getAllInstancesForParentId($parent_id);
-		foreach ($deleteChilds as $nr=>$child) {
-            $child->delete();
+		$deleteChilds = self::_getAllInstancesForParentId($parent_id);
+		foreach ($deleteChilds as $nr => $child) {
+			$child->delete();
 		}
 	}
+
 
 	/**
 	 * @param $parent_id
@@ -114,9 +111,9 @@ class ctrlmmData extends ActiveRecord {
 	 * @return array
 	 */
 	public static function getDataForEntry($parent_id) {
-        $sets = self::_getAllInstancesForParentId($parent_id);
+		$sets = self::_getAllInstancesForParentId($parent_id);
 
-        $data = array();
+		$data = array();
 		foreach ($sets as $set) {
 			$data[$set->getDataKey()] = $set->getDataValue();
 		}

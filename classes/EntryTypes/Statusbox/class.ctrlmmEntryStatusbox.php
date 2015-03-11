@@ -46,9 +46,8 @@ class ctrlmmEntryStatusbox extends ctrlmmEntry {
 
 
 	/**
-	 * @var int
+	 * @param int $primary_key
 	 */
-	//protected $type = ctrlmmMenu::TYPE_STATUSBOX;
 	public function __construct($primary_key = 0) {
 		$this->setType(ctrlmmMenu::TYPE_STATUSBOX);
 
@@ -61,6 +60,14 @@ class ctrlmmEntryStatusbox extends ctrlmmEntry {
 	 */
 	public function getLink() {
 		return 'ilias.php?baseClass=ilMailGUI';
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getTitle() {
+		return 'Statusbox (ID ' . $this->getId() . ')';
 	}
 
 
