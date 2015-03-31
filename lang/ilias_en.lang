@@ -74,7 +74,7 @@ sms_err_wrongpin#:#This LiveVoting-PIN doesn't exist
 sms_err_voteover#:#This LiveVoting is closed
 sms_err_nosuchvote#:#There's no such option for this LiveVoting
 sms_vote_ok#:#Thank's for voting with ILIAS LiveVoting
-use_smslog#:#Use e separate SMS-Log-File
+use_smslog#:#Use a separate SMS-Log-File
 
 allow_freeze#:#Allow Freeze
 freeze#:#Freeze Voting
@@ -85,7 +85,7 @@ voting_unfreezed#:#Voting unfreezed
 use_qr#:#Use QR-Codes
 qr_close#:#Close
 
-sragsms#:#SRAGsms-Unterstützung
+sragsms#:#SRAGsms-Support
 sragsms_number#:#Phone-Number
 sragsms_userkey#:#UserKey
 sragsms_password#:#Passwort
@@ -110,3 +110,5 @@ htaccess#:#Redirects
 stress_test#:#Stresstests
 use_responsive#:#Allow Responsive-Design
 colorful#:#Multi-colored Bars
+
+conf_saved#:#Saved

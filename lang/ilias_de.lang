@@ -108,3 +108,5 @@ htaccess#:#Redirect-Einstellungen
 stress_test#:#Lasttests
 use_responsive#:#Responsive-Design anbieten
 colorful#:#Mehrfarbige Balken
+
+conf_saved#:#Gespeichert
