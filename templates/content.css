@@ -21,7 +21,7 @@ div.fullscreen {
 	top:              0;
 	left:             0;
 	width:            100%;
-	z-index: 100000;
+	z-index:          100000;
 }
 
 /*div.fullscreen div.lvo_pin_container {
@@ -58,20 +58,20 @@ div.lvo_fullscreendummy #lvo_content {
 	margin: 50px;
 }
 
-div.lvo_fullscreendummy div.lvo_qr_hidden_canvas_close {
-	display: block;
-}
-
-div.lvo_fullscreendummy div.lvo_actions {
-	display: none;
-}
-
 div.lvo_qr_hidden_canvas_close {
 	height:           20px;
 	display:          none;
 	background-color: #808080;
 	text-align:       center;
 	color:            #FFFFFF;
+}
+
+div.lvo_fullscreendummy div.lvo_actions {
+	display: none;
+}
+
+div.lvo_qr_hidden_canvas_close.fullscreen {
+	display: none;
 }
 
 div.lvo_qr_hidden_canvas_close:hover {
