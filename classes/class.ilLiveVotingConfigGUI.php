@@ -265,7 +265,7 @@ class ilLiveVotingConfigGUI extends ilPluginConfigGUI {
 					}
 				}
 			}
-			ilUtil::sendSuccess($this->pl->txt('conf_saved'));
+			ilUtil::sendSuccess($this->pl->txt('conf_saved'), true);
 			$ilCtrl->redirect($this, 'configure');
 		} else {
 			$this->form->setValuesByPost();
