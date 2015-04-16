@@ -24,6 +24,10 @@ perm_role#:#Restrict to Role
 perm_role_exeption#:#All Roles except the following
 perm_ref_read#:#Read Permission to Ref-ID
 perm_ref_write#:#Write Permission to Ref-ID
+perm_script#:#Chech Permission per Script
+perm_input_script_path#:#Script Path
+perm_input_script_class#:#Class Name
+perm_input_script_method#:#Method Name
 
 gui_class#:#GUI Classes, comma-separated
 cmd#:#Command

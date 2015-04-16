@@ -166,17 +166,26 @@ class ctrlmmEntryGUI {
 		}
 		$perm_type = $this->entry->getPermissionType();
 		$values['permission_type'] = $perm_type;
-		$role_ids = json_decode($this->entry->getPermission());
-		$roles_global = @array_intersect($role_ids, self::getRoles(ilRbacReview::FILTER_ALL_GLOBAL, false));
-		$roles_local = @array_intersect($role_ids, self::getRoles(ilRbacReview::FILTER_ALL_LOCAL, false));
-		//$roles_local = @array_diff($role_ids, $roles_global); // Bessere Variante, da auch falsche vorhanden
-		$values['permission_' . $perm_type] = $roles_global;
-		$values['permission_locale_' . $perm_type] = @implode(',', $roles_local); // Variante Textfeld
-		// $values['permission_locale_' . $perm_type] = $roles_local; // Variante MultiSelect
-		$role_ids_as_string = '';
-		if (is_array($role_ids) AND count($role_ids) > 0) {
-			$role_ids_as_string = implode(',', $role_ids);
+
+		if($perm_type == ctrlmmMenu::PERM_SCRIPT) {
+			$perm_settings = json_decode($this->entry->getPermission());
+			$values['perm_input_script_path'] = $perm_settings[0];
+			$values['perm_input_script_class'] = $perm_settings[1];
+			$values['perm_input_script_method'] = $perm_settings[2];
+		} else {
+			$role_ids = json_decode($this->entry->getPermission());
+			$roles_global = @array_intersect($role_ids, self::getRoles(ilRbacReview::FILTER_ALL_GLOBAL, false));
+			$roles_local = @array_intersect($role_ids, self::getRoles(ilRbacReview::FILTER_ALL_LOCAL, false));
+			//$roles_local = @array_diff($role_ids, $roles_global); // Bessere Variante, da auch falsche vorhanden
+			$values['permission_' . $perm_type] = $roles_global;
+			$values['permission_locale_' . $perm_type] = @implode(',', $roles_local); // Variante Textfeld
+			// $values['permission_locale_' . $perm_type] = $roles_local; // Variante MultiSelect
+			$role_ids_as_string = '';
+			if (is_array($role_ids) AND count($role_ids) > 0) {
+				$role_ids_as_string = implode(',', $role_ids);
+			}
 		}
+
 		$values['permission_user_' . $perm_type] = $role_ids_as_string;
 		$values['type'] = $this->entry->getType();
 		$this->form->setValuesByArray($values);
@@ -244,6 +253,14 @@ class ctrlmmEntryGUI {
 					$te->setInfo($this->pl->txt('perm_input_user_info'));
 					$option->addSubItem($te);
 					break;
+				case ctrlmmMenu::PERM_SCRIPT :
+					$te = new ilTextInputGUI($this->pl->txt('perm_input_script_path'), 'perm_input_script_path');
+					$option->addSubItem($te);
+					$te = new ilTextInputGUI($this->pl->txt('perm_input_script_class'), 'perm_input_script_class');
+					$option->addSubItem($te);
+					$te = new ilTextInputGUI($this->pl->txt('perm_input_script_method'), 'perm_input_script_method');
+					$option->addSubItem($te);
+					break;
 			}
 			$ro->addOption($option);
 		}
@@ -270,6 +287,10 @@ class ctrlmmEntryGUI {
 				. $perm_type), (array)$this->form->getInput('permission_' . $perm_type));*/
 		} elseif ($this->form->getInput('permission_user_' . $perm_type)) {
 			$permission = explode(',', $this->form->getInput('permission_user_' . $perm_type));
+		} elseif  ($this->form->getInput('permission_type') == ctrlmmMenu::PERM_SCRIPT ) {
+			$permission = array(0 => $this->form->getInput('perm_input_script_path'),
+								1 => $this->form->getInput('perm_input_script_class'),
+								2 => $this->form->getInput('perm_input_script_method'));
 		} else {
 			$permission = (array)$this->form->getInput('permission_' . $perm_type);
 		}

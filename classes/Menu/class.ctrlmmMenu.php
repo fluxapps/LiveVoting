@@ -52,6 +52,7 @@ class ctrlmmMenu {
 	const PERM_REF_READ = 102;
 	const PERM_REF_WRITE = 103;
 	const PERM_USERID = 105;
+	const PERM_SCRIPT = 106;
 	/**
 	 * @var array
 	 */

@@ -607,6 +607,25 @@ class ctrlmmEntry extends ActiveRecord {
 					$this->setCachedPermission($state);
 
 					break;
+				case ctrlmmMenu::PERM_SCRIPT:
+					$perm_settings = json_decode($this->getPermission());
+					$path =  $perm_settings[0];
+					$class_name = $perm_settings[1];
+					$method_name = $perm_settings[2];
+
+					if(file_exists($perm_settings[0])) {
+						require_once $perm_settings[0];
+						if(class_exists($class_name)) {
+							$access_object = new $class_name;
+
+							if (method_exists ($access_object, $method_name)) {
+								if($access_object->$method_name()) {
+									$this->setCachedPermission(true);
+								}
+							}
+						}
+					}
+					break;
 				case ctrlmmMenu::PERM_NONE:
 				case NULL;
 					$this->setCachedPermission(true);

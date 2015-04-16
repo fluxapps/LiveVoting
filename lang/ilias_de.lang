@@ -24,6 +24,10 @@ perm_role#:#Auf Rollen-IDs einschränken
 perm_role_exeption#:#Alle Rollen-IDs ausser die Genannten
 perm_ref_read#:#Leserecht auf RefID
 perm_ref_write#:#Schreibrecht auf RefID
+perm_script#:#Zugriffsrecht per Skript prüfen
+perm_input_script_path#:#Skriptpfad
+perm_input_script_class#:#Klassenname
+perm_input_script_method#:#Methodenname
 
 gui_class#:#GUI-Klassen, komma-separiert
 cmd#:#Command
