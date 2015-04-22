@@ -207,6 +207,10 @@ abstract class ctrlmmEntryFormGUI extends ilPropertyFormGUI {
 			$permission = array_merge(explode(',', $this->getInput($pl . $perm_type)), (array)$this->getInput($p . $perm_type));
 		} elseif ($this->getInput($pu . $perm_type)) {
 			$permission = explode(',', $this->getInput($pu . $perm_type));
+		} elseif  ($this->getInput('permission_type') == ctrlmmMenu::PERM_SCRIPT ) {
+				$permission = array(0 => $this->getInput('perm_input_script_path'),
+				1 => $this->getInput('perm_input_script_class'),
+				2 => $this->getInput('perm_input_script_method'));
 		} else {
 			$permission = (array)$this->getInput($p . $perm_type);
 		}
