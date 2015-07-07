@@ -49,6 +49,7 @@ type_search#:#Schnellsuche
 type_statusbox#:#Mail-Status
 type_auth#:#Authentifizierung
 type_user#:#Benutzer
+type_subtitle#:#Subtitel
 
 title_en#:#Englischer Titel
 title_de#:#Deutscher Titel
@@ -104,3 +105,5 @@ activate_cache#:#GlobalCache aktivieren (experimental)
 activate_cache_info#:#Einträge werden für 120 Sekunden im Memory des Webservers gespeichert.$
 cache_cleared#:#Cache gelöscht
 clear_cache#:#Cache löschen
+
+show_with_no_children#:#Anzeigen auch wenn keine Subelemente vorhanden sind

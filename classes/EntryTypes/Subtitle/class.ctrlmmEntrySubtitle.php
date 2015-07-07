@@ -36,6 +36,11 @@ class ctrlmmEntrySubtitle extends ctrlmmEntry {
 	 */
 	protected $restricted = true;
 
+	/**
+	 * @var bool
+	 */
+	protected $show_with_no_children = false;
+
 
 	/**
 	 * @return bool
@@ -49,5 +54,21 @@ class ctrlmmEntrySubtitle extends ctrlmmEntry {
 		$this->setType(ctrlmmMenu::TYPE_SUBTITLE);
 
 		parent::__construct($primary_key);
+	}
+
+
+	/**
+	 * @return boolean
+	 */
+	public function getShowWithNoChildren() {
+		return $this->show_with_no_children;
+	}
+
+
+	/**
+	 * @param boolean $show_with_no_children
+	 */
+	public function setShowWithNoChildren($show_with_no_children) {
+		$this->show_with_no_children = $show_with_no_children;
 	}
 }

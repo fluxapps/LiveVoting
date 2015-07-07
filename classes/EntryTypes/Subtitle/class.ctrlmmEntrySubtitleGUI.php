@@ -16,6 +16,10 @@ class ctrlmmEntrySubtitleGUI extends ctrlmmEntryGUI {
 	 */
 	public function initForm($mode = 'create') {
 		parent::initForm($mode);
+
+		$cb = new ilCheckboxInputGUI($this->pl->txt('show_with_no_children'), 'show_with_no_children');
+		$this->form->addItem($cb);
+
 		/**
 		 * @var $permission_type ilRadioGroupInputGUI
 		 * @var $item            ilTextInputGUI
@@ -26,6 +30,21 @@ class ctrlmmEntrySubtitleGUI extends ctrlmmEntryGUI {
 			$item->setRequired(false);
 		}
 	}
+
+	public function setFormValuesByArray() {
+		$values = parent::setFormValuesByArray();
+		$values['show_with_no_children'] = $this->entry->getShowWithNoChildren();
+		$this->form->setValuesByArray($values);
+	}
+
+
+	public function createEntry() {
+		parent::createEntry();
+		$this->entry->setShowWithNoChildren($this->form->getInput('show_with_no_children'));
+		$this->entry->update();
+	}
+
+
 }
 
 ?>

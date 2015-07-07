@@ -157,7 +157,7 @@ class ctrlmmEntry extends ActiveRecord {
 		if (isset($primary_key)) {
 			foreach (ctrlmmData::getDataForEntry($this->getId()) as $k => $v) {
 				if (self::isAdditionalField(get_class($this), $k)) {
-					if($v != null) {
+					if($v !== null) {
 						$this->{$k} = $v;
 					}
 				}

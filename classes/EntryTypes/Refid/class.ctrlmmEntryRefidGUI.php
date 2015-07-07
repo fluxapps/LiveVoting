@@ -16,9 +16,11 @@ class ctrlmmEntryRefidGUI extends ctrlmmEntryGUI {
 	 */
 	public function initForm($mode = 'create') {
 		parent::initForm($mode);
+
 		$te = new ilTextInputGUI($this->pl->txt('ref_id'), 'ref_id');
 		$te->setRequired(true);
 		$this->form->addItem($te);
+
 		$cb = new ilCheckboxInputGUI($this->pl->txt('recursive'), 'recursive');
 		$cb->setValue(1);
 		$this->form->addItem($cb);

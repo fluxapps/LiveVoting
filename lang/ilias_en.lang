@@ -48,6 +48,7 @@ type_separator#:#Separator
 type_search#:#Quick-Search
 type_statusbox#:#Mail-Status
 type_auth#:#Authentication
+type_subtitle#:#Subtitle
 
 title_en#:#English Title
 title_de#:#German Title
@@ -101,3 +102,5 @@ activate_cache#:#Activate GlobalCache (experimental)
 activate_cache_info#:#Entries will be stores i Webserver's Memory for 120 seconds.
 cache_cleared#:#Cache cleared
 clear_cache#:#Clear Cache
+
+show_with_no_children#:#Show also with no child elements
