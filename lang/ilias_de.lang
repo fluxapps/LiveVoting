@@ -29,6 +29,9 @@ perm_input_script_path#:#Skriptpfad
 perm_input_script_class#:#Klassenname
 perm_input_script_method#:#Methodenname
 
+get_parameters#:#URL-Parameter
+get_parameters_description#:#Das erste Eingabefeld definiert den Namen des Parameters. Das Zweite den entsprechenden Wert. Die Ausgabe wird dann in die Form URL?name1=value1&name2=value2 umgewandelt.
+
 gui_class#:#GUI-Klassen, komma-separiert
 cmd#:#Command
 

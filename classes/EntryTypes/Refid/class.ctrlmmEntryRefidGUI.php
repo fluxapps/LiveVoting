@@ -22,6 +22,18 @@ class ctrlmmEntryRefidGUI extends ctrlmmEntryGUI {
 		$cb = new ilCheckboxInputGUI($this->pl->txt('recursive'), 'recursive');
 		$cb->setValue(1);
 		$this->form->addItem($cb);
+
+		$get_params = new ctrlmmMultiLIneInputGUI($this->pl->txt("get_parameters"), 'get_params');
+		$get_params->setInfo($this->pl->txt('get_parameters_description'));
+		$get_params->setTemplateDir($this->pl->getDirectory());
+
+		$get_params->addInput(new ilTextInputGUI($this->pl->txt('get_param_name'), ctrlmmEntryRefid::PARAM_NAME));
+
+		$get_params_options = new ilSelectInputGUI($this->pl->txt('get_param_value'), ctrlmmEntryRefid::PARAM_VALUE);
+		$get_params_options->setOptions(ctrlmmUserDataReplacer::getDropdownData());
+		$get_params->addInput($get_params_options);
+
+		$this->form->addItem($get_params);
 	}
 
 
@@ -29,6 +41,7 @@ class ctrlmmEntryRefidGUI extends ctrlmmEntryGUI {
 		$values = parent::setFormValuesByArray();
 		$values['ref_id'] = $this->entry->getRefId();
 		$values['recursive'] = $this->entry->getRecursive();
+		$values['get_params'] = $this->entry->getGetParams();
 		$this->form->setValuesByArray($values);
 	}
 
@@ -37,6 +50,10 @@ class ctrlmmEntryRefidGUI extends ctrlmmEntryGUI {
 		parent::createEntry();
 		$this->entry->setRefId($this->form->getInput('ref_id'));
 		$this->entry->setRecursive($this->form->getInput('recursive'));
+
+		// remove duplicates
+		$get_params =  $this->form->getInput('get_params');
+		$this->entry->setGetParams(array_intersect_key($get_params, array_unique(array_map('serialize',$get_params))));
 		$this->entry->update();
 	}
 }

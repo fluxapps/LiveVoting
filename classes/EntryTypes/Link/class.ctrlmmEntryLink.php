@@ -29,6 +29,8 @@ require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHoo
  * @version        2.0.02
  */
 class ctrlmmEntryLink extends ctrlmmEntry {
+	const PARAM_NAME = 'param_name';
+	const PARAM_VALUE = 'param_value';
 
 	/**
 	 * @return bool
@@ -43,6 +45,11 @@ class ctrlmmEntryLink extends ctrlmmEntry {
 	 */
 	protected $target = '_blank';
 
+	/**
+	 * @var array
+	 */
+	protected $get_params = array();
+
 
 	/**
 	 * @param int $primary_key
@@ -51,5 +58,47 @@ class ctrlmmEntryLink extends ctrlmmEntry {
 		$this->setType(ctrlmmMenu::TYPE_LINK);
 
 		parent::__construct($primary_key);
+	}
+
+	public function getLink() {
+		$param_string = "";
+		foreach($this->getGetParams() as $entry) {
+			if($entry[self::PARAM_NAME] != "") {
+				$param_string .= '&'.$entry[self::PARAM_NAME].'='.ctrlmmUserDataReplacer::parse($entry[self::PARAM_VALUE]);
+			}
+		}
+		return $this->link.$param_string;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getUrl() {
+		return $this->link;
+	}
+
+
+	/**
+	 * @param $value string
+	 */
+	public function setUrl($value) {
+		$this->link = $value;
+	}
+
+
+	/**
+	 * @return array
+	 */
+	public function getGetParams() {
+		return $this->get_params;
+	}
+
+
+	/**
+	 * @param array $get_params
+	 */
+	public function setGetParams($get_params) {
+		$this->get_params = $get_params;
 	}
 }

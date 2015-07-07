@@ -29,6 +29,9 @@ perm_input_script_path#:#Script Path
 perm_input_script_class#:#Class Name
 perm_input_script_method#:#Method Name
 
+get_parameters#:#URL-Parameters
+get_parameters_description#:#The first input is the name of the parameter. The second one is the value. The output will be something like URL?name1=value1&name2=value2
+
 gui_class#:#GUI Classes, comma-separated
 cmd#:#Command
 

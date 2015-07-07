@@ -16,20 +16,35 @@ class ctrlmmEntryLinkGUI extends ctrlmmEntryGUI {
 	 */
 	public function initForm($mode = 'create') {
 		parent::initForm($mode);
-		$te = new ilTextInputGUI($this->pl->txt('link'), 'my_link');
+
+		$te = new ilTextInputGUI($this->pl->txt('link'), 'url');
 		$te->setRequired(true);
 		$this->form->addItem($te);
+
 		$se = new ilSelectInputGUI($this->pl->txt('target'), 'target');
 		$opt = array( '_top' => $this->pl->txt('same_page'), '_blank' => $this->pl->txt('new_page') );
 		$se->setOptions($opt);
 		$this->form->addItem($se);
+
+		$get_params = new ctrlmmMultiLIneInputGUI($this->pl->txt("get_parameters"), 'get_params');
+		$get_params->setInfo($this->pl->txt('get_parameters_description'));
+		$get_params->setTemplateDir($this->pl->getDirectory());
+
+		$get_params->addInput(new ilTextInputGUI($this->pl->txt('get_param_name'), ctrlmmEntryLink::PARAM_NAME));
+
+		$get_params_options = new ilSelectInputGUI($this->pl->txt('get_param_value'), ctrlmmEntryLink::PARAM_VALUE);
+		$get_params_options->setOptions(ctrlmmUserDataReplacer::getDropdownData());
+		$get_params->addInput($get_params_options);
+
+		$this->form->addItem($get_params);
 	}
 
 
 	public function setFormValuesByArray() {
 		$values = parent::setFormValuesByArray();
-		$values['my_link'] = $this->entry->getLink();
+		$values['url'] = $this->entry->getUrl();
 		$values['target'] = $this->entry->getTarget();
+		$values['get_params'] = $this->entry->getGetParams();
 
 		$this->form->setValuesByArray($values);
 	}
@@ -38,8 +53,12 @@ class ctrlmmEntryLinkGUI extends ctrlmmEntryGUI {
 	public function createEntry() {
 		parent::createEntry();
 
-		$this->entry->setLink($this->form->getInput('my_link'));
+		$this->entry->setUrl($this->form->getInput('url'));
 		$this->entry->setTarget($this->form->getInput('target'));
+
+		// remove duplicates
+		$get_params =  $this->form->getInput('get_params');
+		$this->entry->setGetParams(array_intersect_key($get_params, array_unique(array_map('serialize',$get_params))));
 		$this->entry->update();
 	}
 }
