@@ -23,13 +23,13 @@
 require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/Entry/class.ctrlmmEntry.php');
 
 /**
- * Application class for ctrlmmEntryCtrl Object.
+ * ctrlmmEntrySubtitle
  *
- * @author         Fabian Schmid <fs@studer-raimann.ch>
+ * @author         Martin Studer <ms@studer-raimann.ch>
  *
- * @version        2.0.02
+ * @version        1.0.0
  */
-class ctrlmmEntryAdmin extends ctrlmmEntry {
+class ctrlmmEntrySubtitle extends ctrlmmEntry {
 
 	/**
 	 * @var bool
@@ -37,39 +37,17 @@ class ctrlmmEntryAdmin extends ctrlmmEntry {
 	protected $restricted = true;
 
 
-	public function __construct($primary_key = 0) {
-		$this->setType(ctrlmmMenu::TYPE_ADMIN);
-
-		parent::__construct($primary_key);
-	}
-
-
-	/**
-	 * @return string
-	 */
-	public function getTitle() {
-		global $lng;
-
-		return $this->title ? $this->title : $lng->txt('administration');
-	}
-
-
 	/**
 	 * @return bool
 	 */
 	public function isActive() {
-		global $ilMainMenu;
-
-		return ($ilMainMenu->active == 'administration');
+		return false;
 	}
 
 
-	/**
-	 * @return bool
-	 */
-	public function checkPermission() {
-		global $rbacsystem;
+	public function __construct($primary_key = 0) {
+		$this->setType(ctrlmmMenu::TYPE_SUBTITLE);
 
-		return $rbacsystem->checkAccess('write', SYSTEM_FOLDER_ID);
+		parent::__construct($primary_key);
 	}
 }

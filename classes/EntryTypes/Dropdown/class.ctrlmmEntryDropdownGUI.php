@@ -24,9 +24,19 @@ class ctrlmmEntryDropdownGUI extends ctrlmmEntryGroupedListDropdownGUI {
 	 */
 	protected function setGroupedListContent() {
 		foreach ($this->entry->getEntries() as $entry) {
+			/**
+			 * @var ctrlmmEntry $entry
+			 */
 			if ($entry->checkPermission()) {
-				$this->gl->addEntry($entry->getTitle(), $entry->getLink(), $entry->getTarget(), '', '', 'mm_pd_sel_items'
-					. $entry->getId(), '', 'left center', 'right center', false);
+				switch($entry->getType()) {
+					case ctrlmmMenu::TYPE_SUBTITLE:
+						$this->gl->addGroupHeader($entry->getTitle(), $entry->getLink(), $entry->getTarget(), '', '', 'mm_pd_sel_items'
+							. $entry->getId(), '', 'left center', 'right center', false);
+						break;
+					default:
+						$this->gl->addEntry($entry->getTitle(), $entry->getLink(), $entry->getTarget(), '', '', 'mm_pd_sel_items'
+							. $entry->getId(), '', 'left center', 'right center', false);
+				}
 			}
 		}
 	}
