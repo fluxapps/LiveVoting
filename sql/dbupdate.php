@@ -68,7 +68,20 @@ global $ilDB;
 
 require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/class.ctrlmmData.php');
 
-$query = "ALTER TABLE `".ctrlmmData::returnDbTableName()."` ADD `data_type` VARCHAR(10) NOT NULL DEFAULT '".ctrlmmData::DATA_TYPE_STRING."' AFTER `data_value`;";
-$ilDB->query($query);
+
+if($ilDB->tableColumnExists(ctrlmmData::returnDbTableName(), 'data_type')) {
+    $ilDB->modifyTableColumn(ctrlmmData::returnDbTableName(), 'data_type', array(
+        'notnull' => true,
+        'default'=>ctrlmmData::DATA_TYPE_STRING,
+    ));
+} else {
+    $ilDB->addTableColumn(ctrlmmData::returnDbTableName(), 'data_type', array(
+        'type'=>'text',
+        'notnull' => true,
+        'length'=>10,
+        'default'=>ctrlmmData::DATA_TYPE_STRING,
+    ));
+}
+
 
 ?>

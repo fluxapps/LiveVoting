@@ -174,9 +174,11 @@ class ctrlmmEntryCtrl extends ctrlmmEntry {
 				$link .= '&ref_id=' . $this->getRefId();
 			}
 
-			foreach($this->getGetParams() as $entry) {
-				if($entry[self::PARAM_NAME] != "") {
-					$link .= '&'.$entry[self::PARAM_NAME].'='.ctrlmmUserDataReplacer::parse($entry[self::PARAM_VALUE]);
+			if(is_array($this->getGetParams())) {
+				foreach($this->getGetParams() as $entry) {
+					if($entry[self::PARAM_NAME] != "") {
+						$link .= '&'.$entry[self::PARAM_NAME].'='.ctrlmmUserDataReplacer::parse($entry[self::PARAM_VALUE]);
+					}
 				}
 			}
 		}

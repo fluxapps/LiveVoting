@@ -95,9 +95,11 @@ class ctrlmmEntryRefid extends ctrlmmEntry {
 	 */
 	public function getLink() {
 		$param_array = array();
-		foreach($this->getGetParams() as $entry) {
-			if($entry[self::PARAM_NAME] != "") {
-				$param_array[$entry[self::PARAM_NAME]] = ctrlmmUserDataReplacer::parse($entry[self::PARAM_VALUE]);
+		if(is_array($this->getGetParams())) {
+			foreach($this->getGetParams() as $entry) {
+				if($entry[self::PARAM_NAME] != "") {
+					$param_array[$entry[self::PARAM_NAME]] = ctrlmmUserDataReplacer::parse($entry[self::PARAM_VALUE]);
+				}
 			}
 		}
 
