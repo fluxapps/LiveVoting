@@ -23,10 +23,25 @@ class ctrlmmEntryDropdownGUI extends ctrlmmEntryGroupedListDropdownGUI {
 	 * @return html
 	 */
 	protected function setGroupedListContent() {
-		foreach ($this->entry->getEntries() as $entry) {
+		$entries = $this->entry->getEntries();
+		foreach ($entries as $key=>$entry) {
+			/**
+			 * @var ctrlmmEntry $entry
+			 */
 			if ($entry->checkPermission()) {
-				$this->gl->addEntry($entry->getTitle(), $entry->getLink(), $entry->getTarget(), '', '', 'mm_pd_sel_items'
-					. $entry->getId(), '', 'left center', 'right center', false);
+				switch($entry->getType()) {
+					case ctrlmmMenu::TYPE_SUBTITLE:
+						// only add subtitle if there is a next entry or the option is show with no children is set
+						$next_element = (isset($entries[$key++]))? $entries[$key++] : null;
+						if($entry->getShowWithNoChildren() || (isset($next_element) && $next_element->checkPermission())) {
+							$this->gl->addGroupHeader($entry->getTitle(), $entry->getLink(), $entry->getTarget(), '', '', 'mm_pd_sel_items'
+								. $entry->getId(), '', 'left center', 'right center', false);
+						}
+						break;
+					default:
+						$this->gl->addEntry($entry->getTitle(), $entry->getLink(), $entry->getTarget(), '', '', 'mm_pd_sel_items'
+							. $entry->getId(), '', 'left center', 'right center', false);
+				}
 			}
 		}
 	}

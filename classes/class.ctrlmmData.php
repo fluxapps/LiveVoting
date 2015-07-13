@@ -10,6 +10,10 @@
 class ctrlmmData extends ActiveRecord {
 
 	const TABLE_NAME = 'ui_uihk_ctrlmm_d';
+
+	const DATA_TYPE_STRING = 'str';
+	const DATA_TYPE_ARRAY = 'arr';
+
 	/**
 	 * @var int
 	 *
@@ -45,6 +49,16 @@ class ctrlmmData extends ActiveRecord {
 	 * @con_length     1024
 	 */
 	public $data_value = '';
+
+
+	/**
+	 * @var string
+	 *
+	 * @con_has_field  true
+	 * @con_fieldtype  text
+	 * @con_length     10
+	 */
+	public $data_type = DATA_TYPE_STRING;
 
 
 	/**
@@ -104,6 +118,9 @@ class ctrlmmData extends ActiveRecord {
 		}
 	}
 
+	public static function _getDataTypeForValue($value) {
+		return (is_array($value))? self::DATA_TYPE_ARRAY : self::DATA_TYPE_STRING;
+	}
 
 	/**
 	 * @param $parent_id
@@ -115,7 +132,11 @@ class ctrlmmData extends ActiveRecord {
 
 		$data = array();
 		foreach ($sets as $set) {
-			$data[$set->getDataKey()] = $set->getDataValue();
+			if($set->getDataType() == self::DATA_TYPE_ARRAY) {
+				$data[$set->getDataKey()] = json_decode($set->getDataValue(), true);
+			} else {
+				$data[$set->getDataKey()] = $set->getDataValue();
+			}
 		}
 
 		return $data;
@@ -183,6 +204,21 @@ class ctrlmmData extends ActiveRecord {
 	 */
 	public function getParentId() {
 		return $this->parent_id;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getDataType() {
+		return $this->data_type;
+	}
+
+
+	/**
+	 * @param string $data_type
+	 */
+	public function setDataType($data_type) {
+		$this->data_type = $data_type;
 	}
 }
 

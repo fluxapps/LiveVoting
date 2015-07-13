@@ -46,6 +46,7 @@ class ctrlmmMenu {
 	const TYPE_SEARCH = 11;
 	const TYPE_STATUSBOX = 12;
 	const TYPE_AUTH = 13;
+	const TYPE_SUBTITLE = 14;
 	const PERM_NONE = 100;
 	const PERM_ROLE = 101;
 	const PERM_ROLE_EXEPTION = 104;

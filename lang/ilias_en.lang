@@ -24,10 +24,13 @@ perm_role#:#Restrict to Role
 perm_role_exeption#:#All Roles except the following
 perm_ref_read#:#Read Permission to Ref-ID
 perm_ref_write#:#Write Permission to Ref-ID
-perm_script#:#Chech Permission per Script
+perm_script#:#Check Permission per Script (Advanced Option)
 perm_input_script_path#:#Script Path
 perm_input_script_class#:#Class Name
 perm_input_script_method#:#Method Name
+
+get_parameters#:#URL-Parameters
+get_parameters_description#:#The first input is the name of the parameter. The second one is the value. The output will be something like URL?name1=value1&name2=value2
 
 gui_class#:#GUI Classes, comma-separated
 cmd#:#Command
@@ -45,6 +48,7 @@ type_separator#:#Separator
 type_search#:#Quick-Search
 type_statusbox#:#Mail-Status
 type_auth#:#Authentication
+type_subtitle#:#Subtitle
 
 title_en#:#English Title
 title_de#:#German Title
@@ -98,3 +102,5 @@ activate_cache#:#Activate GlobalCache (experimental)
 activate_cache_info#:#Entries will be stores i Webserver's Memory for 120 seconds.
 cache_cleared#:#Cache cleared
 clear_cache#:#Clear Cache
+
+show_with_no_children#:#Show also with no child elements

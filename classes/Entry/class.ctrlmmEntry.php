@@ -157,7 +157,9 @@ class ctrlmmEntry extends ActiveRecord {
 		if (isset($primary_key)) {
 			foreach (ctrlmmData::getDataForEntry($this->getId()) as $k => $v) {
 				if (self::isAdditionalField(get_class($this), $k)) {
-					$this->{$k} = $v;
+					if($v !== null) {
+						$this->{$k} = $v;
+					}
 				}
 			}
 
@@ -497,7 +499,16 @@ class ctrlmmEntry extends ActiveRecord {
 	protected function writeAdditionalData() {
 		foreach (self::getAdditionalFieldsAsArray($this) as $k => $v) {
 			$data = ctrlmmData::_getInstanceForDataKey($this->getId(), $k);
-			$data->setDataValue($v);
+
+			$type = ctrlmmData::_getDataTypeForValue($v);
+
+			$data->setDataType($type);
+			if($type == ctrlmmData::DATA_TYPE_ARRAY) {
+				$data->setDataValue(json_encode($v));
+			} else {
+				$data->setDataValue($v);
+			}
+
 			$data->store();
 		}
 	}
@@ -613,8 +624,8 @@ class ctrlmmEntry extends ActiveRecord {
 					$class_name = $perm_settings[1];
 					$method_name = $perm_settings[2];
 
-					if(file_exists($perm_settings[0])) {
-						require_once $perm_settings[0];
+					if(file_exists($path)) {
+						require_once $path;
 						if(class_exists($class_name)) {
 							$access_object = new $class_name;
 
