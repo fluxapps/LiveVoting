@@ -40,7 +40,7 @@ class ctrlmmEntryTableGUI extends ilTable2GUI {
 		$this->addColumn('', 'position', '20px');
 		$this->addColumn($this->pl->txt('title'), 'title', 'auto');
 		$this->addColumn($this->pl->txt('type'), 'type', 'auto');
-		$this->addColumn($this->pl->txt('actions'), 'actions', 'auto');
+		$this->addColumn($this->pl->txt('actions'), 'actions', '100px');
 		// ...
 		// Header
 		$ilToolbar->addButton($this->pl->txt('add_new'), $this->ctrl->getLinkTarget($a_parent_obj, 'selectEntryType'));

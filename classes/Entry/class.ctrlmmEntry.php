@@ -624,8 +624,8 @@ class ctrlmmEntry extends ActiveRecord {
 					$class_name = $perm_settings[1];
 					$method_name = $perm_settings[2];
 
-					if(file_exists($perm_settings[0])) {
-						require_once $perm_settings[0];
+					if(file_exists($path)) {
+						require_once $path;
 						if(class_exists($class_name)) {
 							$access_object = new $class_name;
 
