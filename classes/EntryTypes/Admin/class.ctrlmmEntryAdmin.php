@@ -70,6 +70,6 @@ class ctrlmmEntryAdmin extends ctrlmmEntry {
 	public function checkPermission() {
 		global $rbacsystem;
 
-		return $rbacsystem->checkAccess('visible', SYSTEM_FOLDER_ID);
+		return $rbacsystem->checkAccess('write', SYSTEM_FOLDER_ID);
 	}
 }

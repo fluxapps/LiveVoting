@@ -23,14 +23,24 @@
 require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/Entry/class.ctrlmmEntry.php');
 
 /**
- * Application class for ctrlmmEntryCtrl Object.
+ * ctrlmmEntrySubtitle
  *
- * @author         Fabian Schmid <fs@studer-raimann.ch>
- * @version        2.0.02
+ * @author         Martin Studer <ms@studer-raimann.ch>
+ *
+ * @version        1.0.0
  */
-class ctrlmmEntryLink extends ctrlmmEntry {
-	const PARAM_NAME = 'param_name';
-	const PARAM_VALUE = 'param_value';
+class ctrlmmEntrySubtitle extends ctrlmmEntry {
+
+	/**
+	 * @var bool
+	 */
+	protected $restricted = true;
+
+	/**
+	 * @var bool
+	 */
+	protected $show_with_no_children = false;
+
 
 	/**
 	 * @return bool
@@ -40,65 +50,25 @@ class ctrlmmEntryLink extends ctrlmmEntry {
 	}
 
 
-	/**
-	 * @var bool
-	 */
-	protected $target = '_blank';
-
-	/**
-	 * @var array
-	 */
-	protected $get_params = array();
-
-
-	/**
-	 * @param int $primary_key
-	 */
 	public function __construct($primary_key = 0) {
-		$this->setType(ctrlmmMenu::TYPE_LINK);
+		$this->setType(ctrlmmMenu::TYPE_SUBTITLE);
 
 		parent::__construct($primary_key);
 	}
 
-	public function getLink() {
-		$param_string = "";
-		foreach($this->getGetParams() as $entry) {
-			if($entry[self::PARAM_NAME] != "") {
-				$param_string .= '&'.$entry[self::PARAM_NAME].'='.ctrlmmUserDataReplacer::parse($entry[self::PARAM_VALUE]);
-			}
-		}
-		return $this->link.$param_string;
+
+	/**
+	 * @return boolean
+	 */
+	public function getShowWithNoChildren() {
+		return $this->show_with_no_children;
 	}
 
 
 	/**
-	 * @return string
+	 * @param boolean $show_with_no_children
 	 */
-	public function getUrl() {
-		return $this->link;
-	}
-
-
-	/**
-	 * @param $value string
-	 */
-	public function setUrl($value) {
-		$this->link = $value;
-	}
-
-
-	/**
-	 * @return array
-	 */
-	public function getGetParams() {
-		return $this->get_params;
-	}
-
-
-	/**
-	 * @param array $get_params
-	 */
-	public function setGetParams($get_params) {
-		$this->get_params = $get_params;
+	public function setShowWithNoChildren($show_with_no_children) {
+		$this->show_with_no_children = $show_with_no_children;
 	}
 }

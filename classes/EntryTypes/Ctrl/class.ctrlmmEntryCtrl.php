@@ -32,6 +32,8 @@ require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHoo
 class ctrlmmEntryCtrl extends ctrlmmEntry {
 
 	const DEBUG = true;
+	const PARAM_NAME = 'param_name';
+	const PARAM_VALUE = 'param_value';
 	/**
 	 * @var string
 	 */
@@ -48,6 +50,12 @@ class ctrlmmEntryCtrl extends ctrlmmEntry {
 	 * @var int
 	 */
 	protected $ref_id = NULL;
+
+	/**
+	 * @var array
+	 */
+	protected $get_params = array();
+
 	/**
 	 * @var ilCtrl
 	 */
@@ -150,6 +158,12 @@ class ctrlmmEntryCtrl extends ctrlmmEntry {
 			$_GET['cmd'] = $cmd;
 			$_GET['cmdClass'] = $cmdClass;
 			$_GET['cmdNode'] = $cmdNode;
+
+			foreach($this->getGetParams() as $entry) {
+				if($entry[self::PARAM_NAME] != "") {
+					$_GET[$entry[self::PARAM_NAME]] = ctrlmmUserDataReplacer::parse($entry[self::PARAM_VALUE]);
+				}
+			}
 		} else {
 
 			$link = $this->ctrl->getLinkTargetByClass($gui_classes, $this->getCmd());
@@ -158,6 +172,12 @@ class ctrlmmEntryCtrl extends ctrlmmEntry {
 			}
 			if ($this->getRefId()) {
 				$link .= '&ref_id=' . $this->getRefId();
+			}
+
+			foreach($this->getGetParams() as $entry) {
+				if($entry[self::PARAM_NAME] != "") {
+					$link .= '&'.$entry[self::PARAM_NAME].'='.ctrlmmUserDataReplacer::parse($entry[self::PARAM_VALUE]);
+				}
 			}
 		}
 
@@ -227,4 +247,22 @@ class ctrlmmEntryCtrl extends ctrlmmEntry {
 	public function getRefId() {
 		return $this->ref_id;
 	}
+
+
+	/**
+	 * @return mixed
+	 */
+	public function getGetParams() {
+		return $this->get_params;
+	}
+
+
+	/**
+	 * @param mixed $get_params
+	 */
+	public function setGetParams($get_params) {
+		$this->get_params = $get_params;
+	}
+
+
 }

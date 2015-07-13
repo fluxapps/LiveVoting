@@ -1,0 +1,25 @@
+.multi_icons_wrapper {
+    height: 45px;
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+.multi_icon {
+    display: inline-block;
+}
+
+.multi_input_line {
+    border-top: 1px solid #EDEDED;
+    padding-top: 10px;
+}
+
+.multi_input_line:nth-child(2) {
+    border-top: none;
+    padding-top: 0;
+}
+
+.multi_input_line .input {
+    display: inline-block;
+    border: none;
+    vertical-align: top;
+}

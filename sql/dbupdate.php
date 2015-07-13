@@ -60,3 +60,15 @@ require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHoo
 $ilDB->modifyTableColumn(ctrlmmEntry::returnDbTableName(), 'parent', array(
     'length' => '8',
 ));
+?>
+
+<#7>
+<?php
+global $ilDB;
+
+require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/class.ctrlmmData.php');
+
+$query = "ALTER TABLE `".ctrlmmData::returnDbTableName()."` ADD `data_type` VARCHAR(10) NOT NULL DEFAULT '".ctrlmmData::DATA_TYPE_STRING."' AFTER `data_value`;";
+$ilDB->query($query);
+
+?>
