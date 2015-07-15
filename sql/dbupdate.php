@@ -68,18 +68,17 @@ global $ilDB;
 
 require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/CtrlMainMenu/classes/class.ctrlmmData.php');
 
-
-if($ilDB->tableColumnExists(ctrlmmData::returnDbTableName(), 'data_type')) {
+if ($ilDB->tableColumnExists(ctrlmmData::returnDbTableName(), 'data_type')) {
     $ilDB->modifyTableColumn(ctrlmmData::returnDbTableName(), 'data_type', array(
         'notnull' => true,
-        'default'=>ctrlmmData::DATA_TYPE_STRING,
+        'default' => ctrlmmData::DATA_TYPE_STRING,
     ));
 } else {
     $ilDB->addTableColumn(ctrlmmData::returnDbTableName(), 'data_type', array(
-        'type'=>'text',
+        'type' => 'text',
         'notnull' => true,
-        'length'=>10,
-        'default'=>ctrlmmData::DATA_TYPE_STRING,
+        'length' => 10,
+        'default' => ctrlmmData::DATA_TYPE_STRING,
     ));
 }
 
