@@ -64,7 +64,6 @@ class ctrlmmData extends ActiveRecord {
 	/**
 	 * @return string
 	 * @description Return the Name of your Database Table
-	 * @deprecated
 	 */
 	static function returnDbTableName() {
 		return self::TABLE_NAME;

@@ -386,8 +386,9 @@ class ctrlmmMultiLineInputGUI extends ilFormPropertyGUI {
 		$tpl->addCss($this->getTemplateDir() . '/templates/css/multi_line_input.css');
 
 		$output .= $this->render(0, true);
-		if ($this->getMulti() && count($this->line_values) > 0) {
-			foreach ($this->line_values as $run => $data) {
+
+		if($this->getMulti() && is_array($this->line_values) && count($this->line_values) > 0) {
+			foreach ($this->line_values as $run=>$data) {
 				$object = $this;
 				$object->setValue($data);
 				$output .= $object->render($run);

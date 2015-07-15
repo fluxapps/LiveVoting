@@ -62,11 +62,15 @@ class ctrlmmEntryLink extends ctrlmmEntry {
 
 	public function getLink() {
 		$param_string = "";
-		foreach($this->getGetParams() as $entry) {
-			if($entry[self::PARAM_NAME] != "") {
-				$param_string .= '&'.$entry[self::PARAM_NAME].'='.ctrlmmUserDataReplacer::parse($entry[self::PARAM_VALUE]);
+
+		if(is_array($this->getGetParams())) {
+			foreach($this->getGetParams() as $entry) {
+				if($entry[self::PARAM_NAME] != "") {
+					$param_string .= '&'.$entry[self::PARAM_NAME].'='.ctrlmmUserDataReplacer::parse($entry[self::PARAM_VALUE]);
+				}
 			}
 		}
+
 		return $this->link.$param_string;
 	}
 
