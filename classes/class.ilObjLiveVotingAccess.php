@@ -49,7 +49,7 @@ class ilObjLiveVotingAccess extends ilObjectPluginAccess {
 	 *
 	 * @return    boolean        true, if everything is ok
 	 */
-	function _checkAccess($a_cmd, $a_permission, $a_ref_id, $a_obj_id, $a_user_id = "") {
+	public function _checkAccess($a_cmd, $a_permission, $a_ref_id, $a_obj_id, $a_user_id = "") {
 		global $ilUser, $ilAccess;
 
 		if ($a_user_id == "") {
@@ -58,8 +58,8 @@ class ilObjLiveVotingAccess extends ilObjectPluginAccess {
 
 		switch ($a_permission) {
 			case "read":
-				if (!ilObjLiveVotingAccess::checkOnline($a_obj_id)
-					&& !$ilAccess->checkAccessOfUser($a_user_id, "write", "", $a_ref_id)
+				if (! ilObjLiveVotingAccess::checkOnline($a_obj_id)
+					&& ! $ilAccess->checkAccessOfUser($a_user_id, "write", "", $a_ref_id)
 				) {
 					return false;
 				}
@@ -73,7 +73,9 @@ class ilObjLiveVotingAccess extends ilObjectPluginAccess {
 	/**
 	 * Check online status of example object
 	 */
-	static function checkOnline($a_id) {
+	public static function checkOnline($a_id) {
+
+		// TODO use config object
 		global $ilDB;
 
 		$set = $ilDB->query("SELECT is_online FROM rep_robj_xlvo_data " . " WHERE id = " . $ilDB->quote($a_id, "integer"));

@@ -84,7 +84,7 @@ class ilObjLiveVotingListGUI extends ilObjectPluginListGUI {
 		$props = array();
 
 		$this->plugin->includeClass("class.ilObjLiveVotingAccess.php");
-		if (!ilObjLiveVotingAccess::checkOnline($this->obj_id)) {
+		if (! ilObjLiveVotingAccess::checkOnline($this->obj_id)) {
 			$props[] = array(
 				"alert" => true,
 				"property" => $this->txt("status"),

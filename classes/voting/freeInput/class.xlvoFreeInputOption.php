@@ -1,15 +1,12 @@
 <?php
 
-
 /**
- * 
+ *
  */
 class xlvoFreeInputOption extends xlvoVotingOption {
 
-
-    /**
-     * @var string
-     */
-    public $title;
-
+	/**
+	 * @var string
+	 */
+	protected $title;
 }
