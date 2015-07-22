@@ -53,7 +53,7 @@ if (is_file('./Services/Object/classes/class.ilDummyAccessHandler.php')) {
  *   screens) and ilInfoScreenGUI (handles the info screen).
  *
  * @ilCtrl_isCalledBy ilObjLiveVotingGUI: ilRepositoryGUI, ilAdministrationGUI, ilObjPluginDispatchGUI
- * @ilCtrl_Calls      ilObjLiveVotingGUI: ilPermissionGUI, ilInfoScreenGUI, ilObjectCopyGUI, ilCommonactionDispatcherGUI
+ * @ilCtrl_Calls      ilObjLiveVotingGUI: ilPermissionGUI, ilInfoScreenGUI, ilObjectCopyGUI, ilCommonactionDispatcherGUI, ilObjWikiGUI
  *
  */
 class ilObjLiveVotingGUI extends ilObjectPluginGUI {
@@ -204,7 +204,8 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 		global $ilTabs, $ilCtrl, $ilAccess;
 		// tab for the "show content" command
 		if ($ilAccess->checkAccess("read", "", $this->object->getRefId())) {
-			$ilTabs->addTab("content", $this->txt("content"), $ilCtrl->getLinkTarget($this, self::CMD_SHOW_CONTENT));
+			//$ilTabs->addTab("content", $this->txt("content"), $ilCtrl->getLinkTarget($this, self::CMD_SHOW_CONTENT));
+            $ilTabs->addTab("content", $this->txt("content"), $ilCtrl->getLinkTargetByClass('ilObjWikiGUI', 'showContent'));
 //			$ilTabs->addTab("content", $this->txt("content"), $ilCtrl->getLinkTarget($this, self::CMD_DEFAULT_BS));
 		}
 		// standard info screen tab
@@ -506,12 +507,12 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 	}
 
 
-	function vote() {
-		global $ilUser;
-		$option_id = $_GET['option_id'];
-		$this->live_voting->vote($option_id, $ilUser->getId(), session_id());
-		$this->showContent();
-	}
+    function vote() {
+        global $ilUser;
+        $option_id = $_GET['option_id'];
+        $this->live_voting->vote($option_id, $ilUser->getId(), session_id());
+        $this->showContent();
+    }
 
 
 	function asyncVote() {
