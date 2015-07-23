@@ -79,7 +79,6 @@ class ilObjLiveVotingListGUI extends ilObjectPluginListGUI {
 	 *                        "value" (string) => property value
 	 */
 	function getProperties() {
-		global $lng, $ilUser;
 
 		$props = array();
 

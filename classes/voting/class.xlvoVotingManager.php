@@ -1,5 +1,5 @@
 <?php
-
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingInterface.php');
 /**
  *
  */

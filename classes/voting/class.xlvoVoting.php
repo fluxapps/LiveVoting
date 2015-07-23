@@ -35,6 +35,38 @@ class xlvoVoting extends ActiveRecord {
 	 * @db_length           1
 	 */
 	protected $colors;
+
+
+	/**
+	 * @return boolean
+	 */
+	public function isMultiSelection() {
+		return $this->multi_selection;
+	}
+
+
+	/**
+	 * @param boolean $multi_selection
+	 */
+	public function setMultiSelection($multi_selection) {
+		$this->multi_selection = $multi_selection;
+	}
+
+
+	/**
+	 * @return boolean
+	 */
+	public function isColors() {
+		return $this->colors;
+	}
+
+
+	/**
+	 * @param boolean $colors
+	 */
+	public function setColors($colors) {
+		$this->colors = $colors;
+	}
 	/*
 	 * END
 	 */
@@ -61,7 +93,7 @@ class xlvoVoting extends ActiveRecord {
 	 * @db_fieldtype        integer
 	 * @db_length           8
 	 */
-	protected $ref_id;
+	protected $obj_id;
 	/**
 	 * @var string
 	 *
@@ -120,16 +152,16 @@ class xlvoVoting extends ActiveRecord {
 	/**
 	 * @return int
 	 */
-	public function getRefId() {
-		return $this->ref_id;
+	public function getObjId() {
+		return $this->obj_id;
 	}
 
 
 	/**
-	 * @param int $ref_id
+	 * @param int $obj_id
 	 */
-	public function setRefId($ref_id) {
-		$this->ref_id = $ref_id;
+	public function setObjId($obj_id) {
+		$this->obj_id = $obj_id;
 	}
 
 

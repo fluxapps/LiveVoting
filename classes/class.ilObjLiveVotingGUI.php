@@ -4,8 +4,10 @@ require_once('./Services/Form/classes/class.ilPropertyFormGUI.php');
 require_once('./Services/Repository/classes/class.ilObjectPluginGUI.php');
 require_once('./Services/AccessControl/classes/class.ilPermissionGUI.php');
 require_once('./Services/InfoScreen/classes/class.ilInfoScreenGUI.php');
+require_once('./Services/UIComponent/Button/classes/class.ilLinkButton.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilObjLiveVotingAccess.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilLiveVotingPlugin.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingGUI.php');
 
 /**
  * Class ilObjLiveVotingGUI
@@ -18,6 +20,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 
 	const XLVO = 'xlvo';
 	const CMD_STANDARD = 'showContent';
+	const CMD_SHOW_CONTENT = 'showContent';
 	const CMD_EDIT = 'editProperties';
 	const CMD_UPDATE = 'updateProperties';
 	/**
@@ -33,6 +36,10 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 	 */
 	protected $tabs;
 	/**
+	 * @var ilToolbarGUI
+	 */
+	protected $toolbar;
+	/**
 	 * @var ilObjLiveVotingAccess
 	 */
 	protected $access;
@@ -47,21 +54,22 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 
 
 	protected function afterConstructor() {
-		global $tpl, $ilCtrl, $ilTabs, $ilUser;
+		global $tpl, $ilCtrl, $ilTabs, $ilUser, $ilToolbar;
 
 		/**
-		 * @var $tpl    ilTemplate
-		 * @var $ilCtrl ilCtrl
-		 * @var $ilTabs ilTabsGUI
-		 * @var $ilUser ilUser
+		 * @var $tpl       ilTemplate
+		 * @var $ilCtrl    ilCtrl
+		 * @var $ilTabs    ilTabsGUI
+		 * @var $ilUser    ilUser
+		 * @var $ilToolbar ilToolbarGUI
 		 */
 		$this->tpl = $tpl;
 		$this->ctrl = $ilCtrl;
 		$this->tabs = $ilTabs;
 		$this->usr = $ilUser;
+		$this->toolbar = $ilToolbar;
 		$this->access = new ilObjLiveVotingAccess();
 		$this->pl = ilLiveVotingPlugin::getInstance();
-
 	}
 
 
@@ -73,6 +81,9 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 	}
 
 
+	/**
+	 * @throws ilCtrlException
+	 */
 	public function executeCommand() {
 		global $ilNavigationHistory;
 
@@ -111,6 +122,13 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 		$cmd = $this->ctrl->getCmd();
 
 		switch ($next_class) {
+
+			case 'xlvovotinggui':
+				$this->tabs->setTabActive(xlvoVotingGUI::CMD_STANDARD);
+				$xlvoVotingGUI = new xlvoVotingGUI();
+				$this->ctrl->forwardCommand($xlvoVotingGUI);
+				break;
+
 			case 'ilinfoscreengui':
 				$this->checkPermission('visible');
 				$this->infoScreen();    // forwards command
@@ -170,6 +188,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 		$cmd = $this->ctrl->getCmd(self::CMD_STANDARD);
 		switch ($cmd) {
 			case self::CMD_STANDARD:
+			case self::CMD_SHOW_CONTENT:
 			case self::CMD_EDIT:
 			case self::CMD_UPDATE:
 				$this->{$cmd}();
@@ -193,7 +212,6 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 		return self::CMD_STANDARD;
 	}
 
-
 	protected function setTabs() {
 		$this->addInfoTab();
 		if ($this->access->hasWriteAccess()) {
@@ -207,8 +225,13 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 
 
 	public function showContent() {
-		$this->tabs->setTabActive(self::CMD_STANDARD);
-		$this->tpl->setContent('hello');
+		$this->tabs->setTabActive(self::CMD_SHOW_CONTENT);
+		if ($this->access->hasWriteAccess()) {
+			$b = ilLinkButton::getInstance();
+			$b->setCaption('rep_robj_xlvo_add');
+			$b->setUrl($this->ctrl->getLinkTarget(new xlvoVotingGUI(), 'add'));
+			$this->toolbar->addButtonInstance($b);
+		}
 	}
 
 
@@ -239,7 +262,6 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 		$cb = new ilCheckboxInputGUI($this->pl->txt('anonymous'), 'anonymous');
 		$this->form->addItem($cb);
 		$cb = new ilCheckboxInputGUI($this->pl->txt('terminable'), 'terminable');
-		//		$cb->setValue(1);
 		$this->form->addItem($cb);
 
 		require_once('./Services/Form/classes/class.ilDateDurationInputGUI.php');
