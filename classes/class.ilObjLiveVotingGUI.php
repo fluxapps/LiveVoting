@@ -41,10 +41,6 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 	 */
 	protected $pl;
 	/**
-	 * @var xlvoVotingConfig
-	 */
-	protected $config;
-	/**
 	 * @var ilUser
 	 */
 	protected $usr;
@@ -65,7 +61,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 		$this->usr = $ilUser;
 		$this->access = new ilObjLiveVotingAccess();
 		$this->pl = ilLiveVotingPlugin::getInstance();
-		$this->config = xlvoVotingConfig::find($this->obj_id);
+
 	}
 
 
@@ -252,10 +248,11 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 		$te->setStartText($this->pl->txt("terminable_select_start_time"));
 		$te->setEndText($this->pl->txt("terminable_select_end_time"));
 		$te->setMinuteStepSize(1);
-		if ($this->config->isTerminable()) {
-			if (! $this->config->getStartDate() == NULL) {
-				$te->setStart(new ilDateTime($this->config->getStartDate(), IL_CAL_DATETIME, $this->usr->getTimeZone()));
-				$te->setEnd(new ilDateTime($this->config->getEndDate(), IL_CAL_DATETIME, $this->usr->getTimeZone()));
+		$config = xlvoVotingConfig::find($this->obj_id);
+		if ($config->isTerminable()) {
+			if (! $config->getStartDate() == NULL) {
+				$te->setStart(new ilDateTime($config->getStartDate(), IL_CAL_DATETIME, $this->usr->getTimeZone()));
+				$te->setEnd(new ilDateTime($config->getEndDate(), IL_CAL_DATETIME, $this->usr->getTimeZone()));
 			} else {
 				$te->setStart(new ilDateTime(date('Y-m-d H:i:s'), IL_CAL_DATETIME, $this->usr->getTimeZone()));
 				$te->setEnd(new ilDateTime(date('Y-m-d H:i:s'), IL_CAL_DATETIME, $this->usr->getTimeZone()));
@@ -271,11 +268,13 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 
 	function fillPropertiesForm() {
 
+		$config = xlvoVotingConfig::find($this->obj_id);
+
 		$values['title'] = $this->object->getTitle();
 		$values['description'] = $this->object->getDescription();
-		$values['online'] = $this->config->isObjOnline();
-		$values['anonymous'] = $this->config->isAnonymous();
-		$values['terminable'] = $this->config->isTerminable();
+		$values['online'] = $config->isObjOnline();
+		$values['anonymous'] = $config->isAnonymous();
+		$values['terminable'] = $config->isTerminable();
 
 		$this->form->setValuesByArray($values);
 	}
@@ -288,20 +287,22 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 			$this->object->setTitle($this->form->getInput('title'));
 			$this->object->setDescription($this->form->getInput('description'));
 			$this->object->update();
-			$this->config->setObjOnline($this->form->getInput('online'));
-			$this->config->setAnonymous($this->form->getInput('anonymous'));
+
+			$config = xlvoVotingConfig::find($this->obj_id);
+			$config->setObjOnline($this->form->getInput('online'));
+			$config->setAnonymous($this->form->getInput('anonymous'));
 			$terminable = $this->form->getInput('terminable');
-			$this->config->setTerminable($terminable);
+			$config->setTerminable($terminable);
 			$terminable_select = $this->form->getInput("terminable_select");
 			if ($terminable) {
-				$this->config->setStartDate($this->getDateTimeFromArray($terminable_select['start']));
-				$this->config->setEndDate($this->getDateTimeFromArray($terminable_select['end']));
+				$config->setStartDate($this->getDateTimeFromArray($terminable_select['start']));
+				$config->setEndDate($this->getDateTimeFromArray($terminable_select['end']));
 			} else {
-				$this->config->setStartDate(NULL);
-				$this->config->setEndDate(NULL);
+				$config->setStartDate(NULL);
+				$config->setEndDate(NULL);
 			}
 
-			$this->config->update();
+			$config->update();
 			ilUtil::sendSuccess($this->pl->txt('system_account_msg_success'), true);
 			$this->ctrl->redirect($this, self::CMD_EDIT);
 		}

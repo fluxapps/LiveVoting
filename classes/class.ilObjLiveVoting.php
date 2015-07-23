@@ -23,6 +23,7 @@
 include_once("./Services/Repository/classes/class.ilObjectPlugin.php");
 include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilLiveVotingOption.php");
 include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilLiveVotingVote.php");
+include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingConfig.php");
 include_once('class.ilLiveVotingConfigGUI.php');
 
 /**
@@ -43,6 +44,10 @@ class ilObjLiveVoting extends ilObjectPlugin {
 	 * determines the number of DAYS a pin is valid before it eventually will get removed (when the next item is created to be specific).
 	 */
 	const PIN_VALIDITY = 180;
+	/**
+	 * @var ilDB
+	 */
+	protected $db;
 
 
 	/**
@@ -56,6 +61,12 @@ class ilObjLiveVoting extends ilObjectPlugin {
 			$this->id = $a_ref_id;
 			$this->doRead();
 		}
+		global $ilDB;
+		/**
+		 * @var $ilDB   ilDB
+		 * @var $by_oid int
+		 */
+		$this->db = $ilDB;
 	}
 
 
@@ -71,9 +82,12 @@ class ilObjLiveVoting extends ilObjectPlugin {
 	 * Create object
 	 */
 	function doCreate() {
-		global $ilDB;
-		$ilDB->manipulate("INSERT INTO rep_robj_xlvo_data " . "(id) VALUES (" . $ilDB->quote($this->getId(), "integer") . ")");
-		// TODO create config?
+		$pin = $this->createPin();
+		$this->db->manipulate("INSERT INTO rep_robj_xlvo_data " . "(id) VALUES (" . $this->db->quote($this->getId(), "integer") . ")");
+		$config = new xlvoVotingConfig();
+		$config->setObjId($this->getId());
+		$config->setPin($pin);
+		$config->save();
 	}
 
 
@@ -96,7 +110,12 @@ class ilObjLiveVoting extends ilObjectPlugin {
 		$this->emptyCache();
 		$this->deleteOptions();
 		$ilDB->manipulate("DELETE FROM rep_robj_xlvo_data WHERE " . " id = " . $ilDB->quote($this->getId(), "integer"));
-		// TODO delete all AR tables
+
+		$config = xlvoVotingConfig::find($this->getId());
+		$config->delete();
+
+		// TODO delete votings
+
 	}
 
 
@@ -106,22 +125,22 @@ class ilObjLiveVoting extends ilObjectPlugin {
 	 * @param ilObjLiveVoting $new_obj
 	 */
 	public function doCloneObject(ilObjLiveVoting $new_obj, $a_target_id, $a_copy_id) {
-//		$new_obj->setOnline($this->getOnline());
-//		$new_obj->setAnonym($this->getAnonym());
-//		$new_obj->setColorful($this->getColorful());
-//		$new_obj->setOptionsType($this->getOptionsType());
-//		// don't use the object's pin, instead create a new one, because it should be unique for each LiveVoting.
-//		$new_obj->setPin($new_obj->createPin());
-//		$new_obj->setQuestion($this->getQuestion());
-//		$new_obj->setTerminated($this->getTerminated());
-//		$new_obj->setFreezed($this->getFreezed());
-//		$new_obj->setStart($this->getStart());
-//		$new_obj->setEnd($this->getEnd());
-//		$new_obj->update();
-//
-//		foreach ($this->getOptions() as $key => $option) {
-//			$new_obj->addOption($option->getTitle());
-//		}
+		//		$new_obj->setOnline($this->getOnline());
+		//		$new_obj->setAnonym($this->getAnonym());
+		//		$new_obj->setColorful($this->getColorful());
+		//		$new_obj->setOptionsType($this->getOptionsType());
+		//		// don't use the object's pin, instead create a new one, because it should be unique for each LiveVoting.
+		//		$new_obj->setPin($new_obj->createPin());
+		//		$new_obj->setQuestion($this->getQuestion());
+		//		$new_obj->setTerminated($this->getTerminated());
+		//		$new_obj->setFreezed($this->getFreezed());
+		//		$new_obj->setStart($this->getStart());
+		//		$new_obj->setEnd($this->getEnd());
+		//		$new_obj->update();
+		//
+		//		foreach ($this->getOptions() as $key => $option) {
+		//			$new_obj->addOption($option->getTitle());
+		//		}
 		// TODO clone AR tables
 	}
 
@@ -552,7 +571,6 @@ class ilObjLiveVoting extends ilObjectPlugin {
 			return true;
 		}
 	}
-
 }
 
 ?>
