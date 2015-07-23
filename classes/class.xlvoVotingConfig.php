@@ -5,35 +5,24 @@ require_once('./Services/ActiveRecord/class.ActiveRecord.php');
 /**
  *
  */
-class ilLiveVotingConfig extends ActiveRecord {
+class xlvoVotingConfig extends ActiveRecord {
 
 	/**
 	 * @return string
 	 */
 	public static function returnDbTableName() {
-		// TODO change name
-		return 'sr_obj_config';
+		return 'rep_robj_xlvo_config';
 	}
 
-
-	/**
-	 * @var string
-	 *
-	 * @db_has_field        true
-	 * @db_fieldtype        integer
-	 * @db_length           8
-	 * @db_is_primary       true
-	 * @con_sequence        true
-	 */
-	protected $id;
 	/**
 	 * @var int
 	 *
+	 * @db_is_primary       true
 	 * @db_has_field        true
 	 * @db_fieldtype        integer
 	 * @db_length           8
 	 */
-	protected $ref_id;
+	protected $obj_id;
 	/**
 	 * @var int
 	 *
@@ -49,7 +38,7 @@ class ilLiveVotingConfig extends ActiveRecord {
 	 * @db_fieldtype        integer
 	 * @db_length           1
 	 */
-	protected $is_online;
+	protected $obj_online;
 	/**
 	 * @var bool
 	 *
@@ -72,14 +61,14 @@ class ilLiveVotingConfig extends ActiveRecord {
 	 * @db_has_field        true
 	 * @db_fieldtype        timestamp
 	 */
-	protected $start;
+	protected $start_date;
 	/**
 	 * @var string
 	 *
 	 * @db_has_field        true
 	 * @db_fieldtype        timestamp
 	 */
-	protected $end;
+	protected $end_date;
 	/**
 	 * @var bool
 	 *
@@ -109,16 +98,16 @@ class ilLiveVotingConfig extends ActiveRecord {
 	/**
 	 * @return int
 	 */
-	public function getRefId() {
-		return $this->ref_id;
+	public function getObjId() {
+		return $this->obj_id;
 	}
 
 
 	/**
-	 * @param int $ref_id
+	 * @param int $obj_id
 	 */
-	public function setRefId($ref_id) {
-		$this->ref_id = $ref_id;
+	public function setObjId($obj_id) {
+		$this->obj_id = $obj_id;
 	}
 
 
@@ -141,16 +130,16 @@ class ilLiveVotingConfig extends ActiveRecord {
 	/**
 	 * @return boolean
 	 */
-	public function isIsOnline() {
-		return $this->is_online;
+	public function isObjOnline() {
+		return $this->obj_online;
 	}
 
 
 	/**
-	 * @param boolean $is_online
+	 * @param boolean $obj_online
 	 */
-	public function setIsOnline($is_online) {
-		$this->is_online = $is_online;
+	public function setObjOnline($obj_online) {
+		$this->obj_online = $obj_online;
 	}
 
 
@@ -189,32 +178,32 @@ class ilLiveVotingConfig extends ActiveRecord {
 	/**
 	 * @return string
 	 */
-	public function getStart() {
-		return $this->start;
+	public function getStartDate() {
+		return $this->start_date;
 	}
 
 
 	/**
-	 * @param string $start
+	 * @param string $start_date
 	 */
-	public function setStart($start) {
-		$this->start = $start;
+	public function setStartDate($start_date) {
+		$this->start_date = $start_date;
 	}
 
 
 	/**
 	 * @return string
 	 */
-	public function getEnd() {
-		return $this->end;
+	public function getEndDate() {
+		return $this->end_date;
 	}
 
 
 	/**
-	 * @param string $end
+	 * @param string $end_date
 	 */
-	public function setEnd($end) {
-		$this->end = $end;
+	public function setEndDate($end_date) {
+		$this->end_date = $end_date;
 	}
 
 

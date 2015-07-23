@@ -3,7 +3,7 @@
 /**
  *
  */
-class xvloOrderOption extends xlvoVotingOption {
+class xvloOrderOption extends xlvoOption {
 
 	/**
 	 * @var string

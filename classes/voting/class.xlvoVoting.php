@@ -11,10 +11,38 @@ class xlvoVoting extends ActiveRecord {
 	 * @return string
 	 */
 	public static function returnDbTableName() {
-		// TODO change name
-		return 'sr_obj_voting';
+		// TODO change back name
+		return 'rep_robj_xlvo_voting_n';
 	}
 
+	/*
+	 * START
+	 * xlvoSingleVoteVoting
+	 */
+	/**
+	 * @var bool
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           1
+	 */
+	protected $multi_selection;
+	/**
+	 * @var bool
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           1
+	 */
+	protected $colors;
+	/*
+	 * END
+	 */
+
+	//	public function afterObjectLoad() {
+	//		// Aktionen wie bspw. alle VotingOptions suchen und hier als Member speichern
+	//		// $this->setVotingOptions($array);
+	//	}
 
 	/**
 	 * @var int
@@ -67,7 +95,7 @@ class xlvoVoting extends ActiveRecord {
 	 */
 	protected $voting_type;
 	/**
-	 * @var livoVotingOption []
+	 * @var xlvoOption []
 	 */
 	// TODO AR
 	protected $voting_options;
@@ -170,7 +198,7 @@ class xlvoVoting extends ActiveRecord {
 
 
 	/**
-	 * @return livoVotingOption[]
+	 * @return xlvoOption[]
 	 */
 	public function getVotingOptions() {
 		return $this->voting_options;
@@ -178,7 +206,7 @@ class xlvoVoting extends ActiveRecord {
 
 
 	/**
-	 * @param livoVotingOption[] $voting_options
+	 * @param xlvoOption[] $voting_options
 	 */
 	public function setVotingOptions($voting_options) {
 		$this->voting_options = $voting_options;

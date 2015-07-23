@@ -11,8 +11,8 @@ class xlvoVote extends ActiveRecord {
 	 * @return string
 	 */
 	public static function returnDbTableName() {
-		// TODO change name
-		return 'sr_obj_vote';
+		// TODO change back name
+		return 'rep_robj_xlvo_vote_n';
 	}
 
 

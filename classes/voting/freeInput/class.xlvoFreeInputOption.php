@@ -3,7 +3,7 @@
 /**
  *
  */
-class xlvoFreeInputOption extends xlvoVotingOption {
+class xlvoFreeInputOption extends xlvoOption {
 
 	/**
 	 * @var string

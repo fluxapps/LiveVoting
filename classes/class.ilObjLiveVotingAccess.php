@@ -21,7 +21,10 @@
 	+-----------------------------------------------------------------------------+
 */
 
-include_once("./Services/Repository/classes/class.ilObjectPluginAccess.php");
+require_once('./Services/Repository/classes/class.ilObjectPluginAccess.php');
+require_once('./Services/Object/classes/class.ilObject2.php');
+require_once('./Services/ActiveRecord/class.ActiveRecord.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingConfig.php');
 
 /**
  * Access/Condition checking for LiveVoting object
@@ -71,17 +74,72 @@ class ilObjLiveVotingAccess extends ilObjectPluginAccess {
 
 
 	/**
+	 * @param null $ref_id
+	 * @param null $user_id
+	 *
+	 * @return bool
+	 */
+	public static function hasReadAccess($ref_id = NULL, $user_id = NULL) {
+
+		return self::hasAccess('read', $ref_id, $user_id);
+	}
+
+
+	/**
+	 * @param null $ref_id
+	 * @param null $user_id
+	 *
+	 * @return bool
+	 */
+	public static function hasWriteAccess($ref_id = NULL, $user_id = NULL) {
+
+		return self::hasAccess('write', $ref_id, $user_id);
+	}
+
+
+	/**
+	 * @param null $ref_id
+	 * @param null $user_id
+	 *
+	 * @return bool
+	 */
+	public static function hasDeleteAccess($ref_id = NULL, $user_id = NULL) {
+		return self::hasAccess('delete', $ref_id, $user_id);
+	}
+
+
+	/**
+	 * @param      $permission
+	 * @param null $ref_id
+	 * @param null $user_id
+	 *
+	 * @return bool
+	 */
+	protected function hasAccess($permission, $ref_id = NULL, $user_id = NULL) {
+		global $ilUser, $ilAccess;
+		/**
+		 * @var $ilAccess ilAccessHandler
+		 */
+		$ref_id = $ref_id ? $ref_id : $_GET['ref_id'];
+		$user_id = $user_id ? $user_id : $ilUser->getId();
+
+		return $ilAccess->checkAccessOfUser($user_id, $permission, '', $ref_id);
+	}
+
+
+	/**
 	 * Check online status of example object
 	 */
 	public static function checkOnline($a_id) {
-
-		// TODO use config object
-		global $ilDB;
-
-		$set = $ilDB->query("SELECT is_online FROM rep_robj_xlvo_data " . " WHERE id = " . $ilDB->quote($a_id, "integer"));
-		$rec = $ilDB->fetchAssoc($set);
-
-		return (boolean)$rec["is_online"];
+		/**
+		 * @var $config xlvoVotingConfig
+		 */
+		$obj_id = ilObject2::_lookupObjId($_GET['ref_id']);
+		$config = xlvoVotingConfig::find($obj_id);
+		if($config instanceof xlvoVotingConfig) {
+			return $config->isObjOnline();
+		}
+		return false;
 	}
 }
 

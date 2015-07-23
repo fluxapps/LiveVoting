@@ -3,7 +3,7 @@
 /**
  *
  */
-class xlvoRangeOption extends xlvoVotingOption {
+class xlvoRangeOption extends xlvoOption {
 
 	/**
 	 * @var int

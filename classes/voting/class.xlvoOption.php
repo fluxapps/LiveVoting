@@ -5,15 +5,31 @@ require_once('./Services/ActiveRecord/class.ActiveRecord.php');
 /**
  *
  */
-class xlvoVotingOption extends ActiveRecord {
+class xlvoOption extends ActiveRecord {
 
 	/**
 	 * @return string
 	 */
 	public static function returnDbTableName() {
-		// TODO change name
-		return 'sr_obj_votingoption';
+		// TODO change back name
+		return 'rep_robj_xlvo_option_n';
 	}
+
+	/*
+	 * START
+	 * xlvoSingleVoteOption
+	 */
+	/**
+	 * @var string
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        text
+	 * @db_length           256
+	 */
+	protected $text;
+	/*
+	 * END
+	 */
 
 	/**
 	 * @var int
@@ -42,7 +58,7 @@ class xlvoVotingOption extends ActiveRecord {
 	 */
 	protected $type;
 	/**
-	 * @var livoVote []
+	 * @var xlvoVote []
 	 */
 	// TODO AR
 	protected $votes;
@@ -97,7 +113,7 @@ class xlvoVotingOption extends ActiveRecord {
 
 
 	/**
-	 * @return livoVote[]
+	 * @return xlvoVote[]
 	 */
 	public function getVotes() {
 		return $this->votes;
@@ -105,7 +121,7 @@ class xlvoVotingOption extends ActiveRecord {
 
 
 	/**
-	 * @param livoVote[] $votes
+	 * @param xlvoVote[] $votes
 	 */
 	public function setVotes($votes) {
 		$this->votes = $votes;

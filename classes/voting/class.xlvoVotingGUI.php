@@ -18,6 +18,10 @@ class xlvoVotingGUI {
 	protected $votingManager;
 
 
+	public function add() {
+		// TODO implement here
+	}
+
 	/**
 	 *
 	 */
