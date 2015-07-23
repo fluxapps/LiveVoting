@@ -46,7 +46,7 @@ class xlvoVotingConfig extends ActiveRecord {
 	 * @db_fieldtype        integer
 	 * @db_length           1
 	 */
-	protected $anonym;
+	protected $anonymous;
 	/**
 	 * @var bool
 	 *
@@ -76,7 +76,7 @@ class xlvoVotingConfig extends ActiveRecord {
 	 * @db_fieldtype        integer
 	 * @db_length           1
 	 */
-	protected $freezed;
+	protected $frozen;
 
 
 	/**
@@ -146,16 +146,16 @@ class xlvoVotingConfig extends ActiveRecord {
 	/**
 	 * @return boolean
 	 */
-	public function isAnonym() {
-		return $this->anonym;
+	public function isAnonymous() {
+		return $this->anonymous;
 	}
 
 
 	/**
-	 * @param boolean $anonym
+	 * @param boolean $anonymous
 	 */
-	public function setAnonym($anonym) {
-		$this->anonym = $anonym;
+	public function setAnonymous($anonymous) {
+		$this->anonymous = $anonymous;
 	}
 
 
@@ -210,15 +210,15 @@ class xlvoVotingConfig extends ActiveRecord {
 	/**
 	 * @return boolean
 	 */
-	public function isFreezed() {
-		return $this->freezed;
+	public function isFrozen() {
+		return $this->frozen;
 	}
 
 
 	/**
-	 * @param boolean $freezed
+	 * @param boolean $frozen
 	 */
-	public function setFreezed($freezed) {
-		$this->freezed = $freezed;
+	public function setFrozen($frozen) {
+		$this->frozen = $frozen;
 	}
 }

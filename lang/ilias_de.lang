@@ -29,7 +29,7 @@ offline#:#Offline
 body_hide_text#:#Zeige/Verberge Resultate
 reset_votes#:#Live Vote zurücksetzen
 total_votes_text#:#Anzahl Stimmen:
-anonym#:#Anonyme Abstimmung
+anonymous#:#Anonyme Abstimmung
 multiple_selection#:#Mehrfach-Auswahl
 multiple_selection_info#:#Benutzer darf nicht nur eine sondern mehrere Antworten auswählen.
 choices#:#Wahlmöglichkeiten
@@ -42,10 +42,10 @@ vote#:#vote
 unvote#:#unvote
 patch#:#Patch .htaccess-File mit Redirect
 configuration#:#Konfiguration
-terminated#:#Zeitlich begrenzte Stimmabgabe
-terminated_select#:#von/bis
-terminated_select_start_time#:#Startzeit
-terminated_select_end_time#:#Endzeit
+terminable#:#Zeitlich begrenzte Stimmabgabe
+terminable_select#:#von/bis
+terminable_select_start_time#:#Startzeit
+terminable_select_end_time#:#Endzeit
 question#:#Frage
 is_not_active#:#Dieses LiveVoting ist nicht aktiv.
 is_not_online#:#Dieses LiveVoting ist nicht online.
@@ -110,3 +110,6 @@ use_responsive#:#Responsive-Design anbieten
 colorful#:#Mehrfarbige Balken
 
 conf_saved#:#Gespeichert
+
+online#:#Online
+offline#:#Offline
