@@ -8,12 +8,14 @@ require_once('./Services/UIComponent/Button/classes/class.ilLinkButton.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilObjLiveVotingAccess.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilLiveVotingPlugin.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xvloVoterGUI.php');
 
 /**
  * Class ilObjLiveVotingGUI
  *
  * @ilCtrl_isCalledBy ilObjLiveVotingGUI: ilRepositoryGUI, ilObjPluginDispatchGUI, ilAdministrationGUI
- * @ilCtrl_Calls      ilObjLiveVotingGUI: ilPermissionGUI, ilInfoScreenGUI, ilObjectCopyGUI, ilCommonActionDispatcherGUI, xlvoVotingGUI
+ * @ilCtrl_Calls      ilObjLiveVotingGUI: ilPermissionGUI, ilInfoScreenGUI, ilObjectCopyGUI, ilCommonActionDispatcherGUI
+ * @ilCtrl_Calls      ilObjLiveVotingGUI: xlvoVotingGUI, xlvoVoterGUI
  *
  */
 class ilObjLiveVotingGUI extends ilObjectPluginGUI {
@@ -124,9 +126,13 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 		switch ($next_class) {
 
 			case 'xlvovotinggui':
-				$this->tabs->setTabActive(xlvoVotingGUI::CMD_STANDARD);
 				$xlvoVotingGUI = new xlvoVotingGUI();
 				$this->ctrl->forwardCommand($xlvoVotingGUI);
+				break;
+
+			case 'xlvovotergui':
+				$xlvoVoterGUI = new xlvoVoterGUI();
+				$this->ctrl->forwardCommand($xlvoVoterGUI);
 				break;
 
 			case 'ilinfoscreengui':
@@ -212,12 +218,13 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 		return self::CMD_STANDARD;
 	}
 
+
 	protected function setTabs() {
 		$this->addInfoTab();
 		if ($this->access->hasWriteAccess()) {
 			$this->tabs->addTab(self::CMD_EDIT, $this->pl->txt('edit_properties'), $this->ctrl->getLinkTarget($this, self::CMD_EDIT));
 		}
-		$this->tabs->addTab(self::CMD_STANDARD, $this->pl->txt('standard'), $this->ctrl->getLinkTarget($this, self::CMD_STANDARD));
+		$this->tabs->addTab(self::CMD_STANDARD, $this->pl->txt('content'), $this->ctrl->getLinkTarget($this, self::CMD_STANDARD));
 		parent::setTabs();
 
 		return true;
@@ -228,8 +235,13 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 		$this->tabs->setTabActive(self::CMD_SHOW_CONTENT);
 		if ($this->access->hasWriteAccess()) {
 			$b = ilLinkButton::getInstance();
-			$b->setCaption('rep_robj_xlvo_add');
+			$b->setCaption('rep_robj_xlvo_add_voting');
 			$b->setUrl($this->ctrl->getLinkTarget(new xlvoVotingGUI(), 'add'));
+			$this->toolbar->addButtonInstance($b);
+
+			$b = ilLinkButton::getInstance();
+			$b->setCaption('rep_robj_xlvo_show_voting');
+			$b->setUrl($this->ctrl->getLinkTarget(new xlvoVoterGUI(), 'showVoting'));
 			$this->toolbar->addButtonInstance($b);
 		}
 	}

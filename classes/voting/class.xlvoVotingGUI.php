@@ -6,7 +6,6 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVoting.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/singleVote/class.xlvoSingleVoteVotingGUI.php');
 
-
 /**
  * Class ilObjLiveVotingGUI
  *
@@ -15,10 +14,14 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
  */
 class xlvoVotingGUI {
 
-	const IDENTIFIER = 'xlvo';
-
+	const IDENTIFIER = 'xlvoVot';
+	const TAB_STANDARD = 'tab_voting';
+	const TAB_ADD = 'tab_voting_add';
+	const TAB_EDIT = 'tab_voting_edit';
 	const CMD_STANDARD = 'add';
+	const CMD_ADD = 'add';
 	const CMD_CREATE = 'create';
+	const CMD_EDIT = 'edit';
 	const CMD_UPDATE = 'update';
 	const CMD_CANCEL = 'cancel';
 	/**
@@ -82,11 +85,15 @@ class xlvoVotingGUI {
 
 
 	public function executeCommand() {
+		$this->tabs->addTab(self::TAB_STANDARD, $this->pl->txt('voting'), $this->ctrl->getLinkTarget($this, self::CMD_ADD));
+		$this->tabs->setTabActive(self::TAB_STANDARD);
 		$nextClass = $this->ctrl->getNextClass();
 		switch ($nextClass) {
+			case 'xlvosinglevotevotinggui':
+				$this->ctrl->forwardCommand(new xlvoSingleVoteVotingGUI());
+				break;
 			default:
 				$cmd = $this->ctrl->getCmd(self::CMD_STANDARD);
-				$this->tabs->setTabActive(self::CMD_STANDARD);
 				$this->{$cmd}();
 				break;
 		}
@@ -96,7 +103,7 @@ class xlvoVotingGUI {
 	protected function add() {
 		if (! $this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
-			$this->ctrl->redirect($this, parent::CMD_STANDARD);
+			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
 			$xlvoVotingFormGUI = new xlvoVotingFormGUI($this, new xlvoVoting());
 			$this->tpl->setContent($xlvoVotingFormGUI->getHTML());
@@ -107,13 +114,15 @@ class xlvoVotingGUI {
 	protected function create() {
 		if (! $this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
-			$this->ctrl->redirect($this, parent::CMD_STANDARD);
+			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
 			$xlvoVotingFormGUI = new xlvoVotingFormGUI($this, new xlvoVoting());
 			$xlvoVotingFormGUI->setValuesByPost();
 			if ($xlvoVotingFormGUI->saveObject()) {
 				ilUtil::sendSuccess($this->pl->txt('system_account_msg_success'), true);
-				$this->ctrl->redirect($this);
+				$voting = $xlvoVotingFormGUI->getVoting();
+				$this->ctrl->setParameter(new xlvoVotingGUI(), self::IDENTIFIER, $voting->getId());
+				$this->redirectToSubGUI($voting->getVotingType(), self::CMD_ADD);
 			}
 			$this->tpl->setContent($xlvoVotingFormGUI->getHTML());
 		}
@@ -141,11 +150,14 @@ class xlvoVotingGUI {
 			$xlvoVotingFormGUI->setValuesByPost();
 			if ($xlvoVotingFormGUI->saveObject()) {
 				ilUtil::sendSuccess($this->pl->txt('system_account_msg_success'), true);
-				$this->ctrl->redirect($this);
+				$voting = $xlvoVotingFormGUI->getVoting();
+				$this->ctrl->setParameter(new xlvoVotingGUI(), self::IDENTIFIER, $voting->getId());
+				$this->redirectToSubGUI($voting->getVotingType(), self::CMD_EDIT);
 			}
 			$this->tpl->setContent($xlvoVotingFormGUI->getHTML());
 		}
 	}
+
 
 	protected function cancel() {
 		$this->ctrl->redirect($this, self::CMD_STANDARD);
@@ -154,6 +166,16 @@ class xlvoVotingGUI {
 
 	protected function reset() {
 		// TODO implement here
+	}
+
+
+	private function redirectToSubGUI($voting_type, $cmd) {
+		switch ($voting_type) {
+			case xlvoVotingType::SINGLE_VOTE:
+				$this->ctrl->redirect(new xlvoSingleVoteVotingGUI(), $cmd);
+				break;
+			// TODO add other types
+		}
 	}
 
 

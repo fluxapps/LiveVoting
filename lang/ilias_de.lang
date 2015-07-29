@@ -113,8 +113,15 @@ conf_saved#:#Gespeichert
 
 online#:#Online
 offline#:#Offline
+add_voting#:#Voting hinzufügen
+update#:#Update
+voting#:#Voting
 voting_type#:#Voting Typ
 multi_selection#:#Mehrfachauswahl
 create#:#Erstellen
 single_vote#:#Stimmabgabe
 free_input#:#Freie Texteingabe
+type#:#Typ
+next#:#Weiter
+options#:#Möglichkeiten
+voting_not_complete#:#Das Voting ist noch nicht komplett. Bitte schliessen Sie den Erstellvorgang ab.

@@ -1,6 +1,6 @@
 <?php
 $id = 'xlvo';
-$version = '2.0.6';
+$version = '2.0.8';
 $ilias_min_version = '4.4.0';
 $ilias_max_version = '5.0.999';
 $responsible = 'Oskar Truffer, Fabian Schmid';

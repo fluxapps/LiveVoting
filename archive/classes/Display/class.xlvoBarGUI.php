@@ -21,6 +21,10 @@ class xlvoBarGUI {
 	 * @var ilObjLiveVoting
 	 */
 	protected $ilObjLiveVoting;
+	/**
+	 * @var int
+	 */
+	protected $percentage = 80;
 
 
 	/**
@@ -73,6 +77,24 @@ class xlvoBarGUI {
 
 		return json_encode($data);
 	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getPercentage() {
+		return $this->percentage;
+	}
+
+
+	/**
+	 * @param int $percentage
+	 */
+	public function setPercentage($percentage) {
+		$this->percentage = $percentage;
+	}
+
+
 }
 
 ?>

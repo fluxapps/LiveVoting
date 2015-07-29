@@ -7,6 +7,10 @@ require_once('./Services/ActiveRecord/class.ActiveRecord.php');
  */
 class xlvoOption extends ActiveRecord {
 
+	const STAT_INACTIVE = 0;
+	const STAT_ACTIVE = 1;
+
+
 	/**
 	 * @return string
 	 */
@@ -74,6 +78,14 @@ class xlvoOption extends ActiveRecord {
 	 */
 	protected $type;
 	/**
+	 * @var int
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           8
+	 */
+	protected $status;
+	/**
 	 * @var xlvoVote []
 	 */
 	// TODO AR
@@ -125,6 +137,22 @@ class xlvoOption extends ActiveRecord {
 	 */
 	public function setType($type) {
 		$this->type = $type;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getStatus() {
+		return $this->status;
+	}
+
+
+	/**
+	 * @param int $status
+	 */
+	public function setStatus($status) {
+		$this->status = $status;
 	}
 
 

@@ -21,8 +21,8 @@ class xvloVoterGUI {
 	/**
 	 * @param void $voting_id
 	 */
-	public function showVoting($voting_id) {
-		// TODO implement here
+	public function showVoting($voting_id = NULL) {
+
 	}
 
 

@@ -7,6 +7,10 @@ require_once('./Services/ActiveRecord/class.ActiveRecord.php');
  */
 class xlvoVoting extends ActiveRecord {
 
+	const STAT_INACTIVE = 0;
+	const STAT_ACTIVE = 1;
+	const STAT_INCOMPLETE = 2;
+
 	/**
 	 * @return string
 	 */
@@ -127,9 +131,16 @@ class xlvoVoting extends ActiveRecord {
 	 */
 	protected $voting_type;
 	/**
+	 * @var int
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           8
+	 */
+	protected $voting_status;
+	/**
 	 * @var xlvoOption []
 	 */
-	// TODO AR
 	protected $voting_options;
 
 
@@ -230,9 +241,26 @@ class xlvoVoting extends ActiveRecord {
 
 
 	/**
+	 * @return int
+	 */
+	public function getVotingStatus() {
+		return $this->voting_status;
+	}
+
+
+	/**
+	 * @param int $voting_status
+	 */
+	public function setVotingStatus($voting_status) {
+		$this->voting_status = $voting_status;
+	}
+
+
+	/**
 	 * @return xlvoOption[]
 	 */
 	public function getVotingOptions() {
+		$this->voting_options = xlvoOption::getCollection();
 		return $this->voting_options;
 	}
 

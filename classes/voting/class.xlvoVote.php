@@ -41,6 +41,14 @@ class xlvoVote extends ActiveRecord {
 	 * @db_fieldtype        integer
 	 * @db_length           8
 	 */
+	protected $status;
+	/**
+	 * @var int
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           8
+	 */
 	protected $option_id;
 	/**
 	 * @var int
@@ -97,6 +105,22 @@ class xlvoVote extends ActiveRecord {
 	 */
 	public function setType($type) {
 		$this->type = $type;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getStatus() {
+		return $this->status;
+	}
+
+
+	/**
+	 * @param int $status
+	 */
+	public function setStatus($status) {
+		$this->status = $status;
 	}
 
 
