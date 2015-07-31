@@ -3,7 +3,7 @@
 /**
  *
  */
-class xvloVoterGUI {
+class xlvoPlayerGUI {
 
 	/**
 	 *
@@ -21,15 +21,7 @@ class xvloVoterGUI {
 	/**
 	 * @param void $voting_id
 	 */
-	public function showVoting($voting_id = NULL) {
-
-	}
-
-
-	/**
-	 * @param void $pin
-	 */
-	public function accessVoting($pin) {
+	public function showVoting($voting_id) {
 		// TODO implement here
 	}
 
@@ -37,7 +29,7 @@ class xvloVoterGUI {
 	/**
 	 *
 	 */
-	public function vote() {
+	public function nextVoting() {
 		// TODO implement here
 	}
 
@@ -45,7 +37,23 @@ class xvloVoterGUI {
 	/**
 	 *
 	 */
-	public function unvote() {
+	public function previousVoting() {
+		// TODO implement here
+	}
+
+
+	/**
+	 *
+	 */
+	public function resetAll() {
+		// TODO implement here
+	}
+
+
+	/**
+	 *
+	 */
+	public function freeze() {
 		// TODO implement here
 	}
 }

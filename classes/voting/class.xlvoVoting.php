@@ -260,7 +260,6 @@ class xlvoVoting extends ActiveRecord {
 	 * @return xlvoOption[]
 	 */
 	public function getVotingOptions() {
-		$this->voting_options = xlvoOption::getCollection();
 		return $this->voting_options;
 	}
 

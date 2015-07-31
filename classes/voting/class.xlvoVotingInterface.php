@@ -10,7 +10,7 @@ interface xlvoVotingInterface {
 	 *
 	 * @return bool
 	 */
-	public function vote($vote);
+	public function vote(xlvoVote $vote);
 
 
 	/**
@@ -18,5 +18,5 @@ interface xlvoVotingInterface {
 	 *
 	 * @return bool
 	 */
-	public function unvote($vote);
+	public function unvote(xlvoVote $vote);
 }
