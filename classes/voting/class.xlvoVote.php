@@ -10,6 +10,8 @@ class xlvoVote extends ActiveRecord
 
     const STAT_INACTIVE = 0;
     const STAT_ACTIVE = 1;
+    const USER_ILIAS = 0;
+    const USER_ANONYMOUS = 1;
 
     /**
      * @return string
