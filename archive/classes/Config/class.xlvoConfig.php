@@ -63,7 +63,7 @@ class xlvoConfig {
 	 */
 	public static function isGlobalCacheActive() {
 		static $has_global_cache;
-		if (!isset($has_global_cache)) {
+		if (! isset($has_global_cache)) {
 			$has_global_cache = ilCtrlMainMenuConfig::get('activate_cache') AND self::hasGlobalCache();
 		}
 

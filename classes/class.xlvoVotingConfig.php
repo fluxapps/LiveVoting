@@ -14,6 +14,7 @@ class xlvoVotingConfig extends ActiveRecord {
 		return 'rep_robj_xlvo_config';
 	}
 
+
 	/**
 	 * @var int
 	 *

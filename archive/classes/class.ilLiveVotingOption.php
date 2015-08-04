@@ -90,7 +90,7 @@ class ilLiveVotingOption {
 		$this->deleteVotes($usr_id, $session);
 		$vote = new ilLiveVotingVote();
 		$vote->setOptionId($this->getId());
-		if (!$anonym) {
+		if (! $anonym) {
 			$vote->setUsrId($usr_id);
 		}
 		$vote->setUsrSession($session);

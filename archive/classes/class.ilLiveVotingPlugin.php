@@ -22,7 +22,7 @@ class ilLiveVotingPlugin extends ilRepositoryObjectPlugin {
 	 * @return ilLiveVotingPlugin
 	 */
 	public static function getInstance() {
-		if (!isset(self::$instance)) {
+		if (! isset(self::$instance)) {
 			self::$instance = new self();
 		}
 

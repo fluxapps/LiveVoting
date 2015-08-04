@@ -93,8 +93,6 @@ class xlvoBarGUI {
 	public function setPercentage($percentage) {
 		$this->percentage = $percentage;
 	}
-
-
 }
 
 ?>

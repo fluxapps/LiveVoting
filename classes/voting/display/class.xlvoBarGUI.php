@@ -7,6 +7,7 @@ class xlvoBarGUI {
 	 */
 	protected $tpl;
 
+
 	public function __construct() {
 		global $tpl;
 		/**

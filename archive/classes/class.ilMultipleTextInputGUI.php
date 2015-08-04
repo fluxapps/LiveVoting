@@ -42,19 +42,18 @@ class ilMultipleTextInputGUI extends ilCustomInputGUI {
 	private function buildHTML() {
 		$pl = ilLiveVotingPlugin::getInstance();
 		$tpl = $pl->getTemplate("tpl.multiple_input.html");
-//		if (xlvoConfig::is50()) {
-//			$tpl = $pl->getTemplate("tpl.multiple_input.html");
-//		} else {
-//			$tpl = $pl->getTemplate("tpl.multiple_input_50.html");
-//		}
-//
+		//		if (xlvoConfig::is50()) {
+		//			$tpl = $pl->getTemplate("tpl.multiple_input.html");
+		//		} else {
+		//			$tpl = $pl->getTemplate("tpl.multiple_input_50.html");
+		//		}
+		//
 		$tpl->setCurrentBlock("title");
 		//		$tpl->setVariable("CSS_PATH", $pl->getStyleSheetLocation("content.css"));
 
 		if (xlvoConfig::is50()) {
-//			ilUtil::sendInfo(ilGlyphGUI::get(ilGlyphGUI::ADD));
-//			$ilGlyphGUI = new ilGlyphGUI();
-
+			//			ilUtil::sendInfo(ilGlyphGUI::get(ilGlyphGUI::ADD));
+			//			$ilGlyphGUI = new ilGlyphGUI();
 
 			$tpl->setVariable("X_IMAGE_PATH", $pl->getImagePath("x_image.png"));
 		} else {

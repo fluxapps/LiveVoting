@@ -65,11 +65,11 @@ class ilLiveVotingConfigGUI extends ilPluginConfigGUI {
 			),
 			'allow_fullscreen' => array(
 				'type' => 'ilCheckboxInputGUI',
-//				'subelements' => array(
-//					'jquery' => array(
-//						'type' => 'ilCheckboxInputGUI',
-//					),
-//				)
+				//				'subelements' => array(
+				//					'jquery' => array(
+				//						'type' => 'ilCheckboxInputGUI',
+				//					),
+				//				)
 			),
 			'allow_shortlink' => array(
 				'type' => 'ilCheckboxInputGUI',

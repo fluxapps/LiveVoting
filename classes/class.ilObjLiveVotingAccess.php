@@ -136,9 +136,10 @@ class ilObjLiveVotingAccess extends ilObjectPluginAccess {
 		 */
 		$obj_id = $a_id ? $a_id : ilObject2::_lookupObjId($_GET['ref_id']);
 		$config = xlvoVotingConfig::find($obj_id);
-		if($config instanceof xlvoVotingConfig) {
+		if ($config instanceof xlvoVotingConfig) {
 			return $config->isObjOnline();
 		}
+
 		return false;
 	}
 }

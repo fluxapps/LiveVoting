@@ -97,7 +97,7 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 				'voting_status' => $this->voting->getVotingStatus()
 			);
 			$this->setValuesByArray($array);
-			if($this->voting->getVotingStatus() == xlvoVoting::STAT_INCOMPLETE) {
+			if ($this->voting->getVotingStatus() == xlvoVoting::STAT_INCOMPLETE) {
 				ilUtil::sendInfo($this->pl->txt('voting_not_complete'), false);
 			}
 		} else {

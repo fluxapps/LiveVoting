@@ -35,7 +35,6 @@ if (is_file('./Services/Object/classes/class.ilDummyAccessHandler.php')) {
 	include_once('./Services/Object/classes/class.ilDummyAccessHandler.php');
 }
 
-
 /**
  * User Interface class for example repository object.
  *
@@ -205,8 +204,8 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 		// tab for the "show content" command
 		if ($ilAccess->checkAccess("read", "", $this->object->getRefId())) {
 			//$ilTabs->addTab("content", $this->txt("content"), $ilCtrl->getLinkTarget($this, self::CMD_SHOW_CONTENT));
-            $ilTabs->addTab("content", $this->txt("content"), $ilCtrl->getLinkTargetByClass('ilObjWikiGUI', 'showContent'));
-//			$ilTabs->addTab("content", $this->txt("content"), $ilCtrl->getLinkTarget($this, self::CMD_DEFAULT_BS));
+			$ilTabs->addTab("content", $this->txt("content"), $ilCtrl->getLinkTargetByClass('ilObjWikiGUI', 'showContent'));
+			//			$ilTabs->addTab("content", $this->txt("content"), $ilCtrl->getLinkTarget($this, self::CMD_DEFAULT_BS));
 		}
 		// standard info screen tab
 		$this->addInfoTab();
@@ -449,8 +448,6 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 		$xlvoDisplayGUI = new xlvoDisplayGUI($this->live_voting);
 		$xlvoDisplayGUI->addQRCode('lorem');
 
-
-
 		$this->tpl->setContent($xlvoDisplayGUI->getHTML());
 	}
 
@@ -507,12 +504,12 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 	}
 
 
-    function vote() {
-        global $ilUser;
-        $option_id = $_GET['option_id'];
-        $this->live_voting->vote($option_id, $ilUser->getId(), session_id());
-        $this->showContent();
-    }
+	function vote() {
+		global $ilUser;
+		$option_id = $_GET['option_id'];
+		$this->live_voting->vote($option_id, $ilUser->getId(), session_id());
+		$this->showContent();
+	}
 
 
 	function asyncVote() {

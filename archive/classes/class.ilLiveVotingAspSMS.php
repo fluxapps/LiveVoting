@@ -10,7 +10,7 @@ class ilLiveVotingAspSMS extends ilLiveVotingSMS {
 	 * @param array $data
 	 */
 	public function __construct(array $data) {
-		if (!ilLiveVotingConfigGUI::_getValue('aspsms')) {
+		if (! ilLiveVotingConfigGUI::_getValue('aspsms')) {
 			exit;
 		}
 		$this->setOriginator(ilLiveVotingConfigGUI::_getValue('aspsms_originator'));

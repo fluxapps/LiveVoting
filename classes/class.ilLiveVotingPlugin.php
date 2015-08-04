@@ -12,7 +12,6 @@ include_once('./Services/Repository/classes/class.ilRepositoryObjectPlugin.php')
 class ilLiveVotingPlugin extends ilRepositoryObjectPlugin {
 
 	const PLUGIN_NAME = 'LiveVoting';
-
 	/**
 	 * @var ilLiveVotingPlugin
 	 */
@@ -46,12 +45,14 @@ class ilLiveVotingPlugin extends ilRepositoryObjectPlugin {
 		return substr(__FILE__, 0, strpos(__FILE__, 'classes/' . basename(__FILE__)));
 	}
 
+
 	/**
 	 * @return string
 	 */
 	public function getConfigTableName() {
 		return 'rep_robj_xlvo_conf';
 	}
+
 
 	public static function loadAR() {
 		$ILIAS_AR = './Services/ActiveRecord/class.ActiveRecord.php';

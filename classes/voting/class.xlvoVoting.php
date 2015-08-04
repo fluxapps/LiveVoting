@@ -11,6 +11,7 @@ class xlvoVoting extends ActiveRecord {
 	const STAT_ACTIVE = 1;
 	const STAT_INCOMPLETE = 2;
 
+
 	/**
 	 * @return string
 	 */

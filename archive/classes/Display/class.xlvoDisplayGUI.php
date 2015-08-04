@@ -41,7 +41,7 @@ class xlvoDisplayGUI {
 		$this->tpl->setVariable('TITLE', $this->ilObjLiveVoting->getTitle());
 		$this->tpl->setVariable('QUESTION', $this->ilObjLiveVoting->getQuestion());
 		$this->tpl->setVariable('PIN', $this->ilObjLiveVoting->getPin());
-//		$this->tpl->setVariable('ID', $this->ilObjLiveVoting->getId());
+		//		$this->tpl->setVariable('ID', $this->ilObjLiveVoting->getId());
 		foreach ($this->ilObjLiveVoting->getOptions() as $option) {
 			if ($option instanceof ilLiveVotingOption) {
 				$this->addAnswer($option);

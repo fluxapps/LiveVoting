@@ -58,8 +58,8 @@ class ilObjLiveVotingAccess extends ilObjectPluginAccess {
 
 		switch ($a_permission) {
 			case "read":
-				if (!ilObjLiveVotingAccess::checkOnline($a_obj_id)
-					&& !$ilAccess->checkAccessOfUser($a_user_id, "write", "", $a_ref_id)
+				if (! ilObjLiveVotingAccess::checkOnline($a_obj_id)
+					&& ! $ilAccess->checkAccessOfUser($a_user_id, "write", "", $a_ref_id)
 				) {
 					return false;
 				}

@@ -36,11 +36,11 @@
 	}
 
 	.lvo_choice_footer {
-		margin:        0;
-		padding:       0;
-		background:    none;
-		border:        none;
-		text-align:    left;
+		margin:     0;
+		padding:    0;
+		background: none;
+		border:     none;
+		text-align: left;
 	}
 
 	.lvo_choice_cipher {
@@ -53,15 +53,15 @@
 	}
 
 	#lvo_isactive {
-		margin-top: 1em;
+		margin-top:    1em;
 		margin-bottom: 1em;
 	}
 
 	a.lvo_vote_link {
-		text-align:     center;
-		height:         30px;
-		line-height:    30px;
-		display:        block;
+		text-align:  center;
+		height:      30px;
+		line-height: 30px;
+		display:     block;
 	}
 
 	a.lvo_vote_link:hover {
@@ -73,14 +73,13 @@
 	}
 
 	table.lvo_cipher_titles td {
-		width:      auto;
-		display:    block;
-		font-size:  1.0em;
-		padding:    0;
-		float:      left;  /* for IE */
-		clear:      both;  /* for IE */
+		width:     auto;
+		display:   block;
+		font-size: 1.0em;
+		padding:   0;
+		float:     left; /* for IE */
+		clear:     both; /* for IE */
 	}
-
 
 	table.lvo_cipher_titles {
 		margin: 0;

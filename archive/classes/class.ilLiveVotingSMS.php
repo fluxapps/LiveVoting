@@ -89,11 +89,11 @@ class ilLiveVotingSMS {
 		$this->log->write("SMS Voting initiated");
 		$this->object = ilObjLiveVoting::_getObjectByPin($this->getPin());
 
-		if (!$this->object) {
+		if (! $this->object) {
 			$this->setError(self::SMS_ERROR_WRONGPIN);
 		}
 
-		if (!ilObjLiveVoting::_isGlobalAnonymForPin($this->getPin())) {
+		if (! ilObjLiveVoting::_isGlobalAnonymForPin($this->getPin())) {
 			$this->setError(self::SMS_ERROR_ANONYMOUS);
 		}
 
@@ -142,7 +142,7 @@ class ilLiveVotingSMS {
 			$i ++;
 		}
 		if ($id) {
-			if (!$this->object->vote($id, 0, $this->getRecipient())) {
+			if (! $this->object->vote($id, 0, $this->getRecipient())) {
 				$this->setError(self::SMS_ERROR_VOTEOVER);
 
 				return false;

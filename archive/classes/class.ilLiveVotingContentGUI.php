@@ -64,24 +64,24 @@ class ilLiveVotingContentGUI {
 				$tpl->setVariable("PIN_URL", ilLiveVotingConfigGUI::_getValue("allow_shortlink_link"));
 			}
 			$tpl->parseCurrentBlock();
-			if (ilLiveVotingConfigGUI::_getValue("aspsms") AND ilLiveVotingConfigGUI::_getValue("aspsms_number") AND $this->live_voting->getAnonym()
+			if (ilLiveVotingConfigGUI::_getValue("aspsms") AND ilLiveVotingConfigGUI::_getValue("aspsms_number")
+				AND $this->live_voting->getAnonym()
 			) {
 				$tpl->setCurrentBlock("sms");
-				$tpl->setVariable("SMS",
-					$pl->txt("send_sms") . " <b>" . $this->live_voting->getPin() . " <span class='rotatePin'>X</span></b> " . $pl->txt("to_nr")
-					. " <b>" . ilLiveVotingConfigGUI::_getValue("aspsms_number") . "</b>");
+				$tpl->setVariable("SMS", $pl->txt("send_sms") . " <b>" . $this->live_voting->getPin() . " <span class='rotatePin'>X</span></b> "
+					. $pl->txt("to_nr") . " <b>" . ilLiveVotingConfigGUI::_getValue("aspsms_number") . "</b>");
 				$tpl->parseCurrentBlock();
 			}
-			if (ilLiveVotingConfigGUI::_getValue("sragsms") AND ilLiveVotingConfigGUI::_getValue("sragsms_number") AND $this->live_voting->getAnonym()
+			if (ilLiveVotingConfigGUI::_getValue("sragsms") AND ilLiveVotingConfigGUI::_getValue("sragsms_number")
+				AND $this->live_voting->getAnonym()
 			) {
 				$tpl->setCurrentBlock("sms");
 				if (ilLiveVotingConfigGUI::_getValue("sragsms_costs")) {
 					$costs = "<br>(sFr. 0." . ilLiveVotingConfigGUI::_getValue("sragsms_costs") . ")";
 				}
-				$tpl->setVariable("SMS",
-					$pl->txt("send_sms") . " <b>" . ilLiveVotingConfigGUI::_getValue("sragsms_keyword") . " " . $this->live_voting->getPin()
-					. " <span class='rotatePin'>X</span></b> " . $pl->txt("to_nr") . " <b>" . ilLiveVotingConfigGUI::_getValue("sragsms_number")
-					. "</b>" . $costs);
+				$tpl->setVariable("SMS", $pl->txt("send_sms") . " <b>" . ilLiveVotingConfigGUI::_getValue("sragsms_keyword") . " "
+					. $this->live_voting->getPin() . " <span class='rotatePin'>X</span></b> " . $pl->txt("to_nr") . " <b>"
+					. ilLiveVotingConfigGUI::_getValue("sragsms_number") . "</b>" . $costs);
 				$tpl->parseCurrentBlock();
 			}
 			$tpl->setVariable("FS_CLOSE", $pl->txt('qr_close'));
@@ -103,8 +103,7 @@ class ilLiveVotingContentGUI {
 		if ($this->live_voting_gui->hasPermission("write")) {
 			$tb->addButton($pl->txt("reset_votes"), $this->local_ctrl->getLinkTargetByClass("ilObjLiveVotingGUI", "confirmReset"));
 		}
-		if ($this->live_voting_gui->hasPermission("write") AND $br->getAgent() != "IE" AND ilLiveVotingConfigGUI::_getValue("allow_fullscreen")
-		) {
+		if ($this->live_voting_gui->hasPermission("write") AND $br->getAgent() != "IE" AND ilLiveVotingConfigGUI::_getValue("allow_fullscreen")) {
 			$tb->addButton($pl->txt("body_fullscreen_text"), "#", "", "", "", "lvo_fullscreen_button");
 		}
 		if ($this->live_voting_gui->hasPermission("write")) {
@@ -123,9 +122,9 @@ class ilLiveVotingContentGUI {
 		$tpl->setVariable("asyncIsActive", $this->local_ctrl->getLinkTargetByClass("ilObjLiveVotingGUI", "asyncIsActive"));
 
 		// Show a message, if the LiveVoting isn't active
-		if (!$this->live_voting->getOnline()) {
+		if (! $this->live_voting->getOnline()) {
 			$tpl->setVariable("ISACTIVE", $pl->txt("is_not_online"));
-		} elseif (!$this->live_voting->isActive()) {
+		} elseif (! $this->live_voting->isActive()) {
 			$tpl->setVariable("ISACTIVE", $pl->txt("is_not_active"));
 		}
 
@@ -162,7 +161,7 @@ class ilLiveVotingContentGUI {
 			$tpl->setVariable('CHOICE_ID', $numKeys[$i]->getId());
 
 			if ($this->live_voting->isActive()) {
-				if (!$numKeys[$i]->isVoter($ilUser->getId(), session_id())) {
+				if (! $numKeys[$i]->isVoter($ilUser->getId(), session_id())) {
 					$tpl->setVariable("VOTE_LINK", $this->local_ctrl->getLinkTargetByClass("ilObjLiveVotingGUI", "vote") . '#lvo_isactive');
 					$tpl->setVariable("VOTE_TEXT", $pl->txt("vote"));
 				} else {
@@ -175,7 +174,6 @@ class ilLiveVotingContentGUI {
 				$tpl->setVariable("GLOW", " glow");
 				$tpl->setVariable("VOTE_LINK", "javascript:void(0)"); // when the voting is over, don't allow clicking on the bars
 				$tpl->setVariable("INACTIVE", "inactive");
-
 			} else {
 				$tpl->setVariable("VOTE_LINK", "javascript:void(0)"); // when the voting is over, don't allow clicking on the bars
 				$tpl->setVariable("INACTIVE", "inactive");

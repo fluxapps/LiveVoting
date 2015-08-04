@@ -17,7 +17,7 @@ class ilLiveVotingSragSMS extends ilLiveVotingSMS {
 	 * @param array $data
 	 */
 	public function __construct($data) {
-		if (!ilLiveVotingConfigGUI::_getValue('sragsms')) {
+		if (! ilLiveVotingConfigGUI::_getValue('sragsms')) {
 			exit;
 		}
 
