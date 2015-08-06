@@ -21,6 +21,37 @@ class xlvoVote extends ActiveRecord {
 		return 'rep_robj_xlvo_vote_n';
 	}
 
+	/*
+    * START
+    * xlvoFreeInputVote
+    */
+	/**
+	 * @var string
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        text
+	 * @db_length           256
+	 */
+	protected $free_input;
+
+
+	/**
+	 * @return string
+	 */
+	public function getFreeInput() {
+		return $this->free_input;
+	}
+
+
+	/**
+	 * @param string $free_input
+	 */
+	public function setFreeInput($free_input) {
+		$this->free_input = $free_input;
+	}
+	/*
+	 * END
+	 */
 
 	/**
 	 * @var string

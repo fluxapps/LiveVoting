@@ -3,6 +3,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/display/class.xlvoBarCollectionGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/display/class.xlvoBarPercentageGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/display/class.xlvoBarOptionGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/display/class.xlvoFreeInputGUI.php');
 
 class xlvoDisplayVotingGUI {
 
@@ -14,6 +15,9 @@ class xlvoDisplayVotingGUI {
 	 * @var xlvoVoting
 	 */
 	protected $voting;
+	/**
+	 * @var int
+	 */
 	protected $answer_count = 64;
 
 
@@ -31,6 +35,9 @@ class xlvoDisplayVotingGUI {
 		switch ($this->voting->getVotingType()) {
 			case xlvoVotingType::SINGLE_VOTE:
 				$this->tpl->setVariable('OPTION_CONTENT', $this->renderSingleVote());
+				break;
+			case xlvoVotingType::FREE_INPUT:
+				$this->tpl->setVariable('OPTION_CONTENT', $this->renderFreeInput());
 				break;
 		}
 
@@ -69,5 +76,12 @@ class xlvoDisplayVotingGUI {
 		}
 
 		return $bars->getHTML();
+	}
+
+
+	protected function renderFreeInput() {
+		$input_gui = new xlvoFreeInputGUI($this->voting);
+
+		return $input_gui->getHTML();
 	}
 }

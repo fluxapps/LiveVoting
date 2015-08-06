@@ -8,5 +8,5 @@ class xvloFreeInputVote extends xlvoVote {
 	/**
 	 * @var string
 	 */
-	protected $input;
+	protected $free_input;
 }

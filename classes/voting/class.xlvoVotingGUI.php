@@ -5,11 +5,12 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingFormGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVoting.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/singleVote/class.xlvoSingleVoteVotingGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/freeInput/class.xlvoFreeInputVotingGUI.php');
 
 /**
  * Class ilObjLiveVotingGUI
  *
- * @ilCtrl_Calls      xlvoVotingGUI: xlvoSingleVoteVotingGUI
+ * @ilCtrl_Calls      xlvoVotingGUI: xlvoSingleVoteVotingGUI, xlvoFreeInputVotingGUI
  *
  */
 class xlvoVotingGUI {
@@ -92,6 +93,9 @@ class xlvoVotingGUI {
 			case 'xlvosinglevotevotinggui':
 				$this->ctrl->forwardCommand(new xlvoSingleVoteVotingGUI());
 				break;
+			case 'xlvofreeinputvotinggui':
+				$this->ctrl->forwardCommand(new xlvoFreeInputVotingGUI());
+				break;
 			default:
 				$cmd = $this->ctrl->getCmd(self::CMD_STANDARD);
 				$this->{$cmd}();
@@ -173,6 +177,9 @@ class xlvoVotingGUI {
 		switch ($voting_type) {
 			case xlvoVotingType::SINGLE_VOTE:
 				$this->ctrl->redirect(new xlvoSingleVoteVotingGUI(), $cmd);
+				break;
+			case xlvoVotingType::FREE_INPUT:
+				$this->ctrl->redirect(new xlvoFreeInputVotingGUI(), $cmd);
 				break;
 			// TODO add other types
 		}

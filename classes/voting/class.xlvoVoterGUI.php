@@ -97,7 +97,7 @@ class xlvoVoterGUI {
 		/**
 		 * @var $xlvoVoting xlvoVoting
 		 */
-		$xlvoVoting = $this->voting_manager->getVoting(20);
+		$xlvoVoting = $this->voting_manager->getVoting(40);
 		$display = new xlvoDisplayVotingGUI($xlvoVoting);
 
 		$this->tpl->setContent($display->getHTML());
