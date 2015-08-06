@@ -11,10 +11,12 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 
 $voter_gui = new xlvoVoterGUI();
 $posted_vote = new xlvoVote();
+$voting_manager = new xlvoVotingManager();
+
 $posted_vote->setId((int)$_POST['vote_id']);
 $posted_vote->setOptionId((int)$_POST['option_id']);
+
 $vote = $voter_gui->vote($posted_vote);
-$voting_manager = new xlvoVotingManager();
 $votes = $voting_manager->getVotes($vote->getVotingId(), NULL, true)->getArray();
 
 header('Content-type: application/json');

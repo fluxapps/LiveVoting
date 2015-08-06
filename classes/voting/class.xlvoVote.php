@@ -73,11 +73,11 @@ class xlvoVote extends ActiveRecord {
 	 */
 	protected $user_id_type;
 	/**
-	 * @var int
+	 * @var string
 	 *
 	 * @db_has_field        true
-	 * @db_fieldtype        integer
-	 * @db_length           8
+	 * @db_fieldtype        text
+	 * @db_length           256
 	 */
 	protected $user_identifier = 0;
 	/**
@@ -216,5 +216,4 @@ class xlvoVote extends ActiveRecord {
 	public function setUserId($user_id) {
 		$this->user_id = $user_id;
 	}
-
 }

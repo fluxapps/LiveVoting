@@ -9,6 +9,8 @@ require_once('./Services/Object/classes/class.ilObject2.php');
  */
 class xlvoVotingManager implements xlvoVotingInterface {
 
+	const NEW_VOTE = 0;
+
 	/**
 	 * @var int
 	 */
@@ -119,12 +121,12 @@ class xlvoVotingManager implements xlvoVotingInterface {
 		/**
 		 * @var xlvoVotingConfig $xlvoVotingConfig
 		 */
-		$xlvoVotingConfig = $this->getVotingConfig();
+		$xlvoVotingConfig = $this->getVotingConfig($xlvoVoting->getObjId());
 
 		$existing_votes = $this->getVotes($xlvoOption->getVotingId(), NULL, true)->get();
 
 		if ($xlvoVoting->isMultiSelection()) {
-			if ($vote->getId() != 0) {
+			if ($vote->getId() != self::NEW_VOTE) {
 				foreach ($existing_votes as $vo) {
 					if ($vote->getId() == $vo->getId()) {
 						$vote = $this->deleteVote($vo);
@@ -167,9 +169,9 @@ class xlvoVotingManager implements xlvoVotingInterface {
 				break;
 			case xlvoVote::USER_ANONYMOUS:
 				/**
-				 * @var ilSession $ilSession
+				 * @var ilSessionControl $ilSessionControl
 				 */
-				global $ilSession;
+				global $ilSessionControl;
 				// TODO sessionId
 				break;
 		}
@@ -210,8 +212,24 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	 * @return bool
 	 */
 	public function deleteVotesForVoting($voting_id) {
-		// TODO implement here
-		return NULL;
+		$votes = $this->getVotes($voting_id);
+		foreach ($votes->get() as $vote) {
+			$vote->delete();
+		}
+
+		return true;
+	}
+
+
+	public function deleteVotesForOption($option_id) {
+		$option = $this->getOption($option_id);
+		$votes = $this->getVotes($option->getVotingId(), $option_id);
+
+		foreach ($votes->get() as $vote) {
+			$vote->delete();
+		}
+
+		return true;
 	}
 
 

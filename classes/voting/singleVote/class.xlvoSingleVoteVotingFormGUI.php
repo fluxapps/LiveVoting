@@ -2,6 +2,7 @@
 
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoMultiLineInputGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoOption.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingManager.php');
 
 class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 
@@ -30,15 +31,14 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 	 */
 	protected $is_new;
 	/**
-	 * @var xlvoOption[]
+	 * @var xlvoVotingManager
 	 */
-	protected $options_map;
+	protected $voting_manager;
 
 
 	/**
-	 * @param              $parent_gui
-	 * @param xlvoVoting   $xlvoVoting
-	 * @param xlvoOption   $xlvoOption
+	 * @param            $parent_gui
+	 * @param xlvoVoting $xlvoVoting
 	 */
 	public function __construct($parent_gui, xlvoVoting $xlvoVoting) {
 		global $ilCtrl;
@@ -52,7 +52,7 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 		$this->ctrl->saveParameter($parent_gui, xlvoVotingGUI::IDENTIFIER);
 		$this->is_new = ($this->voting->getVotingStatus() == xlvoVoting::STAT_INCOMPLETE);
 		$this->options = array();
-		$this->options_map = array();
+		$this->voting_manager = new xlvoVotingManager();
 
 		$this->initForm();
 	}
@@ -176,7 +176,12 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 					if (! xlvoOption::where(array( 'id' => $option->getId() ))->hasSets()) {
 						$option->create();
 					} else {
-						$option->update();
+						if ($option->getStatus() == xlvoOption::STAT_ACTIVE) {
+							$option->update();
+						} else {
+							$this->voting_manager->deleteVotesForOption($option->getId());
+							$option->delete();
+						}
 					}
 				} else {
 					ilUtil::sendFailure($this->pl->txt('permission_denied'), true);

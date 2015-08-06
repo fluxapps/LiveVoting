@@ -26,8 +26,6 @@ class xlvoBarPercentageGUI extends xlvoBarGUI {
 	 * @param int $percentage
 	 */
 	public function __construct($obj_id, $bar_title, $percentage) {
-		//		$tpl->addJavaScript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/Display/bar.js');
-
 		$this->obj_id = $obj_id;
 		$this->percentage = $percentage;
 		$this->bar_title = $bar_title;

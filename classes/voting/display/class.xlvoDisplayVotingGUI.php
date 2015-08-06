@@ -27,10 +27,6 @@ class xlvoDisplayVotingGUI {
 
 
 	protected function render() {
-		//        $bars_1 = new xlvoBarCollectionGUI($this->voting);
-		//        foreach ($this->getVotingOptions()->get() as $option) {
-		//            $bars_1->addBar(new xlvoBarPercentageGUI($this->voting->getId(), $option->getText(), 50));
-		//        }
 
 		switch ($this->voting->getVotingType()) {
 			case xlvoVotingType::SINGLE_VOTE:

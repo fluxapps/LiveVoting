@@ -100,13 +100,6 @@ class xlvoVoterGUI {
 		$xlvoVoting = $this->voting_manager->getVoting(20);
 		$display = new xlvoDisplayVotingGUI($xlvoVoting);
 
-//		$xlvoVote = new xlvoVote();
-//		$xlvoVote->setOptionId(57);
-////		$xlvoVote->setId(93);
-//		$vote = $this->voting_manager->vote($xlvoVote);
-//		var_dump($vote);
-//		exit;
-
 		$this->tpl->setContent($display->getHTML());
 	}
 
