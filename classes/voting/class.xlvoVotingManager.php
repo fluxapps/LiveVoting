@@ -115,16 +115,37 @@ class xlvoVotingManager implements xlvoVotingInterface {
 		/**
 		 * @var xlvoVoting $xlvoVoting
 		 */
-		$xlvoVoting = $this->getVoting($vote->getVotingId());
+		$xlvoVoting = $this->getVoting($xlvoOption->getVotingId());
 		/**
 		 * @var xlvoVotingConfig $xlvoVotingConfig
 		 */
 		$xlvoVotingConfig = $this->getVotingConfig();
 
-		if ($xlvoVoting->isMultiSelection()) {
-		}
+		$existing_votes = $this->getVotes($xlvoOption->getVotingId(), NULL, true)->get();
 
-		$vote = $this->createVote($xlvoVotingConfig, $xlvoOption);
+		if ($xlvoVoting->isMultiSelection()) {
+			if ($vote->getId() != 0) {
+				foreach ($existing_votes as $vo) {
+					if ($vote->getId() == $vo->getId()) {
+						$vote = $this->deleteVote($vo);
+					}
+				}
+			} else {
+				$vote = $this->createVote($xlvoVotingConfig, $xlvoOption);
+			}
+		} else {
+			if (count($existing_votes) > 0) {
+				foreach ($existing_votes as $vo) {
+					if ($xlvoOption->getId() == $vo->getOptionId()) {
+						$vote = $this->deleteVote($vo);
+					} else {
+						$vote = $this->updateVote($vo, $vote);
+					}
+				}
+			} else {
+				$vote = $this->createVote($xlvoVotingConfig, $xlvoOption);
+			}
+		}
 
 		return $vote;
 	}
@@ -154,10 +175,31 @@ class xlvoVotingManager implements xlvoVotingInterface {
 		}
 
 		$xlvoVote->create();
-		$vote = $this->getVotes($option->getVotingId(), $option->getId(), true)->last();
+		$created_vote = $this->getVotes($option->getVotingId(), $option->getId(), true)->last();
 
-		return $vote;
+		return $created_vote;
 	}
+
+
+	private function updateVote(xlvoVote $existing_vote, xlvoVote $new_vote) {
+		$existing_vote->setOptionId($new_vote->getOptionId());
+		$existing_vote->update();
+		$updated_vote = xlvoVote::find($existing_vote->getId());
+
+		return $updated_vote;
+	}
+
+
+	private function deleteVote(xlvoVote $vote) {
+		$vote->delete();
+		$deleted_vote = new xlvoVote();
+		$deleted_vote->setStatus(xlvoVote::STAT_INACTIVE);
+		$deleted_vote->setVotingId($vote->getVotingId());
+		$deleted_vote->setOptionId($vote->getOptionId());
+
+		return $deleted_vote;
+	}
+
 
 	public function unvote(xlvoVote $xlvoVote) {
 		// TODO remove here + interface

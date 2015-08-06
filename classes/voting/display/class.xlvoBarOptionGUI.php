@@ -45,6 +45,7 @@ class xlvoBarOptionGUI extends xlvoBarGUI {
 		$this->tpl->setVariable('OPTION_ID', $this->option->getId());
 		$this->tpl->setVariable('TITLE', $this->option->getText());
 		$this->tpl->setVariable('OPTION_ACTIVE', $this->getActiveBar());
+		$this->tpl->setVariable('VOTE_ID', $this->getVoteId());
 	}
 
 
@@ -68,6 +69,16 @@ class xlvoBarOptionGUI extends xlvoBarGUI {
 			}
 		} else {
 			return "";
+		}
+	}
+
+
+	private function getVoteId() {
+		$vote = $this->voting_manager->getVotes($this->voting->getId(), $this->option->getId(), true)->first();
+		if ($vote instanceof xlvoVote) {
+			return $vote->getId();
+		} else {
+			return 0;
 		}
 	}
 }

@@ -1,29 +1,41 @@
-$(document).ready(function () {
+(function ($) {
+	$.fn.handleVoting = function () {
+		$(document).ready(function () {
+			$(".vote_form").each(function (index, element) {
+				$(this).submit(function (event) {
 
-	$(".vote_form").each(function (index, element) {
-		$(this).submit(function (event) {
+					var option_id = $(this).find("input[name='option_id']").val();
+					var vote_id = $(this).find("input[name='vote_id']").val();
+					var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/singleVote/class.xlvoSingleVoteSubmitEndpoint.php";
 
-			var option_id = $(this).find("input[name='option_id']").val();
-			var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/singleVote/singleVoteEndpoint.php";
+					$.post(url, {option_id: option_id, vote_id: vote_id})
+						.done(function (data) {
 
-			//console.log(option_id);
+							$('.btn-default').attr('class', 'btn btn-default btn-lg btn-block');
+							$("input.vote_form_input_vote").attr('value', 0).attr('id', 'xlvo_vote_id_0');
 
-			$.post(url, {option_id: option_id})
-				.done(function (data) {
-					if(data == 1) {
-						$('#xlvo_bar_' + option_id).attr('class', 'btn btn-default btn-lg btn-block active');
-					} else {
-						$('#xlvo_bar_' + option_id).attr('class', 'btn btn-default btn-lg btn-block');
-					}
-					alert("Data Loaded: " + data);
-				}).fail(function () {
-					alert("error");
-				})
-				.always(function () {
-					//alert("finished");
+							for (var key in data) {
+								var vote = data[key];
+								console.log(vote['id'])
+								if (vote['status'] == 1) {
+									$("button[data-id='" + vote['option_id'] + "']").attr('class', 'btn btn-default btn-lg btn-block active');
+									$("input[option-id='" + vote['option_id'] + "']").attr('value', vote['id']).attr('id', 'xlvo_vote_id_' + vote['id']);
+								} else {
+								}
+							}
+							//alert("Data Loaded: " + data);
+						}).fail(function () {
+							alert("error");
+						})
+						.always(function () {
+							//alert("finished");
+						});
+
+					return false;
 				});
-
-			return false;
+			});
 		});
-	});
-});
+	}
+}(jQuery));
+
+$(".vote_form").handleVoting();

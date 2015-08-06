@@ -89,7 +89,9 @@ class xlvoVoterGUI {
 
 
 	/**
-	 * @param void $voting_id
+	 * @param null $voting_id
+	 *
+	 * @return string
 	 */
 	public function showVoting($voting_id = NULL) {
 		/**
@@ -97,6 +99,13 @@ class xlvoVoterGUI {
 		 */
 		$xlvoVoting = $this->voting_manager->getVoting(20);
 		$display = new xlvoDisplayVotingGUI($xlvoVoting);
+
+//		$xlvoVote = new xlvoVote();
+//		$xlvoVote->setOptionId(57);
+////		$xlvoVote->setId(93);
+//		$vote = $this->voting_manager->vote($xlvoVote);
+//		var_dump($vote);
+//		exit;
 
 		$this->tpl->setContent($display->getHTML());
 	}
@@ -111,22 +120,28 @@ class xlvoVoterGUI {
 
 
 	/**
-	 * @param $option_id
+	 * @param xlvoVote $vote
 	 *
 	 * @return xlvoVote
 	 */
-	public function vote($option_id) {
-		$xlvoVote = new xlvoVote();
-		$xlvoVote->setOptionId((int)$option_id);
+	public function vote(xlvoVote $vote) {
 		/**
 		 * @var xlvoVote $vote
 		 */
+		$xlvoVote = new xlvoVote();
+		$xlvoVote->setOptionId($vote->getOptionId());
+		$xlvoVote->setId($vote->getId());
 		$vote = $this->voting_manager->vote($xlvoVote);
-		if($vote instanceof xlvoVote) {
+		if ($vote instanceof xlvoVote) {
 			return $vote;
 		} else {
-			return NULL;
+			$vote = new xlvoVote();
+			$vote->setStatus(xlvoVote::STAT_INACTIVE);
+			$vote->setVotingId(20);
+			$vote->setOptionId($vote->getOptionId());
+			return $vote;
 		}
+		return $vote;
 	}
 
 

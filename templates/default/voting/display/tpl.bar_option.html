@@ -8,8 +8,9 @@
 					</div>
 					<div class="col-md-11">
 						<form class="vote_form" id="vote_form_{OPTION_ID}" method="POST">
-							<input type="hidden" id="xlvo_voting_id_{OPTION_ID}" name="option_id" value="{OPTION_ID}">
-							<button type="submit" id="xlvo_bar_{OPTION_ID}" class="btn btn-default btn-lg btn-block {OPTION_ACTIVE}">{TITLE}</button>
+							<input class="vote_form_input_option" type="hidden" id="xlvo_option_id_{OPTION_ID}" name="option_id" value="{OPTION_ID}">
+							<input class="vote_form_input_vote" type="hidden" id="xlvo_vote_id_{VOTE_ID}" name="vote_id" option-id="{OPTION_ID}" value="{VOTE_ID}">
+							<button data-id="{OPTION_ID}" type="submit" id="xlvo_bar_{OPTION_ID}" class="btn btn-default btn-lg btn-block {OPTION_ACTIVE}">{TITLE}</button>
 						</form>
 					</div>
 				</div>
