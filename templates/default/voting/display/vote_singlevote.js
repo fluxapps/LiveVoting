@@ -1,5 +1,5 @@
 (function ($) {
-	$.fn.handleVoting = function () {
+	$.fn.singleVote = function () {
 		$(document).ready(function () {
 			$(".vote_form").each(function (index, element) {
 				$(this).submit(function (event) {
@@ -20,7 +20,6 @@
 								if (vote['status'] == 1) {
 									$("button[data-id='" + vote['option_id'] + "']").attr('class', 'btn btn-default btn-lg btn-block active');
 									$("input[option-id='" + vote['option_id'] + "']").attr('value', vote['id']).attr('id', 'xlvo_vote_id_' + vote['id']);
-								} else {
 								}
 							}
 							//alert("Data Loaded: " + data);
@@ -38,4 +37,4 @@
 	}
 }(jQuery));
 
-$(".vote_form").handleVoting();
+$(".vote_form").singleVote();

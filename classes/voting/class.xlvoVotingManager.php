@@ -2,6 +2,7 @@
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingInterface.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVote.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVoting.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingType.php');
 require_once('./Services/Object/classes/class.ilObject2.php');
 
 /**
@@ -10,7 +11,6 @@ require_once('./Services/Object/classes/class.ilObject2.php');
 class xlvoVotingManager implements xlvoVotingInterface {
 
 	const NEW_VOTE = 0;
-
 	/**
 	 * @var int
 	 */
@@ -123,29 +123,68 @@ class xlvoVotingManager implements xlvoVotingInterface {
 		 */
 		$xlvoVotingConfig = $this->getVotingConfig($xlvoVoting->getObjId());
 
+		/**
+		 * @var xlvoVote[] $exisiting_votes
+		 */
 		$existing_votes = $this->getVotes($xlvoOption->getVotingId(), NULL, true)->get();
 
-		if ($xlvoVoting->isMultiSelection()) {
-			if ($vote->getId() != self::NEW_VOTE) {
-				foreach ($existing_votes as $vo) {
-					if ($vote->getId() == $vo->getId()) {
-						$vote = $this->deleteVote($vo);
+		/*
+		 * SINGLE VOTE
+		 */
+		if ($xlvoVoting->getVotingType() == xlvoVotingType::SINGLE_VOTE) {
+			if ($xlvoVoting->isMultiSelection()) {
+				if ($vote->getId() != self::NEW_VOTE) {
+					foreach ($existing_votes as $vo) {
+						if ($vote->getId() == $vo->getId()) {
+							$vote = $this->deleteVote($vo);
+						}
 					}
+				} else {
+					$vote = $this->createVote($xlvoVotingConfig, $xlvoOption, $vote);
 				}
 			} else {
-				$vote = $this->createVote($xlvoVotingConfig, $xlvoOption);
+				if (count($existing_votes) > 0) {
+					foreach ($existing_votes as $vo) {
+						if ($xlvoOption->getId() == $vo->getOptionId()) {
+							$vote = $this->deleteVote($vo);
+						} else {
+							$vote = $this->updateVote($vo, $vote);
+						}
+					}
+				} else {
+					$vote = $this->createVote($xlvoVotingConfig, $xlvoOption, $vote);
+				}
 			}
-		} else {
-			if (count($existing_votes) > 0) {
-				foreach ($existing_votes as $vo) {
-					if ($xlvoOption->getId() == $vo->getOptionId()) {
-						$vote = $this->deleteVote($vo);
-					} else {
-						$vote = $this->updateVote($vo, $vote);
+		}
+
+		/*
+		 * FREE INPUT
+		 */
+		if ($xlvoVoting->getVotingType() == xlvoVotingType::FREE_INPUT) {
+			if ($xlvoVoting->isMultiFreeInput()) {
+				if ($vote->getId() != self::NEW_VOTE) {
+					foreach ($existing_votes as $vo) {
+						if ($vote->getId() == $vo->getId()) {
+							$vote = $this->deleteVote($vo);
+						}
 					}
+				} else {
+					$vote = $this->createVote($xlvoVotingConfig, $xlvoOption, $vote);
 				}
 			} else {
-				$vote = $this->createVote($xlvoVotingConfig, $xlvoOption);
+				if (count($existing_votes) > 0) {
+					foreach ($existing_votes as $vo) {
+						if ($xlvoOption->getId() == $vo->getOptionId()) {
+							if ($vote->getStatus() == xlvoVote::STAT_INACTIVE) {
+								$vote = $this->deleteVote($vote);
+							} else {
+								$vote = $this->updateVote($vo, $vote);
+							}
+						}
+					}
+				} else {
+					$vote = $this->createVote($xlvoVotingConfig, $xlvoOption, $vote);
+				}
 			}
 		}
 
@@ -153,19 +192,15 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	}
 
 
-	private function createVote(xlvoVotingConfig $config, xlvoOption $option) {
-		/**
-		 * @var xlvoVote $xlvoVote
-		 */
-		$xlvoVote = new xlvoVote();
-		$xlvoVote->setOptionId($option->getId());
-		$xlvoVote->setVotingId($option->getVotingId());
-		$xlvoVote->setType($option->getType());
-		$xlvoVote->setStatus(xlvoVote::STAT_ACTIVE);
-		$xlvoVote->setUserIdType($config->isAnonymous());
-		switch ($xlvoVote->getUserIdType()) {
+	private function createVote(xlvoVotingConfig $config, xlvoOption $option, xlvoVote $vote) {
+		$vote->setOptionId($option->getId());
+		$vote->setVotingId($option->getVotingId());
+		$vote->setType($option->getType());
+		$vote->setStatus(xlvoVote::STAT_ACTIVE);
+		$vote->setUserIdType($config->isAnonymous());
+		switch ($vote->getUserIdType()) {
 			case xlvoVote::USER_ILIAS:
-				$xlvoVote->setUserId($this->user_ilias->getId());
+				$vote->setUserId($this->user_ilias->getId());
 				break;
 			case xlvoVote::USER_ANONYMOUS:
 				/**
@@ -176,7 +211,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 				break;
 		}
 
-		$xlvoVote->create();
+		$vote->create();
 		$created_vote = $this->getVotes($option->getVotingId(), $option->getId(), true)->last();
 
 		return $created_vote;
@@ -184,6 +219,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 
 
 	private function updateVote(xlvoVote $existing_vote, xlvoVote $new_vote) {
+		$existing_vote->setFreeInput($new_vote->getFreeInput());
 		$existing_vote->setOptionId($new_vote->getOptionId());
 		$existing_vote->update();
 		$updated_vote = xlvoVote::find($existing_vote->getId());

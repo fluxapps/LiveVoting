@@ -124,6 +124,8 @@ class xlvoVoterGUI {
 		$xlvoVote = new xlvoVote();
 		$xlvoVote->setOptionId($vote->getOptionId());
 		$xlvoVote->setId($vote->getId());
+		$xlvoVote->setStatus($vote->getStatus());
+		$xlvoVote->setFreeInput($vote->getFreeInput());
 		$vote = $this->voting_manager->vote($xlvoVote);
 		if ($vote instanceof xlvoVote) {
 			return $vote;
@@ -137,11 +139,4 @@ class xlvoVoterGUI {
 		return $vote;
 	}
 
-
-	/**
-	 *
-	 */
-	public function unvote() {
-		// TODO implement here
-	}
 }

@@ -76,6 +76,38 @@ class xlvoVoting extends ActiveRecord {
 	 * END
 	 */
 
+	/*
+	 * START
+	 * xlvoSingleVoteVoting
+	 */
+	/**
+	 * @var bool
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           1
+	 */
+	protected $multi_free_input;
+
+
+	/**
+	 * @return boolean
+	 */
+	public function isMultiFreeInput() {
+		return $this->multi_free_input;
+	}
+
+
+	/**
+	 * @param boolean $multi_free_input
+	 */
+	public function setMultiFreeInput($multi_free_input) {
+		$this->multi_free_input = $multi_free_input;
+	}
+	/*
+	 * END
+	 */
+
 	//	public function afterObjectLoad() {
 	//		// Aktionen wie bspw. alle VotingOptions suchen und hier als Member speichern
 	//		// $this->setVotingOptions($array);

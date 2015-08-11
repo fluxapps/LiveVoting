@@ -1,6 +1,7 @@
 <?php
 
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/freeInput/class.xlvoFreeInputVotingFormGUI.php');
 
 class xlvoFreeInputVotingGUI extends xlvoVotingGUI {
 
@@ -20,13 +21,13 @@ class xlvoFreeInputVotingGUI extends xlvoVotingGUI {
 		}
 	}
 
-
 	protected function add() {
 		if (! $this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
 			$this->ctrl->redirect(new xlvoVotingGUI(), self::CMD_STANDARD);
 		} else {
-			$this->create();
+			$xlvoFreeInputVotingFormGUI = new xlvoFreeInputVotingFormGUI($this, xlvoVoting::find($_GET[parent::IDENTIFIER]));
+			$this->tpl->setContent($xlvoFreeInputVotingFormGUI->getHTML());
 		}
 	}
 
@@ -36,20 +37,13 @@ class xlvoFreeInputVotingGUI extends xlvoVotingGUI {
 			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
 			$this->ctrl->redirect(new xlvoVotingGUI(), self::CMD_STANDARD);
 		} else {
-			$xlvoVoting = xlvoVoting::find($_GET[self::IDENTIFIER]);
-			$xlvoVoting->setVotingStatus(xlvoVoting::STAT_ACTIVE);
-			$xlvoVoting->update();
-
-			$xlvoOption = new xlvoOption();
-			$xlvoOption->setVotingId($xlvoVoting->getId());
-			$xlvoOption->setType($xlvoVoting->getVotingType());
-			$xlvoOption->setStatus(xlvoOption::STAT_ACTIVE);
-			$xlvoOption->setText('FREE_INPUT');
-			$xlvoOption->create();
-			
-			ilUtil::sendSuccess($this->pl->txt('system_account_msg_success'), true);
-			$this->ctrl->setParameter(new xlvoVotingGUI(), self::IDENTIFIER, $xlvoVoting->getId());
-			$this->ctrl->redirect(new xlvoVotingGUI(), self::CMD_EDIT);
+			$xlvoFreeInputVotingFormGUI = new xlvoFreeInputVotingFormGUI($this, xlvoVoting::find($_GET[parent::IDENTIFIER]));
+			$xlvoFreeInputVotingFormGUI->setValuesByPost();
+			if ($xlvoFreeInputVotingFormGUI->saveObject()) {
+				ilUtil::sendSuccess($this->pl->txt('system_account_msg_success'), true);
+				$this->ctrl->redirect($this, self::CMD_EDIT);
+			}
+			$this->tpl->setContent($xlvoFreeInputVotingFormGUI->getHTML());
 		}
 	}
 
@@ -59,10 +53,25 @@ class xlvoFreeInputVotingGUI extends xlvoVotingGUI {
 			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
 			$this->ctrl->redirect(new xlvoVotingGUI(), self::CMD_STANDARD);
 		} else {
-			$xlvoVoting = xlvoVoting::find($_GET[self::IDENTIFIER]);
-			$this->ctrl->setParameter(new xlvoVotingGUI(), self::IDENTIFIER, $xlvoVoting->getId());
-			ilUtil::sendSuccess($this->pl->txt('voting_updated'), true);
-			$this->ctrl->redirect(new xlvoVotingGUI(), self::CMD_EDIT);
+			$xlvoFreeInputVotingFormGUI = new xlvoFreeInputVotingFormGUI($this, xlvoVoting::find($_GET[parent::IDENTIFIER]));
+			$xlvoFreeInputVotingFormGUI->fillForm();
+			$this->tpl->setContent($xlvoFreeInputVotingFormGUI->getHTML());
+		}
+	}
+
+
+	protected function update() {
+		if (! $this->access->hasWriteAccess()) {
+			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
+			$this->ctrl->redirect(new xlvoVotingGUI(), self::CMD_STANDARD);
+		} else {
+			$xlvoFreeInputVotingFormGUI = new xlvoFreeInputVotingFormGUI($this, xlvoVoting::find($_GET[parent::IDENTIFIER]));
+			$xlvoFreeInputVotingFormGUI->setValuesByPost();
+			if ($xlvoFreeInputVotingFormGUI->saveObject()) {
+				ilUtil::sendSuccess($this->pl->txt('system_account_msg_success'), true);
+				$this->ctrl->redirect($this, self::CMD_EDIT);
+			}
+			$this->tpl->setContent($xlvoFreeInputVotingFormGUI->getHTML());
 		}
 	}
 }
