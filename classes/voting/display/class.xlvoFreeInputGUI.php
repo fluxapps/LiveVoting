@@ -52,9 +52,10 @@ class xlvoFreeInputGUI extends ilPropertyFormGUI {
 		return $form->getHTML();
 	}
 
+
 	protected function renderMultiForm(array $votes, xlvoOption $option) {
-		$mli = new xlvoMultiLineInputGUI($this->pl->txt('answers'), 'vote');
-		$te = new ilTextInputGUI($this->pl->txt('text'), 'text');
+		$mli = new xlvoMultiLineInputGUI($this->pl->txt('answers'), 'vote_multi_line_input');
+		$te = new ilTextInputGUI($this->pl->txt('text'), 'free_input');
 		$mli->addCustomAttribute('option_id', $option->getId());
 		$mli->addInput($te);
 
@@ -63,14 +64,21 @@ class xlvoFreeInputGUI extends ilPropertyFormGUI {
 		$form->addCommandButton('send_votes', $this->pl->txt('send'));
 		$form->addItem($mli);
 
+		$array = array(
+			'vote_multi_line_input' => $votes
+		);
+
+		$form->setValuesByArray($array);
+
 		return $form->getHTML();
 	}
+
 
 	protected function render() {
 		$option = $this->voting_manager->getOptionsForVoting($this->voting->getId())->first();
 
 		if ($this->voting->isMultiFreeInput()) {
-			$votes = $this->voting_manager->getVotes($this->voting->getId(), $option->getId(), true)->get();
+			$votes = $this->voting_manager->getVotes($this->voting->getId(), $option->getId(), true)->getArray();
 			$form = $this->renderMultiForm($votes, $option);
 		} else {
 			$vote = $this->voting_manager->getVotes($this->voting->getId(), $option->getId(), true)->first();

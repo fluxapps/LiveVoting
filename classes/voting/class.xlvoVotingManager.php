@@ -239,14 +239,6 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	}
 
 
-	public function unvote(xlvoVote $xlvoVote) {
-		// TODO remove here + interface
-	}
-
-
-	/**
-	 * @return bool
-	 */
 	public function deleteVotesForVoting($voting_id) {
 		$votes = $this->getVotes($voting_id);
 		foreach ($votes->get() as $vote) {

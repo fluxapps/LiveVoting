@@ -1,6 +1,13 @@
 (function ($) {
 	$.fn.singleVote = function () {
 		$(document).ready(function () {
+
+			$(document).keypress(function(event){
+				if (event.keyCode == 10 || event.keyCode == 13)
+					event.preventDefault();
+
+			});
+
 			$(".vote_form").each(function (index, element) {
 				$(this).submit(function (event) {
 
