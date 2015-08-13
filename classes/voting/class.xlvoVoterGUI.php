@@ -84,7 +84,7 @@ class xlvoVoterGUI {
 
 
 	public function executeCommand() {
-		$this->tabs->addTab(self::TAB_STANDARD, $this->pl->txt('voter'), $this->ctrl->getLinkTarget($this, self::CMD_STANDARD));
+		$this->tabs->addTab(self::TAB_STANDARD, $this->pl->txt('voting'), $this->ctrl->getLinkTarget($this, self::CMD_STANDARD));
 		$this->tabs->setTabActive(self::TAB_STANDARD);
 		$nextClass = $this->ctrl->getNextClass();
 		switch ($nextClass) {

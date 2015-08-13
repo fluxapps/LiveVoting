@@ -2,12 +2,14 @@
 	$.fn.freeInputVote = function () {
 		$(document).ready(function () {
 
-			$(document).keypress(function(event){
+			// prevent submitting over (mobile)keyboard
+			$(document).keypress(function (event) {
 				if (event.keyCode == 10 || event.keyCode == 13)
 					event.preventDefault();
 
 			});
 
+			// hide delete button if no existing
 			var vote_id = $('#vote_id').val();
 			if (vote_id == 0) {
 				$("input[name='cmd[send_unvote]']").hide();
@@ -15,48 +17,52 @@
 
 			$('#form_').submit(function (event) {
 
+				// get values for POST request
 				var free_input = $('#free_input').val();
 				var option_id = $('#option_id').val();
 				var vote_id = $('#vote_id').val();
 				var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/freeInput/class.xlvoFreeInputSubmitEndpoint.php";
 
+				// get name of submit button
 				var submit_name = $(this).find("input[type=submit]:focus").attr('name');
 
+				// send vote
 				if (submit_name == 'cmd[send_vote]') {
 					$.post(url, {free_input: free_input, option_id: option_id, vote_id: vote_id, type: 'vote'})
 						.done(function (data) {
+							// set button style to default
 							$('.btn-default').attr('class', 'btn btn-default btn-sm');
 							for (var key in data) {
 								var vote = data[key];
 								if (vote['status'] == 1) {
+									// set values
 									$("#vote_id").attr('value', vote['id']);
 									$("#free_input").attr('value', vote['free_input']);
+									// show delete button
 									$("input[name='cmd[send_unvote]']").show();
 								}
 							}
-							//alert("Data Loaded: " + data);
 						}).fail(function (jqXHR) {
 							console.log(jqXHR);
-							//alert("error");
 						})
 						.always(function () {
-							//alert("finished");
 						});
 				}
+				// delete vote
 				if (submit_name == 'cmd[send_unvote]') {
 					$.post(url, {free_input: free_input, option_id: option_id, vote_id: vote_id, type: 'unvote'})
 						.done(function (data) {
+							// set button style to default
 							$('.btn-default').attr('class', 'btn btn-default btn-sm');
+							// hide delete button
 							$("input[name='cmd[send_unvote]']").hide();
+							// reset input textfield
 							$("#free_input").attr('value', "");
 							$("#vote_id").attr('value', 0);
-							//alert("Data Loaded: " + data);
 						}).fail(function (jqXHR) {
 							console.log(jqXHR);
-							//alert("error");
 						})
 						.always(function () {
-							//alert("finished");
 						});
 				}
 
@@ -72,48 +78,50 @@ $('#form_').freeInputVote();
 	$.fn.freeInputMultiVote = function () {
 		$(document).ready(function () {
 
-			$(document).keypress(function(event){
+			// prevent submitting over (mobile)keyboard
+			$(document).keypress(function (event) {
 				if (event.keyCode == 10 || event.keyCode == 13)
 					event.preventDefault();
-
 			});
 
-			if($("input[name='vote_multi_line_input[0][free_input]']").length) {
+			// hide delete button if no existing
+			if ($("input[name='vote_multi_line_input[0][free_input]']").length) {
 				$("input[name='cmd[unvote_all]']").hide();
 			}
 
 			$('#form_').submit(function () {
 
-				var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/freeInput/class.xlvoFreeInputSubmitEndpoint.php";
-				var submit_name = $(this).find("input[type=submit]:focus").attr('name');
+				// get values for POST request
 				var option_id = $(".multi_input_line").attr('option_id');
+				var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/freeInput/class.xlvoFreeInputSubmitEndpoint.php";
 
+				// get name of submit button
+				var submit_name = $(this).find("input[type=submit]:focus").attr('name');
+
+				// send vote
 				if (submit_name == 'cmd[send_votes]') {
 
+					// delete all existing votes
 					$.post(url, {option_id: option_id, type: 'delete_all'})
 						.done(function (data) {
-							//alert("Data Loaded: " + data);
 						}).fail(function (jqXHR) {
 							console.log(jqXHR);
-							//alert("error");
 						})
 						.always(function () {
-							//alert("finished");
 						});
 
+					// POST each vote
 					$("input[name^='vote']").each(function (i) {
 						var free_input = $(this).val();
 						$.post(url, {free_input: free_input, option_id: option_id, type: 'vote'})
 							.done(function (data) {
-								//alert("Data Loaded: " + data);
 							}).fail(function (jqXHR) {
-								//alert("error");
 								console.log(jqXHR);
 							})
 							.always(function () {
-								//alert("finished");
 							});
 					});
+
 					// set buttons
 					$("input[name='cmd[unvote_all]']").show();
 					$('.btn-default').attr('class', 'btn btn-default btn-sm');
@@ -125,15 +133,14 @@ $('#form_').freeInputVote();
 							$("#vote_multi_line_input").find('*').not(":nth-child(1)").not(":nth-child(2)").remove();
 							// reset value in first input field
 							$("#vote_multi_line_input").find("input[name^='vote']").val("");
+							// set buttons
 							$("input[name='cmd[unvote_all]']").hide();
 							$('.btn-default').attr('class', 'btn btn-default btn-sm');
-							//alert("Data Loaded: " + data);
 						}).fail(function (jqXHR) {
 							console.log(jqXHR);
 							alert("error");
 						})
 						.always(function () {
-							//alert("finished");
 						});
 				}
 

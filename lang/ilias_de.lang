@@ -28,3 +28,13 @@ confirm_reset_voting#:#Möchten Sie die Abstimmungsresultate aller Votings lösc
 permission_denied#:#Zugriff verweigert!
 reset_all_votes#:#Zurücksetzen
 confirm_number_of_votes#:#Anzahl Antworten
+player#:#Player
+freeze#:#Pausieren
+reset#:#Zurücksetzen
+answer#:#Antwort
+send#:#Senden
+
+
+
+
+show_voting#:#Vote

@@ -113,7 +113,6 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 			$current_selection_list->addItem($this->pl->txt('delete'), xlvoVotingGUI::CMD_CONFIRM_DELETE, $this->ctrl->getLinkTarget($this->voting_gui, xlvoVotingGUI::CMD_CONFIRM_DELETE));
 		}
 		$current_selection_list->getHTML();
-//		exit;
 		$this->tpl->setVariable('ACTIONS', $current_selection_list->getHTML());
 	}
 
@@ -125,23 +124,23 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 
 		$collection = xlvoVoting::where(array( 'obj_id' => $this->voting_gui->getObjId() ));
 
-				$sorting_column = $this->getOrderField() ? $this->getOrderField() : 'title';
-				$offset = $this->getOffset() ? $this->getOffset() : 0;
+		$sorting_column = $this->getOrderField() ? $this->getOrderField() : 'title';
+		$offset = $this->getOffset() ? $this->getOffset() : 0;
 
-				$sorting_direction = $this->getOrderDirection();
-				$num = $this->getLimit();
+		$sorting_direction = $this->getOrderDirection();
+		$num = $this->getLimit();
 
-				$collection->orderBy($sorting_column, $sorting_direction);
-				$collection->limit($offset, $num);
+		$collection->orderBy($sorting_column, $sorting_direction);
+		$collection->limit($offset, $num);
 
-				foreach ($this->filter as $filter_key => $filter_value) {
-					switch ($filter_key) {
-						case 'title':
-						case 'description':
-							$collection->where(array( $filter_key => '%' . $filter_value . '%' ), 'LIKE');
-							break;
-					}
-				}
+		foreach ($this->filter as $filter_key => $filter_value) {
+			switch ($filter_key) {
+				case 'title':
+				case 'description':
+					$collection->where(array( $filter_key => '%' . $filter_value . '%' ), 'LIKE');
+					break;
+			}
+		}
 
 		$this->setData($collection->getArray());
 	}

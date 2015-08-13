@@ -116,7 +116,7 @@ class xlvoVotingGUI {
 			if ($this->access->hasWriteAccess()) {
 				$b = ilLinkButton::getInstance();
 				$b->setCaption('rep_robj_xlvo_add_voting');
-				$b->setUrl($this->ctrl->getLinkTarget(new xlvoVotingGUI(), 'add'));
+				$b->setUrl($this->ctrl->getLinkTarget(new xlvoVotingGUI(), self::CMD_ADD));
 				$this->toolbar->addButtonInstance($b);
 
 				$b = ilLinkButton::getInstance();
@@ -125,13 +125,13 @@ class xlvoVotingGUI {
 				$this->toolbar->addButtonInstance($b);
 
 				$b = ilLinkButton::getInstance();
-				$b->setCaption('rep_robj_xlvo_show_voting');
-				$b->setUrl($this->ctrl->getLinkTarget(new xlvoVoterGUI(), 'showVoting'));
+				$b->setCaption('rep_robj_xlvo_player');
+				$b->setUrl($this->ctrl->getLinkTarget(new xlvoPlayerGUI(), 'showVoting'));
 				$this->toolbar->addButtonInstance($b);
 
 				$b = ilLinkButton::getInstance();
-				$b->setCaption('rep_robj_xlvo_show_player');
-				$b->setUrl($this->ctrl->getLinkTarget(new xlvoPlayerGUI(), 'showVoting'));
+				$b->setCaption('rep_robj_xlvo_show_voting');
+				$b->setUrl($this->ctrl->getLinkTarget(new xlvoVoterGUI(), 'showVoting'));
 				$this->toolbar->addButtonInstance($b);
 
 				$xlvoVotingTableGUI = new xlvoVotingTableGUI($this, self::CMD_STANDARD);

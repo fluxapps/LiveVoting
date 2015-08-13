@@ -10,6 +10,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoOption.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingManager.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoMultiLineInputGUI.php');
+
 /**
  *
  */
@@ -17,11 +18,11 @@ class xlvoPlayerGUI {
 
 	const TAB_STANDARD = 'tab_voter';
 	const CMD_STANDARD = 'showVoting';
-	const CMD_ADD = 'add';
-	const CMD_CREATE = 'create';
-	const CMD_EDIT = 'edit';
-	const CMD_UPDATE = 'update';
-	const CMD_CANCEL = 'cancel';
+	const CMD_SHOW_VOTING = 'showVoting';
+	const CMD_NEXT = 'nextVoting';
+	const CMD_PREVIOUS = 'previousVoting';
+	const CMD_FREEZE = 'freeze';
+	const CMD_RESET = 'resetVotes';
 	/**
 	 * @var ilTemplate
 	 */
@@ -96,14 +97,51 @@ class xlvoPlayerGUI {
 
 
 	/**
-	 * @param void $voting_id
+	 * @param int $voting_id
 	 */
-	public function showVoting($voting_id) {
-		/**
-		 * @var $xlvoVoting xlvoVoting
-		 */
-		$xlvoVoting = $this->voting_manager->getVoting(20);
-		$display = new xlvoDisplayPlayerGUI($xlvoVoting);
+	public function showVoting($voting_id = 0) {
+
+		$current_selection_list = new ilAdvancedSelectionListGUI();
+		$current_selection_list->setListTitle($this->pl->txt('voting'));
+		$current_selection_list->setId('xlvo_select');
+		$current_selection_list->setTriggerEvent('xlvo_voting');
+		$current_selection_list->setUseImages(false);
+		$votings = $this->voting_manager->getVotings()->get();
+		foreach ($votings as $voting) {
+			$current_selection_list->addItem($voting->getTitle(), $voting->getId(), '#');
+		}
+
+		$this->toolbar->addText($current_selection_list->getHTML());
+		$b = ilLinkButton::getInstance();
+		$b->setCaption('rep_robj_xlvo_back');
+		$b->setUrl($this->ctrl->getLinkTarget($this, self::CMD_PREVIOUS));
+		$this->toolbar->addButtonInstance($b);
+
+		$b = ilLinkButton::getInstance();
+		$b->setCaption('rep_robj_xlvo_next');
+		$b->setUrl($this->ctrl->getLinkTarget($this, self::CMD_NEXT));
+		$this->toolbar->addButtonInstance($b);
+
+		$this->toolbar->addSeparator();
+
+		$b = ilLinkButton::getInstance();
+		$b->setCaption('rep_robj_xlvo_freeze');
+		$b->setUrl($this->ctrl->getLinkTarget(new xlvoVoterGUI(), 'showVoting'));
+		$this->toolbar->addButtonInstance($b);
+
+		$b = ilLinkButton::getInstance();
+		$b->setCaption('rep_robj_xlvo_reset');
+		$b->setUrl($this->ctrl->getLinkTarget(new xlvoPlayerGUI(), 'showVoting'));
+		$this->toolbar->addButtonInstance($b);
+
+		if ($voting_id == 0) {
+			$vo = $this->voting_manager->getVotings()->first();
+			$voting = $this->voting_manager->getVoting($vo->getId());
+		} else {
+			$voting = $this->voting_manager->getVoting($voting_id);
+		}
+
+		$display = new xlvoDisplayPlayerGUI($voting);
 
 		$this->tpl->setContent($display->getHTML());
 	}
@@ -113,7 +151,7 @@ class xlvoPlayerGUI {
 	 *
 	 */
 	public function nextVoting() {
-		// TODO implement here
+		$this->showVoting();
 	}
 
 
