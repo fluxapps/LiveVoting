@@ -125,7 +125,10 @@ class xlvoFreeInputVotingFormGUI extends xlvoVotingFormGUI {
 					$xlvoOption->create();
 				}
 
-				$this->voting->setVotingStatus(xlvoVoting::STAT_INACTIVE);
+				if ($this->voting->getVotingStatus() == xlvoVoting::STAT_INCOMPLETE) {
+					$this->voting->setVotingStatus(xlvoVoting::STAT_ACTIVE);
+				}
+
 				$this->voting->update();
 			}
 		} else {
@@ -138,6 +141,8 @@ class xlvoFreeInputVotingFormGUI extends xlvoVotingFormGUI {
 
 
 	protected function initButtons() {
+		$this->addCommandButton(xlvoVotingGUI::CMD_BACK, $this->pl->txt('back'));
+
 		if ($this->is_new) {
 			$this->setTitle($this->pl->txt('create'));
 			$this->addCommandButton(xlvoVotingGUI::CMD_CREATE, $this->pl->txt('create'));

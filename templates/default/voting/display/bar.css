@@ -1,0 +1,10 @@
+.progress {
+  height: 30px;
+  min-width: 100px;
+}
+.progress-bar {
+  font-size: 20px;
+  padding-top: 8px;
+  line-height: 15px;
+  min-width: 30px;
+}

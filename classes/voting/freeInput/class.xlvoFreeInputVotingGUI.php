@@ -11,7 +11,6 @@ class xlvoFreeInputVotingGUI extends xlvoVotingGUI {
 
 
 	public function executeCommand() {
-		$this->tabs->setTabActive(self::TAB_STANDARD);
 		$nextClass = $this->ctrl->getNextClass();
 		switch ($nextClass) {
 			default:
@@ -20,6 +19,7 @@ class xlvoFreeInputVotingGUI extends xlvoVotingGUI {
 				break;
 		}
 	}
+
 
 	protected function add() {
 		if (! $this->access->hasWriteAccess()) {
@@ -73,5 +73,16 @@ class xlvoFreeInputVotingGUI extends xlvoVotingGUI {
 			}
 			$this->tpl->setContent($xlvoFreeInputVotingFormGUI->getHTML());
 		}
+	}
+
+
+	protected function back() {
+		$this->ctrl->saveParameter(new xlvoVotingGUI(), xlvoVotingGUI::IDENTIFIER);
+		$this->ctrl->redirect(new xlvoVotingGUI(), self::CMD_EDIT);
+	}
+
+
+	protected function cancel() {
+		$this->ctrl->redirect(new xlvoVotingGUI(), self::CMD_STANDARD);
 	}
 }

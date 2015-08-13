@@ -5,17 +5,12 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 
 class xlvoSingleVoteVotingGUI extends xlvoVotingGUI {
 
-	const TAB_ADD = 'tab_singlevote_add';
-	const TAB_EDIT = 'tab_singlevote_edit';
-
-
 	public function __construct() {
 		parent::__construct();
 	}
 
 
 	public function executeCommand() {
-		$this->tabs->setTabActive(self::TAB_STANDARD);
 		$nextClass = $this->ctrl->getNextClass();
 		switch ($nextClass) {
 			default:
@@ -78,5 +73,16 @@ class xlvoSingleVoteVotingGUI extends xlvoVotingGUI {
 			}
 			$this->tpl->setContent($xlvoSingleVoteVotingFormGUI->getHTML());
 		}
+	}
+
+
+	protected function back() {
+		$this->ctrl->saveParameter(new xlvoVotingGUI(), xlvoVotingGUI::IDENTIFIER);
+		$this->ctrl->redirect(new xlvoVotingGUI(), self::CMD_EDIT);
+	}
+
+
+	protected function cancel() {
+		$this->ctrl->redirect(new xlvoVotingGUI(), self::CMD_STANDARD);
 	}
 }

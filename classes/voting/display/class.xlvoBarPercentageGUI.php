@@ -8,36 +8,43 @@ class xlvoBarPercentageGUI extends xlvoBarGUI {
 	 */
 	protected $tpl;
 	/**
-	 * @var int
+	 * @var xlvoVoting
 	 */
-	protected $obj_id;
+	protected $voting;
 	/**
-	 * @var int
+	 * @var xlvoOption
 	 */
-	protected $percentage = 0;
+	protected $option;
+	/**
+	 * @var xlvoVote[]
+	 */
+	protected $votes;
 	/**
 	 * @var string
 	 */
-	protected $bar_title;
+	protected $option_letter;
 
 
 	/**
-	 * @param int $obj_id
-	 * @param int $percentage
+	 * @param xlvoVoting $voting
+	 * @param xlvoOption $option
+	 * @param xlvoVote[] $votes
+	 * @param            $option_letter
 	 */
-	public function __construct($obj_id, $bar_title, $percentage) {
-		$this->obj_id = $obj_id;
-		$this->percentage = $percentage;
-		$this->bar_title = $bar_title;
+	public function __construct(xlvoVoting $voting, xlvoOption $option, $votes, $option_letter) {
+		$this->voting = $voting;
+		$this->option = $option;
+		$this->votes = clone $votes;
+		$this->option_letter = $option_letter;
 		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/tpl.bar_percentage.html', false, false);
 	}
 
 
 	protected function render() {
 		// TODO sass variable bar height
-		$this->tpl->setVariable('PERCENT', $this->percentage);
-		$this->tpl->setVariable('ID', $this->obj_id);
-		$this->tpl->setVariable('TITLE', $this->bar_title);
+		$this->tpl->setVariable('PERCENT', $this->getPercentage());
+		$this->tpl->setVariable('ID', $this->option->getId());
+		$this->tpl->setVariable('TITLE', $this->option->getText());
 	}
 
 
@@ -51,18 +58,11 @@ class xlvoBarPercentageGUI extends xlvoBarGUI {
 	}
 
 
-	/**
-	 * @return int
-	 */
-	public function getPercentage() {
-		return $this->percentage;
-	}
+	protected function getPercentage() {
+		$total_votes = $this->votes->count();
+		$option_votes = $this->votes->where(array( 'option_id' => $this->option->getId() ))->count();
+		$percentage = ($option_votes / $total_votes) * 100;
 
-
-	/**
-	 * @param int $percentage
-	 */
-	public function setPercentage($percentage) {
-		$this->percentage = $percentage;
+		return round($percentage, 1);
 	}
 }

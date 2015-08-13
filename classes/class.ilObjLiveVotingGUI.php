@@ -9,13 +9,14 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilLiveVotingPlugin.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVoterGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoPlayerGUI.php');
 
 /**
  * Class ilObjLiveVotingGUI
  *
  * @ilCtrl_isCalledBy ilObjLiveVotingGUI: ilRepositoryGUI, ilObjPluginDispatchGUI, ilAdministrationGUI
  * @ilCtrl_Calls      ilObjLiveVotingGUI: ilPermissionGUI, ilInfoScreenGUI, ilObjectCopyGUI, ilCommonActionDispatcherGUI
- * @ilCtrl_Calls      ilObjLiveVotingGUI: xlvoVoterGUI, xlvoVotingGUI
+ * @ilCtrl_Calls      ilObjLiveVotingGUI: xlvoVoterGUI, xlvoPlayerGUI, xlvoVotingGUI
  *
  */
 class ilObjLiveVotingGUI extends ilObjectPluginGUI {
@@ -135,6 +136,11 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 				$this->ctrl->forwardCommand($xlvoVoterGUI);
 				break;
 
+			case 'xlvoplayergui':
+				$xlvoPlayerGUI = new xlvoPlayerGUI();
+				$this->ctrl->forwardCommand($xlvoPlayerGUI);
+				break;
+
 			case 'ilinfoscreengui':
 				$this->checkPermission('visible');
 				$this->infoScreen();    // forwards command
@@ -220,30 +226,19 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 
 
 	protected function setTabs() {
-		$this->addInfoTab();
 		if ($this->access->hasWriteAccess()) {
+			$this->tabs->addTab(xlvoVotingGUI::CMD_STANDARD, $this->pl->txt('content'), $this->ctrl->getLinkTarget(new xlvoVotingGUI(), xlvoVotingGUI::CMD_STANDARD));
 			$this->tabs->addTab(self::CMD_EDIT, $this->pl->txt('edit_properties'), $this->ctrl->getLinkTarget($this, self::CMD_EDIT));
 		}
-		$this->tabs->addTab(self::CMD_STANDARD, $this->pl->txt('content'), $this->ctrl->getLinkTarget($this, self::CMD_STANDARD));
 		parent::setTabs();
+		$this->addInfoTab();
 
 		return true;
 	}
 
 
 	public function showContent() {
-		$this->tabs->setTabActive(self::CMD_SHOW_CONTENT);
-		if ($this->access->hasWriteAccess()) {
-			$b = ilLinkButton::getInstance();
-			$b->setCaption('rep_robj_xlvo_add_voting');
-			$b->setUrl($this->ctrl->getLinkTarget(new xlvoVotingGUI(), 'add'));
-			$this->toolbar->addButtonInstance($b);
-
-			$b = ilLinkButton::getInstance();
-			$b->setCaption('rep_robj_xlvo_show_voting');
-			$b->setUrl($this->ctrl->getLinkTarget(new xlvoVoterGUI(), 'showVoting'));
-			$this->toolbar->addButtonInstance($b);
-		}
+		$this->ctrl->redirect(new xlvoVotingGUI(), xlvoVotingGUI::CMD_STANDARD);
 	}
 
 

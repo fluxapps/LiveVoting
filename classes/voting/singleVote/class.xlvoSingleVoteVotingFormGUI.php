@@ -53,6 +53,7 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 		$this->is_new = ($this->voting->getVotingStatus() == xlvoVoting::STAT_INCOMPLETE);
 		$this->options = array();
 		$this->voting_manager = new xlvoVotingManager();
+		$this->options_to_delete = false;
 
 		$this->initForm();
 	}
@@ -149,10 +150,7 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 		foreach ($arr_existing_ids as $id) {
 			if ($arr_opts_ids[$id] == NULL) {
 				$option = new xlvoOption();
-				$option->setVotingId($this->voting->getId());
-				$option->setType($this->voting->getVotingType());
 				$option->setId($id);
-				$option->setText($arr_existing_texts[$id]);
 				$option->setStatus(xlvoOption::STAT_INACTIVE);
 				array_push($this->options, $option);
 			}
@@ -169,6 +167,7 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 		if (! $this->fillObject()) {
 			return false;
 		}
+
 		if ($this->voting->getObjId() == $this->parent_gui->getObjId()) {
 
 			foreach ($this->options as $option) {
@@ -190,7 +189,9 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 			}
 
 			if (xlvoVoting::where(array( 'id' => $this->voting->getId() ))->hasSets()) {
-				$this->voting->setVotingStatus(xlvoVoting::STAT_INACTIVE);
+				if ($this->voting->getVotingStatus() == xlvoVoting::STAT_INCOMPLETE) {
+					$this->voting->setVotingStatus(xlvoVoting::STAT_ACTIVE);
+				}
 				$this->voting->update();
 			}
 		} else {
@@ -203,6 +204,8 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 
 
 	protected function initButtons() {
+		$this->addCommandButton(xlvoVotingGUI::CMD_BACK, $this->pl->txt('back'));
+
 		if ($this->is_new) {
 			$this->setTitle($this->pl->txt('create'));
 			$this->addCommandButton(xlvoVotingGUI::CMD_CREATE, $this->pl->txt('create'));
