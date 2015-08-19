@@ -15,7 +15,8 @@
 				$("input[name='cmd[send_unvote]']").hide();
 			}
 
-			$('#form_').submit(function (event) {
+			$('#il_center_col').on('submit', '#form_', function (event) {
+				event.preventDefault();
 
 				// get values for POST request
 				var free_input = $('#free_input').val();
@@ -65,8 +66,6 @@
 						.always(function () {
 						});
 				}
-
-				return false;
 			});
 		});
 	}
@@ -89,7 +88,8 @@ $('#form_').freeInputVote();
 				$("input[name='cmd[unvote_all]']").hide();
 			}
 
-			$('#form_').submit(function () {
+			$('#il_center_col').on('submit', '#form_', function (event) {
+				event.preventDefault();
 
 				// get values for POST request
 				var option_id = $(".multi_input_line").attr('option_id');
@@ -124,7 +124,7 @@ $('#form_').freeInputVote();
 
 					// set buttons
 					$("input[name='cmd[unvote_all]']").show();
-					$('.btn-default').attr('class', 'btn btn-default btn-sm');
+					$('.btn.btn-default.btn-sm').attr('class', 'btn btn-default btn-sm');
 				}
 				if (submit_name == 'cmd[unvote_all]') {
 					$.post(url, {option_id: option_id, type: 'delete_all'})
@@ -135,16 +135,14 @@ $('#form_').freeInputVote();
 							$("#vote_multi_line_input").find("input[name^='vote']").val("");
 							// set buttons
 							$("input[name='cmd[unvote_all]']").hide();
-							$('.btn-default').attr('class', 'btn btn-default btn-sm');
+							$('.btn.btn-default.btn-sm').attr('class', 'btn btn-default btn-sm');
 						}).fail(function (jqXHR) {
 							console.log(jqXHR);
-							alert("error");
 						})
 						.always(function () {
 						});
 				}
 
-				return false;
 			});
 		});
 	}

@@ -5,7 +5,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/display/class.xlvoBarOptionGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/display/class.xlvoFreeInputGUI.php');
 
-class xlvoDisplayVotingGUI {
+class xlvoDisplayVoterGUI {
 
 	/**
 	 * @var ilTemplate
@@ -25,8 +25,13 @@ class xlvoDisplayVotingGUI {
 	 * @param xlvoVoting $voting
 	 */
 	public function __construct(xlvoVoting $voting) {
+		global $tpl;
+		$tpl->addJavaScript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/display_voter.js');
+		$tpl->addJavaScript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/vote_singlevote.js');
+		$tpl->addJavaScript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/vote_freeinput.js');
+		$tpl->addJavascript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/multi_line_input.js');
 		$this->voting = $voting;
-		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/tpl.display_voting.html', false, false);
+		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/tpl.display_voter.html', true, true);
 	}
 
 
@@ -43,6 +48,8 @@ class xlvoDisplayVotingGUI {
 
 		$this->tpl->setVariable('TITLE', $this->voting->getTitle());
 		$this->tpl->setVariable('QUESTION', $this->voting->getQuestion());
+		$this->tpl->setVariable('VOTING_ID', $this->voting->getId());
+		$this->tpl->setVariable('OBJ_ID', $this->voting->getObjId());
 	}
 
 

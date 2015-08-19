@@ -325,7 +325,6 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 			if ($before_render_hook !== false && ! $clean_render) {
 				$input = $before_render_hook($this->getValue(), $key, $input);
 			}
-			//var_dump($input);
 			if ($this->isShowLabel()) {
 				$tpl->setCurrentBlock('input_label');
 				$tpl->setVariable('LABEL', $input->getTitle());

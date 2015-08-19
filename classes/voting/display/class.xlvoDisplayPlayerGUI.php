@@ -28,9 +28,12 @@ class xlvoDisplayPlayerGUI {
 	 * @param xlvoVoting $voting
 	 */
 	public function __construct(xlvoVoting $voting) {
+		global $tpl;
+		$tpl->addJavaScript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/display_player.js');
+
 		$this->voting_manager = new xlvoVotingManager();
 		$this->voting = $voting;
-		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/tpl.display_player.html', false, false);
+		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/tpl.display_player.html', true, true);
 	}
 
 
@@ -47,6 +50,8 @@ class xlvoDisplayPlayerGUI {
 
 		$this->tpl->setVariable('TITLE', $this->voting->getTitle());
 		$this->tpl->setVariable('QUESTION', $this->voting->getQuestion());
+		$this->tpl->setVariable('VOTING_ID', $this->voting->getId());
+		$this->tpl->setVariable('OBJ_ID', $this->voting->getObjId());
 	}
 
 

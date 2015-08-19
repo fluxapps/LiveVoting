@@ -81,7 +81,7 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 			$this->addItem($sl);
 		}
 		if (! $this->is_new && $this->voting->getVotingStatus() != xlvoVoting::STAT_INCOMPLETE) {
-			$cb = new ilCheckboxInputGUI($this->pl->txt('status'), 'voting_status');
+			$cb = new ilCheckboxInputGUI($this->pl->txt('active'), 'voting_status');
 			$this->addItem($cb);
 		}
 	}

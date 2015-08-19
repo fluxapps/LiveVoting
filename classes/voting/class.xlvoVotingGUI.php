@@ -65,7 +65,7 @@ class xlvoVotingGUI {
 	/**
 	 * @var xlvoVotingManager
 	 */
-	protected $votingManager;
+	protected $voting_manager;
 
 
 	public function __construct() {
@@ -85,7 +85,7 @@ class xlvoVotingGUI {
 		$this->toolbar = $ilToolbar;
 		$this->access = new ilObjLiveVotingAccess();
 		$this->pl = ilLiveVotingPlugin::getInstance();
-		$this->votingManager = new xlvoVotingManager();
+		$this->voting_manager = new xlvoVotingManager();
 		$this->obj_id = ilObject2::_lookupObjId($_GET['ref_id']);
 	}
 

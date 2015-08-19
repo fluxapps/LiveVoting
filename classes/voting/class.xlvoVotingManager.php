@@ -50,6 +50,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	 */
 	public function getVoting($id) {
 		$xlvoVoting = xlvoVoting::find($id);
+
 		if ($xlvoVoting instanceof xlvoVoting) {
 			$xlvoOptions = $this->getOptionsForVoting($xlvoVoting->getId());
 			$xlvoVoting->setVotingOptions($xlvoOptions);
@@ -87,7 +88,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 
 	public function getVotes($voting_id = NULL, $option_id = NULL, $active_user = false) {
 		$xlvoVotes = new xlvoVote();
-		if ($option_id != NULL) {
+		if ($voting_id != NULL) {
 			$xlvoVotes = $xlvoVotes->where(array( 'voting_id' => $voting_id ));
 		}
 		if ($option_id != NULL) {
@@ -163,6 +164,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 		 * FREE INPUT
 		 */
 		if ($xlvoVoting->getVotingType() == xlvoVotingType::FREE_INPUT) {
+
 			if ($xlvoVoting->isMultiFreeInput()) {
 				if ($vote->getId() != self::NEW_VOTE) {
 					foreach ($existing_votes as $vo) {
@@ -240,6 +242,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 		return $deleted_vote;
 	}
 
+
 	public function deleteVotesForOption($option_id) {
 		$votes = $this->getVotes(NULL, $option_id);
 
@@ -250,6 +253,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 		return true;
 	}
 
+
 	public function deleteVotesForVoting($voting_id) {
 		$votes = $this->getVotes($voting_id);
 		foreach ($votes->get() as $vote) {
@@ -259,11 +263,13 @@ class xlvoVotingManager implements xlvoVotingInterface {
 		return true;
 	}
 
-	public function deleteVotesAll($obj_id) {
-		$votings = xlvoVoting::where(array('obj_id' => $obj_id));
-		foreach($votings as $voting) {
+
+	public function deleteVotesForObject($obj_id) {
+		$votings = xlvoVoting::where(array( 'obj_id' => $obj_id ));
+		foreach ($votings as $voting) {
 			$this->deleteVotesForVoting($voting);
 		}
+
 		return true;
 	}
 

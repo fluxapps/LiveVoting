@@ -29,9 +29,6 @@ class xlvoBarOptionGUI extends xlvoBarGUI {
 	 */
 	public function __construct(xlvoVoting $voting, xlvoOption $option, $option_letter) {
 
-		global $tpl;
-		$tpl->addJavaScript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/vote_singlevote.js');
-
 		$this->voting_manager = new xlvoVotingManager();
 		$this->voting = $voting;
 		$this->option = $option;

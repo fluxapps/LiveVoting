@@ -1,7 +1,7 @@
 <?php
 require_once('./Services/Object/classes/class.ilObject2.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingManager.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/display/class.xlvoDisplayVotingGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/display/class.xlvoDisplayVoterGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilObjLiveVotingAccess.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilObjLiveVotingAccess.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilLiveVotingPlugin.php');
@@ -101,14 +101,24 @@ class xlvoVoterGUI {
 	 *
 	 * @return string
 	 */
-	public function showVoting($voting_id = NULL) {
-		/**
-		 * @var $xlvoVoting xlvoVoting
-		 */
-		$xlvoVoting = $this->voting_manager->getVoting(40);
-		$display = new xlvoDisplayVotingGUI($xlvoVoting);
+	public function showVoting($voting_id) {
+
+		if ($voting_id == NULL) {
+			$vo = $this->voting_manager->getVotings()->first();
+			$xlvoVoting = $this->voting_manager->getVoting($vo->getId());
+			if ($xlvoVoting == NULL) {
+				// TODO
+				// redirect to waiting screen
+			}
+		} else {
+			$xlvoVoting = $this->voting_manager->getVoting($voting_id);
+		}
+
+		$display = new xlvoDisplayVoterGUI($xlvoVoting);
 
 		$this->tpl->setContent($display->getHTML());
+
+		return $display->getHtml();
 	}
 
 
@@ -143,9 +153,10 @@ class xlvoVoterGUI {
 			$vote->setStatus(xlvoVote::STAT_INACTIVE);
 			$vote->setVotingId(20);
 			$vote->setOptionId($vote->getOptionId());
+
 			return $vote;
 		}
+
 		return $vote;
 	}
-
 }

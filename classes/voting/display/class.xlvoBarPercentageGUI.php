@@ -45,6 +45,7 @@ class xlvoBarPercentageGUI extends xlvoBarGUI {
 		$this->tpl->setVariable('PERCENT', $this->getPercentage());
 		$this->tpl->setVariable('ID', $this->option->getId());
 		$this->tpl->setVariable('TITLE', $this->option->getText());
+		$this->tpl->setVariable('OPTION_LETTER', $this->option_letter);
 	}
 
 

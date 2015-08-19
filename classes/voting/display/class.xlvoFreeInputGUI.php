@@ -20,8 +20,6 @@ class xlvoFreeInputGUI extends ilPropertyFormGUI {
 
 
 	public function __construct(xlvoVoting $voting) {
-		global $tpl;
-		$tpl->addJavaScript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/vote_freeinput.js');
 
 		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/tpl.free_input.html', false, false);
 		$this->voting = $voting;
