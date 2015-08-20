@@ -36,7 +36,7 @@ class xlvoBarPercentageGUI extends xlvoBarGUI {
 		$this->option = $option;
 		$this->votes = clone $votes;
 		$this->option_letter = $option_letter;
-		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/tpl.bar_percentage.html', false, false);
+		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/tpl.bar_percentage.html', true, true);
 	}
 
 

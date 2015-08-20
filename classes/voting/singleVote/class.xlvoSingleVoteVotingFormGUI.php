@@ -149,8 +149,10 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 
 		foreach ($arr_existing_ids as $id) {
 			if ($arr_opts_ids[$id] == NULL) {
+				var_dump($id);
 				$option = new xlvoOption();
 				$option->setId($id);
+				$option->setVotingId($this->voting->getId());
 				$option->setStatus(xlvoOption::STAT_INACTIVE);
 				array_push($this->options, $option);
 			}
@@ -184,7 +186,7 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 					}
 				} else {
 					ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
-					$this->ctrl->redirect($this->parent_gui, xlvoVoting::CMD_STANDARD);
+					$this->ctrl->redirect($this->parent_gui, xlvoVotingGUI::CMD_STANDARD);
 				}
 			}
 
@@ -196,7 +198,7 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 			}
 		} else {
 			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
-			$this->ctrl->redirect($this->parent_gui, xlvoVoting::CMD_STANDARD);
+			$this->ctrl->redirect($this->parent_gui, xlvoVotingGUI::CMD_STANDARD);
 		}
 
 		return true;

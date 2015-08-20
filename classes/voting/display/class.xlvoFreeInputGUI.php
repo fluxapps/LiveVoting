@@ -21,7 +21,7 @@ class xlvoFreeInputGUI extends ilPropertyFormGUI {
 
 	public function __construct(xlvoVoting $voting) {
 
-		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/tpl.free_input.html', false, false);
+		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/tpl.free_input.html', true, true);
 		$this->voting = $voting;
 		$this->voting_manager = new xlvoVotingManager();
 		$this->pl = ilLiveVotingPlugin::getInstance();

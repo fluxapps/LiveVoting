@@ -40,7 +40,7 @@ class xlvoSingleVoteVotingGUI extends xlvoVotingGUI {
 			$xlvoSingleVoteVotingFormGUI = new xlvoSingleVoteVotingFormGUI($this, xlvoVoting::find($_GET[parent::IDENTIFIER]));
 			$xlvoSingleVoteVotingFormGUI->setValuesByPost();
 			if ($xlvoSingleVoteVotingFormGUI->saveObject()) {
-				ilUtil::sendSuccess($this->pl->txt('system_account_msg_success'), true);
+				ilUtil::sendSuccess($this->pl->txt('msg_success_voting_created'), true);
 				$this->ctrl->redirect($this, self::CMD_EDIT);
 			}
 			$this->tpl->setContent($xlvoSingleVoteVotingFormGUI->getHTML());
@@ -68,7 +68,7 @@ class xlvoSingleVoteVotingGUI extends xlvoVotingGUI {
 			$xlvoSingleVoteVotingFormGUI = new xlvoSingleVoteVotingFormGUI($this, xlvoVoting::find($_GET[parent::IDENTIFIER]));
 			$xlvoSingleVoteVotingFormGUI->setValuesByPost();
 			if ($xlvoSingleVoteVotingFormGUI->saveObject()) {
-				ilUtil::sendSuccess($this->pl->txt('system_account_msg_success'), true);
+				ilUtil::sendSuccess($this->pl->txt('msg_success_voting_updated'), true);
 				$this->ctrl->redirect($this, self::CMD_EDIT);
 			}
 			$this->tpl->setContent($xlvoSingleVoteVotingFormGUI->getHTML());

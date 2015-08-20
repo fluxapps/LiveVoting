@@ -98,7 +98,7 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 			);
 			$this->setValuesByArray($array);
 			if ($this->voting->getVotingStatus() == xlvoVoting::STAT_INCOMPLETE) {
-				ilUtil::sendInfo($this->pl->txt('voting_not_complete'), false);
+				ilUtil::sendInfo($this->pl->txt('msg_voting_not_complete'), false);
 			}
 		} else {
 			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);

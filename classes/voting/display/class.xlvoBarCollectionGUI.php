@@ -13,7 +13,7 @@ class xlvoBarCollectionGUI {
 	 *
 	 */
 	public function __construct() {
-		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/tpl.bar_collection.html', false, false);
+		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/tpl.bar_collection.html', true, true);
 	}
 
 

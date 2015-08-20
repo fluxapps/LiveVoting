@@ -160,7 +160,7 @@ class xlvoVotingGUI {
 			$xlvoVotingFormGUI = new xlvoVotingFormGUI($this, new xlvoVoting());
 			$xlvoVotingFormGUI->setValuesByPost();
 			if ($xlvoVotingFormGUI->saveObject()) {
-				ilUtil::sendSuccess($this->pl->txt('system_account_msg_success'), true);
+				ilUtil::sendSuccess($this->pl->txt('msg_success_voting_created'), true);
 				$voting = $xlvoVotingFormGUI->getVoting();
 				$this->ctrl->setParameter(new xlvoVotingGUI(), self::IDENTIFIER, $voting->getId());
 				$this->redirectToSubGUI($voting->getVotingType(), self::CMD_ADD);
@@ -190,7 +190,7 @@ class xlvoVotingGUI {
 			$xlvoVotingFormGUI = new xlvoVotingFormGUI($this, xlvoVoting::find($_GET[self::IDENTIFIER]));
 			$xlvoVotingFormGUI->setValuesByPost();
 			if ($xlvoVotingFormGUI->saveObject()) {
-				ilUtil::sendSuccess($this->pl->txt('system_account_msg_success'), true);
+				ilUtil::sendSuccess($this->pl->txt('msg_success_voting_updated'), true);
 				$voting = $xlvoVotingFormGUI->getVoting();
 				$this->ctrl->setParameter(new xlvoVotingGUI(), self::IDENTIFIER, $voting->getId());
 				$this->redirectToSubGUI($voting->getVotingType(), self::CMD_EDIT);

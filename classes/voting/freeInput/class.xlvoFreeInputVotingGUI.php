@@ -40,7 +40,7 @@ class xlvoFreeInputVotingGUI extends xlvoVotingGUI {
 			$xlvoFreeInputVotingFormGUI = new xlvoFreeInputVotingFormGUI($this, xlvoVoting::find($_GET[parent::IDENTIFIER]));
 			$xlvoFreeInputVotingFormGUI->setValuesByPost();
 			if ($xlvoFreeInputVotingFormGUI->saveObject()) {
-				ilUtil::sendSuccess($this->pl->txt('system_account_msg_success'), true);
+				ilUtil::sendSuccess($this->pl->txt('msg_success_voting_created'), true);
 				$this->ctrl->redirect($this, self::CMD_EDIT);
 			}
 			$this->tpl->setContent($xlvoFreeInputVotingFormGUI->getHTML());
@@ -68,7 +68,7 @@ class xlvoFreeInputVotingGUI extends xlvoVotingGUI {
 			$xlvoFreeInputVotingFormGUI = new xlvoFreeInputVotingFormGUI($this, xlvoVoting::find($_GET[parent::IDENTIFIER]));
 			$xlvoFreeInputVotingFormGUI->setValuesByPost();
 			if ($xlvoFreeInputVotingFormGUI->saveObject()) {
-				ilUtil::sendSuccess($this->pl->txt('system_account_msg_success'), true);
+				ilUtil::sendSuccess($this->pl->txt('msg_success_voting_updated'), true);
 				$this->ctrl->redirect($this, self::CMD_EDIT);
 			}
 			$this->tpl->setContent($xlvoFreeInputVotingFormGUI->getHTML());

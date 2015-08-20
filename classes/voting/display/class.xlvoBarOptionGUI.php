@@ -33,7 +33,7 @@ class xlvoBarOptionGUI extends xlvoBarGUI {
 		$this->voting = $voting;
 		$this->option = $option;
 		$this->option_letter = $option_letter;
-		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/tpl.bar_option.html', false, false);
+		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/tpl.bar_option.html', true, true);
 	}
 
 

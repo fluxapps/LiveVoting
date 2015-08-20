@@ -63,17 +63,12 @@ class xlvoVotingManager implements xlvoVotingInterface {
 
 
 	/**
-	 * @param           $voting_id
-	 * @param bool|true $only_active_options
+	 * @param $voting_id
 	 *
-	 * @return $this|ActiveRecordList
-	 * @throws Exception
+	 * @return ActiveRecordList
 	 */
-	public function getOptionsForVoting($voting_id, $only_active_options = true) {
+	public function getOptionsForVoting($voting_id) {
 		$xlvoOptions = xlvoOption::where(array( 'voting_id' => $voting_id ));
-		if ($only_active_options) {
-			$xlvoOptions = $xlvoOptions->where(array( 'status' => xlvoOption::STAT_ACTIVE ));
-		}
 
 		return $xlvoOptions;
 	}

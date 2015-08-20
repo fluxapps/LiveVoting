@@ -55,7 +55,7 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 		$title = new ilTextInputGUI($this->pl->txt('title'), 'title');
 		$this->addAndReadFilterItem($title);
 
-		$title = new ilTextInputGUI($this->pl->txt('description'), 'description');
+		$title = new ilTextInputGUI($this->pl->txt('question'), 'question');
 		$this->addAndReadFilterItem($title);
 	}
 
@@ -81,6 +81,13 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 		$xlvoVoting = xlvoVoting::find($a_set['id']);
 		$this->tpl->setVariable('TITLE', $xlvoVoting->getTitle());
 		$this->tpl->setVariable('DESCRIPTION', $xlvoVoting->getDescription());
+		$this->tpl->setVariable('QUESTION', $xlvoVoting->getQuestion());
+
+		$voting_type = $this->getVotingType($xlvoVoting->getVotingType());
+		$this->tpl->setVariable('TYPE', $voting_type);
+
+		$voting_status = $this->getVotingStatus($xlvoVoting->getVotingStatus());
+		$this->tpl->setVariable('STATUS', $voting_status);
 
 		$this->addActionMenu($xlvoVoting);
 	}
@@ -88,7 +95,9 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 
 	protected function initColums() {
 		$this->addColumn($this->pl->txt('title'), 'title');
-		$this->addColumn($this->pl->txt('description'), 'description');
+		$this->addColumn($this->pl->txt('question'), 'question');
+		$this->addColumn($this->pl->txt('type'), 'voting_type');
+		$this->addColumn($this->pl->txt('status'), 'voting_status');
 		$this->addColumn($this->pl->txt('common_actions'), '', '150px');
 	}
 
@@ -136,12 +145,45 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 		foreach ($this->filter as $filter_key => $filter_value) {
 			switch ($filter_key) {
 				case 'title':
-				case 'description':
-					$collection->where(array( $filter_key => '%' . $filter_value . '%' ), 'LIKE');
+				case 'question':
+					$collection = $collection->where(array( $filter_key => '%' . $filter_value . '%' ), 'LIKE');
 					break;
 			}
 		}
 
 		$this->setData($collection->getArray());
+	}
+
+
+	protected function getVotingType($voting_type) {
+		$type = '';
+		switch ($voting_type) {
+			case xlvoVotingType::SINGLE_VOTE:
+				$type = $this->pl->txt('single_vote');
+				break;
+			case xlvoVotingType::FREE_INPUT:
+				$type = $this->pl->txt('free_input');
+				break;
+		}
+
+		return $type;
+	}
+
+
+	protected function getVotingStatus($voting_status) {
+		$status = '';
+		switch ($voting_status) {
+			case xlvoVoting::STAT_ACTIVE:
+				$status = $this->pl->txt('active');
+				break;
+			case xlvoVoting::STAT_INACTIVE:
+				$status = $this->pl->txt('inactive');
+				break;
+			case xlvoVoting::STAT_INCOMPLETE:
+				$status = $this->pl->txt('incomplete');
+				break;
+		}
+
+		return $status;
 	}
 }

@@ -23,7 +23,6 @@ class xlvoDisplayPlayerGUI {
 	 */
 	protected $voting_manager;
 
-
 	/**
 	 * @param xlvoVoting $voting
 	 */
@@ -39,6 +38,8 @@ class xlvoDisplayPlayerGUI {
 
 	protected function render() {
 
+		$config = $this->voting_manager->getVotingConfig($this->voting->getObjId());
+
 		switch ($this->voting->getVotingType()) {
 			case xlvoVotingType::SINGLE_VOTE:
 				$this->tpl->setVariable('OPTION_CONTENT', $this->renderSingleVote());
@@ -52,6 +53,7 @@ class xlvoDisplayPlayerGUI {
 		$this->tpl->setVariable('QUESTION', $this->voting->getQuestion());
 		$this->tpl->setVariable('VOTING_ID', $this->voting->getId());
 		$this->tpl->setVariable('OBJ_ID', $this->voting->getObjId());
+		$this->tpl->setVariable('FROZEN', $config->isFrozen());
 	}
 
 

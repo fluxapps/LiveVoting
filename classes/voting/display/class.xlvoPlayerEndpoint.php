@@ -34,3 +34,25 @@ if($posted_type == 'load_results') {
 	header('Content-type: text/html');
 	echo $player_gui->showVoting($posted_voting_id);
 }
+
+if($posted_type == 'freeze_voting') {
+	header('Content-type: text/html');
+	$player_gui->freeze($posted_object_id);
+}
+
+if($posted_type == 'unfreeze_voting') {
+	header('Content-type: text/html');
+	$player_gui->unfreeze($posted_object_id);
+}
+
+if($posted_type == 'check_frozen') {
+	$config = $voting_manager->getVotingConfig($posted_object_id);
+	header('Content-type: text/html');
+	echo $config->isFrozen();
+}
+
+if($posted_type == 'reset_voting') {
+	$player_gui->resetVotes($posted_voting_id);
+	header('Content-type: text/html');
+	echo '';
+}

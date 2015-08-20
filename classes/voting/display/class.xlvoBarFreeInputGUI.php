@@ -24,7 +24,7 @@ class xlvoBarFreeInputGUI extends xlvoBarGUI {
 	public function __construct(xlvoVoting $voting, xlvoVote $vote) {
 		$this->voting = $voting;
 		$this->vote = $vote;
-		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/tpl.bar_free_input.html', false, false);
+		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/tpl.bar_free_input.html', true, true);
 	}
 
 
