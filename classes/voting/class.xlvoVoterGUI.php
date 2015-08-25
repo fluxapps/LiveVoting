@@ -106,10 +106,6 @@ class xlvoVoterGUI {
 		if ($voting_id == NULL) {
 			$vo = $this->voting_manager->getVotings()->first();
 			$xlvoVoting = $this->voting_manager->getVoting($vo->getId());
-			if ($xlvoVoting == NULL) {
-				// TODO
-				// redirect to waiting screen
-			}
 		} else {
 			$xlvoVoting = $this->voting_manager->getVoting($voting_id);
 		}
@@ -156,7 +152,16 @@ class xlvoVoterGUI {
 
 			return $vote;
 		}
+	}
 
-		return $vote;
+
+	public function waitingScreen($obj_id) {
+		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/tpl.info_screen_voter.html', true, true);
+		$this->tpl->setVariable('VOTING_ID', 0);
+		$this->tpl->setVariable('OBJ_ID', $obj_id);
+		$this->tpl->setVariable('INFO_TEXT', $this->pl->txt('msg_info_waiting'));
+		$this->tpl->setContent($this->tpl->get());
+
+		return $this->tpl->get();
 	}
 }

@@ -149,10 +149,13 @@ class xlvoPlayerGUI {
 			$xlvoPlayer = new xlvoPlayer();
 			$xlvoPlayer->setObjId($xlvoVoting->getObjId());
 			$xlvoPlayer->setActiveVoting($voting_id);
+			$xlvoPlayer->setReset(xlvoPlayer::RESET_OFF);
+			$xlvoPlayer->setStatus(xlvoPlayer::STAT_STARTED);
 			$xlvoPlayer->create();
 		} else {
 			$xlvoPlayer = xlvoPlayer::where(array( 'obj_id' => $xlvoVoting->getObjId() ))->first();
 			$xlvoPlayer->setActiveVoting($voting_id);
+			$xlvoPlayer->setStatus(xlvoPlayer::STAT_STARTED);
 			$xlvoPlayer->update();
 		}
 	}
@@ -219,7 +222,18 @@ class xlvoPlayerGUI {
 
 
 	public function resetVotes($voting_id) {
+		$xlvoVoting = xlvoVoting::find($voting_id);
+		$xlvoPlayer = xlvoPlayer::where(array( 'obj_id' => $xlvoVoting->getObjId() ))->first();
+		$xlvoPlayer->setReset(xlvoPlayer::RESET_ON);
+		$xlvoPlayer->update();
+
 		$this->voting_manager->deleteVotesForVoting($voting_id);
+
+		// wait 5 seconds. voter pages can be updated.
+		sleep(5);
+
+		$xlvoPlayer->setReset(xlvoPlayer::RESET_OFF);
+		$xlvoPlayer->update();
 	}
 
 
@@ -239,6 +253,9 @@ class xlvoPlayerGUI {
 
 	public function terminate() {
 		$this->unfreeze($this->obj_id);
+		$xlvoPlayer = xlvoPlayer::where(array( 'obj_id' => $this->obj_id ))->first();
+		$xlvoPlayer->setStatus(xlvoPlayer::STAT_TERMINATED);
+		$xlvoPlayer->update();
 		$this->ctrl->redirect(new xlvoVotingGUI(), xlvoVotingGUI::CMD_STANDARD);
 	}
 

@@ -7,6 +7,11 @@ require_once('./Services/ActiveRecord/class.ActiveRecord.php');
  */
 class xlvoPlayer extends ActiveRecord {
 
+	const STAT_TERMINATED = 0;
+	const STAT_STARTED = 1;
+	const RESET_OFF = 0;
+	const RESET_ON = 1;
+
 	/**
 	 * @return string
 	 */
@@ -41,6 +46,22 @@ class xlvoPlayer extends ActiveRecord {
 	 * @db_length           8
 	 */
 	protected $active_voting;
+	/**
+	 * @var int
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           8
+	 */
+	protected $status;
+	/**
+	 * @var bool
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           1
+	 */
+	protected $reset;
 
 
 	/**
@@ -88,5 +109,37 @@ class xlvoPlayer extends ActiveRecord {
 	 */
 	public function setActiveVoting($active_voting) {
 		$this->active_voting = $active_voting;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getStatus() {
+		return $this->status;
+	}
+
+
+	/**
+	 * @param int $status
+	 */
+	public function setStatus($status) {
+		$this->status = $status;
+	}
+
+
+	/**
+	 * @return boolean
+	 */
+	public function isReset() {
+		return $this->reset;
+	}
+
+
+	/**
+	 * @param boolean $reset
+	 */
+	public function setReset($reset) {
+		$this->reset = $reset;
 	}
 }

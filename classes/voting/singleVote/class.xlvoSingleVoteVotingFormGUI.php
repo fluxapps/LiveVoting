@@ -55,6 +55,9 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 		$this->voting_manager = new xlvoVotingManager();
 		$this->options_to_delete = false;
 
+		global $tpl;
+		$tpl->addJavaScript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/confirm_delete.js');
+
 		$this->initForm();
 	}
 

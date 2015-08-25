@@ -39,8 +39,7 @@
 							}
 						}).fail(function (jqXHR) {
 							console.log(jqXHR);
-						})
-						.always(function () {
+						}).always(function () {
 						});
 				}
 				// delete vote
@@ -56,8 +55,7 @@
 							$("#vote_id").attr('value', 0);
 						}).fail(function (jqXHR) {
 							console.log(jqXHR);
-						})
-						.always(function () {
+						}).always(function () {
 						});
 				}
 			});
@@ -95,8 +93,7 @@ $('#form_').freeInputVote();
 						.done(function (data) {
 						}).fail(function (jqXHR) {
 							console.log(jqXHR);
-						})
-						.always(function () {
+						}).always(function () {
 						});
 
 					// POST each vote
@@ -106,8 +103,7 @@ $('#form_').freeInputVote();
 							.done(function (data) {
 							}).fail(function (jqXHR) {
 								console.log(jqXHR);
-							})
-							.always(function () {
+							}).always(function () {
 							});
 					});
 
@@ -127,8 +123,7 @@ $('#form_').freeInputVote();
 							$('.btn.btn-default.btn-sm').attr('class', 'btn btn-default btn-sm');
 						}).fail(function (jqXHR) {
 							console.log(jqXHR);
-						})
-						.always(function () {
+						}).always(function () {
 						});
 				}
 
@@ -138,25 +133,3 @@ $('#form_').freeInputVote();
 }(jQuery));
 
 $('#form_').freeInputMultiVote();
-
-
-// called in display_voter.js after a new voting was loaded
-(function ($) {
-	$.fn.initFreeInputDeleteButtons = function () {
-		$(document).ready(function () {
-
-			// hide delete button if no existing
-			var vote_id = $('#vote_id').val();
-			console.log(vote_id);
-			if (vote_id == 0) {
-				$("input[name='cmd[send_unvote]']").hide();
-			}
-
-			// hide delete button if no existing
-			if ($("input[name='vote_multi_line_input[0][free_input]']").length) {
-				$("input[name='cmd[unvote_all]']").hide();
-			}
-
-		})
-	}
-}(jQuery));

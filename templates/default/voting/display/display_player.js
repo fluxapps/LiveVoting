@@ -16,8 +16,7 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 					}
 				}).fail(function (jqXHR) {
 					console.log(jqXHR);
-				})
-				.always(function () {
+				}).always(function () {
 				});
 
 		});
@@ -93,6 +92,7 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 				btnUnfreeze.parent().hide();
 				btnFreeze.html('<span class="glyphicon glyphicon-pause" aria-hidden="true"></span>' + btnFreeze.text());
 			}
+
 		});
 	}
 }(jQuery));
@@ -119,8 +119,7 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 						btnUnfreeze.html('<span class="glyphicon glyphicon-play" aria-hidden="true"></span>' + btnUnfreeze.text());
 					}).fail(function (jqXHR) {
 						console.log(jqXHR);
-					})
-					.always(function () {
+					}).always(function () {
 					});
 			});
 		});
@@ -149,8 +148,7 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 						btnUnfreeze.parent().hide();
 					}).fail(function (jqXHR) {
 						console.log(jqXHR);
-					})
-					.always(function () {
+					}).always(function () {
 					});
 			});
 		});
@@ -168,23 +166,27 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 				var current_voting_id = $('#voting-data').attr('voting');
 				var object_id = $('#voting-data').attr('object');
 
+				$('.ilToolbar').find('.btn.btn-default').attr('class', 'btn btn-default disabled');
+
 				// reset votes of current voting
 				$.post(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'reset_voting'})
 					.done(function (data) {
 						$('#display-player').loadResults();
 					}).fail(function (jqXHR) {
 						console.log(jqXHR);
-					})
-					.always(function () {
+					}).always(function () {
+						$('.ilToolbar').find('.btn.btn-default').attr('class', 'btn btn-default');
 					});
 			});
 		});
 	}
 }(jQuery));
 
-setInterval($('#display-player').loadResults, 5000);
-$('#display-player').initToolbarButtons();
-$('#display-player').hideAndShowResults();
-$('#display-player').freezeVoting();
-$('#display-player').unfreezeVoting();
-$('#display-player').resetVoting();
+var displayPlayer = $('#display-player');
+
+setInterval(displayPlayer.loadResults, 5000);
+displayPlayer.initToolbarButtons();
+displayPlayer.hideAndShowResults();
+displayPlayer.freezeVoting();
+displayPlayer.unfreezeVoting();
+displayPlayer.resetVoting();
