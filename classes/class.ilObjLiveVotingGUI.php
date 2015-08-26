@@ -5,6 +5,7 @@ require_once('./Services/Repository/classes/class.ilObjectPluginGUI.php');
 require_once('./Services/AccessControl/classes/class.ilPermissionGUI.php');
 require_once('./Services/InfoScreen/classes/class.ilInfoScreenGUI.php');
 require_once('./Services/UIComponent/Button/classes/class.ilLinkButton.php');
+require_once('./Services/Form/classes/class.ilDateDurationInputGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilObjLiveVotingAccess.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilLiveVotingPlugin.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingGUI.php');
@@ -238,6 +239,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 
 
 	public function showContent() {
+
 		$this->ctrl->redirect(new xlvoVotingGUI(), xlvoVotingGUI::CMD_STANDARD);
 	}
 
@@ -255,47 +257,50 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 	}
 
 
-	public function initPropertiesForm() {
-		$this->form = new ilPropertyFormGUI();
-		$this->form->setTitle($this->pl->txt('edit_properties'));
+	protected function initPropertiesForm() {
+		if (! $this->access->hasWriteAccess()) {
+			ilUtil::sendFailure(ilLiveVotingPlugin::getInstance()->txt('permission_denied'), true);
+		} else {
+			$this->form = new ilPropertyFormGUI();
+			$this->form->setTitle($this->pl->txt('edit_properties'));
 
-		$ti = new ilTextInputGUI($this->pl->txt('title'), 'title');
-		$ti->setRequired(true);
-		$this->form->addItem($ti);
-		$ta = new ilTextAreaInputGUI($this->pl->txt('description'), 'description');
-		$this->form->addItem($ta);
-		$cb = new ilCheckboxInputGUI($this->pl->txt('online'), 'online');
-		$this->form->addItem($cb);
-		$cb = new ilCheckboxInputGUI($this->pl->txt('anonymous'), 'anonymous');
-		$this->form->addItem($cb);
-		$cb = new ilCheckboxInputGUI($this->pl->txt('terminable'), 'terminable');
-		$this->form->addItem($cb);
+			$ti = new ilTextInputGUI($this->pl->txt('title'), 'title');
+			$ti->setRequired(true);
+			$this->form->addItem($ti);
+			$ta = new ilTextAreaInputGUI($this->pl->txt('description'), 'description');
+			$this->form->addItem($ta);
+			$cb = new ilCheckboxInputGUI($this->pl->txt('online'), 'online');
+			$this->form->addItem($cb);
+			$cb = new ilCheckboxInputGUI($this->pl->txt('anonymous'), 'anonymous');
+			$this->form->addItem($cb);
+			$cb = new ilCheckboxInputGUI($this->pl->txt('terminable'), 'terminable');
+			$this->form->addItem($cb);
 
-		require_once('./Services/Form/classes/class.ilDateDurationInputGUI.php');
-		$te = new ilDateDurationInputGUI($this->pl->txt("terminable_select"), "terminable_select");
-		$te->setShowTime(true);
-		$te->setStartText($this->pl->txt("terminable_select_start_time"));
-		$te->setEndText($this->pl->txt("terminable_select_end_time"));
-		$te->setMinuteStepSize(1);
-		$config = xlvoVotingConfig::find($this->obj_id);
-		if ($config->isTerminable()) {
-			if (! $config->getStartDate() == NULL) {
-				$te->setStart(new ilDateTime($config->getStartDate(), IL_CAL_DATETIME, $this->usr->getTimeZone()));
-				$te->setEnd(new ilDateTime($config->getEndDate(), IL_CAL_DATETIME, $this->usr->getTimeZone()));
-			} else {
-				$te->setStart(new ilDateTime(date('Y-m-d H:i:s'), IL_CAL_DATETIME, $this->usr->getTimeZone()));
-				$te->setEnd(new ilDateTime(date('Y-m-d H:i:s'), IL_CAL_DATETIME, $this->usr->getTimeZone()));
+			$te = new ilDateDurationInputGUI($this->pl->txt("terminable_select"), "terminable_select");
+			$te->setShowTime(true);
+			$te->setStartText($this->pl->txt("terminable_select_start_time"));
+			$te->setEndText($this->pl->txt("terminable_select_end_time"));
+			$te->setMinuteStepSize(1);
+			$config = xlvoVotingConfig::find($this->obj_id);
+			if ($config->isTerminable()) {
+				if (! $config->getStartDate() == NULL) {
+					$te->setStart(new ilDateTime($config->getStartDate(), IL_CAL_DATETIME, $this->usr->getTimeZone()));
+					$te->setEnd(new ilDateTime($config->getEndDate(), IL_CAL_DATETIME, $this->usr->getTimeZone()));
+				} else {
+					$te->setStart(new ilDateTime(date('Y-m-d H:i:s'), IL_CAL_DATETIME, $this->usr->getTimeZone()));
+					$te->setEnd(new ilDateTime(date('Y-m-d H:i:s'), IL_CAL_DATETIME, $this->usr->getTimeZone()));
+				}
 			}
+			$cb->addSubItem($te);
+
+			$this->form->addCommandButton('updateProperties', $this->pl->txt('save'));
+
+			$this->form->setFormAction($this->ctrl->getFormAction($this));
 		}
-		$cb->addSubItem($te);
-
-		$this->form->addCommandButton('updateProperties', $this->pl->txt('save'));
-
-		$this->form->setFormAction($this->ctrl->getFormAction($this));
 	}
 
 
-	function fillPropertiesForm() {
+	protected function fillPropertiesForm() {
 
 		$config = xlvoVotingConfig::find($this->obj_id);
 
@@ -310,34 +315,39 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 
 
 	public function updateProperties() {
-		$this->initPropertiesForm();
+		if (! $this->access->hasWriteAccess()) {
+			ilUtil::sendFailure(ilLiveVotingPlugin::getInstance()->txt('permission_denied'), true);
+		} else {
 
-		if ($this->form->checkInput()) {
-			$this->object->setTitle($this->form->getInput('title'));
-			$this->object->setDescription($this->form->getInput('description'));
-			$this->object->update();
+			$this->initPropertiesForm();
 
-			$config = xlvoVotingConfig::find($this->obj_id);
-			$config->setObjOnline($this->form->getInput('online'));
-			$config->setAnonymous($this->form->getInput('anonymous'));
-			$terminable = $this->form->getInput('terminable');
-			$config->setTerminable($terminable);
-			$terminable_select = $this->form->getInput("terminable_select");
-			if ($terminable) {
-				$config->setStartDate($this->getDateTimeFromArray($terminable_select['start']));
-				$config->setEndDate($this->getDateTimeFromArray($terminable_select['end']));
-			} else {
-				$config->setStartDate(NULL);
-				$config->setEndDate(NULL);
+			if ($this->form->checkInput()) {
+				$this->object->setTitle($this->form->getInput('title'));
+				$this->object->setDescription($this->form->getInput('description'));
+				$this->object->update();
+
+				$config = xlvoVotingConfig::find($this->obj_id);
+				$config->setObjOnline($this->form->getInput('online'));
+				$config->setAnonymous($this->form->getInput('anonymous'));
+				$terminable = $this->form->getInput('terminable');
+				$config->setTerminable($terminable);
+				$terminable_select = $this->form->getInput("terminable_select");
+				if ($terminable) {
+					$config->setStartDate($this->getDateTimeFromArray($terminable_select['start']));
+					$config->setEndDate($this->getDateTimeFromArray($terminable_select['end']));
+				} else {
+					$config->setStartDate(NULL);
+					$config->setEndDate(NULL);
+				}
+
+				$config->update();
+				ilUtil::sendSuccess($this->pl->txt('msg_properties_form_saved'), true);
+				$this->ctrl->redirect($this, self::CMD_EDIT);
 			}
 
-			$config->update();
-			ilUtil::sendSuccess($this->pl->txt('system_account_msg_success'), true);
-			$this->ctrl->redirect($this, self::CMD_EDIT);
+			$this->form->setValuesByPost();
+			$this->tpl->setContent($this->form->getHtml());
 		}
-
-		$this->form->setValuesByPost();
-		$this->tpl->setContent($this->form->getHtml());
 	}
 
 

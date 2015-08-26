@@ -72,7 +72,7 @@ class xlvoFreeInputGUI extends ilPropertyFormGUI {
 
 
 	protected function render() {
-		$option = $this->voting_manager->getOptionsForVoting($this->voting->getId())->first();
+		$option = $this->voting->getVotingOptions()->first();
 
 		if ($this->voting->isMultiFreeInput()) {
 			$votes = $this->voting_manager->getVotes($this->voting->getId(), $option->getId(), true)->getArray();

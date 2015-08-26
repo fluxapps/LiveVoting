@@ -84,13 +84,16 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 		$(document).ready(function () {
 
 			var btnNext = $('#btn-next');
-			btnNext.html(btnNext.text() + '<span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>');
+			btnNext.html(btnNext.text() + '<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>');
 			var btnPrevious = $('#btn-previous');
-			btnPrevious.html('<span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>' + btnPrevious.text());
+			btnPrevious.html('<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>' + btnPrevious.text());
 			var btnTerminate = $('#btn-terminate');
 			btnTerminate.html('<span class="glyphicon glyphicon-stop" aria-hidden="true"></span>' + btnTerminate.text());
 			var btnReset = $('#btn-reset');
 			btnReset.html('<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>' + btnReset.text());
+			var btnBackToVoting = $('#btn-back_to_voting');
+			btnBackToVoting.html('<span class="glyphicon glyphicon-fast-backward" aria-hidden="true"></span>' + btnBackToVoting.text());
+
 
 			var btnShowResults = $('#btn-show-results');
 			btnShowResults.hide();

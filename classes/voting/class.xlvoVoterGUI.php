@@ -110,8 +110,13 @@ class xlvoVoterGUI {
 	 */
 	public function showVoting($voting_id = NULL) {
 
+		// TODO check access
+		// if no access redirect show access page
+
 		if ($voting_id == NULL) {
-			return $this->tpl->setContent($this->waitingScreen($this->obj_id));
+			$this->tpl->setContent($this->waitingScreen($this->obj_id));
+
+			return '';
 		} else {
 			$xlvoVoting = $this->voting_manager->getVoting($voting_id);
 
@@ -131,6 +136,8 @@ class xlvoVoterGUI {
 	 */
 	public function accessVoting($pin = NULL) {
 		// TODO implement here
+		// TODO POST input + store access in session
+		// redirect to showVoting
 	}
 
 
@@ -140,9 +147,9 @@ class xlvoVoterGUI {
 	 * @return xlvoVote
 	 */
 	public function vote(xlvoVote $vote) {
-		/**
-		 * @var xlvoVote $vote
-		 */
+
+		// TODO check access
+
 		$xlvoVote = new xlvoVote();
 		$xlvoVote->setOptionId($vote->getOptionId());
 		$xlvoVote->setId($vote->getId());
@@ -195,6 +202,7 @@ class xlvoVoterGUI {
 		return $this->tpl->get();
 	}
 
+
 	public function endOfVotingScreen($obj_id) {
 		$this->tpl = new ilTemplate(self::TPL_INFO_SCREEN, true, true);
 		$this->tpl->setVariable('VOTING_ID', 0);
@@ -205,6 +213,7 @@ class xlvoVoterGUI {
 		return $this->tpl->get();
 	}
 
+
 	public function accessScreen($obj_id) {
 		$this->tpl = new ilTemplate(self::TPL_INFO_SCREEN, true, true);
 		$this->tpl->setVariable('VOTING_ID', 0);
@@ -214,5 +223,4 @@ class xlvoVoterGUI {
 
 		return $this->tpl->get();
 	}
-
 }

@@ -108,10 +108,11 @@ class xlvoVoting extends ActiveRecord {
 	 * END
 	 */
 
-	//	public function afterObjectLoad() {
-	//		// Aktionen wie bspw. alle VotingOptions suchen und hier als Member speichern
-	//		// $this->setVotingOptions($array);
-	//	}
+		public function afterObjectLoad() {
+			// set all options for this voting
+			$xlvoOptions = xlvoOption::where(array( 'voting_id' => $this->id ));
+			$this->setVotingOptions($xlvoOptions);
+		}
 
 	/**
 	 * @var int

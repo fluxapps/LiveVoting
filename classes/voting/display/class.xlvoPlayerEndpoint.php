@@ -11,9 +11,8 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoPlayerGUI.php');
 
 $voter_gui = new xlvoVoterGUI();
-$posted_vote = new xlvoVote();
-$voting_manager = new xlvoVotingManager();
 $player_gui = new xlvoPlayerGUI();
+$voting_manager = new xlvoVotingManager();
 
 $posted_type = $_POST['type_player'];
 $posted_voting_id = $_POST['voting_id_current'];
@@ -31,7 +30,7 @@ if ($posted_type == 'get_voting_data') {
 		'voIsReset' => $player->isReset(),
 		'voStatus' => $player->getStatus(),
 		'voHasAccess' => 1,
-		'voIsAvailable' => (int)$player_gui->isAvailable($posted_object_id)
+		'voIsAvailable' => $player_gui->isAvailable($posted_object_id)
 	);
 	header('Content-type: application/json');
 	echo json_encode($data);

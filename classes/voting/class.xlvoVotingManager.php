@@ -2,6 +2,7 @@
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingInterface.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVote.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVoting.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoPlayer.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingType.php');
 require_once('./Services/Object/classes/class.ilObject2.php');
 
@@ -35,9 +36,13 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	}
 
 
-	public function getVotings($obj_id = NULL) {
+	public function getVotings($obj_id = NULL, $filter_active = false) {
 		$obj_id = $obj_id ? $obj_id : $this->obj_id;
 		$xlvoVotings = xlvoVoting::where(array( 'obj_id' => $obj_id ));
+
+		if ($filter_active == true) {
+			$xlvoVotings = $xlvoVotings->where(array( 'voting_status' => xlvoVoting::STAT_ACTIVE ));
+		}
 
 		return $xlvoVotings;
 	}
@@ -52,9 +57,6 @@ class xlvoVotingManager implements xlvoVotingInterface {
 		$xlvoVoting = xlvoVoting::find($id);
 
 		if ($xlvoVoting instanceof xlvoVoting) {
-			$xlvoOptions = $this->getOptionsForVoting($xlvoVoting->getId());
-			$xlvoVoting->setVotingOptions($xlvoOptions);
-
 			return $xlvoVoting;
 		} else {
 			return NULL;
@@ -62,12 +64,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	}
 
 
-	/**
-	 * @param $voting_id
-	 *
-	 * @return ActiveRecordList
-	 */
-	public function getOptionsForVoting($voting_id) {
+	public function getOptions($voting_id) {
 		$xlvoOptions = xlvoOption::where(array( 'voting_id' => $voting_id ));
 
 		return $xlvoOptions;
@@ -98,6 +95,26 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	}
 
 
+	public function getVote($vote_id) {
+		$xlvoVote = xlvoVote::find($vote_id);
+
+		return $xlvoVote;
+	}
+
+
+	public function getVotingConfig($obj_id = NULL) {
+		$obj_id = $obj_id ? $obj_id : $this->obj_id;
+		$xlvoVotingConfig = xlvoVotingConfig::find($obj_id);
+
+		return $xlvoVotingConfig;
+	}
+
+
+	public function getPlayer($obj_id) {
+		return xlvoPlayer::where(array( 'obj_id' => $obj_id ))->first();
+	}
+
+
 	/**
 	 * @param xlvoVote $vote
 	 *
@@ -105,6 +122,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	 */
 	public function vote(xlvoVote $vote) {
 		if ($vote->getOptionId() == NULL) {
+			// TODO exception handling
 			return NULL;
 		}
 
@@ -117,81 +135,94 @@ class xlvoVotingManager implements xlvoVotingInterface {
 		 */
 		$xlvoVoting = $this->getVoting($xlvoOption->getVotingId());
 		/**
+		 * @var int $obj_id
+		 */
+		$obj_id = $xlvoVoting->getObjId();
+		/**
 		 * @var xlvoVotingConfig $xlvoVotingConfig
 		 */
-		$xlvoVotingConfig = $this->getVotingConfig($xlvoVoting->getObjId());
-
+		$xlvoVotingConfig = $this->getVotingConfig($obj_id);
+		/**
+		 * @var xlvoPlayer $xlvoPlayer
+		 */
+		$xlvoPlayer = $this->getPlayer($obj_id);
 		/**
 		 * @var xlvoVote[] $exisiting_votes
 		 */
 		$existing_votes = $this->getVotes($xlvoOption->getVotingId(), NULL, true)->get();
 
-		/*
-		 * SINGLE VOTE
-		 */
-		if ($xlvoVoting->getVotingType() == xlvoVotingType::SINGLE_VOTE) {
-			if ($xlvoVoting->isMultiSelection()) {
-				if ($vote->getId() != self::NEW_VOTE) {
-					foreach ($existing_votes as $vo) {
-						if ($vote->getId() == $vo->getId()) {
-							$vote = $this->deleteVote($vo);
-						}
-					}
-				} else {
-					$vote = $this->createVote($xlvoVotingConfig, $xlvoOption, $vote);
-				}
-			} else {
-				if (count($existing_votes) > 0) {
-					foreach ($existing_votes as $vo) {
-						if ($xlvoOption->getId() == $vo->getOptionId()) {
-							$vote = $this->deleteVote($vo);
-						} else {
-							$vote = $this->updateVote($vo, $vote);
-						}
-					}
-				} else {
-					$vote = $this->createVote($xlvoVotingConfig, $xlvoOption, $vote);
-				}
-			}
-		}
+		if (! $xlvoVotingConfig->isFrozen() && $xlvoPlayer->getStatus() == xlvoPlayer::STAT_RUNNING && $this->isVotingAvailable($obj_id)) {
 
-		/*
-		 * FREE INPUT
-		 */
-		if ($xlvoVoting->getVotingType() == xlvoVotingType::FREE_INPUT) {
-
-			if ($xlvoVoting->isMultiFreeInput()) {
-				if ($vote->getId() != self::NEW_VOTE) {
-					foreach ($existing_votes as $vo) {
-						if ($vote->getId() == $vo->getId()) {
-							$vote = $this->deleteVote($vo);
+			/*
+			 * SINGLE VOTE
+			 */
+			if ($xlvoVoting->getVotingType() == xlvoVotingType::SINGLE_VOTE) {
+				if ($xlvoVoting->isMultiSelection()) {
+					if ($vote->getId() != self::NEW_VOTE) {
+						foreach ($existing_votes as $vo) {
+							if ($vote->getId() == $vo->getId()) {
+								$vote = $this->deleteVote($vo);
+							}
 						}
+					} else {
+						$vote = $this->createVote($xlvoVotingConfig, $xlvoOption, $vote);
 					}
 				} else {
-					$vote = $this->createVote($xlvoVotingConfig, $xlvoOption, $vote);
-				}
-			} else {
-				if (count($existing_votes) > 0) {
-					foreach ($existing_votes as $vo) {
-						if ($xlvoOption->getId() == $vo->getOptionId()) {
-							if ($vote->getStatus() == xlvoVote::STAT_INACTIVE) {
-								$vote = $this->deleteVote($vote);
+					if (count($existing_votes) > 0) {
+						foreach ($existing_votes as $vo) {
+							if ($xlvoOption->getId() == $vo->getOptionId()) {
+								$vote = $this->deleteVote($vo);
 							} else {
 								$vote = $this->updateVote($vo, $vote);
 							}
 						}
+					} else {
+						$vote = $this->createVote($xlvoVotingConfig, $xlvoOption, $vote);
 					}
-				} else {
-					$vote = $this->createVote($xlvoVotingConfig, $xlvoOption, $vote);
 				}
 			}
-		}
 
-		return $vote;
+			/*
+			 * FREE INPUT
+			 */
+			if ($xlvoVoting->getVotingType() == xlvoVotingType::FREE_INPUT) {
+
+				if ($xlvoVoting->isMultiFreeInput()) {
+					if ($vote->getId() != self::NEW_VOTE) {
+						foreach ($existing_votes as $vo) {
+							if ($vote->getId() == $vo->getId()) {
+								$vote = $this->deleteVote($vo);
+							}
+						}
+					} else {
+						$vote = $this->createVote($xlvoVotingConfig, $xlvoOption, $vote);
+					}
+				} else {
+					if (count($existing_votes) > 0) {
+						foreach ($existing_votes as $vo) {
+							if ($xlvoOption->getId() == $vo->getOptionId()) {
+								if ($vote->getStatus() == xlvoVote::STAT_INACTIVE) {
+									$vote = $this->deleteVote($vote);
+								} else {
+									$vote = $this->updateVote($vo, $vote);
+								}
+							}
+						}
+					} else {
+						$vote = $this->createVote($xlvoVotingConfig, $xlvoOption, $vote);
+					}
+				}
+			}
+
+			return $vote;
+		} else {
+			// TODO exception handling
+			return NULL;
+		}
 	}
 
 
-	private function createVote(xlvoVotingConfig $config, xlvoOption $option, xlvoVote $vote) {
+	protected function createVote(xlvoVotingConfig $config, xlvoOption $option, xlvoVote $vote) {
 		$vote->setOptionId($option->getId());
 		$vote->setVotingId($option->getVotingId());
 		$vote->setType($option->getType());
@@ -217,7 +248,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	}
 
 
-	private function updateVote(xlvoVote $existing_vote, xlvoVote $new_vote) {
+	protected function updateVote(xlvoVote $existing_vote, xlvoVote $new_vote) {
 		$existing_vote->setFreeInput($new_vote->getFreeInput());
 		$existing_vote->setOptionId($new_vote->getOptionId());
 		$existing_vote->update();
@@ -227,7 +258,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	}
 
 
-	private function deleteVote(xlvoVote $vote) {
+	protected function deleteVote(xlvoVote $vote) {
 		$vote->delete();
 		$deleted_vote = new xlvoVote();
 		$deleted_vote->setStatus(xlvoVote::STAT_INACTIVE);
@@ -269,10 +300,23 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	}
 
 
-	public function getVotingConfig($obj_id = NULL) {
-		$obj_id = $obj_id ? $obj_id : $this->obj_id;
+	public function isVotingAvailable($obj_id) {
 		$xlvoVotingConfig = xlvoVotingConfig::find($obj_id);
 
-		return $xlvoVotingConfig;
+		$terminable = $xlvoVotingConfig->isTerminable();
+
+		if (! $terminable) {
+			return true;
+		} else {
+			$format = 'Y-m-d H:i:s';
+			$start_date = strtotime($xlvoVotingConfig->getStartDate());
+			$end_date = strtotime($xlvoVotingConfig->getEndDate());
+			$now = strtotime(date($format));
+			if ($start_date <= $now && $end_date >= $now) {
+				return true;
+			} else {
+				return false;
+			}
+		}
 	}
 }

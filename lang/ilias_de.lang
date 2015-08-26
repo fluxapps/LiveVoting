@@ -53,5 +53,6 @@ confirm_number_of_votes#:#Anzahl Antworten
 permission_denied#:#Zugriff verweigert!
 msg_info_waiting#:#Bitte warten!
 msg_end_of_voting#:#Sie sind am Ende des Votings angelangt. Bitte beenden oder zum Anfang zurückkehren.
+msg_properties_form_saved#:#Die Einstellungen wurden gespeichert.
 
 show_voting#:#Vote

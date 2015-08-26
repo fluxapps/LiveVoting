@@ -71,6 +71,7 @@ class xlvoPlayerGUI {
 
 	public function __construct() {
 		global $tpl, $ilCtrl, $ilTabs, $ilUser, $ilToolbar;
+		$tpl->addJavaScript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/display_player.js');
 
 		/**
 		 * @var $tpl       ilTemplate
@@ -97,15 +98,20 @@ class xlvoPlayerGUI {
 		$nextClass = $this->ctrl->getNextClass();
 		switch ($nextClass) {
 			default:
-				$cmd = $this->ctrl->getCmd(self::CMD_STANDARD);
-				$this->{$cmd}();
-				break;
+				if ($this->access->hasWriteAccess()) {
+					$cmd = $this->ctrl->getCmd(self::CMD_STANDARD);
+					$this->{$cmd}();
+					break;
+				} else {
+					ilUtil::sendFailure(ilLiveVotingPlugin::getInstance()->txt('permission_denied'), true);
+					break;
+				}
 		}
 	}
 
 
 	public function startVoting() {
-		$vo = $this->voting_manager->getVotings()->first();
+		$vo = $this->voting_manager->getVotings($this->obj_id, true)->first();
 		if ($vo == NULL) {
 			ilUtil::sendInfo($this->pl->txt('msg_no_voting_available'), true);
 			$this->ctrl->redirect(new xlvoVotingGUI(), xlvoVotingGUI::CMD_STANDARD);
@@ -117,11 +123,6 @@ class xlvoPlayerGUI {
 	}
 
 
-	/**
-	 * @param null $voting_id
-	 *
-	 * @return string
-	 */
 	public function showVoting($voting_id = NULL) {
 
 		if ($voting_id == NULL) {
@@ -133,22 +134,27 @@ class xlvoPlayerGUI {
 		}
 
 		if ($voting_id != 0) {
-			$voting = $this->voting_manager->getVoting($voting_id);
+			$xlvoVoting = $this->voting_manager->getVoting($voting_id);
 
-			$isAvailable = $this->isAvailable($voting->getObjId());
-			$isStarted = $this->getPlayer($voting->getObjId())->getStatus();
+			$isAvailable = $this->voting_manager->isVotingAvailable($xlvoVoting->getObjId());
+			$xlvoPlayer = $this->voting_manager->getPlayer($xlvoVoting->getObjId());
+			if ($xlvoPlayer instanceof xlvoPlayer) {
+				$isRunning = $xlvoPlayer->getStatus();
 
-			if ($isAvailable && $isStarted) {
+				if ($isAvailable && $isRunning == xlvoPlayer::STAT_RUNNING) {
 
-				$this->initToolbar();
+					$this->initToolbar();
 
-				$this->setActiveVoting($voting->getId());
+					$this->setActiveVoting($xlvoVoting->getId());
 
-				$display = new xlvoDisplayPlayerGUI($voting);
+					$display = new xlvoDisplayPlayerGUI($xlvoVoting);
 
-				$this->tpl->setContent($display->getHTML());
+					$this->tpl->setContent($display->getHTML());
 
-				return $display->getHTML();
+					return $display->getHTML();
+				} else {
+					ilUtil::sendFailure($this->pl->txt('msg_voting_not_available'), false);
+				}
 			} else {
 				ilUtil::sendFailure($this->pl->txt('msg_voting_not_available'), false);
 			}
@@ -159,9 +165,9 @@ class xlvoPlayerGUI {
 
 
 	public function setActiveVoting($voting_id) {
-		$xlvoVoting = xlvoVoting::find($voting_id);
-		$arr_length = xlvoPlayer::where(array( 'obj_id' => $xlvoVoting->getObjId() ))->count();
-		if ($arr_length <= 0) {
+		$xlvoVoting = $this->voting_manager->getVoting($voting_id);
+		$xlvoPlayer = $this->voting_manager->getPlayer($xlvoVoting->getObjId());
+		if ($xlvoPlayer == NULL) {
 			$xlvoPlayer = new xlvoPlayer();
 			$xlvoPlayer->setObjId($xlvoVoting->getObjId());
 			$xlvoPlayer->setActiveVoting($voting_id);
@@ -169,7 +175,6 @@ class xlvoPlayerGUI {
 			$xlvoPlayer->setStatus(xlvoPlayer::STAT_RUNNING);
 			$xlvoPlayer->create();
 		} else {
-			$xlvoPlayer = xlvoPlayer::where(array( 'obj_id' => $xlvoVoting->getObjId() ))->first();
 			$xlvoPlayer->setActiveVoting($voting_id);
 			$xlvoPlayer->setStatus(xlvoPlayer::STAT_RUNNING);
 			$xlvoPlayer->update();
@@ -178,17 +183,20 @@ class xlvoPlayerGUI {
 
 
 	public function getActiveVoting($obj_id) {
-		$xlvoPlayer = xlvoPlayer::where(array( 'obj_id' => $obj_id ))->first();
+		$xlvoPlayer = $this->voting_manager->getPlayer($obj_id);
 
-		return $xlvoPlayer->getActiveVoting();
+		if ($xlvoPlayer instanceof xlvoPlayer) {
+			return $xlvoPlayer->getActiveVoting();
+		} else {
+			return 0;
+		}
 	}
 
 
 	public function nextVoting() {
-		$xlvoPlayer = xlvoPlayer::where(array( 'obj_id' => $this->obj_id ))->first();
-		$voting_id_current = $xlvoPlayer->getActiveVoting();
-		$votings = $this->voting_manager->getVotings()->where(array( 'voting_status' => xlvoVoting::STAT_ACTIVE ))->getArray();
-		$voting_last = $this->voting_manager->getVotings()->where(array( 'voting_status' => xlvoVoting::STAT_ACTIVE ))->last();
+		$voting_id_current = $this->getActiveVoting($this->obj_id);
+		$votings = $this->voting_manager->getVotings($this->obj_id, true)->getArray();
+		$voting_last = $this->voting_manager->getVotings($this->obj_id, true)->last();
 
 		$voting_id_next = $voting_id_current;
 		$get_next_elem = false;
@@ -203,8 +211,6 @@ class xlvoPlayerGUI {
 		}
 
 		if ($voting_id_current == $voting_last->getId()) {
-
-			// TODO show voting finished screen
 			$this->ctrl->redirect(new xlvoPlayerGUI(), self::CMD_END_OF_VOTING);
 		}
 		$this->ctrl->setParameter(new xlvoPlayerGUI(), self::IDENTIFIER, $voting_id_next);
@@ -213,10 +219,9 @@ class xlvoPlayerGUI {
 
 
 	public function previousVoting() {
-		$xlvoPlayer = xlvoPlayer::where(array( 'obj_id' => $this->obj_id ))->first();
-		$voting_id_current = $xlvoPlayer->getActiveVoting();
-		$votings = array_reverse($this->voting_manager->getVotings()->where(array( 'voting_status' => xlvoVoting::STAT_ACTIVE ))->getArray());
-		$voting_first = $this->voting_manager->getVotings()->first();
+		$voting_id_current = $this->getActiveVoting($this->obj_id);
+		$votings = array_reverse($this->voting_manager->getVotings($this->obj_id, true)->getArray());
+		$voting_first = $this->voting_manager->getVotings($this->obj_id, true)->first();
 
 		$voting_id_previous = $voting_id_current;
 		$get_next_elem = false;
@@ -231,6 +236,7 @@ class xlvoPlayerGUI {
 		}
 
 		if ($voting_id_current == $voting_first->getId()) {
+			// display message, proceed to show first voting
 			ilUtil::sendInfo($this->pl->txt('msg_no_previous_voting'), true);
 		}
 
@@ -242,7 +248,7 @@ class xlvoPlayerGUI {
 	public function endOfVoting() {
 
 		$reset_voting_id = 0;
-		$xlvoPlayer = xlvoPlayer::where(array( 'obj_id' => $this->obj_id ))->first();
+		$xlvoPlayer = $this->voting_manager->getPlayer($this->obj_id);
 		$xlvoPlayer->setActiveVoting($reset_voting_id);
 		$xlvoPlayer->setStatus(xlvoPlayer::STAT_END_VOTING);
 		$xlvoPlayer->update();
@@ -291,28 +297,12 @@ class xlvoPlayerGUI {
 
 
 	public function getPlayer($obj_id) {
-		return xlvoPlayer::where(array( 'obj_id' => $obj_id ))->first();
+		return $this->voting_manager->getPlayer($obj_id);
 	}
 
 
 	public function isAvailable($obj_id) {
-		$xlvoVotingConfig = xlvoVotingConfig::find($obj_id);
-
-		$terminable = $xlvoVotingConfig->isTerminable();
-
-		if (! $terminable) {
-			return true;
-		} else {
-			$format = 'Y-m-d H:i:s';
-			$start_date = strtotime($xlvoVotingConfig->getStartDate());
-			$end_date = strtotime($xlvoVotingConfig->getEndDate());
-			$now = strtotime(date($format));
-			if ($start_date <= $now && $end_date >= $now) {
-				return true;
-			} else {
-				return false;
-			}
-		}
+		return $this->voting_manager->isVotingAvailable($obj_id);
 	}
 
 
@@ -322,7 +312,7 @@ class xlvoPlayerGUI {
 		$current_selection_list->setId('xlvo_select');
 		$current_selection_list->setTriggerEvent('xlvo_voting');
 		$current_selection_list->setUseImages(false);
-		$votings = $this->voting_manager->getVotings()->where(array( 'voting_status' => xlvoVoting::STAT_ACTIVE ))->get();
+		$votings = $this->voting_manager->getVotings($this->obj_id, true)->get();
 		foreach ($votings as $voting) {
 			$this->ctrl->setParameter(new xlvoPlayerGUI(), self::IDENTIFIER, $voting->getId());
 			$current_selection_list->addItem($voting->getTitle(), $voting->getId(), $this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_SHOW_VOTING));
@@ -398,7 +388,6 @@ class xlvoPlayerGUI {
 		$this->toolbar->addButtonInstance($bb);
 		$this->toolbar->addButtonInstance($bt);
 
-		$this->tpl->setContent($this->pl->txt('msg_end_of_voting') . '<br><br>' . $bb->render() . ' ' . $bt->render());
-
+		$this->tpl->setContent($this->pl->txt('msg_end_of_voting'));
 	}
 }

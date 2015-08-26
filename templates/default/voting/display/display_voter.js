@@ -72,8 +72,6 @@
 			};
 
 			var callVotingFunction = function () {
-				console.log(current_voting_id);
-				console.log(object_id);
 				$.post(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'get_voting_data'})
 					.done(function (data) {
 						var isFrozen = +data.voIsFrozen;

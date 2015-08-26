@@ -75,7 +75,8 @@ class xlvoBarOptionGUI extends xlvoBarGUI {
 		if ($vote instanceof xlvoVote) {
 			return $vote->getId();
 		} else {
-			return 0;
+			$no_existing_vote = 0;
+			return $no_existing_vote;
 		}
 	}
 }

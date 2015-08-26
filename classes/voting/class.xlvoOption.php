@@ -85,11 +85,6 @@ class xlvoOption extends ActiveRecord {
 	 * @db_length           8
 	 */
 	protected $status;
-	/**
-	 * @var xlvoVote []
-	 */
-	// TODO AR
-	protected $votes;
 
 
 	/**
@@ -153,21 +148,5 @@ class xlvoOption extends ActiveRecord {
 	 */
 	public function setStatus($status) {
 		$this->status = $status;
-	}
-
-
-	/**
-	 * @return xlvoVote[]
-	 */
-	public function getVotes() {
-		return $this->votes;
-	}
-
-
-	/**
-	 * @param xlvoVote[] $votes
-	 */
-	public function setVotes($votes) {
-		$this->votes = $votes;
 	}
 }

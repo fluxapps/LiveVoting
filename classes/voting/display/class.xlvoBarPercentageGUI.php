@@ -41,7 +41,6 @@ class xlvoBarPercentageGUI extends xlvoBarGUI {
 
 
 	protected function render() {
-		// TODO sass variable bar height
 		$this->tpl->setVariable('PERCENT', $this->getPercentage());
 		$this->tpl->setVariable('ID', $this->option->getId());
 		$this->tpl->setVariable('TITLE', $this->option->getText());
