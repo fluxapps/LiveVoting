@@ -24,6 +24,25 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 }(jQuery));
 
 (function ($) {
+	$.fn.loadPlayerInfo = function () {
+		$(document).ready(function () {
+
+			var current_voting_id = $('#voting-data').attr('voting');
+			var object_id = $('#voting-data').attr('object');
+
+			// load voting
+			$.post(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'load_player_info'})
+				.done(function (data) {
+				}).fail(function (jqXHR) {
+					console.log(jqXHR);
+				}).always(function () {
+				});
+
+		});
+	}
+}(jQuery));
+
+(function ($) {
 	$.fn.hideAndShowResults = function () {
 		$(document).ready(function () {
 
@@ -185,6 +204,7 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 var displayPlayer = $('#display-player');
 
 setInterval(displayPlayer.loadResults, 5000);
+setInterval(displayPlayer.loadPlayerInfo, 2000);
 displayPlayer.initToolbarButtons();
 displayPlayer.hideAndShowResults();
 displayPlayer.freezeVoting();

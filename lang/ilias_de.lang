@@ -31,6 +31,7 @@ back#:#Zurück
 create#:#Erstellen
 common_actions#:#Aktionen
 reset_all_votes#:#Zurücksetzen
+back_to_voting#:#Zurück zum Voting
 
 player#:#Player
 freeze#:#Pausieren
@@ -45,9 +46,12 @@ msg_success_voting_updated#:#Das Voting wurde erfolgreich aktualisiert.
 msg_voting_not_complete#:#Das Voting ist noch nicht komplett. Bitte schliessen Sie den Erstellvorgang ab.
 msg_no_previous_voting#:#Sie befinden sich bereits beim ersten Voting.
 msg_no_voting_available#:#Es ist kein Voting verfügbar. Bitte ein Voting hinzufügen.
+msg_voting_not_available#:#Das Voting konnte nicht aufgerufen werden. Prüfen Sie bitte, ob das Voting ordnungsgemäss gestartet wurde und im allfällig festgelegten Zeitrahmen liegt.
 confirm_delete_voting#:#Möchten Sie das Voting mit allen zugehörigen Abstimmungsresultaten wirklich löschen?
 confirm_reset_voting#:#Möchten Sie die Abstimmungsresultate aller Votings löschen?
 confirm_number_of_votes#:#Anzahl Antworten
 permission_denied#:#Zugriff verweigert!
+msg_info_waiting#:#Bitte warten!
+msg_end_of_voting#:#Sie sind am Ende des Votings angelangt. Bitte beenden oder zum Anfang zurückkehren.
 
 show_voting#:#Vote

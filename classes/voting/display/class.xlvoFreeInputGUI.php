@@ -32,7 +32,6 @@ class xlvoFreeInputGUI extends ilPropertyFormGUI {
 
 		$an = new ilTextInputGUI($this->pl->txt('answer'), 'free_input');
 		$an->setValue($vote->getFreeInput());
-		$an->setRequired(true);
 
 		$hi1 = new ilHiddenInputGUI('option_id');
 		$hi1->setValue($vote->getOptionId());

@@ -7,10 +7,12 @@ require_once('./Services/ActiveRecord/class.ActiveRecord.php');
  */
 class xlvoPlayer extends ActiveRecord {
 
-	const STAT_TERMINATED = 0;
-	const STAT_STARTED = 1;
+	const STAT_STOPPED = 0;
+	const STAT_RUNNING = 1;
+	const STAT_END_VOTING = 2;
 	const RESET_OFF = 0;
 	const RESET_ON = 1;
+
 
 	/**
 	 * @return string

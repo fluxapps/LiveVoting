@@ -22,7 +22,6 @@
 			};
 
 			var loadWaitingScreen = function () {
-				// load waiting screen
 				$.post(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'load_waiting_screen'})
 					.done(function (data) {
 						$('.display-voter').replaceWith(data);
@@ -32,15 +31,49 @@
 					});
 			};
 
-			var loadNotAvailableScreen = function () {
+			var loadNotStartedScreen = function () {
+				$.post(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'load_not_running_screen'})
+					.done(function (data) {
+						$('.display-voter').replaceWith(data);
+					}).fail(function (jqXHR) {
+						console.log(jqXHR);
+					}).always(function () {
+					});
+			};
 
+			var loadNotAvailableScreen = function () {
+				$.post(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'load_not_available_screen'})
+					.done(function (data) {
+						$('.display-voter').replaceWith(data);
+					}).fail(function (jqXHR) {
+						console.log(jqXHR);
+					}).always(function () {
+					});
 			};
 
 			var loadAccessScreen = function () {
+				$.post(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'load_access_screen'})
+					.done(function (data) {
+						$('.display-voter').replaceWith(data);
+					}).fail(function (jqXHR) {
+						console.log(jqXHR);
+					}).always(function () {
+					});
+			};
 
+			var loadEndOfVotingScreen = function () {
+				$.post(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'load_end_of_voting_screen'})
+					.done(function (data) {
+						$('.display-voter').replaceWith(data);
+					}).fail(function (jqXHR) {
+						console.log(jqXHR);
+					}).always(function () {
+					});
 			};
 
 			var callVotingFunction = function () {
+				console.log(current_voting_id);
+				console.log(object_id);
 				$.post(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'get_voting_data'})
 					.done(function (data) {
 						var isFrozen = +data.voIsFrozen;
@@ -49,21 +82,26 @@
 						var isAvailable = +data.voIsAvailable;
 						var hasAccess = +data.voHasAccess;
 
-						if (isFrozen) {
+						if (hasAccess == 0) {
+							loadAccessScreen();
+						} else if (status == 0) {
+							// status 0 = stopped
+							loadNotStartedScreen();
+						} else if (isAvailable == 0) {
+							loadNotAvailableScreen();
+						} else if (status == 2) {
+							// status 2 = end of voting
+							loadEndOfVotingScreen();
+						} else if (isFrozen) {
 							loadWaitingScreen();
 						} else if (isReset) {
 							// set votingId to 0 to reload current voting
 							$('#voting-data').attr('voting', 0);
 							loadVotingScreen();
-						} else if (status == 0) {
-							loadNotAvailableScreen();
-						} else if (isAvailable == 0) {
-							loadNotAvailableScreen();
-						} else if(hasAccess == 0) {
-							loadAccessScreen();
 						} else {
 							loadVotingScreen();
 						}
+
 					}).fail(function (jqXHR) {
 						console.log(jqXHR);
 					}).always(function () {
@@ -76,7 +114,8 @@
 	}
 }(jQuery));
 
-// called in display_voter.js after a new voting was loaded
+// For freeInput voting type only.
+// Initializes delete buttons for freeInput form after page replacement.
 (function ($) {
 	$.fn.initFreeInputDeleteButtons = function () {
 		$(document).ready(function () {
@@ -95,11 +134,5 @@
 		})
 	}
 }(jQuery));
-
-// frozen: waiting screen
-// end / start: voting not available
-// reset: load voting again
-// end of voting
-// access page
 
 setInterval($('.display-voter').loadVoting, 2000);
