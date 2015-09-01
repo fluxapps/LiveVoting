@@ -51,8 +51,21 @@ confirm_delete_voting#:#Möchten Sie das Voting mit allen zugehörigen Abstimmun
 confirm_reset_voting#:#Möchten Sie die Abstimmungsresultate aller Votings löschen?
 confirm_number_of_votes#:#Anzahl Antworten
 permission_denied#:#Zugriff verweigert!
-msg_info_waiting#:#Bitte warten!
-msg_end_of_voting#:#Sie sind am Ende des Votings angelangt. Bitte beenden oder zum Anfang zurückkehren.
 msg_properties_form_saved#:#Die Einstellungen wurden gespeichert.
+
+msg_end_of_voting#:#Sie sind am Ende des Votings angelangt. Bitte beenden oder zum Anfang zurückkehren.
+
+start_voting#:#Starten
+msg_start_of_voting_title#:#Voting
+
+
+msg_waiting_screen#:#Bitte warten...
+msg_not_running_screen#:#Das Voting ist momentan nicht aktiv.
+msg_not_available_screen#:#Das Voting ist nicht verfügbar.
+msg_access_screen#:#Bitte geben Sie den PIN ein.
+msg_start_of_voting_screen#:#Bitte auf den Beginn des Votings warten...
+msg_end_of_voting_screen#:#Ende des Votings. Vielen Dank für die Teilnahme.
+msg_validation_error_pin#:#Es konnte kein aktives Voting gefunden werden.
+pin_input#:#PIN
 
 show_voting#:#Vote

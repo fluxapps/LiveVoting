@@ -126,7 +126,7 @@ class xlvoVotingGUI {
 
 				$b = ilLinkButton::getInstance();
 				$b->setCaption('rep_robj_xlvo_player');
-				$b->setUrl($this->ctrl->getLinkTarget(new xlvoPlayerGUI(), 'startVoting'));
+				$b->setUrl($this->ctrl->getLinkTarget(new xlvoPlayerGUI(), xlvoPlayerGUI::CMD_START_OF_VOTING));
 				$this->toolbar->addButtonInstance($b);
 
 				$b = ilLinkButton::getInstance();

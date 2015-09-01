@@ -78,17 +78,19 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	}
 
 
-	public function getVotes($voting_id = NULL, $option_id = NULL, $active_user = false) {
-		$xlvoVotes = new xlvoVote();
-		if ($voting_id != NULL) {
-			$xlvoVotes = $xlvoVotes->where(array( 'voting_id' => $voting_id ));
-		}
+	public function getVotes($voting_id, $option_id = NULL, $active_user = false) {
+		$xlvoVotes = xlvoVote::where(array( 'voting_id' => $voting_id ));
 		if ($option_id != NULL) {
 			$xlvoVotes = $xlvoVotes->where(array( 'option_id' => $option_id ));
 		}
 		if ($active_user) {
-			// TODO anonymous
-			$xlvoVotes = $xlvoVotes->where(array( 'user_id' => $this->user_ilias->getId() ));
+			$xlvoVoting = xlvoVoting::find($voting_id);
+			$xlvoConfig = $this->getVotingConfig($xlvoVoting->getObjId());
+			if ($xlvoConfig->isAnonymous()) {
+				$xlvoVotes = $xlvoVotes->where(array( 'user_identifier' => $_SESSION['user_identifier'] ));
+			} else {
+				$xlvoVotes = $xlvoVotes->where(array( 'user_id' => $this->user_ilias->getId() ));
+			}
 		}
 
 		return $xlvoVotes;
@@ -107,6 +109,11 @@ class xlvoVotingManager implements xlvoVotingInterface {
 		$xlvoVotingConfig = xlvoVotingConfig::find($obj_id);
 
 		return $xlvoVotingConfig;
+	}
+
+
+	public function getVotingConfigs() {
+		return xlvoVotingConfig::getCollection();
 	}
 
 
@@ -233,11 +240,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 				$vote->setUserId($this->user_ilias->getId());
 				break;
 			case xlvoVote::USER_ANONYMOUS:
-				/**
-				 * @var ilSessionControl $ilSessionControl
-				 */
-				global $ilSessionControl;
-				// TODO sessionId
+				$vote->setUserIdentifier((int)$_SESSION['user_identifier']);
 				break;
 		}
 
@@ -270,7 +273,8 @@ class xlvoVotingManager implements xlvoVotingInterface {
 
 
 	public function deleteVotesForOption($option_id) {
-		$votes = $this->getVotes(NULL, $option_id);
+		$option = xlvoOption::find($option_id);
+		$votes = $this->getVotes($option->getVotingId(), $option_id);
 
 		foreach ($votes->get() as $vote) {
 			$vote->delete();

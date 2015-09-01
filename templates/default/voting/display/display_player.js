@@ -91,8 +91,10 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 			btnTerminate.html('<span class="glyphicon glyphicon-stop" aria-hidden="true"></span>' + btnTerminate.text());
 			var btnReset = $('#btn-reset');
 			btnReset.html('<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>' + btnReset.text());
-			var btnBackToVoting = $('#btn-back_to_voting');
+			var btnBackToVoting = $('#btn-back-to-voting');
 			btnBackToVoting.html('<span class="glyphicon glyphicon-fast-backward" aria-hidden="true"></span>' + btnBackToVoting.text());
+			var btnStartVoting = $('#btn-start-voting');
+			btnStartVoting.html('<span class="glyphicon glyphicon-play" aria-hidden="true"></span>' + btnStartVoting.text());
 
 
 			var btnShowResults = $('#btn-show-results');

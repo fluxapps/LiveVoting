@@ -9,7 +9,8 @@ class xlvoPlayer extends ActiveRecord {
 
 	const STAT_STOPPED = 0;
 	const STAT_RUNNING = 1;
-	const STAT_END_VOTING = 2;
+	const STAT_START_VOTING = 2;
+	const STAT_END_VOTING = 3;
 	const RESET_OFF = 0;
 	const RESET_ON = 1;
 

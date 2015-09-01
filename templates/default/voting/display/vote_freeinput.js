@@ -9,7 +9,7 @@
 
 			});
 
-			$('#il_center_col').on('submit', '#form_', function (event) {
+			$('#il_center_col').on('submit', '#form_free_input', function (event) {
 				event.preventDefault();
 
 				// get values for POST request
@@ -58,12 +58,13 @@
 						}).always(function () {
 						});
 				}
+				return false;
 			});
 		});
 	}
 }(jQuery));
 
-$('#form_').freeInputVote();
+$('#form_free_input').freeInputVote();
 
 (function ($) {
 	$.fn.freeInputMultiVote = function () {
@@ -75,7 +76,7 @@ $('#form_').freeInputVote();
 					event.preventDefault();
 			});
 
-			$('#il_center_col').on('submit', '#form_', function (event) {
+			$('#il_center_col').on('submit', '#form_free_input_multi', function (event) {
 				event.preventDefault();
 
 				// get values for POST request
@@ -127,9 +128,10 @@ $('#form_').freeInputVote();
 						});
 				}
 
+				return false;
 			});
 		});
 	}
 }(jQuery));
 
-$('#form_').freeInputMultiVote();
+$('#form_free_input_multi').freeInputMultiVote();

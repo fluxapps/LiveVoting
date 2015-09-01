@@ -143,5 +143,3 @@ class ilObjLiveVotingAccess extends ilObjectPluginAccess {
 		return false;
 	}
 }
-
-?>

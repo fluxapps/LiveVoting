@@ -40,6 +40,7 @@ class xlvoFreeInputGUI extends ilPropertyFormGUI {
 		$hi2->setValue($vote->getId());
 
 		$form = new ilPropertyFormGUI();
+		$form->setId('free_input');
 		$form->addItem($an);
 		$form->addItem($hi1);
 		$form->addItem($hi2);
@@ -57,6 +58,7 @@ class xlvoFreeInputGUI extends ilPropertyFormGUI {
 		$mli->addInput($te);
 
 		$form = new ilPropertyFormGUI();
+		$form->setId('free_input_multi');
 		$form->addCommandButton('unvote_all', $this->pl->txt('delete_all'));
 		$form->addCommandButton('send_votes', $this->pl->txt('send'));
 		$form->addItem($mli);

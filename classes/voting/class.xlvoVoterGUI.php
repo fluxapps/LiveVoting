@@ -23,8 +23,10 @@ class xlvoVoterGUI {
 	const CMD_EDIT = 'edit';
 	const CMD_UPDATE = 'update';
 	const CMD_CANCEL = 'cancel';
+	const CMD_ACCESS_VOTING = 'accessVoting';
 	const CMD_WAITING_SCREEN = 'waitingScreen';
 	const TPL_INFO_SCREEN = './Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/tpl.info_screen_voter.html';
+	const INFO_TYPE_WAITING = 'waiting_screen';
 	/**
 	 * @var ilTemplate
 	 */
@@ -54,10 +56,6 @@ class xlvoVoterGUI {
 	 */
 	protected $usr;
 	/**
-	 * @var int
-	 */
-	protected $obj_id;
-	/**
 	 * @var xlvoVoting_manager
 	 */
 	protected $voting_manager;
@@ -86,7 +84,6 @@ class xlvoVoterGUI {
 		$this->access = new ilObjLiveVotingAccess();
 		$this->pl = ilLiveVotingPlugin::getInstance();
 		$this->voting_manager = new xlvoVotingManager();
-		$this->obj_id = ilObject2::_lookupObjId($_GET['ref_id']);
 	}
 
 
@@ -100,6 +97,9 @@ class xlvoVoterGUI {
 				$this->{$cmd}();
 				break;
 		}
+		$this->tpl->getStandardTemplate();
+		$this->tpl->setVariable('BASE', '/');
+		$this->tpl->show();
 	}
 
 
@@ -108,36 +108,58 @@ class xlvoVoterGUI {
 	 *
 	 * @return string
 	 */
-	public function showVoting($voting_id = NULL) {
+	public function showVoting($obj_id = NULL, $voting_id = NULL) {
 
-		// TODO check access
-		// if no access redirect show access page
+		if ($obj_id == NULL) {
+			$obj_id = 0;
+			$this->tpl->setContent($this->showInfoScreen($obj_id, self::INFO_TYPE_WAITING));
 
-		if ($voting_id == NULL) {
-			$this->tpl->setContent($this->waitingScreen($this->obj_id));
-
-			return '';
+			return $this->showInfoScreen($obj_id, self::INFO_TYPE_WAITING);
 		} else {
-			$xlvoVoting = $this->voting_manager->getVoting($voting_id);
+			$xlvoPlayer = $this->voting_manager->getPlayer($obj_id);
 
-			// TODO check if instance && correct obj_id
+			if ($xlvoPlayer instanceof xlvoPlayer) {
 
-			$display = new xlvoDisplayVoterGUI($xlvoVoting);
+				if ($voting_id != $xlvoPlayer->getActiveVoting()) {
 
-			$this->tpl->setContent($display->getHTML());
+					$xlvoVoting = $this->voting_manager->getVoting($xlvoPlayer->getActiveVoting());
 
-			return $display->getHtml();
+					if ($xlvoVoting instanceof xlvoVoting) {
+						$display = new xlvoDisplayVoterGUI($xlvoVoting);
+
+						return $display->getHtml();
+					} else {
+						return $this->showInfoScreen($obj_id, self::INFO_TYPE_WAITING);
+					}
+				} else {
+					return '';
+				}
+			} else {
+				return $this->showAccessScreen(true);
+			}
 		}
 	}
 
 
-	/**
-	 * @param void $pin
-	 */
-	public function accessVoting($pin = NULL) {
-		// TODO implement here
-		// TODO POST input + store access in session
-		// redirect to showVoting
+	public function accessVoting($pin) {
+		if ($pin == NULL) {
+			return $this->showAccessScreen(true);
+		} else {
+			$config = $this->voting_manager->getVotingConfigs()->where(array( 'pin' => $pin ))->first();
+			if ($config instanceof xlvoVotingConfig) {
+				if ($pin == $config->getPin()) {
+					if ($config->isAnonymous()) {
+						$this->generateAnonymousSession();
+					}
+
+					return $this->showInfoScreen($config->getObjId(), self::INFO_TYPE_WAITING);
+				} else {
+					return $this->showAccessScreen(true);
+				}
+			} else {
+				return $this->showAccessScreen(true);
+			}
+		}
 	}
 
 
@@ -170,57 +192,97 @@ class xlvoVoterGUI {
 	}
 
 
-	public function waitingScreen($obj_id) {
-		$this->tpl = new ilTemplate(self::TPL_INFO_SCREEN, true, true);
-		$this->tpl->setVariable('VOTING_ID', 0);
-		$this->tpl->setVariable('OBJ_ID', $obj_id);
-		$this->tpl->setVariable('INFO_TEXT', $this->pl->txt('msg_info_waiting'));
-		$this->tpl->setContent($this->tpl->get());
+	public function getVotingData($obj_id) {
+		if ($obj_id == NULL || $obj_id == 0) {
+			$data = array(
+				'voIsFrozen' => 0,
+				'voIsReset' => 0,
+				'voStatus' => xlvoPlayer::STAT_STOPPED,
+				'voHasAccess' => 0,
+				'voIsAvailable' => 1
+			);
 
-		return $this->tpl->get();
+			return $data;
+		} else {
+			$config = $this->voting_manager->getVotingConfig($obj_id);
+			$player = $this->voting_manager->getPlayer($obj_id);
+			$data = array(
+				'voIsFrozen' => $config->isFrozen(),
+				'voIsReset' => $player->isReset(),
+				'voStatus' => $player->getStatus(),
+				'voHasAccess' => $this->checkVotingAccess($obj_id),
+				'voIsAvailable' => $this->voting_manager->isVotingAvailable($obj_id)
+			);
+
+			return $data;
+		}
 	}
 
 
-	public function notRunningScreen($obj_id) {
-		$this->tpl = new ilTemplate(self::TPL_INFO_SCREEN, true, true);
-		$this->tpl->setVariable('VOTING_ID', 0);
-		$this->tpl->setVariable('OBJ_ID', $obj_id);
-		$this->tpl->setVariable('INFO_TEXT', $this->pl->txt('msg_not_running'));
-		$this->tpl->setContent($this->tpl->get());
+	public function showInfoScreen($obj_id, $info_type) {
+		$template = new ilTemplate(self::TPL_INFO_SCREEN, true, true);
+		$template->setVariable('VOTING_ID', 0);
+		$template->setVariable('OBJ_ID', $obj_id);
+		$template->setVariable('INFO_TYPE', $info_type);
+		$template->setVariable('INFO_TEXT', $this->pl->txt('msg_' . $info_type) . 'session_id: ' . $_SESSION['user_identifier']);
 
-		return $this->tpl->get();
+		return $template->get();
 	}
 
 
-	public function notAvailableScreen($obj_id) {
-		$this->tpl = new ilTemplate(self::TPL_INFO_SCREEN, true, true);
-		$this->tpl->setVariable('VOTING_ID', 0);
-		$this->tpl->setVariable('OBJ_ID', $obj_id);
-		$this->tpl->setVariable('INFO_TEXT', $this->pl->txt('msg_not_available'));
-		$this->tpl->setContent($this->tpl->get());
+	public function showAccessScreen($error_msg = false) {
+		$template = new ilTemplate(self::TPL_INFO_SCREEN, true, true);
+		$template->setVariable('VOTING_ID', 0);
+		$template->setVariable('OBJ_ID', 0);
+		$template->setVariable('INFO_TYPE', 'access_screen');
 
-		return $this->tpl->get();
+		$t = new ilTextInputGUI($this->pl->txt('pin_input'), 'pin_input');
+		$form = new ilPropertyFormGUI();
+		$form->setId('access');
+		$form->addItem($t);
+		$form->addCommandButton(self::CMD_ACCESS_VOTING, $this->pl->txt('send'));
+
+		$template->setVariable('INFO_TEXT', $this->pl->txt('msg_access_screen') . $form->getHTML());
+
+		if ($error_msg) {
+			$template->setVariable('ERROR', $this->pl->txt('msg_validation_error_pin'));
+		}
+
+		return $template->get();
 	}
 
 
-	public function endOfVotingScreen($obj_id) {
-		$this->tpl = new ilTemplate(self::TPL_INFO_SCREEN, true, true);
-		$this->tpl->setVariable('VOTING_ID', 0);
-		$this->tpl->setVariable('OBJ_ID', $obj_id);
-		$this->tpl->setVariable('INFO_TEXT', $this->pl->txt('msg_end_of_voting_voter'));
-		$this->tpl->setContent($this->tpl->get());
+	protected function generateAnonymousSession() {
 
-		return $this->tpl->get();
+		if (empty($_SESSION['user_identifier'])) {
+			session_start();
+
+			$new_id = false;
+
+			while (! $new_id) {
+				$user_identifier = rand(1, 100000);
+				$existing = xlvoVote::where(array( 'user_identifier' => $user_identifier ))->count();
+				if ($existing <= 0) {
+					$new_id = true;
+				}
+			}
+
+			if (isset($user_identifier)) {
+				$_SESSION['user_identifier'] = $user_identifier;
+			}
+		}
 	}
 
 
-	public function accessScreen($obj_id) {
-		$this->tpl = new ilTemplate(self::TPL_INFO_SCREEN, true, true);
-		$this->tpl->setVariable('VOTING_ID', 0);
-		$this->tpl->setVariable('OBJ_ID', $obj_id);
-		$this->tpl->setVariable('INFO_TEXT', $this->pl->txt('ACCESS'));
-		$this->tpl->setContent($this->tpl->get());
-
-		return $this->tpl->get();
+	public function checkVotingAccess($obj_id) {
+		$config = $this->voting_manager->getVotingConfig($obj_id);
+		if ($config->isAnonymous()) {
+			return true;
+		} elseif ($this->usr->getId() > 0) {
+			// TODO has read access
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

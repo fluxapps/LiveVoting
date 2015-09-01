@@ -31,6 +31,7 @@ class xlvoPlayerGUI {
 	const CMD_RESET = 'resetVotes';
 	const CMD_TERMINATE = 'terminate';
 	const CMD_END_OF_VOTING = 'endOfVoting';
+	const CMD_START_OF_VOTING = 'startOfVoting';
 	/**
 	 * @var ilTemplate
 	 */
@@ -111,20 +112,23 @@ class xlvoPlayerGUI {
 
 
 	public function startVoting() {
-		$vo = $this->voting_manager->getVotings($this->obj_id, true)->first();
-		if ($vo == NULL) {
-			ilUtil::sendInfo($this->pl->txt('msg_no_voting_available'), true);
-			$this->ctrl->redirect(new xlvoVotingGUI(), xlvoVotingGUI::CMD_STANDARD);
+		if (! $this->access->hasWriteAccess()) {
+			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
 		} else {
-			$this->setActiveVoting($vo->getId());
-			$this->ctrl->setParameter(new xlvoPlayerGUI(), self::IDENTIFIER, $vo->getId());
-			$this->ctrl->redirect(new xlvoPlayerGUI(), self::CMD_SHOW_VOTING);
+			$vo = $this->voting_manager->getVotings($this->obj_id, true)->first();
+			if ($vo == NULL) {
+				ilUtil::sendInfo($this->pl->txt('msg_no_voting_available'), true);
+				$this->ctrl->redirect(new xlvoVotingGUI(), xlvoVotingGUI::CMD_STANDARD);
+			} else {
+				$this->setActiveVoting($vo->getId());
+				$this->ctrl->setParameter(new xlvoPlayerGUI(), self::IDENTIFIER, $vo->getId());
+				$this->ctrl->redirect(new xlvoPlayerGUI(), self::CMD_SHOW_VOTING);
+			}
 		}
 	}
 
 
 	public function showVoting($voting_id = NULL) {
-
 		if ($voting_id == NULL) {
 			if ($_GET[self::IDENTIFIER] != NULL) {
 				$voting_id = $_GET[self::IDENTIFIER];
@@ -172,7 +176,7 @@ class xlvoPlayerGUI {
 			$xlvoPlayer->setObjId($xlvoVoting->getObjId());
 			$xlvoPlayer->setActiveVoting($voting_id);
 			$xlvoPlayer->setReset(xlvoPlayer::RESET_OFF);
-			$xlvoPlayer->setStatus(xlvoPlayer::STAT_RUNNING);
+			$xlvoPlayer->setStatus(xlvoPlayer::STAT_START_VOTING);
 			$xlvoPlayer->create();
 		} else {
 			$xlvoPlayer->setActiveVoting($voting_id);
@@ -194,54 +198,81 @@ class xlvoPlayerGUI {
 
 
 	public function nextVoting() {
-		$voting_id_current = $this->getActiveVoting($this->obj_id);
-		$votings = $this->voting_manager->getVotings($this->obj_id, true)->getArray();
-		$voting_last = $this->voting_manager->getVotings($this->obj_id, true)->last();
+		if (! $this->access->hasWriteAccess()) {
+			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
+		} else {
+			$voting_id_current = $this->getActiveVoting($this->obj_id);
+			$votings = $this->voting_manager->getVotings($this->obj_id, true)->getArray();
+			$voting_last = $this->voting_manager->getVotings($this->obj_id, true)->last();
 
-		$voting_id_next = $voting_id_current;
-		$get_next_elem = false;
-		foreach ($votings as $key => $voting) {
-			if ($get_next_elem) {
-				$voting_id_next = $voting['id'];
-				break;
+			$voting_id_next = $voting_id_current;
+			$get_next_elem = false;
+			foreach ($votings as $key => $voting) {
+				if ($get_next_elem) {
+					$voting_id_next = $voting['id'];
+					break;
+				}
+				if ($voting['id'] == $voting_id_current) {
+					$get_next_elem = true;
+				}
 			}
-			if ($voting['id'] == $voting_id_current) {
-				$get_next_elem = true;
-			}
-		}
 
-		if ($voting_id_current == $voting_last->getId()) {
-			$this->ctrl->redirect(new xlvoPlayerGUI(), self::CMD_END_OF_VOTING);
+			if ($voting_id_current == $voting_last->getId()) {
+				$this->ctrl->redirect(new xlvoPlayerGUI(), self::CMD_END_OF_VOTING);
+			}
+			$this->ctrl->setParameter(new xlvoPlayerGUI(), self::IDENTIFIER, $voting_id_next);
+			$this->ctrl->redirect(new xlvoPlayerGUI(), self::CMD_SHOW_VOTING);
 		}
-		$this->ctrl->setParameter(new xlvoPlayerGUI(), self::IDENTIFIER, $voting_id_next);
-		$this->ctrl->redirect(new xlvoPlayerGUI(), self::CMD_SHOW_VOTING);
 	}
 
 
 	public function previousVoting() {
-		$voting_id_current = $this->getActiveVoting($this->obj_id);
-		$votings = array_reverse($this->voting_manager->getVotings($this->obj_id, true)->getArray());
-		$voting_first = $this->voting_manager->getVotings($this->obj_id, true)->first();
+		if (! $this->access->hasWriteAccess()) {
+			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
+		} else {
+			$voting_id_current = $this->getActiveVoting($this->obj_id);
+			$votings = array_reverse($this->voting_manager->getVotings($this->obj_id, true)->getArray());
+			$voting_first = $this->voting_manager->getVotings($this->obj_id, true)->first();
 
-		$voting_id_previous = $voting_id_current;
-		$get_next_elem = false;
-		foreach ($votings as $key => $voting) {
-			if ($get_next_elem) {
-				$voting_id_previous = $voting['id'];
-				break;
+			$voting_id_previous = $voting_id_current;
+			$get_next_elem = false;
+			foreach ($votings as $key => $voting) {
+				if ($get_next_elem) {
+					$voting_id_previous = $voting['id'];
+					break;
+				}
+				if ($voting['id'] == $voting_id_current) {
+					$get_next_elem = true;
+				}
 			}
-			if ($voting['id'] == $voting_id_current) {
-				$get_next_elem = true;
+
+			if ($voting_id_current == $voting_first->getId()) {
+				$this->ctrl->redirect(new xlvoPlayerGUI(), self::CMD_START_OF_VOTING);
+			}
+
+			$this->ctrl->setParameter(new xlvoPlayerGUI(), self::IDENTIFIER, $voting_id_previous);
+			$this->ctrl->redirect(new xlvoPlayerGUI(), self::CMD_SHOW_VOTING);
+		}
+	}
+
+
+	public function startOfVoting() {
+
+		$xlvoPlayer = $this->voting_manager->getPlayer($this->obj_id);
+		if ($xlvoPlayer instanceof xlvoPlayer) {
+			$xlvoPlayer->setStatus(xlvoPlayer::STAT_START_VOTING);
+			$xlvoPlayer->update();
+		} else {
+			$vo = $this->voting_manager->getVotings($this->obj_id, true)->first();
+			if ($vo == NULL) {
+				ilUtil::sendInfo($this->pl->txt('msg_no_voting_available'), true);
+				$this->ctrl->redirect(new xlvoVotingGUI(), xlvoVotingGUI::CMD_STANDARD);
+			} else {
+				$this->setActiveVoting($vo->getId());
 			}
 		}
 
-		if ($voting_id_current == $voting_first->getId()) {
-			// display message, proceed to show first voting
-			ilUtil::sendInfo($this->pl->txt('msg_no_previous_voting'), true);
-		}
-
-		$this->ctrl->setParameter(new xlvoPlayerGUI(), self::IDENTIFIER, $voting_id_previous);
-		$this->ctrl->redirect(new xlvoPlayerGUI(), self::CMD_SHOW_VOTING);
+		$this->setContentStartOfVoting();
 	}
 
 
@@ -259,7 +290,7 @@ class xlvoPlayerGUI {
 
 	public function resetVotes($voting_id) {
 		$xlvoVoting = xlvoVoting::find($voting_id);
-		$xlvoPlayer = $this->getPlayer($xlvoVoting->getObjId());
+		$xlvoPlayer = $this->voting_manager->getPlayer($xlvoVoting->getObjId());
 		$xlvoPlayer->setReset(xlvoPlayer::RESET_ON);
 		$xlvoPlayer->update();
 
@@ -288,21 +319,15 @@ class xlvoPlayerGUI {
 
 
 	public function terminate() {
-		$this->unfreeze($this->obj_id);
-		$xlvoPlayer = $this->getPlayer($this->obj_id);
-		$xlvoPlayer->setStatus(xlvoPlayer::STAT_STOPPED);
-		$xlvoPlayer->update();
-		$this->ctrl->redirect(new xlvoVotingGUI(), xlvoVotingGUI::CMD_STANDARD);
-	}
-
-
-	public function getPlayer($obj_id) {
-		return $this->voting_manager->getPlayer($obj_id);
-	}
-
-
-	public function isAvailable($obj_id) {
-		return $this->voting_manager->isVotingAvailable($obj_id);
+		if (! $this->access->hasWriteAccess()) {
+			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
+		} else {
+			$this->unfreeze($this->obj_id);
+			$xlvoPlayer = $this->voting_manager->getPlayer($this->obj_id);
+			$xlvoPlayer->setStatus(xlvoPlayer::STAT_STOPPED);
+			$xlvoPlayer->update();
+			$this->ctrl->redirect(new xlvoVotingGUI(), xlvoVotingGUI::CMD_STANDARD);
+		}
 	}
 
 
@@ -373,12 +398,36 @@ class xlvoPlayerGUI {
 	}
 
 
+	protected function setContentStartOfVoting() {
+
+		$b = ilLinkButton::getInstance();
+		$b->setCaption('rep_robj_xlvo_start_voting');
+		$b->setUrl($this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_START_VOTING));
+		$b->setId('btn-start-voting');
+		$this->toolbar->addButtonInstance($b);
+
+		$b = ilLinkButton::getInstance();
+		$b->setCaption('rep_robj_xlvo_terminate');
+		$b->setUrl($this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_TERMINATE));
+		$b->setId('btn-terminate');
+		$this->toolbar->addButtonInstance($b);
+
+		$template = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/tpl.player_start_screen.html', true, true);
+		$xlvoVotingConfig = $this->voting_manager->getVotingConfig($this->obj_id);
+		$template->setVariable('PIN', $xlvoVotingConfig->getPin());
+		$template->setVariable('TITLE', $this->pl->txt('msg_start_of_voting_title'));
+		$template->setVariable('QR-CODE', 'QR-CODE');
+
+		$this->tpl->setContent($template->get());
+	}
+
+
 	protected function setContentEndOfVoting() {
 
 		$bb = ilLinkButton::getInstance();
 		$bb->setCaption('rep_robj_xlvo_back_to_voting');
 		$bb->setUrl($this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_START_VOTING));
-		$bb->setId('btn-back_to_voting');
+		$bb->setId('btn-back-to-voting');
 
 		$bt = ilLinkButton::getInstance();
 		$bt->setCaption('rep_robj_xlvo_terminate');
