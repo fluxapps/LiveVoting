@@ -8,7 +8,7 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 			var object_id = $('#voting-data').attr('object');
 
 			// load voting
-			$.post(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'load_results'})
+			$.get(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'load_results'})
 				.done(function (data) {
 					if (data != '') {
 						$('#display-player').replaceWith(data);
@@ -31,7 +31,7 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 			var object_id = $('#voting-data').attr('object');
 
 			// load voting
-			$.post(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'load_player_info'})
+			$.get(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'load_player_info'})
 				.done(function (data) {
 				}).fail(function (jqXHR) {
 					console.log(jqXHR);
@@ -208,7 +208,7 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 
 var displayPlayer = $('#display-player');
 
-setInterval(displayPlayer.loadResults, 5000);
+setInterval(displayPlayer.loadResults, 1000);
 setInterval(displayPlayer.loadPlayerInfo, 2000);
 displayPlayer.initToolbarButtons();
 displayPlayer.hideAndShowResults();

@@ -8,7 +8,7 @@
 
 			var loadVotingScreen = function () {
 				// load voting
-				$.post(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'voting_screen'})
+				$.get(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'voting_screen'})
 					.done(function (data) {
 						if (data != '') {
 							$('.display-voter').replaceWith(data);
@@ -23,7 +23,7 @@
 			var loadInfoScreen = function (type_player) {
 				var type = $('#voting-data').attr('info-type');
 				if (type != type_player) {
-					$.post(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: type_player})
+					$.get(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: type_player})
 						.done(function (data) {
 							$('.display-voter').replaceWith(data);
 						}).fail(function (jqXHR) {
@@ -58,7 +58,7 @@
 			};
 
 			var callVotingFunction = function () {
-				$.post(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'get_voting_data'})
+				$.get(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'get_voting_data'})
 					.done(function (data) {
 						var isFrozen = +data.voIsFrozen;
 						var isReset = +data.voIsReset;
