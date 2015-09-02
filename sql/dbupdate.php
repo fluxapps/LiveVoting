@@ -1,16 +1,42 @@
 <#1>
 <?php
+/**
+ * @var $ilDB ilDB
+ */
 $fields = array(
 'id' => array(
 'type' => 'integer',
 'length' => 4,
 'notnull' => true
+),
+'is_online' => array(
+'type' => 'integer',
+'length' => 1,
+'notnull' => false
+),
+'is_anonym' => array(
+'type' => 'integer',
+'length' => 1,
+'notnull' => false
+),
+'options_type' => array(
+'type' => 'integer',
+'length' => 4,
+'notnull' => false
+),
+'pin' => array(
+'type' => 'text',
+'length' => 10,
+'notnull' => false
 )
 );
-
-$ilDB->createTable("rep_robj_xlvo_data", $fields);
-$ilDB->addPrimaryKey("rep_robj_xlvo_data", array( "id" ));
-$ilDB->createSequence("rep_robj_xlvo_data");
+if(!$ilDB->tableExists('rep_robj_xlvo_data')) {
+	$ilDB->createTable("rep_robj_xlvo_data", $fields);
+	$ilDB->addPrimaryKey("rep_robj_xlvo_data", array( "id" ));
+}
+if(!$ilDB->sequenceExists('rep_robj_xlvo_data')) {
+	$ilDB->createSequence("rep_robj_xlvo_data");
+}
 ?>
 <#2>
 <?php
@@ -36,10 +62,13 @@ $fields = array(
 'notnull' => false
 )
 );
-
-$ilDB->createTable("rep_robj_xlvo_vote", $fields);
-$ilDB->addPrimaryKey("rep_robj_xlvo_vote", array( "id" ));
-$ilDB->createSequence("rep_robj_xlvo_vote");
+if (! $ilDB->tableExists('rep_robj_xlvo_vote')) {
+	$ilDB->createTable("rep_robj_xlvo_vote", $fields);
+	$ilDB->addPrimaryKey("rep_robj_xlvo_vote", array( "id" ));
+}
+if (!$ilDB->sequenceExists('rep_robj_xlvo_vote')) {
+	$ilDB->createSequence("rep_robj_xlvo_vote");
+}
 ?>
 <#3>
 <?php
@@ -60,9 +89,13 @@ $fields = array(
 'notnull' => false
 )
 );
-$ilDB->createTable("rep_robj_xlvo_option", $fields);
-$ilDB->addPrimaryKey("rep_robj_xlvo_option", array( "id" ));
-$ilDB->createSequence("rep_robj_xlvo_option");
+if (! $ilDB->tableExists('rep_robj_xlvo_option')) {
+	$ilDB->createTable("rep_robj_xlvo_option", $fields);
+	$ilDB->addPrimaryKey("rep_robj_xlvo_option", array( "id" ));
+}
+if (! $ilDB->sequenceExists('rep_robj_xlvo_option')) {
+	$ilDB->createSequence("rep_robj_xlvo_option");
+}
 ?>
 <#4>
 <?php
@@ -107,9 +140,10 @@ $fields = array(
 'length' => 64,
 )
 );
-
-$ilDB->createTable("rep_robj_xlvo_conf", $fields);
-$ilDB->addPrimaryKey("rep_robj_xlvo_conf", array( "lvo_key" ));
+if (! $ilDB->tableExists('rep_robj_xlvo_conf')) {
+	$ilDB->createTable("rep_robj_xlvo_conf", $fields);
+	$ilDB->addPrimaryKey("rep_robj_xlvo_conf", array( "lvo_key" ));
+}
 ?>
 <#6>
 <?php
@@ -126,9 +160,13 @@ $ilDB->addTableColumn('rep_robj_xlvo_data', 'is_freezed', array(
 
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilLiveVotingPlugin.php');
 $pl = new ilLiveVotingPlugin();
-$ilDB->renameTableColumn($pl->getConfigTableName(), 'lvo_key', 'config_key');
-$ilDB->renameTableColumn($pl->getConfigTableName(), 'lvo_value', 'config_value');
-$ilDB->modifyTableColumn($pl->getConfigTableName(), 'config_value', array(
+if($ilDB->tableColumnExists('rep_robj_xlvo_conf', 'lvo_key')) {
+	$ilDB->renameTableColumn('rep_robj_xlvo_conf', 'lvo_key', 'config_key');
+}
+if($ilDB->tableColumnExists('rep_robj_xlvo_conf', 'lvo_value')) {
+	$ilDB->renameTableColumn('rep_robj_xlvo_conf', 'lvo_value', 'config_value');
+}
+$ilDB->modifyTableColumn('rep_robj_xlvo_conf', 'config_value', array(
 'type' => 'clob',
 'notnull' => false
 ));
@@ -168,4 +206,14 @@ xlvoVotingConfig::installDB();
 <?php
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoPlayer.php');
 xlvoPlayer::installDB();
+?>
+<#14>
+<?php
+if (! $ilDB->tableColumnExists('rep_robj_xlvo_data', 'end_time')) {
+$ilDB->addTableColumn('rep_robj_xlvo_data', 'end_time', array(
+'type' => 'integer',
+'length' => 8,
+'default' => 0
+));
+}
 ?>
