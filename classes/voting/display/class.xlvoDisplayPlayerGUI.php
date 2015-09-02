@@ -52,6 +52,7 @@ class xlvoDisplayPlayerGUI {
 		$this->tpl->setVariable('VOTING_ID', $this->voting->getId());
 		$this->tpl->setVariable('OBJ_ID', $this->voting->getObjId());
 		$this->tpl->setVariable('FROZEN', $config->isFrozen());
+		$this->tpl->setVariable('PIN', $config->getPin());
 	}
 
 

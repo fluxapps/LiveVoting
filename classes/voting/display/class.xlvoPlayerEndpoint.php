@@ -1,7 +1,11 @@
 <?php
 
 chdir(strstr($_SERVER['SCRIPT_FILENAME'], 'Customizing', true));
-require_once('./include/inc.header.php');
+//require_once('./include/inc.header.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoInitialisation.php');
+xlvoInitialisation::initILIAS();
+//echo $_SESSION['xlvo_context'];
+//exit;
 
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilObjLiveVotingAccess.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilLiveVotingPlugin.php');
@@ -9,6 +13,9 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoOption.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingManager.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoPlayerGUI.php');
+
+
+
 
 $voter_gui = new xlvoVoterGUI();
 $player_gui = new xlvoPlayerGUI();

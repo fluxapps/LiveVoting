@@ -108,6 +108,17 @@ class xlvoVotingGUI {
 		}
 	}
 
+	private function redirectToSubGUI($voting_type, $cmd) {
+		switch ($voting_type) {
+			case xlvoVotingType::SINGLE_VOTE:
+				$this->ctrl->redirect(new xlvoSingleVoteVotingGUI(), $cmd);
+				break;
+			case xlvoVotingType::FREE_INPUT:
+				$this->ctrl->redirect(new xlvoFreeInputVotingGUI(), $cmd);
+				break;
+			// TODO add other types
+		}
+	}
 
 	protected function content() {
 		if (! $this->access->hasWriteAccess()) {
@@ -127,11 +138,6 @@ class xlvoVotingGUI {
 				$b = ilLinkButton::getInstance();
 				$b->setCaption('rep_robj_xlvo_player');
 				$b->setUrl($this->ctrl->getLinkTarget(new xlvoPlayerGUI(), xlvoPlayerGUI::CMD_START_OF_VOTING));
-				$this->toolbar->addButtonInstance($b);
-
-				$b = ilLinkButton::getInstance();
-				$b->setCaption('rep_robj_xlvo_show_voting');
-				$b->setUrl($this->ctrl->getLinkTarget(new xlvoVoterGUI(), 'showVoting'));
 				$this->toolbar->addButtonInstance($b);
 
 				$xlvoVotingTableGUI = new xlvoVotingTableGUI($this, self::CMD_STANDARD);
@@ -305,19 +311,6 @@ class xlvoVotingGUI {
 		$xlvoVotingTableGUI->resetFilter();
 		$xlvoVotingTableGUI->resetOffset();
 		$this->ctrl->redirect($this, self::CMD_STANDARD);
-	}
-
-
-	private function redirectToSubGUI($voting_type, $cmd) {
-		switch ($voting_type) {
-			case xlvoVotingType::SINGLE_VOTE:
-				$this->ctrl->redirect(new xlvoSingleVoteVotingGUI(), $cmd);
-				break;
-			case xlvoVotingType::FREE_INPUT:
-				$this->ctrl->redirect(new xlvoFreeInputVotingGUI(), $cmd);
-				break;
-			// TODO add other types
-		}
 	}
 
 

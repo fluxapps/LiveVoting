@@ -18,13 +18,8 @@ class xlvoVoterGUI {
 
 	const TAB_STANDARD = 'tab_voter';
 	const CMD_STANDARD = 'showVoting';
-	const CMD_ADD = 'add';
-	const CMD_CREATE = 'create';
-	const CMD_EDIT = 'edit';
-	const CMD_UPDATE = 'update';
-	const CMD_CANCEL = 'cancel';
 	const CMD_ACCESS_VOTING = 'accessVoting';
-	const CMD_WAITING_SCREEN = 'waitingScreen';
+	const CMD_SHOW_ACCESS_SCREEN = 'showAccessScreen';
 	const TPL_INFO_SCREEN = './Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/tpl.info_screen_voter.html';
 	const INFO_TYPE_WAITING = 'waiting_screen';
 	/**
@@ -52,7 +47,7 @@ class xlvoVoterGUI {
 	 */
 	protected $pl;
 	/**
-	 * @var ilUser
+	 * @var ilObjUser
 	 */
 	protected $usr;
 	/**
@@ -64,16 +59,11 @@ class xlvoVoterGUI {
 	public function __construct() {
 		global $tpl, $ilCtrl, $ilTabs, $ilUser, $ilToolbar;
 
-		$tpl->addJavaScript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/display_voter.js');
-		$tpl->addJavaScript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/vote_singlevote.js');
-		$tpl->addJavaScript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/vote_freeinput.js');
-		$tpl->addJavascript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/multi_line_input.js');
-
 		/**
 		 * @var $tpl       ilTemplate
 		 * @var $ilCtrl    ilCtrl
 		 * @var $ilTabs    ilTabsGUI
-		 * @var $ilUser    ilUser
+		 * @var $ilUser    ilObjUser
 		 * @var $ilToolbar ilToolbarGUI
 		 */
 		$this->tpl = $tpl;
@@ -84,10 +74,16 @@ class xlvoVoterGUI {
 		$this->access = new ilObjLiveVotingAccess();
 		$this->pl = ilLiveVotingPlugin::getInstance();
 		$this->voting_manager = new xlvoVotingManager();
+
+		$tpl->addJavaScript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/display_voter.js');
+		$tpl->addJavaScript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/vote_singlevote.js');
+		$tpl->addJavaScript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/vote_freeinput.js');
+		$tpl->addJavascript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/multi_line_input.js');
 	}
 
 
 	public function executeCommand() {
+
 		$this->tabs->addTab(self::TAB_STANDARD, $this->pl->txt('voting'), $this->ctrl->getLinkTarget($this, self::CMD_STANDARD));
 		$this->tabs->setTabActive(self::TAB_STANDARD);
 		$nextClass = $this->ctrl->getNextClass();
@@ -109,7 +105,6 @@ class xlvoVoterGUI {
 	 * @return string
 	 */
 	public function showVoting($obj_id = NULL, $voting_id = NULL) {
-
 		if ($obj_id == NULL) {
 			$obj_id = 0;
 			$this->tpl->setContent($this->showInfoScreen($obj_id, self::INFO_TYPE_WAITING));
@@ -150,6 +145,13 @@ class xlvoVoterGUI {
 				if ($pin == $config->getPin()) {
 					if ($config->isAnonymous()) {
 						$this->generateAnonymousSession();
+					} else {
+						require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoInitialisation.php');
+						xlvoInitialisation::writeToSession(xlvoInitialisation::CONTEXT_ILIAS);
+						//xlvoInitialisation::writeToCookie(xlvoInitialisation::CONTEXT_ILIAS);
+
+//						echo $_SESSION['xlvo_context'];
+//						exit;
 					}
 
 					return $this->showInfoScreen($config->getObjId(), self::INFO_TYPE_WAITING);
@@ -170,24 +172,31 @@ class xlvoVoterGUI {
 	 */
 	public function vote(xlvoVote $vote) {
 
-		// TODO check access
+		$option = $this->voting_manager->getOption($vote->getOptionId());
+		$obj_id = $option->getObjId();
+		if ($this->checkVotingAccess($obj_id)) {
 
-		$xlvoVote = new xlvoVote();
-		$xlvoVote->setOptionId($vote->getOptionId());
-		$xlvoVote->setId($vote->getId());
-		$xlvoVote->setStatus($vote->getStatus());
-		$xlvoVote->setFreeInput($vote->getFreeInput());
-		$vote = $this->voting_manager->vote($xlvoVote);
-		if ($vote instanceof xlvoVote) {
-			return $vote;
+			$xlvoVote = new xlvoVote();
+			$xlvoVote->setOptionId($vote->getOptionId());
+			$xlvoVote->setId($vote->getId());
+			$xlvoVote->setStatus($vote->getStatus());
+			$xlvoVote->setFreeInput($vote->getFreeInput());
+
+			$vote = $this->voting_manager->vote($xlvoVote);
+
+			if ($vote instanceof xlvoVote) {
+				return $vote;
+			} else {
+				// TODO implement exception
+				$vote = new xlvoVote();
+				$vote->setStatus(xlvoVote::STAT_INACTIVE);
+				$vote->setVotingId(0);
+				$vote->setOptionId($vote->getOptionId());
+
+				return $vote;
+			}
 		} else {
-			// TODO implement exception
-			$vote = new xlvoVote();
-			$vote->setStatus(xlvoVote::STAT_INACTIVE);
-			$vote->setVotingId(0);
-			$vote->setOptionId($vote->getOptionId());
-
-			return $vote;
+			$this->ctrl->redirect(new xlvoVoterGUI(), self::CMD_SHOW_ACCESS_SCREEN);
 		}
 	}
 
@@ -224,13 +233,14 @@ class xlvoVoterGUI {
 		$template->setVariable('VOTING_ID', 0);
 		$template->setVariable('OBJ_ID', $obj_id);
 		$template->setVariable('INFO_TYPE', $info_type);
-		$template->setVariable('INFO_TEXT', $this->pl->txt('msg_' . $info_type) . 'session_id: ' . $_SESSION['user_identifier']);
+		$template->setVariable('INFO_TEXT', $this->pl->txt('msg_' . $info_type));
 
 		return $template->get();
 	}
 
 
 	public function showAccessScreen($error_msg = false) {
+
 		$template = new ilTemplate(self::TPL_INFO_SCREEN, true, true);
 		$template->setVariable('VOTING_ID', 0);
 		$template->setVariable('OBJ_ID', 0);
@@ -242,7 +252,7 @@ class xlvoVoterGUI {
 		$form->addItem($t);
 		$form->addCommandButton(self::CMD_ACCESS_VOTING, $this->pl->txt('send'));
 
-		$template->setVariable('INFO_TEXT', $this->pl->txt('msg_access_screen') . $form->getHTML());
+		$template->setVariable('INFO_TEXT', $this->pl->txt('msg_access_screen') . ' --- user: ' . $this->usr->getId() . ' user_i: ' . $_SESSION['user_identifier'] . ' context: '.$_SESSION['xlvo_context'] . $form->getHTML());
 
 		if ($error_msg) {
 			$template->setVariable('ERROR', $this->pl->txt('msg_validation_error_pin'));
@@ -260,7 +270,7 @@ class xlvoVoterGUI {
 			$new_id = false;
 
 			while (! $new_id) {
-				$user_identifier = rand(1, 100000);
+				$user_identifier = rand(1000, 100000);
 				$existing = xlvoVote::where(array( 'user_identifier' => $user_identifier ))->count();
 				if ($existing <= 0) {
 					$new_id = true;

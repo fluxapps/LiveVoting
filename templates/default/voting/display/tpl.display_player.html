@@ -1,10 +1,18 @@
 <div id="display-player" class="display-player">
 	<div class="col-md-11">
-		<div class="page-header">
-			<h1>{QUESTION}
-				<small>{TITLE}</small>
-			</h1>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="col-md-7">
+					<h1>{QUESTION}
+						<small>{TITLE}</small>
+					</h1>
+				</div>
+				<div class="col-md-2">
+					<div><h1>{PIN}</h1></div>
+				</div>
+			</div>
 		</div>
+		<hr class="divider">
 		<div class="row">
 			<!-- BEGIN option -->
 			<div class="col-md-4">
@@ -17,7 +25,7 @@
 				<br>
 				<div class="panel panel-default">
 					<div class="display-results">
-						<div id="voting-data" type="hidden" voting="{VOTING_ID}" object="{OBJ_ID}" frozen="{FROZEN}" />
+						<div id="voting-data" type="hidden" voting="{VOTING_ID}" object="{OBJ_ID}" frozen="{FROZEN}"/>
 						{OPTION_CONTENT}
 					</div>
 				</div>

@@ -147,100 +147,6 @@ class ilObjLiveVoting extends ilObjectPlugin {
 		// TODO clone AR tables
 	}
 
-
-
-	// TODO move PIN functions
-	/**
-	 * @return string
-	 */
-	private function createPin() {
-		global $ilDB;
-		$this->freeSomePins();
-		$pins = array();
-		$query = "SELECT pin FROM rep_robj_xlvo_data";
-		$set = $ilDB->query($query);
-		while ($res = $ilDB->fetchAssoc($set)) {
-			$pins[] = $res['pin'];
-		}
-		do {
-			$pin = "";
-			for ($i = 0; $i < self::IL_LIVEVOTE_PINSIZE; $i ++) {
-				$pin .= rand(0, 9);
-			}
-		} while (in_array($pin, $pins));
-
-		return $pin;
-	}
-
-
-	/**
-	 * @description As the number of pin's is limited they have to be removed after a
-	 * certain time span. This method gets evoked every time a new Live Voting is created,
-	 * as this is the time when free pin's have to be available
-	 */
-	private function freeSomePins() {
-		global $ilDB;
-		$objs = array();
-		$query = "SELECT id FROM rep_robj_xlvo_data WHERE pin NOT LIKE '" . self::EXPIRED . "'";
-		$set = $ilDB->query($query);
-		//if we still have enough pins it's ok.
-		if (! $this->toManyPins($set->numRows())) {
-			return;
-		}
-		//save all livevotings in a list in order to only have to load them once.
-		while ($res = $ilDB->fetchAssoc($set)) {
-			$objs[$res['id']] = new ilObjLiveVoting($res['id']);
-		}
-		//we start at the expire time.
-		$expire_time = self::PIN_VALIDITY;
-		//while we have too many pins we delete some. deletion is done in checkPinValidity
-		while (toManyPins(count($objs))) {
-			$okObjs = array();
-			foreach ($objs as $obj) {
-				if ($this->checkPinValidity($obj, $expire_time)) {
-					$okObjs[] = $obj;
-				}
-			}
-			$obj = $okObjs;
-			$expire_time -= 5;
-		}
-	}
-
-
-	/**
-	 *
-	 * @param $pins how many pins are there?
-	 *
-	 * @return bool true iff more than half of the available pins are taken.
-	 */
-	private function toManyPins($pins) {
-		return $pins / pow(10, self::IL_LIVEVOTE_PINSIZE) > 0.5;
-	}
-
-
-	/**
-	 * @param $live_voting
-	 * @param $days         int How many days does it take for a pin to expire
-	 *
-	 * @internal param \ilLiveVoting $ilLiveVoting the live voting object.
-	 * @return bool true iff the pin is not yet expired
-	 */
-	private function checkPinValidity($live_voting, $days) {
-		$create_date_string = $live_voting->getCreateDate();
-		$create_date = new ilDateTime($create_date_string);
-		$expire_date = $create_date->increment(ilDateTime::DAY, $days);
-		$now = new ilDateTime(time(), IL_CAL_UNIX);
-		if ($now > $expire_date) {
-			$live_voting->setPin(self::EXPIRED);
-			$live_voting->doUpdate();
-
-			return false;
-		} else {
-			return true;
-		}
-	}
-
-
 	/**
 	 * @param $option_id int The option the User wants to vote for.
 	 * @param $usr_id    int The user that want's to vote, if the voting is anonym the usr_id will not be saved.
@@ -411,6 +317,96 @@ class ilObjLiveVoting extends ilObjectPlugin {
 		$option->doCreate();
 	}
 
+	// TODO move PIN functions
+	/**
+	 * @return string
+	 */
+	private function createPin() {
+		global $ilDB;
+		$this->freeSomePins();
+		$pins = array();
+		$query = "SELECT pin FROM rep_robj_xlvo_data";
+		$set = $ilDB->query($query);
+		while ($res = $ilDB->fetchAssoc($set)) {
+			$pins[] = $res['pin'];
+		}
+		do {
+			$pin = "";
+			for ($i = 0; $i < self::IL_LIVEVOTE_PINSIZE; $i ++) {
+				$pin .= rand(0, 9);
+			}
+		} while (in_array($pin, $pins));
+
+		return $pin;
+	}
+
+
+	/**
+	 * @description As the number of pin's is limited they have to be removed after a
+	 * certain time span. This method gets evoked every time a new Live Voting is created,
+	 * as this is the time when free pin's have to be available
+	 */
+	private function freeSomePins() {
+		global $ilDB;
+		$objs = array();
+		$query = "SELECT id FROM rep_robj_xlvo_data WHERE pin NOT LIKE '" . self::EXPIRED . "'";
+		$set = $ilDB->query($query);
+		//if we still have enough pins it's ok.
+		if (! $this->toManyPins($set->numRows())) {
+			return;
+		}
+		//save all livevotings in a list in order to only have to load them once.
+		while ($res = $ilDB->fetchAssoc($set)) {
+			$objs[$res['id']] = new ilObjLiveVoting($res['id']);
+		}
+		//we start at the expire time.
+		$expire_time = self::PIN_VALIDITY;
+		//while we have too many pins we delete some. deletion is done in checkPinValidity
+		while (toManyPins(count($objs))) {
+			$okObjs = array();
+			foreach ($objs as $obj) {
+				if ($this->checkPinValidity($obj, $expire_time)) {
+					$okObjs[] = $obj;
+				}
+			}
+			$obj = $okObjs;
+			$expire_time -= 5;
+		}
+	}
+
+
+	/**
+	 *
+	 * @param $pins how many pins are there?
+	 *
+	 * @return bool true iff more than half of the available pins are taken.
+	 */
+	private function toManyPins($pins) {
+		return $pins / pow(10, self::IL_LIVEVOTE_PINSIZE) > 0.5;
+	}
+
+
+	/**
+	 * @param $live_voting
+	 * @param $days         int How many days does it take for a pin to expire
+	 *
+	 * @internal param \ilLiveVoting $ilLiveVoting the live voting object.
+	 * @return bool true iff the pin is not yet expired
+	 */
+	private function checkPinValidity($live_voting, $days) {
+		$create_date_string = $live_voting->getCreateDate();
+		$create_date = new ilDateTime($create_date_string);
+		$expire_date = $create_date->increment(ilDateTime::DAY, $days);
+		$now = new ilDateTime(time(), IL_CAL_UNIX);
+		if ($now > $expire_date) {
+			$live_voting->setPin(self::EXPIRED);
+			$live_voting->doUpdate();
+
+			return false;
+		} else {
+			return true;
+		}
+	}
 
 	/**
 	 * @param $pin
