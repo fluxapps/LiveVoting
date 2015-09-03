@@ -235,7 +235,10 @@ class xlvoPlayerGUI {
 		}
 	}
 
-	
+
+	/**
+	 *
+	 */
 	public function nextVoting() {
 		if (! $this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
@@ -265,6 +268,9 @@ class xlvoPlayerGUI {
 	}
 
 
+	/**
+	 *
+	 */
 	public function previousVoting() {
 		if (! $this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);

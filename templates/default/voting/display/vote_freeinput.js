@@ -9,7 +9,7 @@
 
 			});
 
-			$('body').on('click', 'input[type=submit]', function() {
+			$('body').on('click', 'input[type=submit]', function () {
 				$(this).attr('clicked', 'true');
 			});
 
@@ -83,7 +83,7 @@ $('#form_free_input').freeInputVote();
 					event.preventDefault();
 			});
 
-			$('body').on('click', 'input[type=submit]', function() {
+			$('body').on('click', 'input[type=submit]', function () {
 				$(this).attr('clicked', 'true');
 			});
 
@@ -97,29 +97,40 @@ $('#form_free_input').freeInputVote();
 				// get name of submit button
 				var button = $(this).find("input[type=submit][clicked=true]");
 				button.attr('clicked', 'false');
+				button.attr('disabled', 'disabled');
 				var submit_name = button.attr('name');
 
 				// send vote
 				if (submit_name == 'cmd[send_votes]') {
 
-					// delete all existing votes
-					$.post(url, {option_id: option_id, type: 'delete_all'})
-						.done(function (data) {
-						}).fail(function (jqXHR) {
-							console.log(jqXHR);
-						}).always(function () {
-						});
-
 					// POST each vote
-					$("input[name^='vote']").each(function (i) {
-						var free_input = $(this).val();
-						$.post(url, {free_input: free_input, option_id: option_id, type: 'vote'})
+					var post_votes = function () {
+
+						$("input[name^='vote']").each(function (i) {
+							var free_input = $(this).val();
+							$.post(url, {free_input: free_input, option_id: option_id, type: 'vote'})
+								.done(function (data) {
+									console.log('done');
+								}).fail(function (jqXHR) {
+									console.log(jqXHR);
+								}).always(function () {
+								});
+						});
+					};
+
+					// delete all existing votes
+					var delete_votes = function () {
+						$.post(url, {option_id: option_id, type: 'delete_all'})
 							.done(function (data) {
+								post_votes();
+								button.attr('disabled', false);
 							}).fail(function (jqXHR) {
 								console.log(jqXHR);
 							}).always(function () {
 							});
-					});
+					};
+
+					delete_votes();
 
 					// set buttons
 					$("input[name='cmd[unvote_all]']").show();
