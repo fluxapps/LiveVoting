@@ -19,7 +19,7 @@
 				var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/freeInput/class.xlvoFreeInputSubmitEndpoint.php";
 
 				// get name of submit button
-				var submit_name = $(this).find("input[type=submit]").attr('name');
+				var submit_name = $(this).find("input[type=submit]:focus").attr('name');
 
 				// send vote
 				if (submit_name == 'cmd[send_vote]') {

@@ -151,7 +151,7 @@ class xlvoVoterGUI {
 						xlvoInitialisation::initILIAS();
 					}
 
-					return $this->showInfoScreen($config->getObjId(), self::INFO_TYPE_WAITING);
+					return $this->showInfoScreen($config->getObjId(), self::INFO_TYPE_WAITING) . $_SESSION['user_identifier'];
 				} else {
 					return $this->showAccessScreen(true);
 				}
@@ -169,9 +169,9 @@ class xlvoVoterGUI {
 	 */
 	public function vote(xlvoVote $vote) {
 		$option = $this->voting_manager->getOption($vote->getOptionId());
-		$obj_id = $option->getObjId();
-		if ($this->checkVotingAccess($obj_id)) { // FSX schlägt im moment fehl
-
+		$voting = $this->voting_manager->getVoting($option->getVotingId());
+		$obj_id = $voting->getObjId();
+		if ($this->checkVotingAccess($obj_id)) {
 			$xlvoVote = new xlvoVote();
 			$xlvoVote->setOptionId($vote->getOptionId());
 			$xlvoVote->setId($vote->getId());
@@ -260,13 +260,13 @@ class xlvoVoterGUI {
 
 	protected function generateAnonymousSession() {
 
-		if (empty($_SESSION['user_identifier'])) {
+//		if (empty($_SESSION['user_identifier'])) {
 
 			xlvoInitialisation::writeToSession(xlvoInitialisation::CONTEXT_PIN);
 			xlvoInitialisation::initILIAS();
 
 			$_SESSION['user_identifier'] = session_id();
-		}
+//		}
 //			session_start();
 //
 //			$new_id = false;
