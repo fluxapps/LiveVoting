@@ -81,6 +81,9 @@ if ($ilDB->tableColumnExists(ctrlmmData::returnDbTableName(), 'data_type')) {
         'default' => ctrlmmData::DATA_TYPE_STRING,
     ));
 }
-
-
+?>
+<#8>
+<?php
+global $ilDB;
+$ilDB->manipulate('DELETE FROM ctrl_classfile WHERE comp_prefix IN ("ui_uihk_ctrlmm", "ui_uihk_ctrlmainmenu");');
 ?>
