@@ -23,10 +23,12 @@ $posted_vote->setOptionId((int)$_REQUEST['option_id']);
 if ($request_type == 'unvote') {
 	$posted_vote->setStatus(xlvoVote::STAT_INACTIVE);
 	$vote = $voter_gui->vote($posted_vote);
+
 }
 if ($request_type == 'vote') {
 	$posted_vote->setStatus(xlvoVote::STAT_ACTIVE);
 	$vote = $voter_gui->vote($posted_vote);
+
 }
 if ($request_type == 'delete_all') {
 	$option = xlvoOption::find($posted_vote->getOptionId());
@@ -36,7 +38,11 @@ if ($request_type == 'delete_all') {
 	}
 }
 
-$votes = $voting_manager->getVotes($vote->getVotingId(), $vote->getOptionId(), true)->getArray();
+if(!$vote instanceof xlvoVote) {
+	$vote = $posted_vote;
+}
+
+$votes = $voting_manager->getVotesOfUser($vote->getVotingId(), $vote->getOptionId())->getArray();
 
 header('Content-type: application/json');
 echo json_encode($votes);

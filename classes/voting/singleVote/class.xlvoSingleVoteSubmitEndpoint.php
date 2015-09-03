@@ -18,9 +18,7 @@ $posted_vote->setId((int)$_REQUEST['vote_id']);
 $posted_vote->setOptionId((int)$_REQUEST['option_id']);
 $posted_vote->setStatus(xlvoVote::STAT_ACTIVE);
 
-$option = $voting_manager->getOption($posted_vote->getOptionId());
-$obj_id = $option->getObjId();
-echo $obj_id;
+//$option = $voting_manager->getOption($posted_vote->getOptionId());
 
 $vote = $voter_gui->vote($posted_vote);
 $votes = $voting_manager->getVotes($vote->getVotingId(), NULL, true)->getArray();

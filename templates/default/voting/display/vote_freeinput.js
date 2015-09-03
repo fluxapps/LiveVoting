@@ -9,9 +9,12 @@
 
 			});
 
+			$('body').on('click', 'input[type=submit]', function() {
+				$(this).attr('clicked', 'true');
+			});
+
 			$('#il_center_col').on('submit', '#form_free_input', function (event) {
 				event.preventDefault();
-
 				// get values for POST request
 				var free_input = $('#free_input').val();
 				var option_id = $('#option_id').val();
@@ -19,12 +22,15 @@
 				var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/freeInput/class.xlvoFreeInputSubmitEndpoint.php";
 
 				// get name of submit button
-				var submit_name = $(this).find("input[type=submit]:focus").attr('name');
+				var button = $(this).find("input[type=submit][clicked=true]");
+				button.attr('clicked', 'false');
+				var submit_name = button.attr('name');
 
 				// send vote
 				if (submit_name == 'cmd[send_vote]') {
 					$.post(url, {free_input: free_input, option_id: option_id, vote_id: vote_id, type: 'vote'})
 						.done(function (data) {
+							console.log(data);
 							// set button style to default
 							$('.btn-default').attr('class', 'btn btn-default btn-sm');
 							for (var key in data) {
@@ -46,6 +52,7 @@
 				if (submit_name == 'cmd[send_unvote]') {
 					$.post(url, {free_input: free_input, option_id: option_id, vote_id: vote_id, type: 'unvote'})
 						.done(function (data) {
+							console.log(data);
 							// set button style to default
 							$('.btn-default').attr('class', 'btn btn-default btn-sm');
 							// hide delete button
@@ -76,6 +83,10 @@ $('#form_free_input').freeInputVote();
 					event.preventDefault();
 			});
 
+			$('body').on('click', 'input[type=submit]', function() {
+				$(this).attr('clicked', 'true');
+			});
+
 			$('#il_center_col').on('submit', '#form_free_input_multi', function (event) {
 				event.preventDefault();
 
@@ -84,7 +95,9 @@ $('#form_free_input').freeInputVote();
 				var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/freeInput/class.xlvoFreeInputSubmitEndpoint.php";
 
 				// get name of submit button
-				var submit_name = $(this).find("input[type=submit]:focus").attr('name');
+				var button = $(this).find("input[type=submit][clicked=true]");
+				button.attr('clicked', 'false');
+				var submit_name = button.attr('name');
 
 				// send vote
 				if (submit_name == 'cmd[send_votes]') {

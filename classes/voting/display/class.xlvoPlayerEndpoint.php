@@ -11,7 +11,6 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingManager.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoPlayerGUI.php');
 
-
 $voter_gui = new xlvoVoterGUI();
 $player_gui = new xlvoPlayerGUI();
 $voting_manager = new xlvoVotingManager();
@@ -33,11 +32,16 @@ if ($posted_type == 'get_voting_data') {
 
 if ($posted_type == 'access_screen') {
 	header('Content-type: text/html');
-	echo $voter_gui->showAccessScreen();
+	if ($_COOKIE['pin_input']) {
+		echo $voter_gui->accessVoting($_COOKIE['pin_input']);
+	} else {
+		echo $voter_gui->showAccessScreen();
+	}
 }
 
 if ($posted_type == 'access_voting') {
 	header('Content-type: text/html');
+	setcookie('pin_input', $posted_pin, NULL, '/');
 	echo $voter_gui->accessVoting($posted_pin);
 }
 
