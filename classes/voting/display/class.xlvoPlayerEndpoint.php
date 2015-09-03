@@ -102,7 +102,7 @@ if ($posted_type == 'unfreeze_voting') {
 }
 
 if ($posted_type == 'reset_voting') {
-	$player_gui->resetVotes($posted_voting_id);
+	$player_gui->resetVotes($posted_object_id, $posted_voting_id);
 	header('Content-type: text/html');
 	echo '';
 }

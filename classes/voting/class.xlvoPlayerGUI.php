@@ -127,6 +127,7 @@ class xlvoPlayerGUI {
 				$this->ctrl->redirect(new xlvoVotingGUI(), xlvoVotingGUI::CMD_STANDARD);
 			} else {
 				$this->setActiveVoting($vo->getId());
+				$this->freeze($this->obj_id);
 				$this->ctrl->setParameter(new xlvoPlayerGUI(), self::IDENTIFIER, $vo->getId());
 				$this->ctrl->redirect(new xlvoPlayerGUI(), self::CMD_SHOW_VOTING);
 			}
@@ -247,6 +248,7 @@ class xlvoPlayerGUI {
 				$this->ctrl->redirect(new xlvoPlayerGUI(), self::CMD_END_OF_VOTING);
 			}
 
+			$this->freeze($this->obj_id);
 			$this->ctrl->setParameter(new xlvoPlayerGUI(), self::IDENTIFIER, $voting_id_next);
 			$this->ctrl->redirect(new xlvoPlayerGUI(), self::CMD_SHOW_VOTING);
 		}
@@ -287,6 +289,7 @@ class xlvoPlayerGUI {
 				$this->ctrl->redirect(new xlvoPlayerGUI(), self::CMD_START_OF_VOTING);
 			}
 
+			$this->freeze($this->obj_id);
 			$this->ctrl->setParameter(new xlvoPlayerGUI(), self::IDENTIFIER, $voting_id_previous);
 			$this->ctrl->redirect(new xlvoPlayerGUI(), self::CMD_SHOW_VOTING);
 		}
@@ -300,6 +303,9 @@ class xlvoPlayerGUI {
 		if (! $this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
 		} else {
+			/**
+			 * @var xlvoPlayer $xlvoPlayer
+			 */
 			$xlvoPlayer = $this->voting_manager->getPlayer($this->obj_id);
 			if ($xlvoPlayer instanceof xlvoPlayer) {
 				$xlvoPlayer->setStatus(xlvoPlayer::STAT_START_VOTING);
@@ -344,37 +350,21 @@ class xlvoPlayerGUI {
 
 
 	/**
-	 * Deletes votes for a voting.
-	 *
+	 * @param $obj_id
 	 * @param $voting_id
 	 */
-	public function resetVotes($voting_id) {
-		/**
-		 * @var xlvoVoting $xlvoVoting
-		 */
-		$xlvoVoting = $this->voting_manager->getVoting($voting_id);
-		if (! $this->access->hasWriteAccessForObject($xlvoVoting->getObjId(), $this->usr->getId())) {
+	public function resetVotes($obj_id, $voting_id) {
+		if (! $this->access->hasWriteAccessForObject($obj_id, $this->usr->getId())) {
 			// TODO send failure
 			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
 		} else {
 			/**
-			 * @var xlvoVoting $xlvoVoting
-			 */
-			$xlvoVoting = $this->voting_manager->getVoting($voting_id);
-			/**
 			 * @var xlvoPlayer $xlvoPlayer
 			 */
-			$xlvoPlayer = $this->voting_manager->getPlayer($xlvoVoting->getObjId());
-			$xlvoPlayer->setReset(xlvoPlayer::RESET_ON);
-			$this->voting_manager->updatePlayer($xlvoPlayer);
-
-			$this->voting_manager->deleteVotesForVoting($voting_id);
-
-			// wait 5 seconds. voter pages can be updated during this time.
-			sleep(5);
-
-			$xlvoPlayer->setReset(xlvoPlayer::RESET_OFF);
-			$xlvoPlayer->update();
+			$xlvoPlayer = $this->voting_manager->getPlayer($obj_id);
+			if ($xlvoPlayer->isFrozen()) {
+				$this->voting_manager->deleteVotesForVoting($voting_id);
+			}
 		}
 	}
 

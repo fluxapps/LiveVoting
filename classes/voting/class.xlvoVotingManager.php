@@ -416,7 +416,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 			$xlvoPlayer->setActiveVoting($voting_id);
 			$xlvoPlayer->setReset(xlvoPlayer::RESET_OFF);
 			$xlvoPlayer->setStatus(xlvoPlayer::STAT_START_VOTING);
-			$xlvoPlayer->setFrozen(false);
+			$xlvoPlayer->setFrozen(true);
 			$xlvoPlayer->create();
 		} else {
 			$xlvoPlayer->setActiveVoting($voting_id);
@@ -469,7 +469,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 		 * @var xlvoPlayer $xlvoPlayer
 		 */
 		$xlvoPlayer = $this->getPlayer($obj_id);
-		$this->unfreeze($obj_id);
+		$this->freezeVoting($obj_id);
 		$xlvoPlayer->setStatus(xlvoPlayer::STAT_STOPPED);
 		$this->updatePlayer($xlvoPlayer);
 	}

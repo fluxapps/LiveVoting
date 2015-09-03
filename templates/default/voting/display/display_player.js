@@ -111,10 +111,12 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 				btnFreeze.hide();
 				btnFreeze.parent().hide();
 				btnUnfreeze.html('<span class="glyphicon glyphicon-play" aria-hidden="true"></span>' + btnUnfreeze.text());
+				btnReset.attr('disabled', false);
 			} else {
 				btnUnfreeze.hide();
 				btnUnfreeze.parent().hide();
 				btnFreeze.html('<span class="glyphicon glyphicon-pause" aria-hidden="true"></span>' + btnFreeze.text());
+				btnReset.attr('disabled', 'disabled');
 			}
 
 		});
@@ -127,6 +129,7 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 
 			var btnFreeze = $('#btn-freeze');
 			var btnUnfreeze = $('#btn-unfreeze');
+			var btnReset = $('#btn-reset');
 
 			btnFreeze.click(function () {
 
@@ -141,6 +144,7 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 						btnUnfreeze.show();
 						btnUnfreeze.parent().show();
 						btnUnfreeze.html('<span class="glyphicon glyphicon-play" aria-hidden="true"></span>' + btnUnfreeze.text());
+						btnReset.attr('disabled', false);
 					}).fail(function (jqXHR) {
 						console.log(jqXHR);
 					}).always(function () {
@@ -156,6 +160,7 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 
 			var btnFreeze = $('#btn-freeze');
 			var btnUnfreeze = $('#btn-unfreeze');
+			var btnReset = $('#btn-reset');
 
 			btnUnfreeze.click(function () {
 
@@ -170,6 +175,7 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 						btnFreeze.html('<span class="glyphicon glyphicon-pause" aria-hidden="true"></span>' + btnFreeze.text());
 						btnUnfreeze.hide();
 						btnUnfreeze.parent().hide();
+						btnReset.attr('disabled', 'disabled');
 					}).fail(function (jqXHR) {
 						console.log(jqXHR);
 					}).always(function () {
