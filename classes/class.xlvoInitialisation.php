@@ -116,7 +116,7 @@ class xlvoInitialisation {
 	}
 
 
-	protected static function resetCookiePIN() {
+	public static function resetCookiePIN() {
 		unset($_COOKIE[self::PIN_COOKIE]);
 		setcookie(self::PIN_COOKIE, NULL, - 1, '/');
 	}
@@ -126,6 +126,6 @@ class xlvoInitialisation {
 	 * @return bool
 	 */
 	protected static function hasCookiePIN() {
-		return empty($_COOKIE[self::PIN_COOKIE]);
+		return $_COOKIE[self::PIN_COOKIE] > 0;
 	}
 }

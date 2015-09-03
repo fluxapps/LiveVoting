@@ -6,6 +6,7 @@
  */
 require_once('classes/class.xlvoInitialisation.php');
 xlvoInitialisation::init(xlvoInitialisation::CONTEXT_PIN);
+xlvoInitialisation::resetCookiePIN();
 
 global $ilCtrl;
 /**
