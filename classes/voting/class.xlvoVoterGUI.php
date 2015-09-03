@@ -148,10 +148,7 @@ class xlvoVoterGUI {
 					} else {
 						require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoInitialisation.php');
 						xlvoInitialisation::writeToSession(xlvoInitialisation::CONTEXT_ILIAS);
-						//xlvoInitialisation::writeToCookie(xlvoInitialisation::CONTEXT_ILIAS);
-
-//						echo $_SESSION['xlvo_context'];
-//						exit;
+						xlvoInitialisation::initILIAS();
 					}
 
 					return $this->showInfoScreen($config->getObjId(), self::INFO_TYPE_WAITING);
@@ -171,10 +168,9 @@ class xlvoVoterGUI {
 	 * @return xlvoVote
 	 */
 	public function vote(xlvoVote $vote) {
-
 		$option = $this->voting_manager->getOption($vote->getOptionId());
 		$obj_id = $option->getObjId();
-		if ($this->checkVotingAccess($obj_id)) {
+		if ($this->checkVotingAccess($obj_id)) { // FSX schlägt im moment fehl
 
 			$xlvoVote = new xlvoVote();
 			$xlvoVote->setOptionId($vote->getOptionId());
@@ -265,22 +261,28 @@ class xlvoVoterGUI {
 	protected function generateAnonymousSession() {
 
 		if (empty($_SESSION['user_identifier'])) {
-			session_start();
 
-			$new_id = false;
+			xlvoInitialisation::writeToSession(xlvoInitialisation::CONTEXT_PIN);
+			xlvoInitialisation::initILIAS();
 
-			while (! $new_id) {
-				$user_identifier = rand(1000, 100000);
-				$existing = xlvoVote::where(array( 'user_identifier' => $user_identifier ))->count();
-				if ($existing <= 0) {
-					$new_id = true;
-				}
-			}
-
-			if (isset($user_identifier)) {
-				$_SESSION['user_identifier'] = $user_identifier;
-			}
+			$_SESSION['user_identifier'] = session_id();
 		}
+//			session_start();
+//
+//			$new_id = false;
+//
+//			while (! $new_id) {
+//				$user_identifier = rand(1000, 100000);
+//				$existing = xlvoVote::where(array( 'user_identifier' => $user_identifier ))->count();
+//				if ($existing <= 0) {
+//					$new_id = true;
+//				}
+//			}
+//
+//			if (isset($user_identifier)) {
+//				$_SESSION['user_identifier'] = $user_identifier;
+//			}
+//		}
 	}
 
 

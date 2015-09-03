@@ -22,9 +22,9 @@
 */
 include_once("./Services/Repository/classes/class.ilObjectPlugin.php");
 include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilLiveVotingOption.php");
-include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilLiveVotingVote.php");
+//include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilLiveVotingVote.php");
 include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingConfig.php");
-include_once('class.ilLiveVotingConfigGUI.php');
+//include_once('class.ilLiveVotingConfigGUI.php');
 
 /**
  * Application class for example repository object.
