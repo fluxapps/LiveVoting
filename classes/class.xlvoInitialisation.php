@@ -13,6 +13,7 @@ class xlvoInitialisation {
 	const CONTEXT_PIN = 1;
 	const CONTEXT_ILIAS = 2;
 	const XLVO_CONTEXT = 'xlvo_context';
+	const PIN_COOKIE = 'xlvo_pin';
 	/**
 	 * @var int
 	 */
@@ -92,5 +93,39 @@ class xlvoInitialisation {
 				srInitialisation::initILIAS();
 				break;
 		}
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public static function getCookiePIN() {
+		if (! self::hasCookiePIN()) {
+			return false;
+		}
+
+		return $_COOKIE[self::PIN_COOKIE];
+	}
+
+
+	/**
+	 * @param int $pin
+	 */
+	public static function setCookiePIN($pin) {
+		setcookie(self::PIN_COOKIE, $pin, NULL, '/');
+	}
+
+
+	protected static function resetCookiePIN() {
+		unset($_COOKIE[self::PIN_COOKIE]);
+		setcookie(self::PIN_COOKIE, NULL, - 1, '/');
+	}
+
+
+	/**
+	 * @return bool
+	 */
+	protected static function hasCookiePIN() {
+		return empty($_COOKIE[self::PIN_COOKIE]);
 	}
 }

@@ -24,8 +24,6 @@ class ilLiveVotingPlugin extends ilRepositoryObjectPlugin implements xlvoDynamic
 	 */
 	public static function getInstance() {
 		if (! isset(self::$instance)) {
-//			global $ilDB;
-//			require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/sql/dbupdate.php');
 			self::$instance = new self();
 		}
 
