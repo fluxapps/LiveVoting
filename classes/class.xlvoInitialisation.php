@@ -78,7 +78,6 @@ class xlvoInitialisation {
 
 	protected function initILIAS() {
 		chdir(strstr($_SERVER['SCRIPT_FILENAME'], 'Customizing', true));
-
 		switch ($this->getContext()) {
 			case self::CONTEXT_ILIAS:
 				require_once('./include/inc.header.php');
@@ -88,10 +87,8 @@ class xlvoInitialisation {
 				require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/context/srContext.php");
 				require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/context/srContextLvo.php");
 				require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/context/srInitialisation.php");
-
 				srContext::init('srContextLvo');
 				srInitialisation::initILIAS();
-
 				break;
 		}
 	}
