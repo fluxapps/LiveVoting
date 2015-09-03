@@ -20,11 +20,8 @@
 	| Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. |
 	+-----------------------------------------------------------------------------+
 */
-include_once("./Services/Repository/classes/class.ilObjectPlugin.php");
-include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilLiveVotingOption.php");
-//include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilLiveVotingVote.php");
-include_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingConfig.php");
-//include_once('class.ilLiveVotingConfigGUI.php');
+require_once('./Services/Repository/classes/class.ilObjectPlugin.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingConfig.php');
 
 /**
  * Application class for example repository object.
@@ -146,6 +143,7 @@ class ilObjLiveVoting extends ilObjectPlugin {
 		//		}
 		// TODO clone AR tables
 	}
+
 
 	/**
 	 * @param $option_id int The option the User wants to vote for.
@@ -407,6 +405,7 @@ class ilObjLiveVoting extends ilObjectPlugin {
 			return true;
 		}
 	}
+
 
 	/**
 	 * @param $pin
