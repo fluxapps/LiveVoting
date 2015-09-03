@@ -70,30 +70,6 @@ class xlvoVotingConfig extends ActiveRecord {
 	 * @db_fieldtype        timestamp
 	 */
 	protected $end_date;
-	/**
-	 * @var bool
-	 *
-	 * @db_has_field        true
-	 * @db_fieldtype        integer
-	 * @db_length           1
-	 */
-	protected $frozen;
-
-
-	/**
-	 * @return string
-	 */
-	public function getId() {
-		return $this->id;
-	}
-
-
-	/**
-	 * @param string $id
-	 */
-	public function setId($id) {
-		$this->id = $id;
-	}
 
 
 	/**
@@ -205,21 +181,5 @@ class xlvoVotingConfig extends ActiveRecord {
 	 */
 	public function setEndDate($end_date) {
 		$this->end_date = $end_date;
-	}
-
-
-	/**
-	 * @return boolean
-	 */
-	public function isFrozen() {
-		return $this->frozen;
-	}
-
-
-	/**
-	 * @param boolean $frozen
-	 */
-	public function setFrozen($frozen) {
-		$this->frozen = $frozen;
 	}
 }

@@ -416,7 +416,7 @@ class xlvoPlayerGUI {
 		if (! $this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
 		} else {
-			$this->voting_manager->terminateVoting();
+			$this->voting_manager->terminateVoting($this->obj_id);
 			$this->ctrl->redirect(new xlvoVotingGUI(), xlvoVotingGUI::CMD_STANDARD);
 		}
 	}

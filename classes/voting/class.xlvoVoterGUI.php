@@ -209,10 +209,9 @@ class xlvoVoterGUI {
 
 			return $data;
 		} else {
-			$config = $this->voting_manager->getVotingConfig($obj_id);
 			$player = $this->voting_manager->getPlayer($obj_id);
 			$data = array(
-				'voIsFrozen' => $config->isFrozen(),
+				'voIsFrozen' => $player->isFrozen(),
 				'voIsReset' => $player->isReset(),
 				'voStatus' => $player->getStatus(),
 				'voHasAccess' => $this->checkVotingAccess($obj_id),

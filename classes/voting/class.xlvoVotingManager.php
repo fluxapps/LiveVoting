@@ -234,7 +234,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 		 */
 		$existing_votes = $this->getVotes($xlvoOption->getVotingId(), NULL, true)->get();
 
-		if (! $xlvoVotingConfig->isFrozen() && $xlvoPlayer->getStatus() == xlvoPlayer::STAT_RUNNING && $this->isVotingAvailable($obj_id)) {
+		if (! $xlvoPlayer->isFrozen() && $xlvoPlayer->getStatus() == xlvoPlayer::STAT_RUNNING && $this->isVotingAvailable($obj_id)) {
 
 			/*
 			 * SINGLE VOTE
@@ -416,6 +416,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 			$xlvoPlayer->setActiveVoting($voting_id);
 			$xlvoPlayer->setReset(xlvoPlayer::RESET_OFF);
 			$xlvoPlayer->setStatus(xlvoPlayer::STAT_START_VOTING);
+			$xlvoPlayer->setFrozen(false);
 			$xlvoPlayer->create();
 		} else {
 			$xlvoPlayer->setActiveVoting($voting_id);
@@ -435,7 +436,6 @@ class xlvoVotingManager implements xlvoVotingInterface {
 		 * @var xlvoPlayer $xlvoPlayer
 		 */
 		$xlvoPlayer = $this->getPlayer($obj_id);
-
 		if ($xlvoPlayer instanceof xlvoPlayer) {
 			return $xlvoPlayer->getActiveVoting();
 		} else {
@@ -446,30 +446,30 @@ class xlvoVotingManager implements xlvoVotingInterface {
 
 	public function freezeVoting($obj_id) {
 		/**
-		 * @var xlvoVotingConfig $xlvoVotingConfig
+		 * @var xlvoPlayer $xlvoPlayer
 		 */
-		$xlvoVotingConfig = $this->getVotingConfig($obj_id);
-		$xlvoVotingConfig->setFrozen(true);
-		$this->updateVotingConfig($xlvoVotingConfig);
+		$xlvoPlayer = $this->getPlayer($obj_id);
+		$xlvoPlayer->setFrozen(true);
+		$this->updatePlayer($xlvoPlayer);
 	}
 
 
 	public function unfreezeVoting($obj_id) {
 		/**
-		 * @var xlvoVotingConfig $xlvoVotingConfig
+		 * @var xlvoPlayer $xlvoPlayer
 		 */
-		$xlvoVotingConfig = $this->getVotingConfig($obj_id);
-		$xlvoVotingConfig->setFrozen(false);
-		$xlvoVotingConfig->update();
+		$xlvoPlayer = $this->getPlayer($obj_id);
+		$xlvoPlayer->setFrozen(false);
+		$this->updatePlayer($xlvoPlayer);
 	}
 
 
-	public function terminateVoting() {
+	public function terminateVoting($obj_id) {
 		/**
 		 * @var xlvoPlayer $xlvoPlayer
 		 */
-		$this->unfreeze($this->obj_id);
-		$xlvoPlayer = $this->getPlayer($this->obj_id);
+		$xlvoPlayer = $this->getPlayer($obj_id);
+		$this->unfreeze($obj_id);
 		$xlvoPlayer->setStatus(xlvoPlayer::STAT_STOPPED);
 		$this->updatePlayer($xlvoPlayer);
 	}
