@@ -60,6 +60,9 @@ class xlvoBarPercentageGUI extends xlvoBarGUI {
 
 	protected function getPercentage() {
 		$total_votes = $this->votes->count();
+		if($total_votes === 0) {
+			return 0;
+		}
 		$option_votes = $this->votes->where(array( 'option_id' => $this->option->getId() ))->count();
 		$percentage = ($option_votes / $total_votes) * 100;
 

@@ -1,7 +1,8 @@
 <?php
 
 chdir(strstr($_SERVER['SCRIPT_FILENAME'], 'Customizing', true));
-require_once('./include/inc.header.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoInitialisation.php');
+xlvoInitialisation::initILIAS();
 
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilObjLiveVotingAccess.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilLiveVotingPlugin.php');
@@ -14,10 +15,10 @@ $voter_gui = new xlvoVoterGUI();
 $posted_vote = new xlvoVote();
 $voting_manager = new xlvoVotingManager();
 
-$request_type = $_POST['type'];
-$posted_vote->setFreeInput($_POST['free_input']);
-$posted_vote->setId((int)$_POST['vote_id']);
-$posted_vote->setOptionId((int)$_POST['option_id']);
+$request_type = $_REQUEST['type'];
+$posted_vote->setFreeInput($_REQUEST['free_input']);
+$posted_vote->setId((int)$_REQUEST['vote_id']);
+$posted_vote->setOptionId((int)$_REQUEST['option_id']);
 
 if ($request_type == 'unvote') {
 	$posted_vote->setStatus(xlvoVote::STAT_INACTIVE);
