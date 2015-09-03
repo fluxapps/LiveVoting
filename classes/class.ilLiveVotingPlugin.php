@@ -1,6 +1,7 @@
 <?php
 
 include_once('./Services/Repository/classes/class.ilRepositoryObjectPlugin.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoDynamicLanguage.php');
 
 /**
  * LiveVoting repository object plugin
@@ -9,7 +10,7 @@ include_once('./Services/Repository/classes/class.ilRepositoryObjectPlugin.php')
  * @version $Id$
  *
  */
-class ilLiveVotingPlugin extends ilRepositoryObjectPlugin {
+class ilLiveVotingPlugin extends ilRepositoryObjectPlugin implements xlvoDynamicLanguageInterface {
 
 	const PLUGIN_NAME = 'LiveVoting';
 	/**
@@ -23,6 +24,8 @@ class ilLiveVotingPlugin extends ilRepositoryObjectPlugin {
 	 */
 	public static function getInstance() {
 		if (! isset(self::$instance)) {
+//			global $ilDB;
+//			require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/sql/dbupdate.php');
 			self::$instance = new self();
 		}
 
@@ -39,40 +42,33 @@ class ilLiveVotingPlugin extends ilRepositoryObjectPlugin {
 
 
 	/**
+	 * @param $a_var
+	 *
 	 * @return string
 	 */
-	public function getRootPath() {
-		return substr(__FILE__, 0, strpos(__FILE__, 'classes/' . basename(__FILE__)));
+	public function txt($a_var, $real_call = false) {
+		if ($real_call) {
+			return parent::txt($a_var);
+		} else {
+			return xlvoDynamicLanguage::getInstance($this, xlvoDynamicLanguage::MODE_PROD)->txt($a_var);
+		}
 	}
 
 
 	/**
 	 * @return string
 	 */
-	public function getConfigTableName() {
-		return 'rep_robj_xlvo_conf';
+	public function getCsvPath() {
+		return './Customizing/global/plugins/Services/Repository/RepositoryObject/OpenCast/lang/lang.csv';
 	}
 
 
-	public static function loadAR() {
-		$ILIAS_AR = './Services/ActiveRecord/class.ActiveRecord.php';
-		$CUSTOM_AR = './Customizing/global/plugins/Libraries/ActiveRecord/class.ActiveRecord.php';
-
-		if (class_exists('ActiveRecord')) {
-			return true;
-		}
-
-		if (class_exists('ActiveRecordList')) {
-			return true;
-		}
-
-		if (is_file($ILIAS_AR)) {
-			require_once($ILIAS_AR);
-		} elseif (is_file($CUSTOM_AR)) {
-			require_once($CUSTOM_AR);
-		} else {
-			throw new Exception('Please install ILIAS ActiveRecord or use ILIAS 5');
-		}
+	/**
+	 * @return string
+	 */
+	public function getAjaxLink() {
+		return '';
+		// TODO: Implement getAjaxLink() method.
 	}
 }
 

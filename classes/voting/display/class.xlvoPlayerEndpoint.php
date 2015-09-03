@@ -1,11 +1,9 @@
 <?php
 
 chdir(strstr($_SERVER['SCRIPT_FILENAME'], 'Customizing', true));
-//require_once('./include/inc.header.php');
+
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoInitialisation.php');
 xlvoInitialisation::initILIAS();
-//echo $_SESSION['xlvo_context'];
-//exit;
 
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilObjLiveVotingAccess.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilLiveVotingPlugin.php');
@@ -15,16 +13,14 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoPlayerGUI.php');
 
 
-
-
 $voter_gui = new xlvoVoterGUI();
 $player_gui = new xlvoPlayerGUI();
 $voting_manager = new xlvoVotingManager();
 
-$posted_type = $_POST['type_player'];
-$posted_voting_id = $_POST['voting_id_current'];
-$posted_object_id = $_POST['object_id'];
-$posted_pin = $_POST['pin_input'];
+$posted_type = $_REQUEST['type_player'];
+$posted_voting_id = $_REQUEST['voting_id_current'];
+$posted_object_id = $_REQUEST['object_id'];
+$posted_pin = $_REQUEST['pin_input'];
 
 /**
  * Voter
