@@ -452,6 +452,7 @@ class xlvoPlayerGUI {
 		$this->toolbar->addButtonInstance($b);
 
 		$b = ilLinkButton::getInstance();
+		$b->setPrimary(true);
 		$b->setCaption('rep_robj_xlvo_unfreeze');
 		$b->setUrl('#');
 		$b->setId('btn-unfreeze');
