@@ -4,6 +4,9 @@
  * Class xlvoInitialisation
  *
  * @author Fabian Schmid <fs@studer-raimann.ch>
+ *
+ * @description Initializes a ILIAS environment depending on Context (PIN or ILIAS).
+ *              This is used in every entry-point for users and AJAX requests
  */
 class xlvoInitialisation {
 
