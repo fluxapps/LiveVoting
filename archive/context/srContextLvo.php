@@ -22,7 +22,7 @@ class srContextLvo extends ilContextBase {
 	 * @return bool
 	 */
 	public static function hasUser() {
-		return true;
+		return false;
 	}
 
 
