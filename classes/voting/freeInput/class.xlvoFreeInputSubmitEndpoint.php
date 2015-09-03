@@ -2,7 +2,7 @@
 
 chdir(strstr($_SERVER['SCRIPT_FILENAME'], 'Customizing', true));
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoInitialisation.php');
-xlvoInitialisation::initILIAS();
+xlvoInitialisation::init();
 
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilObjLiveVotingAccess.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilLiveVotingPlugin.php');

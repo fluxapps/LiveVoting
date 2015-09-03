@@ -237,13 +237,9 @@ class xlvoVotingManager implements xlvoVotingInterface {
 		$vote->setUserIdType($config->isAnonymous());
 		switch ($vote->getUserIdType()) {
 			case xlvoVote::USER_ILIAS:
-//				echo $_SESSION['user_identifier'];
-//				throw new Exception();
 				$vote->setUserId($this->user_ilias->getId());
 				break;
 			case xlvoVote::USER_ANONYMOUS:
-//				echo $_SESSION['user_identifier'];
-//				throw new Exception();
 				$vote->setUserIdentifier($_SESSION['user_identifier']);
 				break;
 		}
