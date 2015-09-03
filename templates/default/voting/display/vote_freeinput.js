@@ -122,6 +122,7 @@ $('#form_free_input').freeInputVote();
 					var delete_votes = function () {
 						$.post(url, {option_id: option_id, type: 'delete_all'})
 							.done(function (data) {
+								// save the new votes
 								post_votes();
 								button.attr('disabled', false);
 							}).fail(function (jqXHR) {
@@ -130,6 +131,7 @@ $('#form_free_input').freeInputVote();
 							});
 					};
 
+					// call function
 					delete_votes();
 
 					// set buttons
