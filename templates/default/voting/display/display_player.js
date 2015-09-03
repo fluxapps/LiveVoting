@@ -98,11 +98,11 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 
 
 			var btnShowResults = $('#btn-show-results');
-			btnShowResults.hide();
-			btnShowResults.parent().hide();
 			btnShowResults.html('<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>' + btnShowResults.text());
 			var btnHideResults = $('#btn-hide-results');
 			btnHideResults.html('<span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>' + btnHideResults.text());
+			btnHideResults.hide();
+			btnHideResults.parent().hide();
 
 			var isFrozen = $('#voting-data').attr('frozen');
 			var btnFreeze = $('#btn-freeze');
