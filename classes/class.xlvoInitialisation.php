@@ -2,28 +2,81 @@
 
 /**
  * Class xlvoInitialisation
+ *
+ * @author Fabian Schmid <fs@studer-raimann.ch>
+ *
+ * @description Initializes a ILIAS environment depending on Context (PIN or ILIAS).
+ *              This is used in every entry-point for users and AJAX requests
  */
 class xlvoInitialisation {
 
 	const CONTEXT_PIN = 1;
 	const CONTEXT_ILIAS = 2;
+	const XLVO_CONTEXT = 'xlvo_context';
 	/**
 	 * @var int
 	 */
-	protected static $context = self::CONTEXT_PIN;
+	protected $context = self::CONTEXT_PIN;
 
 
-	public static function initILIAS() {
-		//		session_start();
+	/**
+	 * xlvoInitialisation constructor.
+	 *
+	 * @param int $context
+	 */
+	protected function __construct($context = NULL) {
+		if ($context) {
+			$this->context = $context;
+			$this->writeToCookie();
+		} else {
+			$this->readFromCookie();
+		}
+		$this->initILIAS();
+	}
+
+
+	/**
+	 * @param null $context
+	 */
+	public static function init($context = NULL) {
+		new self($context);
+	}
+
+
+	protected function readFromCookie() {
+		if (! empty($_COOKIE[self::XLVO_CONTEXT])) {
+			self::setContext($_COOKIE[self::XLVO_CONTEXT]);
+		} else {
+			self::setContext(self::CONTEXT_ILIAS);
+		}
+	}
+
+
+	protected function writeToCookie() {
+		setcookie(self::XLVO_CONTEXT, $this->getContext(), NULL, '/');
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getContext() {
+		return $this->context;
+	}
+
+
+	/**
+	 * @param int $context
+	 */
+	public function setContext($context) {
+		$this->context = $context;
+	}
+
+
+	protected function initILIAS() {
 		chdir(strstr($_SERVER['SCRIPT_FILENAME'], 'Customizing', true));
-		//		self::readFromCookie();
-		//		echo 'read ' . var_dump($_SESSION['xlvo_context']);
-		//		echo 'get ' . self::getContext();
-		//		echo var_dump($_SESSION['xlvo_context']);
-		//		exit;
-		self::readFromSession();
 
-		switch (self::getContext()) {
+		switch ($this->getContext()) {
 			case self::CONTEXT_ILIAS:
 				require_once('./include/inc.header.php');
 
@@ -37,55 +90,5 @@ class xlvoInitialisation {
 				srInitialisation::initILIAS();
 				break;
 		}
-	}
-
-
-	public static function readFromSession() {
-		//		echo 'read ' . empty($_SESSION['xlvo_context']);
-		//		echo 'get ' . self::getContext();
-		//		exit;
-		if (! empty($_SESSION['xlvo_context'])) {
-			self::setContext($_SESSION['xlvo_context']);
-		} else {
-			self::setContext(self::CONTEXT_PIN);
-		}
-	}
-
-
-	public static function writeToSession($context) {
-		$_SESSION['xlvo_context'] = $context;
-	}
-
-
-	//	public static function readFromCookie() {
-	//		if (! empty($_COOKIE['lxvo_context'])) {
-	//			self::setContext($_COOKIE['xlvo_context']);
-	//		} else {
-	//			self::setContext(self::CONTEXT_PIN);
-	//		}
-	//	}
-	//
-	//
-	//	public static function writeToCookie($context) {
-	//		//		if (empty($_COOKIE['lxvo_context']) || (self::getContext() != self::CONTEXT_PIN)) {
-	//		//			unset($_COOKIE['lxvo_context']);
-	//		//			setcookie('xlvo_context', $context, time() + 3600, "./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting", "", 0);
-	//		setcookie('xlvo_context', $context, time() + 3600, "./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting");
-	//		//		}
-	//	}
-
-	/**
-	 * @return int
-	 */
-	public static function getContext() {
-		return self::$context;
-	}
-
-
-	/**
-	 * @param int $context
-	 */
-	public static function setContext($context) {
-		self::$context = $context;
 	}
 }
