@@ -84,7 +84,6 @@ class ilObjLiveVoting extends ilObjectPlugin {
 		$config = new xlvoVotingConfig();
 		$config->setObjId($this->getId());
 		$config->setPin($pin);
-		$config->setFrozen(false);
 		$config->setTerminable(false);
 		$config->setAnonymous(false);
 		$config->setObjOnline(false);

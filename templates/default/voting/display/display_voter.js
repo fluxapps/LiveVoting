@@ -61,7 +61,6 @@
 				$.get(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'get_voting_data'})
 					.done(function (data) {
 						var isFrozen = +data.voIsFrozen;
-						var isReset = +data.voIsReset;
 						var status = +data.voStatus;
 						var isAvailable = +data.voIsAvailable;
 						var hasAccess = +data.voHasAccess;
@@ -81,10 +80,6 @@
 							loadEndOfVotingScreen();
 						} else if (isFrozen) {
 							loadWaitingScreen();
-						} else if (isReset) {
-							// set votingId to 0 to reload current voting
-							$('#voting-data').attr('voting', 0);
-							loadVotingScreen();
 						} else {
 							loadVotingScreen();
 						}

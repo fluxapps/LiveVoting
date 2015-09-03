@@ -64,7 +64,15 @@ class xlvoPlayer extends ActiveRecord {
 	 * @db_fieldtype        integer
 	 * @db_length           1
 	 */
-	protected $reset;
+	protected $frozen;
+	/**
+	 * @var int
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           8
+	 */
+	protected $timestamp_refresh;
 
 
 	/**
@@ -134,15 +142,31 @@ class xlvoPlayer extends ActiveRecord {
 	/**
 	 * @return boolean
 	 */
-	public function isReset() {
-		return $this->reset;
+	public function isFrozen() {
+		return $this->frozen;
 	}
 
 
 	/**
-	 * @param boolean $reset
+	 * @param boolean $frozen
 	 */
-	public function setReset($reset) {
-		$this->reset = $reset;
+	public function setFrozen($frozen) {
+		$this->frozen = $frozen;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getTimestampRefresh() {
+		return $this->timestamp_refresh;
+	}
+
+
+	/**
+	 * @param int $timestamp_refresh
+	 */
+	public function setTimestampRefresh($timestamp_refresh) {
+		$this->timestamp_refresh = $timestamp_refresh;
 	}
 }

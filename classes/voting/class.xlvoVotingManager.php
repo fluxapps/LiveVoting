@@ -166,6 +166,13 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	}
 
 
+	public function updateVotingConfig(xlvoVotingConfig $xlvoVotingConfig) {
+		$xlvoVotingConfig->update();
+
+		return $xlvoVotingConfig;
+	}
+
+
 	/**
 	 * @return ActiveRecordList
 	 */
@@ -181,6 +188,13 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	 */
 	public function getPlayer($obj_id) {
 		return xlvoPlayer::where(array( 'obj_id' => $obj_id ))->first();
+	}
+
+
+	public function updatePlayer(xlvoPlayer $xlvoPlayer) {
+		$xlvoPlayer->update();
+
+		return $xlvoPlayer;
 	}
 
 
@@ -220,7 +234,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 		 */
 		$existing_votes = $this->getVotes($xlvoOption->getVotingId(), NULL, true)->get();
 
-		if (! $xlvoVotingConfig->isFrozen() && $xlvoPlayer->getStatus() == xlvoPlayer::STAT_RUNNING && $this->isVotingAvailable($obj_id)) {
+		if (! $xlvoPlayer->isFrozen() && $xlvoPlayer->getStatus() == xlvoPlayer::STAT_RUNNING && $this->isVotingAvailable($obj_id)) {
 
 			/*
 			 * SINGLE VOTE
@@ -384,5 +398,79 @@ class xlvoVotingManager implements xlvoVotingInterface {
 				return false;
 			}
 		}
+	}
+
+
+	/**
+	 * @param $voting_id
+	 */
+	public function setActiveVoting($voting_id) {
+		/**
+		 * @var xlvoVoting $xlvoVoting
+		 */
+		$xlvoVoting = $this->getVoting($voting_id);
+		$xlvoPlayer = $this->getPlayer($xlvoVoting->getObjId());
+		if ($xlvoPlayer == NULL) {
+			$xlvoPlayer = new xlvoPlayer();
+			$xlvoPlayer->setObjId($xlvoVoting->getObjId());
+			$xlvoPlayer->setActiveVoting($voting_id);
+			$xlvoPlayer->setReset(xlvoPlayer::RESET_OFF);
+			$xlvoPlayer->setStatus(xlvoPlayer::STAT_START_VOTING);
+			$xlvoPlayer->setFrozen(true);
+			$xlvoPlayer->create();
+		} else {
+			$xlvoPlayer->setActiveVoting($voting_id);
+			$xlvoPlayer->setStatus(xlvoPlayer::STAT_RUNNING);
+			$xlvoPlayer->update();
+		}
+	}
+
+
+	/**
+	 * @param $obj_id
+	 *
+	 * @return int
+	 */
+	public function getActiveVoting($obj_id) {
+		/**
+		 * @var xlvoPlayer $xlvoPlayer
+		 */
+		$xlvoPlayer = $this->getPlayer($obj_id);
+		if ($xlvoPlayer instanceof xlvoPlayer) {
+			return $xlvoPlayer->getActiveVoting();
+		} else {
+			return 0;
+		}
+	}
+
+
+	public function freezeVoting($obj_id) {
+		/**
+		 * @var xlvoPlayer $xlvoPlayer
+		 */
+		$xlvoPlayer = $this->getPlayer($obj_id);
+		$xlvoPlayer->setFrozen(true);
+		$this->updatePlayer($xlvoPlayer);
+	}
+
+
+	public function unfreezeVoting($obj_id) {
+		/**
+		 * @var xlvoPlayer $xlvoPlayer
+		 */
+		$xlvoPlayer = $this->getPlayer($obj_id);
+		$xlvoPlayer->setFrozen(false);
+		$this->updatePlayer($xlvoPlayer);
+	}
+
+
+	public function terminateVoting($obj_id) {
+		/**
+		 * @var xlvoPlayer $xlvoPlayer
+		 */
+		$xlvoPlayer = $this->getPlayer($obj_id);
+		$this->freezeVoting($obj_id);
+		$xlvoPlayer->setStatus(xlvoPlayer::STAT_STOPPED);
+		$this->updatePlayer($xlvoPlayer);
 	}
 }

@@ -200,7 +200,6 @@ class xlvoVoterGUI {
 		if ($obj_id == NULL || $obj_id == 0) {
 			$data = array(
 				'voIsFrozen' => 0,
-				'voIsReset' => 0,
 				'voStatus' => xlvoPlayer::STAT_STOPPED,
 				'voHasAccess' => 0,
 				'voIsAvailable' => 1
@@ -208,11 +207,9 @@ class xlvoVoterGUI {
 
 			return $data;
 		} else {
-			$config = $this->voting_manager->getVotingConfig($obj_id);
 			$player = $this->voting_manager->getPlayer($obj_id);
 			$data = array(
-				'voIsFrozen' => $config->isFrozen(),
-				'voIsReset' => $player->isReset(),
+				'voIsFrozen' => $player->isFrozen(),
 				'voStatus' => $player->getStatus(),
 				'voHasAccess' => $this->checkVotingAccess($obj_id),
 				'voIsAvailable' => $this->voting_manager->isVotingAvailable($obj_id)
