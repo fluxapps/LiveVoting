@@ -11,7 +11,6 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingManager.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoPlayerGUI.php');
 
-
 $voter_gui = new xlvoVoterGUI();
 $player_gui = new xlvoPlayerGUI();
 $voting_manager = new xlvoVotingManager();

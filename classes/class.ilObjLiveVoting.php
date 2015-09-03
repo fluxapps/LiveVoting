@@ -257,8 +257,6 @@ class ilObjLiveVoting extends ilObjectPlugin {
 	 * @param $array array id => title
 	 */
 	public function setOptionsByArray(array $array) {
-		//		echo '<pre>'.print_r($array,1).'</pre>';
-		//		exit;
 		$options = $this->getOptions();
 		foreach ($array as $id => $title) {
 			if (array_key_exists($id, $options)) {
