@@ -98,6 +98,48 @@ class ilObjLiveVotingAccess extends ilObjectPluginAccess {
 
 
 	/**
+	 * @param $obj_id
+	 * @param $user_id
+	 *
+	 * @return bool
+	 */
+	public static function hasReadAccessForObject($obj_id, $user_id) {
+
+		$refs = ilObject2::_getAllReferences($obj_id);
+		foreach ($refs as $ref_id) {
+
+			if (self::hasAccess('read', $ref_id, $user_id)) {
+				return true;
+				break;
+			}
+		}
+
+		return false;
+	}
+
+
+	/**
+	 * @param $obj_id
+	 * @param $user_id
+	 *
+	 * @return bool
+	 */
+	public static function hasWriteAccessForObject($obj_id, $user_id) {
+
+		$refs = ilObject2::_getAllReferences($obj_id);
+		foreach ($refs as $ref_id) {
+
+			if (self::hasAccess('write', $ref_id, $user_id)) {
+				return true;
+				break;
+			}
+		}
+
+		return false;
+	}
+
+
+	/**
 	 * @param null $ref_id
 	 * @param null $user_id
 	 *

@@ -10,6 +10,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoOption.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingManager.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoMultiLineInputGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoInitialisation.php');
 
 /**
  * @ilCtrl_isCalledBy xlvoVoterGUI: ilUIPluginRouterGUI
@@ -146,7 +147,6 @@ class xlvoVoterGUI {
 					if ($config->isAnonymous()) {
 						$this->generateAnonymousSession();
 					} else {
-						require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoInitialisation.php');
 						xlvoInitialisation::init(xlvoInitialisation::CONTEXT_ILIAS);
 					}
 
