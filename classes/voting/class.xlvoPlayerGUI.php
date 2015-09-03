@@ -15,7 +15,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoMultiLineInputGUI.php');
 
 /**
- *
+ * Class xlvoPlayerGUI
  */
 class xlvoPlayerGUI {
 
@@ -70,6 +70,9 @@ class xlvoPlayerGUI {
 	protected $voting_manager;
 
 
+	/**
+	 *
+	 */
 	public function __construct() {
 		global $tpl, $ilCtrl, $ilTabs, $ilUser, $ilToolbar;
 		$tpl->addJavaScript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/display_player.js');
@@ -93,6 +96,9 @@ class xlvoPlayerGUI {
 	}
 
 
+	/**
+	 *
+	 */
 	public function executeCommand() {
 		$this->tabs->addTab(self::TAB_STANDARD, $this->pl->txt('player'), $this->ctrl->getLinkTarget($this, self::CMD_STANDARD));
 		$this->tabs->setTabActive(self::TAB_STANDARD);
@@ -111,6 +117,9 @@ class xlvoPlayerGUI {
 	}
 
 
+	/**
+	 *
+	 */
 	public function startVoting() {
 		if (! $this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
@@ -187,7 +196,13 @@ class xlvoPlayerGUI {
 	}
 
 
+	/**
+	 * @param $voting_id
+	 */
 	public function setActiveVoting($voting_id) {
+		/**
+		 * @ xlvoVoting $xlvoVoting
+		 */
 		$xlvoVoting = $this->voting_manager->getVoting($voting_id);
 		$xlvoPlayer = $this->voting_manager->getPlayer($xlvoVoting->getObjId());
 		if ($xlvoPlayer == NULL) {
@@ -205,6 +220,11 @@ class xlvoPlayerGUI {
 	}
 
 
+	/**
+	 * @param $obj_id
+	 *
+	 * @return int
+	 */
 	public function getActiveVoting($obj_id) {
 		$xlvoPlayer = $this->voting_manager->getPlayer($obj_id);
 
@@ -215,7 +235,7 @@ class xlvoPlayerGUI {
 		}
 	}
 
-
+	
 	public function nextVoting() {
 		if (! $this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
