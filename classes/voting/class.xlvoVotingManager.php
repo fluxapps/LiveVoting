@@ -7,7 +7,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Services/Object/classes/class.ilObject2.php');
 
 /**
- *
+ * Class xlvoVotingManager
  */
 class xlvoVotingManager implements xlvoVotingInterface {
 
@@ -17,7 +17,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	 */
 	protected $obj_id;
 	/**
-	 * @var ilUser
+	 * @var ilObjUser
 	 */
 	protected $user_ilias;
 
@@ -51,7 +51,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	/**
 	 * @param $id
 	 *
-	 * @return ActiveRecord|null
+	 * @return xlvoVoting
 	 */
 	public function getVoting($id) {
 		$xlvoVoting = xlvoVoting::find($id);
@@ -59,7 +59,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 		if ($xlvoVoting instanceof xlvoVoting) {
 			return $xlvoVoting;
 		} else {
-			return NULL;
+			return new xlvoVoting();
 		}
 	}
 
@@ -71,6 +71,11 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	}
 
 
+	/**
+	 * @param $option_id
+	 *
+	 * @return xlvoOption
+	 */
 	public function getOption($option_id) {
 		$xlvoOption = xlvoOption::find($option_id);
 
@@ -78,16 +83,29 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	}
 
 
+	/**
+	 * @param            $voting_id
+	 * @param null       $option_id
+	 * @param bool|false $active_user
+	 *
+	 * @return $this|ActiveRecordList
+	 * @throws Exception
+	 */
 	public function getVotes($voting_id, $option_id = NULL, $active_user = false) {
 		$xlvoVotes = xlvoVote::where(array( 'voting_id' => $voting_id ));
 		if ($option_id != NULL) {
 			$xlvoVotes = $xlvoVotes->where(array( 'option_id' => $option_id ));
 		}
+		// USE getVotesOfUser
 		if ($active_user) {
+			/**
+			 * @var $xlvoVoting xlvoVoting
+			 */
 			$xlvoVoting = xlvoVoting::find($voting_id);
 			$xlvoConfig = $this->getVotingConfig($xlvoVoting->getObjId());
+
 			if ($xlvoConfig->isAnonymous()) {
-				$xlvoVotes = $xlvoVotes->where(array( 'user_identifier' => $_SESSION['user_identifier'] ));
+				$xlvoVotes = $xlvoVotes->where(array( 'user_identifier' => session_id() ));
 			} else {
 				$xlvoVotes = $xlvoVotes->where(array( 'user_id' => $this->user_ilias->getId() ));
 			}
@@ -97,6 +115,37 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	}
 
 
+	/**
+	 * @param      $voting_id
+	 * @param null $option_id
+	 *
+	 * @return ActiveRecordList
+	 * @throws Exception
+	 */
+	public function getVotesOfUser($voting_id, $option_id = NULL) {
+		$xlvoVotes = $this->getVotes($voting_id, $option_id);
+
+		/**
+		 * @var $xlvoVoting xlvoVoting
+		 */
+		$xlvoVoting = xlvoVoting::find($voting_id);
+		$xlvoConfig = $this->getVotingConfig($xlvoVoting->getObjId());
+
+		if ($xlvoConfig->isAnonymous()) {
+			$xlvoVotes = $xlvoVotes->where(array( 'user_identifier' => session_id() ));
+		} else {
+			$xlvoVotes = $xlvoVotes->where(array( 'user_id' => $this->user_ilias->getId() ));
+		}
+
+		return $xlvoVotes;
+	}
+
+
+	/**
+	 * @param $vote_id
+	 *
+	 * @return xlvoVote
+	 */
 	public function getVote($vote_id) {
 		$xlvoVote = xlvoVote::find($vote_id);
 
@@ -104,6 +153,11 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	}
 
 
+	/**
+	 * @param null $obj_id
+	 *
+	 * @return xlvoVotingConfig
+	 */
 	public function getVotingConfig($obj_id = NULL) {
 		$obj_id = $obj_id ? $obj_id : $this->obj_id;
 		$xlvoVotingConfig = xlvoVotingConfig::find($obj_id);
@@ -112,11 +166,19 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	}
 
 
+	/**
+	 * @return ActiveRecordList
+	 */
 	public function getVotingConfigs() {
 		return xlvoVotingConfig::getCollection();
 	}
 
 
+	/**
+	 * @param $obj_id
+	 *
+	 * @return xlvoPlayer
+	 */
 	public function getPlayer($obj_id) {
 		return xlvoPlayer::where(array( 'obj_id' => $obj_id ))->first();
 	}
@@ -240,7 +302,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 				$vote->setUserId($this->user_ilias->getId());
 				break;
 			case xlvoVote::USER_ANONYMOUS:
-				$vote->setUserIdentifier($_SESSION['user_identifier']);
+				$vote->setUserIdentifier(session_id());
 				break;
 		}
 

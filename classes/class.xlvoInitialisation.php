@@ -3,7 +3,7 @@
 /**
  * Class xlvoInitialisation
  *
- * @author Fabian Schmid <fs@studer-raimann.ch>
+ * @author      Fabian Schmid <fs@studer-raimann.ch>
  *
  * @description Initializes a ILIAS environment depending on Context (PIN or ILIAS).
  *              This is used in every entry-point for users and AJAX requests
@@ -37,9 +37,11 @@ class xlvoInitialisation {
 
 	/**
 	 * @param null $context
+	 *
+	 * @return xlvoInitialisation
 	 */
 	public static function init($context = NULL) {
-		new self($context);
+		return new self($context);
 	}
 
 

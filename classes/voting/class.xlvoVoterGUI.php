@@ -145,12 +145,12 @@ class xlvoVoterGUI {
 			if ($config instanceof xlvoVotingConfig) {
 				if ($pin == $config->getPin()) {
 					if ($config->isAnonymous()) {
-//						$this->generateAnonymousSession();
+						//						$this->generateAnonymousSession();
 					} else {
 						xlvoInitialisation::init(xlvoInitialisation::CONTEXT_ILIAS);
 					}
 
-					return $this->showInfoScreen($config->getObjId(), self::INFO_TYPE_WAITING) . $_SESSION['user_identifier'];
+					return $this->showInfoScreen($config->getObjId(), self::INFO_TYPE_WAITING) . session_id();
 				} else {
 					return $this->showAccessScreen(true);
 				}
@@ -183,10 +183,11 @@ class xlvoVoterGUI {
 				return $vote;
 			} else {
 				// TODO implement exception
-				$vote = new xlvoVote();
-				$vote->setStatus(xlvoVote::STAT_INACTIVE);
-				$vote->setVotingId(0);
-				$vote->setOptionId($vote->getOptionId());
+				$new_vote = new xlvoVote();
+				$new_vote->setStatus(xlvoVote::STAT_INACTIVE);
+				$new_vote->setVotingId(0);
+
+				//				$new_vote->setOptionId($vote->getOptionId());
 
 				return $vote;
 			}
@@ -248,8 +249,8 @@ class xlvoVoterGUI {
 		$form->addItem($t);
 		$form->addCommandButton(self::CMD_ACCESS_VOTING, $this->pl->txt('send'));
 
-		$template->setVariable('INFO_TEXT', $this->pl->txt('msg_access_screen') . ' --- user: ' . $this->usr->getId() . ' user_i: '
-			. $_SESSION['user_identifier'] . ' context: ' . $_SESSION['xlvo_context'] . $form->getHTML());
+		$template->setVariable('INFO_TEXT', $this->pl->txt('msg_access_screen') . ' --- user: ' . $this->usr->getId() . ' user_i: ' . session_id()
+			. ' context: ' . $_COOKIE['xlvo_context'] . $form->getHTML());
 
 		if ($error_msg) {
 			$template->setVariable('ERROR', $this->pl->txt('msg_validation_error_pin'));
@@ -260,10 +261,9 @@ class xlvoVoterGUI {
 
 
 	protected function generateAnonymousSession() {
-
-		if (empty($_SESSION['user_identifier'])) {
+		$session_id = session_id();
+		if (! $session_id) {
 			xlvoInitialisation::init(xlvoInitialisation::CONTEXT_PIN);
-			$_SESSION['user_identifier'] = session_id();
 		}
 	}
 
