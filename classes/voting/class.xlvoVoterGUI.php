@@ -145,7 +145,7 @@ class xlvoVoterGUI {
 			if ($config instanceof xlvoVotingConfig) {
 				if ($pin == $config->getPin()) {
 					if ($config->isAnonymous()) {
-						$this->generateAnonymousSession();
+//						$this->generateAnonymousSession();
 					} else {
 						xlvoInitialisation::init(xlvoInitialisation::CONTEXT_ILIAS);
 					}
@@ -226,6 +226,7 @@ class xlvoVoterGUI {
 	public function showInfoScreen($obj_id, $info_type) {
 		$template = new ilTemplate(self::TPL_INFO_SCREEN, true, true);
 		$template->setVariable('VOTING_ID', 0);
+		$template->touchBlock('loader');
 		$template->setVariable('OBJ_ID', $obj_id);
 		$template->setVariable('INFO_TYPE', $info_type);
 		$template->setVariable('INFO_TEXT', $this->pl->txt('msg_' . $info_type));
