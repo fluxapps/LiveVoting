@@ -94,9 +94,7 @@ class xlvoVoterGUI {
 				$this->{$cmd}();
 				break;
 		}
-		$this->tpl->getStandardTemplate();
 		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/default.css');
-		$this->tpl->setVariable('BASE', '/');
 		$this->tpl->show();
 	}
 

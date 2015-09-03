@@ -91,6 +91,7 @@ class xlvoInitialisation {
 
 				srContext::init('srContextLvo');
 				srInitialisation::initILIAS();
+
 				break;
 		}
 	}

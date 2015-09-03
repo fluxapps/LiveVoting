@@ -35,9 +35,7 @@ class xlvoDisplayPlayerGUI {
 
 
 	protected function render() {
-
 		$config = $this->voting_manager->getVotingConfig($this->voting->getObjId());
-
 		switch ($this->voting->getVotingType()) {
 			case xlvoVotingType::SINGLE_VOTE:
 				$this->tpl->setVariable('OPTION_CONTENT', $this->renderSingleVote());
