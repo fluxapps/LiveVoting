@@ -25,3 +25,7 @@
 .btn-default.active {
   background-color: #3d516c !important;
 }
+img.xlvo_loader {
+  width: 300px;
+  height: 300px;
+}
