@@ -1,5 +1,9 @@
 <?php
-chdir(strstr($_SERVER['SCRIPT_FILENAME'], 'Customizing', true));
+
+$directory = strstr($_SERVER['SCRIPT_FILENAME'], 'Customizing', true);
+if ($directory) {
+	chdir($directory);
+}
 require_once('./Services/Init/classes/class.ilInitialisation.php');
 
 /**
