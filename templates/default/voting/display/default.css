@@ -26,6 +26,12 @@
   background-color: #3d516c !important;
 }
 img.xlvo_loader {
-  width: 300px;
-  height: 300px;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+  display: block;
+}
+div.xlvo_pin {
+  font-size: 80px;
+  text-align: center;
 }

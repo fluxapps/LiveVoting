@@ -149,7 +149,7 @@ class xlvoVoterGUI {
 						xlvoInitialisation::init(xlvoInitialisation::CONTEXT_ILIAS);
 					}
 
-					return $this->showInfoScreen($config->getObjId(), self::INFO_TYPE_WAITING) . session_id();
+					return $this->showInfoScreen($config->getObjId(), self::INFO_TYPE_WAITING);
 				} else {
 					return $this->showAccessScreen(true);
 				}
@@ -245,8 +245,8 @@ class xlvoVoterGUI {
 		$form->addItem($t);
 		$form->addCommandButton(self::CMD_ACCESS_VOTING, $this->pl->txt('send'));
 
-		$template->setVariable('INFO_TEXT', $this->pl->txt('msg_access_screen') . ' --- user: ' . $this->usr->getId() . ' user_i: ' . session_id()
-			. ' context: ' . $_COOKIE['xlvo_context'] . $form->getHTML());
+		$template->setVariable('INFO_TEXT', $this->pl->txt('msg_access_screen'));
+		$template->setVariable('INFO_BODY', $form->getHTML());
 
 		if ($error_msg) {
 			$template->setVariable('ERROR', $this->pl->txt('msg_validation_error_pin'));
