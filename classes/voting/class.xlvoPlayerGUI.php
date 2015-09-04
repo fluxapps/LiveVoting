@@ -221,7 +221,6 @@ class xlvoPlayerGUI {
 			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
 		} else {
 			$voting_id_current = $this->getActiveVoting($this->obj_id);
-			var_dump($voting_id_current);
 
 			/**
 			 * @var xlvoVoting[] $votings
@@ -433,13 +432,13 @@ class xlvoPlayerGUI {
 		$this->toolbar->addText($current_selection_list->getHTML());
 
 		$b = ilLinkButton::getInstance();
-//		$b->setCaption('rep_robj_xlvo_back');
+		//		$b->setCaption('rep_robj_xlvo_back');
 		$b->setUrl($this->ctrl->getLinkTarget($this, self::CMD_PREVIOUS));
 		$b->setId('btn-previous');
 		$this->toolbar->addButtonInstance($b);
 
 		$b = ilLinkButton::getInstance();
-//		$b->setCaption('rep_robj_xlvo_next');
+		//		$b->setCaption('rep_robj_xlvo_next');
 		$b->setUrl($this->ctrl->getLinkTarget($this, self::CMD_NEXT));
 		$b->setId('btn-next');
 		$this->toolbar->addButtonInstance($b);
@@ -461,9 +460,7 @@ class xlvoPlayerGUI {
 		$b->setId('btn-unfreeze');
 		$this->toolbar->addButtonInstance($b);
 
-		$b = xlvoLinkButton::getInstance();
-		$b->clearClasses();
-		$b->addCSSClass('btn-danger');
+		$b = ilLinkButton::getInstance();
 		$b->setCaption('rep_robj_xlvo_terminate');
 		$b->setUrl($this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_TERMINATE));
 		$b->setId('btn-terminate');

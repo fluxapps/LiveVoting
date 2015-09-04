@@ -60,6 +60,7 @@
 			var callVotingFunction = function () {
 				$.get(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'get_voting_data'})
 					.done(function (data) {
+						console.log(data);
 						var isFrozen = +data.voIsFrozen;
 						var status = +data.voStatus;
 						var isAvailable = +data.voIsAvailable;
@@ -67,6 +68,7 @@
 
 						if (hasAccess == 0) {
 							loadAccessScreen();
+
 						} else if (status == 0) {
 							// status 0 = stopped
 							loadNotRunningScreen();
@@ -79,7 +81,7 @@
 							// status 3 = end of voting
 							loadEndOfVotingScreen();
 						} else if (isFrozen) {
-							loadWaitingScreen();
+							loadVotingScreen();
 						} else {
 							loadVotingScreen();
 						}
@@ -96,7 +98,7 @@
 	}
 }(jQuery));
 
-setInterval($('.display-voter').loadVoting, 2000);
+setInterval($('.display-voter').loadVoting, 1000);
 
 // For freeInput voting type only.
 // Initializes delete buttons for freeInput form after page replacement.

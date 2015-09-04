@@ -7,11 +7,16 @@
 require_once('classes/class.xlvoInitialisation.php');
 xlvoInitialisation::init(xlvoInitialisation::CONTEXT_PIN);
 xlvoInitialisation::resetCookiePIN();
-
+if (trim($_REQUEST['pin'], '/')) {
+	xlvoInitialisation::setCookiePIN(trim($_REQUEST['pin'], '/'));
+}
 global $ilCtrl;
 /**
  * @var ilCtrl $ilCtrl
  */
 $ilCtrl->initBaseClass('ilUIPluginRouterGUI');
-$ilCtrl->setTargetScript('classes/voting/VoterEndpoint.php');
-$ilCtrl->redirectByClass(array( 'ilUIPluginRouterGUI', 'xlvoVoterGUI' ));
+$ilCtrl->setTargetScript(dirname($_SERVER['SCRIPT_NAME']) . '/classes/voting/VoterEndpoint.php');
+$ilCtrl->redirectByClass(array(
+	'ilUIPluginRouterGUI',
+	'xlvoVoterGUI'
+));

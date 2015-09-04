@@ -16,7 +16,7 @@ require_once('./Services/Init/classes/class.ilInitialisation.php');
  */
 class xlvoInitialisation extends ilInitialisation {
 
-	const USE_OWN_GLOBAL_TPL = false;
+	const USE_OWN_GLOBAL_TPL = true;
 	const CONTEXT_PIN = 1;
 	const CONTEXT_ILIAS = 2;
 	const XLVO_CONTEXT = 'xlvo_context';
