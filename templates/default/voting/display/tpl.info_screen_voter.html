@@ -1,15 +1,19 @@
-<div class="display-voter">
-	<div class="col-md-6">
-		<div class="row">
-			<div id="voting-data" type="hidden" voting="{VOTING_ID}" object="{OBJ_ID}" info-type="{INFO_TYPE}"/>
-			<!-- BEGIN loader -->
-			<img class="xlvo_loader" src="./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/images/rings.svg">
-			<!-- END loader -->
-			<div>
-				{INFO_TEXT}
-			</div>
-			<div style="color: red;">
-				{ERROR}
+<div class="display-voter panel panel-primary">
+	<div class="panel-heading">
+		<h3>{INFO_TEXT}</h3>
+	</div>
+	<div class="panel-body">
+		<div class="col-md-12">
+			<div class="row">
+				<div id="voting-data" type="hidden" voting="{VOTING_ID}" object="{OBJ_ID}" info-type="{INFO_TYPE}"/>
+				<!-- BEGIN loader -->
+				<img class="xlvo_loader" src="./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/images/rings.svg">
+				<!--<img class="xlvo_loader_gif" src="./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/images/ajax-loader.gif">-->
+				<!-- END loader -->
+				<div style="color: red;">
+					<!--{ERROR}-->
+				</div>
+				{INFO_BODY}
 			</div>
 		</div>
 	</div>

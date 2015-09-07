@@ -166,6 +166,11 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	}
 
 
+	/**
+	 * @param xlvoVotingConfig $xlvoVotingConfig
+	 *
+	 * @return xlvoVotingConfig
+	 */
 	public function updateVotingConfig(xlvoVotingConfig $xlvoVotingConfig) {
 		$xlvoVotingConfig->update();
 
@@ -191,6 +196,11 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	}
 
 
+	/**
+	 * @param xlvoPlayer $xlvoPlayer
+	 *
+	 * @return xlvoPlayer
+	 */
 	public function updatePlayer(xlvoPlayer $xlvoPlayer) {
 		$xlvoPlayer->update();
 
@@ -305,6 +315,13 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	}
 
 
+	/**
+	 * @param xlvoVotingConfig $config
+	 * @param xlvoOption       $option
+	 * @param xlvoVote         $vote
+	 *
+	 * @return ActiveRecord
+	 */
 	protected function createVote(xlvoVotingConfig $config, xlvoOption $option, xlvoVote $vote) {
 		$vote->setOptionId($option->getId());
 		$vote->setVotingId($option->getVotingId());
@@ -327,6 +344,12 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	}
 
 
+	/**
+	 * @param xlvoVote $existing_vote
+	 * @param xlvoVote $new_vote
+	 *
+	 * @return ActiveRecord
+	 */
 	protected function updateVote(xlvoVote $existing_vote, xlvoVote $new_vote) {
 		$existing_vote->setFreeInput($new_vote->getFreeInput());
 		$existing_vote->setOptionId($new_vote->getOptionId());
@@ -337,6 +360,11 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	}
 
 
+	/**
+	 * @param xlvoVote $vote
+	 *
+	 * @return xlvoVote
+	 */
 	protected function deleteVote(xlvoVote $vote) {
 		$vote->delete();
 		$deleted_vote = new xlvoVote();
@@ -348,6 +376,11 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	}
 
 
+	/**
+	 * @param $option_id
+	 *
+	 * @return bool
+	 */
 	public function deleteVotesForOption($option_id) {
 		$option = xlvoOption::find($option_id);
 		$votes = $this->getVotes($option->getVotingId(), $option_id);
@@ -360,6 +393,11 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	}
 
 
+	/**
+	 * @param $voting_id
+	 *
+	 * @return bool
+	 */
 	public function deleteVotesForVoting($voting_id) {
 		$votes = $this->getVotes($voting_id);
 		foreach ($votes->get() as $vote) {
@@ -370,6 +408,11 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	}
 
 
+	/**
+	 * @param $obj_id
+	 *
+	 * @return bool
+	 */
 	public function deleteVotesForObject($obj_id) {
 		$votings = xlvoVoting::where(array( 'obj_id' => $obj_id ));
 		foreach ($votings as $voting) {
@@ -380,9 +423,16 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	}
 
 
+	/**
+	 * @param $obj_id
+	 *
+	 * @return bool
+	 */
 	public function isVotingAvailable($obj_id) {
+		/**
+		 * @var $xlvoVotingConfig xlvoVotingConfig
+		 */
 		$xlvoVotingConfig = xlvoVotingConfig::find($obj_id);
-
 		$terminable = $xlvoVotingConfig->isTerminable();
 
 		if (! $terminable) {
@@ -414,13 +464,14 @@ class xlvoVotingManager implements xlvoVotingInterface {
 			$xlvoPlayer = new xlvoPlayer();
 			$xlvoPlayer->setObjId($xlvoVoting->getObjId());
 			$xlvoPlayer->setActiveVoting($voting_id);
-			$xlvoPlayer->setReset(xlvoPlayer::RESET_OFF);
 			$xlvoPlayer->setStatus(xlvoPlayer::STAT_START_VOTING);
 			$xlvoPlayer->setFrozen(true);
+			$xlvoPlayer->setTimestampRefresh(time());
 			$xlvoPlayer->create();
 		} else {
 			$xlvoPlayer->setActiveVoting($voting_id);
 			$xlvoPlayer->setStatus(xlvoPlayer::STAT_RUNNING);
+			$xlvoPlayer->setTimestampRefresh(time());
 			$xlvoPlayer->update();
 		}
 	}
@@ -441,6 +492,18 @@ class xlvoVotingManager implements xlvoVotingInterface {
 		} else {
 			return 0;
 		}
+	}
+
+
+	/**
+	 * @param $obj_id
+	 *
+	 * @return xlvoVoting
+	 */
+	public function getActiveVotingObject($obj_id) {
+		$voting_id = $this->getActiveVoting($obj_id);
+
+		return xlvoVoting::find($voting_id);
 	}
 
 

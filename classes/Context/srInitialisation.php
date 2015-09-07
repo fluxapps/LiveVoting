@@ -21,7 +21,7 @@ class srInitialisation extends ilInitialisation {
 	 * @param ilContext
 	 */
 	public static function setContext($context) {
-		srContext::init($context);
+		xlvoContextLiveVoting::init($context);
 		self::$context = $context;
 	}
 }

@@ -2,14 +2,14 @@
 include_once "Services/Context/classes/class.ilContext.php";
 
 /**
- * Class srContext
+ * Class xlvoContext
  *
  * @author Fabian Schmid <fs@studer-raimann.ch>
  */
-class srContext extends ilContext {
+class xlvoContext extends ilContext {
 
 	public function __construct() {
-		self::init('srContextLvo');
+		self::init('xlvoContextLiveVoting');
 	}
 
 
@@ -19,8 +19,8 @@ class srContext extends ilContext {
 	 * @return bool|void
 	 */
 	public static function init($context) {
-		include_once('srContextLvo.php');
-		ilContext::$class_name = 'srContextLvo';
+		include_once('class.xlvoContextLiveVoting.php');
+		ilContext::$class_name = 'xlvoContextLiveVoting';
 		ilContext::$type = - 1;
 
 		return true;

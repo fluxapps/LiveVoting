@@ -3,12 +3,12 @@
 require_once('Services/Context/classes/class.ilContextBase.php');
 
 /**
- * Class srContextLvo
+ * Class xlvoContextLiveVoting
  *
  * @author Fabian Schmid <fs@studer-raimann.ch>
  *
  */
-class srContextLvo extends ilContextBase {
+class xlvoContextLiveVoting extends ilContextBase {
 
 	/**
 	 * @return bool
@@ -30,7 +30,7 @@ class srContextLvo extends ilContextBase {
 	 * @return bool
 	 */
 	public static function usesHTTP() {
-		return true;
+		return false;
 	}
 
 
