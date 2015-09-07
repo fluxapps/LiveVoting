@@ -34,6 +34,10 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 	 * @var xlvoVotingManager
 	 */
 	protected $voting_manager;
+	/**
+	 * @var bool
+	 */
+	protected $has_existing_votes;
 
 
 	/**
@@ -53,7 +57,7 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 		$this->is_new = ($this->voting->getVotingStatus() == xlvoVoting::STAT_INCOMPLETE);
 		$this->options = array();
 		$this->voting_manager = new xlvoVotingManager();
-		$this->options_to_delete = false;
+		$this->has_existing_votes = (xlvoVote::where(array( 'voting_id' => $this->voting->getId() ))->count() >= 0);
 
 		global $tpl;
 		$tpl->addJavaScript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/confirm_delete.js');
@@ -71,20 +75,27 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 		$this->addItem($cb);
 		$cb = new ilCheckboxInputGUI($this->pl->txt('colors'), 'colors');
 		$this->addItem($cb);
-		$mli = new xlvoMultiLineInputGUI($this->pl->txt('options'), 'options');
-		$te = new ilTextInputGUI($this->pl->txt('text'), 'text');
-		$mli->addInput($te);
-		$this->addItem($mli);
+
+		if (! $this->has_existing_votes) {
+			$mli = new xlvoMultiLineInputGUI($this->pl->txt('options'), 'options');
+			$te = new ilTextInputGUI($this->pl->txt('text'), 'text');
+			$mli->addInput($te);
+			$this->addItem($mli);
+		} else {
+			// TODO set info text
+		}
 	}
 
 
 	public function fillForm() {
 		if ($this->voting->getObjId() == $this->parent_gui->getObjId()) {
 
-			$this->options = xlvoOption::where(array(
-				'voting_id' => $this->voting->getId(),
-				'status' => xlvoOption::STAT_ACTIVE
-			))->getArray();
+			if (! $this->has_existing_votes) {
+				$this->options = xlvoOption::where(array(
+					'voting_id' => $this->voting->getId(),
+					'status' => xlvoOption::STAT_ACTIVE
+				))->getArray();
+			}
 
 			$array = array(
 				'multi_selection' => $this->voting->isMultiSelection(),
@@ -121,44 +132,48 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 			'status' => xlvoOption::STAT_ACTIVE
 		))->getArray();
 
-		$arr_existing_ids = array();
-		$arr_existing_texts = array();
-		$arr_opts_ids = array();
+		if (! $this->has_existing_votes) {
+			$arr_existing_ids = array();
+			$arr_existing_texts = array();
+			$arr_opts_ids = array();
 
-		foreach ($this->options as $opt) {
-			$arr_existing_ids[$opt['id']] = $opt['id'];
-			$arr_existing_texts[$opt['id']] = $opt['text'];
-		}
-
-		foreach ($opts as $opt) {
-			$arr_opts_ids[array_search($opt, $opts)] = array_search($opt, $opts);
-		}
-
-		$this->options = array();
-
-		foreach ($opts as $opt) {
-			$option = new xlvoOption();
-			$opt_id = array_search($opt, $opts);
-			if ($opt_id == $arr_existing_ids[$opt_id]) {
-				$option->setId($opt_id);
+			foreach ($this->options as $opt) {
+				$arr_existing_ids[$opt['id']] = $opt['id'];
+				$arr_existing_texts[$opt['id']] = $opt['text'];
 			}
-			$option->setText($opt['text']);
-			$option->setType($this->voting->getVotingType());
-			$option->setVotingId($this->voting->getId());
-			$option->setStatus(xlvoOption::STAT_ACTIVE);
 
-			array_push($this->options, $option);
-		}
+			foreach ($opts as $opt) {
+				$arr_opts_ids[array_search($opt, $opts)] = array_search($opt, $opts);
+			}
 
-		foreach ($arr_existing_ids as $id) {
-			if ($arr_opts_ids[$id] == NULL) {
-				var_dump($id);
+			$this->options = array();
+
+			foreach ($opts as $opt) {
 				$option = new xlvoOption();
-				$option->setId($id);
+				$opt_id = array_search($opt, $opts);
+				if ($opt_id == $arr_existing_ids[$opt_id]) {
+					$option->setId($opt_id);
+				}
+				$option->setText($opt['text']);
+				$option->setType($this->voting->getVotingType());
 				$option->setVotingId($this->voting->getId());
-				$option->setStatus(xlvoOption::STAT_INACTIVE);
+				$option->setStatus(xlvoOption::STAT_ACTIVE);
+
 				array_push($this->options, $option);
 			}
+
+			foreach ($arr_existing_ids as $id) {
+				if ($arr_opts_ids[$id] == NULL) {
+					var_dump($id);
+					$option = new xlvoOption();
+					$option->setId($id);
+					$option->setVotingId($this->voting->getId());
+					$option->setStatus(xlvoOption::STAT_INACTIVE);
+					array_push($this->options, $option);
+				}
+			}
+		} else {
+			$this->options = array();
 		}
 
 		return true;
