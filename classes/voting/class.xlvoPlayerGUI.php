@@ -13,7 +13,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoPlayer.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingManager.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoMultiLineInputGUI.php');
-
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoLinkButton.php');
 /**
  * Class xlvoPlayerGUI
  */
@@ -93,6 +93,7 @@ class xlvoPlayerGUI {
 		$this->pl = ilLiveVotingPlugin::getInstance();
 		$this->voting_manager = new xlvoVotingManager();
 		$this->obj_id = ilObject2::_lookupObjId($_GET['ref_id']);
+		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/default.css');
 	}
 
 
@@ -220,7 +221,6 @@ class xlvoPlayerGUI {
 			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
 		} else {
 			$voting_id_current = $this->getActiveVoting($this->obj_id);
-			var_dump($voting_id_current);
 
 			/**
 			 * @var xlvoVoting[] $votings
@@ -432,26 +432,29 @@ class xlvoPlayerGUI {
 		$this->toolbar->addText($current_selection_list->getHTML());
 
 		$b = ilLinkButton::getInstance();
-		$b->setCaption('rep_robj_xlvo_back');
+		//		$b->setCaption('rep_robj_xlvo_back');
 		$b->setUrl($this->ctrl->getLinkTarget($this, self::CMD_PREVIOUS));
 		$b->setId('btn-previous');
 		$this->toolbar->addButtonInstance($b);
 
 		$b = ilLinkButton::getInstance();
-		$b->setCaption('rep_robj_xlvo_next');
+		//		$b->setCaption('rep_robj_xlvo_next');
 		$b->setUrl($this->ctrl->getLinkTarget($this, self::CMD_NEXT));
 		$b->setId('btn-next');
 		$this->toolbar->addButtonInstance($b);
 
 		$this->toolbar->addSeparator();
 
-		$b = ilLinkButton::getInstance();
+		$b = xlvoLinkButton::getInstance();
+		$b->clearClasses();
+		$b->addCSSClass('btn-warning');
 		$b->setCaption('rep_robj_xlvo_freeze');
 		$b->setUrl('#');
 		$b->setId('btn-freeze');
 		$this->toolbar->addButtonInstance($b);
 
 		$b = ilLinkButton::getInstance();
+		$b->setPrimary(true);
 		$b->setCaption('rep_robj_xlvo_unfreeze');
 		$b->setUrl('#');
 		$b->setId('btn-unfreeze');
@@ -509,6 +512,7 @@ class xlvoPlayerGUI {
 		$xlvoVotingConfig = $this->voting_manager->getVotingConfig($this->obj_id);
 		$template->setVariable('PIN', $xlvoVotingConfig->getPin());
 		$template->setVariable('TITLE', $this->pl->txt('msg_start_of_voting_title'));
+		$template->setVariable('TITLE', ilObject2::_lookupTitle($this->obj_id));
 		$template->setVariable('QR-CODE', 'QR-CODE');
 
 		$this->tpl->setContent($template->get());

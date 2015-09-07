@@ -13,6 +13,7 @@ class xlvoPlayer extends ActiveRecord {
 	const STAT_END_VOTING = 3;
 	const RESET_OFF = 0;
 	const RESET_ON = 1;
+	const SECONDS_ACTIVE = 4;
 
 
 	/**
@@ -20,6 +21,14 @@ class xlvoPlayer extends ActiveRecord {
 	 */
 	public static function returnDbTableName() {
 		return 'rep_robj_xlvo_player';
+	}
+
+
+	/**
+	 * @return bool
+	 */
+	public function isFrozenOrUnattended() {
+		return (bool)($this->isFrozen() OR $this->getTimestampRefresh() < (time() - self::SECONDS_ACTIVE));
 	}
 
 
@@ -64,7 +73,7 @@ class xlvoPlayer extends ActiveRecord {
 	 * @db_fieldtype        integer
 	 * @db_length           1
 	 */
-	protected $frozen;
+	protected $frozen = false;
 	/**
 	 * @var int
 	 *

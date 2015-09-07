@@ -35,7 +35,6 @@ class xlvoDisplayPlayerGUI {
 
 
 	protected function render() {
-
 		/**
 		 * @var xlvoVotingConfig $config
 		 */
