@@ -49,14 +49,14 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 			var showResults = $('#btn-show-results');
 			var hideResults = $('#btn-hide-results');
 
-			showResults.hide();
-			showResults.parent().hide();
-
-			var display = hideResults.css('display');
-			if (display == 'none') {
+			if (hideResults.css('display') == 'none') {
 				showResults.show();
 				showResults.parent().show();
 				$('.display-results').hide();
+			} else {
+				hideResults.show();
+				hideResults.parent().show();
+				$('.display-results').show();
 			}
 
 			hideResults.click(function () {

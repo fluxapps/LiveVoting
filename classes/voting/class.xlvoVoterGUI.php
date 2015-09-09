@@ -292,8 +292,8 @@ class xlvoVoterGUI {
 		$config = $this->voting_manager->getVotingConfig($obj_id);
 		if ($config->isAnonymous()) {
 			return true;
-		} elseif ($this->usr->getId() > 0) {
-			// TODO has read access
+		} elseif ($this->access->hasReadAccessForObject($obj_id, $this->usr->getId())) {
+			// TODO check if user id works
 			return true;
 		} else {
 			return false;
