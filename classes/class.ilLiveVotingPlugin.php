@@ -44,7 +44,7 @@ class ilLiveVotingPlugin extends ilRepositoryObjectPlugin implements xlvoDynamic
 	 *
 	 * @return string
 	 */
-	public function txt($a_var, $real_call = false) {
+	public function txt2($a_var, $real_call = false) {
 		if ($real_call) {
 			return parent::txt($a_var);
 		} else {
