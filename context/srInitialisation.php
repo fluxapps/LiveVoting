@@ -32,7 +32,14 @@ class srInitialisation extends ilInitialisation {
 	 */
 	public static function setSessionHandler() {
 		require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoSessionHandler.php');
-		session_set_save_handler(new xlvoSessionHandler());
+		$session = new xlvoSessionHandler();
+		session_set_save_handler(array(&$session,"open"),
+			array(&$session,"close"),
+			array(&$session,"read"),
+			array(&$session,"write"),
+			array(&$session,"destroy"),
+			array(&$session,"gc"));
+		//session_set_save_handler($session);
 	}
 
 
