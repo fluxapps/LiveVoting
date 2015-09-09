@@ -84,10 +84,22 @@ class xlvoDisplayPlayerGUI {
 
 
 	protected function renderSingleVote() {
+		/**
+		 * @var xlvoBarCollectionGUI
+		 */
 		$bars = new xlvoBarCollectionGUI();
-		foreach ($this->voting->getVotingOptions()->get() as $option) {
+
+		/**
+		 * @var xlvoOption $options
+		 */
+		$options = $this->voting->getVotingOptions()->get();
+		foreach ($options as $option) {
 			$this->answer_count ++;
-			$votes = $this->voting_manager->getVotes($this->voting->getId(), NULL, false);
+			/**
+			 * @var xlvoVote $votes
+			 */
+			$votes = $this->voting_manager->getVotesOfVoting($this->voting->getId());
+
 			$bars->addBar(new xlvoBarPercentageGUI($this->voting, $option, $votes, (chr($this->answer_count))));
 			$this->addAnswer($option);
 		}
@@ -98,8 +110,14 @@ class xlvoDisplayPlayerGUI {
 
 	protected function renderFreeInput() {
 		$bars = new xlvoBarCollectionGUI();
+		/**
+		 * @var xlvoOption $option
+		 */
 		$option = $this->voting->getVotingOptions()->first();
-		$votes = $this->voting_manager->getVotes($this->voting->getId(), $option->getId(), false);
+		/**
+		 * @var xlvoVote $votes
+		 */
+		$votes = $this->voting_manager->getVotesOfOption($this->voting->getId(), $option->getId());
 		foreach ($votes->get() as $vote) {
 			$bars->addBar(new xlvoBarFreeInputGUI($this->voting, $vote));
 		}

@@ -74,13 +74,22 @@ class xlvoFreeInputGUI extends ilPropertyFormGUI {
 
 
 	protected function render() {
+		/**
+		 * @var xlvoOption $option
+		 */
 		$option = $this->voting->getVotingOptions()->first();
 
 		if ($this->voting->isMultiFreeInput()) {
-			$votes = $this->voting_manager->getVotes($this->voting->getId(), $option->getId(), true)->getArray();
+			/**
+			 * @var xlvoVote[] $votes
+			 */
+			$votes = $this->voting_manager->getVotesOfUserOfOption($this->voting->getId(), $option->getId())->getArray();
 			$form = $this->renderMultiForm($votes, $option);
 		} else {
-			$vote = $this->voting_manager->getVotes($this->voting->getId(), $option->getId(), true)->first();
+			/**
+			 * @var xlvoVote $vote
+			 */
+			$vote = $this->voting_manager->getVotesOfUserOfOption($this->voting->getId(), $option->getId())->first();
 			if (! $vote instanceof xlvoVote) {
 				$vote = new xlvoVote();
 				$vote->setOptionId($option->getId());

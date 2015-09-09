@@ -28,7 +28,7 @@ class xlvoBarPercentageGUI extends xlvoBarGUI {
 	/**
 	 * @param xlvoVoting $voting
 	 * @param xlvoOption $option
-	 * @param xlvoVote[] $votes
+	 * @param xlvoVote $votes
 	 * @param            $option_letter
 	 */
 	public function __construct(xlvoVoting $voting, xlvoOption $option, $votes, $option_letter) {

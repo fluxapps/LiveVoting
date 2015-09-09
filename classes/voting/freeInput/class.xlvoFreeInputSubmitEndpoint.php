@@ -20,29 +20,39 @@ $posted_vote->setFreeInput($_REQUEST['free_input']);
 $posted_vote->setId((int)$_REQUEST['vote_id']);
 $posted_vote->setOptionId((int)$_REQUEST['option_id']);
 
+/**
+ * @var xlvoVote $vote
+ */
+$vote = new xlvoVote();
+
 if ($request_type == 'unvote') {
 	$posted_vote->setStatus(xlvoVote::STAT_INACTIVE);
-	$vote = $voter_gui->vote($posted_vote);
 
+	$vote = $voter_gui->vote($posted_vote);
 }
 if ($request_type == 'vote') {
 	$posted_vote->setStatus(xlvoVote::STAT_ACTIVE);
 	$vote = $voter_gui->vote($posted_vote);
-
 }
 if ($request_type == 'delete_all') {
+	/**
+	 * @var xlvoOption $option
+	 */
 	$option = xlvoOption::find($posted_vote->getOptionId());
-	$votes = $voting_manager->getVotes($option->getVotingId(), $option->getId(), true)->get();
+	/**
+	 * @var xlvoVote[] $votes
+	 */
+	$votes = $voting_manager->getVotesOfUserOfOption($option->getVotingId(), $option->getId())->get();
 	foreach ($votes as $vote) {
 		$vote->delete();
 	}
 }
 
-if(!$vote instanceof xlvoVote) {
+if (! $vote instanceof xlvoVote) {
 	$vote = $posted_vote;
 }
 
-$votes = $voting_manager->getVotesOfUser($vote->getVotingId(), $vote->getOptionId())->getArray();
+$votes = $voting_manager->getVotesOfUserOfOption($vote->getVotingId(), $vote->getOptionId())->getArray();
 
 header('Content-type: application/json');
 echo json_encode($votes);

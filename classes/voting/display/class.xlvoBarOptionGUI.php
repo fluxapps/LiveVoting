@@ -57,7 +57,7 @@ class xlvoBarOptionGUI extends xlvoBarGUI {
 
 
 	private function getActiveBar() {
-		$vote = $this->voting_manager->getVotes($this->voting->getId(), $this->option->getId(), true)->first();
+		$vote = $this->voting_manager->getVotesOfUserOfOption($this->voting->getId(), $this->option->getId())->first();
 		if ($vote instanceof xlvoVote) {
 			if ($vote->getStatus() == 1) {
 				return "active";
@@ -71,7 +71,7 @@ class xlvoBarOptionGUI extends xlvoBarGUI {
 
 
 	private function getVoteId() {
-		$vote = $this->voting_manager->getVotes($this->voting->getId(), $this->option->getId(), true)->first();
+		$vote = $this->voting_manager->getVotesOfUserOfOption($this->voting->getId(), $this->option->getId())->first();
 		if ($vote instanceof xlvoVote) {
 			return $vote->getId();
 		} else {

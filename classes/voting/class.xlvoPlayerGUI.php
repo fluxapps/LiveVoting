@@ -122,7 +122,7 @@ class xlvoPlayerGUI {
 		if (! $this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
 		} else {
-			$vo = $this->voting_manager->getVotings($this->obj_id, true)->first();
+			$vo = $this->voting_manager->getActiveVotings($this->obj_id)->first();
 			if ($vo == NULL) {
 				ilUtil::sendInfo($this->pl->txt('msg_no_voting_available'), true);
 				$this->ctrl->redirect(new xlvoVotingGUI(), xlvoVotingGUI::CMD_STANDARD);
@@ -225,11 +225,11 @@ class xlvoPlayerGUI {
 			/**
 			 * @var xlvoVoting[] $votings
 			 */
-			$votings = $this->voting_manager->getVotings($this->obj_id, true)->getArray();
+			$votings = $this->voting_manager->getActiveVotings($this->obj_id)->getArray();
 			/**
 			 * @var xlvoVoting $voting_last
 			 */
-			$voting_last = $this->voting_manager->getVotings($this->obj_id, true)->last();
+			$voting_last = $this->voting_manager->getActiveVotings($this->obj_id)->last();
 
 			$voting_id_next = $voting_id_current;
 			$get_next_elem = false;
@@ -266,11 +266,11 @@ class xlvoPlayerGUI {
 			/**
 			 * @var xlvoVoting[] $votings
 			 */
-			$votings = array_reverse($this->voting_manager->getVotings($this->obj_id, true)->getArray());
+			$votings = array_reverse($this->voting_manager->getActiveVotings($this->obj_id)->getArray());
 			/**
 			 * @var xlvoVoting $voting_first
 			 */
-			$voting_first = $this->voting_manager->getVotings($this->obj_id, true)->first();
+			$voting_first = $this->voting_manager->getActiveVotings($this->obj_id)->first();
 
 			$voting_id_previous = $voting_id_current;
 			$get_next_elem = false;
@@ -314,7 +314,7 @@ class xlvoPlayerGUI {
 				/**
 				 * @var xlvoVoting $vo
 				 */
-				$vo = $this->voting_manager->getVotings($this->obj_id, true)->first();
+				$vo = $this->voting_manager->getActiveVotings($this->obj_id)->first();
 				if ($vo == NULL) {
 					ilUtil::sendInfo($this->pl->txt('msg_no_voting_available'), true);
 					$this->ctrl->redirect(new xlvoVotingGUI(), xlvoVotingGUI::CMD_STANDARD);
@@ -424,7 +424,7 @@ class xlvoPlayerGUI {
 		/**
 		 * @var xlvoVoting[] $votings
 		 */
-		$votings = $this->voting_manager->getVotings($this->obj_id, true)->get();
+		$votings = $this->voting_manager->getActiveVotings($this->obj_id)->get();
 		foreach ($votings as $voting) {
 			$this->ctrl->setParameter(new xlvoPlayerGUI(), self::IDENTIFIER, $voting->getId());
 			$current_selection_list->addItem($voting->getTitle(), $voting->getId(), $this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_SHOW_VOTING));

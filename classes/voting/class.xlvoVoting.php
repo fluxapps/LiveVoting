@@ -291,7 +291,7 @@ class xlvoVoting extends ActiveRecord {
 
 
 	/**
-	 * @return xlvoOption[]
+	 * @return xlvoOption
 	 */
 	public function getVotingOptions() {
 		return $this->voting_options;
@@ -299,7 +299,7 @@ class xlvoVoting extends ActiveRecord {
 
 
 	/**
-	 * @param xlvoOption[] $voting_options
+	 * @param xlvoOption $voting_options
 	 */
 	public function setVotingOptions($voting_options) {
 		$this->voting_options = $voting_options;
