@@ -14,6 +14,9 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingManager.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoMultiLineInputGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoLinkButton.php');
+
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/lib/QrCode-master/src/QrCode.php');
+use Endroid\QrCode\QrCode;
 /**
  * Class xlvoPlayerGUI
  */
@@ -513,7 +516,18 @@ class xlvoPlayerGUI {
 		$template->setVariable('PIN', $xlvoVotingConfig->getPin());
 		$template->setVariable('TITLE', $this->pl->txt('msg_start_of_voting_title'));
 		$template->setVariable('TITLE', ilObject2::_lookupTitle($this->obj_id));
-		$template->setVariable('QR-CODE', 'QR-CODE');
+
+
+		$qrCode = new QrCode('http://ilias.mobi/vote/'.$xlvoVotingConfig->getPin());
+
+		$qrCode
+			->setSize(150)
+			->setPadding(10)
+			->setErrorCorrection('high')
+			->setForegroundColor(array('r' => 0, 'g' => 0, 'b' => 0, 'a' => 0))
+			->setBackgroundColor(array('r' => 255, 'g' => 255, 'b' => 255, 'a' => 0));
+
+		$template->setVariable('QR-CODE',$qrCode->getDataUri() );
 
 		$this->tpl->setContent($template->get());
 	}
