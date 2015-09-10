@@ -25,11 +25,11 @@ class xlvoVotingConfig extends ActiveRecord {
 	 */
 	protected $obj_id;
 	/**
-	 * @var int
+	 * @var string
 	 *
 	 * @db_has_field        true
-	 * @db_fieldtype        integer
-	 * @db_length           8
+	 * @db_fieldtype        text
+	 * @db_length           256
 	 */
 	protected $pin;
 	/**

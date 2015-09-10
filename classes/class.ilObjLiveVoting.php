@@ -93,6 +93,45 @@ class ilObjLiveVoting extends ilObjectPlugin {
 		$config->save();
 	}
 
+	/**
+	 * @return string
+	 */
+	function createPin() {
+
+		$length = 4;
+
+		$array = array();
+
+		// numbers
+		for ($i = 48; $i < 58; $i ++) {
+			$array[] = chr($i);
+		}
+
+		// lower case
+		for ($i = 97; $i <= 122; $i ++) {
+			$array[] = chr($i);
+		}
+
+		// upper case
+		for ($i = 65; $i <= 90; $i ++) {
+			$array[] = chr($i);
+		}
+
+		$pin = '';
+		$pin_found = false;
+
+		while (! $pin_found) {
+			for ($i = 1; $i <= $length; $i ++) {
+				$rnd = mt_rand(0, count($array) - 1);
+				$pin .= $array[$rnd];
+			}
+			if (xlvoVotingConfig::where(array( 'pin' => $pin ))->count() <= 0) {
+				$pin_found = true;
+			}
+		}
+
+		return $pin;
+	}
 
 	/**
 	 * Read data from db
@@ -198,11 +237,13 @@ class ilObjLiveVoting extends ilObjectPlugin {
 		 * @var $player_clone xlvoPlayer
 		 */
 		$player = xlvoPlayer::where(array( 'obj_id' => $this->getId() ))->first();
-		$player_clone = $player->copy();
-		// reset active voting in player
-		$player_clone->setActiveVoting(0);
-		$player_clone->setObjId($new_obj->getId());
-		$player_clone->create();
+		if ($player instanceof xlvoPlayer) {
+			$player_clone = $player->copy();
+			// reset active voting in player
+			$player_clone->setActiveVoting(0);
+			$player_clone->setObjId($new_obj->getId());
+			$player_clone->create();
+		}
 
 		/**
 		 * @var $votings xlvoVoting[]
@@ -314,6 +355,9 @@ class ilObjLiveVoting extends ilObjectPlugin {
 			// rep_robj_xlvo_vote
 			$setVote = $ilDB->query("SELECT * FROM rep_robj_xlvo_vote " . " WHERE option_id = " . $ilDB->quote($resOption['id'], "integer"));
 			while ($resVote = $ilDB->fetchAssoc($setVote)) {
+				/**
+				 * @var $xlvoVote xlvoVote
+				 */
 				$xlvoVote = new xlvoVote();
 				$xlvoVote->setOptionId($resVote['option_id']);
 				if (isset($resVote['usr_id'])) {
@@ -328,7 +372,6 @@ class ilObjLiveVoting extends ilObjectPlugin {
 				$xlvoVote->setStatus(xlvoVote::STAT_ACTIVE);
 				$xlvoVote->setOptionId($option_id);
 				$xlvoVote->setVotingId($voting_id);
-
 			}
 		}
 
@@ -511,29 +554,27 @@ class ilObjLiveVoting extends ilObjectPlugin {
 		$option->doCreate();
 	}
 
-	// TODO move PIN functions
-	/**
-	 * @return string
-	 */
-	private function createPin() {
-		global $ilDB;
-		$this->freeSomePins();
-		$pins = array();
-		$query = "SELECT pin FROM rep_robj_xlvo_data";
-		$set = $ilDB->query($query);
-		while ($res = $ilDB->fetchAssoc($set)) {
-			$pins[] = $res['pin'];
-		}
-		do {
-			$pin = "";
-			for ($i = 0; $i < self::IL_LIVEVOTE_PINSIZE; $i ++) {
-				$pin .= rand(0, 9);
-			}
-		} while (in_array($pin, $pins));
-
-		return $pin;
-	}
-
+	//	/**
+	//	 * @return string
+	//	 */
+	//	private function createPin() {
+	//		global $ilDB;
+	//		$this->freeSomePins();
+	//		$pins = array();
+	//		$query = "SELECT pin FROM rep_robj_xlvo_data";
+	//		$set = $ilDB->query($query);
+	//		while ($res = $ilDB->fetchAssoc($set)) {
+	//			$pins[] = $res['pin'];
+	//		}
+	//		do {
+	//			$pin = "";
+	//			for ($i = 0; $i < self::IL_LIVEVOTE_PINSIZE; $i ++) {
+	//				$pin .= rand(0, 9);
+	//			}
+	//		} while (in_array($pin, $pins));
+	//
+	//		return $pin;
+	//	}
 
 	/**
 	 * @description As the number of pin's is limited they have to be removed after a
