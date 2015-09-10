@@ -22,6 +22,10 @@
 */
 require_once('./Services/Repository/classes/class.ilObjectPlugin.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingConfig.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoPlayer.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVoting.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVote.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoOption.php');
 
 /**
  * Application class for example repository object.
@@ -80,7 +84,7 @@ class ilObjLiveVoting extends ilObjectPlugin {
 	 */
 	function doCreate() {
 		$pin = $this->createPin();
-		$this->db->manipulate("INSERT INTO rep_robj_xlvo_data " . "(id) VALUES (" . $this->db->quote($this->getId(), "integer") . ")");
+		//		$this->db->manipulate("INSERT INTO rep_robj_xlvo_data " . "(id) VALUES (" . $this->db->quote($this->getId(), "integer") . ")");
 		$config = new xlvoVotingConfig();
 		$config->setObjId($this->getId());
 		$config->setPin($pin);
@@ -106,15 +110,48 @@ class ilObjLiveVoting extends ilObjectPlugin {
 
 
 	public function doDelete() {
-		global $ilDB;
-		$this->emptyCache();
-		$this->deleteOptions();
-		$ilDB->manipulate("DELETE FROM rep_robj_xlvo_data WHERE " . " id = " . $ilDB->quote($this->getId(), "integer"));
 
+		/**
+		 * @var $player xlvoPlayer[]
+		 */
+		$players = xlvoPlayer::where(array( 'obj_id' => $this->getId() ))->get();
+		foreach ($players as $player) {
+			$player->delete();
+		}
+
+		/**
+		 * @var $votings xlvoVoting[]
+		 */
+		$votings = xlvoVoting::where(array( 'obj_id' => $this->getId() ))->get();
+		foreach ($votings as $voting) {
+			$voting_id = $voting->getId();
+
+			/**
+			 * @var $votes xlvoVote[]
+			 */
+			$votes = xlvoVote::where(array( 'voting_id' => $voting_id ))->get();
+			foreach ($votes as $vote) {
+				$vote->delete();
+			}
+
+			/**
+			 * @var $options xlvoOption[]
+			 */
+			$options = xlvoOption::where(array( 'voting_id' => $voting_id ))->get();
+			foreach ($options as $option) {
+				$option->delete();
+			}
+
+			$voting->delete();
+		}
+
+		/**
+		 * @var $config xlvoVotingConfig
+		 */
 		$config = xlvoVotingConfig::find($this->getId());
-		$config->delete();
-		// TODO delete votings
-
+		if ($config instanceof xlvoVotingConfig) {
+			$config->delete();
+		}
 	}
 
 
@@ -141,6 +178,19 @@ class ilObjLiveVoting extends ilObjectPlugin {
 		//			$new_obj->addOption($option->getTitle());
 		//		}
 		// TODO clone AR tables
+		$new_obj->setOnline($this->getOnline());
+		/**
+		 * @var $location       xgeoLocation
+		 * @var $location_clone xgeoLocation
+		 */
+		$collection = xgeoLocation::getCollection()->where(array( 'my_geolocations_id' => $this->getId() ), '=')->get();
+		foreach ($collection as $location) {
+			$location_clone = $location->copy();
+			$location_clone->setMyGeolocationsId($new_obj->getId());
+			$location_clone->create();
+		}
+
+		$new_obj->update();
 	}
 
 
