@@ -252,6 +252,97 @@ class ilObjLiveVoting extends ilObjectPlugin {
 	}
 
 
+	public function dataTransfer() {
+
+		global $ilDB;
+
+		// rep_robj_xlvo_data
+		$query = "SELECT id FROM rep_robj_xlvo_data WHERE data_id = " . $ilDB->quote($this->getId(), "integer");
+		$setData = $ilDB->query($query);
+		while ($resData = $ilDB->fetchAssoc($setData)) {
+			/**
+			 * @var $xlvoVotingConfig xlvoVotingConfig
+			 */
+			$xlvoVotingConfig = new xlvoVotingConfig();
+			$xlvoVotingConfig->setObjId($resData['id']);
+			$xlvoVotingConfig->setObjOnline($resData['is_online']);
+			$xlvoVotingConfig->setAnonymous($resData['is_anonym']);
+			$xlvoVotingConfig->isTerminable($resData['is_terminated']);
+			// TODO probably remove 1 hour
+			$xlvoVotingConfig->setStartDate($this->convertTimestampToDateTime($resData['start_time']));
+			$xlvoVotingConfig->setEndDate($this->convertTimestampToDateTime($resData['end_time']));
+			// create new unique PIN
+			$pin = $this->createPin();
+			$xlvoVotingConfig->setPin($pin);
+			$xlvoVotingConfig->create();
+
+			// TODO options_type - multi-selection??
+
+			/**
+			 * @var $xlvoVoting xlvoVoting
+			 */
+			$xlvoVoting = new xlvoVoting();
+			$xlvoVoting->setObjId($resData['id']);
+			$xlvoVoting->setQuestion($resData['question']);
+			$xlvoVoting->setColors($resData['is_colorful']);
+			$xlvoVoting->setTitle('Live Voting');
+			$xlvoVoting->setMultiSelection(0);
+			$xlvoVoting->setVotingType(xlvoVotingType::SINGLE_VOTE);
+			$xlvoVoting->setVotingStatus(xlvoVoting::STAT_ACTIVE);
+			$xlvoVoting->setPosition(1);
+			$xlvoVoting->create();
+		}
+
+		$voting_id = xlvoVoting::where(array( 'obj_id' => $this->getId() ))->last()->getId();
+
+		// rep_robj_xlvo_option
+		$query = "SELECT id FROM rep_robj_xlvo_option WHERE data_id = " . $ilDB->quote($this->getId(), "integer");
+		$setOption = $ilDB->query($query);
+		while ($resOption = $ilDB->fetchAssoc($setOption)) {
+			/**
+			 * @var $xlvoOption xlvoOption
+			 */
+			$xlvoOption = new xlvoOption();
+			$xlvoOption->setText($resOption['title']);
+			$xlvoOption->setVotingId($voting_id);
+			$xlvoOption->setType(xlvoVotingType::SINGLE_VOTE);
+			$xlvoOption->setStatus(xlvoOption::STAT_ACTIVE);
+			$xlvoOption->create();
+
+			$option_id = xlvoOption::where(array( 'voting_id' => $voting_id ))->last()->getId();
+
+			// rep_robj_xlvo_vote
+			$setVote = $ilDB->query("SELECT * FROM rep_robj_xlvo_vote " . " WHERE option_id = " . $ilDB->quote($resOption['id'], "integer"));
+			while ($resVote = $ilDB->fetchAssoc($setVote)) {
+				$xlvoVote = new xlvoVote();
+				$xlvoVote->setOptionId($resVote['option_id']);
+				if (isset($resVote['usr_id'])) {
+					$xlvoVote->setUserIdType(xlvoVote::USER_ILIAS);
+					$xlvoVote->setUserId($resVote['usr_id']);
+				} else {
+					$xlvoVote->setUserIdType(xlvoVote::USER_ANONYMOUS);
+					$xlvoVote->setUserIdentifier($resVote['usr_session']);
+				}
+
+				$xlvoVote->setType(xlvoVotingType::SINGLE_VOTE);
+				$xlvoVote->setStatus(xlvoVote::STAT_ACTIVE);
+				$xlvoVote->setOptionId($option_id);
+				$xlvoVote->setVotingId($voting_id);
+
+			}
+		}
+
+		// rep_robj_xlvo_conf
+		// TODO needed??
+
+	}
+
+
+	protected function convertTimestampToDateTime($date) {
+		return date('Y-m-d H:i:s', $date);
+	}
+
+
 	/**
 	 * @param $option_id int The option the User wants to vote for.
 	 * @param $usr_id    int The user that want's to vote, if the voting is anonym the usr_id will not be saved.
@@ -675,5 +766,3 @@ class ilObjLiveVoting extends ilObjectPlugin {
 		}
 	}
 }
-
-?>
