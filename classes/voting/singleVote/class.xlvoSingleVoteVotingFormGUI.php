@@ -57,7 +57,7 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 		$this->is_new = ($this->voting->getVotingStatus() == xlvoVoting::STAT_INCOMPLETE);
 		$this->options = array();
 		$this->voting_manager = new xlvoVotingManager();
-		$this->has_existing_votes = (xlvoVote::where(array( 'voting_id' => $this->voting->getId() ))->count() >= 0);
+		$this->has_existing_votes = (xlvoVote::where(array( 'voting_id' => $this->voting->getId() ))->count() > 0);
 
 		global $tpl;
 		$tpl->addJavaScript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/confirm_delete.js');
@@ -190,21 +190,23 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 
 		if ($this->voting->getObjId() == $this->parent_gui->getObjId()) {
 
-			foreach ($this->options as $option) {
-				if ($this->voting->getId() == $option->getVotingId()) {
-					if (! xlvoOption::where(array( 'id' => $option->getId() ))->hasSets()) {
-						$option->create();
-					} else {
-						if ($option->getStatus() == xlvoOption::STAT_ACTIVE) {
-							$option->update();
+			if (! $this->has_existing_votes) {
+				foreach ($this->options as $option) {
+					if ($this->voting->getId() == $option->getVotingId()) {
+						if (! xlvoOption::where(array( 'id' => $option->getId() ))->hasSets()) {
+							$option->create();
 						} else {
-							$this->voting_manager->deleteVotesOfOption($option->getId());
-							$option->delete();
+							if ($option->getStatus() == xlvoOption::STAT_ACTIVE) {
+								$option->update();
+							} else {
+								$this->voting_manager->deleteVotesOfOption($option->getId());
+								$option->delete();
+							}
 						}
+					} else {
+						ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
+						$this->ctrl->redirect($this->parent_gui, xlvoVotingGUI::CMD_STANDARD);
 					}
-				} else {
-					ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
-					$this->ctrl->redirect($this->parent_gui, xlvoVotingGUI::CMD_STANDARD);
 				}
 			}
 

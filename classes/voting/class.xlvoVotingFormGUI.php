@@ -151,7 +151,7 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 			}
 		} else {
 			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
-			$this->ctrl->redirect($this->parent_gui, xlvoVoting::CMD_STANDARD);
+			$this->ctrl->redirect($this->parent_gui, xlvoVotingGUI::CMD_STANDARD);
 		}
 
 		return true;

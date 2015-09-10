@@ -52,9 +52,8 @@ class ilObjLiveVoting extends ilObjectPlugin {
 
 
 	/**
-	 * Constructor
-	 *
-	 * @access    public
+	 * @param int        $a_ref_id
+	 * @param bool|false $by_oid
 	 */
 	function __construct($a_ref_id = 0, $by_oid = false) {
 		parent::__construct($a_ref_id, $by_oid);
