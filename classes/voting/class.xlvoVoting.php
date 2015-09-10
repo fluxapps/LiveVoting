@@ -110,6 +110,9 @@ class xlvoVoting extends ActiveRecord {
 
 		public function afterObjectLoad() {
 			// set all options for this voting
+			/**
+			 * @var xlvoOption $xlvoOptions
+			 */
 			$xlvoOptions = xlvoOption::where(array( 'voting_id' => $this->id ));
 			$this->setVotingOptions($xlvoOptions);
 		}
@@ -172,6 +175,14 @@ class xlvoVoting extends ActiveRecord {
 	 * @db_length           8
 	 */
 	protected $voting_status;
+	/**
+	 * @var int
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           8
+	 */
+	protected $position;
 	/**
 	 * @var xlvoOption []
 	 */
@@ -289,6 +300,21 @@ class xlvoVoting extends ActiveRecord {
 		$this->voting_status = $voting_status;
 	}
 
+
+	/**
+	 * @return int
+	 */
+	public function getPosition() {
+		return $this->position;
+	}
+
+
+	/**
+	 * @param int $position
+	 */
+	public function setPosition($position) {
+		$this->position = $position;
+	}
 
 	/**
 	 * @return xlvoOption

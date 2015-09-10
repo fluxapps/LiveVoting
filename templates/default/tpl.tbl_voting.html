@@ -1,4 +1,11 @@
-<tr class="{CSS_ROW}">
+<tr class="{CSS_ROW} fsxSortable">
+	<!-- BEGIN sort_new -->
+	<td class="std small {CLASS}">
+		<img src="{SRC_IMAGE}"><input type="hidden" name="position[]" value="{ID_NEW}"/>
+	</td>
+	<!-- END sort_new -->	<!-- BEGIN sortold -->
+	<td class="std small {CLASS}"><input size="2" type="text" name="id[{ID_OLD}]" value="{POSITION}"/></td>
+	<!-- END sortold -->
 	<td class="std small">
 		{TITLE}
 	</td>

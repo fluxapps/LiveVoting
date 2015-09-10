@@ -295,7 +295,6 @@ class xlvoVotingGUI {
 		$this->ctrl->redirect($this, self::CMD_STANDARD);
 	}
 
-
 	protected function applyFilter() {
 		$xlvoVotingGUI = new xlvoVotingTableGUI($this, self::CMD_STANDARD);
 		$xlvoVotingGUI->writeFilterToSession();

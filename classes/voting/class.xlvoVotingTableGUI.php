@@ -18,6 +18,10 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 	 */
 	protected $pl;
 	/**
+	 * @var ilToolbarGUI
+	 */
+	protected $toolbar;
+	/**
 	 * @var xlvoVotingGUI
 	 */
 	protected $voting_gui;
@@ -25,16 +29,30 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 	 * @var array
 	 */
 	protected $filter = array();
+	/**
+	 * @var ilCtrl
+	 */
+	protected $ctrl;
 
 
 	public function  __construct(xlvoVotingGUI $a_parent_obj, $a_parent_cmd) {
 		/**
-		 * @var $ilCtrl ilCtrl
+		 * @var $ilCtrl    ilCtrl
+		 * @var $ilToolbar ilToolbarGUI
 		 */
-		global $ilCtrl;
+		global $ilCtrl, $ilToolbar;
 		$this->voting_gui = $a_parent_obj;
+		$this->toolbar = $ilToolbar;
 		$this->ctrl = $ilCtrl;
 		$this->pl = ilLiveVotingPlugin::getInstance();
+
+		$this->voting_gui->tpl->addJavaScript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/sortable.js');
+		//		$this->toolbar->setFormAction($this->ctrl->getFormAction($this->voting_gui));
+		//		$b = ilLinkButton::getInstance();
+		//		$b->setCaption('rep_robj_xlvo_save_sorting');
+		//		$b->setUrl($this->ctrl->getLinkTarget(new xlvoVotingGUI(), 'saveSorting'));
+		//		$this->addCommandButtonInstance($b);
+		//		$this->toolbar->addFormButton('save sorting', 'saveSorting');
 
 		$this->setId(self::TBL_ID);
 		$this->setPrefix(self::TBL_ID);
@@ -49,6 +67,22 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 		$this->addFilterItems();
 		$this->parseData();
 	}
+
+
+//	protected function saveSorting() {
+//		print_r('sorting: ');
+//		var_dump($_POST['position']);
+//		foreach ($_POST['position'] as $k => $v) {
+//			//			$obj = ctrlmmEntryInstaceFactory::getInstanceByEntryId($v)->getObject();
+//			//			$obj->setPosition($k);
+//			//			$obj->update();
+//			print_r('posted: ');
+//			var_dump($k . ' : ' . $v . ' - ');
+//		}
+//		exit;
+//		ilUtil::sendSuccess($this->pl->txt('sorting_saved'));
+//		$this->ctrl->redirect($this, self::CMD_STANDARD);
+//	}
 
 
 	protected function addFilterItems() {
@@ -75,9 +109,18 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 
 
 	/**
+	 * @var int
+	 */
+	protected static $num = 1;
+
+
+	/**
 	 * @param array $a_set
 	 */
 	public function fillRow($a_set) {
+		/**
+		 * @var xlvoVoting $xlvoVoting
+		 */
 		$xlvoVoting = xlvoVoting::find($a_set['id']);
 		$this->tpl->setVariable('TITLE', $xlvoVoting->getTitle());
 		$this->tpl->setVariable('DESCRIPTION', $xlvoVoting->getDescription());
@@ -89,11 +132,20 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 		$voting_status = $this->getVotingStatus($xlvoVoting->getVotingStatus());
 		$this->tpl->setVariable('STATUS', $voting_status);
 
+		// Position
+		$this->tpl->setVariable('SRC_IMAGE', './Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/images/move.png');
+		$this->tpl->setVariable('CLASS', 'ctrlmmSeparator');
+		$this->tpl->setVariable('ID_OLD', 1);
+		$this->tpl->setVariable('POSITION', self::$num);
+		$this->tpl->setVariable('ID_NEW', 1);
+		self::$num ++;
+
 		$this->addActionMenu($xlvoVoting);
 	}
 
 
 	protected function initColums() {
+		$this->addColumn('', 'position', '20px');
 		$this->addColumn($this->pl->txt('title'), 'title');
 		$this->addColumn($this->pl->txt('question'), 'question');
 		$this->addColumn($this->pl->txt('type'), 'voting_type');

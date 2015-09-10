@@ -121,6 +121,9 @@ class xlvoPlayerGUI {
 		if (! $this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
 		} else {
+			/**
+			 * @var xlvoVoting $vo
+			 */
 			$vo = $this->voting_manager->getActiveVotings($this->obj_id)->first();
 			if ($vo == NULL) {
 				ilUtil::sendInfo($this->pl->txt('msg_no_voting_available'), true);
