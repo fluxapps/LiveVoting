@@ -19,9 +19,9 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
  */
 class xlvoPlayerGUI {
 
-	const TAB_STANDARD = 'tab_voter';
+	const TAB_STANDARD = 'tab_player';
 	const IDENTIFIER = 'xlvoVot';
-	const CMD_STANDARD = 'startVoting';
+	const CMD_STANDARD = 'startOfVoting';
 	const CMD_SHOW_VOTING = 'showVoting';
 	const CMD_START_VOTING = 'startVoting';
 	const CMD_NEXT = 'nextVoting';
@@ -98,7 +98,6 @@ class xlvoPlayerGUI {
 
 
 	public function executeCommand() {
-		$this->tabs->addTab(self::TAB_STANDARD, $this->pl->txt('player'), $this->ctrl->getLinkTarget($this, self::CMD_STANDARD));
 		$this->tabs->setTabActive(self::TAB_STANDARD);
 		$nextClass = $this->ctrl->getNextClass();
 		switch ($nextClass) {
@@ -317,7 +316,6 @@ class xlvoPlayerGUI {
 				$vo = $this->voting_manager->getActiveVotings($this->obj_id)->first();
 				if ($vo == NULL) {
 					ilUtil::sendInfo($this->pl->txt('msg_no_voting_available'), true);
-					$this->ctrl->redirect(new xlvoVotingGUI(), xlvoVotingGUI::CMD_STANDARD);
 				} else {
 					$this->setActiveVoting($vo->getId());
 				}
@@ -363,7 +361,7 @@ class xlvoPlayerGUI {
 			 */
 			$xlvoPlayer = $this->voting_manager->getPlayer($obj_id);
 			if ($xlvoPlayer->isFrozen()) {
-				$this->voting_manager->deleteVotesForVoting($voting_id);
+				$this->voting_manager->deleteVotesOfVoting($voting_id);
 			}
 		}
 	}

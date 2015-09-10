@@ -198,7 +198,7 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 						if ($option->getStatus() == xlvoOption::STAT_ACTIVE) {
 							$option->update();
 						} else {
-							$this->voting_manager->deleteVotesForOption($option->getId());
+							$this->voting_manager->deleteVotesOfOption($option->getId());
 							$option->delete();
 						}
 					}
