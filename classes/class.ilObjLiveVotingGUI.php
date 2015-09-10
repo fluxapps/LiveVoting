@@ -313,6 +313,9 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 
 	protected function fillPropertiesForm() {
 
+		/**
+		 * @var $config xlvoVotingConfig
+		 */
 		$config = xlvoVotingConfig::find($this->obj_id);
 
 		$values['title'] = $this->object->getTitle();

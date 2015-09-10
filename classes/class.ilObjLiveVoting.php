@@ -112,7 +112,7 @@ class ilObjLiveVoting extends ilObjectPlugin {
 	public function doDelete() {
 
 		/**
-		 * @var $player xlvoPlayer[]
+		 * @var $players xlvoPlayer[]
 		 */
 		$players = xlvoPlayer::where(array( 'obj_id' => $this->getId() ))->get();
 		foreach ($players as $player) {
@@ -177,20 +177,79 @@ class ilObjLiveVoting extends ilObjectPlugin {
 		//		foreach ($this->getOptions() as $key => $option) {
 		//			$new_obj->addOption($option->getTitle());
 		//		}
-		// TODO clone AR tables
-		$new_obj->setOnline($this->getOnline());
+
 		/**
-		 * @var $location       xgeoLocation
-		 * @var $location_clone xgeoLocation
+		 * @var $config xlvoVotingConfig
 		 */
-		$collection = xgeoLocation::getCollection()->where(array( 'my_geolocations_id' => $this->getId() ), '=')->get();
-		foreach ($collection as $location) {
-			$location_clone = $location->copy();
-			$location_clone->setMyGeolocationsId($new_obj->getId());
-			$location_clone->create();
+		$config = xlvoVotingConfig::find($this->getId());
+		if ($config instanceof xlvoVotingConfig) {
+			/**
+			 * @var $config_clone xlvoVotingConfig
+			 */
+			$config_clone = $config->copy();
+			$config_clone->setObjId($new_obj->getId());
+			// set unique pin for cloned object
+			$pin = $this->createPin();
+			$config_clone->setPin($pin);
+			$config_clone->update();
 		}
 
-		$new_obj->update();
+		/**
+		 * @var $player       xlvoPlayer
+		 * @var $player_clone xlvoPlayer
+		 */
+		$player = xlvoPlayer::where(array( 'obj_id' => $this->getId() ))->first();
+		$player_clone = $player->copy();
+		// reset active voting in player
+		$player_clone->setActiveVoting(0);
+		$player_clone->setObjId($new_obj->getId());
+		$player_clone->create();
+
+		/**
+		 * @var $votings xlvoVoting[]
+		 */
+		$votings = xlvoVoting::where(array( 'obj_id' => $this->getId() ))->get();
+		foreach ($votings as $voting) {
+
+			/**
+			 * @var $voting_clone xlvoVoting
+			 */
+			$voting_clone = $voting->copy();
+			$voting_clone->setObjId($new_obj->getId());
+			$voting_clone->create();
+
+			$voting_id = $voting->getId();
+			$voting_id_clone = xlvoVoting::where(array( 'obj_id' => $new_obj->getId() ))->last()->getId();
+
+			/**
+			 * @var $options xlvoOption[]
+			 */
+			$options = xlvoOption::where(array( 'voting_id' => $voting_id ))->get();
+			foreach ($options as $option) {
+				/**
+				 * @var $option_clone xlvoOption
+				 */
+				$option_clone = $option->copy();
+				$option_clone->setVotingId($voting_id_clone);
+				$option_clone->create();
+
+				$option_id_clone = xlvoOption::where(array( 'voting_id' => $voting_id_clone ))->last()->getId();
+
+				/**
+				 * @var $votes xlvoVote[]
+				 */
+				$votes = xlvoVote::where(array( 'voting_id' => $voting_id ))->get();
+				foreach ($votes as $vote) {
+					/**
+					 * @var $vote_clone xlvoVote
+					 */
+					$vote_clone = $vote->copy();
+					$vote_clone->setVotingId($voting_id_clone);
+					$vote_clone->setOptionId($option_id_clone);
+					$vote_clone->create();
+				}
+			}
+		}
 	}
 
 
