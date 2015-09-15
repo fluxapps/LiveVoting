@@ -4,6 +4,13 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/display/class.xlvoBarPercentageGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/display/class.xlvoBarFreeInputGUI.php');
 
+/**
+ * Class xlvoDisplayPlayerGUI
+ *
+ * @author  Daniel Aemmer <daniel.aemmer@phbern.ch>
+ * @author  Fabian Schmid <fs@studer-raimann.ch>
+ * @version 1.0.0
+ */
 class xlvoDisplayPlayerGUI {
 
 	/**
@@ -83,6 +90,9 @@ class xlvoDisplayPlayerGUI {
 	}
 
 
+	/**
+	 * @return string
+	 */
 	protected function renderSingleVote() {
 		/**
 		 * @var xlvoBarCollectionGUI
@@ -108,6 +118,9 @@ class xlvoDisplayPlayerGUI {
 	}
 
 
+	/**
+	 * @return string
+	 */
 	protected function renderFreeInput() {
 		$bars = new xlvoBarCollectionGUI();
 		/**

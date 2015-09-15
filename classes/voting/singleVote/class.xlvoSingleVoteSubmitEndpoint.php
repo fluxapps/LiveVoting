@@ -10,15 +10,22 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoOption.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingManager.php');
 
+/**
+ * @var $voter_gui xlvoVoterGUI
+ */
 $voter_gui = new xlvoVoterGUI();
+/**
+ * @var $posted_vote xlvoVote
+ */
 $posted_vote = new xlvoVote();
+/**
+ * @var $voting_manager xlvoVotingManager
+ */
 $voting_manager = new xlvoVotingManager();
 
 $posted_vote->setId((int)$_REQUEST['vote_id']);
 $posted_vote->setOptionId((int)$_REQUEST['option_id']);
 $posted_vote->setStatus(xlvoVote::STAT_ACTIVE);
-
-//$option = $voting_manager->getOption($posted_vote->getOptionId());
 
 /**
  * @var xlvoVote $vote

@@ -27,11 +27,16 @@ require_once('./Services/ActiveRecord/class.ActiveRecord.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingConfig.php');
 
 /**
+ *
+ * Class ilObjLiveVotingAccess
+ *
  * Access/Condition checking for LiveVoting object
  *
  * Please do not create instances of large application classes (like ilObjExample)
  * Write small methods within this class to determin the status.
  *
+ * @author  Daniel Aemmer <daniel.aemmer@phbern.ch>
+ * @author  Fabian Schmid <fs@studer-raimann.ch>
  *
  * @version $Id$
  */
@@ -48,7 +53,7 @@ class ilObjLiveVotingAccess extends ilObjectPluginAccess {
 	 * @param    string $a_permission permission
 	 * @param    int    $a_ref_id     reference id
 	 * @param    int    $a_obj_id     object id
-	 * @param    int    $a_user_id    user id (if not provided, current user is taken)
+	 * @param    string    $a_user_id    user id (if not provided, current user is taken)
 	 *
 	 * @return    boolean        true, if everything is ok
 	 */
@@ -128,10 +133,11 @@ class ilObjLiveVotingAccess extends ilObjectPluginAccess {
 		global $ilLog;
 		$refs = ilObject2::_getAllReferences($obj_id);
 
-//		$ilLog->write('xlvo 123 '.print_r($refs, 1));
+		//		$ilLog->write('xlvo 123 '.print_r($refs, 1));
 
 		foreach ($refs as $ref_id) {
-			$ilLog->write($ref_id.' - '.$user_id);
+			$ilLog->write($ref_id . ' - ' . $user_id);
+
 			return true;
 			if (self::hasAccess('write', $ref_id)) {
 				return true;

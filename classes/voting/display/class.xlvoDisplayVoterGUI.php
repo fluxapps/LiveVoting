@@ -5,6 +5,13 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/display/class.xlvoBarOptionGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/display/class.xlvoFreeInputGUI.php');
 
+/**
+ * Class xlvoDisplayVoterGUI
+ *
+ * @author  Daniel Aemmer <daniel.aemmer@phbern.ch>
+ * @author  Fabian Schmid <fs@studer-raimann.ch>
+ * @version 1.0.0
+ */
 class xlvoDisplayVoterGUI {
 
 	/**
@@ -69,6 +76,9 @@ class xlvoDisplayVoterGUI {
 	}
 
 
+	/**
+	 * @return string
+	 */
 	protected function renderSingleVote() {
 		$bars = new xlvoBarCollectionGUI();
 		foreach ($this->voting->getVotingOptions()->get() as $option) {
@@ -81,6 +91,9 @@ class xlvoDisplayVoterGUI {
 	}
 
 
+	/**
+	 * @return string
+	 */
 	protected function renderFreeInput() {
 		$input_gui = new xlvoFreeInputGUI($this->voting);
 

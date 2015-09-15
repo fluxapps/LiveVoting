@@ -4,6 +4,13 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoOption.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingManager.php');
 
+/**
+ * Class xlvoSingleVoteVotingFormGUI
+ *
+ * @author  Daniel Aemmer <daniel.aemmer@phbern.ch>
+ * @author  Fabian Schmid <fs@studer-raimann.ch>
+ * @version 1.0.0
+ */
 class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 
 	/**
@@ -11,7 +18,7 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 	 */
 	protected $voting;
 	/**
-	 * @var xlvoOption
+	 * @var xlvoOption[]
 	 */
 	protected $options;
 	/**
@@ -41,10 +48,10 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 
 
 	/**
-	 * @param            $parent_gui
-	 * @param xlvoVoting $xlvoVoting
+	 * @param xlvoSingleVoteVotingGUI $parent_gui
+	 * @param xlvoVoting              $xlvoVoting
 	 */
-	public function __construct($parent_gui, xlvoVoting $xlvoVoting) {
+	public function __construct(xlvoSingleVoteVotingGUI $parent_gui, xlvoVoting $xlvoVoting) {
 		global $ilCtrl;
 		/**
 		 * @var $ilCtrl ilCtrl
@@ -117,8 +124,6 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 
 
 	/**
-	 * returns whether checkinput was successful or not.
-	 *
 	 * @return bool
 	 */
 	public function fillObject() {
@@ -184,7 +189,7 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 
 
 	/**
-	 * @return bool|string
+	 * @return bool
 	 */
 	public function saveObject() {
 		if (! $this->fillObject()) {

@@ -13,7 +13,14 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoInitialisation.php');
 
 /**
+ * Class xlvoVoterGUI
+ *
+ * @author            Daniel Aemmer <daniel.aemmer@phbern.ch>
+ * @author            Fabian Schmid <fs@studer-raimann.ch>
+ * @version           1.0.0
+ *
  * @ilCtrl_isCalledBy xlvoVoterGUI: ilUIPluginRouterGUI
+ *
  */
 class xlvoVoterGUI {
 
@@ -52,7 +59,7 @@ class xlvoVoterGUI {
 	 */
 	protected $usr;
 	/**
-	 * @var xlvoVoting_manager
+	 * @var xlvoVotingManager
 	 */
 	protected $voting_manager;
 
@@ -100,11 +107,12 @@ class xlvoVoterGUI {
 
 
 	/**
-	 * @param null $voting_id
+	 * @param $obj_id
+	 * @param $voting_id
 	 *
 	 * @return string
 	 */
-	public function showVoting($obj_id = NULL, $voting_id = NULL) {
+	public function showVoting($obj_id, $voting_id) {
 		if ($obj_id == NULL) {
 			$obj_id = 0;
 			$this->tpl->setContent($this->showInfoScreen($obj_id, self::INFO_TYPE_WAITING));
@@ -134,6 +142,11 @@ class xlvoVoterGUI {
 	}
 
 
+	/**
+	 * @param $pin
+	 *
+	 * @return string
+	 */
 	public function accessVoting($pin) {
 		if ($pin == NULL) {
 			return $this->showAccessScreen(true);
@@ -168,6 +181,9 @@ class xlvoVoterGUI {
 		$voting = $this->voting_manager->getVoting($option->getVotingId());
 		$obj_id = $voting->getObjId();
 		if ($this->checkVotingAccess($obj_id)) {
+			/**
+			 * @var $xlvoVote xlvoVote
+			 */
 			$xlvoVote = new xlvoVote();
 			$xlvoVote->setOptionId($vote->getOptionId());
 			$xlvoVote->setId($vote->getId());
@@ -257,7 +273,12 @@ class xlvoVoterGUI {
 	}
 
 
-	public function showAccessScreen($error_msg = false) {
+	/**
+	 * @param $has_error_msg
+	 *
+	 * @return string
+	 */
+	public function showAccessScreen($has_error_msg) {
 		$template = new ilTemplate(self::TPL_INFO_SCREEN, true, true);
 		$template->setVariable('VOTING_ID', 0);
 		$template->setVariable('OBJ_ID', 0);
@@ -272,7 +293,7 @@ class xlvoVoterGUI {
 		$template->setVariable('INFO_TEXT', $this->pl->txt('msg_access_screen'));
 		$template->setVariable('INFO_BODY', $form->getHTML());
 
-		if ($error_msg) {
+		if ($has_error_msg) {
 			$template->setVariable('ERROR', $this->pl->txt('msg_validation_error_pin'));
 		}
 
@@ -288,6 +309,11 @@ class xlvoVoterGUI {
 	}
 
 
+	/**
+	 * @param $obj_id
+	 *
+	 * @return bool
+	 */
 	public function checkVotingAccess($obj_id) {
 		$config = $this->voting_manager->getVotingConfig($obj_id);
 		if ($config->isAnonymous()) {

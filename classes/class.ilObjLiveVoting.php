@@ -28,12 +28,13 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoOption.php');
 
 /**
- * Application class for example repository object.
+ * Class ilObjLiveVoting
  *
  * @author Oskar Truffer <ot@studer-raimann.ch>
  * @author Fabian Schmid <fs@studer-raimann.ch>
+ * @author Daniel Aemmer <daniel.aemmer@phbern.ch>
  *
- * $Id$
+ * @version $Id$
  */
 class ilObjLiveVoting extends ilObjectPlugin {
 
@@ -56,7 +57,7 @@ class ilObjLiveVoting extends ilObjectPlugin {
 	 * @param bool|false $by_oid
 	 */
 	function __construct($a_ref_id = 0, $by_oid = false) {
-		parent::__construct($a_ref_id, $by_oid);
+		parent::__construct($a_ref_id);
 		if ($a_ref_id != 0) {
 			$this->id = $a_ref_id;
 			$this->doRead();

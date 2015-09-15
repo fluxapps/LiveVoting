@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Class xlvoBarGUI
+ *
+ * @author  Daniel Aemmer <daniel.aemmer@phbern.ch>
+ * @author  Fabian Schmid <fs@studer-raimann.ch>
+ * @version 1.0.0
+ */
 class xlvoBarGUI {
 
 	/**
@@ -16,17 +23,10 @@ class xlvoBarGUI {
 		$this->tpl = $tpl;
 	}
 
-
-	protected function render() {
-	}
-
-
 	/**
 	 * @return string
 	 */
 	public function getHTML() {
-		$this->render();
-
 		return $this->tpl->get();
 	}
 }

@@ -10,7 +10,12 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/freeInput/class.xlvoFreeInputVotingGUI.php');
 
 /**
- * Class ilObjLiveVotingGUI
+ *
+ * Class xlvoVotingGUI
+ *
+ * @author            Daniel Aemmer <daniel.aemmer@phbern.ch>
+ * @author            Fabian Schmid <fs@studer-raimann.ch>
+ * @version           1.0.0
  *
  * @ilCtrl_Calls      xlvoVotingGUI: xlvoSingleVoteVotingGUI, xlvoFreeInputVotingGUI
  *
@@ -111,6 +116,13 @@ class xlvoVotingGUI {
 	}
 
 
+	/**
+	 *
+	 * Switch for redirecting voting types to corresponding sub GUI.
+	 *
+	 * @param $voting_type
+	 * @param $cmd
+	 */
 	private function redirectToSubGUI($voting_type, $cmd) {
 		switch ($voting_type) {
 			case xlvoVotingType::SINGLE_VOTE:
@@ -119,7 +131,6 @@ class xlvoVotingGUI {
 			case xlvoVotingType::FREE_INPUT:
 				$this->ctrl->redirect(new xlvoFreeInputVotingGUI(), $cmd);
 				break;
-			// TODO add other types
 		}
 	}
 
@@ -211,6 +222,9 @@ class xlvoVotingGUI {
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
 
+			/**
+			 * @var $xlvoVoting xlvoVoting
+			 */
 			$xlvoVoting = xlvoVoting::find($_GET[self::IDENTIFIER]);
 
 			if ($xlvoVoting->getObjId() == $this->getObjId()) {
@@ -235,13 +249,23 @@ class xlvoVotingGUI {
 			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
+
+			/**
+			 * @var $xlvoVoting xlvoVoting
+			 */
 			$xlvoVoting = xlvoVoting::find($_POST[self::IDENTIFIER]);
 
 			if ($xlvoVoting->getObjId() == $this->getObjId()) {
+				/**
+				 * @var $options xlvoOption[]
+				 */
 				$options = xlvoOption::where(array( 'voting_id' => $xlvoVoting->getId() ))->get();
 				foreach ($options as $option) {
 					$option->delete();
 				}
+				/**
+				 * @var $votes xlvoVote[]
+				 */
 				$votes = xlvoVote::where(array( 'voting_id' => $xlvoVoting->getId() ))->get();
 				foreach ($votes as $vote) {
 					$vote->delete();
@@ -320,6 +344,9 @@ class xlvoVotingGUI {
 		} else {
 			ilUtil::sendQuestion($this->pl->txt('confirm_reset_all_votings'), true);
 			$confirm = new ilConfirmationGUI();
+			/**
+			 * @var $votings xlvoVoting[]
+			 */
 			$votings = xlvoVoting::where(array( 'obj_id' => $this->getObjId() ))->get();
 			$num_votes = 0;
 			foreach ($votings as $voting) {
@@ -340,8 +367,14 @@ class xlvoVotingGUI {
 			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
+			/**
+			 * @var $votings xlvoVoting[]
+			 */
 			$votings = xlvoVoting::where(array( 'obj_id' => $this->getObjId() ))->get();
 			foreach ($votings as $voting) {
+				/**
+				 * @var $votes xlvoVote[]
+				 */
 				$votes = xlvoVote::where(array( 'voting_id' => $voting->getId() ))->get();
 				foreach ($votes as $vote) {
 					$vote->delete();

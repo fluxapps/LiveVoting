@@ -1,6 +1,13 @@
 <?php
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/display/class.xlvoBarGUI.php');
 
+/**
+ * Class xlvoBarCollectionGUI
+ *
+ * @author  Daniel Aemmer <daniel.aemmer@phbern.ch>
+ * @author  Fabian Schmid <fs@studer-raimann.ch>
+ * @version 1.0.0
+ */
 class xlvoBarCollectionGUI {
 
 	/**
@@ -9,15 +16,8 @@ class xlvoBarCollectionGUI {
 	protected $tpl;
 
 
-	/**
-	 *
-	 */
 	public function __construct() {
 		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/tpl.bar_collection.html', true, true);
-	}
-
-
-	protected function render() {
 	}
 
 
@@ -25,7 +25,6 @@ class xlvoBarCollectionGUI {
 	 * @return string
 	 */
 	public function getHTML() {
-		$this->render();
 
 		return $this->tpl->get();
 	}

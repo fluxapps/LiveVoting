@@ -19,6 +19,10 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
  * @ilCtrl_Calls      ilObjLiveVotingGUI: ilPermissionGUI, ilInfoScreenGUI, ilObjectCopyGUI, ilCommonActionDispatcherGUI
  * @ilCtrl_Calls      ilObjLiveVotingGUI: xlvoVoterGUI, xlvoPlayerGUI, xlvoVotingGUI
  *
+ * @author            Daniel Aemmer <daniel.aemmer@phbern.ch>
+ * @author            Fabian Schmid <fs@studer-raimann.ch>
+ * @version           1.0.0
+ *
  */
 class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 

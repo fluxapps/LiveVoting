@@ -3,7 +3,11 @@
 require_once('./Services/ActiveRecord/class.ActiveRecord.php');
 
 /**
+ * Class xlvoVote
  *
+ * @author  Daniel Aemmer <daniel.aemmer@phbern.ch>
+ * @author  Fabian Schmid <fs@studer-raimann.ch>
+ * @version 1.0.0
  */
 class xlvoVote extends ActiveRecord {
 

@@ -4,6 +4,13 @@ require_once('./Services/Form/classes/class.ilPropertyFormGUI.php');
 require_once('./Services/Form/classes/class.ilAdvSelectInputGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingType.php');
 
+/**
+ * Class xlvoVotingFormGUI
+ *
+ * @author  Daniel Aemmer <daniel.aemmer@phbern.ch>
+ * @author  Fabian Schmid <fs@studer-raimann.ch>
+ * @version 1.0.0
+ */
 class xlvoVotingFormGUI extends ilPropertyFormGUI {
 
 	/**
@@ -37,10 +44,10 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 
 
 	/**
-	 * @param              $parent_gui
-	 * @param xlvoVoting   $xlvoVoting
+	 * @param xlvoVotingFormGUI $parent_gui
+	 * @param xlvoVoting        $xlvoVoting
 	 */
-	public function __construct($parent_gui, xlvoVoting $xlvoVoting) {
+	public function __construct(xlvoVotingFormGUI $parent_gui, xlvoVoting $xlvoVoting) {
 		global $ilCtrl;
 		/**
 		 * @var $ilCtrl ilCtrl
@@ -58,6 +65,7 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 
 
 	protected function initForm() {
+
 		$this->setTarget('_top');
 		$this->setFormAction($this->ctrl->getFormAction($this->parent_gui));
 		$this->initButtons();
@@ -66,9 +74,11 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 		$te->setInfo($this->pl->txt('info_voting_title'));
 		$te->setRequired(true);
 		$this->addItem($te);
+
 		$ta = new ilTextAreaInputGUI($this->pl->txt('description'), 'description');
 		$ta->setInfo($this->pl->txt('info_voting_description'));
 		$this->addItem($ta);
+
 		$qu = new ilTextAreaInputGUI($this->pl->txt('question'), 'question');
 		$qu->setInfo($this->pl->txt('info_voting_question'));
 		$qu->setRequired(true);
@@ -113,8 +123,6 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 
 
 	/**
-	 * returns whether checkinput was successful or not.
-	 *
 	 * @return bool
 	 */
 	public function fillObject() {
@@ -141,7 +149,7 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 
 
 	/**
-	 * @return bool|string
+	 * @return bool
 	 */
 	public function saveObject() {
 		if (! $this->fillObject()) {

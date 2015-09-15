@@ -14,8 +14,13 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingManager.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoMultiLineInputGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoLinkButton.php');
+
 /**
  * Class xlvoPlayerGUI
+ *
+ * @author  Daniel Aemmer <daniel.aemmer@phbern.ch>
+ * @author  Fabian Schmid <fs@studer-raimann.ch>
+ * @version 1.0.0
  */
 class xlvoPlayerGUI {
 
@@ -139,9 +144,9 @@ class xlvoPlayerGUI {
 
 
 	/**
-	 * @param null $voting_id
+	 * @param $voting_id
 	 */
-	public function showVoting($voting_id = NULL) {
+	public function showVoting($voting_id) {
 
 		if ($voting_id == NULL) {
 			if ($_GET[self::IDENTIFIER] != NULL) {

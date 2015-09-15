@@ -8,6 +8,7 @@ require_once('./Services/Form/classes/class.ilMultiSelectInputGUI.php');
  * Class xlvoVotingTableGUI
  *
  * @author  Daniel Aemmer <daniel.aemmer@phbern.ch>
+ * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version 1.0.0
  */
 class xlvoVotingTableGUI extends ilTable2GUI {
@@ -69,21 +70,20 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 	}
 
 
-//	protected function saveSorting() {
-//		print_r('sorting: ');
-//		var_dump($_POST['position']);
-//		foreach ($_POST['position'] as $k => $v) {
-//			//			$obj = ctrlmmEntryInstaceFactory::getInstanceByEntryId($v)->getObject();
-//			//			$obj->setPosition($k);
-//			//			$obj->update();
-//			print_r('posted: ');
-//			var_dump($k . ' : ' . $v . ' - ');
-//		}
-//		exit;
-//		ilUtil::sendSuccess($this->pl->txt('sorting_saved'));
-//		$this->ctrl->redirect($this, self::CMD_STANDARD);
-//	}
-
+	//	protected function saveSorting() {
+	//		print_r('sorting: ');
+	//		var_dump($_POST['position']);
+	//		foreach ($_POST['position'] as $k => $v) {
+	//			//			$obj = ctrlmmEntryInstaceFactory::getInstanceByEntryId($v)->getObject();
+	//			//			$obj->setPosition($k);
+	//			//			$obj->update();
+	//			print_r('posted: ');
+	//			var_dump($k . ' : ' . $v . ' - ');
+	//		}
+	//		exit;
+	//		ilUtil::sendSuccess($this->pl->txt('sorting_saved'));
+	//		$this->ctrl->redirect($this, self::CMD_STANDARD);
+	//	}
 
 	protected function addFilterItems() {
 		$title = new ilTextInputGUI($this->pl->txt('title'), 'title');
@@ -208,6 +208,11 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 	}
 
 
+	/**
+	 * @param $voting_type
+	 *
+	 * @return string
+	 */
 	protected function getVotingType($voting_type) {
 		$type = '';
 		switch ($voting_type) {
@@ -223,6 +228,11 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 	}
 
 
+	/**
+	 * @param $voting_status
+	 *
+	 * @return string
+	 */
 	protected function getVotingStatus($voting_status) {
 		$status = '';
 		switch ($voting_status) {

@@ -35,7 +35,7 @@ if ($posted_type == 'access_screen') {
 	if (xlvoInitialisation::getCookiePIN()) {
 		echo $voter_gui->accessVoting(xlvoInitialisation::getCookiePIN());
 	} else {
-		echo $voter_gui->showAccessScreen();
+		echo $voter_gui->showAccessScreen(false);
 	}
 }
 

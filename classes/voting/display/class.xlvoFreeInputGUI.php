@@ -3,6 +3,13 @@
 require_once('./Services/Form/classes/class.ilPropertyFormGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingManager.php');
 
+/**
+ * Class xlvoFreeInputGUI
+ *
+ * @author  Daniel Aemmer <daniel.aemmer@phbern.ch>
+ * @author  Fabian Schmid <fs@studer-raimann.ch>
+ * @version 1.0.0
+ */
 class xlvoFreeInputGUI extends ilPropertyFormGUI {
 
 	/**
@@ -19,6 +26,9 @@ class xlvoFreeInputGUI extends ilPropertyFormGUI {
 	protected $pl;
 
 
+	/**
+	 * @param xlvoVoting $voting
+	 */
 	public function __construct(xlvoVoting $voting) {
 
 		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/tpl.free_input.html', true, true);
@@ -28,6 +38,11 @@ class xlvoFreeInputGUI extends ilPropertyFormGUI {
 	}
 
 
+	/**
+	 * @param xlvoVote $vote
+	 *
+	 * @return string
+	 */
 	protected function renderForm(xlvoVote $vote) {
 
 		$an = new ilTextInputGUI($this->pl->txt('answer'), 'free_input');
@@ -51,6 +66,12 @@ class xlvoFreeInputGUI extends ilPropertyFormGUI {
 	}
 
 
+	/**
+	 * @param array      $votes
+	 * @param xlvoOption $option
+	 *
+	 * @return string
+	 */
 	protected function renderMultiForm(array $votes, xlvoOption $option) {
 		$mli = new xlvoMultiLineInputGUI($this->pl->txt('answers'), 'vote_multi_line_input');
 		$te = new ilTextInputGUI($this->pl->txt('text'), 'free_input');
