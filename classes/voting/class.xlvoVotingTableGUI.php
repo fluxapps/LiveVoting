@@ -172,6 +172,7 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 		}
 		if ($access->hasDeleteAccess()) {
 			$current_selection_list->addItem($this->pl->txt('delete'), xlvoVotingGUI::CMD_CONFIRM_DELETE, $this->ctrl->getLinkTarget($this->voting_gui, xlvoVotingGUI::CMD_CONFIRM_DELETE));
+			$current_selection_list->addItem($this->pl->txt('reset'), xlvoVotingGUI::CMD_CONFIRM_RESET, $this->ctrl->getLinkTarget($this->voting_gui, xlvoVotingGUI::CMD_CONFIRM_RESET));
 		}
 		$current_selection_list->getHTML();
 		$this->tpl->setVariable('ACTIONS', $current_selection_list->getHTML());

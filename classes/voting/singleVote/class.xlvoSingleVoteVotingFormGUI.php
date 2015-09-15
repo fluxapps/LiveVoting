@@ -85,7 +85,7 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 			$mli->addInput($te);
 			$this->addItem($mli);
 		} else {
-			// TODO set info text
+			// TODO add info
 		}
 	}
 

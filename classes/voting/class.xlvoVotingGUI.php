@@ -28,6 +28,8 @@ class xlvoVotingGUI {
 	const CMD_DELETE = 'delete';
 	const CMD_CONFIRM_RESET = 'confirmReset';
 	const CMD_RESET = 'reset';
+	const CMD_CONFIRM_RESET_ALL = 'confirmResetAll';
+	const CMD_RESET_ALL = 'resetAll';
 	const CMD_CANCEL = 'cancel';
 	const CMD_BACK = 'back';
 	/**
@@ -134,7 +136,7 @@ class xlvoVotingGUI {
 
 				$b = ilLinkButton::getInstance();
 				$b->setCaption('rep_robj_xlvo_reset_all_votes');
-				$b->setUrl($this->ctrl->getLinkTarget(new xlvoVotingGUI(), self::CMD_CONFIRM_RESET));
+				$b->setUrl($this->ctrl->getLinkTarget(new xlvoVotingGUI(), self::CMD_CONFIRM_RESET_ALL));
 				$this->toolbar->addButtonInstance($b);
 
 				$xlvoVotingTableGUI = new xlvoVotingTableGUI($this, self::CMD_STANDARD);
@@ -246,17 +248,77 @@ class xlvoVotingGUI {
 				}
 				$xlvoVoting->delete();
 				$this->cancel();
+			} else {
+				ilUtil::sendFailure($this->pl->txt('delete_failed'), true);
+				$this->ctrl->redirect($this, self::CMD_STANDARD);
 			}
 		}
 	}
 
 
 	protected function confirmReset() {
+
 		if (! $this->access->hasDeleteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
-			ilUtil::sendQuestion($this->pl->txt('confirm_reset_voting'), true);
+
+			/**
+			 * @var $xlvoVoting xlvoVoting
+			 */
+			$xlvoVoting = xlvoVoting::find($_GET[self::IDENTIFIER]);
+
+			if ($xlvoVoting->getObjId() == $this->getObjId()) {
+				ilUtil::sendQuestion($this->pl->txt('confirm_reset_voting'), true);
+				$confirm = new ilConfirmationGUI();
+				$confirm->addItem(self::IDENTIFIER, $xlvoVoting->getId(), $xlvoVoting->getTitle());
+				$confirm->setFormAction($this->ctrl->getFormAction($this));
+				$confirm->setCancel($this->pl->txt('cancel'), self::CMD_CANCEL);
+				$confirm->setConfirm($this->pl->txt('reset'), self::CMD_RESET);
+
+				$this->tpl->setContent($confirm->getHTML());
+			} else {
+				ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
+				$this->ctrl->redirect($this, self::CMD_STANDARD);
+			}
+		}
+	}
+
+
+	protected function reset() {
+		if (! $this->access->hasDeleteAccess()) {
+			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
+			$this->ctrl->redirect($this, self::CMD_STANDARD);
+		} else {
+			/**
+			 * @var $xlvoVoting xlvoVoting
+			 */
+			$xlvoVoting = xlvoVoting::find($_POST[self::IDENTIFIER]);
+
+			if ($xlvoVoting->getObjId() == $this->getObjId()) {
+
+				/**
+				 * @var $votes xlvoVote[]
+				 */
+				$votes = xlvoVote::where(array( 'voting_id' => $xlvoVoting->getId() ))->get();
+				foreach ($votes as $vote) {
+					$vote->delete();
+				}
+				$this->cancel();
+			} else {
+				ilUtil::sendFailure($this->pl->txt('reset_failed'), true);
+				$this->ctrl->redirect($this, self::CMD_STANDARD);
+			}
+		}
+	}
+
+
+	protected function confirmResetAll() {
+		if (! $this->access->hasDeleteAccess()) {
+			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
+			$this->ctrl->redirect($this, self::CMD_STANDARD);
+		} else {
+			ilUtil::sendQuestion($this->pl->txt('confirm_reset_all_votings'), true);
 			$confirm = new ilConfirmationGUI();
 			$votings = xlvoVoting::where(array( 'obj_id' => $this->getObjId() ))->get();
 			$num_votes = 0;
@@ -266,14 +328,14 @@ class xlvoVotingGUI {
 			$confirm->addItem(self::IDENTIFIER, 0, $this->pl->txt('confirm_number_of_votes') . ": " . $num_votes);
 			$confirm->setFormAction($this->ctrl->getFormAction($this));
 			$confirm->setCancel($this->pl->txt('cancel'), self::CMD_CANCEL);
-			$confirm->setConfirm($this->pl->txt('delete'), self::CMD_RESET);
+			$confirm->setConfirm($this->pl->txt('reset_all'), self::CMD_RESET_ALL);
 
 			$this->tpl->setContent($confirm->getHTML());
 		}
 	}
 
 
-	protected function reset() {
+	protected function resetAll() {
 		if (! $this->access->hasDeleteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
@@ -294,6 +356,7 @@ class xlvoVotingGUI {
 	protected function cancel() {
 		$this->ctrl->redirect($this, self::CMD_STANDARD);
 	}
+
 
 	protected function applyFilter() {
 		$xlvoVotingGUI = new xlvoVotingTableGUI($this, self::CMD_STANDARD);
