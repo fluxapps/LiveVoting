@@ -128,10 +128,10 @@ class xlvoDisplayPlayerGUI {
 		 */
 		$option = $this->voting->getVotingOptions()->first();
 		/**
-		 * @var xlvoVote $votes
+		 * @var xlvoVote[] $votes
 		 */
-		$votes = $this->voting_manager->getVotesOfOption($this->voting->getId(), $option->getId());
-		foreach ($votes->get() as $vote) {
+		$votes = $this->voting_manager->getVotesOfOption($option->getId())->get();
+		foreach ($votes as $vote) {
 			$bars->addBar(new xlvoBarFreeInputGUI($this->voting, $vote));
 		}
 

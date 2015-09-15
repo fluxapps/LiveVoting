@@ -34,7 +34,7 @@ class xlvoBarPercentageGUI extends xlvoBarGUI {
 	 * @param            $votes
 	 * @param            $option_letter
 	 */
-	public function __construct(xlvoVoting $voting, xlvoOption $option, xlvoVote $votes, $option_letter) {
+	public function __construct(xlvoVoting $voting, xlvoOption $option, $votes, $option_letter) {
 
 		parent::__construct();
 

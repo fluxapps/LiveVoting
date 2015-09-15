@@ -11,10 +11,6 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 class xlvoBarFreeInputGUI extends xlvoBarGUI {
 
 	/**
-	 * @var ilTemplate
-	 */
-	protected $tpl;
-	/**
 	 * @var xlvoVoting
 	 */
 	protected $voting;
@@ -29,6 +25,9 @@ class xlvoBarFreeInputGUI extends xlvoBarGUI {
 	 * @param xlvoVote   $vote
 	 */
 	public function __construct(xlvoVoting $voting, xlvoVote $vote) {
+
+		parent::__construct();
+
 		$this->voting = $voting;
 		$this->vote = $vote;
 		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/tpl.bar_free_input.html', true, true);
