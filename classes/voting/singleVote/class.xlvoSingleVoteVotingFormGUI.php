@@ -72,12 +72,15 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 		$this->initButtons();
 
 		$cb = new ilCheckboxInputGUI($this->pl->txt('multi_selection'), 'multi_selection');
+		$cb->setInfo($this->pl->txt('info_singlevote_multi_selection'));
 		$this->addItem($cb);
 		$cb = new ilCheckboxInputGUI($this->pl->txt('colors'), 'colors');
+		$cb->setInfo($this->pl->txt('info_singlevote_colors'));
 		$this->addItem($cb);
 
 		if (! $this->has_existing_votes) {
 			$mli = new xlvoMultiLineInputGUI($this->pl->txt('options'), 'options');
+			$mli->setInfo($this->pl->txt('info_singlevote_options'));
 			$te = new ilTextInputGUI($this->pl->txt('text'), 'text');
 			$mli->addInput($te);
 			$this->addItem($mli);

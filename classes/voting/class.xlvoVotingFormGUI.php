@@ -63,11 +63,14 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 		$this->initButtons();
 
 		$te = new ilTextInputGUI($this->pl->txt('title'), 'title');
+		$te->setInfo($this->pl->txt('info_voting_title'));
 		$te->setRequired(true);
 		$this->addItem($te);
 		$ta = new ilTextAreaInputGUI($this->pl->txt('description'), 'description');
+		$ta->setInfo($this->pl->txt('info_voting_description'));
 		$this->addItem($ta);
 		$qu = new ilTextAreaInputGUI($this->pl->txt('question'), 'question');
+		$qu->setInfo($this->pl->txt('info_voting_question'));
 		$qu->setRequired(true);
 		$qu->setUseRte(true);
 		$qu->usePurifier(true);
@@ -76,12 +79,14 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 
 		if ($this->is_new) {
 			$sl = new ilAdvSelectInputGUI($this->pl->txt('type'), 'voting_type');
+			$sl->setInfo($this->pl->txt('info_voting_type'));
 			$sl->addOption(xlvoVotingType::SINGLE_VOTE, $this->pl->txt('single_vote'), $this->pl->txt('single_vote'));
 			$sl->addOption(xlvoVotingType::FREE_INPUT, $this->pl->txt('free_input'), $this->pl->txt('free_input'));
 			$this->addItem($sl);
 		}
 		if (! $this->is_new && $this->voting->getVotingStatus() != xlvoVoting::STAT_INCOMPLETE) {
 			$cb = new ilCheckboxInputGUI($this->pl->txt('active'), 'voting_status');
+			$cb->setInfo($this->pl->txt('info_voting_status'));
 			$this->addItem($cb);
 		}
 	}

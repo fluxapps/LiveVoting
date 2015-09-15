@@ -273,21 +273,26 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 			$this->form->setTitle($this->pl->txt('edit_properties'));
 
 			$ti = new ilTextInputGUI($this->pl->txt('title'), 'title');
+			$ti->setInfo($this->pl->txt('info_properties_title'));
 			$ti->setRequired(true);
 			$this->form->addItem($ti);
 			$ta = new ilTextAreaInputGUI($this->pl->txt('description'), 'description');
+			$ta->setInfo($this->pl->txt('info_properties_description'));
 			$this->form->addItem($ta);
 			$cb = new ilCheckboxInputGUI($this->pl->txt('online'), 'online');
+			$cb->setInfo($this->pl->txt('info_properties_online'));
 			$this->form->addItem($cb);
 			$cb = new ilCheckboxInputGUI($this->pl->txt('anonymous'), 'anonymous');
+			$cb->setInfo($this->pl->txt('info_properties_anonymous'));
 			$this->form->addItem($cb);
 			$cb = new ilCheckboxInputGUI($this->pl->txt('terminable'), 'terminable');
+			$cb->setInfo($this->pl->txt('info_properties_terminable'));
 			$this->form->addItem($cb);
-
 			$te = new ilDateDurationInputGUI($this->pl->txt("terminable_select"), "terminable_select");
+			$te->setInfo($this->pl->txt('info_properties_terminable_select'));
 			$te->setShowTime(true);
-			$te->setStartText($this->pl->txt("terminable_select_start_time"));
-			$te->setEndText($this->pl->txt("terminable_select_end_time"));
+			$te->setStartText($this->pl->txt('terminable_select_start_time'));
+			$te->setEndText($this->pl->txt('terminable_select_end_time'));
 			$te->setMinuteStepSize(1);
 			/**
 			 * @var xlvoVotingConfig $config

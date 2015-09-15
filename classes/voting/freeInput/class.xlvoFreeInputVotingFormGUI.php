@@ -59,6 +59,7 @@ class xlvoFreeInputVotingFormGUI extends xlvoVotingFormGUI {
 		$this->initButtons();
 
 		$cb = new ilCheckboxInputGUI($this->pl->txt('multi_free_input'), 'multi_free_input');
+		$cb->setInfo($this->pl->txt('info_freeinput_multi_free_input'));
 		$this->addItem($cb);
 	}
 
