@@ -351,7 +351,11 @@ class xlvoVotingManager implements xlvoVotingInterface {
 					if ($vote->getId() != self::NEW_VOTE) {
 						foreach ($existing_votes as $vo) {
 							if ($vote->getId() == $vo->getId()) {
-								$vote = $this->deleteVote($vo);
+								if ($vote->getStatus() != xlvoVote::STAT_INACTIVE) {
+									$vote = $this->updateVote($vo, $vote);
+								} else {
+									$vote = $this->deleteVote($vote);
+								}
 							}
 						}
 					} else {

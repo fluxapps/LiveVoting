@@ -172,7 +172,6 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 
 			foreach ($arr_existing_ids as $id) {
 				if ($arr_opts_ids[$id] == NULL) {
-					var_dump($id);
 					$option = new xlvoOption();
 					$option->setId($id);
 					$option->setVotingId($this->voting->getId());

@@ -133,6 +133,7 @@ class xlvoVoterGUI {
 						return $this->showInfoScreen($obj_id, self::INFO_TYPE_WAITING);
 					}
 				} else {
+					// return empty html
 					return '';
 				}
 			} else {
