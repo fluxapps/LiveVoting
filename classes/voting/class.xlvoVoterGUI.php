@@ -268,7 +268,14 @@ class xlvoVoterGUI {
 		$template->setVariable('VOTING_ID', 0);
 		$template->touchBlock('loader');
 		$template->setVariable('OBJ_ID', $obj_id);
-		$template->setVariable('INFO_TEXT', $this->voting_manager->getActiveVotingObject($obj_id)->getTitle());
+
+		$xlvoVoting = $this->voting_manager->getActiveVotingObject($obj_id);
+
+		if ($xlvoVoting instanceof xlvoVoting) {
+			$template->setVariable('INFO_TEXT', $xlvoVoting->getTitle());
+		} else {
+			$template->setVariable('INFO_TEXT', self::INFO_TYPE_WAITING);
+		}
 
 		return $template->get();
 	}

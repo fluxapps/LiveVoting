@@ -49,10 +49,15 @@ if ($posted_type == 'access_voting') {
 
 if ($posted_type == 'voting_screen') {
 	header('Content-type: text/html');
-	if ($voting_manager->getPlayer($posted_object_id)->isFrozenOrUnattended()) {
-		echo $voter_gui->showWaitForQuestionScreen($posted_object_id);
+	$player = $voting_manager->getPlayer($posted_object_id);
+	if($player instanceof xlvoPlayer) {
+		if ($voting_manager->getPlayer($posted_object_id)->isFrozenOrUnattended()) {
+			echo $voter_gui->showWaitForQuestionScreen($posted_object_id);
+		} else {
+			echo $voter_gui->showVoting($posted_object_id, $posted_voting_id);
+		}
 	} else {
-		echo $voter_gui->showVoting($posted_object_id, $posted_voting_id);
+		echo $voter_gui->showInfoScreen($posted_object_id, 'not_available_screen');
 	}
 }
 
