@@ -4,6 +4,13 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoOption.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingManager.php');
 
+/**
+ * Class xlvoFreeInputVotingFormGUI
+ *
+ * @author  Daniel Aemmer <daniel.aemmer@phbern.ch>
+ * @author  Fabian Schmid <fs@studer-raimann.ch>
+ * @version 1.0.0
+ */
 class xlvoFreeInputVotingFormGUI extends xlvoVotingFormGUI {
 
 	/**
@@ -30,13 +37,17 @@ class xlvoFreeInputVotingFormGUI extends xlvoVotingFormGUI {
 	 * @var xlvoVotingManager
 	 */
 	protected $voting_manager;
+	/**
+	 * @var xlvoOption[]
+	 */
+	protected $options;
 
 
 	/**
-	 * @param            $parent_gui
-	 * @param xlvoVoting $xlvoVoting
+	 * @param xlvoFreeInputVotingGUI $parent_gui
+	 * @param xlvoVoting             $xlvoVoting
 	 */
-	public function __construct($parent_gui, xlvoVoting $xlvoVoting) {
+	public function __construct(xlvoFreeInputVotingGUI $parent_gui, xlvoVoting $xlvoVoting) {
 		global $ilCtrl;
 		/**
 		 * @var $ilCtrl ilCtrl
@@ -59,6 +70,7 @@ class xlvoFreeInputVotingFormGUI extends xlvoVotingFormGUI {
 		$this->initButtons();
 
 		$cb = new ilCheckboxInputGUI($this->pl->txt('multi_free_input'), 'multi_free_input');
+		$cb->setInfo($this->pl->txt('info_freeinput_multi_free_input'));
 		$this->addItem($cb);
 	}
 
@@ -85,8 +97,6 @@ class xlvoFreeInputVotingFormGUI extends xlvoVotingFormGUI {
 
 
 	/**
-	 * returns whether checkinput was successful or not.
-	 *
 	 * @return bool
 	 */
 	public function fillObject() {
@@ -106,7 +116,7 @@ class xlvoFreeInputVotingFormGUI extends xlvoVotingFormGUI {
 
 
 	/**
-	 * @return bool|string
+	 * @return bool
 	 */
 	public function saveObject() {
 		if (! $this->fillObject()) {
@@ -117,6 +127,9 @@ class xlvoFreeInputVotingFormGUI extends xlvoVotingFormGUI {
 			if (xlvoVoting::where(array( 'id' => $this->voting->getId() ))->hasSets()) {
 
 				if (count(xlvoOption::where(array( 'voting_id' => $this->voting->getId() ))->getArray()) <= 0) {
+					/**
+					 * @var $xlvoOption xlvoOption
+					 */
 					$xlvoOption = new xlvoOption();
 					$xlvoOption->setVotingId($this->voting->getId());
 					$xlvoOption->setType($this->voting->getVotingType());
@@ -133,7 +146,7 @@ class xlvoFreeInputVotingFormGUI extends xlvoVotingFormGUI {
 			}
 		} else {
 			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
-			$this->ctrl->redirect($this->parent_gui, xlvoVoting::CMD_STANDARD);
+			$this->ctrl->redirect($this->parent_gui, xlvoVotingGUI::CMD_STANDARD);
 		}
 
 		return true;

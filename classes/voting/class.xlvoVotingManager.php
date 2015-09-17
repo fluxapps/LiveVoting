@@ -8,6 +8,10 @@ require_once('./Services/Object/classes/class.ilObject2.php');
 
 /**
  * Class xlvoVotingManager
+ *
+ * @author  Daniel Aemmer <daniel.aemmer@phbern.ch>
+ * @author  Fabian Schmid <fs@studer-raimann.ch>
+ * @version 1.0.0
  */
 class xlvoVotingManager implements xlvoVotingInterface {
 
@@ -22,27 +26,37 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	protected $user_ilias;
 
 
-	/**
-	 *
-	 */
 	public function __construct() {
 		global $ilUser;
 
 		/**
-		 * @var ilUser $ilUser
+		 * @var ilObjUser $ilUser
 		 */
 		$this->user_ilias = $ilUser;
 		$this->obj_id = ilObject2::_lookupObjId($_GET['ref_id']);
 	}
 
 
-	public function getVotings($obj_id = NULL, $filter_active = false) {
-		$obj_id = $obj_id ? $obj_id : $this->obj_id;
-		$xlvoVotings = xlvoVoting::where(array( 'obj_id' => $obj_id ));
+	/**
+	 * @param $obj_id
+	 *
+	 * @return ActiveRecordList
+	 */
+	public function getActiveVotings($obj_id) {
+		/**
+		 * @var xlvoVoting $xlvoVotings
+		 */
+		$xlvoVotings = xlvoVoting::where(array( 'obj_id' => $obj_id, 'voting_status' => xlvoVoting::STAT_ACTIVE ));
 
-		if ($filter_active == true) {
-			$xlvoVotings = $xlvoVotings->where(array( 'voting_status' => xlvoVoting::STAT_ACTIVE ));
-		}
+		return $xlvoVotings;
+	}
+
+
+	public function getVotings($obj_id) {
+		/**
+		 * @var xlvoVoting $xlvoVotings
+		 */
+		$xlvoVotings = xlvoVoting::where(array( 'obj_id' => $obj_id ));
 
 		return $xlvoVotings;
 	}
@@ -54,17 +68,24 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	 * @return xlvoVoting
 	 */
 	public function getVoting($id) {
+		/**
+		 * @var xlvoVoting $xlvoVoting
+		 */
 		$xlvoVoting = xlvoVoting::find($id);
 
-		if ($xlvoVoting instanceof xlvoVoting) {
-			return $xlvoVoting;
-		} else {
-			return new xlvoVoting();
-		}
+		return $xlvoVoting;
 	}
 
 
-	public function getOptions($voting_id) {
+	/**
+	 * @param $voting_id
+	 *
+	 * @return xlvoOption
+	 */
+	public function getOptionsOfVoting($voting_id) {
+		/**
+		 * @var xlvoOption $xlvoOptions
+		 */
 		$xlvoOptions = xlvoOption::where(array( 'voting_id' => $voting_id ));
 
 		return $xlvoOptions;
@@ -77,39 +98,30 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	 * @return xlvoOption
 	 */
 	public function getOption($option_id) {
+		/**
+		 * @var xlvoOption $xlvoOption
+		 */
 		$xlvoOption = xlvoOption::find($option_id);
 
 		return $xlvoOption;
 	}
 
 
-	/**
-	 * @param            $voting_id
-	 * @param null       $option_id
-	 * @param bool|false $active_user
-	 *
-	 * @return $this|ActiveRecordList
-	 * @throws Exception
-	 */
-	public function getVotes($voting_id, $option_id = NULL, $active_user = false) {
+	public function getVotesOfVoting($voting_id) {
+		/**
+		 * @var xlvoVote $xlvoVotes
+		 */
 		$xlvoVotes = xlvoVote::where(array( 'voting_id' => $voting_id ));
-		if ($option_id != NULL) {
-			$xlvoVotes = $xlvoVotes->where(array( 'option_id' => $option_id ));
-		}
-		// USE getVotesOfUser
-		if ($active_user) {
-			/**
-			 * @var $xlvoVoting xlvoVoting
-			 */
-			$xlvoVoting = xlvoVoting::find($voting_id);
-			$xlvoConfig = $this->getVotingConfig($xlvoVoting->getObjId());
 
-			if ($xlvoConfig->isAnonymous()) {
-				$xlvoVotes = $xlvoVotes->where(array( 'user_identifier' => session_id() ));
-			} else {
-				$xlvoVotes = $xlvoVotes->where(array( 'user_id' => $this->user_ilias->getId() ));
-			}
-		}
+		return $xlvoVotes;
+	}
+
+
+	public function getVotesOfOption($option_id) {
+		/**
+		 * @var xlvoVote $xlvoVotes
+		 */
+		$xlvoVotes = xlvoVote::where(array( 'option_id' => $option_id ));
 
 		return $xlvoVotes;
 	}
@@ -117,18 +129,54 @@ class xlvoVotingManager implements xlvoVotingInterface {
 
 	/**
 	 * @param      $voting_id
-	 * @param null $option_id
+	 * @param      $option_id
 	 *
 	 * @return ActiveRecordList
 	 * @throws Exception
 	 */
-	public function getVotesOfUser($voting_id, $option_id = NULL) {
-		$xlvoVotes = $this->getVotes($voting_id, $option_id);
+	public function getVotesOfUserOfOption($voting_id, $option_id) {
+		/**
+		 * @var xlvoVote $xlvoVotes
+		 */
+		$xlvoVotes = $this->getVotesOfOption($option_id);
 
 		/**
 		 * @var $xlvoVoting xlvoVoting
 		 */
 		$xlvoVoting = xlvoVoting::find($voting_id);
+		/**
+		 * @var xlvoVotingConfig $xlvoConfig
+		 */
+		$xlvoConfig = $this->getVotingConfig($xlvoVoting->getObjId());
+
+		if ($xlvoConfig->isAnonymous()) {
+			$xlvoVotes = $xlvoVotes->where(array( 'user_identifier' => session_id() ));
+		} else {
+			$xlvoVotes = $xlvoVotes->where(array( 'user_id' => $this->user_ilias->getId() ));
+		}
+
+		return $xlvoVotes;
+	}
+
+
+	/**
+	 * @param $voting_id
+	 *
+	 * @return xlvoVote
+	 */
+	public function getVotesOfUserOfVoting($voting_id) {
+		/**
+		 * @var xlvoVote $xlvoVotes
+		 */
+		$xlvoVotes = $this->getVotesOfVoting($voting_id);
+
+		/**
+		 * @var $xlvoVoting xlvoVoting
+		 */
+		$xlvoVoting = xlvoVoting::find($voting_id);
+		/**
+		 * @var xlvoVotingConfig $xlvoConfig
+		 */
 		$xlvoConfig = $this->getVotingConfig($xlvoVoting->getObjId());
 
 		if ($xlvoConfig->isAnonymous()) {
@@ -147,6 +195,9 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	 * @return xlvoVote
 	 */
 	public function getVote($vote_id) {
+		/**
+		 * @var xlvoVote $xlvoVote
+		 */
 		$xlvoVote = xlvoVote::find($vote_id);
 
 		return $xlvoVote;
@@ -154,12 +205,14 @@ class xlvoVotingManager implements xlvoVotingInterface {
 
 
 	/**
-	 * @param null $obj_id
+	 * @param $obj_id
 	 *
 	 * @return xlvoVotingConfig
 	 */
-	public function getVotingConfig($obj_id = NULL) {
-		$obj_id = $obj_id ? $obj_id : $this->obj_id;
+	public function getVotingConfig($obj_id) {
+		/**
+		 * @var xlvoVotingConfig $xlvoVotingConfig
+		 */
 		$xlvoVotingConfig = xlvoVotingConfig::find($obj_id);
 
 		return $xlvoVotingConfig;
@@ -172,6 +225,9 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	 * @return xlvoVotingConfig
 	 */
 	public function updateVotingConfig(xlvoVotingConfig $xlvoVotingConfig) {
+		/**
+		 * @var xlvoVotingConfig $xlvoVotingConfig
+		 */
 		$xlvoVotingConfig->update();
 
 		return $xlvoVotingConfig;
@@ -179,10 +235,15 @@ class xlvoVotingManager implements xlvoVotingInterface {
 
 
 	/**
-	 * @return ActiveRecordList
+	 * @return xlvoVotingConfig
 	 */
 	public function getVotingConfigs() {
-		return xlvoVotingConfig::getCollection();
+		/**
+		 * @var xlvoVotingConfig $xlvoVotingConfigs
+		 */
+		$xlvoVotingConfigs = xlvoVotingConfig::getCollection();
+
+		return $xlvoVotingConfigs;
 	}
 
 
@@ -192,7 +253,12 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	 * @return xlvoPlayer
 	 */
 	public function getPlayer($obj_id) {
-		return xlvoPlayer::where(array( 'obj_id' => $obj_id ))->first();
+		/**
+		 * @var xlvoPlayer $xlvoPlayer
+		 */
+		$xlvoPlayer = xlvoPlayer::where(array( 'obj_id' => $obj_id ))->first();
+
+		return $xlvoPlayer;
 	}
 
 
@@ -202,6 +268,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	 * @return xlvoPlayer
 	 */
 	public function updatePlayer(xlvoPlayer $xlvoPlayer) {
+
 		$xlvoPlayer->update();
 
 		return $xlvoPlayer;
@@ -240,9 +307,9 @@ class xlvoVotingManager implements xlvoVotingInterface {
 		 */
 		$xlvoPlayer = $this->getPlayer($obj_id);
 		/**
-		 * @var xlvoVote[] $exisiting_votes
+		 * @var xlvoVote[] $existing_votes
 		 */
-		$existing_votes = $this->getVotes($xlvoOption->getVotingId(), NULL, true)->get();
+		$existing_votes = $this->getVotesOfUserOfVoting($xlvoOption->getVotingId())->get();
 
 		if (! $xlvoPlayer->isFrozen() && $xlvoPlayer->getStatus() == xlvoPlayer::STAT_RUNNING && $this->isVotingAvailable($obj_id)) {
 
@@ -284,7 +351,11 @@ class xlvoVotingManager implements xlvoVotingInterface {
 					if ($vote->getId() != self::NEW_VOTE) {
 						foreach ($existing_votes as $vo) {
 							if ($vote->getId() == $vo->getId()) {
-								$vote = $this->deleteVote($vo);
+								if ($vote->getStatus() != xlvoVote::STAT_INACTIVE) {
+									$vote = $this->updateVote($vo, $vote);
+								} else {
+									$vote = $this->deleteVote($vote);
+								}
 							}
 						}
 					} else {
@@ -338,7 +409,11 @@ class xlvoVotingManager implements xlvoVotingInterface {
 		}
 
 		$vote->create();
-		$created_vote = $this->getVotes($option->getVotingId(), $option->getId(), true)->last();
+
+		/**
+		 * @var xlvoVote $created_vote
+		 */
+		$created_vote = $this->getVotesOfUserOfOption($option->getVotingId(), $option->getId())->last();
 
 		return $created_vote;
 	}
@@ -381,9 +456,12 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	 *
 	 * @return bool
 	 */
-	public function deleteVotesForOption($option_id) {
-		$option = xlvoOption::find($option_id);
-		$votes = $this->getVotes($option->getVotingId(), $option_id);
+	public function deleteVotesOfOption($option_id) {
+
+		/**
+		 * @var xlvoVote $votes
+		 */
+		$votes = $this->getVotesOfOption($option_id);
 
 		foreach ($votes->get() as $vote) {
 			$vote->delete();
@@ -398,8 +476,11 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	 *
 	 * @return bool
 	 */
-	public function deleteVotesForVoting($voting_id) {
-		$votes = $this->getVotes($voting_id);
+	public function deleteVotesOfVoting($voting_id) {
+		/**
+		 * @var xlvoVote $votes
+		 */
+		$votes = $this->getVotesOfVoting($voting_id);
 		foreach ($votes->get() as $vote) {
 			$vote->delete();
 		}
@@ -413,10 +494,13 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	 *
 	 * @return bool
 	 */
-	public function deleteVotesForObject($obj_id) {
+	public function deleteVotesOfObject($obj_id) {
+		/**
+		 * @var xlvoVoting $votings
+		 */
 		$votings = xlvoVoting::where(array( 'obj_id' => $obj_id ));
 		foreach ($votings as $voting) {
-			$this->deleteVotesForVoting($voting);
+			$this->deleteVotesOfVoting($voting);
 		}
 
 		return true;
@@ -459,6 +543,9 @@ class xlvoVotingManager implements xlvoVotingInterface {
 		 * @var xlvoVoting $xlvoVoting
 		 */
 		$xlvoVoting = $this->getVoting($voting_id);
+		/**
+		 * @var xlvoPlayer $xlvoPlayer
+		 */
 		$xlvoPlayer = $this->getPlayer($xlvoVoting->getObjId());
 		if ($xlvoPlayer == NULL) {
 			$xlvoPlayer = new xlvoPlayer();
@@ -507,6 +594,9 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	}
 
 
+	/**
+	 * @param $obj_id
+	 */
 	public function freezeVoting($obj_id) {
 		/**
 		 * @var xlvoPlayer $xlvoPlayer
@@ -517,6 +607,9 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	}
 
 
+	/**
+	 * @param $obj_id
+	 */
 	public function unfreezeVoting($obj_id) {
 		/**
 		 * @var xlvoPlayer $xlvoPlayer
@@ -527,6 +620,9 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	}
 
 
+	/**
+	 * @param $obj_id
+	 */
 	public function terminateVoting($obj_id) {
 		/**
 		 * @var xlvoPlayer $xlvoPlayer

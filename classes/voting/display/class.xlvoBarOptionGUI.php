@@ -2,12 +2,15 @@
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/display/class.xlvoBarGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingManager.php');
 
+/**
+ * Class xlvoBarOptionGUI
+ *
+ * @author  Daniel Aemmer <daniel.aemmer@phbern.ch>
+ * @author  Fabian Schmid <fs@studer-raimann.ch>
+ * @version 1.0.0
+ */
 class xlvoBarOptionGUI extends xlvoBarGUI {
 
-	/**
-	 * @var ilTemplate
-	 */
-	protected $tpl;
 	/**
 	 * @var xlvoVoting
 	 */
@@ -28,6 +31,8 @@ class xlvoBarOptionGUI extends xlvoBarGUI {
 	 * @param            $option_letter
 	 */
 	public function __construct(xlvoVoting $voting, xlvoOption $option, $option_letter) {
+
+		parent::__construct();
 
 		$this->voting_manager = new xlvoVotingManager();
 		$this->voting = $voting;
@@ -57,7 +62,10 @@ class xlvoBarOptionGUI extends xlvoBarGUI {
 
 
 	private function getActiveBar() {
-		$vote = $this->voting_manager->getVotes($this->voting->getId(), $this->option->getId(), true)->first();
+		/**
+		 * @var $vote xlvoVote
+		 */
+		$vote = $this->voting_manager->getVotesOfUserOfOption($this->voting->getId(), $this->option->getId())->first();
 		if ($vote instanceof xlvoVote) {
 			if ($vote->getStatus() == 1) {
 				return "active";
@@ -71,11 +79,15 @@ class xlvoBarOptionGUI extends xlvoBarGUI {
 
 
 	private function getVoteId() {
-		$vote = $this->voting_manager->getVotes($this->voting->getId(), $this->option->getId(), true)->first();
+		/**
+		 * @var $vote xlvoVote
+		 */
+		$vote = $this->voting_manager->getVotesOfUserOfOption($this->voting->getId(), $this->option->getId())->first();
 		if ($vote instanceof xlvoVote) {
 			return $vote->getId();
 		} else {
 			$no_existing_vote = 0;
+
 			return $no_existing_vote;
 		}
 	}

@@ -1,12 +1,15 @@
 <?php
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/display/class.xlvoBarGUI.php');
 
+/**
+ * Class xlvoBarPercentageGUI
+ *
+ * @author  Daniel Aemmer <daniel.aemmer@phbern.ch>
+ * @author  Fabian Schmid <fs@studer-raimann.ch>
+ * @version 1.0.0
+ */
 class xlvoBarPercentageGUI extends xlvoBarGUI {
 
-	/**
-	 * @var ilTemplate
-	 */
-	protected $tpl;
 	/**
 	 * @var xlvoVoting
 	 */
@@ -28,10 +31,13 @@ class xlvoBarPercentageGUI extends xlvoBarGUI {
 	/**
 	 * @param xlvoVoting $voting
 	 * @param xlvoOption $option
-	 * @param xlvoVote[] $votes
+	 * @param            $votes
 	 * @param            $option_letter
 	 */
 	public function __construct(xlvoVoting $voting, xlvoOption $option, $votes, $option_letter) {
+
+		parent::__construct();
+
 		$this->voting = $voting;
 		$this->option = $option;
 		$this->votes = clone $votes;
@@ -58,9 +64,12 @@ class xlvoBarPercentageGUI extends xlvoBarGUI {
 	}
 
 
+	/**
+	 * @return float|int
+	 */
 	protected function getPercentage() {
 		$total_votes = $this->votes->count();
-		if($total_votes === 0) {
+		if ($total_votes === 0) {
 			return 0;
 		}
 		$option_votes = $this->votes->where(array( 'option_id' => $this->option->getId() ))->count();

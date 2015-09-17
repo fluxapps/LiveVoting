@@ -4,6 +4,13 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoOption.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingManager.php');
 
+/**
+ * Class xlvoSingleVoteVotingFormGUI
+ *
+ * @author  Daniel Aemmer <daniel.aemmer@phbern.ch>
+ * @author  Fabian Schmid <fs@studer-raimann.ch>
+ * @version 1.0.0
+ */
 class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 
 	/**
@@ -11,7 +18,7 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 	 */
 	protected $voting;
 	/**
-	 * @var xlvoOption
+	 * @var xlvoOption[]
 	 */
 	protected $options;
 	/**
@@ -41,10 +48,10 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 
 
 	/**
-	 * @param            $parent_gui
-	 * @param xlvoVoting $xlvoVoting
+	 * @param xlvoSingleVoteVotingGUI $parent_gui
+	 * @param xlvoVoting              $xlvoVoting
 	 */
-	public function __construct($parent_gui, xlvoVoting $xlvoVoting) {
+	public function __construct(xlvoSingleVoteVotingGUI $parent_gui, xlvoVoting $xlvoVoting) {
 		global $ilCtrl;
 		/**
 		 * @var $ilCtrl ilCtrl
@@ -57,7 +64,7 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 		$this->is_new = ($this->voting->getVotingStatus() == xlvoVoting::STAT_INCOMPLETE);
 		$this->options = array();
 		$this->voting_manager = new xlvoVotingManager();
-		$this->has_existing_votes = (xlvoVote::where(array( 'voting_id' => $this->voting->getId() ))->count() >= 0);
+		$this->has_existing_votes = (xlvoVote::where(array( 'voting_id' => $this->voting->getId() ))->count() > 0);
 
 		global $tpl;
 		$tpl->addJavaScript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/confirm_delete.js');
@@ -72,17 +79,20 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 		$this->initButtons();
 
 		$cb = new ilCheckboxInputGUI($this->pl->txt('multi_selection'), 'multi_selection');
+		$cb->setInfo($this->pl->txt('info_singlevote_multi_selection'));
 		$this->addItem($cb);
 		$cb = new ilCheckboxInputGUI($this->pl->txt('colors'), 'colors');
+		$cb->setInfo($this->pl->txt('info_singlevote_colors'));
 		$this->addItem($cb);
 
 		if (! $this->has_existing_votes) {
 			$mli = new xlvoMultiLineInputGUI($this->pl->txt('options'), 'options');
+			$mli->setInfo($this->pl->txt('info_singlevote_options'));
 			$te = new ilTextInputGUI($this->pl->txt('text'), 'text');
 			$mli->addInput($te);
 			$this->addItem($mli);
 		} else {
-			// TODO set info text
+			// TODO add info
 		}
 	}
 
@@ -114,8 +124,6 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 
 
 	/**
-	 * returns whether checkinput was successful or not.
-	 *
 	 * @return bool
 	 */
 	public function fillObject() {
@@ -164,7 +172,6 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 
 			foreach ($arr_existing_ids as $id) {
 				if ($arr_opts_ids[$id] == NULL) {
-					var_dump($id);
 					$option = new xlvoOption();
 					$option->setId($id);
 					$option->setVotingId($this->voting->getId());
@@ -181,7 +188,7 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 
 
 	/**
-	 * @return bool|string
+	 * @return bool
 	 */
 	public function saveObject() {
 		if (! $this->fillObject()) {
@@ -190,21 +197,23 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 
 		if ($this->voting->getObjId() == $this->parent_gui->getObjId()) {
 
-			foreach ($this->options as $option) {
-				if ($this->voting->getId() == $option->getVotingId()) {
-					if (! xlvoOption::where(array( 'id' => $option->getId() ))->hasSets()) {
-						$option->create();
-					} else {
-						if ($option->getStatus() == xlvoOption::STAT_ACTIVE) {
-							$option->update();
+			if (! $this->has_existing_votes) {
+				foreach ($this->options as $option) {
+					if ($this->voting->getId() == $option->getVotingId()) {
+						if (! xlvoOption::where(array( 'id' => $option->getId() ))->hasSets()) {
+							$option->create();
 						} else {
-							$this->voting_manager->deleteVotesForOption($option->getId());
-							$option->delete();
+							if ($option->getStatus() == xlvoOption::STAT_ACTIVE) {
+								$option->update();
+							} else {
+								$this->voting_manager->deleteVotesOfOption($option->getId());
+								$option->delete();
+							}
 						}
+					} else {
+						ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
+						$this->ctrl->redirect($this->parent_gui, xlvoVotingGUI::CMD_STANDARD);
 					}
-				} else {
-					ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
-					$this->ctrl->redirect($this->parent_gui, xlvoVotingGUI::CMD_STANDARD);
 				}
 			}
 

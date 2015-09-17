@@ -3,6 +3,13 @@
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/singleVote/class.xlvoSingleVoteVotingFormGUI.php');
 
+/**
+ * Class xlvoSingleVoteVotingGUI
+ *
+ * @author  Daniel Aemmer <daniel.aemmer@phbern.ch>
+ * @author  Fabian Schmid <fs@studer-raimann.ch>
+ * @version 1.0.0
+ */
 class xlvoSingleVoteVotingGUI extends xlvoVotingGUI {
 
 	public function __construct() {

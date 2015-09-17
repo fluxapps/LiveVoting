@@ -4,6 +4,13 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/display/class.xlvoBarPercentageGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/display/class.xlvoBarFreeInputGUI.php');
 
+/**
+ * Class xlvoDisplayPlayerGUI
+ *
+ * @author  Daniel Aemmer <daniel.aemmer@phbern.ch>
+ * @author  Fabian Schmid <fs@studer-raimann.ch>
+ * @version 1.0.0
+ */
 class xlvoDisplayPlayerGUI {
 
 	/**
@@ -83,11 +90,26 @@ class xlvoDisplayPlayerGUI {
 	}
 
 
+	/**
+	 * @return string
+	 */
 	protected function renderSingleVote() {
+		/**
+		 * @var xlvoBarCollectionGUI
+		 */
 		$bars = new xlvoBarCollectionGUI();
-		foreach ($this->voting->getVotingOptions()->get() as $option) {
+
+		/**
+		 * @var xlvoOption $options
+		 */
+		$options = $this->voting->getVotingOptions()->get();
+		foreach ($options as $option) {
 			$this->answer_count ++;
-			$votes = $this->voting_manager->getVotes($this->voting->getId(), NULL, false);
+			/**
+			 * @var xlvoVote $votes
+			 */
+			$votes = $this->voting_manager->getVotesOfVoting($this->voting->getId());
+
 			$bars->addBar(new xlvoBarPercentageGUI($this->voting, $option, $votes, (chr($this->answer_count))));
 			$this->addAnswer($option);
 		}
@@ -96,11 +118,20 @@ class xlvoDisplayPlayerGUI {
 	}
 
 
+	/**
+	 * @return string
+	 */
 	protected function renderFreeInput() {
 		$bars = new xlvoBarCollectionGUI();
+		/**
+		 * @var xlvoOption $option
+		 */
 		$option = $this->voting->getVotingOptions()->first();
-		$votes = $this->voting_manager->getVotes($this->voting->getId(), $option->getId(), false);
-		foreach ($votes->get() as $vote) {
+		/**
+		 * @var xlvoVote[] $votes
+		 */
+		$votes = $this->voting_manager->getVotesOfOption($option->getId())->get();
+		foreach ($votes as $vote) {
 			$bars->addBar(new xlvoBarFreeInputGUI($this->voting, $vote));
 		}
 

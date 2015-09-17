@@ -206,6 +206,9 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 						console.log(jqXHR);
 					}).always(function () {
 						$('.ilToolbar').find('.btn.btn-default').attr('class', 'btn btn-default');
+						$('#btn-unfreeze').css('background-color', '#557B2E').css('background-color', '#4F732B');
+						//background-color: #557B2E;
+						//border-color: #4F732B;
 					});
 			});
 		});

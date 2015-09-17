@@ -3,7 +3,11 @@
 require_once('./Services/ActiveRecord/class.ActiveRecord.php');
 
 /**
+ * Class xlvoVotingConfig
  *
+ * @author  Daniel Aemmer <daniel.aemmer@phbern.ch>
+ * @author  Fabian Schmid <fs@studer-raimann.ch>
+ * @version 1.0.0
  */
 class xlvoVotingConfig extends ActiveRecord {
 
@@ -25,11 +29,11 @@ class xlvoVotingConfig extends ActiveRecord {
 	 */
 	protected $obj_id;
 	/**
-	 * @var int
+	 * @var string
 	 *
 	 * @db_has_field        true
-	 * @db_fieldtype        integer
-	 * @db_length           8
+	 * @db_fieldtype        text
+	 * @db_length           256
 	 */
 	protected $pin;
 	/**

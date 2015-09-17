@@ -15,16 +15,18 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoMultiLineInputGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoLinkButton.php');
 
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/lib/QrCode-master/src/QrCode.php');
-use Endroid\QrCode\QrCode;
 /**
  * Class xlvoPlayerGUI
+ *
+ * @author  Daniel Aemmer <daniel.aemmer@phbern.ch>
+ * @author  Fabian Schmid <fs@studer-raimann.ch>
+ * @version 1.0.0
  */
 class xlvoPlayerGUI {
 
-	const TAB_STANDARD = 'tab_voter';
+	const TAB_STANDARD = 'tab_player';
 	const IDENTIFIER = 'xlvoVot';
-	const CMD_STANDARD = 'startVoting';
+	const CMD_STANDARD = 'startOfVoting';
 	const CMD_SHOW_VOTING = 'showVoting';
 	const CMD_START_VOTING = 'startVoting';
 	const CMD_NEXT = 'nextVoting';
@@ -101,7 +103,6 @@ class xlvoPlayerGUI {
 
 
 	public function executeCommand() {
-		$this->tabs->addTab(self::TAB_STANDARD, $this->pl->txt('player'), $this->ctrl->getLinkTarget($this, self::CMD_STANDARD));
 		$this->tabs->setTabActive(self::TAB_STANDARD);
 		$nextClass = $this->ctrl->getNextClass();
 		switch ($nextClass) {
@@ -125,7 +126,10 @@ class xlvoPlayerGUI {
 		if (! $this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
 		} else {
-			$vo = $this->voting_manager->getVotings($this->obj_id, true)->first();
+			/**
+			 * @var xlvoVoting $vo
+			 */
+			$vo = $this->voting_manager->getActiveVotings($this->obj_id)->first();
 			if ($vo == NULL) {
 				ilUtil::sendInfo($this->pl->txt('msg_no_voting_available'), true);
 				$this->ctrl->redirect(new xlvoVotingGUI(), xlvoVotingGUI::CMD_STANDARD);
@@ -140,9 +144,9 @@ class xlvoPlayerGUI {
 
 
 	/**
-	 * @param null $voting_id
+	 * @param $voting_id
 	 */
-	public function showVoting($voting_id = NULL) {
+	public function showVoting($voting_id) {
 
 		if ($voting_id == NULL) {
 			if ($_GET[self::IDENTIFIER] != NULL) {
@@ -228,11 +232,11 @@ class xlvoPlayerGUI {
 			/**
 			 * @var xlvoVoting[] $votings
 			 */
-			$votings = $this->voting_manager->getVotings($this->obj_id, true)->getArray();
+			$votings = $this->voting_manager->getActiveVotings($this->obj_id)->getArray();
 			/**
 			 * @var xlvoVoting $voting_last
 			 */
-			$voting_last = $this->voting_manager->getVotings($this->obj_id, true)->last();
+			$voting_last = $this->voting_manager->getActiveVotings($this->obj_id)->last();
 
 			$voting_id_next = $voting_id_current;
 			$get_next_elem = false;
@@ -269,11 +273,11 @@ class xlvoPlayerGUI {
 			/**
 			 * @var xlvoVoting[] $votings
 			 */
-			$votings = array_reverse($this->voting_manager->getVotings($this->obj_id, true)->getArray());
+			$votings = array_reverse($this->voting_manager->getActiveVotings($this->obj_id)->getArray());
 			/**
 			 * @var xlvoVoting $voting_first
 			 */
-			$voting_first = $this->voting_manager->getVotings($this->obj_id, true)->first();
+			$voting_first = $this->voting_manager->getActiveVotings($this->obj_id)->first();
 
 			$voting_id_previous = $voting_id_current;
 			$get_next_elem = false;
@@ -317,10 +321,9 @@ class xlvoPlayerGUI {
 				/**
 				 * @var xlvoVoting $vo
 				 */
-				$vo = $this->voting_manager->getVotings($this->obj_id, true)->first();
+				$vo = $this->voting_manager->getActiveVotings($this->obj_id)->first();
 				if ($vo == NULL) {
 					ilUtil::sendInfo($this->pl->txt('msg_no_voting_available'), true);
-					$this->ctrl->redirect(new xlvoVotingGUI(), xlvoVotingGUI::CMD_STANDARD);
 				} else {
 					$this->setActiveVoting($vo->getId());
 				}
@@ -366,7 +369,7 @@ class xlvoPlayerGUI {
 			 */
 			$xlvoPlayer = $this->voting_manager->getPlayer($obj_id);
 			if ($xlvoPlayer->isFrozen()) {
-				$this->voting_manager->deleteVotesForVoting($voting_id);
+				$this->voting_manager->deleteVotesOfVoting($voting_id);
 			}
 		}
 	}
@@ -427,7 +430,7 @@ class xlvoPlayerGUI {
 		/**
 		 * @var xlvoVoting[] $votings
 		 */
-		$votings = $this->voting_manager->getVotings($this->obj_id, true)->get();
+		$votings = $this->voting_manager->getActiveVotings($this->obj_id)->get();
 		foreach ($votings as $voting) {
 			$this->ctrl->setParameter(new xlvoPlayerGUI(), self::IDENTIFIER, $voting->getId());
 			$current_selection_list->addItem($voting->getTitle(), $voting->getId(), $this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_SHOW_VOTING));
@@ -516,18 +519,7 @@ class xlvoPlayerGUI {
 		$template->setVariable('PIN', $xlvoVotingConfig->getPin());
 		$template->setVariable('TITLE', $this->pl->txt('msg_start_of_voting_title'));
 		$template->setVariable('TITLE', ilObject2::_lookupTitle($this->obj_id));
-
-
-		$qrCode = new QrCode('http://ilias.mobi/vote/'.$xlvoVotingConfig->getPin());
-
-		$qrCode
-			->setSize(150)
-			->setPadding(10)
-			->setErrorCorrection('high')
-			->setForegroundColor(array('r' => 0, 'g' => 0, 'b' => 0, 'a' => 0))
-			->setBackgroundColor(array('r' => 255, 'g' => 255, 'b' => 255, 'a' => 0));
-
-		$template->setVariable('QR-CODE',$qrCode->getDataUri() );
+		$template->setVariable('QR-CODE', 'QR-CODE');
 
 		$this->tpl->setContent($template->get());
 	}

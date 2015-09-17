@@ -19,11 +19,16 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
  * @ilCtrl_Calls      ilObjLiveVotingGUI: ilPermissionGUI, ilInfoScreenGUI, ilObjectCopyGUI, ilCommonActionDispatcherGUI
  * @ilCtrl_Calls      ilObjLiveVotingGUI: xlvoVoterGUI, xlvoPlayerGUI, xlvoVotingGUI
  *
+ * @author            Daniel Aemmer <daniel.aemmer@phbern.ch>
+ * @author            Fabian Schmid <fs@studer-raimann.ch>
+ * @version           1.0.0
+ *
  */
 class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 
 	const XLVO = 'xlvo';
 	const CMD_STANDARD = 'showContent';
+	const CMD_AFTER_CREATION = 'showContentAfterCreation';
 	const CMD_SHOW_CONTENT = 'showContent';
 	const CMD_EDIT = 'editProperties';
 	const CMD_UPDATE = 'updateProperties';
@@ -52,7 +57,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 	 */
 	protected $pl;
 	/**
-	 * @var ilUser
+	 * @var ilObjUser
 	 */
 	protected $usr;
 
@@ -64,7 +69,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 		 * @var $tpl       ilTemplate
 		 * @var $ilCtrl    ilCtrl
 		 * @var $ilTabs    ilTabsGUI
-		 * @var $ilUser    ilUser
+		 * @var $ilUser    ilObjUser
 		 * @var $ilToolbar ilToolbarGUI
 		 */
 		$this->tpl = $tpl;
@@ -202,6 +207,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 		switch ($cmd) {
 			case self::CMD_STANDARD:
 			case self::CMD_SHOW_CONTENT:
+			case self::CMD_AFTER_CREATION:
 			case self::CMD_EDIT:
 			case self::CMD_UPDATE:
 				$this->{$cmd}();
@@ -214,7 +220,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 	 * @return string
 	 */
 	public function getAfterCreationCmd() {
-		return self::CMD_STANDARD;
+		return self::CMD_AFTER_CREATION;
 	}
 
 
@@ -227,12 +233,13 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 
 
 	protected function setTabs() {
+		$this->tabs->addTab(xlvoPlayerGUI::TAB_STANDARD, $this->pl->txt('player'), $this->ctrl->getLinkTarget(new xlvoPlayerGUI(), xlvoPlayerGUI::CMD_START_OF_VOTING));
+		$this->addInfoTab();
 		if ($this->access->hasWriteAccess()) {
-			$this->tabs->addTab(xlvoVotingGUI::CMD_STANDARD, $this->pl->txt('content'), $this->ctrl->getLinkTarget(new xlvoVotingGUI(), xlvoVotingGUI::CMD_STANDARD));
 			$this->tabs->addTab(self::CMD_EDIT, $this->pl->txt('edit_properties'), $this->ctrl->getLinkTarget($this, self::CMD_EDIT));
+			$this->tabs->addTab(xlvoVotingGUI::CMD_STANDARD, $this->pl->txt('voting_content'), $this->ctrl->getLinkTarget(new xlvoVotingGUI(), xlvoVotingGUI::CMD_STANDARD));
 		}
 		parent::setTabs();
-		$this->addInfoTab();
 
 		return true;
 	}
@@ -240,6 +247,11 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 
 	public function showContent() {
 
+		$this->ctrl->redirect(new xlvoPlayerGUI(), xlvoPlayerGUI::CMD_STANDARD);
+	}
+
+
+	public function showContentAfterCreation() {
 		$this->ctrl->redirect(new xlvoVotingGUI(), xlvoVotingGUI::CMD_STANDARD);
 	}
 
@@ -265,22 +277,30 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 			$this->form->setTitle($this->pl->txt('edit_properties'));
 
 			$ti = new ilTextInputGUI($this->pl->txt('title'), 'title');
+			$ti->setInfo($this->pl->txt('info_properties_title'));
 			$ti->setRequired(true);
 			$this->form->addItem($ti);
 			$ta = new ilTextAreaInputGUI($this->pl->txt('description'), 'description');
+			$ta->setInfo($this->pl->txt('info_properties_description'));
 			$this->form->addItem($ta);
 			$cb = new ilCheckboxInputGUI($this->pl->txt('online'), 'online');
+			$cb->setInfo($this->pl->txt('info_properties_online'));
 			$this->form->addItem($cb);
 			$cb = new ilCheckboxInputGUI($this->pl->txt('anonymous'), 'anonymous');
+			$cb->setInfo($this->pl->txt('info_properties_anonymous'));
 			$this->form->addItem($cb);
 			$cb = new ilCheckboxInputGUI($this->pl->txt('terminable'), 'terminable');
+			$cb->setInfo($this->pl->txt('info_properties_terminable'));
 			$this->form->addItem($cb);
-
 			$te = new ilDateDurationInputGUI($this->pl->txt("terminable_select"), "terminable_select");
+			$te->setInfo($this->pl->txt('info_properties_terminable_select'));
 			$te->setShowTime(true);
-			$te->setStartText($this->pl->txt("terminable_select_start_time"));
-			$te->setEndText($this->pl->txt("terminable_select_end_time"));
+			$te->setStartText($this->pl->txt('terminable_select_start_time'));
+			$te->setEndText($this->pl->txt('terminable_select_end_time'));
 			$te->setMinuteStepSize(1);
+			/**
+			 * @var xlvoVotingConfig $config
+			 */
 			$config = xlvoVotingConfig::find($this->obj_id);
 			if ($config->isTerminable()) {
 				if (! $config->getStartDate() == NULL) {
@@ -302,6 +322,9 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 
 	protected function fillPropertiesForm() {
 
+		/**
+		 * @var $config xlvoVotingConfig
+		 */
 		$config = xlvoVotingConfig::find($this->obj_id);
 
 		$values['title'] = $this->object->getTitle();
@@ -326,6 +349,9 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 				$this->object->setDescription($this->form->getInput('description'));
 				$this->object->update();
 
+				/**
+				 * @var xlvoVotingConfig $config
+				 */
 				$config = xlvoVotingConfig::find($this->obj_id);
 				$config->setObjOnline($this->form->getInput('online'));
 				$config->setAnonymous($this->form->getInput('anonymous'));
