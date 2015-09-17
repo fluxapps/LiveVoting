@@ -388,10 +388,12 @@ class ctrlmmMultiLineInputGUI extends ilFormPropertyGUI {
 		$output .= $this->render(0, true);
 
 		if($this->getMulti() && is_array($this->line_values) && count($this->line_values) > 0) {
-			foreach ($this->line_values as $run=>$data) {
+			$counter = 0;
+			foreach ($this->line_values as $data) {
 				$object = $this;
 				$object->setValue($data);
-				$output .= $object->render($run);
+				$output .= $object->render($counter);
+				$counter++;
 			}
 		} else {
 			$output .= $this->render(0, true);
