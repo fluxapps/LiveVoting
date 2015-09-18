@@ -391,6 +391,20 @@ class xlvoVotingGUI {
 	}
 
 
+	protected function saveSorting() {
+		foreach ($_POST['position'] as $k => $v) {
+			/**
+			 * @var $xlvoVoting xlvoVoting
+			 */
+			$xlvoVoting = xlvoVoting::find($v);
+			$xlvoVoting->setPosition($k + 1);
+			$xlvoVoting->update();
+		}
+		ilUtil::sendSuccess($this->pl->txt('sorting_saved'), true);
+		$this->ctrl->redirect($this, self::CMD_STANDARD);
+	}
+
+
 	protected function applyFilter() {
 		$xlvoVotingGUI = new xlvoVotingTableGUI($this, self::CMD_STANDARD);
 		$xlvoVotingGUI->writeFilterToSession();
