@@ -49,8 +49,6 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 
 		$this->voting_gui->tpl->addJavaScript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/sortable.js');
 
-		//$this->toolbar->addFormButton('save sorting', 'saveSorting');
-
 		$this->setId(self::TBL_ID);
 		$this->setPrefix(self::TBL_ID);
 		$this->setFormName(self::TBL_ID);
@@ -73,8 +71,27 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 		$title = new ilTextInputGUI($this->pl->txt('title'), 'title');
 		$this->addAndReadFilterItem($title);
 
-		$title = new ilTextInputGUI($this->pl->txt('question'), 'question');
-		$this->addAndReadFilterItem($title);
+		$question = new ilTextInputGUI($this->pl->txt('question'), 'question');
+		$this->addAndReadFilterItem($question);
+
+		$status = new ilSelectInputGUI($this->pl->txt('status'), 'voting_status');
+		$status_options = array(
+			'' => '',
+			xlvoVoting::STAT_INACTIVE => $this->pl->txt('inactive'),
+			xlvoVoting::STAT_ACTIVE => $this->pl->txt('active'),
+			xlvoVoting::STAT_INCOMPLETE => $this->pl->txt('incomplete')
+		);
+		$status->setOptions($status_options);
+		$this->addAndReadFilterItem($status);
+
+		$type = new ilSelectInputGUI($this->pl->txt('type'), 'voting_type');
+		$type_options = array(
+			'' => '',
+			xlvoVotingType::SINGLE_VOTE => $this->pl->txt('single_vote'),
+			xlvoVotingType::FREE_INPUT => $this->pl->txt('free_input')
+		);
+		$type->setOptions($type_options);
+		$this->addAndReadFilterItem($type);
 	}
 
 
@@ -159,7 +176,7 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 		$this->determineOffsetAndOrder();
 		$this->determineLimit();
 
-		$collection = xlvoVoting::where(array( 'obj_id' => $this->voting_gui->getObjId() ));
+		$collection = xlvoVoting::where(array( 'obj_id' => $this->voting_gui->getObjId() ))->orderBy('position', 'ASC');
 
 		$sorting_column = $this->getOrderField() ? $this->getOrderField() : 'position';
 		$offset = $this->getOffset() ? $this->getOffset() : 0;
@@ -175,6 +192,12 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 				case 'title':
 				case 'question':
 					$collection = $collection->where(array( $filter_key => '%' . $filter_value . '%' ), 'LIKE');
+					break;
+				case 'voting_status':
+				case 'voting_type':
+					if ($filter_value != '') {
+						$collection = $collection->where(array( $filter_key => $filter_value ));
+					}
 					break;
 			}
 		}
