@@ -46,7 +46,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 		/**
 		 * @var xlvoVoting $xlvoVotings
 		 */
-		$xlvoVotings = xlvoVoting::where(array( 'obj_id' => $obj_id, 'voting_status' => xlvoVoting::STAT_ACTIVE ));
+		$xlvoVotings = xlvoVoting::where(array( 'obj_id' => $obj_id, 'voting_status' => xlvoVoting::STAT_ACTIVE ))->orderBy('position', 'ASC');
 
 		return $xlvoVotings;
 	}
