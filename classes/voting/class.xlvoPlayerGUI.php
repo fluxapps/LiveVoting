@@ -518,7 +518,22 @@ class xlvoPlayerGUI {
 		$xlvoVotingConfig = $this->voting_manager->getVotingConfig($this->obj_id);
 		$template->setVariable('PIN', $xlvoVotingConfig->getPin());
 		$template->setVariable('TITLE', $this->pl->txt('msg_start_of_voting_title'));
-		$codeContent = 'http://ubuntu.local/vote.php';
+
+
+//		require_once(Endroid\QrCode\QrCode);
+
+//$qrCode = new QrCode();
+//$qrCode
+//		setText("Life is too short to be generating QR codes");
+//		setSize(300);
+//		setPadding(10);
+//		setErrorCorrection('high');
+//		setForegroundColor(array('r' => 0, 'g' => 0, 'b' => 0, 'a' => 0));
+//		setBackgroundColor(array('r' => 255, 'g' => 255, 'b' => 255, 'a' => 0));
+//		setLabel('My label');
+//		setLabelFontSize(16);
+//		render();
+		$codeContent = ILIAS_HTTP_PATH . '/Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?' . $xlvoVotingConfig->getPin();
 
 		$template->setVariable('QR-CODE', $codeContent);
 

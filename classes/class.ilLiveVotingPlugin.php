@@ -1,7 +1,6 @@
 <?php
 
 include_once('./Services/Repository/classes/class.ilRepositoryObjectPlugin.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoDynamicLanguage.php');
 
 /**
  * LiveVoting repository object plugin
