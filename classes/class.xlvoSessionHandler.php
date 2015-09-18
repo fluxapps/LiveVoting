@@ -6,7 +6,7 @@
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version 1.0.0
  */
-class xlvoSessionHandler extends SessionHandler {
+class xlvoSessionHandler {
 
 	/**
 	 * @param string $save_path
