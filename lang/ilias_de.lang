@@ -1,1 +1,71 @@
 <!-- language file start -->
+obj_xlvo_duplicate#:#Kopieren
+obj_xlvo#:#Live Voting
+objs_xlvo#:#Live Votings
+objs_xlvo_duplicate#:#Kopiere Live Voting
+
+content#:#Inhalt
+online#:#Online
+offline#:#Offline
+update#:#Update
+delete#:#Löschen
+
+voting#:#Voting
+type#:#Typ
+voting_type#:#Voting Typ
+single_vote#:#Stimmabgabe
+free_input#:#Freie Texteingabe
+active#:#Aktiv
+inactive#:#Inaktiv
+incomplete#:#Nicht komplett
+answers#:#Antworten
+options#:#Möglichkeitenn
+multi_free_input#:#Mehrfache Eingaben
+
+delete_all#:#Alle löschen
+add_voting#:#Voting hinzufügen
+answer#:#Antwort
+send#:#Senden
+next#:#Weiter
+back#:#Zurück
+create#:#Erstellen
+common_actions#:#Aktionen
+reset_all_votes#:#Zurücksetzen
+back_to_voting#:#Zurück zum Voting
+
+player#:#Player
+freeze#:#Pausieren
+unfreeze#:#Fortsetzen
+reset#:#Zurücksetzen
+terminate#:#Beenden
+hide_results#:#Resultate verstecken
+show_results#:#Resultate anzeigen
+
+msg_success_voting_created#:#Das Voting wurde erfolgreich gespeichert.
+msg_success_voting_updated#:#Das Voting wurde erfolgreich aktualisiert.
+msg_voting_not_complete#:#Das Voting ist noch nicht komplett. Bitte schliessen Sie den Erstellvorgang ab.
+msg_no_previous_voting#:#Sie befinden sich bereits beim ersten Voting.
+msg_no_voting_available#:#Es ist kein Voting verfügbar. Bitte ein Voting hinzufügen.
+msg_voting_not_available#:#Das Voting konnte nicht aufgerufen werden. Prüfen Sie bitte, ob das Voting ordnungsgemäss gestartet wurde und im allfällig festgelegten Zeitrahmen liegt.
+confirm_delete_voting#:#Möchten Sie das Voting mit allen zugehörigen Abstimmungsresultaten wirklich löschen?
+confirm_reset_voting#:#Möchten Sie die Abstimmungsresultate aller Votings löschen?
+confirm_number_of_votes#:#Anzahl Antworten
+permission_denied#:#Zugriff verweigert!
+msg_properties_form_saved#:#Die Einstellungen wurden gespeichert.
+
+msg_end_of_voting#:#Sie sind am Ende des Votings angelangt. Bitte beenden oder zum Anfang zurückkehren.
+
+start_voting#:#Starten
+msg_start_of_voting_title#:#Voting
+
+
+msg_waiting_screen#:#Bitte warten...
+msg_not_running_screen#:#Das Voting ist momentan nicht aktiv.
+msg_not_available_screen#:#Das Voting ist nicht verfügbar.
+msg_access_screen#:#Bitte geben Sie den PIN ein.
+msg_start_of_voting_screen#:#Bitte auf den Beginn des Votings warten...
+msg_end_of_voting_screen#:#Ende des Votings. Vielen Dank für die Teilnahme.
+msg_validation_error_pin#:#Es konnte kein aktives Voting gefunden werden.
+pin_input#:#PIN
+
+show_voting#:#Vote
