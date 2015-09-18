@@ -287,6 +287,7 @@ class xlvoVoterGUI {
 	 * @return string
 	 */
 	public function showAccessScreen($has_error_msg) {
+		xlvoInitialisation::resetCookiePIN();
 		$template = new ilTemplate(self::TPL_INFO_SCREEN, true, true);
 		$template->setVariable('VOTING_ID', 0);
 		$template->setVariable('OBJ_ID', 0);
@@ -302,7 +303,8 @@ class xlvoVoterGUI {
 		$template->setVariable('INFO_BODY', $form->getHTML());
 
 		if ($has_error_msg) {
-			$template->setVariable('ERROR', $this->pl->txt('msg_validation_error_pin'));
+			$error_message = $template->getMessageHTML($this->pl->txt('msg_validation_error_pin'), 'failure');
+			$template->setVariable('ERROR', $error_message);
 		}
 
 		return $template->get();

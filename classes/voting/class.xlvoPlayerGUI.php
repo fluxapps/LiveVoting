@@ -518,8 +518,9 @@ class xlvoPlayerGUI {
 		$xlvoVotingConfig = $this->voting_manager->getVotingConfig($this->obj_id);
 		$template->setVariable('PIN', $xlvoVotingConfig->getPin());
 		$template->setVariable('TITLE', $this->pl->txt('msg_start_of_voting_title'));
-		$template->setVariable('TITLE', ilObject2::_lookupTitle($this->obj_id));
-		$template->setVariable('QR-CODE', 'QR-CODE');
+		$codeContent = 'http://ubuntu.local/vote.php';
+
+		$template->setVariable('QR-CODE', $codeContent);
 
 		$this->tpl->setContent($template->get());
 	}

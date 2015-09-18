@@ -136,9 +136,8 @@ class ilObjLiveVotingAccess extends ilObjectPluginAccess {
 		//		$ilLog->write('xlvo 123 '.print_r($refs, 1));
 
 		foreach ($refs as $ref_id) {
-			$ilLog->write($ref_id . ' - ' . $user_id);
+						//$ilLog->write($ref_id . ' - ' . $user_id);
 
-			return true;
 			if (self::hasAccess('write', $ref_id)) {
 				return true;
 				break;

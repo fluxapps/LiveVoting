@@ -7,9 +7,6 @@
 			var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/display/class.xlvoPlayerEndpoint.php";
 
 			var loadVotingScreen = function () {
-				console.log('looooooad!!!!!!!!!!!!!!!!!!!!');
-				console.log(object_id);
-				console.log(current_voting_id);
 				// load voting
 				$.get(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'voting_screen'})
 					.done(function (data) {

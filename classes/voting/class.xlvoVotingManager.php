@@ -311,7 +311,8 @@ class xlvoVotingManager implements xlvoVotingInterface {
 		 */
 		$existing_votes = $this->getVotesOfUserOfVoting($xlvoOption->getVotingId())->get();
 
-		if (! $xlvoPlayer->isFrozen() && $xlvoPlayer->getStatus() == xlvoPlayer::STAT_RUNNING && $this->isVotingAvailable($obj_id)) {
+		// TODO if not anonymous check access
+		if (! $xlvoPlayer->isFrozenOrUnattended() && $xlvoPlayer->getStatus() == xlvoPlayer::STAT_RUNNING && $this->isVotingAvailable($obj_id)) {
 
 			/*
 			 * SINGLE VOTE

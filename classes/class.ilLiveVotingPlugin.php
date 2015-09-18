@@ -48,7 +48,7 @@ class ilLiveVotingPlugin extends ilRepositoryObjectPlugin implements xlvoDynamic
 		if ($real_call) {
 			return parent::txt($a_var);
 		} else {
-			return xlvoDynamicLanguage::getInstance($this, xlvoDynamicLanguage::MODE_PROD)->txt($a_var);
+			return xlvoDynamicLanguage::getInstance($this, xlvoDynamicLanguage::MODE_DEV)->txt($a_var);
 		}
 	}
 
@@ -57,7 +57,7 @@ class ilLiveVotingPlugin extends ilRepositoryObjectPlugin implements xlvoDynamic
 	 * @return string
 	 */
 	public function getCsvPath() {
-		return './Customizing/global/plugins/Services/Repository/RepositoryObject/OpenCast/lang/lang.csv';
+		return './Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/lang/lang.csv';
 	}
 
 

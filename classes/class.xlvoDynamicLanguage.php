@@ -108,8 +108,7 @@ class xlvoDynamicLanguage {
 			$this->loadCsv();
 			$this->writeCsv();
 			$this->writeLanguageFiles();
-
-//			$this->parent_object->updateLanguages();
+			//$this->parent_object->updateLanguages();
 		}
 	}
 
@@ -120,7 +119,6 @@ class xlvoDynamicLanguage {
 	 * @return mixed
 	 */
 	public function txt($key) {
-
 		self::$used[] = $key;
 		if ($this->mode == self::MODE_PROD) {
 			return $this->parent_object->txt($key, true);
@@ -132,6 +130,7 @@ class xlvoDynamicLanguage {
 
 			if (!isset(self::$module_cache[$ilUser->getLanguage()][$this->parent_object->getPrefix() . '_' . $key])) {
 				self::$missing[] = $key;
+				$_COOKIE['xlvo_missing_lang'][]=$key;
 			}
 
 			$csv = self::$csv_cache[$ilUser->getLanguage()][$key];
@@ -177,14 +176,15 @@ class xlvoDynamicLanguage {
 
 
 	public function __destruct() {
-		if ($this->mode == self::MODE_DEV AND $_GET['cmdMode']!='asynch') {
+		if ($this->mode == self::MODE_DEV ) {
 			$url = $this->ajax_link;
 //			$code = "<script> $(document).ready(function() {";
 //			$code .="$.fn.editable.defaults.mode = 'inline';\n\n";
 			$echo = "<div id='dyno_lng' style='z-index: 999999; position: absolute; top:0; right: 0; background-color: #F5F5F5;padding: 20px;'>";
-			$echo .= "<form id='dyno_lng_form'>";
+			//$echo .= "<form id='dyno_lng_form'>";
 			$echo .= "<br>Missed:<br>";
-			self::$missing = array_unique(self::$missing);
+
+			self::$missing = $_COOKIE['xlvo_missing_lang'];
 			foreach (self::$missing as $key) {
 				foreach ($this->languages as $lng) {
 					$existing = self::$csv_cache[$lng][$key];
@@ -206,7 +206,7 @@ class xlvoDynamicLanguage {
 //					$echo .="{$lng}: <a href='#' id='{$lng}_{$key}' data-type='text' data-pk='{$lng}/{$key}' data-url='{$url}' data-value='{$existing}'>$key</a><br>";
 //				}
 //			}
-			$echo .= "</form></div>";
+			$echo .= "</div>";
 //			$code .="});</script>";
 //			echo $code;
 			echo $echo;
@@ -231,6 +231,7 @@ class xlvoDynamicLanguage {
 
 
 	protected function writeLanguageFiles() {
+
 		foreach ($this->languages as $lng) {
 			$lines = array();
 			$lines[] = '<!-- language file start -->';

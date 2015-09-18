@@ -50,8 +50,8 @@ if ($posted_type == 'access_voting') {
 if ($posted_type == 'voting_screen') {
 	header('Content-type: text/html');
 	$player = $voting_manager->getPlayer($posted_object_id);
-	if($player instanceof xlvoPlayer) {
-		if ($voting_manager->getPlayer($posted_object_id)->isFrozenOrUnattended()) {
+	if ($player instanceof xlvoPlayer) {
+		if ($player->isFrozenOrUnattended()) {
 			echo $voter_gui->showWaitForQuestionScreen($posted_object_id);
 		} else {
 			echo $voter_gui->showVoting($posted_object_id, $posted_voting_id);
