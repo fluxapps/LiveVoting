@@ -35,6 +35,11 @@ class xlvoDisplayPlayerGUI {
 	 * @param xlvoVoting $voting
 	 */
 	public function __construct(xlvoVoting $voting) {
+		global $tpl;
+		/**
+		 * @var $tpl       ilTemplate
+		 */
+		$tpl->addJavaScript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/display_player.js');
 		$this->voting_manager = new xlvoVotingManager();
 		$this->voting = $voting;
 		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/tpl.display_player.html', true, true);

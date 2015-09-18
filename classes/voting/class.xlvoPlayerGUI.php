@@ -83,7 +83,6 @@ class xlvoPlayerGUI {
 	 */
 	public function __construct() {
 		global $tpl, $ilCtrl, $ilTabs, $ilUser, $ilToolbar;
-		$tpl->addJavaScript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/display_player.js');
 
 		/**
 		 * @var $tpl       ilTemplate
