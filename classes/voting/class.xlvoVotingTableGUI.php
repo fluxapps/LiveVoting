@@ -76,7 +76,7 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 
 		$status = new ilSelectInputGUI($this->pl->txt('status'), 'voting_status');
 		$status_options = array(
-			'' => '',
+			'empty' => '',
 			xlvoVoting::STAT_INACTIVE => $this->pl->txt('inactive'),
 			xlvoVoting::STAT_ACTIVE => $this->pl->txt('active'),
 			xlvoVoting::STAT_INCOMPLETE => $this->pl->txt('incomplete')
@@ -86,7 +86,7 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 
 		$type = new ilSelectInputGUI($this->pl->txt('type'), 'voting_type');
 		$type_options = array(
-			'' => '',
+			'empty' => '',
 			xlvoVotingType::SINGLE_VOTE => $this->pl->txt('single_vote'),
 			xlvoVotingType::FREE_INPUT => $this->pl->txt('free_input')
 		);
@@ -195,13 +195,14 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 					break;
 				case 'voting_status':
 				case 'voting_type':
-					if ($filter_value != '') {
-						$collection = $collection->where(array( $filter_key => $filter_value ));
-					}
-					break;
+					//					print_r($filter_key . '-' . $filter_value);
+					//					if ($filter_value) {
+					//						$collection = $collection->where(array( $filter_key => $filter_value ));
+					//					}
+					//					break;
 			}
 		}
-
+		//		exit;
 		$this->setData($collection->getArray());
 	}
 
