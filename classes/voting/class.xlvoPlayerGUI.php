@@ -15,6 +15,9 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoMultiLineInputGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoLinkButton.php');
 
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/lib/QrCode-master/src/QrCode.php');
+use Endroid\QrCode\QrCode;
+
 /**
  * Class xlvoPlayerGUI
  *
@@ -519,23 +522,29 @@ class xlvoPlayerGUI {
 		$template->setVariable('PIN', $xlvoVotingConfig->getPin());
 		$template->setVariable('TITLE', $this->pl->txt('msg_start_of_voting_title'));
 
+		// QR-Code implementation
+		$codeContent = ILIAS_HTTP_PATH . '/Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?'
+			. $xlvoVotingConfig->getPin();
 
-//		require_once(Endroid\QrCode\QrCode);
+		$qrCode = new QrCode($codeContent);
+		$qrCode->setSize(180);
+		$qrCode->setPadding(10);
+		$qrCode->setErrorCorrection('high');
+		$qrCode->setForegroundColor(array( 'r' => 0, 'g' => 0, 'b' => 0, 'a' => 0 ));
+		$qrCode->setBackgroundColor(array( 'r' => 255, 'g' => 255, 'b' => 255, 'a' => 0 ));
+		$qrCodeData = $qrCode->getDataUri();
 
-//$qrCode = new QrCode();
-//$qrCode
-//		setText("Life is too short to be generating QR codes");
-//		setSize(300);
-//		setPadding(10);
-//		setErrorCorrection('high');
-//		setForegroundColor(array('r' => 0, 'g' => 0, 'b' => 0, 'a' => 0));
-//		setBackgroundColor(array('r' => 255, 'g' => 255, 'b' => 255, 'a' => 0));
-//		setLabel('My label');
-//		setLabelFontSize(16);
-//		render();
-		$codeContent = ILIAS_HTTP_PATH . '/Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?' . $xlvoVotingConfig->getPin();
+		$qrCodeModal = new QRCode($codeContent);
+		$qrCodeModal->setSize(750);
+		$qrCodeModal->setPadding(10);
+		$qrCodeModal->setErrorCorrection('high');
+		$qrCodeModal->setForegroundColor(array( 'r' => 0, 'g' => 0, 'b' => 0, 'a' => 0 ));
+		$qrCodeModal->setBackgroundColor(array( 'r' => 255, 'g' => 255, 'b' => 255, 'a' => 0 ));
+		$qrCodeDataModal = $qrCodeModal->getDataUri();
 
-		$template->setVariable('QR-CODE', $codeContent);
+		$template->setVariable('QR-CODE', $qrCodeData);
+		$template->setVariable('QR-CODE-MODAL', $qrCodeDataModal);
+		$template->setVariable('CLOSE_BUTTON', $this->pl->txt('cancel'));
 
 		$this->tpl->setContent($template->get());
 	}
