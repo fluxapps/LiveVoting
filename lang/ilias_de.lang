@@ -53,6 +53,8 @@ confirm_number_of_votes#:#Anzahl Antworten
 permission_denied#:#Zugriff verweigert!
 msg_properties_form_saved#:#Die Einstellungen wurden gespeichert.
 
+msg_options_not_editable#:#Die Möglichkeiten können nicht angepasst werden, da diese bereits Resultate enthalten. Um die Möglichkeiten wieder bearbeiten zu können, müssen Sie die Resultate dieses Votings zurücksetzen.
+
 msg_end_of_voting#:#Sie sind am Ende des Votings angelangt. Bitte beenden oder zum Anfang zurückkehren.
 
 start_voting#:#Starten
