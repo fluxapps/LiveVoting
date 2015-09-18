@@ -6,7 +6,7 @@ $(document).ready(function () {
 		return ui;
 	};
 
-	$("table tbody").sortable({
+	$("div.ilTableOuter table tbody").sortable({
 		helper: fixHelper,
 		items: '.fsxSortable'
 	}).disableSelection();
