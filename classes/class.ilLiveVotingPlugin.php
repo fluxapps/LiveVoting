@@ -10,7 +10,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
  * @version $Id$
  *
  */
-class ilLiveVotingPlugin extends ilRepositoryObjectPlugin implements xlvoDynamicLanguageInterface {
+class ilLiveVotingPlugin extends ilRepositoryObjectPlugin {
 
 	const PLUGIN_NAME = 'LiveVoting';
 	/**
@@ -37,37 +37,4 @@ class ilLiveVotingPlugin extends ilRepositoryObjectPlugin implements xlvoDynamic
 	public function getPluginName() {
 		return self::PLUGIN_NAME;
 	}
-
-
-	/**
-	 * @param $a_var
-	 *
-	 * @return string
-	 */
-	public function txt($a_var, $real_call = false) {
-		if ($real_call) {
-			return parent::txt($a_var);
-		} else {
-			return xlvoDynamicLanguage::getInstance($this, xlvoDynamicLanguage::MODE_DEV)->txt($a_var);
-		}
-	}
-
-
-	/**
-	 * @return string
-	 */
-	public function getCsvPath() {
-		return './Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/lang/lang.csv';
-	}
-
-
-	/**
-	 * @return string
-	 */
-	public function getAjaxLink() {
-		return '';
-		// TODO: Implement getAjaxLink() method.
-	}
 }
-
-?>
