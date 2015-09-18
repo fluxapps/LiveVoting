@@ -34,18 +34,19 @@ img.xlvo_loader {
 div.xlvo_pin {
   font-size: 80px;
   text-align: center;
-  height: 220px;
-  line-height: 220px;
+  height: 250px;
+  line-height: 250px;
   padding: 0;
 }
 div.xlvo_pin * {
   margin: 0;
 }
 button.xlvo_btn-qr-modal {
-  width: 80px;
+  width: 100px;
+  height: 50px;
   position: absolute;
-  top: 110px;
+  top: calc((250px/2) - (50px/2) + (5px*2));
   z-index: 100;
   border: 5px solid black;
-  left: calc(50% - (80px/2));
+  left: calc(50% - (100px/2));
 }
