@@ -121,10 +121,10 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 
 	protected function initColums() {
 		$this->addColumn('', 'position', '20px');
-		$this->addColumn($this->pl->txt('title'), 'title');
-		$this->addColumn($this->pl->txt('question'), 'question');
-		$this->addColumn($this->pl->txt('type'), 'voting_type');
-		$this->addColumn($this->pl->txt('status'), 'voting_status');
+		$this->addColumn($this->pl->txt('title'));
+		$this->addColumn($this->pl->txt('question'));
+		$this->addColumn($this->pl->txt('type'));
+		$this->addColumn($this->pl->txt('status'));
 		$this->addColumn($this->pl->txt('common_actions'), '', '150px');
 	}
 
@@ -159,9 +159,9 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 		$this->determineOffsetAndOrder();
 		$this->determineLimit();
 
-		$collection = xlvoVoting::where(array( 'obj_id' => $this->voting_gui->getObjId() ))->orderBy('position', 'ASC');
+		$collection = xlvoVoting::where(array( 'obj_id' => $this->voting_gui->getObjId() ));
 
-		$sorting_column = $this->getOrderField() ? $this->getOrderField() : 'title';
+		$sorting_column = $this->getOrderField() ? $this->getOrderField() : 'position';
 		$offset = $this->getOffset() ? $this->getOffset() : 0;
 
 		$sorting_direction = $this->getOrderDirection();
