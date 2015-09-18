@@ -41,3 +41,11 @@ div.xlvo_pin {
 div.xlvo_pin * {
   margin: 0;
 }
+button.xlvo_btn-qr-modal {
+  width: 80px;
+  position: absolute;
+  top: 110px;
+  z-index: 100;
+  border: 5px solid black;
+  left: calc(50% - (80px/2));
+}
