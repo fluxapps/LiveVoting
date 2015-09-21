@@ -45,7 +45,7 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 
 	/**
 	 * @param xlvoVotingGUI $parent_gui
-	 * @param xlvoVoting        $xlvoVoting
+	 * @param xlvoVoting    $xlvoVoting
 	 */
 	public function __construct(xlvoVotingGUI $parent_gui, xlvoVoting $xlvoVoting) {
 		global $ilCtrl;
@@ -138,6 +138,11 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 		if ($this->is_new) {
 			$this->voting->setVotingStatus(xlvoVoting::STAT_INCOMPLETE);
 			$this->voting->setVotingType($this->getInput('voting_type'));
+			$lastPosition = xlvoVoting::where(array(
+				'obj_id' => $this->parent_gui->getObjId(),
+				'voting_status' => xlvoVoting::STAT_ACTIVE
+			))->orderBy('position', 'ASC')->last()->getPosition();
+			$this->voting->setPosition($lastPosition + 1);
 		} else {
 			if ($this->voting->getVotingStatus() != xlvoVoting::STAT_INCOMPLETE) {
 				$this->voting->setVotingStatus($this->getInput('voting_status'));

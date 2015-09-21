@@ -5,6 +5,11 @@
   background-color: darken(@brand-primary, 8%) !important;
 }
 
+@xlvo_pin_height: 250px;
+@xlvo_btn_qr_modal_width: 100px;
+@xlvo_btn_qr_modal_height: 50px;
+@xlvo_btn_qr_modal_border-size: 5px;
+
 img.xlvo_loader {
   width:   74px;
   height:  74px;
@@ -13,12 +18,23 @@ img.xlvo_loader {
 }
 
 div.xlvo_pin {
-  font-size:  80px;
-  text-align: center;
-  height: 220px;
-  line-height: 220px;
-  padding: 0;
+  font-size:   80px;
+  text-align:  center;
+  height:      @xlvo_pin_height;
+  line-height: @xlvo_pin_height;
+  padding:     0;
 }
+
 div.xlvo_pin * {
   margin: 0;
+}
+
+button.xlvo_btn-qr-modal {
+  width:    @xlvo_btn_qr_modal_width;
+  height:   @xlvo_btn_qr_modal_height;
+  position: absolute;
+  top:      calc(~'(@{xlvo_pin_height}/2) - (@{xlvo_btn_qr_modal_height}/2) + (@{xlvo_btn_qr_modal_border-size}*2)');
+  z-index:  100;
+  border:   @xlvo_btn_qr_modal_border-size solid black;
+  left:     calc(~'50% - (@{xlvo_btn_qr_modal_width}/2)');
 }

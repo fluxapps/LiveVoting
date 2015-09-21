@@ -92,7 +92,9 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 			$mli->addInput($te);
 			$this->addItem($mli);
 		} else {
-			// TODO add info
+			$tx = new ilNonEditableValueGUI($this->pl->txt('options'));
+			$tx->setValue($this->pl->txt('msg_options_not_editable'));
+			$this->addItem($tx);
 		}
 	}
 

@@ -48,10 +48,25 @@ class xlvoDisplayVoterGUI {
 				break;
 		}
 
+		$votings = xlvoVoting::where(array( 'obj_id' => $this->voting->getObjId(), 'voting_status' => xlvoVoting::STAT_ACTIVE ))
+			->orderBy('position', 'ASC');
+
+		$votings_count = $votings->count();
+
+		$voting_position = 1;
+		foreach ($votings->getArray() as $key => $voting) {
+			if ($this->voting->getId() == $key) {
+				break;
+			}
+			$voting_position ++;
+		}
+
 		$this->tpl->setVariable('TITLE', $this->voting->getTitle());
 		$this->tpl->setVariable('QUESTION', $this->voting->getQuestion());
 		$this->tpl->setVariable('VOTING_ID', $this->voting->getId());
 		$this->tpl->setVariable('OBJ_ID', $this->voting->getObjId());
+		$this->tpl->setVariable('COUNT', $votings_count);
+		$this->tpl->setVariable('POSITION', $voting_position);
 	}
 
 

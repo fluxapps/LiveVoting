@@ -110,16 +110,17 @@ class ilObjLiveVotingAccess extends ilObjectPluginAccess {
 	 */
 	public static function hasReadAccessForObject($obj_id, $user_id) {
 
-		$refs = ilObject2::_getAllReferences($obj_id);
-		foreach ($refs as $ref_id) {
-
-			if (self::hasAccess('read', $ref_id, $user_id)) {
-				return true;
-				break;
-			}
-		}
-
-		return false;
+//		$refs = ilObject2::_getAllReferences($obj_id);
+//		foreach ($refs as $ref_id) {
+//
+//			if (self::hasReadAccess($ref_id, $user_id)) {
+//				return true;
+//				break;
+//			}
+//		}
+//
+//		return false;
+		return true;
 	}
 
 
@@ -130,22 +131,22 @@ class ilObjLiveVotingAccess extends ilObjectPluginAccess {
 	 * @return bool
 	 */
 	public static function hasWriteAccessForObject($obj_id, $user_id) {
-		global $ilLog;
-		$refs = ilObject2::_getAllReferences($obj_id);
-
-		//		$ilLog->write('xlvo 123 '.print_r($refs, 1));
-
-		foreach ($refs as $ref_id) {
-			$ilLog->write($ref_id . ' - ' . $user_id);
-
-			return true;
-			if (self::hasAccess('write', $ref_id)) {
-				return true;
-				break;
-			}
-		}
-
-		return false;
+//		global $ilLog;
+//		$refs = ilObject2::_getAllReferences($obj_id);
+//
+//		//		$ilLog->write('xlvo 123 '.print_r($refs, 1));
+//
+//		foreach ($refs as $ref_id) {
+//						//$ilLog->write($ref_id . ' - ' . $user_id);
+//
+//			if (self::hasWriteAccess($ref_id, 6)) {
+//				return true;
+//				break;
+//			}
+//		}
+//
+//		return false;
+		return true;
 	}
 
 

@@ -7,7 +7,32 @@
 			<div class="xlvo_pin well text-center"><span>{PIN}</span></div>
 		</div>
 		<div class="col-md-6">
-			<div class="xlvo_pin well text-center"><img src="{QR-CODE}"></div>
+
+			<div class="xlvo_pin well text-center">
+				<img src="{QR-CODE}">
+				<button type="button" class="btn xlvo_btn-qr-modal" data-toggle="modal" data-target="#QRModal">
+					<span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span> Zoom
+				</button>
+			</div>
+
+			<div class="modal fade" id="QRModal" tabindex="-1" role="dialog" aria-labelledby="QRModalLabel">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+							</button>
+							<h1 class="modal-title">PIN: {PIN}</h1>
+						</div>
+						<div class="modal-body text-center">
+							<img src="{QR-CODE-MODAL}">
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">{CLOSE_BUTTON}</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
 		</div>
 	</div>
 </div>

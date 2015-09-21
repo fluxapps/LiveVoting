@@ -1,7 +1,6 @@
 <?php
 
 include_once('./Services/Repository/classes/class.ilRepositoryObjectPlugin.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoDynamicLanguage.php');
 
 /**
  * LiveVoting repository object plugin
@@ -10,7 +9,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
  * @version $Id$
  *
  */
-class ilLiveVotingPlugin extends ilRepositoryObjectPlugin implements xlvoDynamicLanguageInterface {
+class ilLiveVotingPlugin extends ilRepositoryObjectPlugin {
 
 	const PLUGIN_NAME = 'LiveVoting';
 	/**
@@ -37,37 +36,4 @@ class ilLiveVotingPlugin extends ilRepositoryObjectPlugin implements xlvoDynamic
 	public function getPluginName() {
 		return self::PLUGIN_NAME;
 	}
-
-
-	/**
-	 * @param $a_var
-	 *
-	 * @return string
-	 */
-	public function txt2($a_var, $real_call = false) {
-		if ($real_call) {
-			return parent::txt($a_var);
-		} else {
-			return xlvoDynamicLanguage::getInstance($this, xlvoDynamicLanguage::MODE_PROD)->txt($a_var);
-		}
-	}
-
-
-	/**
-	 * @return string
-	 */
-	public function getCsvPath() {
-		return './Customizing/global/plugins/Services/Repository/RepositoryObject/OpenCast/lang/lang.csv';
-	}
-
-
-	/**
-	 * @return string
-	 */
-	public function getAjaxLink() {
-		return '';
-		// TODO: Implement getAjaxLink() method.
-	}
 }
-
-?>

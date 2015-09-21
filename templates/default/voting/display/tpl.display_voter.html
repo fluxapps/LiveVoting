@@ -1,9 +1,14 @@
 <div class="display-voter panel panel-primary">
 	<div class="panel-heading">
-		<h3>{TITLE}</h3>
+		<div class="row">
+			<div class="col-md-11"><h3>{TITLE}</h3></div>
+			<div class="col-md-1 text-right"><h3>{POSITION}/{COUNT}</h3></div>
+		</div>
 	</div>
 	<div class="panel-body">
-		<div class="well">{QUESTION}</div>
+		<div class="well">
+			{QUESTION}
+		</div>
 		<div class="row">
 			<!-- BEGIN option -->
 			<div class="col-md-4">
