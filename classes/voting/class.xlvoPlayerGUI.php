@@ -148,8 +148,7 @@ class xlvoPlayerGUI {
 	/**
 	 * @param $voting_id
 	 */
-	public function showVoting($voting_id) {
-
+	public function showVoting($voting_id = NULL) {
 		if ($voting_id == NULL) {
 			if ($_GET[self::IDENTIFIER] != NULL) {
 				$voting_id = $_GET[self::IDENTIFIER];

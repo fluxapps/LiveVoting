@@ -112,7 +112,7 @@ class xlvoVoterGUI {
 	 *
 	 * @return string
 	 */
-	public function showVoting($obj_id, $voting_id) {
+	public function showVoting($obj_id = NULL, $voting_id = NULL) {
 		if ($obj_id == NULL) {
 			$obj_id = 0;
 			$this->tpl->setContent($this->showInfoScreen($obj_id, self::INFO_TYPE_WAITING));
