@@ -148,8 +148,7 @@ class xlvoPlayerGUI {
 	/**
 	 * @param $voting_id
 	 */
-	public function showVoting($voting_id) {
-
+	public function showVoting($voting_id = NULL) {
 		if ($voting_id == NULL) {
 			if ($_GET[self::IDENTIFIER] != NULL) {
 				$voting_id = $_GET[self::IDENTIFIER];
@@ -500,7 +499,6 @@ class xlvoPlayerGUI {
 	 * Set GUI Content for template at the start of Voting.
 	 */
 	protected function setContentStartOfVoting() {
-
 		$b = ilLinkButton::getInstance();
 		$b->setCaption('rep_robj_xlvo_start_voting');
 		$b->setUrl($this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_START_VOTING));
@@ -529,16 +527,36 @@ class xlvoPlayerGUI {
 		$qrCode->setSize(180);
 		$qrCode->setPadding(10);
 		$qrCode->setErrorCorrection('high');
-		$qrCode->setForegroundColor(array( 'r' => 0, 'g' => 0, 'b' => 0, 'a' => 0 ));
-		$qrCode->setBackgroundColor(array( 'r' => 255, 'g' => 255, 'b' => 255, 'a' => 0 ));
+		$qrCode->setForegroundColor(array(
+			'r' => 0,
+			'g' => 0,
+			'b' => 0,
+			'a' => 0
+		));
+		$qrCode->setBackgroundColor(array(
+			'r' => 255,
+			'g' => 255,
+			'b' => 255,
+			'a' => 0
+		));
 		$qrCodeData = $qrCode->getDataUri();
 
 		$qrCodeModal = new QRCode($codeContent);
 		$qrCodeModal->setSize(750);
 		$qrCodeModal->setPadding(10);
 		$qrCodeModal->setErrorCorrection('high');
-		$qrCodeModal->setForegroundColor(array( 'r' => 0, 'g' => 0, 'b' => 0, 'a' => 0 ));
-		$qrCodeModal->setBackgroundColor(array( 'r' => 255, 'g' => 255, 'b' => 255, 'a' => 0 ));
+		$qrCodeModal->setForegroundColor(array(
+			'r' => 0,
+			'g' => 0,
+			'b' => 0,
+			'a' => 0
+		));
+		$qrCodeModal->setBackgroundColor(array(
+			'r' => 255,
+			'g' => 255,
+			'b' => 255,
+			'a' => 0
+		));
 		$qrCodeDataModal = $qrCodeModal->getDataUri();
 
 		$template->setVariable('QR-CODE', $qrCodeData);

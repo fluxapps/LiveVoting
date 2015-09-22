@@ -70,13 +70,20 @@ class xlvoInitialisation extends ilInitialisation {
 
 
 	/**
-	 * set session handler to db
-	 *
-	 * Used in Soap/CAS
+	 * set Custom Session handler which does not use db
 	 */
 	public static function setSessionHandler() {
 		require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoSessionHandler.php');
-		session_set_save_handler(new xlvoSessionHandler());
+		$session = new xlvoSessionHandler();
+
+		session_set_save_handler(
+			array(&$session,"open"),
+			array(&$session,"close"),
+			array(&$session,"read"),
+			array(&$session,"write"),
+			array(&$session,"destroy"),
+			array(&$session,"gc")
+		);
 	}
 
 
