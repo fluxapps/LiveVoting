@@ -69,7 +69,7 @@ msg_options_not_editable#:#Die Möglichkeiten können nicht angepasst werden, da
 <!-- xlvoPlayerGUI -->
 msg_no_voting_available#:#Es ist keine Frage verfügbar. Bitte eine Frage hinzufügen.
 msg_voting_not_available#:#Die Frage konnte nicht aufgerufen werden. Prüfen Sie bitte, ob die Frage ordnungsgemäss gestartet wurde und im allfällig festgelegten Zeitrahmen liegt.
-msg_start_of_voting_title#:#Startseite LiveVoting
+msg_start_of_voting_title#:#Startseite
 msg_end_of_voting#:#Sie sind am Ende des LiveVotings angelangt. Bitte beenden oder zum Anfang zurückkehren.
 live_voting#:#LiveVoting
 
