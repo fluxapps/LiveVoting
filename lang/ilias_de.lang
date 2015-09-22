@@ -54,17 +54,17 @@ delete_all#:#Alle löschen
 
 <!-- xlvoFreeInputVotingFormGUI -->
 multi_free_input#:#Mehrfache Eingaben
-info_freeinput_multi_free_input#:#--------------------------------------------------------------------
+info_freeinput_multi_free_input#:#Ein Nutzer kann mehr als einen Text absenden.
 
 <!-- xlvoSingleVoteVotingFormGUI -->
 multi_selection#:#Mehrfachauswahl
-info_singlevote_multi_selection#:#------------------------------------------------------------
+info_singlevote_multi_selection#:#Ein Nutzer kann für mehrere Auswahlmöglichkeiten gleichzeitig abstimmen.
 colors#:#Farbige Balken
-info_singlevote_colors#:#------------------------------------------------------------
+info_singlevote_colors#:#Die Auswahlmöglichkeiten werden während des LiveVotings in verschiedenen Farben dargestellt.
 options#:#Möglichkeiten
-info_singlevote_options#:#-----------------------------------------------------------
+info_singlevote_options#:#Nutzer können für die erfassten Auswahlmöglichkeiten abstimmen.
 option_text#:#Eingabe
-msg_options_not_editable#:#Die Möglichkeiten können nicht angepasst werden, da diese bereits Resultate enthalten. Um die Möglichkeiten wieder bearbeiten zu können, müssen Sie die Resultate dieses Votings zurücksetzen.
+msg_options_not_editable#:#Die Möglichkeiten können nicht angepasst werden, da diese bereits Resultate enthalten. Um die Möglichkeiten wieder bearbeiten zu können, müssen die bestehenden Resultate dieser Frage zurückgesetzt werden.
 
 <!-- xlvoPlayerGUI -->
 msg_no_voting_available#:#Es ist keine Frage verfügbar. Bitte eine Frage hinzufügen.
@@ -86,15 +86,15 @@ pin_input#:#PIN
 
 <!-- xlvoVotingFormGUI -->
 voting_title#:#Titel
-info_voting_title#:#-----------------------------------------------------------
+info_voting_title#:#Titel der Frage. Wird während der Durchführung angezeigt.
 voting_description#:#Beschreibung
-info_voting_description#:#-----------------------------------------------------------
+info_voting_description#:#Beschreibt die Frage.
 voting_question#:#Frage
-info_voting_question#:#-----------------------------------------------------------
+info_voting_question#:#Die Frage wird den Nutzern gestellt.
 voting_type#:#Voting Typ
-info_voting_type#:#-----------------------------------------------------------
+info_voting_type#:#Der Typ kann später nicht mehr geändert werden.
 voting_active#:#Aktiv
-info_voting_active#:#-----------------------------------------------------------
+info_voting_active#:#Nur aktive Fragen werden beim LiveVoting angezeigt.
 
 <!-- Voting Typen/Status -->
 single_vote#:#Stimmabgabe
@@ -122,17 +122,16 @@ voting_type#:#Typ
 player#:#Player
 voting_content#:#Inhalt
 title#:#Titel
-info_properties_title#:#-----------------------------------------------------------
+info_properties_title#:#Titel des LiveVotings.
 description#:#Beschreibung
-info_properties_description#:#-----------------------------------------------------------
+info_properties_description#:#Beschreibung des LiveVotings.
 online#:#Online
-info_properties_online#:#-----------------------------------------------------------
+info_properties_online#:#Das LiveVoting muss online sein, damit es durchgeführt werden kann.
 anonymous#:#Anonyme Abstimmung
-info_properties_anonymous#:#-----------------------------------------------------------
+info_properties_anonymous#:#Die Teilnahme am anonymen LiveVoting erfodert kein Ilias Benutzerkonto. Alle Personen im Besitz des entsprechendne PINs können am LiveVoting teilnehmen.
 terminable#:#Zeitlich begrenzte Stimmabgabe
-info_properties_terminable#:#-----------------------------------------------------------
-terminable_select
-info_properties_terminable_select#:#-----------------------------------------------------------
+info_properties_terminable#:#Falls die Endzeit während der Durchführung des LiveVotings eintritt, wird das LiveVoting gestoppt.
+terminable_select#:#Auswahl
 terminable_select_start_time#:#Startzeit
 terminable_select_end_time#:#Endzeit
 msg_properties_form_saved#:#Die Einstellungen wurden gespeichert.
