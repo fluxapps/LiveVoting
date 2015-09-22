@@ -298,4 +298,5 @@ $ilDB->addTableColumn('rep_robj_xlvo_data', 'end_time', array(
 //		$xlvoVote->setVotingId($voting_id);
 //	}
 //}
-//?>
+//
+?>
