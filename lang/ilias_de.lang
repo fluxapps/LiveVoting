@@ -38,14 +38,14 @@ reset#:#Resultate Zurücksetzen
 hide_results#:#Resultate verstecken
 show_results#:#Resultate anzeigen
 start_voting#:#Starten
-back_to_voting#:#Zurück zum Voting
-add_voting#:#Voting hinzufügen
+back_to_voting#:#Zurück zum LiveVoting
+add_voting#:#Frage hinzufügen
 reset_all_votes#:#Alle Resultate zurücksetzen
 
 <!-- Genereal VotingForms -->
-msg_voting_not_complete#:#Das Voting ist noch nicht komplett. Bitte schliessen Sie den Erstellvorgang ab.
-msg_success_voting_created#:#Das Voting wurde erfolgreich gespeichert.
-msg_success_voting_updated#:#Das Voting wurde erfolgreich aktualisiert.
+msg_voting_not_complete#:#Die Frage ist noch nicht komplett. Bitte schliessen Sie den Erstellvorgang ab.
+msg_success_voting_created#:#Die Frage wurde erfolgreich gespeichert.
+msg_success_voting_updated#:#Die Frage wurde erfolgreich aktualisiert.
 
 <!-- xlvoFreeInputGUI -->
 answer#:#Antwort
@@ -67,21 +67,21 @@ option_text#:#Eingabe
 msg_options_not_editable#:#Die Möglichkeiten können nicht angepasst werden, da diese bereits Resultate enthalten. Um die Möglichkeiten wieder bearbeiten zu können, müssen Sie die Resultate dieses Votings zurücksetzen.
 
 <!-- xlvoPlayerGUI -->
-msg_no_voting_available#:#Es ist kein Voting verfügbar. Bitte ein Voting hinzufügen.
-msg_voting_not_available#:#Das Voting konnte nicht aufgerufen werden. Prüfen Sie bitte, ob das Voting ordnungsgemäss gestartet wurde und im allfällig festgelegten Zeitrahmen liegt.
-msg_start_of_voting_title#:#Startseit LiveVoting
-msg_end_of_voting#:#Sie sind am Ende des Votings angelangt. Bitte beenden oder zum Anfang zurückkehren.
+msg_no_voting_available#:#Es ist keine Frage verfügbar. Bitte eine Frage hinzufügen.
+msg_voting_not_available#:#Die Frage konnte nicht aufgerufen werden. Prüfen Sie bitte, ob die Frage ordnungsgemäss gestartet wurde und im allfällig festgelegten Zeitrahmen liegt.
+msg_start_of_voting_title#:#Startseite LiveVoting
+msg_end_of_voting#:#Sie sind am Ende des LiveVotings angelangt. Bitte beenden oder zum Anfang zurückkehren.
 live_voting#:#LiveVoting
 
 <!-- xlvoVoterGUI -->
-voting#:#Voting
+voting#:#LiveVoting
 msg_waiting_screen#:#Bitte warten...
-msg_not_running_screen#:#Das Voting ist momentan nicht aktiv.
-msg_not_available_screen#:#Das Voting ist nicht verfügbar.
+msg_not_running_screen#:#Das LiveVoting ist momentan nicht aktiv.
+msg_not_available_screen#:#Das LiveVoting ist nicht verfügbar.
 msg_access_screen#:#Bitte geben Sie den PIN ein.
-msg_start_of_voting_screen#:#Bitte auf den Beginn des Votings warten...
-msg_end_of_voting_screen#:#Ende des Votings. Vielen Dank für die Teilnahme.
-msg_validation_error_pin#:#Es konnte kein aktives Voting gefunden werden.
+msg_start_of_voting_screen#:#Bitte auf den Beginn des LiveVotings warten...
+msg_end_of_voting_screen#:#Ende des LiveVotings. Vielen Dank für die Teilnahme.
+msg_validation_error_pin#:#Es konnte kein aktives LiveVoting gefunden werden.
 pin_input#:#PIN
 
 <!-- xlvoVotingFormGUI -->
@@ -105,11 +105,11 @@ inactive#:#Inaktiv
 incomplete#:#Nicht komplett
 
 <!-- xlvoVotingGUI -->
-confirm_delete_voting#:#Möchten Sie das Voting mit allen zugehörigen Abstimmungsresultaten wirklich löschen?
+confirm_delete_voting#:#Möchten Sie die Frage mit allen zugehörigen Abstimmungsresultaten wirklich löschen?
 delete_failed#:#Der Löschvorgang ist fehlgeschlagen.
-confirm_reset_voting#:#Möchten Sie die Abstimmungsresultate der ausgewählten Frage löschen?
+confirm_reset_voting#:#Möchten Sie die Abstimmungsresultate der ausgewählten Frage wirklich löschen?
 reset_failed#:#Das Zurücksetzen der Resultate ist fehlgeschlagen.
-confirm_reset_all_votings#:#Möchten Sie die Abstimmungsresultate aller Fragen löschen?
+confirm_reset_all_votings#:#Möchten Sie die Abstimmungsresultate aller Fragen wirklich löschen?
 confirm_number_of_votes#:#Anzahl Antworten
 sorting_saved#:#Die neue Reihenfolge wurde gespeichert.
 
