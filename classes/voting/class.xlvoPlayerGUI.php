@@ -114,7 +114,7 @@ class xlvoPlayerGUI {
 					$this->{$cmd}();
 					break;
 				} else {
-					ilUtil::sendFailure(ilLiveVotingPlugin::getInstance()->txt('permission_denied'), true);
+					ilUtil::sendFailure(ilLiveVotingPlugin::getInstance()->txt('permission_denied_write'), true);
 					break;
 				}
 		}
@@ -126,7 +126,7 @@ class xlvoPlayerGUI {
 	 */
 	public function startVoting() {
 		if (! $this->access->hasWriteAccess()) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
+			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 		} else {
 			/**
 			 * @var xlvoVoting $vo
@@ -165,7 +165,7 @@ class xlvoPlayerGUI {
 
 			if (! $this->access->hasWriteAccessForObject($xlvoVoting->getObjId(), $this->usr->getId())) {
 				// TODO send Failure
-				ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
+				ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			} else {
 
 				/**
@@ -226,7 +226,7 @@ class xlvoPlayerGUI {
 	 */
 	public function nextVoting() {
 		if (! $this->access->hasWriteAccess()) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
+			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 		} else {
 			$voting_id_current = $this->getActiveVoting($this->obj_id);
 
@@ -268,7 +268,7 @@ class xlvoPlayerGUI {
 	 */
 	public function previousVoting() {
 		if (! $this->access->hasWriteAccess()) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
+			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 		} else {
 			$voting_id_current = $this->getActiveVoting($this->obj_id);
 			/**
@@ -309,7 +309,7 @@ class xlvoPlayerGUI {
 	 */
 	public function startOfVoting() {
 		if (! $this->access->hasWriteAccess()) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
+			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 		} else {
 			/**
 			 * @var xlvoPlayer $xlvoPlayer
@@ -340,7 +340,7 @@ class xlvoPlayerGUI {
 	 */
 	public function endOfVoting() {
 		if (! $this->access->hasWriteAccess()) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
+			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 		} else {
 			/**
 			 * @var xlvoPlayer $xlvoPlayer
@@ -363,7 +363,7 @@ class xlvoPlayerGUI {
 	public function resetVotes($obj_id, $voting_id) {
 		if (! $this->access->hasWriteAccessForObject($obj_id, $this->usr->getId())) {
 			// TODO send failure
-			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
+			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 		} else {
 			/**
 			 * @var xlvoPlayer $xlvoPlayer
@@ -384,7 +384,7 @@ class xlvoPlayerGUI {
 	public function freeze($obj_id) {
 		if (! $this->access->hasWriteAccessForObject($obj_id, $this->usr->getId())) {
 			// TODO send failure
-			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
+			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 		} else {
 			$this->voting_manager->freezeVoting($obj_id);
 		}
@@ -399,7 +399,7 @@ class xlvoPlayerGUI {
 	public function unfreeze($obj_id) {
 		if (! $this->access->hasWriteAccessForObject($obj_id, $this->usr->getId())) {
 			// TODO send failure
-			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
+			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 		} else {
 			$this->voting_manager->unfreezeVoting($obj_id);
 		}
@@ -411,7 +411,7 @@ class xlvoPlayerGUI {
 	 */
 	public function terminate() {
 		if (! $this->access->hasWriteAccess()) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
+			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 		} else {
 			$this->voting_manager->terminateVoting($this->obj_id);
 			$this->ctrl->redirect(new xlvoVotingGUI(), xlvoVotingGUI::CMD_STANDARD);
@@ -424,7 +424,7 @@ class xlvoPlayerGUI {
 	 */
 	protected function initToolbar() {
 		$current_selection_list = new ilAdvancedSelectionListGUI();
-		$current_selection_list->setListTitle($this->pl->txt('voting'));
+		$current_selection_list->setListTitle($this->pl->txt('live_voting'));
 		$current_selection_list->setId('xlvo_select');
 		$current_selection_list->setTriggerEvent('xlvo_voting');
 		$current_selection_list->setUseImages(false);

@@ -68,13 +68,13 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 
 
 	protected function addFilterItems() {
-		$title = new ilTextInputGUI($this->pl->txt('title'), 'title');
+		$title = new ilTextInputGUI($this->pl->txt('voting_title'), 'title');
 		$this->addAndReadFilterItem($title);
 
-		$question = new ilTextInputGUI($this->pl->txt('question'), 'question');
+		$question = new ilTextInputGUI($this->pl->txt('voting_question'), 'question');
 		$this->addAndReadFilterItem($question);
 
-		$status = new ilSelectInputGUI($this->pl->txt('status'), 'voting_status');
+		$status = new ilSelectInputGUI($this->pl->txt('voting_status'), 'voting_status');
 		$status_options = array(
 			'empty' => '',
 			xlvoVoting::STAT_INACTIVE => $this->pl->txt('inactive'),
@@ -84,7 +84,7 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 		$status->setOptions($status_options);
 		$this->addAndReadFilterItem($status);
 
-		$type = new ilSelectInputGUI($this->pl->txt('type'), 'voting_type');
+		$type = new ilSelectInputGUI($this->pl->txt('voting_type'), 'voting_type');
 		$type_options = array(
 			'empty' => '',
 			xlvoVotingType::SINGLE_VOTE => $this->pl->txt('single_vote'),
@@ -138,10 +138,10 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 
 	protected function initColums() {
 		$this->addColumn('', 'position', '20px');
-		$this->addColumn($this->pl->txt('title'));
-		$this->addColumn($this->pl->txt('question'));
-		$this->addColumn($this->pl->txt('type'));
-		$this->addColumn($this->pl->txt('status'));
+		$this->addColumn($this->pl->txt('voting_title'));
+		$this->addColumn($this->pl->txt('voting_question'));
+		$this->addColumn($this->pl->txt('voting_type'));
+		$this->addColumn($this->pl->txt('voting_status'));
 		$this->addColumn($this->pl->txt('common_actions'), '', '150px');
 	}
 

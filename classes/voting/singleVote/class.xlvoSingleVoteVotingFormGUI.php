@@ -88,7 +88,7 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 		if (! $this->has_existing_votes) {
 			$mli = new xlvoMultiLineInputGUI($this->pl->txt('options'), 'options');
 			$mli->setInfo($this->pl->txt('info_singlevote_options'));
-			$te = new ilTextInputGUI($this->pl->txt('text'), 'text');
+			$te = new ilTextInputGUI($this->pl->txt('option_text'), 'text');
 			$mli->addInput($te);
 			$this->addItem($mli);
 		} else {
@@ -119,7 +119,7 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 				ilUtil::sendInfo($this->pl->txt('voting_not_complete'), false);
 			}
 		} else {
-			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
+			ilUtil::sendFailure($this->pl->txt('permission_denied_object'), true);
 			$this->ctrl->redirect($this->parent_gui, xlvoVotingGUI::CMD_STANDARD);
 		}
 	}
@@ -213,7 +213,7 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 							}
 						}
 					} else {
-						ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
+						ilUtil::sendFailure($this->pl->txt('permission_denied_object'), true);
 						$this->ctrl->redirect($this->parent_gui, xlvoVotingGUI::CMD_STANDARD);
 					}
 				}
@@ -226,7 +226,7 @@ class xlvoSingleVoteVotingFormGUI extends xlvoVotingFormGUI {
 				$this->voting->update();
 			}
 		} else {
-			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
+			ilUtil::sendFailure($this->pl->txt('permission_denied_object'), true);
 			$this->ctrl->redirect($this->parent_gui, xlvoVotingGUI::CMD_STANDARD);
 		}
 

@@ -30,7 +30,7 @@ class xlvoSingleVoteVotingGUI extends xlvoVotingGUI {
 
 	protected function add() {
 		if (! $this->access->hasWriteAccess()) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
+			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect(new xlvoVotingGUI(), self::CMD_STANDARD);
 		} else {
 			$xlvoSingleVoteVotingFormGUI = new xlvoSingleVoteVotingFormGUI($this, xlvoVoting::find($_GET[parent::IDENTIFIER]));
@@ -41,7 +41,7 @@ class xlvoSingleVoteVotingGUI extends xlvoVotingGUI {
 
 	protected function create() {
 		if (! $this->access->hasWriteAccess()) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
+			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect(new xlvoVotingGUI(), self::CMD_STANDARD);
 		} else {
 			$xlvoSingleVoteVotingFormGUI = new xlvoSingleVoteVotingFormGUI($this, xlvoVoting::find($_GET[parent::IDENTIFIER]));
@@ -57,7 +57,7 @@ class xlvoSingleVoteVotingGUI extends xlvoVotingGUI {
 
 	protected function edit() {
 		if (! $this->access->hasWriteAccess()) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
+			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect(new xlvoVotingGUI(), self::CMD_STANDARD);
 		} else {
 			$xlvoSingleVoteVotingFormGUI = new xlvoSingleVoteVotingFormGUI($this, xlvoVoting::find($_GET[parent::IDENTIFIER]));
@@ -69,7 +69,7 @@ class xlvoSingleVoteVotingGUI extends xlvoVotingGUI {
 
 	protected function update() {
 		if (! $this->access->hasWriteAccess()) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
+			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect(new xlvoVotingGUI(), self::CMD_STANDARD);
 		} else {
 			$xlvoSingleVoteVotingFormGUI = new xlvoSingleVoteVotingFormGUI($this, xlvoVoting::find($_GET[parent::IDENTIFIER]));

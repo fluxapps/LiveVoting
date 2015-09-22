@@ -339,7 +339,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 
 	public function updateProperties() {
 		if (! $this->access->hasWriteAccess()) {
-			ilUtil::sendFailure(ilLiveVotingPlugin::getInstance()->txt('permission_denied'), true);
+			ilUtil::sendFailure(ilLiveVotingPlugin::getInstance()->txt('permission_denied_write'), true);
 		} else {
 
 			$this->initPropertiesForm();
