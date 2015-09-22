@@ -74,3 +74,83 @@ msg_validation_error_pin#:#Es konnte kein aktives Voting gefunden werden.
 pin_input#:#PIN
 
 show_voting#:#Vote
+
+
+
+
+
+
+
+
+
+
+<!-- ilUtil Messages -->
+permission_denied
+permission_denied_write
+
+<!-- Buttons -->
+back
+create
+update
+cancel
+
+<!-- xlvoFreeInputGUI -->
+answer
+
+
+<!-- xlvoFreeInputVotingFormGUI -->
+multi_free_input
+info_freeinput_multi_free_input
+voting_not_complete
+
+
+
+<!-- xlvoFreeInputVotingGUI -->
+msg_success_voting_created
+msg_success_voting_updated
+
+
+<!--  -->
+
+<!--  -->
+
+<!--  -->
+
+<!--  -->
+
+<!--  -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
