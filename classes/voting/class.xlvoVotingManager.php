@@ -18,13 +18,13 @@ class xlvoVotingManager implements xlvoVotingInterface {
 
 	const NEW_VOTE = 0;
 	/**
-	 * @var int
-	 */
-	protected $obj_id;
-	/**
 	 * @var ilObjUser
 	 */
 	protected $user_ilias;
+	/**
+	 * @var ilObjLiveVotingAccess
+	 */
+	protected $access;
 
 
 	public function __construct() {
@@ -34,7 +34,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 		 * @var ilObjUser $ilUser
 		 */
 		$this->user_ilias = $ilUser;
-		$this->obj_id = ilObject2::_lookupObjId($_GET['ref_id']);
+		$this->access = new ilObjLiveVotingAccess();
 	}
 
 
@@ -337,7 +337,15 @@ class xlvoVotingManager implements xlvoVotingInterface {
 		$existing_votes = $this->getVotesOfUserOfVoting($xlvoOption->getVotingId())->get();
 
 		// TODO if not anonymous check access
-		if (! $xlvoPlayer->isFrozenOrUnattended() && $xlvoPlayer->getStatus() == xlvoPlayer::STAT_RUNNING && $this->isVotingAvailable($obj_id)) {
+		$hasAccess = false;
+		$isAnonymousVoting = $xlvoVotingConfig->isAnonymous();
+		if ($isAnonymousVoting == 0) {
+			$hasAccess = $this->access->hasReadAccessForObject($obj_id, $this->user_ilias->getId());
+		} elseif ($isAnonymousVoting) {
+			$hasAccess = true;
+		}
+
+		if (! $xlvoPlayer->isFrozenOrUnattended() && $xlvoPlayer->getStatus() == xlvoPlayer::STAT_RUNNING && $this->isVotingAvailable($obj_id) && $hasAccess) {
 
 			/*
 			 * SINGLE VOTE
