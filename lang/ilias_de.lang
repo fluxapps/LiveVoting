@@ -25,12 +25,12 @@ create#:#Erstellen
 update#:#Update
 delete#:#Löschen
 reset#:#Resultate Zurücksetzen
-reset_all#:#Resultate zurücksetzen
+reset_all#:#Alle Resultate zurücksetzen
 back#:#Zurück
 cancel#:#Abbrechen
 next#:#Weiter
 
-<!-- LinkButtons (txt-function not used, setCaption('rep_robj_*')) -->
+<!-- LinkButtons (txt-function not used; setCaption('rep_robj_*')) -->
 freeze#:#Pausieren
 unfreeze#:#Fortsetzen
 terminate#:#Beenden
@@ -40,7 +40,7 @@ show_results#:#Resultate anzeigen
 start_voting#:#Starten
 back_to_voting#:#Zurück zum Voting
 add_voting#:#Voting hinzufügen
-reset_all_votes#:#Resultate zurücksetzen
+reset_all_votes#:#Alle Resultate zurücksetzen
 
 <!-- Genereal VotingForms -->
 msg_voting_not_complete#:#Das Voting ist noch nicht komplett. Bitte schliessen Sie den Erstellvorgang ab.
@@ -107,7 +107,7 @@ incomplete#:#Nicht komplett
 <!-- xlvoVotingGUI -->
 confirm_delete_voting#:#Möchten Sie das Voting mit allen zugehörigen Abstimmungsresultaten wirklich löschen?
 delete_failed#:#Der Löschvorgang ist fehlgeschlagen.
-confirm_reset_voting#:#Möchten Sie die Abstimmungsresultate der Ausgewählten Frage löschen?
+confirm_reset_voting#:#Möchten Sie die Abstimmungsresultate der ausgewählten Frage löschen?
 reset_failed#:#Das Zurücksetzen der Resultate ist fehlgeschlagen.
 confirm_reset_all_votings#:#Möchten Sie die Abstimmungsresultate aller Fragen löschen?
 confirm_number_of_votes#:#Anzahl Antworten
