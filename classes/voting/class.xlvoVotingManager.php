@@ -83,7 +83,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 		if ($xlvoVoting instanceof xlvoVoting) {
 			return $xlvoVoting;
 		} else {
-			throw new xlvoVotingManagerException('Returned object not an instance of xlvoVoting.');
+			throw new xlvoVotingManagerException('Returned object is not an instance of xlvoVoting.');
 		}
 	}
 
@@ -118,7 +118,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 		if ($xlvoOption instanceof xlvoOption) {
 			return $xlvoOption;
 		} else {
-			throw new xlvoVotingManagerException('Returned object not an instance of xlvoOption.');
+			throw new xlvoVotingManagerException('Returned object is not an instance of xlvoOption.');
 		}
 	}
 
@@ -311,6 +311,21 @@ class xlvoVotingManager implements xlvoVotingInterface {
 		} else {
 			throw new xlvoVotingManagerException('Returned object is not an instance of xlvoPlayer.');
 		}
+	}
+
+
+	/**
+	 * @param     $obj_id
+	 * @param int $voting_id
+	 */
+	public function createPlayer($obj_id, $voting_id = 0) {
+		$xlvoPlayer = new xlvoPlayer();
+		$xlvoPlayer->setObjId($obj_id);
+		$xlvoPlayer->setActiveVoting($voting_id);
+		$xlvoPlayer->setStatus(xlvoPlayer::STAT_START_VOTING);
+		$xlvoPlayer->setFrozen(true);
+		$xlvoPlayer->setTimestampRefresh(time());
+		$xlvoPlayer->create();
 	}
 
 
@@ -586,27 +601,21 @@ class xlvoVotingManager implements xlvoVotingInterface {
 			 * @var xlvoVoting $xlvoVoting
 			 */
 			$xlvoVoting = $this->getVoting($voting_id);
-			/**
-			 * @var xlvoPlayer $xlvoPlayer
-			 */
-			$xlvoPlayer = $this->getPlayer($xlvoVoting->getObjId());
 		} catch (xlvoVotingManagerException $e) {
 			throw $e;
 		}
 
-		if ($xlvoPlayer == NULL) {
-			$xlvoPlayer = new xlvoPlayer();
-			$xlvoPlayer->setObjId($xlvoVoting->getObjId());
-			$xlvoPlayer->setActiveVoting($voting_id);
-			$xlvoPlayer->setStatus(xlvoPlayer::STAT_START_VOTING);
-			$xlvoPlayer->setFrozen(true);
-			$xlvoPlayer->setTimestampRefresh(time());
-			$xlvoPlayer->create();
-		} else {
+		try {
+			/**
+			 * @var xlvoPlayer $xlvoPlayer
+			 */
+			$xlvoPlayer = $this->getPlayer($xlvoVoting->getObjId());
 			$xlvoPlayer->setActiveVoting($voting_id);
 			$xlvoPlayer->setStatus(xlvoPlayer::STAT_RUNNING);
 			$xlvoPlayer->setTimestampRefresh(time());
-			$xlvoPlayer->update();
+			$this->updatePlayer($xlvoPlayer);
+		} catch (xlvoVotingManagerException $e) {
+			$this->createPlayer($xlvoVoting->getObjId(), $voting_id);
 		}
 	}
 
@@ -623,7 +632,12 @@ class xlvoVotingManager implements xlvoVotingInterface {
 		 */
 		$xlvoPlayer = $this->getPlayer($obj_id);
 		if ($xlvoPlayer instanceof xlvoPlayer) {
-			return $xlvoPlayer->getActiveVoting();
+			$voting_id = $xlvoPlayer->getActiveVoting();
+			if ($voting_id >= 0) {
+				return $voting_id;
+			} else {
+				throw new xlvoVotingManagerException('Returned value is not a number.');
+			}
 		} else {
 			throw new xlvoVotingManagerException('Returned object is not an instance of xlvoPlayer.');
 		}
