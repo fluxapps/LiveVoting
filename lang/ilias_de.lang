@@ -48,11 +48,10 @@ msg_success_voting_created#:#Die Frage wurde erfolgreich gespeichert.
 msg_success_voting_updated#:#Die Frage wurde erfolgreich aktualisiert.
 
 <!-- ilUtil Messages as AJAX Response -->
-error_vote_failed#:#
-error_vote_reset_failed#:#
-error_free_input_multi_vote_failed#:#
-
-error_access_failed#:#
+error_vote_failed#:#Die Auswahl konnte nicht gespeichert werden, da ein Fehler aufgetreten ist.
+error_free_input_multi_vote_failed#:#Es konnten nicht alle Einträge gespeichert werden, da ein Fehler aufgetreten ist.
+error_vote_reset_failed#:#Die Auswahl konnte nicht gelöscht werden, da ein Fehler aufgetreten ist.
+error_voting_terminated#:#Das LiveVoting wurde beendet, weil das gesetzte Zeitlimit erreicht wurde oder ein anderer Fehler vorliegt.
 
 <!-- xlvoFreeInputGUI -->
 answer#:#Antwort

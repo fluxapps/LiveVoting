@@ -146,7 +146,10 @@ class xlvoPlayerGUI {
 
 
 	/**
-	 * @param $voting_id
+	 * @param null $voting_id
+	 *
+	 * @return string
+	 * @throws xlvoVotingManagerException
 	 */
 	public function showVoting($voting_id = NULL) {
 		if ($voting_id == NULL) {
@@ -164,8 +167,8 @@ class xlvoPlayerGUI {
 			$xlvoVoting = $this->voting_manager->getVoting($voting_id);
 
 			if (! $this->access->hasWriteAccessForObject($xlvoVoting->getObjId(), $this->usr->getId())) {
-				// TODO send Failure
 				ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
+				return $this->tpl->getMessageHTML($this->pl->txt('permission_denied_write'), 'failure');
 			} else {
 
 				/**
@@ -192,13 +195,16 @@ class xlvoPlayerGUI {
 						return $display->getHTML();
 					} else {
 						ilUtil::sendFailure($this->pl->txt('msg_voting_not_available'), false);
+						return $this->tpl->getMessageHTML($this->pl->txt('error_voting_terminated'), 'failure');
 					}
 				} else {
 					ilUtil::sendFailure($this->pl->txt('msg_voting_not_available'), false);
+					return $this->tpl->getMessageHTML($this->pl->txt('msg_voting_not_available'), 'failure');
 				}
 			}
 		} else {
 			ilUtil::sendFailure($this->pl->txt('msg_voting_not_available'), false);
+			return $this->tpl->getMessageHTML($this->pl->txt('msg_voting_not_available'), 'failure');
 		}
 	}
 
@@ -359,11 +365,14 @@ class xlvoPlayerGUI {
 	/**
 	 * @param $obj_id
 	 * @param $voting_id
+	 *
+	 * @return string
+	 * @throws xlvoVotingManagerException
 	 */
 	public function resetVotes($obj_id, $voting_id) {
 		if (! $this->access->hasWriteAccessForObject($obj_id, $this->usr->getId())) {
-			// TODO send failure
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
+			return $this->tpl->getMessageHTML($this->pl->txt('permission_denied_write'), 'failure');
 		} else {
 			/**
 			 * @var xlvoPlayer $xlvoPlayer
@@ -372,36 +381,39 @@ class xlvoPlayerGUI {
 			if ($xlvoPlayer->isFrozen()) {
 				$this->voting_manager->deleteVotesOfVoting($voting_id);
 			}
+			return '';
 		}
 	}
 
 
 	/**
-	 * Set Player Status to frozen.
-	 *
 	 * @param $obj_id
+	 *
+	 * @return string
 	 */
 	public function freeze($obj_id) {
 		if (! $this->access->hasWriteAccessForObject($obj_id, $this->usr->getId())) {
-			// TODO send failure
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
+			return $this->tpl->getMessageHTML($this->pl->txt('permission_denied_write'), 'failure');
 		} else {
 			$this->voting_manager->freezeVoting($obj_id);
+			return '';
 		}
 	}
 
 
 	/**
-	 * Set Player Status to unfrozen.
-	 *
 	 * @param $obj_id
+	 *
+	 * @return string
 	 */
 	public function unfreeze($obj_id) {
 		if (! $this->access->hasWriteAccessForObject($obj_id, $this->usr->getId())) {
-			// TODO send failure
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
+			return $this->tpl->getMessageHTML($this->pl->txt('permission_denied_write'), 'failure');
 		} else {
 			$this->voting_manager->unfreezeVoting($obj_id);
+			return '';
 		}
 	}
 
