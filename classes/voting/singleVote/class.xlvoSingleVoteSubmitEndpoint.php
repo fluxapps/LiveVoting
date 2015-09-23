@@ -11,6 +11,14 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingManager.php');
 
 /**
+ * @var $tpl ilTemplate
+ */
+global $tpl;
+/**
+ * @var ilLiveVotingPlugin
+ */
+$pl = ilLiveVotingPlugin::getInstance();
+/**
  * @var $voter_gui xlvoVoterGUI
  */
 $voter_gui = new xlvoVoterGUI();
@@ -34,7 +42,10 @@ try {
 	 */
 	$option = $voting_manager->getOption($_REQUEST['option_id']);
 } catch (xlvoVotingManagerException $e) {
-	// TODO show error msg
+	header('Content-type: text/html');
+	echo $tpl->getMessageHTML($pl->txt('error_load_voting_failed'), 'failure');
+
+	return false;
 }
 
 $success = $voter_gui->vote($posted_vote);

@@ -158,6 +158,8 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	 * @param $option_id
 	 *
 	 * @return xlvoVote
+	 * @throws Exception
+	 * @throws xlvoVotingManagerException
 	 */
 	public function getVotesOfUserOfOption($voting_id, $option_id) {
 		/**
@@ -165,14 +167,18 @@ class xlvoVotingManager implements xlvoVotingInterface {
 		 */
 		$xlvoVotes = $this->getVotesOfOption($option_id);
 
-		/**
-		 * @var $xlvoVoting xlvoVoting
-		 */
-		$xlvoVoting = $this->getVoting($voting_id);
-		/**
-		 * @var xlvoVotingConfig $xlvoConfig
-		 */
-		$xlvoConfig = $this->getVotingConfig($xlvoVoting->getObjId());
+		try {
+			/**
+			 * @var $xlvoVoting xlvoVoting
+			 */
+			$xlvoVoting = $this->getVoting($voting_id);
+			/**
+			 * @var xlvoVotingConfig $xlvoConfig
+			 */
+			$xlvoConfig = $this->getVotingConfig($xlvoVoting->getObjId());
+		} catch (xlvoVotingManagerException $e) {
+			throw $e;
+		}
 
 		if ($xlvoConfig->isAnonymous()) {
 			$xlvoVotes = $xlvoVotes->where(array( 'user_identifier' => session_id() ));
@@ -188,6 +194,8 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	 * @param $voting_id
 	 *
 	 * @return xlvoVote
+	 * @throws Exception
+	 * @throws xlvoVotingManagerException
 	 */
 	public function getVotesOfUserOfVoting($voting_id) {
 		/**
@@ -195,14 +203,18 @@ class xlvoVotingManager implements xlvoVotingInterface {
 		 */
 		$xlvoVotes = $this->getVotesOfVoting($voting_id);
 
-		/**
-		 * @var $xlvoVoting xlvoVoting
-		 */
-		$xlvoVoting = $this->getVoting($voting_id);
-		/**
-		 * @var xlvoVotingConfig $xlvoConfig
-		 */
-		$xlvoConfig = $this->getVotingConfig($xlvoVoting->getObjId());
+		try {
+			/**
+			 * @var $xlvoVoting xlvoVoting
+			 */
+			$xlvoVoting = $this->getVoting($voting_id);
+			/**
+			 * @var xlvoVotingConfig $xlvoConfig
+			 */
+			$xlvoConfig = $this->getVotingConfig($xlvoVoting->getObjId());
+		} catch (xlvoVotingManagerException $e) {
+			throw $e;
+		}
 
 		if ($xlvoConfig->isAnonymous()) {
 			$xlvoVotes = $xlvoVotes->where(array( 'user_identifier' => session_id() ));
@@ -326,30 +338,34 @@ class xlvoVotingManager implements xlvoVotingInterface {
 			throw new xlvoVotingManagerException('Passed object has no optionId assigned.');
 		}
 
-		/**
-		 * @var xlvoOption $xlvoOption
-		 */
-		$xlvoOption = $this->getOption($vote->getOptionId());
-		/**
-		 * @var xlvoVoting $xlvoVoting
-		 */
-		$xlvoVoting = $this->getVoting($xlvoOption->getVotingId());
-		/**
-		 * @var int $obj_id
-		 */
-		$obj_id = $xlvoVoting->getObjId();
-		/**
-		 * @var xlvoVotingConfig $xlvoVotingConfig
-		 */
-		$xlvoVotingConfig = $this->getVotingConfig($obj_id);
-		/**
-		 * @var xlvoPlayer $xlvoPlayer
-		 */
-		$xlvoPlayer = $this->getPlayer($obj_id);
-		/**
-		 * @var xlvoVote[] $existing_votes
-		 */
-		$existing_votes = $this->getVotesOfUserOfVoting($xlvoOption->getVotingId())->get();
+		try {
+			/**
+			 * @var xlvoOption $xlvoOption
+			 */
+			$xlvoOption = $this->getOption($vote->getOptionId());
+			/**
+			 * @var xlvoVoting $xlvoVoting
+			 */
+			$xlvoVoting = $this->getVoting($xlvoOption->getVotingId());
+			/**
+			 * @var int $obj_id
+			 */
+			$obj_id = $xlvoVoting->getObjId();
+			/**
+			 * @var xlvoVotingConfig $xlvoVotingConfig
+			 */
+			$xlvoVotingConfig = $this->getVotingConfig($obj_id);
+			/**
+			 * @var xlvoPlayer $xlvoPlayer
+			 */
+			$xlvoPlayer = $this->getPlayer($obj_id);
+			/**
+			 * @var xlvoVote[] $existing_votes
+			 */
+			$existing_votes = $this->getVotesOfUserOfVoting($xlvoOption->getVotingId())->get();
+		} catch (xlvoVotingManagerException $e) {
+			throw $e;
+		}
 
 		// TODO check if hasReadAccessForObject works
 		$hasAccess = false;
@@ -565,14 +581,19 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	 * @throws Exception
 	 */
 	public function setActiveVoting($voting_id) {
-		/**
-		 * @var xlvoVoting $xlvoVoting
-		 */
-		$xlvoVoting = $this->getVoting($voting_id);
-		/**
-		 * @var xlvoPlayer $xlvoPlayer
-		 */
-		$xlvoPlayer = $this->getPlayer($xlvoVoting->getObjId());
+		try {
+			/**
+			 * @var xlvoVoting $xlvoVoting
+			 */
+			$xlvoVoting = $this->getVoting($voting_id);
+			/**
+			 * @var xlvoPlayer $xlvoPlayer
+			 */
+			$xlvoPlayer = $this->getPlayer($xlvoVoting->getObjId());
+		} catch (xlvoVotingManagerException $e) {
+			throw $e;
+		}
+
 		if ($xlvoPlayer == NULL) {
 			$xlvoPlayer = new xlvoPlayer();
 			$xlvoPlayer->setObjId($xlvoVoting->getObjId());
@@ -618,7 +639,11 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	public function getActiveVotingObject($obj_id) {
 		$voting_id = $this->getActiveVoting($obj_id);
 
-		$xlvoVoting = $this->getVoting($voting_id);
+		try {
+			$xlvoVoting = $this->getVoting($voting_id);
+		} catch (xlvoVotingManagerException $e) {
+			throw $e;
+		}
 
 		if ($xlvoVoting instanceof xlvoVoting) {
 			return $xlvoVoting;

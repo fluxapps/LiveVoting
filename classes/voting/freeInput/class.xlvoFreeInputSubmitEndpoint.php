@@ -12,6 +12,14 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingManager.php');
 
 /**
+ * @var $tpl ilTemplate
+ */
+global $tpl;
+/**
+ * @var ilLiveVotingPlugin
+ */
+$pl = ilLiveVotingPlugin::getInstance();
+/**
  * @var $voter_gui xlvoVoterGUI
  */
 $voter_gui = new xlvoVoterGUI();
@@ -68,7 +76,15 @@ if ($request_type == 'vote') {
 
 if ($request_type == 'vote_multi') {
 
-	$option = $voting_manager->getOption($_REQUEST['option_id']);
+	try {
+		$option = $voting_manager->getOption($_REQUEST['option_id']);
+	} catch (xlvoVotingManagerException $e) {
+		header('Content-type: text/html');
+		echo $tpl->getMessageHTML($pl->txt('error_load_voting_failed'), 'failure');
+
+		return false;
+	}
+
 	/**
 	 * @var $existing_votes xlvoVote[]
 	 */
