@@ -120,37 +120,38 @@ class xlvoVoterGUI {
 
 			return $this->showInfoScreen($obj_id, self::INFO_TYPE_WAITING);
 		} else {
-			$xlvoPlayer = $this->voting_manager->getPlayer($obj_id);
 
-			if ($xlvoPlayer instanceof xlvoPlayer) {
-				if ($voting_id != $xlvoPlayer->getActiveVoting()) {
-					try {
-						$xlvoVoting = $this->voting_manager->getVoting($xlvoPlayer->getActiveVoting());
-					} catch (xlvoVotingManagerException $e) {
-						return $this->tpl->getMessageHTML($this->pl->txt('error_load_voting_failed'), 'failure');
-					}
+			try {
+				$xlvoPlayer = $this->voting_manager->getPlayer($obj_id);
+			} catch (xlvoVotingManagerException $e) {
+				return $this->showAccessScreen(true);
+			}
 
-					if ($xlvoVoting instanceof xlvoVoting) {
+			if ($voting_id != $xlvoPlayer->getActiveVoting()) {
+				try {
+					$xlvoVoting = $this->voting_manager->getVoting($xlvoPlayer->getActiveVoting());
+				} catch (xlvoVotingManagerException $e) {
+					return $this->tpl->getMessageHTML($this->pl->txt('error_load_voting_failed'), 'failure');
+				}
 
-						if ($error_msg == NULL) {
-							$display = new xlvoDisplayVoterGUI($xlvoVoting);
+				if ($xlvoVoting instanceof xlvoVoting) {
 
-							return $display->getHtml();
-						} else {
-							$err_msg = $this->tpl->getMessageHTML($this->pl->txt($error_msg), 'failure');
-							$display = new xlvoDisplayVoterGUI($xlvoVoting, $err_msg);
+					if ($error_msg == NULL) {
+						$display = new xlvoDisplayVoterGUI($xlvoVoting);
 
-							return $display->getHTML();
-						}
+						return $display->getHtml();
 					} else {
-						return $this->showInfoScreen($obj_id, self::INFO_TYPE_WAITING);
+						$err_msg = $this->tpl->getMessageHTML($this->pl->txt($error_msg), 'failure');
+						$display = new xlvoDisplayVoterGUI($xlvoVoting, $err_msg);
+
+						return $display->getHTML();
 					}
 				} else {
-					// return empty html if keeping same page
-					return '';
+					return $this->showInfoScreen($obj_id, self::INFO_TYPE_WAITING);
 				}
 			} else {
-				return $this->showAccessScreen(true);
+				// return empty html if keeping same page
+				return '';
 			}
 		}
 	}
@@ -210,7 +211,6 @@ class xlvoVoterGUI {
 			$xlvoVote->setFreeInput($vote->getFreeInput());
 
 			try {
-
 				$this->voting_manager->vote($xlvoVote);
 
 				return true;

@@ -168,12 +168,13 @@ class xlvoPlayerGUI {
 				$xlvoVoting = $this->voting_manager->getVoting($voting_id);
 			} catch (xlvoVotingManagerException $e) {
 				ilUtil::sendFailure($this->pl->txt('error_load_voting_failed'), true);
+
 				return $this->tpl->getMessageHTML($this->pl->txt('error_load_voting_failed'), 'failure');
 			}
 
-
 			if (! $this->access->hasWriteAccessForObject($xlvoVoting->getObjId(), $this->usr->getId())) {
 				ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
+
 				return $this->tpl->getMessageHTML($this->pl->txt('permission_denied_write'), 'failure');
 			} else {
 
@@ -181,35 +182,40 @@ class xlvoPlayerGUI {
 				 * @var boolean $isAvailable
 				 */
 				$isAvailable = $this->voting_manager->isVotingAvailable($xlvoVoting->getObjId());
-				/**
-				 * @var xlvoPlayer $xlvoPlayer
-				 */
-				$xlvoPlayer = $this->voting_manager->getPlayer($xlvoVoting->getObjId());
-				if ($xlvoPlayer instanceof xlvoPlayer) {
-					$isRunning = $xlvoPlayer->getStatus();
 
-					if ($isAvailable && $isRunning == xlvoPlayer::STAT_RUNNING) {
+				try {
+					/**
+					 * @var xlvoPlayer $xlvoPlayer
+					 */
+					$xlvoPlayer = $this->voting_manager->getPlayer($xlvoVoting->getObjId());
+				} catch (xlvoVotingManagerException $e) {
+					ilUtil::sendFailure($this->pl->txt('msg_voting_not_available'), false);
 
-						$this->initToolbar();
+					return $this->tpl->getMessageHTML($this->pl->txt('msg_voting_not_available'), 'failure');
+				}
 
-						$this->setActiveVoting($xlvoVoting->getId());
+				$isRunning = $xlvoPlayer->getStatus();
 
-						$display = new xlvoDisplayPlayerGUI($xlvoVoting);
+				if ($isAvailable && $isRunning == xlvoPlayer::STAT_RUNNING) {
 
-						$this->tpl->setContent($display->getHTML());
+					$this->initToolbar();
 
-						return $display->getHTML();
-					} else {
-						ilUtil::sendFailure($this->pl->txt('msg_voting_not_available'), false);
-						return $this->tpl->getMessageHTML($this->pl->txt('error_voting_terminated'), 'failure');
-					}
+					$this->setActiveVoting($xlvoVoting->getId());
+
+					$display = new xlvoDisplayPlayerGUI($xlvoVoting);
+
+					$this->tpl->setContent($display->getHTML());
+
+					return $display->getHTML();
 				} else {
 					ilUtil::sendFailure($this->pl->txt('msg_voting_not_available'), false);
-					return $this->tpl->getMessageHTML($this->pl->txt('msg_voting_not_available'), 'failure');
+
+					return $this->tpl->getMessageHTML($this->pl->txt('error_voting_terminated'), 'failure');
 				}
 			}
 		} else {
 			ilUtil::sendFailure($this->pl->txt('msg_voting_not_available'), false);
+
 			return $this->tpl->getMessageHTML($this->pl->txt('msg_voting_not_available'), 'failure');
 		}
 	}
@@ -323,22 +329,23 @@ class xlvoPlayerGUI {
 		if (! $this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 		} else {
-			/**
-			 * @var xlvoPlayer $xlvoPlayer
-			 */
-			$xlvoPlayer = $this->voting_manager->getPlayer($this->obj_id);
-			if ($xlvoPlayer instanceof xlvoPlayer) {
+			try {
+				/**
+				 * @var xlvoPlayer $xlvoPlayer
+				 */
+				$xlvoPlayer = $this->voting_manager->getPlayer($this->obj_id);
 				$xlvoPlayer->setStatus(xlvoPlayer::STAT_START_VOTING);
 				$this->voting_manager->updatePlayer($xlvoPlayer);
-			} else {
+			} catch (xlvoVotingManagerException $e) {
 				/**
 				 * @var xlvoVoting $vo
 				 */
 				$vo = $this->voting_manager->getActiveVotings($this->obj_id)->first();
-				if ($vo == NULL) {
-					ilUtil::sendInfo($this->pl->txt('msg_no_voting_available'), true);
-				} else {
+				if ($vo instanceof xlvoVoting) {
 					$this->setActiveVoting($vo->getId());
+				} else {
+					$this->voting_manager->createPlayer($this->obj_id);
+					ilUtil::sendInfo($this->pl->txt('msg_no_voting_available'), true);
 				}
 			}
 
@@ -378,6 +385,7 @@ class xlvoPlayerGUI {
 	public function resetVotes($obj_id, $voting_id) {
 		if (! $this->access->hasWriteAccessForObject($obj_id, $this->usr->getId())) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
+
 			return $this->tpl->getMessageHTML($this->pl->txt('permission_denied_write'), 'failure');
 		} else {
 			/**
@@ -387,6 +395,7 @@ class xlvoPlayerGUI {
 			if ($xlvoPlayer->isFrozen()) {
 				$this->voting_manager->deleteVotesOfVoting($voting_id);
 			}
+
 			return '';
 		}
 	}
@@ -400,9 +409,11 @@ class xlvoPlayerGUI {
 	public function freeze($obj_id) {
 		if (! $this->access->hasWriteAccessForObject($obj_id, $this->usr->getId())) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
+
 			return $this->tpl->getMessageHTML($this->pl->txt('permission_denied_write'), 'failure');
 		} else {
 			$this->voting_manager->freezeVoting($obj_id);
+
 			return '';
 		}
 	}
@@ -416,9 +427,11 @@ class xlvoPlayerGUI {
 	public function unfreeze($obj_id) {
 		if (! $this->access->hasWriteAccessForObject($obj_id, $this->usr->getId())) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
+
 			return $this->tpl->getMessageHTML($this->pl->txt('permission_denied_write'), 'failure');
 		} else {
 			$this->voting_manager->unfreezeVoting($obj_id);
+
 			return '';
 		}
 	}
