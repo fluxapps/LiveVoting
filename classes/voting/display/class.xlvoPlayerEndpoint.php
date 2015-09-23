@@ -101,19 +101,19 @@ if ($posted_type == 'load_player_info') {
 }
 
 if ($posted_type == 'freeze_voting') {
-	$player_gui->freeze($posted_object_id);
+	$success = $player_gui->freeze($posted_object_id);
 	header('Content-type: text/html');
 	echo '';
 }
 
 if ($posted_type == 'unfreeze_voting') {
-	$player_gui->unfreeze($posted_object_id);
+	$success = $player_gui->unfreeze($posted_object_id);
 	header('Content-type: text/html');
 	echo '';
 }
 
 if ($posted_type == 'reset_voting') {
-	$player_gui->resetVotes($posted_object_id, $posted_voting_id);
+	$success = $player_gui->resetVotes($posted_object_id, $posted_voting_id);
 	header('Content-type: text/html');
 	echo '';
 }
