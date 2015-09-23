@@ -24,7 +24,7 @@ class xlvoPlayer extends ActiveRecord {
 	 * @return string
 	 */
 	public static function returnDbTableName() {
-		return 'rep_robj_xlvo_player';
+		return 'rep_robj_xlvo_player_n';
 	}
 
 

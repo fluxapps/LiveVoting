@@ -19,6 +19,7 @@
 				var free_input = $('#free_input').val();
 				var option_id = $('#option_id').val();
 				var vote_id = $('#vote_id').val();
+				var object_id = $('#voting-data').attr('object');
 				var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/freeInput/class.xlvoFreeInputSubmitEndpoint.php";
 
 				// get name of submit button
@@ -28,37 +29,48 @@
 
 				// send vote
 				if (submit_name == 'cmd[send_vote]') {
-					$.post(url, {free_input: free_input, option_id: option_id, vote_id: vote_id, type: 'vote'})
+					$.post(url, {free_input: free_input, option_id: option_id, vote_id: vote_id, object_id: object_id, type: 'vote'})
 						.done(function (data) {
-							console.log(data);
-							// set button style to default
-							$('.btn-default').attr('class', 'btn btn-default btn-sm');
-							for (var key in data) {
-								var vote = data[key];
-								if (vote['status'] == 1) {
-									// set values
-									$("#vote_id").attr('value', vote['id']);
-									$("#free_input").attr('value', vote['free_input']);
-									// show delete button
-									$("input[name='cmd[send_unvote]']").show();
+
+							// check if data is javascript object; else display html info_screen with error_msg
+							if (typeof data === 'object') {
+								// set button style to default
+								$('.btn-default').attr('class', 'btn btn-default btn-sm');
+								for (var key in data) {
+									var vote = data[key];
+									if (vote['status'] == 1) {
+										// set values
+										$("#vote_id").attr('value', vote['id']);
+										$("#free_input").attr('value', vote['free_input']);
+										// show delete button
+										$("input[name='cmd[send_unvote]']").show();
+									}
 								}
+							} else {
+								$('.display-voter').replaceWith(data);
 							}
 						}).fail(function (jqXHR) {
 							console.log(jqXHR);
 						}).always(function () {
 						});
+
 				}
 				// delete vote
 				if (submit_name == 'cmd[send_unvote]') {
-					$.post(url, {free_input: free_input, option_id: option_id, vote_id: vote_id, type: 'unvote'})
+					$.post(url, {free_input: free_input, option_id: option_id, vote_id: vote_id, object_id: object_id, type: 'unvote'})
 						.done(function (data) {
-							// set button style to default
-							$('.btn-default').attr('class', 'btn btn-default btn-sm');
-							// hide delete button
-							$("input[name='cmd[send_unvote]']").hide();
-							// reset input textfield
-							$("#free_input").attr('value', "");
-							$("#vote_id").attr('value', 0);
+							if (data == '') {
+								// set button style to default
+								$('.btn-default').attr('class', 'btn btn-default btn-sm');
+								// hide delete button
+								$("input[name='cmd[send_unvote]']").hide();
+								// reset input textfield
+								$("#free_input").attr('value', "");
+								$("#vote_id").attr('value', 0);
+							} else {
+								$('.display-voter').replaceWith(data);
+							}
+
 						}).fail(function (jqXHR) {
 							console.log(jqXHR);
 						}).always(function () {
@@ -91,6 +103,7 @@ $('#form_free_input').freeInputVote();
 
 				// get values for POST request
 				var option_id = $(".multi_input_line").attr('option_id');
+				var object_id = $('#voting-data').attr('object');
 				var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/freeInput/class.xlvoFreeInputSubmitEndpoint.php";
 
 				// get name of submit button
@@ -106,56 +119,10 @@ $('#form_free_input').freeInputVote();
 					// POST each vote
 					var post_votes = function (votes) {
 
-						$.post(url, {option_id: option_id, votes: votes, type: 'vote_multi'})
+						$.post(url, {option_id: option_id, votes: votes, object_id: object_id, type: 'vote_multi'})
 							.done(function (data) {
 
-								// remove all but one input field. child 1 = hidden input; child 2 = first input field
-								$("#vote_multi_line_input").find('*').not(":nth-child(1)").not(":nth-child(2)").remove();
-								// set buttons
-								button.attr('disabled', false);
-								$("input[name='cmd[unvote_all]']").attr('disabled', false).show();
-								$('.btn.btn-default.btn-sm').attr('class', 'btn btn-default btn-sm');
-
-								$('.free-input-form').replaceWith(data);
-
-								//var is_first = true;
-								//for (var key in data) {
-								//	var vote = data[key];
-								//
-								//	if (is_first == true) {
-								//
-								//		var inputField = $("input[name^='vote']");
-								//
-								//		var name = inputField.attr('name');
-								//		var regexName = new RegExp("\\[(\\d*)\\]");
-								//		var newName = name.replace(regexName, ('[' + vote['id'] + ']'));
-								//		inputField.attr('name', newName);
-								//
-								//		var mliId = inputField.attr('id');
-								//		var regexId = new RegExp("\\__\\d*\\__");
-								//		var newMliId = mliId.replace(regexId, '__' + vote['id'] + '__');
-								//		inputField.attr('id', newMliId);
-								//
-								//		inputField.attr('value', vote['free_input']);
-								//
-								//		is_first = false;
-								//	} else {
-								//		//$('#vote_multi_line_input').append(
-								//		//	'<div class="multi_input_line">'
-								//		//	+ '<div class="input">'
-								//		//	+ '<input class="form-control" id="vote_multi_line_input__' + vote['id'] + '503____free_input__'
-								//		//	+ 'maxlength="200" name="vote_multi_line_input[' + vote['id'] + '[free_input]" value="' + vote['free_input'] + '" type="text">'
-								//		//	+ '</div>'
-								//		//	+ '<div class="multi_icons_wrapper">'
-								//		//	+ '<a href="#" class="btn btn-default multi_icon add_button"><span class="sr-only"></span><span class="glyphicon glyphicon-plus"></span></a>'
-								//		//	+ '<a href="#" class="btn btn-default multi_icon remove_button"><span class="sr-only"></span><span class="glyphicon glyphicon-minus"></span></a>'
-								//		//	+ '</div>'
-								//		//	+ '</div>'
-								//		//);
-								//		$("#vote_multi_line_input").multi_line_input({"free_input": []}, data);
-								//	}
-								//}
-
+								$('.display-voter').replaceWith(data);
 
 							}).fail(function (jqXHR) {
 								console.log(jqXHR);
@@ -187,32 +154,11 @@ $('#form_free_input').freeInputVote();
 
 				}
 				if (submit_name == 'cmd[unvote_all]') {
-					$.post(url, {option_id: option_id, type: 'delete_all'})
-						.done(function () {
-							// remove all but one input field. child 1 = hidden input; child 2 = first input field
-							$("#vote_multi_line_input").find('*').not(":nth-child(1)").not(":nth-child(2)").remove();
+					$.post(url, {option_id: option_id, object_id: object_id, type: 'delete_all'})
+						.done(function (data) {
 
-							// first input field
-							var inputField = $("input[name^='vote']");
+							$('.display-voter').replaceWith(data);
 
-							// reset name
-							var name = inputField.attr('name');
-							var regexName = new RegExp("\\[(\\d*)\\]");
-							var newName = name.replace(regexName, ('[' + 0 + ']'));
-							inputField.attr('name', newName);
-
-							// reset id
-							var mliId = inputField.attr('id');
-							var regexId = new RegExp("\\__\\d*\\__");
-							var newMliId = mliId.replace(regexId, '__' + 0 + '__');
-							inputField.attr('id', newMliId);
-
-							// reset value
-							inputField.attr('value', '');
-
-							// set buttons
-							$("input[name='cmd[unvote_all]']").hide();
-							$('.btn.btn-default.btn-sm').attr('class', 'btn btn-default btn-sm');
 						}).fail(function (jqXHR) {
 							console.log(jqXHR);
 						}).always(function () {

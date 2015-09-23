@@ -26,15 +26,29 @@ $voting_manager = new xlvoVotingManager();
 $posted_vote->setId((int)$_REQUEST['vote_id']);
 $posted_vote->setOptionId((int)$_REQUEST['option_id']);
 $posted_vote->setStatus(xlvoVote::STAT_ACTIVE);
+$obj_id = $_REQUEST['object_id'];
 
-/**
- * @var xlvoVote $vote
- */
-$vote = $voter_gui->vote($posted_vote);
-/**
- * @var xlvoVote $votes
- */
-$votes = $voting_manager->getVotesOfUserofVoting($vote->getVotingId())->getArray();
+try {
+	/**
+	 * @var xlvoOption $option
+	 */
+	$option = $voting_manager->getOption($_REQUEST['option_id']);
+} catch (xlvoVotingManagerException $e) {
+	// TODO show error msg
+}
 
-header('Content-type: application/json');
-echo json_encode($votes);
+$success = $voter_gui->vote($posted_vote);
+
+if ($success) {
+	/**
+	 * @var xlvoVote $votes
+	 */
+	$votes = $voting_manager->getVotesOfUserofVoting($option->getVotingId())->getArray();
+
+	header('Content-type: application/json');
+	echo json_encode($votes);
+} else {
+	header('Content-type: text/html');
+	// votingId is NULL to reload voting page
+	echo $voter_gui->showVoting($obj_id, NULL, 'error_vote_failed');
+}

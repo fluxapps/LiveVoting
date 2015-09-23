@@ -33,25 +33,37 @@ $request_type = $_REQUEST['type'];
 $posted_vote->setFreeInput($_REQUEST['free_input']);
 $posted_vote->setId((int)$_REQUEST['vote_id']);
 $posted_vote->setOptionId((int)$_REQUEST['option_id']);
+$obj_id = $_REQUEST['object_id'];
 
 if ($request_type == 'unvote') {
 	$posted_vote->setStatus(xlvoVote::STAT_INACTIVE);
 
-	$vote = $voter_gui->vote($posted_vote);
+	$success = $voter_gui->vote($posted_vote);
+
+	if ($success) {
+		header('Content-type: text/html');
+		echo '';
+	} else {
+		header('Content-type: text/html');
+		// votingId is NULL to reload voting page
+		echo $voter_gui->showVoting($obj_id, NULL, 'error_vote_reset_failed');
+	}
 }
 
 if ($request_type == 'vote') {
 	$posted_vote->setStatus(xlvoVote::STAT_ACTIVE);
-	$vote = $voter_gui->vote($posted_vote);
 
-	if (! $vote instanceof xlvoVote) {
-		$vote = $posted_vote;
+	$success = $voter_gui->vote($posted_vote);
+
+	if ($success) {
+		$votes = $voting_manager->getVotesOfUserOfOption($vote->getVotingId(), $vote->getOptionId())->getArray();
+		header('Content-type: application/json');
+		echo json_encode($votes);
+	} else {
+		header('Content-type: text/html');
+		// votingId is NULL to reload voting page
+		echo $voter_gui->showVoting($obj_id, NULL, 'error_vote_failed');
 	}
-
-	$votes = $voting_manager->getVotesOfUserOfOption($vote->getVotingId(), $vote->getOptionId())->getArray();
-
-	header('Content-type: application/json');
-	echo json_encode($votes);
 }
 
 if ($request_type == 'vote_multi') {
@@ -67,13 +79,18 @@ if ($request_type == 'vote_multi') {
 	foreach ($existing_votes as $vo) {
 		$id_to_delete_found = array_search($vo['id'], array_column($posted_votes, 'vote_id'));
 
+		$failure = false;
+
 		if ($id_to_delete_found === false) {
 			$vote_to_delete = new xlvoVote();
 			$vote_to_delete->setOptionId($vo['option_id']);
 			$vote_to_delete->setId($vo['id']);
 			$vote_to_delete->setFreeInput($vo['free_input']);
 			$vote_to_delete->setStatus(xlvoVote::STAT_INACTIVE);
-			$voter_gui->vote($vote_to_delete);
+			$success = $voter_gui->vote($vote_to_delete);
+			if (! $success) {
+				$failure = true;
+			}
 		}
 	}
 
@@ -87,7 +104,10 @@ if ($request_type == 'vote_multi') {
 			$vote_to_save->setId($p_vote['vote_id']);
 			$vote_to_save->setFreeInput($p_vote['free_input']);
 			$vote_to_save->setStatus(xlvoVote::STAT_ACTIVE);
-			$voter_gui->vote($vote_to_save);
+			$success = $voter_gui->vote($vote_to_save);
+			if (! $success) {
+				$failure = true;
+			}
 		} else {
 			// update vote
 			$vote_to_update = new xlvoVote();
@@ -95,17 +115,22 @@ if ($request_type == 'vote_multi') {
 			$vote_to_update->setId(0);
 			$vote_to_update->setFreeInput($p_vote['free_input']);
 			$vote_to_update->setStatus(xlvoVote::STAT_ACTIVE);
-			$voter_gui->vote($vote_to_update);
+			$success = $voter_gui->vote($vote_to_update);
+			if (! $success) {
+				$failure = true;
+			}
 		}
 	}
 
-	$votes = $voting_manager->getVotesOfUserOfOption($option->getVotingId(), $option->getId())->getArray();
-	$voting = $voting_manager->getVoting($option->getVotingId());
-	$xlvoFreeInputGUI = new xlvoFreeInputGUI($voting);
-	$html = $xlvoFreeInputGUI->getHtml();
-
-	header('Content-type: text/html');
-	echo $html;
+	if (! $failure) {
+		header('Content-type: text/html');
+		// votingId is NULL to reload voting page
+		echo $voter_gui->showVoting($obj_id, NULL);
+	} else {
+		header('Content-type: text/html');
+		// votingId is NULL to reload voting page
+		echo $voter_gui->showVoting($obj_id, NULL, 'error_free_input_multi_vote_failed');
+	}
 }
 
 if ($request_type == 'delete_all') {
@@ -113,11 +138,28 @@ if ($request_type == 'delete_all') {
 	 * @var xlvoOption $option
 	 */
 	$option = xlvoOption::find($posted_vote->getOptionId());
+
+	$failure = false;
+
 	/**
 	 * @var xlvoVote[] $votes
 	 */
 	$votes = $voting_manager->getVotesOfUserOfOption($option->getVotingId(), $option->getId())->get();
 	foreach ($votes as $vote) {
-		$vote->delete();
+		$vote->setStatus(xlvoVote::STAT_INACTIVE);
+		$success = $voter_gui->vote($vote);
+		if (! $success) {
+			$failure = true;
+		}
+	}
+
+	if (! $failure) {
+		header('Content-type: text/html');
+		// votingId is NULL to reload voting page
+		echo $voter_gui->showVoting($obj_id, NULL);
+	} else {
+		header('Content-type: text/html');
+		// votingId is NULL to reload voting page
+		echo $voter_gui->showVoting($obj_id, NULL, 'error_vote_reset_failed');
 	}
 }

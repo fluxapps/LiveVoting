@@ -15,7 +15,7 @@ class xlvoVotingConfig extends ActiveRecord {
 	 * @return string
 	 */
 	public static function returnDbTableName() {
-		return 'rep_robj_xlvo_config';
+		return 'rep_robj_xlvo_config_n';
 	}
 
 

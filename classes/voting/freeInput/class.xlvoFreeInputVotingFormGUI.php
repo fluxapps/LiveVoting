@@ -90,7 +90,7 @@ class xlvoFreeInputVotingFormGUI extends xlvoVotingFormGUI {
 				ilUtil::sendInfo($this->pl->txt('voting_not_complete'), false);
 			}
 		} else {
-			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
+			ilUtil::sendFailure($this->pl->txt('permission_denied_object'), true);
 			$this->ctrl->redirect($this->parent_gui, xlvoVotingGUI::CMD_STANDARD);
 		}
 	}
@@ -145,7 +145,7 @@ class xlvoFreeInputVotingFormGUI extends xlvoVotingFormGUI {
 				$this->voting->update();
 			}
 		} else {
-			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
+			ilUtil::sendFailure($this->pl->txt('permission_denied_object'), true);
 			$this->ctrl->redirect($this->parent_gui, xlvoVotingGUI::CMD_STANDARD);
 		}
 

@@ -293,7 +293,6 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 			$cb->setInfo($this->pl->txt('info_properties_terminable'));
 			$this->form->addItem($cb);
 			$te = new ilDateDurationInputGUI($this->pl->txt("terminable_select"), "terminable_select");
-			$te->setInfo($this->pl->txt('info_properties_terminable_select'));
 			$te->setShowTime(true);
 			$te->setStartText($this->pl->txt('terminable_select_start_time'));
 			$te->setEndText($this->pl->txt('terminable_select_end_time'));
@@ -339,7 +338,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 
 	public function updateProperties() {
 		if (! $this->access->hasWriteAccess()) {
-			ilUtil::sendFailure(ilLiveVotingPlugin::getInstance()->txt('permission_denied'), true);
+			ilUtil::sendFailure(ilLiveVotingPlugin::getInstance()->txt('permission_denied_write'), true);
 		} else {
 
 			$this->initPropertiesForm();
