@@ -124,12 +124,17 @@ class xlvoVoterGUI {
 
 			if ($xlvoPlayer instanceof xlvoPlayer) {
 				if ($voting_id != $xlvoPlayer->getActiveVoting()) {
-					$xlvoVoting = $this->voting_manager->getVoting($xlvoPlayer->getActiveVoting());
+					try {
+						$xlvoVoting = $this->voting_manager->getVoting($xlvoPlayer->getActiveVoting());
+					} catch (xlvoVotingManagerException $e) {
+						return $this->tpl->getMessageHTML($this->pl->txt('error_load_voting_failed'), 'failure');
+					}
 
 					if ($xlvoVoting instanceof xlvoVoting) {
 
 						if ($error_msg == NULL) {
 							$display = new xlvoDisplayVoterGUI($xlvoVoting);
+
 							return $display->getHtml();
 						} else {
 							$err_msg = $this->tpl->getMessageHTML($this->pl->txt($error_msg), 'failure');
@@ -186,9 +191,14 @@ class xlvoVoterGUI {
 	 * @return bool
 	 */
 	public function vote(xlvoVote $vote) {
-		$option = $this->voting_manager->getOption($vote->getOptionId());
-		$voting = $this->voting_manager->getVoting($option->getVotingId());
+		try {
+			$option = $this->voting_manager->getOption($vote->getOptionId());
+			$voting = $this->voting_manager->getVoting($option->getVotingId());
+		} catch (xlvoVotingManagerException $e) {
+			return false;
+		}
 		$obj_id = $voting->getObjId();
+
 		if ($this->checkVotingAccess($obj_id)) {
 			/**
 			 * @var $xlvoVote xlvoVote
@@ -202,6 +212,7 @@ class xlvoVoterGUI {
 			try {
 
 				$this->voting_manager->vote($xlvoVote);
+
 				return true;
 			} catch (xlvoVotingManagerException $e) {
 				return false;

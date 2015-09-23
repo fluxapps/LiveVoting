@@ -161,10 +161,16 @@ class xlvoPlayerGUI {
 		}
 
 		if ($voting_id != 0) {
-			/**
-			 * @var xlvoVoting $xlvoVoting
-			 */
-			$xlvoVoting = $this->voting_manager->getVoting($voting_id);
+			try {
+				/**
+				 * @var xlvoVoting $xlvoVoting
+				 */
+				$xlvoVoting = $this->voting_manager->getVoting($voting_id);
+			} catch (xlvoVotingManagerException $e) {
+				ilUtil::sendFailure($this->pl->txt('error_load_voting_failed'), true);
+				return $this->tpl->getMessageHTML($this->pl->txt('error_load_voting_failed'), 'failure');
+			}
+
 
 			if (! $this->access->hasWriteAccessForObject($xlvoVoting->getObjId(), $this->usr->getId())) {
 				ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
