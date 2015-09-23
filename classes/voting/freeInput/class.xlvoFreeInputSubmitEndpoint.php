@@ -122,20 +122,15 @@ if ($request_type == 'vote_multi') {
 		}
 	}
 
-	$votes = $voting_manager->getVotesOfUserOfOption($option->getVotingId(), $option->getId())->getArray();
-	$voting = $voting_manager->getVoting($option->getVotingId());
-	$xlvoFreeInputGUI = new xlvoFreeInputGUI($voting);
-	$html = $xlvoFreeInputGUI->getHtml();
-
-	if(!$failure) {
+	if (! $failure) {
 		header('Content-type: text/html');
-		echo $html;
+		// votingId is NULL to reload voting page
+		echo $voter_gui->showVoting($obj_id, NULL);
 	} else {
 		header('Content-type: text/html');
 		// votingId is NULL to reload voting page
 		echo $voter_gui->showVoting($obj_id, NULL, 'error_free_input_multi_vote_failed');
 	}
-
 }
 
 if ($request_type == 'delete_all') {
@@ -151,15 +146,17 @@ if ($request_type == 'delete_all') {
 	 */
 	$votes = $voting_manager->getVotesOfUserOfOption($option->getVotingId(), $option->getId())->get();
 	foreach ($votes as $vote) {
-		$success = $vote->delete();
+		$vote->setStatus(xlvoVote::STAT_INACTIVE);
+		$success = $voter_gui->vote($vote);
 		if (! $success) {
 			$failure = true;
 		}
 	}
 
-	if (!$failure) {
+	if (! $failure) {
 		header('Content-type: text/html');
-		echo '';
+		// votingId is NULL to reload voting page
+		echo $voter_gui->showVoting($obj_id, NULL);
 	} else {
 		header('Content-type: text/html');
 		// votingId is NULL to reload voting page

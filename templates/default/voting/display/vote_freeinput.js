@@ -19,6 +19,7 @@
 				var free_input = $('#free_input').val();
 				var option_id = $('#option_id').val();
 				var vote_id = $('#vote_id').val();
+				var object_id = $('#voting-data').attr('object');
 				var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/freeInput/class.xlvoFreeInputSubmitEndpoint.php";
 
 				// get name of submit button
@@ -28,12 +29,11 @@
 
 				// send vote
 				if (submit_name == 'cmd[send_vote]') {
-					$.post(url, {free_input: free_input, option_id: option_id, vote_id: vote_id, type: 'vote'})
+					$.post(url, {free_input: free_input, option_id: option_id, vote_id: vote_id, object_id: object_id, type: 'vote'})
 						.done(function (data) {
 
 							// check if data is javascript object; else display html info_screen with error_msg
 							if (typeof data === 'object') {
-
 								// set button style to default
 								$('.btn-default').attr('class', 'btn btn-default btn-sm');
 								for (var key in data) {
@@ -57,7 +57,7 @@
 				}
 				// delete vote
 				if (submit_name == 'cmd[send_unvote]') {
-					$.post(url, {free_input: free_input, option_id: option_id, vote_id: vote_id, type: 'unvote'})
+					$.post(url, {free_input: free_input, option_id: option_id, vote_id: vote_id, object_id: object_id, type: 'unvote'})
 						.done(function (data) {
 							if (data == '') {
 								// set button style to default
@@ -103,6 +103,7 @@ $('#form_free_input').freeInputVote();
 
 				// get values for POST request
 				var option_id = $(".multi_input_line").attr('option_id');
+				var object_id = $('#voting-data').attr('object');
 				var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/freeInput/class.xlvoFreeInputSubmitEndpoint.php";
 
 				// get name of submit button
@@ -118,17 +119,10 @@ $('#form_free_input').freeInputVote();
 					// POST each vote
 					var post_votes = function (votes) {
 
-						$.post(url, {option_id: option_id, votes: votes, type: 'vote_multi'})
+						$.post(url, {option_id: option_id, votes: votes, object_id: object_id, type: 'vote_multi'})
 							.done(function (data) {
 
-								// remove all but one input field. child 1 = hidden input; child 2 = first input field
-								$("#vote_multi_line_input").find('*').not(":nth-child(1)").not(":nth-child(2)").remove();
-								// set buttons
-								button.attr('disabled', false);
-								$("input[name='cmd[unvote_all]']").attr('disabled', false).show();
-								$('.btn.btn-default.btn-sm').attr('class', 'btn btn-default btn-sm');
-
-								$('.free-input-form').replaceWith(data);
+								$('.display-voter').replaceWith(data);
 
 							}).fail(function (jqXHR) {
 								console.log(jqXHR);
@@ -160,36 +154,11 @@ $('#form_free_input').freeInputVote();
 
 				}
 				if (submit_name == 'cmd[unvote_all]') {
-					$.post(url, {option_id: option_id, type: 'delete_all'})
+					$.post(url, {option_id: option_id, object_id: object_id, type: 'delete_all'})
 						.done(function (data) {
-							if (data == '') {
-								// remove all but one input field. child 1 = hidden input; child 2 = first input field
-								$("#vote_multi_line_input").find('*').not(":nth-child(1)").not(":nth-child(2)").remove();
 
-								// first input field
-								var inputField = $("input[name^='vote']");
+							$('.display-voter').replaceWith(data);
 
-								// reset name
-								var name = inputField.attr('name');
-								var regexName = new RegExp("\\[(\\d*)\\]");
-								var newName = name.replace(regexName, ('[' + 0 + ']'));
-								inputField.attr('name', newName);
-
-								// reset id
-								var mliId = inputField.attr('id');
-								var regexId = new RegExp("\\__\\d*\\__");
-								var newMliId = mliId.replace(regexId, '__' + 0 + '__');
-								inputField.attr('id', newMliId);
-
-								// reset value
-								inputField.attr('value', '');
-
-								// set buttons
-								$("input[name='cmd[unvote_all]']").hide();
-								$('.btn.btn-default.btn-sm').attr('class', 'btn btn-default btn-sm');
-							} else {
-								$('.display-voter').replaceWith(data);
-							}
 						}).fail(function (jqXHR) {
 							console.log(jqXHR);
 						}).always(function () {

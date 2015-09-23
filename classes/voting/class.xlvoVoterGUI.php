@@ -112,7 +112,6 @@ class xlvoVoterGUI {
 	 * @param null $error_msg
 	 *
 	 * @return string
-	 * @throws xlvoVotingManagerException
 	 */
 	public function showVoting($obj_id = NULL, $voting_id = NULL, $error_msg = NULL) {
 		if ($obj_id == NULL) {
@@ -201,9 +200,9 @@ class xlvoVoterGUI {
 			$xlvoVote->setFreeInput($vote->getFreeInput());
 
 			try {
-				$this->voting_manager->vote($xlvoVote);
 
-				return false;
+				$this->voting_manager->vote($xlvoVote);
+				return true;
 			} catch (xlvoVotingManagerException $e) {
 				return false;
 			} catch (Exception $e) {
