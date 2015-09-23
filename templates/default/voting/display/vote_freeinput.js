@@ -30,7 +30,7 @@
 				if (submit_name == 'cmd[send_vote]') {
 					$.post(url, {free_input: free_input, option_id: option_id, vote_id: vote_id, type: 'vote'})
 						.done(function (data) {
-							console.log(data);
+
 							// set button style to default
 							$('.btn-default').attr('class', 'btn btn-default btn-sm');
 							for (var key in data) {

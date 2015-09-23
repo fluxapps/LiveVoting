@@ -434,12 +434,6 @@ class xlvoVotingManager implements xlvoVotingInterface {
 					}
 				}
 			}
-
-			if ($vote instanceof xlvoVote) {
-				return $vote;
-			} else {
-				throw new xlvoVotingManagerException('Returned object is not an instance of xlvoVote.');
-			}
 		} else {
 			throw new xlvoVotingManagerException('Could not save vote.');
 		}

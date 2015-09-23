@@ -23,6 +23,10 @@ class xlvoDisplayVoterGUI {
 	 */
 	protected $voting;
 	/**
+	 * @var string
+	 */
+	protected $error_msg;
+	/**
 	 * @var int
 	 */
 	protected $answer_count = 64;
@@ -30,9 +34,11 @@ class xlvoDisplayVoterGUI {
 
 	/**
 	 * @param xlvoVoting $voting
+	 * @param string     $error_msg
 	 */
-	public function __construct(xlvoVoting $voting) {
+	public function __construct(xlvoVoting $voting, $error_msg = '') {
 		$this->voting = $voting;
+		$this->error_msg = $error_msg;
 		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/tpl.display_voter.html', true, true);
 	}
 
@@ -61,6 +67,7 @@ class xlvoDisplayVoterGUI {
 			$voting_position ++;
 		}
 
+		$this->tpl->setVariable('ERROR', $this->error_msg);
 		$this->tpl->setVariable('TITLE', $this->voting->getTitle());
 		$this->tpl->setVariable('QUESTION', $this->voting->getQuestion());
 		$this->tpl->setVariable('VOTING_ID', $this->voting->getId());

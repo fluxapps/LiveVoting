@@ -47,6 +47,10 @@ msg_voting_not_complete#:#Die Frage ist noch nicht komplett. Bitte schliessen Si
 msg_success_voting_created#:#Die Frage wurde erfolgreich gespeichert.
 msg_success_voting_updated#:#Die Frage wurde erfolgreich aktualisiert.
 
+<!-- ilUtil Messages as AJAX Response -->
+error_vote_failed#:#
+error_access_failed#:#
+
 <!-- xlvoFreeInputGUI -->
 answer#:#Antwort
 answers#:#Antworten

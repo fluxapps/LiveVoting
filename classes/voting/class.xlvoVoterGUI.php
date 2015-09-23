@@ -107,12 +107,14 @@ class xlvoVoterGUI {
 
 
 	/**
-	 * @param $obj_id
-	 * @param $voting_id
+	 * @param null $obj_id
+	 * @param null $voting_id
+	 * @param null $error_msg
 	 *
 	 * @return string
+	 * @throws xlvoVotingManagerException
 	 */
-	public function showVoting($obj_id = NULL, $voting_id = NULL) {
+	public function showVoting($obj_id = NULL, $voting_id = NULL, $error_msg = NULL) {
 		if ($obj_id == NULL) {
 			$obj_id = 0;
 			$this->tpl->setContent($this->showInfoScreen($obj_id, self::INFO_TYPE_WAITING));
@@ -126,14 +128,21 @@ class xlvoVoterGUI {
 					$xlvoVoting = $this->voting_manager->getVoting($xlvoPlayer->getActiveVoting());
 
 					if ($xlvoVoting instanceof xlvoVoting) {
-						$display = new xlvoDisplayVoterGUI($xlvoVoting);
 
-						return $display->getHtml();
+						if ($error_msg == NULL) {
+							$display = new xlvoDisplayVoterGUI($xlvoVoting);
+							return $display->getHtml();
+						} else {
+							$err_msg = $this->tpl->getMessageHTML($this->pl->txt($error_msg), 'failure');
+							$display = new xlvoDisplayVoterGUI($xlvoVoting, $err_msg);
+
+							return $display->getHTML();
+						}
 					} else {
 						return $this->showInfoScreen($obj_id, self::INFO_TYPE_WAITING);
 					}
 				} else {
-					// return empty html
+					// return empty html if keeping same page
 					return '';
 				}
 			} else {
@@ -175,7 +184,7 @@ class xlvoVoterGUI {
 	/**
 	 * @param xlvoVote $vote
 	 *
-	 * @return xlvoVote
+	 * @return bool
 	 */
 	public function vote(xlvoVote $vote) {
 		$option = $this->voting_manager->getOption($vote->getOptionId());
@@ -191,22 +200,17 @@ class xlvoVoterGUI {
 			$xlvoVote->setStatus($vote->getStatus());
 			$xlvoVote->setFreeInput($vote->getFreeInput());
 
-			$vote = $this->voting_manager->vote($xlvoVote);
+			try {
+				$this->voting_manager->vote($xlvoVote);
 
-			if ($vote instanceof xlvoVote) {
-				return $vote;
-			} else {
-				// TODO implement exception
-				$new_vote = new xlvoVote();
-				$new_vote->setStatus(xlvoVote::STAT_INACTIVE);
-				$new_vote->setVotingId(0);
-
-				//				$new_vote->setOptionId($vote->getOptionId());
-
-				return $vote;
+				return false;
+			} catch (xlvoVotingManagerException $e) {
+				return false;
+			} catch (Exception $e) {
+				return false;
 			}
 		} else {
-			$this->ctrl->redirect(new xlvoVoterGUI(), self::CMD_SHOW_ACCESS_SCREEN);
+			return false;
 		}
 	}
 
@@ -241,18 +245,24 @@ class xlvoVoterGUI {
 
 
 	/**
-	 * @param $obj_id
-	 * @param $info_type
+	 * @param            $obj_id
+	 * @param            $info_type
+	 * @param bool|false $has_error_msg
 	 *
 	 * @return string
 	 */
-	public function showInfoScreen($obj_id, $info_type) {
+	public function showInfoScreen($obj_id, $info_type, $has_error_msg = false) {
 		$template = new ilTemplate(self::TPL_INFO_SCREEN, true, true);
 		$template->setVariable('VOTING_ID', 0);
 		$template->touchBlock('loader');
 		$template->setVariable('OBJ_ID', $obj_id);
 		$template->setVariable('INFO_TYPE', $info_type);
-		$template->setVariable('INFO_TEXT', $this->pl->txt('msg_' . $info_type));
+		if (! $has_error_msg) {
+			$template->setVariable('INFO_TEXT', $this->pl->txt('msg_' . $info_type));
+		} else {
+			$error_message = $template->getMessageHTML($this->pl->txt('msg_validation_error_pin'), 'failure');
+			$template->setVariable('ERROR', $error_message);
+		}
 
 		return $template->get();
 	}
