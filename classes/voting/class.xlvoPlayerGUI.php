@@ -424,7 +424,7 @@ class xlvoPlayerGUI {
 	 */
 	protected function initToolbar() {
 		$current_selection_list = new ilAdvancedSelectionListGUI();
-		$current_selection_list->setListTitle($this->pl->txt('live_voting'));
+		$current_selection_list->setListTitle($this->pl->txt('voting_list'));
 		$current_selection_list->setId('xlvo_select');
 		$current_selection_list->setTriggerEvent('xlvo_voting');
 		$current_selection_list->setUseImages(false);
