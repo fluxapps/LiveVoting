@@ -139,12 +139,16 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 				// freeze
 				$.post(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'freeze_voting'})
 					.done(function (data) {
-						btnFreeze.hide();
-						btnFreeze.parent().hide();
-						btnUnfreeze.show();
-						btnUnfreeze.parent().show();
-						btnUnfreeze.html('<span class="glyphicon glyphicon-play" aria-hidden="true"></span>' + btnUnfreeze.text());
-						btnReset.attr('disabled', false);
+						if (data == '') {
+							btnFreeze.hide();
+							btnFreeze.parent().hide();
+							btnUnfreeze.show();
+							btnUnfreeze.parent().show();
+							btnUnfreeze.html('<span class="glyphicon glyphicon-play" aria-hidden="true"></span>' + btnUnfreeze.text());
+							btnReset.attr('disabled', false);
+						} else {
+							$('#display-player').replaceWith(data);
+						}
 					}).fail(function (jqXHR) {
 						console.log(jqXHR);
 					}).always(function () {
@@ -170,12 +174,16 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 				// unfreeze
 				$.post(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'unfreeze_voting'})
 					.done(function (data) {
-						btnFreeze.show();
-						btnFreeze.parent().show();
-						btnFreeze.html('<span class="glyphicon glyphicon-pause" aria-hidden="true"></span>' + btnFreeze.text());
-						btnUnfreeze.hide();
-						btnUnfreeze.parent().hide();
-						btnReset.attr('disabled', 'disabled');
+						if (data == '') {
+							btnFreeze.show();
+							btnFreeze.parent().show();
+							btnFreeze.html('<span class="glyphicon glyphicon-pause" aria-hidden="true"></span>' + btnFreeze.text());
+							btnUnfreeze.hide();
+							btnUnfreeze.parent().hide();
+							btnReset.attr('disabled', 'disabled');
+						} else {
+							$('#display-player').replaceWith(data);
+						}
 					}).fail(function (jqXHR) {
 						console.log(jqXHR);
 					}).always(function () {
@@ -201,14 +209,17 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 				// reset votes of current voting
 				$.post(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'reset_voting'})
 					.done(function (data) {
-						$('#display-player').loadResults();
+						if (data == '') {
+							$('#display-player').loadResults();
+						} else {
+							$('#display-player').replaceWith(data);
+						}
+
 					}).fail(function (jqXHR) {
 						console.log(jqXHR);
 					}).always(function () {
 						$('.ilToolbar').find('.btn.btn-default').attr('class', 'btn btn-default');
 						$('#btn-unfreeze').css('background-color', '#557B2E').css('background-color', '#4F732B');
-						//background-color: #557B2E;
-						//border-color: #4F732B;
 					});
 			});
 		});

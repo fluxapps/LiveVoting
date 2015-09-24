@@ -392,7 +392,7 @@ class xlvoPlayerGUI {
 			 * @var xlvoPlayer $xlvoPlayer
 			 */
 			$xlvoPlayer = $this->voting_manager->getPlayer($obj_id);
-			if ($xlvoPlayer->isFrozen()) {
+			if ($xlvoPlayer->isFrozen() && ! $xlvoPlayer->isUnattended() && ($xlvoPlayer->getStatus() == xlvoPlayer::STAT_RUNNING)) {
 				$this->voting_manager->deleteVotesOfVoting($voting_id);
 			}
 
@@ -412,9 +412,15 @@ class xlvoPlayerGUI {
 
 			return $this->tpl->getMessageHTML($this->pl->txt('permission_denied_write'), 'failure');
 		} else {
-			$this->voting_manager->freezeVoting($obj_id);
+			$xlvoPlayer = $this->voting_manager->getPlayer($obj_id);
 
-			return '';
+			if (($xlvoPlayer->getStatus() == xlvoPlayer::STAT_RUNNING) && ! $xlvoPlayer->isUnattended()) {
+				$this->voting_manager->freezeVoting($obj_id);
+
+				return '';
+			} else {
+				return $this->tpl->getMessageHTML($this->pl->txt('msg_voting_not_available'), 'failure');
+			}
 		}
 	}
 
@@ -430,9 +436,15 @@ class xlvoPlayerGUI {
 
 			return $this->tpl->getMessageHTML($this->pl->txt('permission_denied_write'), 'failure');
 		} else {
-			$this->voting_manager->unfreezeVoting($obj_id);
+			$xlvoPlayer = $this->voting_manager->getPlayer($obj_id);
 
-			return '';
+			if (($xlvoPlayer->getStatus() == xlvoPlayer::STAT_RUNNING) && ! $xlvoPlayer->isUnattended()) {
+				$this->voting_manager->unfreezeVoting($obj_id);
+
+				return '';
+			} else {
+				return $this->tpl->getMessageHTML($this->pl->txt('msg_voting_not_available'), 'failure');
+			}
 		}
 	}
 

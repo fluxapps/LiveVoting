@@ -15,8 +15,6 @@ class xlvoPlayer extends ActiveRecord {
 	const STAT_RUNNING = 1;
 	const STAT_START_VOTING = 2;
 	const STAT_END_VOTING = 3;
-	const RESET_OFF = 0;
-	const RESET_ON = 1;
 	const SECONDS_ACTIVE = 4;
 
 
@@ -33,6 +31,14 @@ class xlvoPlayer extends ActiveRecord {
 	 */
 	public function isFrozenOrUnattended() {
 		return (bool)($this->isFrozen() OR $this->getTimestampRefresh() < (time() - self::SECONDS_ACTIVE));
+	}
+
+
+	/**
+	 * @return bool
+	 */
+	public function isUnattended() {
+		return (bool)($this->getTimestampRefresh() < (time() - self::SECONDS_ACTIVE));
 	}
 
 
