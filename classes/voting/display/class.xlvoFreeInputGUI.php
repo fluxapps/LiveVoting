@@ -47,6 +47,7 @@ class xlvoFreeInputGUI extends ilPropertyFormGUI {
 
 		$an = new ilTextInputGUI($this->pl->txt('answer'), 'free_input');
 		$an->setValue($vote->getFreeInput());
+		$an->setMaxLength(45);
 
 		$hi1 = new ilHiddenInputGUI('option_id');
 		$hi1->setValue($vote->getOptionId());
@@ -75,6 +76,7 @@ class xlvoFreeInputGUI extends ilPropertyFormGUI {
 	protected function renderMultiForm(array $votes, xlvoOption $option) {
 		$mli = new xlvoMultiLineInputGUI($this->pl->txt('answers'), 'vote_multi_line_input');
 		$te = new ilTextInputGUI($this->pl->txt('text'), 'free_input');
+		$te->setMaxLength(45);
 		$mli->addCustomAttribute('option_id', $option->getId());
 		$mli->addInput($te);
 
