@@ -11,9 +11,9 @@ require_once('./Services/ActiveRecord/class.ActiveRecord.php');
  */
 class xlvoVoting extends ActiveRecord {
 
-	const STAT_INACTIVE = 0;
-	const STAT_ACTIVE = 1;
+	const STAT_INACTIVE = 1;
 	const STAT_INCOMPLETE = 2;
+	const STAT_ACTIVE = 5;
 
 
 	/**
@@ -108,18 +108,21 @@ class xlvoVoting extends ActiveRecord {
 	public function setMultiFreeInput($multi_free_input) {
 		$this->multi_free_input = $multi_free_input;
 	}
+
+
 	/*
 	 * END
 	 */
 
-		public function afterObjectLoad() {
-			// set all options for this voting
-			/**
-			 * @var xlvoOption $xlvoOptions
-			 */
-			$xlvoOptions = xlvoOption::where(array( 'voting_id' => $this->id ));
-			$this->setVotingOptions($xlvoOptions);
-		}
+	public function afterObjectLoad() {
+		// set all options for this voting
+		/**
+		 * @var xlvoOption $xlvoOptions
+		 */
+		$xlvoOptions = xlvoOption::where(array( 'voting_id' => $this->id ));
+		$this->setVotingOptions($xlvoOptions);
+	}
+
 
 	/**
 	 * @var int
@@ -319,6 +322,7 @@ class xlvoVoting extends ActiveRecord {
 	public function setPosition($position) {
 		$this->position = $position;
 	}
+
 
 	/**
 	 * @return xlvoOption

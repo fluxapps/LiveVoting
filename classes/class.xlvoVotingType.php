@@ -9,8 +9,8 @@
  */
 class xlvoVotingType {
 
-	const SINGLE_VOTE = 0;
-	const FREE_INPUT = 1;
-	const RANGE = 2;
-	const ORDER = 3;
+	const SINGLE_VOTE = 1;
+	const FREE_INPUT = 2;
+	const RANGE = 3;
+	const ORDER = 4;
 }
