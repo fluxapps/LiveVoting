@@ -233,7 +233,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 
 
 	protected function setTabs() {
-		$this->tabs->addTab(xlvoPlayerGUI::TAB_STANDARD, $this->pl->txt('player'), $this->ctrl->getLinkTarget(new xlvoPlayerGUI(), xlvoPlayerGUI::CMD_START_OF_VOTING));
+		$this->tabs->addTab(xlvoPlayerGUI::TAB_STANDARD, $this->pl->txt('player'), $this->ctrl->getLinkTarget(new xlvoPlayerGUI(), xlvoPlayerGUI::CMD_START_OF_VOTING_SCREEN));
 		$this->addInfoTab();
 		if ($this->access->hasWriteAccess()) {
 			$this->tabs->addTab(self::CMD_EDIT, $this->pl->txt('edit_properties'), $this->ctrl->getLinkTarget($this, self::CMD_EDIT));

@@ -79,7 +79,7 @@ msg_options_not_editable#:#The options cannot be edited because the question con
 msg_no_voting_available#:#No question available. Please add a question.
 msg_voting_not_available#:#Could not load question. Please check if the LiveVoting was started properly and is not outside the limited time frame.
 msg_start_of_voting_title#:#Homepage
-msg_end_of_voting#:#You have reached the end of the LiveVoting. Plase stop the voting or return to the start.
+msg_end_of_voting#:#You have reached the end of the LiveVoting. Plase stop or return to the LiveVoting.
 voting_list#:#Questions
 
 <!-- xlvoVoterGUI -->
@@ -143,4 +143,4 @@ info_properties_terminable#:#If the time limit is exceeded during the LiveVoting
 terminable_select#:#Selection
 terminable_select_start_time#:#Start
 terminable_select_end_time#:#End
-msg_properties_form_saved#:#The properties have been successfully saved.
+msg_properties_form_saved#:#The properties have been saDie Einstellungen wurden gespeichert.

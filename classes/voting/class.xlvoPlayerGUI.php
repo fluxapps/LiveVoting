@@ -38,8 +38,8 @@ class xlvoPlayerGUI {
 	const CMD_UNFREEZE = 'unfreeze';
 	const CMD_RESET = 'resetVotes';
 	const CMD_TERMINATE = 'terminate';
-	const CMD_END_OF_VOTING = 'endOfVoting';
-	const CMD_START_OF_VOTING = 'startOfVoting';
+	const CMD_END_OF_VOTING_SCREEN = 'endOfVotingScreen';
+	const CMD_START_OF_VOTING_SCREEN = 'startOfVotingScreen';
 	/**
 	 * @var ilTemplate
 	 */
@@ -123,6 +123,9 @@ class xlvoPlayerGUI {
 
 	/**
 	 * Start Voting and redirect to first Voting.
+	 * This function gets the first voting of the list of active votings. The Player is set to status running.
+	 * Redirects to the first voting view.
+	 * The function is called via LinkButtons on the startOfVotingScreen and endOfVotingScreen.
 	 */
 	public function startVoting() {
 		if (! $this->access->hasWriteAccess()) {
@@ -152,6 +155,7 @@ class xlvoPlayerGUI {
 	 * @throws xlvoVotingManagerException
 	 */
 	public function showVoting($voting_id = NULL) {
+
 		if ($voting_id == NULL) {
 			if ($_GET[self::IDENTIFIER] != NULL) {
 				$voting_id = $_GET[self::IDENTIFIER];
@@ -271,7 +275,7 @@ class xlvoPlayerGUI {
 			}
 
 			if ($voting_id_current == $voting_last->getId()) {
-				$this->ctrl->redirect(new xlvoPlayerGUI(), self::CMD_END_OF_VOTING);
+				$this->ctrl->redirect(new xlvoPlayerGUI(), self::CMD_END_OF_VOTING_SCREEN);
 			}
 
 			$this->freeze($this->obj_id);
@@ -312,7 +316,7 @@ class xlvoPlayerGUI {
 			}
 
 			if ($voting_id_current == $voting_first->getId()) {
-				$this->ctrl->redirect(new xlvoPlayerGUI(), self::CMD_START_OF_VOTING);
+				$this->ctrl->redirect(new xlvoPlayerGUI(), self::CMD_START_OF_VOTING_SCREEN);
 			}
 
 			$this->freeze($this->obj_id);
@@ -323,9 +327,11 @@ class xlvoPlayerGUI {
 
 
 	/**
-	 * Display the Page before the first Voting. Start of the Voting.
+	 * Display the Page before the first Voting.
+	 * PIN and QR are displayed.
+	 * Voting can be started or terminated in this view.
 	 */
-	public function startOfVoting() {
+	public function startOfVotingScreen() {
 		if (! $this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 		} else {
@@ -356,8 +362,9 @@ class xlvoPlayerGUI {
 
 	/**
 	 * Display the Page after last Voting. End of the Voting.
+	 * Voting can be restarted or terminated in this view.
 	 */
-	public function endOfVoting() {
+	public function endOfVotingScreen() {
 		if (! $this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 		} else {
