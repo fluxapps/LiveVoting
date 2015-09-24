@@ -551,7 +551,7 @@ class xlvoPlayerGUI {
 		$template->setVariable('TITLE', $this->pl->txt('msg_start_of_voting_title') . ' ' . ilObject2::_lookupTitle($this->obj_id));
 
 		// QR-Code implementation
-		$codeContent = ILIAS_HTTP_PATH . '/Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?'
+		$codeContent = ILIAS_HTTP_PATH . '/Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?pin='
 			. $xlvoVotingConfig->getPin();
 
 		$qrCode = new QrCode($codeContent);

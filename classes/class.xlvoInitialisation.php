@@ -76,14 +76,25 @@ class xlvoInitialisation extends ilInitialisation {
 		require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoSessionHandler.php');
 		$session = new xlvoSessionHandler();
 
-		session_set_save_handler(
-			array(&$session,"open"),
-			array(&$session,"close"),
-			array(&$session,"read"),
-			array(&$session,"write"),
-			array(&$session,"destroy"),
-			array(&$session,"gc")
-		);
+		session_set_save_handler(array(
+			&$session,
+			"open"
+		), array(
+				&$session,
+				"close"
+			), array(
+				&$session,
+				"read"
+			), array(
+				&$session,
+				"write"
+			), array(
+				&$session,
+				"destroy"
+			), array(
+				&$session,
+				"gc"
+			));
 	}
 
 
@@ -218,6 +229,6 @@ class xlvoInitialisation extends ilInitialisation {
 	 * @return bool
 	 */
 	protected static function hasCookiePIN() {
-		return $_COOKIE[self::PIN_COOKIE] > 0;
+		return isset($_COOKIE[self::PIN_COOKIE]);
 	}
 }

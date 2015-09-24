@@ -32,9 +32,7 @@ if ($posted_type == 'get_voting_data') {
 
 if ($posted_type == 'access_screen') {
 	header('Content-type: text/html');
-	//	if (xlvoInitialisation::getCookiePIN()) {
-	if ($_COOKIE['xlvo_pin']) {
-		//		echo $voter_gui->accessVoting(xlvoInitialisation::getCookiePIN());
+	if (xlvoInitialisation::getCookiePIN()) {
 		echo $voter_gui->accessVoting($_COOKIE['xlvo_pin']);
 	} else {
 		echo $voter_gui->showAccessScreen(false);
