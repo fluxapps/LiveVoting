@@ -220,6 +220,5 @@ $ilDB->addTableColumn('rep_robj_xlvo_data', 'end_time', array(
 <#15>
 <?php
 //require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilObjLiveVoting.php');
-//$ilObjLiveVoting = new ilObjLiveVoting();
-//$ilObjLiveVoting->dataTransferRefactoring();
+//ilObjLiveVoting::dataTransferRefactoring();
 ?>

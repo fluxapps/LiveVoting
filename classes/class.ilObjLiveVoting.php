@@ -272,16 +272,17 @@ class ilObjLiveVoting extends ilObjectPlugin {
 	}
 
 
-	public function dataTransferRefactoring() {
+	public static function dataTransferRefactoring() {
 
 		global $ilDB;
 
 		$query = "SELECT id FROM rep_robj_xlvo_data";
 		$setData = $ilDB->query($query);
 		while ($res = $ilDB->fetchAssoc($setData)) {
+			$obj_id = $res['id'];
 
 			// rep_robj_xlvo_data
-			$query = "SELECT * FROM rep_robj_xlvo_data WHERE data_id = " . $res['id'];
+			$query = "SELECT * FROM rep_robj_xlvo_data WHERE data_id = " . $obj_id;
 			$setData = $ilDB->query($query);
 			while ($resData = $ilDB->fetchAssoc($setData)) {
 				/**
@@ -292,13 +293,10 @@ class ilObjLiveVoting extends ilObjectPlugin {
 				$xlvoVotingConfig->setObjOnline($resData['is_online']);
 				$xlvoVotingConfig->setAnonymous($resData['is_anonym']);
 				$xlvoVotingConfig->isTerminable($resData['is_terminated']);
-				$xlvoVotingConfig->setStartDate($this->convertTimestampToDateTime($resData['start_time']));
-				$xlvoVotingConfig->setEndDate($this->convertTimestampToDateTime($resData['end_time']));
-				// create new unique PIN
-				$pin = $this->createPin();
-				$xlvoVotingConfig->setPin($pin);
+				$xlvoVotingConfig->setStartDate(date('Y-m-d H:i:s', $resData['start_time']));
+				$xlvoVotingConfig->setEndDate(date('Y-m-d H:i:s', $resData['end_time']));
+				$xlvoVotingConfig->setPin($resData['pin']);
 				$xlvoVotingConfig->create();
-
 				// TODO options_type - multi-selection??
 
 				/**
@@ -316,10 +314,10 @@ class ilObjLiveVoting extends ilObjectPlugin {
 				$xlvoVoting->create();
 			}
 
-			$voting_id = xlvoVoting::where(array( 'obj_id' => $this->getId() ))->last()->getId();
+			$voting_id = xlvoVoting::where(array( 'obj_id' => $obj_id ))->last()->getId();
 
 			// rep_robj_xlvo_option
-			$query = "SELECT * FROM rep_robj_xlvo_option WHERE data_id = " . $ilDB->quote($this->getId(), "integer");
+			$query = "SELECT * FROM rep_robj_xlvo_option WHERE data_id = " . $ilDB->quote($obj_id, "integer");
 			$setOption = $ilDB->query($query);
 			while ($resOption = $ilDB->fetchAssoc($setOption)) {
 				/**
@@ -357,10 +355,5 @@ class ilObjLiveVoting extends ilObjectPlugin {
 				}
 			}
 		}
-	}
-
-
-	protected function convertTimestampToDateTime($date) {
-		return date('Y-m-d H:i:s', $date);
 	}
 }

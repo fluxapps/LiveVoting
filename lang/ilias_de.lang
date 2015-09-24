@@ -10,6 +10,7 @@ content#:#Inhalt
 online#:#Online
 offline#:#Offline
 common_actions#:#Aktionen
+edit_properties#:#Einstellungen
 
 <!-- Permission Denied Messages -->
 permission_denied#:#Zugriff verweigert!
@@ -22,6 +23,7 @@ permission_denied_delete#:#Zugriff verweigert! Keine Löschrechte für dieses Ob
 save#:#Speichern
 send#:#Senden
 create#:#Erstellen
+edit#:#Bearbeiten
 update#:#Update
 delete#:#Löschen
 reset#:#Resultate Zurücksetzen
@@ -101,7 +103,7 @@ info_voting_question#:#Die Frage wird den Nutzern gestellt.
 voting_type#:#Voting Typ
 info_voting_type#:#Der Typ kann später nicht mehr geändert werden.
 voting_active#:#Aktiv
-info_voting_active#:#Nur aktive Fragen werden beim LiveVoting angezeigt.
+info_voting_status#:#Nur aktive Fragen werden beim LiveVoting angezeigt.
 
 <!-- Voting Typen/Status -->
 single_vote#:#Stimmabgabe
