@@ -19,7 +19,6 @@ class xlvoOption extends ActiveRecord {
 	 * @return string
 	 */
 	public static function returnDbTableName() {
-		// TODO change back name
 		return 'rep_robj_xlvo_option_n';
 	}
 

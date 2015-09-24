@@ -382,7 +382,6 @@ class xlvoVotingManager implements xlvoVotingInterface {
 			throw $e;
 		}
 
-		// TODO check if hasReadAccessForObject works
 		$hasAccess = false;
 		$isAnonymousVoting = $xlvoVotingConfig->isAnonymous();
 		if ($isAnonymousVoting == 0) {

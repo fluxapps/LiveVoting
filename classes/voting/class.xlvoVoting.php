@@ -20,7 +20,6 @@ class xlvoVoting extends ActiveRecord {
 	 * @return string
 	 */
 	public static function returnDbTableName() {
-		// TODO change back name
 		return 'rep_robj_xlvo_voting_n';
 	}
 
