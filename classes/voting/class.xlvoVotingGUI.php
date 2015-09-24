@@ -217,8 +217,8 @@ class xlvoVotingGUI {
 
 
 	protected function confirmDelete() {
-		if (! $this->access->hasDeleteAccess()) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied_delete'), true);
+		if (! $this->access->hasWriteAccess()) {
+			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
 
@@ -245,8 +245,8 @@ class xlvoVotingGUI {
 
 
 	protected function delete() {
-		if (! $this->access->hasDeleteAccess()) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied_delete'), true);
+		if (! $this->access->hasWriteAccess()) {
+			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
 
@@ -282,8 +282,8 @@ class xlvoVotingGUI {
 
 	protected function confirmReset() {
 
-		if (! $this->access->hasDeleteAccess()) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied_delete'), true);
+		if (! $this->access->hasWriteAccess()) {
+			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
 
@@ -310,8 +310,8 @@ class xlvoVotingGUI {
 
 
 	protected function reset() {
-		if (! $this->access->hasDeleteAccess()) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied_delete'), true);
+		if (! $this->access->hasWriteAccess()) {
+			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
 			/**
@@ -338,8 +338,8 @@ class xlvoVotingGUI {
 
 
 	protected function confirmResetAll() {
-		if (! $this->access->hasDeleteAccess()) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied_delete'), true);
+		if (! $this->access->hasWriteAccess()) {
+			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
 			ilUtil::sendQuestion($this->pl->txt('confirm_reset_all_votings'), true);
@@ -363,8 +363,8 @@ class xlvoVotingGUI {
 
 
 	protected function resetAll() {
-		if (! $this->access->hasDeleteAccess()) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied_delete'), true);
+		if (! $this->access->hasWriteAccess()) {
+			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
 			/**
