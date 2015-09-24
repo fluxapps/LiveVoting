@@ -59,12 +59,23 @@ if ($request_type == 'unvote') {
 }
 
 if ($request_type == 'vote') {
+
 	$posted_vote->setStatus(xlvoVote::STAT_ACTIVE);
 
 	$success = $voter_gui->vote($posted_vote);
 
 	if ($success) {
-		$votes = $voting_manager->getVotesOfUserOfOption($vote->getVotingId(), $vote->getOptionId())->getArray();
+
+		try {
+			$option = $voting_manager->getOption($_REQUEST['option_id']);
+		} catch (xlvoVotingManagerException $e) {
+			header('Content-type: text/html');
+			echo $tpl->getMessageHTML($pl->txt('error_load_voting_failed'), 'failure');
+
+			return false;
+		}
+
+		$votes = $voting_manager->getVotesOfUserOfOption($option->getVotingId(), $option->getId())->getArray();
 		header('Content-type: application/json');
 		echo json_encode($votes);
 	} else {
