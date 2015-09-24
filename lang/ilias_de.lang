@@ -50,9 +50,9 @@ msg_success_voting_created#:#Die Frage wurde erfolgreich gespeichert.
 msg_success_voting_updated#:#Die Frage wurde erfolgreich aktualisiert.
 
 <!-- ilUtil Messages as AJAX Response -->
-error_vote_failed#:#Die Auswahl konnte nicht gespeichert werden, da ein Fehler aufgetreten ist.
+error_vote_failed#:#Der Eintrag konnte nicht gespeichert werden, da ein Fehler aufgetreten ist.
 error_free_input_multi_vote_failed#:#Es konnten nicht alle Einträge gespeichert werden, da ein Fehler aufgetreten ist.
-error_vote_reset_failed#:#Die Auswahl konnte nicht gelöscht werden, da ein Fehler aufgetreten ist.
+error_vote_reset_failed#:#Der Eintrag konnte nicht gelöscht werden, da ein Fehler aufgetreten ist.
 error_voting_terminated#:#Das LiveVoting wurde beendet, weil das gesetzte Zeitlimit erreicht wurde oder ein anderer Fehler vorliegt.
 error_load_voting_failed#:#Die Frage konnte nicht geladen werden, da ein Fehler aufgetreten ist. Bitte Seite neu laden oder LiveVoting neu starten.
 
@@ -77,20 +77,20 @@ msg_options_not_editable#:#Die Möglichkeiten können nicht angepasst werden, da
 
 <!-- xlvoPlayerGUI -->
 msg_no_voting_available#:#Es ist keine Frage verfügbar. Bitte eine Frage hinzufügen.
-msg_voting_not_available#:#Die Frage konnte nicht aufgerufen werden. Prüfen Sie bitte, ob die Frage ordnungsgemäss gestartet wurde und im allfällig festgelegten Zeitrahmen liegt.
+msg_voting_not_available#:#Die Frage konnte nicht aufgerufen werden. Prüfen Sie bitte, ob das LiveVoting ordnungsgemäss gestartet wurde und im allfällig festgelegten Zeitrahmen liegt.
 msg_start_of_voting_title#:#Startseite
 msg_end_of_voting#:#Sie sind am Ende des LiveVotings angelangt. Bitte beenden oder zum Anfang zurückkehren.
 voting_list#:#Fragen
 
 <!-- xlvoVoterGUI -->
 voting#:#LiveVoting
-msg_waiting_screen#:#Bitte warten...
+msg_waiting_screen#:#Bitte warten.
 msg_not_running_screen#:#Das LiveVoting ist momentan nicht aktiv.
 msg_not_available_screen#:#Das LiveVoting ist nicht verfügbar.
-msg_access_screen#:#Bitte geben Sie den PIN ein.
-msg_start_of_voting_screen#:#Bitte auf den Beginn des LiveVotings warten...
+msg_access_screen#:#Bitte geben Sie den PIN ein:
+msg_start_of_voting_screen#:#Bitte auf den Beginn des LiveVotings warten.
 msg_end_of_voting_screen#:#Ende des LiveVotings. Vielen Dank für die Teilnahme.
-msg_validation_error_pin#:#Es konnte kein aktives LiveVoting gefunden werden.
+msg_validation_error_pin#:#Es konnte kein aktives LiveVoting zum eingegebenen PIN gefunden werden.
 pin_input#:#PIN
 
 <!-- xlvoVotingFormGUI -->
