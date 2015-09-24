@@ -109,7 +109,7 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 				'description' => $this->voting->getDescription(),
 				'question' => $this->voting->getQuestion(),
 				'voting_type' => $this->voting->getVotingType(),
-				'voting_status' => $this->voting->getVotingStatus()
+				'voting_status' => ($this->voting->getVotingStatus() == xlvoVoting::STAT_ACTIVE)
 			);
 			$this->setValuesByArray($array);
 			if ($this->voting->getVotingStatus() == xlvoVoting::STAT_INCOMPLETE) {
@@ -150,7 +150,7 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 			$this->voting->setPosition($lastPosition + 1);
 		} else {
 			if ($this->voting->getVotingStatus() != xlvoVoting::STAT_INCOMPLETE) {
-				$this->voting->setVotingStatus($this->getInput('voting_status'));
+				$this->voting->setVotingStatus(($this->getInput('voting_status') ? xlvoVoting::STAT_ACTIVE : xlvoVoting::STAT_INACTIVE));
 			}
 		}
 
