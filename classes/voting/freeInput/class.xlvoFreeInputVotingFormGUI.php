@@ -41,6 +41,10 @@ class xlvoFreeInputVotingFormGUI extends xlvoVotingFormGUI {
 	 * @var xlvoOption[]
 	 */
 	protected $options;
+	/**
+	 * @var boolean
+	 */
+	protected $has_existing_votes;
 
 
 	/**
@@ -59,6 +63,7 @@ class xlvoFreeInputVotingFormGUI extends xlvoVotingFormGUI {
 		$this->ctrl->saveParameter($parent_gui, xlvoVotingGUI::IDENTIFIER);
 		$this->is_new = ($this->voting->getVotingStatus() == xlvoVoting::STAT_INCOMPLETE);
 		$this->voting_manager = new xlvoVotingManager();
+		$this->has_existing_votes = (xlvoVote::where(array( 'voting_id' => $this->voting->getId() ))->count() > 0);
 
 		$this->initForm();
 	}
@@ -69,9 +74,15 @@ class xlvoFreeInputVotingFormGUI extends xlvoVotingFormGUI {
 		$this->setFormAction($this->ctrl->getFormAction($this->parent_gui));
 		$this->initButtons();
 
-		$cb = new ilCheckboxInputGUI($this->pl->txt('multi_free_input'), 'multi_free_input');
-		$cb->setInfo($this->pl->txt('info_freeinput_multi_free_input'));
-		$this->addItem($cb);
+		if (! $this->has_existing_votes) {
+			$cb = new ilCheckboxInputGUI($this->pl->txt('multi_free_input'), 'multi_free_input');
+			$cb->setInfo($this->pl->txt('info_freeinput_multi_free_input'));
+			$this->addItem($cb);
+		} else {
+			$cb = new ilNonEditableValueGUI($this->pl->txt('multi_free_input'));
+			$cb->setValue($this->pl->txt('msg_multi_free_input_not_editable'));
+			$this->addItem($cb);
+		}
 	}
 
 
@@ -82,10 +93,14 @@ class xlvoFreeInputVotingFormGUI extends xlvoVotingFormGUI {
 				'status' => xlvoOption::STAT_ACTIVE
 			))->getArray();
 
-			$array = array(
-				'multi_free_input' => $this->voting->isMultiFreeInput()
-			);
-			$this->setValuesByArray($array);
+			// only set these values if no votes exist
+			if (! $this->has_existing_votes) {
+				$array = array(
+					'multi_free_input' => $this->voting->isMultiFreeInput()
+				);
+				$this->setValuesByArray($array);
+			}
+
 			if ($this->voting->getVotingStatus() == xlvoVoting::STAT_INCOMPLETE) {
 				ilUtil::sendInfo($this->pl->txt('voting_not_complete'), false);
 			}
@@ -104,7 +119,10 @@ class xlvoFreeInputVotingFormGUI extends xlvoVotingFormGUI {
 			return false;
 		}
 
-		$this->voting->setMultiFreeInput($this->getInput('multi_free_input'));
+		// only set this attribut if no votes exist
+		if(! $this->has_existing_votes) {
+			$this->voting->setMultiFreeInput($this->getInput('multi_free_input'));
+		}
 
 		$this->options = xlvoOption::where(array(
 			'voting_id' => $this->voting->getId(),

@@ -64,6 +64,7 @@ delete_all#:#Alle löschen
 <!-- xlvoFreeInputVotingFormGUI -->
 multi_free_input#:#Mehrfache Eingaben
 info_freeinput_multi_free_input#:#Ein Nutzer kann mehr als einen Text absenden.
+msg_multi_free_input_not_editable#:#Diese Option kann nicht gewechselt werden, da die Frage bereits Resultate enthält. Um die Option wieder bearbeiten zu können, müssen die bestehenden Resultate dieser Frage zurückgesetzt werden.
 
 <!-- xlvoSingleVoteVotingFormGUI -->
 multi_selection#:#Mehrfachauswahl

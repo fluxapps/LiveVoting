@@ -64,6 +64,7 @@ delete_all#:#Delete all
 <!-- xlvoFreeInputVotingFormGUI -->
 multi_free_input#:#Multiple inputs
 info_freeinput_multi_free_input#:#A voter can send more than one entry.
+msg_multi_free_input_not_editable#:#This option cannot be edited because the question contains votes already. In order to edit this option again, the existing results of this question have to be reset.
 
 <!-- xlvoSingleVoteVotingFormGUI -->
 multi_selection#:#Multi selection
