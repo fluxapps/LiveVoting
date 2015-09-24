@@ -21,6 +21,7 @@ class xlvoInitialisation extends ilInitialisation {
 	const CONTEXT_ILIAS = 2;
 	const XLVO_CONTEXT = 'xlvo_context';
 	const PIN_COOKIE = 'xlvo_pin';
+	const PIN_COOKIE_FORCE = 'xlvo_force';
 	/**
 	 * @var int
 	 */
@@ -80,21 +81,21 @@ class xlvoInitialisation extends ilInitialisation {
 			&$session,
 			"open"
 		), array(
-				&$session,
-				"close"
-			), array(
-				&$session,
-				"read"
-			), array(
-				&$session,
-				"write"
-			), array(
-				&$session,
-				"destroy"
-			), array(
-				&$session,
-				"gc"
-			));
+			&$session,
+			"close"
+		), array(
+			&$session,
+			"read"
+		), array(
+			&$session,
+			"write"
+		), array(
+			&$session,
+			"destroy"
+		), array(
+			&$session,
+			"gc"
+		));
 	}
 
 
@@ -214,14 +215,22 @@ class xlvoInitialisation extends ilInitialisation {
 	/**
 	 * @param int $pin
 	 */
-	public static function setCookiePIN($pin) {
+	public static function setCookiePIN($pin, $forrce = false) {
 		setcookie(self::PIN_COOKIE, $pin, NULL, '/');
+		if ($forrce) {
+			setcookie(self::PIN_COOKIE_FORCE, true, NULL, '/');
+		}
 	}
 
 
 	public static function resetCookiePIN() {
-		unset($_COOKIE[self::PIN_COOKIE]);
-		setcookie(self::PIN_COOKIE, NULL, - 1, '/');
+		if ($_COOKIE[self::PIN_COOKIE_FORCE]) {
+			unset($_COOKIE[self::PIN_COOKIE_FORCE]);
+			setcookie(self::PIN_COOKIE_FORCE, NULL, - 1, '/');
+		} else {
+			unset($_COOKIE[self::PIN_COOKIE]);
+			setcookie(self::PIN_COOKIE, NULL, - 1, '/');
+		}
 	}
 
 

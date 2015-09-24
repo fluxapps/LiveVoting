@@ -109,14 +109,11 @@ class xlvoPlayerGUI {
 		$nextClass = $this->ctrl->getNextClass();
 		switch ($nextClass) {
 			default:
-				if ($this->access->hasWriteAccess()) {
+
 					$cmd = $this->ctrl->getCmd(self::CMD_STANDARD);
 					$this->{$cmd}();
 					break;
-				} else {
-					ilUtil::sendFailure(ilLiveVotingPlugin::getInstance()->txt('permission_denied_write'), true);
-					break;
-				}
+
 		}
 	}
 
@@ -327,7 +324,9 @@ class xlvoPlayerGUI {
 	 */
 	public function startOfVoting() {
 		if (! $this->access->hasWriteAccess()) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
+			xlvoInitialisation::init(xlvoInitialisation::CONTEXT_ILIAS);
+			xlvoInitialisation::setCookiePIN($this->voting_manager->getVotingConfig($this->obj_id)->getPin(), true);
+			ilUtil::redirect('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php');
 		} else {
 			try {
 				/**
