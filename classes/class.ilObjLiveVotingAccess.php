@@ -53,7 +53,7 @@ class ilObjLiveVotingAccess extends ilObjectPluginAccess {
 	 * @param    string $a_permission permission
 	 * @param    int    $a_ref_id     reference id
 	 * @param    int    $a_obj_id     object id
-	 * @param    string    $a_user_id    user id (if not provided, current user is taken)
+	 * @param    string $a_user_id    user id (if not provided, current user is taken)
 	 *
 	 * @return    boolean        true, if everything is ok
 	 */
@@ -110,17 +110,16 @@ class ilObjLiveVotingAccess extends ilObjectPluginAccess {
 	 */
 	public static function hasReadAccessForObject($obj_id, $user_id) {
 
-//		$refs = ilObject2::_getAllReferences($obj_id);
-//		foreach ($refs as $ref_id) {
-//
-//			if (self::hasReadAccess($ref_id, $user_id)) {
-//				return true;
-//				break;
-//			}
-//		}
-//
-//		return false;
-		return true;
+		$refs = ilObject2::_getAllReferences($obj_id);
+		foreach ($refs as $ref_id) {
+
+			if (self::hasReadAccess($ref_id, $user_id)) {
+				return true;
+				break;
+			}
+		}
+
+		return false;
 	}
 
 
@@ -131,22 +130,17 @@ class ilObjLiveVotingAccess extends ilObjectPluginAccess {
 	 * @return bool
 	 */
 	public static function hasWriteAccessForObject($obj_id, $user_id) {
-//		global $ilLog;
-//		$refs = ilObject2::_getAllReferences($obj_id);
-//
-//		//		$ilLog->write('xlvo 123 '.print_r($refs, 1));
-//
-//		foreach ($refs as $ref_id) {
-//						//$ilLog->write($ref_id . ' - ' . $user_id);
-//
-//			if (self::hasWriteAccess($ref_id, $user_id)) {
-//				return true;
-//				break;
-//			}
-//		}
+		$refs = ilObject2::_getAllReferences($obj_id);
 
-//		return false;
-		return true;
+		foreach ($refs as $ref_id) {
+
+			if (self::hasWriteAccess($ref_id, $user_id)) {
+				return true;
+				break;
+			}
+		}
+
+		return false;
 	}
 
 
