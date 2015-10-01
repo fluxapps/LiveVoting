@@ -110,7 +110,7 @@ class xlvoPlayerGUI {
 		switch ($nextClass) {
 			default:
 				if ($this->access->hasWriteAccess()) {
-					$cmd = $this->ctrl->getCmd(self::CMD_STANDARD);
+					$cmd = $this->ctrl->getCmd(self::CMD_START_OF_VOTING_SCREEN);
 					$this->{$cmd}();
 					break;
 				} else {
