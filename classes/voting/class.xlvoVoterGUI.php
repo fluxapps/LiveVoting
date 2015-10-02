@@ -6,7 +6,6 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilObjLiveVotingAccess.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilLiveVotingPlugin.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingType.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVoterGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoOption.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingManager.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoMultiLineInputGUI.php');
@@ -242,7 +241,8 @@ class xlvoVoterGUI {
 		} else {
 			$player = $this->voting_manager->getPlayer($obj_id);
 			$data = array(
-				'voIsFrozen' => $player->isFrozenOrUnattended(),
+//				'voIsFrozen' => $player->isFrozenOrUnattended(),
+				'voIsFrozen' => false,
 				'voStatus' => $player->getStatus(),
 				'voHasAccess' => $this->checkVotingAccess($obj_id),
 				'voIsAvailable' => $this->voting_manager->isVotingAvailable($obj_id)
