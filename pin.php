@@ -7,6 +7,7 @@
 require_once('classes/class.xlvoInitialisation.php');
 xlvoInitialisation::init(xlvoInitialisation::CONTEXT_PIN);
 xlvoInitialisation::resetCookiePIN();
+
 if (trim($_REQUEST['pin'], '/')) {
 	xlvoInitialisation::setCookiePIN(trim($_REQUEST['pin'], '/'));
 }

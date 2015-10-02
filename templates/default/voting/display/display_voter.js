@@ -59,13 +59,24 @@
 			};
 
 			var callVotingFunction = function () {
-				$.get(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'get_voting_data'})
+				var parameter = {voting_id_current: current_voting_id, object_id: object_id, type_player: 'get_voting_data'};
+				//console.log(parameter);
+				$.get(url, parameter)
 					.done(function (data) {
 						console.log(data);
+						var isAnonymous = +data.voIsAnonymous;
+						var isVoting = +data.voIsVoting;
 						var isFrozen = +data.voIsFrozen;
 						var status = +data.voStatus;
 						var isAvailable = +data.voIsAvailable;
 						var hasAccess = +data.voHasAccess;
+						if(!hasAccess && isVoting) {
+							window.location.replace(data.redirectUrl);
+
+							//console.log(data);
+							return true;
+						}
+
 
 						if (hasAccess == 0) {
 							loadAccessScreen();

@@ -50,3 +50,8 @@ button.xlvo_btn-qr-modal {
   border: 5px solid black;
   left: calc(50% - (100px/2));
 }
+/** DELOS FIX */
+.navbar-text {
+  margin-top: 8px !important;
+  margin-bottom: 8px !important;
+}

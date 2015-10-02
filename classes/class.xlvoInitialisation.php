@@ -16,7 +16,7 @@ require_once('./Services/Init/classes/class.ilInitialisation.php');
  */
 class xlvoInitialisation extends ilInitialisation {
 
-	const USE_OWN_GLOBAL_TPL = false;
+	const USE_OWN_GLOBAL_TPL = true;
 	const CONTEXT_PIN = 1;
 	const CONTEXT_ILIAS = 2;
 	const XLVO_CONTEXT = 'xlvo_context';
@@ -41,14 +41,25 @@ class xlvoInitialisation extends ilInitialisation {
 			$this->readFromCookie();
 		}
 		$this->run();
+		global $ilLog;
+		/**
+		 * @var $ilLog ilLog
+		 */
+		try{
+			throw new Exception();
+		}catch (Exception $e) {
+			 $ilLog->write('LVO CONTEXT: ' . $this->getContext());//.' '.$e->getTraceAsString());
+		}
 	}
 
 
 	protected function run() {
+		$this->setContext(self::CONTEXT_ILIAS);
 		switch ($this->getContext()) {
 			case self::CONTEXT_ILIAS:
 				require_once('./include/inc.header.php');
-
+				self::initHTML();
+//				self::initILIAS();
 				break;
 			case self::CONTEXT_PIN:
 				require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Context/class.xlvoContext.php");
@@ -61,12 +72,31 @@ class xlvoInitialisation extends ilInitialisation {
 
 
 	/**
-	 * @param null $context
+	 * @param int $context
 	 *
 	 * @return xlvoInitialisation
 	 */
 	public static function init($context = NULL) {
 		return new self($context);
+	}
+
+
+	public static function destroy() {
+//		$pin = NULL;
+//		if ($_COOKIE[self::PIN_COOKIE_FORCE]) {
+//			$pin = self::getCookiePIN();
+//		}
+//		session_destroy();
+//		foreach ($_COOKIE as $k => $v) {
+//			setcookie($k, '', time() - 1000);
+//			setcookie($k, '', time() - 1000, '/');
+//		}
+//
+//		unset($_COOKIE);
+//		unset($_SESSION);
+//		if ($pin) {
+//			self::setCookiePIN($pin);
+//		}
 	}
 
 
@@ -181,13 +211,13 @@ class xlvoInitialisation extends ilInitialisation {
 
 
 	protected function writeToCookie() {
-		if($this->getContext() == self::CONTEXT_ILIAS) {
-//			try{
-//				throw new Exception();
-//			}catch (Exception $e) {
-//				echo $e->getTraceAsString();
-//				exit;
-//			}
+		if ($this->getContext() == self::CONTEXT_ILIAS) {
+			//			try{
+			//				throw new Exception();
+			//			}catch (Exception $e) {
+			//				echo $e->getTraceAsString();
+			//				exit;
+			//			}
 		}
 		setcookie(self::XLVO_CONTEXT, $this->getContext(), NULL, '/');
 	}

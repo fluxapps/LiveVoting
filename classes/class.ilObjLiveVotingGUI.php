@@ -405,12 +405,13 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 	 * Goto redirection
 	 */
 	public static function _goto($a_target) {
-
-		if (preg_match("/[\\d]*_voting/", $a_target[0])) {
+		if (preg_match("/[\\d]*_pin_([\\w]*)/", $a_target[0], $matches)) {
 			global $ilCtrl;
 			/**
 			 * @var ilCtrl $ilCtrl
 			 */
+			xlvoInitialisation::setCookiePIN($matches[1], true);
+//			ilUtil::redirect('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?pin='.$matches[1]);
 			$ilCtrl->initBaseClass('ilUIPluginRouterGUI');
 			$ilCtrl->setTargetScript('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/VoterEndpoint.php');
 			$ilCtrl->redirectByClass(array( 'ilUIPluginRouterGUI', 'xlvoVoterGUI' ));

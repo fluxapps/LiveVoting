@@ -167,9 +167,7 @@ class xlvoVoterGUI {
 			$config = $this->voting_manager->getVotingConfigs()->where(array( 'pin' => $pin ))->first();
 			if ($config instanceof xlvoVotingConfig) {
 				if ($pin == $config->getPin()) {
-					if ($config->isAnonymous()) {
-						//						$this->generateAnonymousSession();
-					} else {
+					if (! $config->isAnonymous()) {
 						xlvoInitialisation::init(xlvoInitialisation::CONTEXT_ILIAS);
 					}
 
@@ -231,22 +229,29 @@ class xlvoVoterGUI {
 	public function getVotingData($obj_id) {
 		if ($obj_id == NULL || $obj_id == 0) {
 			$data = array(
-				'voIsFrozen' => 0,
+				'voIsVoting' => false,
+				'voIsFrozen' => false,
 				'voStatus' => xlvoPlayer::STAT_STOPPED,
-				'voHasAccess' => 0,
-				'voIsAvailable' => 1
+				'voHasAccess' => false,
+				'voIsAvailable' => true
 			);
 
 			return $data;
 		} else {
 			$player = $this->voting_manager->getPlayer($obj_id);
+			$config = $this->voting_manager->getVotingConfig($obj_id);
+			$isAnonymous = (bool)$config->isAnonymous();
 			$data = array(
+				'voIsVoting' => true,
 				'voIsFrozen' => $player->isFrozenOrUnattended(),
-//				'voIsFrozen' => false,
 				'voStatus' => $player->getStatus(),
 				'voHasAccess' => $this->checkVotingAccess($obj_id),
-				'voIsAvailable' => $this->voting_manager->isVotingAvailable($obj_id)
+				'voIsAvailable' => $this->voting_manager->isVotingAvailable($obj_id),
+				'voIsAnonymous' => $isAnonymous
 			);
+			if (! $isAnonymous) {
+				$data['redirectUrl'] = $config->getRedirectURL();
+			}
 
 			return $data;
 		}
@@ -327,14 +332,6 @@ class xlvoVoterGUI {
 		}
 
 		return $template->get();
-	}
-
-
-	protected function generateAnonymousSession() {
-		$session_id = session_id();
-		if (! $session_id) {
-			xlvoInitialisation::init(xlvoInitialisation::CONTEXT_PIN);
-		}
 	}
 
 

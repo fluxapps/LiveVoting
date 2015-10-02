@@ -77,6 +77,17 @@ class xlvoVotingConfig extends ActiveRecord {
 
 
 	/**
+	 * @return string
+	 */
+	public function getRedirectURL() {
+		$ref_id = array_shift(array_values(ilObject2::_getAllReferences($this->getObjId())));
+		$ilias_http_path = $directory = strstr($_SERVER['SCRIPT_URI'], 'Customizing', true);
+
+		return $ilias_http_path . 'goto.php?target=xlvo_' . $ref_id . '_pin_' . $this->getPin() . '&client_id=' . CLIENT_ID;
+	}
+
+
+	/**
 	 * @return int
 	 */
 	public function getObjId() {
