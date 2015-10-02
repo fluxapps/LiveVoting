@@ -14,7 +14,6 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 $voter_gui = new xlvoVoterGUI();
 $player_gui = new xlvoPlayerGUI();
 $voting_manager = new xlvoVotingManager();
-
 $posted_type = $_REQUEST['type_player'];
 $posted_voting_id = $_REQUEST['voting_id_current'];
 $posted_object_id = $_REQUEST['object_id'];

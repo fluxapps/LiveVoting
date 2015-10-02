@@ -16,7 +16,7 @@ require_once('./Services/Init/classes/class.ilInitialisation.php');
  */
 class xlvoInitialisation extends ilInitialisation {
 
-	const USE_OWN_GLOBAL_TPL = true;
+	const USE_OWN_GLOBAL_TPL = false;
 	const CONTEXT_PIN = 1;
 	const CONTEXT_ILIAS = 2;
 	const XLVO_CONTEXT = 'xlvo_context';
@@ -180,6 +180,14 @@ class xlvoInitialisation extends ilInitialisation {
 
 
 	protected function writeToCookie() {
+		if($this->getContext() == self::CONTEXT_ILIAS) {
+			try{
+				throw new Exception();
+			}catch (Exception $e) {
+				echo $e->getTraceAsString();
+				exit;
+			}
+		}
 		setcookie(self::XLVO_CONTEXT, $this->getContext(), NULL, '/');
 	}
 

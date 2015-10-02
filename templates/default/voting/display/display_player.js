@@ -10,6 +10,7 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 			// load voting
 			$.get(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'load_results'})
 				.done(function (data) {
+					console.log(data);
 					if (data != '') {
 						$('#display-player').replaceWith(data);
 						$('#display-player').hideAndShowResults();
@@ -33,6 +34,7 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 			// load voting
 			$.get(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'load_player_info'})
 				.done(function (data) {
+					//console.log(data);
 				}).fail(function (jqXHR) {
 					console.log(jqXHR);
 				}).always(function () {
@@ -169,6 +171,7 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 			btnUnfreeze.click(function () {
 
 				var current_voting_id = $('#voting-data').attr('voting');
+				console.log(current_voting_id);
 				var object_id = $('#voting-data').attr('object');
 
 				// unfreeze

@@ -155,7 +155,6 @@ class xlvoPlayerGUI {
 	 * @throws xlvoVotingManagerException
 	 */
 	public function showVoting($voting_id = NULL) {
-
 		if ($voting_id == NULL) {
 			if ($_GET[self::IDENTIFIER] != NULL) {
 				$voting_id = $_GET[self::IDENTIFIER];
@@ -424,8 +423,9 @@ class xlvoPlayerGUI {
 			if (($xlvoPlayer->getStatus() == xlvoPlayer::STAT_RUNNING) && ! $xlvoPlayer->isUnattended()) {
 				$this->voting_manager->freezeVoting($obj_id);
 
-				return '';
+				return 'LOREM';
 			} else {
+
 				return $this->tpl->getMessageHTML($this->pl->txt('msg_voting_not_available'), 'failure');
 			}
 		}
