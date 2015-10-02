@@ -165,6 +165,7 @@ class xlvoInitialisation extends ilInitialisation {
 		unset($tree);
 		self::initGlobal("ilCtrl", "ilCtrl", "./Services/UICore/classes/class.ilCtrl.php");
 		self::setCookieParams();
+		self::initLog();
 	}
 
 
@@ -181,12 +182,12 @@ class xlvoInitialisation extends ilInitialisation {
 
 	protected function writeToCookie() {
 		if($this->getContext() == self::CONTEXT_ILIAS) {
-			try{
-				throw new Exception();
-			}catch (Exception $e) {
-				echo $e->getTraceAsString();
-				exit;
-			}
+//			try{
+//				throw new Exception();
+//			}catch (Exception $e) {
+//				echo $e->getTraceAsString();
+//				exit;
+//			}
 		}
 		setcookie(self::XLVO_CONTEXT, $this->getContext(), NULL, '/');
 	}

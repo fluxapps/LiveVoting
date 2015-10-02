@@ -67,5 +67,3 @@ class xlvoSessionHandler {
 		return true;
 	}
 }
-
-?>

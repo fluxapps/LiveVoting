@@ -241,8 +241,8 @@ class xlvoVoterGUI {
 		} else {
 			$player = $this->voting_manager->getPlayer($obj_id);
 			$data = array(
-//				'voIsFrozen' => $player->isFrozenOrUnattended(),
-				'voIsFrozen' => false,
+				'voIsFrozen' => $player->isFrozenOrUnattended(),
+//				'voIsFrozen' => false,
 				'voStatus' => $player->getStatus(),
 				'voHasAccess' => $this->checkVotingAccess($obj_id),
 				'voIsAvailable' => $this->voting_manager->isVotingAvailable($obj_id)

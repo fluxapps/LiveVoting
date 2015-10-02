@@ -28,5 +28,3 @@ class xlvoLinkButton extends ilLinkButton {
 		return new self('xlvo_link');
 	}
 }
-
-?>

@@ -83,5 +83,3 @@ class xoct {
 		return is_file('./Services/GlobalCache/classes/class.ilGlobalCache.php');
 	}
 }
-
-?>

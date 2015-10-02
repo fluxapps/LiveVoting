@@ -10,8 +10,8 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 			// load voting
 			$.get(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'load_results'})
 				.done(function (data) {
-					console.log(data);
-					if (data != '') {
+					//console.log(data);
+					if (data.length > 10) {
 						$('#display-player').replaceWith(data);
 						$('#display-player').hideAndShowResults();
 					}
@@ -139,9 +139,11 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 				var object_id = $('#voting-data').attr('object');
 
 				// freeze
-				$.post(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'freeze_voting'})
+				var post_data = {voting_id_current: current_voting_id, object_id: object_id, type_player: 'freeze_voting'};
+
+				$.post(url, post_data)
 					.done(function (data) {
-						if (data == '') {
+						if (data.length < 10) {
 							btnFreeze.hide();
 							btnFreeze.parent().hide();
 							btnUnfreeze.show();
@@ -171,13 +173,13 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 			btnUnfreeze.click(function () {
 
 				var current_voting_id = $('#voting-data').attr('voting');
-				console.log(current_voting_id);
+
 				var object_id = $('#voting-data').attr('object');
 
 				// unfreeze
 				$.post(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'unfreeze_voting'})
 					.done(function (data) {
-						if (data == '') {
+						if (data.length < 10) {
 							btnFreeze.show();
 							btnFreeze.parent().show();
 							btnFreeze.html('<span class="glyphicon glyphicon-pause" aria-hidden="true"></span>' + btnFreeze.text());
@@ -212,7 +214,7 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 				// reset votes of current voting
 				$.post(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'reset_voting'})
 					.done(function (data) {
-						if (data == '') {
+						if (data.length < 10) {
 							$('#display-player').loadResults();
 						} else {
 							$('#display-player').replaceWith(data);

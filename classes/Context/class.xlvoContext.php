@@ -26,5 +26,3 @@ class xlvoContext extends ilContext {
 		return true;
 	}
 }
-
-?>

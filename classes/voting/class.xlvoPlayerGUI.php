@@ -423,7 +423,7 @@ class xlvoPlayerGUI {
 			if (($xlvoPlayer->getStatus() == xlvoPlayer::STAT_RUNNING) && ! $xlvoPlayer->isUnattended()) {
 				$this->voting_manager->freezeVoting($obj_id);
 
-				return 'LOREM';
+				return '';
 			} else {
 
 				return $this->tpl->getMessageHTML($this->pl->txt('msg_voting_not_available'), 'failure');
@@ -473,6 +473,29 @@ class xlvoPlayerGUI {
 	 * Set Toolbar Content and Buttons for the Player.
 	 */
 	protected function initToolbar() {
+		$b = xlvoLinkButton::getInstance();
+		$b->clearClasses();
+		$b->addCSSClass('btn-warning');
+		$b->setCaption('rep_robj_xlvo_freeze');
+		$b->setUrl('#');
+		$b->setId('btn-freeze');
+		$this->toolbar->addButtonInstance($b);
+
+		$b = ilLinkButton::getInstance();
+		$b->setPrimary(true);
+		$b->setCaption('rep_robj_xlvo_unfreeze');
+		$b->setUrl('#');
+		$b->setId('btn-unfreeze');
+		$this->toolbar->addButtonInstance($b);
+
+		$b = ilLinkButton::getInstance();
+		$b->setCaption('rep_robj_xlvo_terminate');
+		$b->setUrl($this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_TERMINATE));
+		$b->setId('btn-terminate');
+		$this->toolbar->addButtonInstance($b);
+
+		$this->toolbar->addSeparator();
+
 		$current_selection_list = new ilAdvancedSelectionListGUI();
 		$current_selection_list->setListTitle($this->pl->txt('voting_list'));
 		$current_selection_list->setId('xlvo_select');
@@ -498,29 +521,6 @@ class xlvoPlayerGUI {
 		//		$b->setCaption('rep_robj_xlvo_next');
 		$b->setUrl($this->ctrl->getLinkTarget($this, self::CMD_NEXT));
 		$b->setId('btn-next');
-		$this->toolbar->addButtonInstance($b);
-
-		$this->toolbar->addSeparator();
-
-		$b = xlvoLinkButton::getInstance();
-		$b->clearClasses();
-		$b->addCSSClass('btn-warning');
-		$b->setCaption('rep_robj_xlvo_freeze');
-		$b->setUrl('#');
-		$b->setId('btn-freeze');
-		$this->toolbar->addButtonInstance($b);
-
-		$b = ilLinkButton::getInstance();
-		$b->setPrimary(true);
-		$b->setCaption('rep_robj_xlvo_unfreeze');
-		$b->setUrl('#');
-		$b->setId('btn-unfreeze');
-		$this->toolbar->addButtonInstance($b);
-
-		$b = ilLinkButton::getInstance();
-		$b->setCaption('rep_robj_xlvo_terminate');
-		$b->setUrl($this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_TERMINATE));
-		$b->setId('btn-terminate');
 		$this->toolbar->addButtonInstance($b);
 
 		$this->toolbar->addSeparator();

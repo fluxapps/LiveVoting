@@ -11,7 +11,7 @@
 				$.get(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'voting_screen'})
 					.done(function (data) {
 
-						if (data != '') {
+						if (data.length > 10) {
 							$('.display-voter').replaceWith(data);
 							$('.display-voter').initFreeInputDeleteButtons();
 						}

@@ -94,5 +94,3 @@ class ilObjLiveVotingListGUI extends ilObjectPluginListGUI {
 		return $props;
 	}
 }
-
-?>
