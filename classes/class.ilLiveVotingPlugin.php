@@ -36,4 +36,10 @@ class ilLiveVotingPlugin extends ilRepositoryObjectPlugin {
 	public function getPluginName() {
 		return self::PLUGIN_NAME;
 	}
+
+
+	protected function uninstallCustom() {
+		// TODO: Implement uninstallCustom() method.
+
+	}
 }
