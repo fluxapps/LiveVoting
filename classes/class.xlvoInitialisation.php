@@ -25,7 +25,7 @@ class xlvoInitialisation extends ilInitialisation {
 	/**
 	 * @var int
 	 */
-	protected $context = self::CONTEXT_PIN;
+	protected static $context = self::CONTEXT_PIN;
 
 
 	/**
@@ -35,31 +35,30 @@ class xlvoInitialisation extends ilInitialisation {
 	 */
 	protected function __construct($context = NULL) {
 		if ($context) {
-			$this->context = $context;
-			$this->writeToCookie();
+			self::saveContext($context);
 		} else {
-			$this->readFromCookie();
+			self::readFromCookie();
 		}
 		$this->run();
 		global $ilLog;
 		/**
 		 * @var $ilLog ilLog
 		 */
-		try{
+		try {
 			throw new Exception();
-		}catch (Exception $e) {
-			 $ilLog->write('LVO CONTEXT: ' . $this->getContext());//.' '.$e->getTraceAsString());
+		} catch (Exception $e) {
+			$ilLog->write('LVO CONTEXT: ' . self::getContext());
 		}
 	}
 
 
 	protected function run() {
-		$this->setContext(self::CONTEXT_ILIAS);
-		switch ($this->getContext()) {
+		//		$this->setContext(self::CONTEXT_ILIAS);
+		switch (self::getContext()) {
 			case self::CONTEXT_ILIAS:
 				require_once('./include/inc.header.php');
 				self::initHTML();
-//				self::initILIAS();
+				//				self::initILIAS();
 				break;
 			case self::CONTEXT_PIN:
 				require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Context/class.xlvoContext.php");
@@ -81,22 +80,9 @@ class xlvoInitialisation extends ilInitialisation {
 	}
 
 
-	public static function destroy() {
-//		$pin = NULL;
-//		if ($_COOKIE[self::PIN_COOKIE_FORCE]) {
-//			$pin = self::getCookiePIN();
-//		}
-//		session_destroy();
-//		foreach ($_COOKIE as $k => $v) {
-//			setcookie($k, '', time() - 1000);
-//			setcookie($k, '', time() - 1000, '/');
-//		}
-//
-//		unset($_COOKIE);
-//		unset($_SESSION);
-//		if ($pin) {
-//			self::setCookiePIN($pin);
-//		}
+	public static function saveContext($context) {
+		self::setContext($context);
+		self::writeToCookie();
 	}
 
 
@@ -201,7 +187,7 @@ class xlvoInitialisation extends ilInitialisation {
 
 	// PIN COOKIE
 
-	protected function readFromCookie() {
+	protected static function readFromCookie() {
 		if (! empty($_COOKIE[self::XLVO_CONTEXT])) {
 			self::setContext($_COOKIE[self::XLVO_CONTEXT]);
 		} else {
@@ -210,32 +196,24 @@ class xlvoInitialisation extends ilInitialisation {
 	}
 
 
-	protected function writeToCookie() {
-		if ($this->getContext() == self::CONTEXT_ILIAS) {
-			//			try{
-			//				throw new Exception();
-			//			}catch (Exception $e) {
-			//				echo $e->getTraceAsString();
-			//				exit;
-			//			}
-		}
-		setcookie(self::XLVO_CONTEXT, $this->getContext(), NULL, '/');
+	protected static function writeToCookie() {
+		setcookie(self::XLVO_CONTEXT, self::getContext(), NULL, '/');
 	}
 
 
 	/**
 	 * @return int
 	 */
-	public function getContext() {
-		return $this->context;
+	public static function getContext() {
+		return self::$context;
 	}
 
 
 	/**
 	 * @param int $context
 	 */
-	public function setContext($context) {
-		$this->context = $context;
+	public static function setContext($context) {
+		self::$context = $context;
 	}
 
 

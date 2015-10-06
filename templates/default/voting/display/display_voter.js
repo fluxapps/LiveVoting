@@ -70,10 +70,9 @@
 						var status = +data.voStatus;
 						var isAvailable = +data.voIsAvailable;
 						var hasAccess = +data.voHasAccess;
-						if(!hasAccess && isVoting) {
+						if (!hasAccess && isVoting) {
+							console.log(data);
 							window.location.replace(data.redirectUrl);
-
-							//console.log(data);
 							return true;
 						}
 

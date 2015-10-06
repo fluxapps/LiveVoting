@@ -110,6 +110,7 @@ class xlvoPlayerGUI {
 		switch ($nextClass) {
 			default:
 				if ($this->access->hasWriteAccess()) {
+					xlvoInitialisation::saveContext(xlvoInitialisation::CONTEXT_ILIAS);
 					$cmd = $this->ctrl->getCmd(self::CMD_START_OF_VOTING_SCREEN);
 					$this->{$cmd}();
 					break;
@@ -611,6 +612,7 @@ class xlvoPlayerGUI {
 
 		$template->setVariable('QR-CODE', $qrCodeData);
 		$template->setVariable('QR-CODE-MODAL', $qrCodeDataModal);
+		$template->setVariable('SHORTLINK', 'http://wac-test.studer-raimann.ch/vote/' . $xlvoVotingConfig->getPin());
 		$template->setVariable('CLOSE_BUTTON', $this->pl->txt('cancel'));
 
 		$this->tpl->setContent($template->get());

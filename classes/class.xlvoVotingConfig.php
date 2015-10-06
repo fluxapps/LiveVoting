@@ -139,6 +139,7 @@ class xlvoVotingConfig extends ActiveRecord {
 	 * @return boolean
 	 */
 	public function isAnonymous() {
+		return true;
 		return $this->anonymous;
 	}
 

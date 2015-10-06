@@ -281,7 +281,6 @@ class xlvoVotingGUI {
 
 
 	protected function confirmReset() {
-
 		if (! $this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);

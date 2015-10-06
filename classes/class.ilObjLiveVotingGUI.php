@@ -246,7 +246,6 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 
 
 	public function showContent() {
-
 		$this->ctrl->redirect(new xlvoPlayerGUI(), xlvoPlayerGUI::CMD_START_OF_VOTING_SCREEN);
 	}
 

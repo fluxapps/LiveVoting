@@ -158,12 +158,25 @@ class ilObjLiveVotingAccess extends ilObjectPluginAccess {
 	 * @return bool
 	 */
 	protected function hasAccess($permission, $ref_id = NULL, $user_id = NULL) {
-		global $ilUser, $ilAccess;
+		global $ilUser, $ilAccess, $ilLog;
 		/**
 		 * @var $ilAccess ilAccessHandler
 		 */
 		$ref_id = $ref_id ? $ref_id : $_GET['ref_id'];
 		$user_id = $user_id ? $user_id : $ilUser->getId();
+//		if (! $user_id) {
+//			try {
+//				throw new Exception();
+//			} catch (Exception $e) {
+//				$ilLog->write('XLVO ##########################');
+//				$ilLog->write('XLVO ' . xlvoInitialisation::getContext());
+//				$ilLog->write('XLVO ' . $e->getTraceAsString());
+//				$ilLog->write('XLVO ##########################');
+//				return true;
+//			}
+//		}
+
+		$ilLog->write('XLVO check permission ' . $permission . ' for user ' . $user_id . ' on ref_id ' . $ref_id);
 
 		return $ilAccess->checkAccessOfUser($user_id, $permission, '', $ref_id);
 	}
