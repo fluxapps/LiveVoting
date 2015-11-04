@@ -12,6 +12,12 @@ require_once('class.ilLiveVotingConfig.php');
  */
 class ilLiveVotingPlugin extends ilRepositoryObjectPlugin {
 
+	protected function uninstallCustom() {
+		// TODO: Implement uninstallCustom() method.
+	}
+
+
+
 	/**
 	 * @var ilLiveVotingPlugin
 	 */
