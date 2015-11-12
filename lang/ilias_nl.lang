@@ -24,10 +24,10 @@ perm_role#:#Beperkt tot rol
 perm_role_exeption#:#Alle rollen behalve de volgende
 perm_ref_read#:#Leestoegang op Ref-ID
 perm_ref_write#:#Schrijftoegang op Ref-ID
-perm_script#:#Check Permission per Script (Advanced Option)
-perm_input_script_path#:#Script Path
-perm_input_script_class#:#Class Name
-perm_input_script_method#:#Method Name
+perm_script#:#Controleer rechten per script (Geavanceerd)
+perm_input_script_path#:#Script Pad
+perm_input_script_class#:#Class Naam
+perm_input_script_method#:#Method Naam
 
 get_parameters#:#URL-Parameters
 get_parameters_description#:#De eerste input is de naam van de parameter. The tweede is de waarde. De output is iets als: URL?name1=waarde1&name2=waarde2
