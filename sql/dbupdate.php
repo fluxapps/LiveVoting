@@ -219,6 +219,95 @@ $ilDB->addTableColumn('rep_robj_xlvo_data', 'end_time', array(
 ?>
 <#15>
 <?php
-//require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilObjLiveVoting.php');
-//ilObjLiveVoting::dataTransferRefactoring();
+/**
+ * @var $ilDB ilDB
+ */
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingConfig.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVoting.php');
+require_once('./Services/Object/classes/class.ilObject2.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingType.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoOption.php');
+
+$query = "SELECT * FROM rep_robj_xlvo_data";
+$setData = $ilDB->query($query);
+while ($resData = $ilDB->fetchAssoc($setData)) {
+	$obj_id = $resData['id'];
+
+	/**
+	 * @var $xlvoVotingConfig xlvoVotingConfig
+	 */
+	$xlvoVotingConfig = xlvoVotingConfig::findOrGetInstance($obj_id);
+	$xlvoVotingConfig->setObjId($resData['id']);
+	$xlvoVotingConfig->setObjOnline($resData['is_online']);
+	$xlvoVotingConfig->setAnonymous($resData['is_anonym']);
+	$xlvoVotingConfig->setTerminable($resData['is_terminated']);
+	$xlvoVotingConfig->setStartDate(date('Y-m-d H:i:s', $resData['start_time']));
+	$xlvoVotingConfig->setEndDate(date('Y-m-d H:i:s', $resData['end_time']));
+	$xlvoVotingConfig->setPin($resData['pin']);
+	if (!xlvoVotingConfig::where(array( 'obj_id' => $xlvoVotingConfig->getObjId() ))->hasSets()) {
+		$xlvoVotingConfig->create();
+	} else {
+		$xlvoVotingConfig->update();
+	}
+
+	/**
+	 * @var $xlvoVoting xlvoVoting
+	 */
+	if (xlvoVoting::where(array( 'obj_id' => $xlvoVotingConfig->getObjId() ))->hasSets()) {
+		$xlvoVoting = xlvoVoting::where(array( 'obj_id' => $xlvoVotingConfig->getObjId() ))->last();
+	} else {
+		$xlvoVoting = new xlvoVoting();
+	}
+
+	$xlvoVoting->setObjId($xlvoVotingConfig->getObjId());
+	$xlvoVoting->setQuestion($resData['question']);
+	$xlvoVoting->setColors($resData['is_colorful']);
+	$xlvoVoting->setTitle(ilObject2::_lookupTitle($xlvoVotingConfig->getObjId()));
+	$xlvoVoting->setMultiSelection(($resData['options_type'] == 1));
+	$xlvoVoting->setVotingType(xlvoVotingType::SINGLE_VOTE);
+	$xlvoVoting->setVotingStatus(xlvoVoting::STAT_ACTIVE);
+	$xlvoVoting->setPosition(1);
+	if ($xlvoVoting->getId()) {
+		$xlvoVoting->update();
+	} else {
+		$xlvoVoting->create();
+	}
+
+	// rep_robj_xlvo_option
+	$query = "SELECT * FROM rep_robj_xlvo_option WHERE data_id = " . $ilDB->quote($xlvoVotingConfig->getObjId(), "integer");
+	$setOption = $ilDB->query($query);
+	while ($resOption = $ilDB->fetchAssoc($setOption)) {
+		/**
+		 * @var $xlvoOption xlvoOption
+		 */
+		$xlvoOption = new xlvoOption();
+		$xlvoOption->setText($resOption['title']);
+		$xlvoOption->setVotingId($xlvoVoting->getId());
+		$xlvoOption->setType(xlvoVotingType::SINGLE_VOTE);
+		$xlvoOption->setStatus(xlvoOption::STAT_ACTIVE);
+		$xlvoOption->create();
+
+		// rep_robj_xlvo_vote
+		$setVote = $ilDB->query("SELECT * FROM rep_robj_xlvo_vote " . " WHERE option_id = " . $ilDB->quote($resOption['id'], "integer"));
+		while ($resVote = $ilDB->fetchAssoc($setVote)) {
+			/**
+			 * @var $xlvoVote xlvoVote
+			 */
+			$xlvoVote = new xlvoVote();
+			$xlvoVote->setOptionId($resVote['option_id']);
+			if (isset($resVote['usr_id'])) {
+				$xlvoVote->setUserIdType(xlvoVote::USER_ILIAS);
+				$xlvoVote->setUserId($resVote['usr_id']);
+			} else {
+				$xlvoVote->setUserIdType(xlvoVote::USER_ANONYMOUS);
+				$xlvoVote->setUserIdentifier($resVote['usr_session']);
+			}
+
+			$xlvoVote->setType(xlvoVotingType::SINGLE_VOTE);
+			$xlvoVote->setStatus(xlvoVote::STAT_ACTIVE);
+			$xlvoVote->setOptionId($xlvoOption->getId());
+			$xlvoVote->setVotingId($xlvoVoting->getId());
+		}
+	}
+}
 ?>
