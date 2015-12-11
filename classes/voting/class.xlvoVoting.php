@@ -11,22 +11,19 @@ require_once('./Services/ActiveRecord/class.ActiveRecord.php');
  */
 class xlvoVoting extends ActiveRecord {
 
+	const STAT_ACTIVE = 5;
 	const STAT_INACTIVE = 1;
 	const STAT_INCOMPLETE = 2;
-	const STAT_ACTIVE = 5;
-
-
 	/**
-	 * @return string
+	 * @var int
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           8
+	 * @db_is_primary       true
+	 * @con_sequence        true
 	 */
-	public static function returnDbTableName() {
-		return 'rep_robj_xlvo_voting_n';
-	}
-
-	/*
-	 * START
-	 * xlvoSingleVoteVoting
-	 */
+	protected $id;
 	/**
 	 * @var bool
 	 *
@@ -43,46 +40,6 @@ class xlvoVoting extends ActiveRecord {
 	 * @db_length           1
 	 */
 	protected $colors;
-
-
-	/**
-	 * @return boolean
-	 */
-	public function isMultiSelection() {
-		return $this->multi_selection;
-	}
-
-
-	/**
-	 * @param boolean $multi_selection
-	 */
-	public function setMultiSelection($multi_selection) {
-		$this->multi_selection = $multi_selection;
-	}
-
-
-	/**
-	 * @return boolean
-	 */
-	public function isColors() {
-		return $this->colors;
-	}
-
-
-	/**
-	 * @param boolean $colors
-	 */
-	public function setColors($colors) {
-		$this->colors = $colors;
-	}
-	/*
-	 * END
-	 */
-
-	/*
-	 * START
-	 * xlvoSingleVoteVoting
-	 */
 	/**
 	 * @var bool
 	 *
@@ -91,48 +48,6 @@ class xlvoVoting extends ActiveRecord {
 	 * @db_length           1
 	 */
 	protected $multi_free_input;
-
-
-	/**
-	 * @return boolean
-	 */
-	public function isMultiFreeInput() {
-		return $this->multi_free_input;
-	}
-
-
-	/**
-	 * @param boolean $multi_free_input
-	 */
-	public function setMultiFreeInput($multi_free_input) {
-		$this->multi_free_input = $multi_free_input;
-	}
-
-
-	/*
-	 * END
-	 */
-
-	public function afterObjectLoad() {
-		// set all options for this voting
-		/**
-		 * @var xlvoOption $xlvoOptions
-		 */
-		$xlvoOptions = xlvoOption::where(array( 'voting_id' => $this->id ));
-		$this->setVotingOptions($xlvoOptions);
-	}
-
-
-	/**
-	 * @var int
-	 *
-	 * @db_has_field        true
-	 * @db_fieldtype        integer
-	 * @db_length           8
-	 * @db_is_primary       true
-	 * @con_sequence        true
-	 */
-	protected $id;
 	/**
 	 * @var int
 	 *
@@ -193,6 +108,72 @@ class xlvoVoting extends ActiveRecord {
 	 * @var xlvoOption []
 	 */
 	protected $voting_options;
+
+
+	/**
+	 * @return string
+	 */
+	public static function returnDbTableName() {
+		return 'rep_robj_xlvo_voting_n';
+	}
+
+
+	/**
+	 * @return boolean
+	 */
+	public function isMultiSelection() {
+		return $this->multi_selection;
+	}
+
+
+	/**
+	 * @param boolean $multi_selection
+	 */
+	public function setMultiSelection($multi_selection) {
+		$this->multi_selection = $multi_selection;
+	}
+
+
+	/**
+	 * @return boolean
+	 */
+	public function isColors() {
+		return $this->colors;
+	}
+
+
+	/**
+	 * @param boolean $colors
+	 */
+	public function setColors($colors) {
+		$this->colors = $colors;
+	}
+
+
+	/**
+	 * @return boolean
+	 */
+	public function isMultiFreeInput() {
+		return $this->multi_free_input;
+	}
+
+
+	/**
+	 * @param boolean $multi_free_input
+	 */
+	public function setMultiFreeInput($multi_free_input) {
+		$this->multi_free_input = $multi_free_input;
+	}
+
+
+	public function afterObjectLoad() {
+		// set all options for this voting
+		/**
+		 * @var xlvoOption $xlvoOptions
+		 */
+		$xlvoOptions = xlvoOption::where(array( 'voting_id' => $this->id ));
+		$this->setVotingOptions($xlvoOptions);
+	}
 
 
 	/**

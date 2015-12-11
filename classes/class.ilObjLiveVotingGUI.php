@@ -100,7 +100,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 		$this->tpl->getStandardTemplate();
 		$this->setTitleAndDescription();
 		// set title
-		if (! $this->getCreationMode()) {
+		if (!$this->getCreationMode()) {
 			$this->tpl->setTitle($this->object->getTitle());
 			$this->tpl->setTitleIcon(ilObject::_getIcon($this->object->getId()));
 
@@ -179,7 +179,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 
 					return;
 				}
-				if (! $cmd) {
+				if (!$cmd) {
 					$cmd = $this->getStandardCmd();
 				}
 				if ($cmd == 'infoScreen') {
@@ -196,7 +196,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 				break;
 		}
 
-		if (! $this->getCreationMode()) {
+		if (!$this->getCreationMode()) {
 			$this->tpl->show();
 		}
 	}
@@ -256,7 +256,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 
 
 	public function editProperties() {
-		if (! $this->access->hasWriteAccess()) {
+		if (!$this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
@@ -269,7 +269,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 
 
 	protected function initPropertiesForm() {
-		if (! $this->access->hasWriteAccess()) {
+		if (!$this->access->hasWriteAccess()) {
 			ilUtil::sendFailure(ilLiveVotingPlugin::getInstance()->txt('permission_denied'), true);
 		} else {
 			$this->form = new ilPropertyFormGUI();
@@ -301,7 +301,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 			 */
 			$config = xlvoVotingConfig::find($this->obj_id);
 			if ($config->isTerminable()) {
-				if (! $config->getStartDate() == NULL) {
+				if (!$config->getStartDate() == NULL) {
 					$te->setStart(new ilDateTime($config->getStartDate(), IL_CAL_DATETIME, $this->usr->getTimeZone()));
 					$te->setEnd(new ilDateTime($config->getEndDate(), IL_CAL_DATETIME, $this->usr->getTimeZone()));
 				} else {
@@ -336,7 +336,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 
 
 	public function updateProperties() {
-		if (! $this->access->hasWriteAccess()) {
+		if (!$this->access->hasWriteAccess()) {
 			ilUtil::sendFailure(ilLiveVotingPlugin::getInstance()->txt('permission_denied_write'), true);
 		} else {
 
@@ -410,10 +410,13 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 			 * @var ilCtrl $ilCtrl
 			 */
 			xlvoInitialisation::setCookiePIN($matches[1], true);
-//			ilUtil::redirect('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?pin='.$matches[1]);
+			//			ilUtil::redirect('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?pin='.$matches[1]);
 			$ilCtrl->initBaseClass('ilUIPluginRouterGUI');
 			$ilCtrl->setTargetScript('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/VoterEndpoint.php');
-			$ilCtrl->redirectByClass(array( 'ilUIPluginRouterGUI', 'xlvoVoterGUI' ));
+			$ilCtrl->redirectByClass(array(
+				'ilUIPluginRouterGUI',
+				'xlvoVoterGUI'
+			));
 		}
 
 		parent::_goto($a_target);

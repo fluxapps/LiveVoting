@@ -46,7 +46,7 @@ class ilObjLiveVoting extends ilObjectPlugin {
 
 
 	/**
-	 * @param int        $a_ref_id
+	 * @param int $a_ref_id
 	 * @param bool|false $by_oid
 	 */
 	function __construct($a_ref_id = 0, $by_oid = false) {
@@ -114,7 +114,7 @@ class ilObjLiveVoting extends ilObjectPlugin {
 		$pin = '';
 		$pin_found = false;
 
-		while (! $pin_found) {
+		while (!$pin_found) {
 			for ($i = 1; $i <= $length; $i ++) {
 				$rnd = mt_rand(0, count($array) - 1);
 				$pin .= $array[$rnd];
