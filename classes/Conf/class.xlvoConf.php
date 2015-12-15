@@ -14,6 +14,7 @@ class xlvoConf extends ActiveRecord {
 	const F_ALLOW_FULLSCREEN = 'allow_fullscreen';
 	const F_ALLOW_SHORTLINK = 'allow_shortlink';
 	const F_ALLOW_SHORTLINK_LINK = 'allow_shortlink_link';
+	const F_BASE_URL = 'base_url';
 	const F_ALLOW_GLOBAL_ANONYMOUS = 'global_anonymous';
 	const F_USE_QR = 'use_qr';
 
@@ -21,7 +22,7 @@ class xlvoConf extends ActiveRecord {
 	/**
 	 * @return string
 	 */
-	public static function getInstallationURL() {
+	public static function getShortLinkURL() {
 		if (self::get(self::F_ALLOW_SHORTLINK)) {
 			$url = self::get(self::F_ALLOW_SHORTLINK_LINK);
 			$url = rtrim($url, "/") . "/";
@@ -35,6 +36,21 @@ class xlvoConf extends ActiveRecord {
 			}
 		} else {
 			$url = ILIAS_HTTP_PATH . '/Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?';
+		}
+
+		return $url;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public static function getBaseURL() {
+		if (self::get(self::F_ALLOW_SHORTLINK)) {
+			$url = self::get(self::F_BASE_URL);
+			$url = rtrim($url, "/") . "/";
+		} else {
+			$url = ILIAS_HTTP_PATH;
 		}
 
 		return $url;

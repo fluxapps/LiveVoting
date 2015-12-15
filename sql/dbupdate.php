@@ -315,7 +315,7 @@ while ($resData = $ilDB->fetchAssoc($setData)) {
 <?php
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Conf/class.xlvoConf.php');
 xlvoConf::installDB();
-$a_set = $ilDB->query('SELECT * FROM trunk.rep_robj_xlvo_conf');
+$a_set = $ilDB->query('SELECT * FROM rep_robj_xlvo_conf');
 while ($data = $ilDB->fetchObject($a_set)) {
 	xlvoConf::set($data->config_key, $data->config_value);
 }

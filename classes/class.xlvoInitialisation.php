@@ -142,10 +142,11 @@ class xlvoInitialisation extends ilInitialisation {
 			self::initGlobal("tpl", $tpl);
 		}
 		global $tpl;
-		if (! self::USE_OWN_GLOBAL_TPL) {
+		if (!self::USE_OWN_GLOBAL_TPL) {
 			$tpl->getStandardTemplate();
 		}
-		$tpl->setVariable('BASE', '/'); // FSX TODO set to real root
+		require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Conf/class.xlvoConf.php');
+		$tpl->setVariable('BASE', xlvoConf::get(xlvoConf::F_BASE_URL)); // FSX TODO set to real root
 		if (self::USE_OWN_GLOBAL_TPL) {
 			include_once("./Services/jQuery/classes/class.iljQueryUtil.php");
 			iljQueryUtil::initjQuery();
@@ -161,7 +162,7 @@ class xlvoInitialisation extends ilInitialisation {
 		self::determineClient();
 		self::initClientIniFile();
 		self::initDatabase();
-		if (! is_object($GLOBALS["ilPluginAdmin"])) {
+		if (!is_object($GLOBALS["ilPluginAdmin"])) {
 			self::initGlobal("ilPluginAdmin", "ilPluginAdmin", "./Services/Component/classes/class.ilPluginAdmin.php");
 		}
 		self::setSessionHandler();
@@ -188,7 +189,7 @@ class xlvoInitialisation extends ilInitialisation {
 	// PIN COOKIE
 
 	protected static function readFromCookie() {
-		if (! empty($_COOKIE[self::XLVO_CONTEXT])) {
+		if (!empty($_COOKIE[self::XLVO_CONTEXT])) {
 			self::setContext($_COOKIE[self::XLVO_CONTEXT]);
 		} else {
 			self::setContext(self::CONTEXT_ILIAS);
@@ -221,7 +222,7 @@ class xlvoInitialisation extends ilInitialisation {
 	 * @return int
 	 */
 	public static function getCookiePIN() {
-		if (! self::hasCookiePIN()) {
+		if (!self::hasCookiePIN()) {
 			return false;
 		}
 

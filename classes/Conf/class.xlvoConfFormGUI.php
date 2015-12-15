@@ -52,6 +52,9 @@ class xlvoConfFormGUI extends ilPropertyFormGUI {
 		$shortlink = new ilTextInputGUI($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_LINK), xlvoConf::F_ALLOW_SHORTLINK_LINK);
 		$use_shortlink->addSubItem($shortlink);
 
+		$base_url = new ilTextInputGUI($this->parent_gui->txt(xlvoConf::F_BASE_URL), xlvoConf::F_BASE_URL);
+		$use_shortlink->addSubItem($base_url);
+
 		$this->addItem($use_shortlink);
 	}
 

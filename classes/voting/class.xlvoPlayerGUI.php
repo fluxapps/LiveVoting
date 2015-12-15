@@ -40,6 +40,7 @@ class xlvoPlayerGUI {
 	const CMD_TERMINATE = 'terminate';
 	const CMD_END_OF_VOTING_SCREEN = 'endOfVotingScreen';
 	const CMD_START_OF_VOTING_SCREEN = 'startOfVotingScreen';
+
 	/**
 	 * @var ilTemplate
 	 */
@@ -571,7 +572,7 @@ class xlvoPlayerGUI {
 		$template->setVariable('TITLE', $this->pl->txt('msg_start_of_voting_title') . ' ' . ilObject2::_lookupTitle($this->obj_id));
 
 		// QR-Code implementation
-		$codeContent = xlvoConf::getInstallationURL() . $xlvoVotingConfig->getPin();
+		$codeContent = xlvoConf::getShortLinkURL() . $xlvoVotingConfig->getPin();
 
 		$qrCode = new QrCode($codeContent);
 		$qrCode->setSize(180);
@@ -612,7 +613,7 @@ class xlvoPlayerGUI {
 		$template->setVariable('QR-CODE', $qrCodeData);
 		$template->setVariable('QR-CODE-MODAL', $qrCodeDataModal);
 
-		$template->setVariable('SHORTLINK', xlvoConf::getInstallationURL() . $xlvoVotingConfig->getPin());
+		$template->setVariable('SHORTLINK', xlvoConf::getShortLinkURL() . $xlvoVotingConfig->getPin());
 		$template->setVariable('CLOSE_BUTTON', $this->pl->txt('cancel'));
 
 		$this->tpl->setContent($template->get());
