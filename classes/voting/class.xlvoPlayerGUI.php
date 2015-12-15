@@ -14,7 +14,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingManager.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoMultiLineInputGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoLinkButton.php');
-
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Conf/class.xlvoConf.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/lib/QrCode-master/src/QrCode.php');
 use Endroid\QrCode\QrCode;
 
@@ -129,7 +129,7 @@ class xlvoPlayerGUI {
 	 * The function is called via LinkButtons on the startOfVotingScreen and endOfVotingScreen.
 	 */
 	public function startVoting() {
-		if (! $this->access->hasWriteAccess()) {
+		if (!$this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 		} else {
 			/**
@@ -176,7 +176,7 @@ class xlvoPlayerGUI {
 				return $this->tpl->getMessageHTML($this->pl->txt('error_load_voting_failed'), 'failure');
 			}
 
-			if (! $this->access->hasWriteAccessForObject($xlvoVoting->getObjId(), $this->usr->getId())) {
+			if (!$this->access->hasWriteAccessForObject($xlvoVoting->getObjId(), $this->usr->getId())) {
 				ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 
 				return $this->tpl->getMessageHTML($this->pl->txt('permission_denied_write'), 'failure');
@@ -247,7 +247,7 @@ class xlvoPlayerGUI {
 	 * Redirect to next Voting.
 	 */
 	public function nextVoting() {
-		if (! $this->access->hasWriteAccess()) {
+		if (!$this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 		} else {
 			$voting_id_current = $this->getActiveVoting($this->obj_id);
@@ -289,7 +289,7 @@ class xlvoPlayerGUI {
 	 * Redirect to previous Voting.
 	 */
 	public function previousVoting() {
-		if (! $this->access->hasWriteAccess()) {
+		if (!$this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 		} else {
 			$voting_id_current = $this->getActiveVoting($this->obj_id);
@@ -332,7 +332,7 @@ class xlvoPlayerGUI {
 	 * Voting can be started or terminated in this view.
 	 */
 	public function startOfVotingScreen() {
-		if (! $this->access->hasWriteAccess()) {
+		if (!$this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 		} else {
 			try {
@@ -365,7 +365,7 @@ class xlvoPlayerGUI {
 	 * Voting can be restarted or terminated in this view.
 	 */
 	public function endOfVotingScreen() {
-		if (! $this->access->hasWriteAccess()) {
+		if (!$this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 		} else {
 			/**
@@ -390,7 +390,7 @@ class xlvoPlayerGUI {
 	 * @throws xlvoVotingManagerException
 	 */
 	public function resetVotes($obj_id, $voting_id) {
-		if (! $this->access->hasWriteAccessForObject($obj_id, $this->usr->getId())) {
+		if (!$this->access->hasWriteAccessForObject($obj_id, $this->usr->getId())) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 
 			return $this->tpl->getMessageHTML($this->pl->txt('permission_denied_write'), 'failure');
@@ -399,7 +399,7 @@ class xlvoPlayerGUI {
 			 * @var xlvoPlayer $xlvoPlayer
 			 */
 			$xlvoPlayer = $this->voting_manager->getPlayer($obj_id);
-			if ($xlvoPlayer->isFrozen() && ! $xlvoPlayer->isUnattended() && ($xlvoPlayer->getStatus() == xlvoPlayer::STAT_RUNNING)) {
+			if ($xlvoPlayer->isFrozen() && !$xlvoPlayer->isUnattended() && ($xlvoPlayer->getStatus() == xlvoPlayer::STAT_RUNNING)) {
 				$this->voting_manager->deleteVotesOfVoting($voting_id);
 			}
 
@@ -414,14 +414,14 @@ class xlvoPlayerGUI {
 	 * @return string
 	 */
 	public function freeze($obj_id) {
-		if (! $this->access->hasWriteAccessForObject($obj_id, $this->usr->getId())) {
+		if (!$this->access->hasWriteAccessForObject($obj_id, $this->usr->getId())) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 
 			return $this->tpl->getMessageHTML($this->pl->txt('permission_denied_write'), 'failure');
 		} else {
 			$xlvoPlayer = $this->voting_manager->getPlayer($obj_id);
 
-			if (($xlvoPlayer->getStatus() == xlvoPlayer::STAT_RUNNING) && ! $xlvoPlayer->isUnattended()) {
+			if (($xlvoPlayer->getStatus() == xlvoPlayer::STAT_RUNNING) && !$xlvoPlayer->isUnattended()) {
 				$this->voting_manager->freezeVoting($obj_id);
 
 				return '';
@@ -439,14 +439,14 @@ class xlvoPlayerGUI {
 	 * @return string
 	 */
 	public function unfreeze($obj_id) {
-		if (! $this->access->hasWriteAccessForObject($obj_id, $this->usr->getId())) {
+		if (!$this->access->hasWriteAccessForObject($obj_id, $this->usr->getId())) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 
 			return $this->tpl->getMessageHTML($this->pl->txt('permission_denied_write'), 'failure');
 		} else {
 			$xlvoPlayer = $this->voting_manager->getPlayer($obj_id);
 
-			if (($xlvoPlayer->getStatus() == xlvoPlayer::STAT_RUNNING) && ! $xlvoPlayer->isUnattended()) {
+			if (($xlvoPlayer->getStatus() == xlvoPlayer::STAT_RUNNING) && !$xlvoPlayer->isUnattended()) {
 				$this->voting_manager->unfreezeVoting($obj_id);
 
 				return '';
@@ -461,7 +461,7 @@ class xlvoPlayerGUI {
 	 * Change Player Status of Voting to terminated and redirect to start of voting.
 	 */
 	public function terminate() {
-		if (! $this->access->hasWriteAccess()) {
+		if (!$this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 		} else {
 			$this->voting_manager->terminateVoting($this->obj_id);
@@ -571,8 +571,7 @@ class xlvoPlayerGUI {
 		$template->setVariable('TITLE', $this->pl->txt('msg_start_of_voting_title') . ' ' . ilObject2::_lookupTitle($this->obj_id));
 
 		// QR-Code implementation
-		$codeContent = ILIAS_HTTP_PATH . '/Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?'
-			. $xlvoVotingConfig->getPin();
+		$codeContent = xlvoConf::getInstallationURL() . $xlvoVotingConfig->getPin();
 
 		$qrCode = new QrCode($codeContent);
 		$qrCode->setSize(180);
@@ -612,7 +611,8 @@ class xlvoPlayerGUI {
 
 		$template->setVariable('QR-CODE', $qrCodeData);
 		$template->setVariable('QR-CODE-MODAL', $qrCodeDataModal);
-		$template->setVariable('SHORTLINK', 'http://wac-test.studer-raimann.ch/vote/' . $xlvoVotingConfig->getPin());
+
+		$template->setVariable('SHORTLINK', xlvoConf::getInstallationURL() . $xlvoVotingConfig->getPin());
 		$template->setVariable('CLOSE_BUTTON', $this->pl->txt('cancel'));
 
 		$this->tpl->setContent($template->get());
