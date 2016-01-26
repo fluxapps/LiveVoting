@@ -22,10 +22,10 @@
 */
 require_once('./Services/Repository/classes/class.ilObjectPlugin.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingConfig.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoPlayer.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVoting.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVote.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoOption.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoPlayer.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVoting.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Vote/class.xlvoVote.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Option/class.xlvoOption.php');
 
 /**
  * Class ilObjLiveVoting
@@ -218,7 +218,7 @@ class ilObjLiveVoting extends ilObjectPlugin {
 		$player = xlvoPlayer::where(array( 'obj_id' => $this->getId() ))->first();
 		if ($player instanceof xlvoPlayer) {
 			$player_clone = $player->copy();
-			// reset active voting in player
+			// reset active Voting in player
 			$player_clone->setActiveVoting(0);
 			$player_clone->setObjId($new_obj->getId());
 			$player_clone->create();

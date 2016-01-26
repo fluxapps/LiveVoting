@@ -2,12 +2,12 @@
 	$.fn.loadVoting = function () {
 		$(document).ready(function () {
 
-			var current_voting_id = $('#voting-data').attr('voting');
-			var object_id = $('#voting-data').attr('object');
-			var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/display/class.xlvoPlayerEndpoint.php";
+			var current_voting_id = $('#Voting-data').attr('Voting');
+			var object_id = $('#Voting-data').attr('object');
+			var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/display/class.xlvoPlayerEndpoint.php";
 
 			var loadVotingScreen = function () {
-				// load voting
+				// load Voting
 				$.get(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'voting_screen'})
 					.done(function (data) {
 
@@ -22,7 +22,7 @@
 			};
 
 			var loadInfoScreen = function (type_player) {
-				var type = $('#voting-data').attr('info-type');
+				var type = $('#Voting-data').attr('info-type');
 				if (type != type_player) {
 					$.get(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: type_player})
 						.done(function (data) {
@@ -85,10 +85,10 @@
 						} else if (isAvailable == 0) {
 							loadNotAvailableScreen();
 						} else if (status == 2) {
-							// status 2 = start of voting
+							// status 2 = start of Voting
 							loadStartOfVotingScreen();
 						} else if (status == 3) {
-							// status 3 = end of voting
+							// status 3 = end of Voting
 							loadEndOfVotingScreen();
 						} else if (isFrozen) {
 							loadVotingScreen();
@@ -110,7 +110,7 @@
 
 setInterval($('.display-voter').loadVoting, 1000);
 
-// For freeInput voting type only.
+// For freeInput Voting type only.
 // Initializes delete buttons for freeInput form after page replacement.
 (function ($) {
 	$.fn.initFreeInputDeleteButtons = function () {
@@ -147,9 +147,9 @@ setInterval($('.display-voter').loadVoting, 1000);
 
 				// get values for POST request
 				var pin_input = $('#pin_input').val();
-				var object_id = $('#voting-data').attr('object');
-				var current_voting_id = $('#voting-data').attr('voting');
-				var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/display/class.xlvoPlayerEndpoint.php";
+				var object_id = $('#Voting-data').attr('object');
+				var current_voting_id = $('#Voting-data').attr('Voting');
+				var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/display/class.xlvoPlayerEndpoint.php";
 
 				$.post(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'access_voting', pin_input: pin_input})
 					.done(function (data) {

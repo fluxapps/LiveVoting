@@ -1,5 +1,5 @@
 <?php
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/display/class.xlvoBarGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/display/class.xlvoBarGUI.php');
 
 /**
  * Class xlvoBarFreeInputGUI
@@ -30,7 +30,7 @@ class xlvoBarFreeInputGUI extends xlvoBarGUI {
 
 		$this->voting = $voting;
 		$this->vote = $vote;
-		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/tpl.bar_free_input.html', true, true);
+		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voting/display/tpl.bar_free_input.html', true, true);
 	}
 
 

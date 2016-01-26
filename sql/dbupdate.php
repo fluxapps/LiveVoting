@@ -184,17 +184,17 @@ $ilDB->addTableColumn('rep_robj_xlvo_data', 'is_colorful', array(
 ?>
 <#9>
 <?php
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoOption.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoOption.php');
 xlvoOption::installDB();
 ?>
 <#10>
 <?php
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVote.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVote.php');
 xlvoVote::installDB();
 ?>
 <#11>
 <?php
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVoting.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVoting.php');
 xlvoVoting::installDB();
 ?>
 <#12>
@@ -204,7 +204,7 @@ xlvoVotingConfig::installDB();
 ?>
 <#13>
 <?php
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoPlayer.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoPlayer.php');
 xlvoPlayer::installDB();
 ?>
 <#14>
@@ -223,10 +223,10 @@ $ilDB->addTableColumn('rep_robj_xlvo_data', 'end_time', array(
  * @var $ilDB ilDB
  */
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingConfig.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVoting.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVoting.php');
 require_once('./Services/Object/classes/class.ilObject2.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingType.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoOption.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoOption.php');
 
 $query = "SELECT * FROM rep_robj_xlvo_data";
 $setData = $ilDB->query($query);

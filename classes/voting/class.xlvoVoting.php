@@ -167,7 +167,7 @@ class xlvoVoting extends ActiveRecord {
 
 
 	public function afterObjectLoad() {
-		// set all options for this voting
+		// set all options for this Voting
 		/**
 		 * @var xlvoOption $xlvoOptions
 		 */

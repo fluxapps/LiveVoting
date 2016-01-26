@@ -19,8 +19,8 @@
 				var free_input = $('#free_input').val();
 				var option_id = $('#option_id').val();
 				var vote_id = $('#vote_id').val();
-				var object_id = $('#voting-data').attr('object');
-				var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/freeInput/class.xlvoFreeInputSubmitEndpoint.php";
+				var object_id = $('#Voting-data').attr('object');
+				var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/FreeInput/class.xlvoFreeInputSubmitEndpoint.php";
 
 				// get name of submit button
 				var button = $(this).find("input[type=submit][clicked=true]");
@@ -103,8 +103,8 @@ $('#form_free_input').freeInputVote();
 
 				// get values for POST request
 				var option_id = $(".multi_input_line").attr('option_id');
-				var object_id = $('#voting-data').attr('object');
-				var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/freeInput/class.xlvoFreeInputSubmitEndpoint.php";
+				var object_id = $('#Voting-data').attr('object');
+				var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/FreeInput/class.xlvoFreeInputSubmitEndpoint.php";
 
 				// get name of submit button
 				var button = $(this).find("input[type=submit][clicked=true]");

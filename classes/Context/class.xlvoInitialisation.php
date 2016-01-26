@@ -146,7 +146,7 @@ class xlvoInitialisation extends ilInitialisation {
 			$tpl->getStandardTemplate();
 		}
 		require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Conf/class.xlvoConf.php');
-		$tpl->setVariable('BASE', xlvoConf::get(xlvoConf::F_BASE_URL)); // FSX TODO set to real root
+		$tpl->setVariable('BASE', xlvoConf::get(xlvoConf::F_BASE_URL)?xlvoConf::get(xlvoConf::F_BASE_URL):'/'); // FSX TODO set to real root
 		if (self::USE_OWN_GLOBAL_TPL) {
 			include_once("./Services/jQuery/classes/class.iljQueryUtil.php");
 			iljQueryUtil::initjQuery();

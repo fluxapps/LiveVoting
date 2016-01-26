@@ -1,5 +1,5 @@
 <?php
-
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/OpenCast/classes/class.xoctDynLan.php');
 include_once('./Services/Repository/classes/class.ilRepositoryObjectPlugin.php');
 
 /**
@@ -9,7 +9,7 @@ include_once('./Services/Repository/classes/class.ilRepositoryObjectPlugin.php')
  * @version $Id$
  *
  */
-class ilLiveVotingPlugin extends ilRepositoryObjectPlugin {
+class ilLiveVotingPlugin extends ilRepositoryObjectPlugin implements xoctDynLanInterface {
 
 	const PLUGIN_NAME = 'LiveVoting';
 	/**
@@ -22,7 +22,7 @@ class ilLiveVotingPlugin extends ilRepositoryObjectPlugin {
 	 * @return ilLiveVotingPlugin
 	 */
 	public static function getInstance() {
-		if (! isset(self::$instance)) {
+		if (!isset(self::$instance)) {
 			self::$instance = new self();
 		}
 
@@ -41,5 +41,31 @@ class ilLiveVotingPlugin extends ilRepositoryObjectPlugin {
 	protected function uninstallCustom() {
 		// TODO: Implement uninstallCustom() method.
 
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getCsvPath() {
+		return './Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/lang/lang.csv';
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getAjaxLink() {
+		return NULL;
+	}
+
+
+	/**
+	 * @param $a_var
+	 *
+	 * @return string
+	 */
+	public function txt22($a_var) {
+		return xoctDynLan::getInstance($this, xoctDynLan::MODE_DEV)->txt($a_var);
 	}
 }

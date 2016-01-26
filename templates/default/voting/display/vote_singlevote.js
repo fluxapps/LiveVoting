@@ -15,8 +15,8 @@
 				// get values for POST request
 				var option_id = $(this).find("input[name='option_id']").val();
 				var vote_id = $(this).find("input[name='vote_id']").val();
-				var object_id = $('#voting-data').attr('object');
-				var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/singleVote/class.xlvoSingleVoteSubmitEndpoint.php";
+				var object_id = $('#Voting-data').attr('object');
+				var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/singleVote/class.xlvoSingleVoteSubmitEndpoint.php";
 
 				$.post(url, {option_id: option_id, vote_id: vote_id, object_id: object_id})
 					.done(function (data) {

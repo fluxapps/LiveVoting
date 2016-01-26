@@ -10,13 +10,13 @@
  */
 
 chdir(strstr($_SERVER['SCRIPT_FILENAME'], 'Customizing', true));
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoInitialisation.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Context/class.xlvoInitialisation.php');
 xlvoInitialisation::init();
 
 global $ilCtrl, $ilBench;
 /**
  * @var ilCtrl $ilCtrl
  */
-$ilCtrl->setTargetScript("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/VoterEndpoint.php");
+$ilCtrl->setTargetScript("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/VoterEndpoint.php");
 $ilCtrl->callBaseClass();
 $ilBench->save();

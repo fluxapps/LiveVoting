@@ -1,0 +1,147 @@
+<!-- language file start -->
+
+<!-- Genereal Plugin Texts -->
+obj_xlvo_duplicate#:#Kopieren
+obj_xlvo#:#Live Voting
+objs_xlvo#:#Live Votings
+objs_xlvo_duplicate#:#Kopiere Live Voting
+
+content#:#Inhalt
+online#:#Online
+offline#:#Offline
+common_actions#:#Aktionen
+edit_properties#:#Einstellungen
+
+<!-- Permission Denied Messages -->
+permission_denied#:#Zugriff verweigert!
+permission_denied_object#:#Zugriff verweigert! Kein Zugriff auf dieses Objekt.
+permission_denied_read#:#Zugriff verweigert! Keine Leserechte für dieses Objekt.
+permission_denied_write#:#Zugriff verweigert! Keine Schreibrechte für dieses Objekt.
+permission_denied_delete#:#Zugriff verweigert! Keine Löschrechte für dieses Objekt.
+
+<!-- Buttons -->
+save#:#Speichern
+send#:#Senden
+create#:#Erstellen
+edit#:#Bearbeiten
+update#:#Update
+delete#:#Löschen
+reset#:#Resultate Zurücksetzen
+reset_all#:#Alle Resultate zurücksetzen
+back#:#Zurück
+cancel#:#Abbrechen
+next#:#Weiter
+
+<!-- LinkButtons (txt-function not used; setCaption('rep_robj_*')) -->
+freeze#:#Pausieren
+unfreeze#:#Fortsetzen
+terminate#:#Beenden
+reset#:#Resultate Zurücksetzen
+hide_results#:#Resultate verstecken
+show_results#:#Resultate anzeigen
+start_voting#:#Starten
+back_to_voting#:#Zurück zum LiveVoting
+add_voting#:#Frage hinzufügen
+reset_all_votes#:#Alle Resultate zurücksetzen
+
+<!-- Genereal VotingForms -->
+msg_voting_not_complete#:#Die Frage ist noch nicht komplett. Bitte schliessen Sie den Erstellvorgang ab.
+msg_success_voting_created#:#Die Frage wurde erfolgreich gespeichert.
+msg_success_voting_updated#:#Die Frage wurde erfolgreich aktualisiert.
+
+<!-- ilUtil Messages as AJAX Response -->
+error_vote_failed#:#Der Eintrag konnte nicht gespeichert werden, da ein Fehler aufgetreten ist.
+error_free_input_multi_vote_failed#:#Es konnten nicht alle Einträge gespeichert werden, da ein Fehler aufgetreten ist.
+error_vote_reset_failed#:#Der Eintrag konnte nicht gelöscht werden, da ein Fehler aufgetreten ist.
+error_voting_terminated#:#Das LiveVoting wurde beendet, weil das gesetzte Zeitlimit erreicht wurde oder ein anderer Fehler vorliegt.
+error_load_voting_failed#:#Die Frage konnte nicht geladen werden, da ein Fehler aufgetreten ist. Bitte Seite neu laden oder LiveVoting neu starten.
+
+<!-- xlvoFreeInputGUI -->
+answer#:#Antwort
+answers#:#Antworten
+delete_all#:#Alle löschen
+
+<!-- xlvoFreeInputVotingFormGUI -->
+multi_free_input#:#Mehrfache Eingaben
+info_freeinput_multi_free_input#:#Ein Nutzer kann mehr als einen Text absenden.
+msg_multi_free_input_not_editable#:#Diese Option kann nicht gewechselt werden, da die Frage bereits Resultate enthält. Um die Option wieder bearbeiten zu können, müssen die bestehenden Resultate dieser Frage zurückgesetzt werden.
+
+<!-- xlvoSingleVoteVotingFormGUI -->
+multi_selection#:#Mehrfachauswahl
+info_singlevote_multi_selection#:#Ein Nutzer kann für mehrere Auswahlmöglichkeiten gleichzeitig abstimmen.
+colors#:#Farbige Balken
+info_singlevote_colors#:#Die Auswahlmöglichkeiten werden während des LiveVotings in verschiedenen Farben dargestellt.
+options#:#Möglichkeiten
+info_singlevote_options#:#Nutzer können für die erfassten Auswahlmöglichkeiten abstimmen.
+option_text#:#Eingabe
+msg_options_not_editable#:#Die Möglichkeiten können nicht angepasst werden, da diese bereits Resultate enthalten. Um die Möglichkeiten wieder bearbeiten zu können, müssen die bestehenden Resultate dieser Frage zurückgesetzt werden.
+
+<!-- xlvoPlayerGUI -->
+msg_no_voting_available#:#Es ist keine Frage verfügbar. Bitte eine Frage hinzufügen.
+msg_voting_not_available#:#Die Frage konnte nicht aufgerufen werden. Prüfen Sie bitte, ob das LiveVoting ordnungsgemäss gestartet wurde und im allfällig festgelegten Zeitrahmen liegt.
+msg_start_of_voting_title#:#Startseite
+msg_end_of_voting#:#Sie sind am Ende des LiveVotings angelangt. Bitte beenden oder zum LiveVoting zurückkehren.
+voting_list#:#Fragen
+
+<!-- xlvoVoterGUI -->
+voting#:#LiveVoting
+msg_waiting_screen#:#Bitte warten.
+msg_not_running_screen#:#Das LiveVoting ist momentan nicht aktiv.
+msg_not_available_screen#:#Das LiveVoting ist nicht verfügbar.
+msg_access_screen#:#Bitte geben Sie den PIN ein:
+msg_start_of_voting_screen#:#Bitte auf den Beginn des LiveVotings warten.
+msg_end_of_voting_screen#:#Ende des LiveVotings. Vielen Dank für die Teilnahme.
+msg_validation_error_pin#:#Es konnte kein aktives LiveVoting zum eingegebenen PIN gefunden werden.
+pin_input#:#PIN
+
+<!-- xlvoVotingFormGUI -->
+voting_title#:#Titel
+info_voting_title#:#Titel der Frage. Wird während der Durchführung angezeigt.
+voting_description#:#Beschreibung
+info_voting_description#:#Beschreibt die Frage.
+voting_question#:#Frage
+info_voting_question#:#Die Frage wird den Nutzern gestellt.
+voting_type#:#Voting Typ
+info_voting_type#:#Der Typ kann später nicht mehr geändert werden.
+voting_active#:#Aktiv
+info_voting_status#:#Nur aktive Fragen werden beim LiveVoting angezeigt.
+
+<!-- Voting Typen/Status -->
+single_vote#:#Stimmabgabe
+free_input#:#Freie Texteingabe
+
+active#:#Aktiv
+inactive#:#Inaktiv
+incomplete#:#Nicht komplett
+
+<!-- xlvoVotingGUI -->
+confirm_delete_voting#:#Möchten Sie die Frage mit allen zugehörigen Abstimmungsresultaten wirklich löschen?
+delete_failed#:#Der Löschvorgang ist fehlgeschlagen.
+confirm_reset_voting#:#Möchten Sie die Abstimmungsresultate der ausgewählten Frage wirklich löschen?
+reset_failed#:#Das Zurücksetzen der Resultate ist fehlgeschlagen.
+confirm_reset_all_votings#:#Möchten Sie die Abstimmungsresultate aller Fragen wirklich löschen?
+confirm_number_of_votes#:#Anzahl Antworten
+sorting_saved#:#Die neue Reihenfolge wurde gespeichert.
+
+<!-- xlvoVotingTableGUI -->
+save_sorting#:#Reihenfolge speichern
+voting_status#:#Status
+voting_type#:#Typ
+
+<!-- ilObjLiveVotingGUI -->
+player#:#Player
+voting_content#:#Inhalt
+title#:#Titel
+info_properties_title#:#Titel des LiveVotings.
+description#:#Beschreibung
+info_properties_description#:#Beschreibung des LiveVotings.
+online#:#Online
+info_properties_online#:#Das LiveVoting muss online sein, damit es durchgeführt werden kann.
+anonymous#:#Anonyme Abstimmung
+info_properties_anonymous#:#Die Teilnahme am anonymen LiveVoting erfodert kein Ilias Benutzerkonto. Alle Personen im Besitz des entsprechendne PINs können am LiveVoting teilnehmen.
+terminable#:#Zeitlich begrenzte Stimmabgabe
+info_properties_terminable#:#Falls die Endzeit während der Durchführung des LiveVotings eintritt, wird das LiveVoting gestoppt.
+terminable_select#:#Auswahl
+terminable_select_start_time#:#Startzeit
+terminable_select_end_time#:#Endzeit
+msg_properties_form_saved#:#Die Einstellungen wurden gespeichert.

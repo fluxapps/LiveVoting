@@ -1,16 +1,16 @@
 <?php
 
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingGUI.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/freeInput/class.xlvoFreeInputVotingFormGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVotingGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/SingleVote/class.xlvoSingleVoteVotingFormGUI.php');
 
 /**
- * Class xlvoFreeInputVotingGUI
+ * Class xlvoSingleVoteVotingGUI
  *
  * @author  Daniel Aemmer <daniel.aemmer@phbern.ch>
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version 1.0.0
  */
-class xlvoFreeInputVotingGUI extends xlvoVotingGUI {
+class xlvoSingleVoteVotingGUI extends xlvoVotingGUI {
 
 	public function __construct() {
 		parent::__construct();
@@ -33,8 +33,8 @@ class xlvoFreeInputVotingGUI extends xlvoVotingGUI {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect(new xlvoVotingGUI(), self::CMD_STANDARD);
 		} else {
-			$xlvoFreeInputVotingFormGUI = new xlvoFreeInputVotingFormGUI($this, xlvoVoting::find($_GET[parent::IDENTIFIER]));
-			$this->tpl->setContent($xlvoFreeInputVotingFormGUI->getHTML());
+			$xlvoSingleVoteVotingFormGUI = new xlvoSingleVoteVotingFormGUI($this, xlvoVoting::find($_GET[parent::IDENTIFIER]));
+			$this->tpl->setContent($xlvoSingleVoteVotingFormGUI->getHTML());
 		}
 	}
 
@@ -44,13 +44,13 @@ class xlvoFreeInputVotingGUI extends xlvoVotingGUI {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect(new xlvoVotingGUI(), self::CMD_STANDARD);
 		} else {
-			$xlvoFreeInputVotingFormGUI = new xlvoFreeInputVotingFormGUI($this, xlvoVoting::find($_GET[parent::IDENTIFIER]));
-			$xlvoFreeInputVotingFormGUI->setValuesByPost();
-			if ($xlvoFreeInputVotingFormGUI->saveObject()) {
+			$xlvoSingleVoteVotingFormGUI = new xlvoSingleVoteVotingFormGUI($this, xlvoVoting::find($_GET[parent::IDENTIFIER]));
+			$xlvoSingleVoteVotingFormGUI->setValuesByPost();
+			if ($xlvoSingleVoteVotingFormGUI->saveObject()) {
 				ilUtil::sendSuccess($this->pl->txt('msg_success_voting_created'), true);
 				$this->ctrl->redirect(new xlvoVotingGUI(), self::CMD_STANDARD);
 			}
-			$this->tpl->setContent($xlvoFreeInputVotingFormGUI->getHTML());
+			$this->tpl->setContent($xlvoSingleVoteVotingFormGUI->getHTML());
 		}
 	}
 
@@ -60,9 +60,9 @@ class xlvoFreeInputVotingGUI extends xlvoVotingGUI {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect(new xlvoVotingGUI(), self::CMD_STANDARD);
 		} else {
-			$xlvoFreeInputVotingFormGUI = new xlvoFreeInputVotingFormGUI($this, xlvoVoting::find($_GET[parent::IDENTIFIER]));
-			$xlvoFreeInputVotingFormGUI->fillForm();
-			$this->tpl->setContent($xlvoFreeInputVotingFormGUI->getHTML());
+			$xlvoSingleVoteVotingFormGUI = new xlvoSingleVoteVotingFormGUI($this, xlvoVoting::find($_GET[parent::IDENTIFIER]));
+			$xlvoSingleVoteVotingFormGUI->fillForm();
+			$this->tpl->setContent($xlvoSingleVoteVotingFormGUI->getHTML());
 		}
 	}
 
@@ -72,13 +72,13 @@ class xlvoFreeInputVotingGUI extends xlvoVotingGUI {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect(new xlvoVotingGUI(), self::CMD_STANDARD);
 		} else {
-			$xlvoFreeInputVotingFormGUI = new xlvoFreeInputVotingFormGUI($this, xlvoVoting::find($_GET[parent::IDENTIFIER]));
-			$xlvoFreeInputVotingFormGUI->setValuesByPost();
-			if ($xlvoFreeInputVotingFormGUI->saveObject()) {
+			$xlvoSingleVoteVotingFormGUI = new xlvoSingleVoteVotingFormGUI($this, xlvoVoting::find($_GET[parent::IDENTIFIER]));
+			$xlvoSingleVoteVotingFormGUI->setValuesByPost();
+			if ($xlvoSingleVoteVotingFormGUI->saveObject()) {
 				ilUtil::sendSuccess($this->pl->txt('msg_success_voting_updated'), true);
 				$this->ctrl->redirect(new xlvoVotingGUI(), self::CMD_STANDARD);
 			}
-			$this->tpl->setContent($xlvoFreeInputVotingFormGUI->getHTML());
+			$this->tpl->setContent($xlvoSingleVoteVotingFormGUI->getHTML());
 		}
 	}
 

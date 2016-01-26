@@ -2,12 +2,12 @@
 
 require_once('./Services/Object/classes/class.ilObject2.php');
 require_once('./Services/Utilities/classes/class.ilConfirmationGUI.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingManager.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingFormGUI.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVoting.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingTableGUI.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/singleVote/class.xlvoSingleVoteVotingGUI.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/freeInput/class.xlvoFreeInputVotingGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVotingManager.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVotingFormGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVoting.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVotingTableGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/SingleVote/class.xlvoSingleVoteVotingGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/FreeInput/class.xlvoFreeInputVotingGUI.php');
 
 /**
  *
@@ -98,8 +98,6 @@ class xlvoVotingGUI {
 
 
 	public function executeCommand() {
-		$this->tabs->setTabActive(self::CMD_CONTENT);
-
 		$nextClass = $this->ctrl->getNextClass();
 		switch ($nextClass) {
 			case 'xlvosinglevotevotinggui':
@@ -118,7 +116,7 @@ class xlvoVotingGUI {
 
 	/**
 	 *
-	 * Switch for redirecting voting types to corresponding sub GUI.
+	 * Switch for redirecting Voting types to corresponding sub GUI.
 	 *
 	 * @param $voting_type
 	 * @param $cmd
@@ -136,17 +134,18 @@ class xlvoVotingGUI {
 
 
 	protected function content() {
-		if (! $this->access->hasWriteAccess()) {
+		if (!$this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 		} else {
 			if ($this->access->hasWriteAccess()) {
 				$b = ilLinkButton::getInstance();
-				$b->setCaption('rep_robj_xlvo_add_voting');
+				$b->setPrimary(true);
+				$b->setCaption('rep_robj_xlvo_voting_add');
 				$b->setUrl($this->ctrl->getLinkTarget(new xlvoVotingGUI(), self::CMD_ADD));
 				$this->toolbar->addButtonInstance($b);
 
 				$b = ilLinkButton::getInstance();
-				$b->setCaption('rep_robj_xlvo_reset_all_votes');
+				$b->setCaption('rep_robj_xlvo_voting_reset_all');
 				$b->setUrl($this->ctrl->getLinkTarget(new xlvoVotingGUI(), self::CMD_CONFIRM_RESET_ALL));
 				$this->toolbar->addButtonInstance($b);
 
@@ -158,7 +157,7 @@ class xlvoVotingGUI {
 
 
 	protected function add() {
-		if (! $this->access->hasWriteAccess()) {
+		if (!$this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
@@ -169,7 +168,7 @@ class xlvoVotingGUI {
 
 
 	protected function create() {
-		if (! $this->access->hasWriteAccess()) {
+		if (!$this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
@@ -187,7 +186,7 @@ class xlvoVotingGUI {
 
 
 	protected function edit() {
-		if (! $this->access->hasWriteAccess()) {
+		if (!$this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
@@ -199,7 +198,7 @@ class xlvoVotingGUI {
 
 
 	protected function update() {
-		if (! $this->access->hasWriteAccess()) {
+		if (!$this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
@@ -217,7 +216,7 @@ class xlvoVotingGUI {
 
 
 	protected function confirmDelete() {
-		if (! $this->access->hasWriteAccess()) {
+		if (!$this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
@@ -245,7 +244,7 @@ class xlvoVotingGUI {
 
 
 	protected function delete() {
-		if (! $this->access->hasWriteAccess()) {
+		if (!$this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
@@ -281,7 +280,7 @@ class xlvoVotingGUI {
 
 
 	protected function confirmReset() {
-		if (! $this->access->hasWriteAccess()) {
+		if (!$this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
@@ -309,7 +308,7 @@ class xlvoVotingGUI {
 
 
 	protected function reset() {
-		if (! $this->access->hasWriteAccess()) {
+		if (!$this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
@@ -337,7 +336,7 @@ class xlvoVotingGUI {
 
 
 	protected function confirmResetAll() {
-		if (! $this->access->hasWriteAccess()) {
+		if (!$this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
@@ -362,7 +361,7 @@ class xlvoVotingGUI {
 
 
 	protected function resetAll() {
-		if (! $this->access->hasWriteAccess()) {
+		if (!$this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
@@ -391,18 +390,20 @@ class xlvoVotingGUI {
 
 
 	protected function saveSorting() {
-		if (! $this->access->hasWriteAccess()) {
+		if (!$this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 		} else {
-			foreach ($_POST['position'] as $k => $v) {
-				/**
-				 * @var $xlvoVoting xlvoVoting
-				 */
-				$xlvoVoting = xlvoVoting::find($v);
-				$xlvoVoting->setPosition($k + 1);
-				$xlvoVoting->update();
+			if (is_array($_POST['position'])) {
+				foreach ($_POST['position'] as $k => $v) {
+					/**
+					 * @var $xlvoVoting xlvoVoting
+					 */
+					$xlvoVoting = xlvoVoting::find($v);
+					$xlvoVoting->setPosition($k + 1);
+					$xlvoVoting->update();
+				}
 			}
-			ilUtil::sendSuccess($this->pl->txt('sorting_saved'), true);
+			ilUtil::sendSuccess($this->pl->txt('voting_msg_sorting_saved'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		}
 	}

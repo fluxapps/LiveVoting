@@ -1,5 +1,5 @@
 <?php
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/display/class.xlvoBarGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/display/class.xlvoBarGUI.php');
 
 /**
  * Class xlvoBarPercentageGUI
@@ -42,7 +42,7 @@ class xlvoBarPercentageGUI extends xlvoBarGUI {
 		$this->option = $option;
 		$this->votes = clone $votes;
 		$this->option_letter = $option_letter;
-		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/tpl.bar_percentage.html', true, true);
+		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voting/display/tpl.bar_percentage.html', true, true);
 	}
 
 

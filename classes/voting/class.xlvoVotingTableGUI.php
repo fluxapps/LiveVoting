@@ -47,7 +47,7 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 		$this->ctrl = $ilCtrl;
 		$this->pl = ilLiveVotingPlugin::getInstance();
 
-		$this->voting_gui->tpl->addJavaScript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/sortable.js');
+		$this->voting_gui->tpl->addJavaScript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voting/sortable.js');
 
 		$this->setId(self::TBL_ID);
 		$this->setPrefix(self::TBL_ID);
@@ -63,7 +63,7 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 		$this->parseData();
 
 		$this->setFormAction($this->ctrl->getFormAction($a_parent_obj));
-		$this->addCommandButton('saveSorting', $this->pl->txt('save_sorting'));
+		$this->addCommandButton('saveSorting', $this->pl->txt('voting_save_sorting'));
 	}
 
 

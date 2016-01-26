@@ -1,147 +1,29 @@
 <!-- language file start -->
-
-<!-- Genereal Plugin Texts -->
-obj_xlvo_duplicate#:#Duplicate
-obj_xlvo#:#Live Voting
-objs_xlvo#:#Live Votings
-objs_xlvo_duplicate#:#Duplicate Live Voting
-
-content#:#Content
-online#:#Online
-offline#:#Offline
 common_actions#:#Actions
-edit_properties#:#Properties
-
-<!-- Permission Denied Messages -->
-permission_denied#:#Permission denied!
-permission_denied_object#:#Permission denied! No access to this object.
-permission_denied_read#:#Permission denied! No read access to this object.
-permission_denied_write#:#Permission denied! No write access to this object.
-permission_denied_delete#:#Permission denied! No delete access to this object.
-
-<!-- Buttons -->
-save#:#Save
-send#:#Send
-create#:#Create
-edit#:#Edit
-update#:#Update
-delete#:#Delete
-reset#:#Reset results
-reset_all#:#Reset all results
-back#:#Back
-cancel#:#Cancel
-next#:#Next
-
-<!-- LinkButtons (txt-function not used; setCaption('rep_robj_*')) -->
-freeze#:#Pausieren
-unfreeze#:#Fortsetzen
-terminate#:#Stop
-reset#:#Reset results
-hide_results#:#Hide results
-show_results#:#Show results
-start_voting#:#Start
-back_to_voting#:#Back to LiveVoting
-add_voting#:#Add question
-reset_all_votes#:#Reset all results
-
-<!-- Genereal VotingForms -->
-msg_voting_not_complete#:#The creation of question has not been completed yet. Please finish the creation process.
-msg_success_voting_created#:#The question has been successfully created.
-msg_success_voting_updated#:#The question has been successfully updated.
-
-<!-- ilUtil Messages as AJAX Response -->
-error_vote_failed#:#The input could not be saved because an error occurred.
-error_free_input_multi_vote_failed#:#Not all inputs could be saved because an error occurred.
-error_vote_reset_failed#:#The entry could not be deleted because an error occurred.
-error_voting_terminated#:#The LiveVoting has been terminated. The specified time limit was exceeded or an other error occurred.
-error_load_voting_failed#:#Could not load question because an error occurred. Please reload the page or restart the LiveVoting.
-
-<!-- xlvoFreeInputGUI -->
-answer#:#Answer
-answers#:#Answers
-delete_all#:#Delete all
-
-<!-- xlvoFreeInputVotingFormGUI -->
-multi_free_input#:#Multiple inputs
-info_freeinput_multi_free_input#:#A voter can send more than one entry.
-msg_multi_free_input_not_editable#:#This option cannot be edited because the question contains votes already. In order to edit this option again, the existing results of this question have to be reset.
-
-<!-- xlvoSingleVoteVotingFormGUI -->
-multi_selection#:#Multi selection
-info_singlevote_multi_selection#:#A voter can vote for more than one option.
-colors#:#Colorful bars
-info_singlevote_colors#:#Options are displayed in multiple colors during the LiveVoting.
-options#:#Options
-info_singlevote_options#:#Voters can vote for the registered options.
-option_text#:#Input
-msg_options_not_editable#:#The options cannot be edited because the question contains votes already. In order to edit the options again, the existing results of this question have to be reset.
-
-<!-- xlvoPlayerGUI -->
-msg_no_voting_available#:#No question available. Please add a question.
-msg_voting_not_available#:#Could not load question. Please check if the LiveVoting was started properly and is not outside the limited time frame.
-msg_start_of_voting_title#:#Homepage
-msg_end_of_voting#:#You have reached the end of the LiveVoting. Plase stop or return to the LiveVoting.
-voting_list#:#Questions
-
-<!-- xlvoVoterGUI -->
-voting#:#LiveVoting
-msg_waiting_screen#:#Please wait.
-msg_not_running_screen#:#The LiveVoting is not active at the moment.
-msg_not_available_screen#:#The LiveVoting is not available.
-msg_access_screen#:#Please enter the PIN:
-msg_start_of_voting_screen#:#Please wait for the start of the LiveVoting.
-msg_end_of_voting_screen#:#End of the LiveVoting. Thanks for your participation.
-msg_validation_error_pin#:#Could not find a LiveVoting matching the entered PIN.
-pin_input#:#PIN
-
-<!-- xlvoVotingFormGUI -->
-voting_title#:#Title
-info_voting_title#:#Title of the question. Displayed during the LiveVoting.
-voting_description#:#Description
-info_voting_description#:#Describes question.
+common_back#:#Back
+obj_anonymous#:#Vote without Login
+obj_description#:#Description
+obj_edit_properties#:#Edit Properties
+obj_info_anonymous#:#The LiveVoting can be used for the voters without authentication, even when the Object is in a secured Space like a Course
+obj_info_online#:#Object is online and available
+obj_info_terminable#:#The LiveVoting only can be used in the definied period of time
+obj_online#:#Online
+obj_terminable#:#Limit voting time
+obj_terminable_select#:#Time range
+obj_terminable_select_end_time#:#End
+obj_terminable_select_start_time#:#Start
+obj_title#:#Title
+player_msg_no_votings#:#There are no Questions, the LiveVoting can be started.
+player_start_voting#:#Start LiveVoting
+subtab_edit#:#Manage
+subtab_show#:#Show
+tab_content#:#Content
+tab_edit#:#Properties
+voting_add#:#Add Voting
+voting_msg_sorting_saved#:#Order saved
 voting_question#:#Question
-info_voting_question#:#Question that is posed to the voters.
-voting_type#:#Voting Type
-info_voting_type#:#The type cannot be changed afterwards.
-voting_active#:#Active
-info_voting_status#:#Only active questions are displayed during the LiveVoting.
-
-<!-- Voting Typen/Status -->
-single_vote#:#Voting
-free_input#:#Free input
-
-active#:#Aktiv
-inactive#:#Inactive
-incomplete#:#Not complete
-
-<!-- xlvoVotingGUI -->
-confirm_delete_voting#:#The question with all corresponding options and results are deleted. Are you really sure?
-delete_failed#:#The deletion process failed. Please try again.
-confirm_reset_voting#:#All results of this question are deleted. Are you really sure?
-reset_failed#:#The reset process failed. Please try again.
-confirm_reset_all_votings#:#The results of all questions are deleted? Are you really sure?
-confirm_number_of_votes#:#Number of questions
-sorting_saved#:#The new order has been successfully saved.
-
-<!-- xlvoVotingTableGUI -->
-save_sorting#:#Save order
+voting_reset_all#:#Reset all Votings
+voting_save_sorting#:#Save Order
 voting_status#:#Status
+voting_title#:#Title
 voting_type#:#Type
-
-<!-- ilObjLiveVotingGUI -->
-player#:#Player
-voting_content#:#Content
-title#:#Title
-info_properties_title#:#Title of the LiveVoting.
-description#:#Description
-info_properties_description#:#Description of the LiveVoting.
-online#:#Online
-info_properties_online#:#The LiveVoting has to online to be accessible for the voters.
-anonymous#:#Anonymous Voting
-info_properties_anonymous#:#The anonymous LiveVoting does not require an Ilias user account. All persons in possession of the corresponding PIN can participate in the LiveVoting.
-terminable#:#Terminable voting
-info_properties_terminable#:#If the time limit is exceeded during the LiveVoting, the voting is stopped immediately.
-terminable_select#:#Selection
-terminable_select_start_time#:#Start
-terminable_select_end_time#:#End
-msg_properties_form_saved#:#The properties have been saDie Einstellungen wurden gespeichert.

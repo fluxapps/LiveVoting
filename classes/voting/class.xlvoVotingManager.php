@@ -1,9 +1,9 @@
 <?php
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingInterface.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingManagerException.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVote.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVoting.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoPlayer.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVotingInterface.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Exceptions/class.xlvoVotingManagerException.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Vote/class.xlvoVote.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVoting.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoPlayer.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingType.php');
 require_once('./Services/Object/classes/class.ilObject2.php');
 
@@ -40,14 +40,16 @@ class xlvoVotingManager implements xlvoVotingInterface {
 
 	/**
 	 * @param $obj_id
-	 *
-	 * @return xlvoVoting
+	 * @return ActiveRecordList
 	 */
 	public function getActiveVotings($obj_id) {
 		/**
-		 * @var xlvoVoting $xlvoVotings
+		 * @var ActiveRecordList $xlvoVotings
 		 */
-		$xlvoVotings = xlvoVoting::where(array( 'obj_id' => $obj_id, 'voting_status' => xlvoVoting::STAT_ACTIVE ))->orderBy('position', 'ASC');
+		$xlvoVotings = xlvoVoting::where(array(
+			'obj_id' => $obj_id,
+			'voting_status' => xlvoVoting::STAT_ACTIVE
+		))->orderBy('position', 'ASC');
 
 		return $xlvoVotings;
 	}
@@ -390,7 +392,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 			$hasAccess = true;
 		}
 
-		if (! $xlvoPlayer->isFrozenOrUnattended() && $xlvoPlayer->getStatus() == xlvoPlayer::STAT_RUNNING && $this->isVotingAvailable($obj_id)
+		if (!$xlvoPlayer->isFrozenOrUnattended() && $xlvoPlayer->getStatus() == xlvoPlayer::STAT_RUNNING && $this->isVotingAvailable($obj_id)
 			&& $hasAccess
 		) {
 
@@ -472,8 +474,8 @@ class xlvoVotingManager implements xlvoVotingInterface {
 
 	/**
 	 * @param xlvoVotingConfig $config
-	 * @param xlvoOption       $option
-	 * @param xlvoVote         $vote
+	 * @param xlvoOption $option
+	 * @param xlvoVote $vote
 	 */
 	protected function createVote(xlvoVotingConfig $config, xlvoOption $option, xlvoVote $vote) {
 		$vote->setOptionId($option->getId());
@@ -573,7 +575,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 		$xlvoVotingConfig = $this->getVotingConfig($obj_id);
 		$terminable = $xlvoVotingConfig->isTerminable();
 
-		if (! $terminable) {
+		if (!$terminable) {
 			return true;
 		} else {
 			$format = 'Y-m-d H:i:s';

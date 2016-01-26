@@ -1,13 +1,13 @@
-var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/display/class.xlvoPlayerEndpoint.php";
+var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/display/class.xlvoPlayerEndpoint.php";
 
 (function ($) {
 	$.fn.loadResults = function () {
 		$(document).ready(function () {
 
-			var current_voting_id = $('#voting-data').attr('voting');
-			var object_id = $('#voting-data').attr('object');
+			var current_voting_id = $('#Voting-data').attr('Voting');
+			var object_id = $('#Voting-data').attr('object');
 
-			// load voting
+			// load Voting
 			$.get(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'load_results'})
 				.done(function (data) {
 					//console.log(data);
@@ -28,10 +28,10 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 	$.fn.loadPlayerInfo = function () {
 		$(document).ready(function () {
 
-			var current_voting_id = $('#voting-data').attr('voting');
-			var object_id = $('#voting-data').attr('object');
+			var current_voting_id = $('#Voting-data').attr('Voting');
+			var object_id = $('#Voting-data').attr('object');
 
-			// load voting
+			// load Voting
 			$.get(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'load_player_info'})
 				.done(function (data) {
 					//console.log(data);
@@ -93,9 +93,9 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 			btnTerminate.html('<span class="glyphicon glyphicon-stop" aria-hidden="true"></span>' + btnTerminate.text());
 			var btnReset = $('#btn-reset');
 			btnReset.html('<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>' + btnReset.text());
-			var btnBackToVoting = $('#btn-back-to-voting');
+			var btnBackToVoting = $('#btn-back-to-Voting');
 			btnBackToVoting.html('<span class="glyphicon glyphicon-fast-backward" aria-hidden="true"></span>' + btnBackToVoting.text());
-			var btnStartVoting = $('#btn-start-voting');
+			var btnStartVoting = $('#btn-start-Voting');
 			btnStartVoting.html('<span class="glyphicon glyphicon-play" aria-hidden="true"></span>' + btnStartVoting.text());
 
 
@@ -106,7 +106,7 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 			btnHideResults.hide();
 			btnHideResults.parent().hide();
 
-			var isFrozen = $('#voting-data').attr('frozen');
+			var isFrozen = $('#Voting-data').attr('frozen');
 			var btnFreeze = $('#btn-freeze');
 			var btnUnfreeze = $('#btn-unfreeze');
 			if (isFrozen == true) {
@@ -135,8 +135,8 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 
 			btnFreeze.click(function () {
 
-				var current_voting_id = $('#voting-data').attr('voting');
-				var object_id = $('#voting-data').attr('object');
+				var current_voting_id = $('#Voting-data').attr('Voting');
+				var object_id = $('#Voting-data').attr('object');
 
 				// freeze
 				var post_data = {voting_id_current: current_voting_id, object_id: object_id, type_player: 'freeze_voting'};
@@ -172,9 +172,9 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 
 			btnUnfreeze.click(function () {
 
-				var current_voting_id = $('#voting-data').attr('voting');
+				var current_voting_id = $('#Voting-data').attr('Voting');
 
-				var object_id = $('#voting-data').attr('object');
+				var object_id = $('#Voting-data').attr('object');
 
 				// unfreeze
 				$.post(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'unfreeze_voting'})
@@ -206,12 +206,12 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 
 			btnReset.click(function () {
 
-				var current_voting_id = $('#voting-data').attr('voting');
-				var object_id = $('#voting-data').attr('object');
+				var current_voting_id = $('#Voting-data').attr('Voting');
+				var object_id = $('#Voting-data').attr('object');
 
 				$('.ilToolbar').find('.btn.btn-default').attr('class', 'btn btn-default disabled');
 
-				// reset votes of current voting
+				// reset votes of current Voting
 				$.post(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'reset_voting'})
 					.done(function (data) {
 						if (data.length < 10) {

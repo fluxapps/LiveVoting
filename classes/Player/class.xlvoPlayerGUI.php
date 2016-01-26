@@ -2,17 +2,17 @@
 require_once('./Services/Object/classes/class.ilObject2.php');
 require_once('./Services/UIComponent/Button/classes/class.ilLinkButton.php');
 require_once('./Services/UIComponent/AdvancedSelectionList/classes/class.ilAdvancedSelectionListGUI.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingManager.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/display/class.xlvoDisplayPlayerGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVotingManager.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/display/class.xlvoDisplayPlayerGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilObjLiveVotingAccess.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilObjLiveVotingAccess.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilLiveVotingPlugin.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingType.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVoterGUI.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoOption.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoPlayer.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoVotingManager.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/voting/class.xlvoMultiLineInputGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voter/class.xlvoVoterGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Option/class.xlvoOption.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoPlayer.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVotingManager.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoMultiLineInputGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoLinkButton.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Conf/class.xlvoConf.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/lib/QrCode-master/src/QrCode.php');
@@ -27,7 +27,7 @@ use Endroid\QrCode\QrCode;
  */
 class xlvoPlayerGUI {
 
-	const TAB_STANDARD = 'tab_player';
+	const TAB_STANDARD = 'tab_content';
 	const IDENTIFIER = 'xlvoVot';
 	const CMD_STANDARD = 'startOfVoting';
 	const CMD_SHOW_VOTING = 'showVoting';
@@ -40,7 +40,6 @@ class xlvoPlayerGUI {
 	const CMD_TERMINATE = 'terminate';
 	const CMD_END_OF_VOTING_SCREEN = 'endOfVotingScreen';
 	const CMD_START_OF_VOTING_SCREEN = 'startOfVotingScreen';
-
 	/**
 	 * @var ilTemplate
 	 */
@@ -101,12 +100,11 @@ class xlvoPlayerGUI {
 		$this->pl = ilLiveVotingPlugin::getInstance();
 		$this->voting_manager = new xlvoVotingManager();
 		$this->obj_id = ilObject2::_lookupObjId($_GET['ref_id']);
-		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/default.css');
+		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voting/display/default.css');
 	}
 
 
 	public function executeCommand() {
-		$this->tabs->setTabActive(self::TAB_STANDARD);
 		$nextClass = $this->ctrl->getNextClass();
 		switch ($nextClass) {
 			default:
@@ -125,8 +123,8 @@ class xlvoPlayerGUI {
 
 	/**
 	 * Start Voting and redirect to first Voting.
-	 * This function gets the first voting of the list of active votings. The Player is set to status running.
-	 * Redirects to the first voting view.
+	 * This function gets the first Voting of the list of active votings. The Player is set to status running.
+	 * Redirects to the first Voting view.
 	 * The function is called via LinkButtons on the startOfVotingScreen and endOfVotingScreen.
 	 */
 	public function startVoting() {
@@ -138,7 +136,6 @@ class xlvoPlayerGUI {
 			 */
 			$vo = $this->voting_manager->getActiveVotings($this->obj_id)->first();
 			if ($vo == NULL) {
-				ilUtil::sendInfo($this->pl->txt('msg_no_voting_available'), true);
 				$this->ctrl->redirect(new xlvoVotingGUI(), xlvoVotingGUI::CMD_STANDARD);
 			} else {
 				$this->setActiveVoting($vo->getId());
@@ -352,7 +349,6 @@ class xlvoPlayerGUI {
 					$this->setActiveVoting($vo->getId());
 				} else {
 					$this->voting_manager->createPlayer($this->obj_id);
-					ilUtil::sendInfo($this->pl->txt('msg_no_voting_available'), true);
 				}
 			}
 
@@ -459,7 +455,7 @@ class xlvoPlayerGUI {
 
 
 	/**
-	 * Change Player Status of Voting to terminated and redirect to start of voting.
+	 * Change Player Status of Voting to terminated and redirect to start of Voting.
 	 */
 	public function terminate() {
 		if (!$this->access->hasWriteAccess()) {
@@ -551,25 +547,23 @@ class xlvoPlayerGUI {
 	 * Set GUI Content for template at the start of Voting.
 	 */
 	protected function setContentStartOfVoting() {
-		$b = ilLinkButton::getInstance();
-		$b->setCaption('rep_robj_xlvo_start_voting');
-		$b->setUrl($this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_START_VOTING));
-		$b->setId('btn-start-voting');
-		$this->toolbar->addButtonInstance($b);
+		if (!$this->voting_manager->getActiveVotings($this->obj_id)->hasSets()) {
+			ilUtil::sendFailure($this->pl->txt('player_msg_no_votings'));
+		} else {
+			$b = ilLinkButton::getInstance();
+			$b->setCaption('rep_robj_xlvo_player_start_voting');
+			$b->setUrl($this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_START_VOTING));
+			$b->setId('btn-start-Voting');
+			$b->setPrimary(true);
+			$this->toolbar->addButtonInstance($b);
+		}
 
-		$b = ilLinkButton::getInstance();
-		$b->setCaption('rep_robj_xlvo_terminate');
-		$b->setUrl($this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_TERMINATE));
-		$b->setId('btn-terminate');
-		$this->toolbar->addButtonInstance($b);
-
-		$template = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/voting/display/tpl.player_start_screen.html', true, true);
+		$template = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voting/display/tpl.player_start_screen.html', true, true);
 		/**
 		 * @var xlvoVotingConfig $xlvoVotingConfig
 		 */
 		$xlvoVotingConfig = $this->voting_manager->getVotingConfig($this->obj_id);
 		$template->setVariable('PIN', $xlvoVotingConfig->getPin());
-		$template->setVariable('TITLE', $this->pl->txt('msg_start_of_voting_title') . ' ' . ilObject2::_lookupTitle($this->obj_id));
 
 		// QR-Code implementation
 		$codeContent = xlvoConf::getShortLinkURL() . $xlvoVotingConfig->getPin();
@@ -628,7 +622,7 @@ class xlvoPlayerGUI {
 		$bb = ilLinkButton::getInstance();
 		$bb->setCaption('rep_robj_xlvo_back_to_voting');
 		$bb->setUrl($this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_START_VOTING));
-		$bb->setId('btn-back-to-voting');
+		$bb->setId('btn-back-to-Voting');
 
 		$bt = ilLinkButton::getInstance();
 		$bt->setCaption('rep_robj_xlvo_terminate');
