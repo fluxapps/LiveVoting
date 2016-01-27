@@ -2,8 +2,8 @@
     $.fn.loadVoting = function () {
         $(document).ready(function () {
 
-            var current_voting_id = $('#Voting-data').attr('Voting');
-            var object_id = $('#Voting-data').attr('object');
+            var current_voting_id = $('#voting-data').attr('Voting');
+            var object_id = $('#voting-data').attr('object');
             var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voter/xlvo_voter_ajax.php";
 
             var loadVotingScreen = function () {
@@ -22,7 +22,7 @@
             };
 
             var loadInfoScreen = function (type_player) {
-                var type = $('#xlvo-data').attr('info-type');
+                var type = $('#voting-data').attr('info-type');
                 if (type != type_player) {
                     $.get(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: type_player})
                         .done(function (data) {
@@ -148,7 +148,7 @@ setInterval($('.display-voter').loadVoting, 1000);
                 var pin_input = $('#pin_input').val();
                 var object_id = $('#Voting-data').attr('object');
                 var current_voting_id = $('#Voting-data').attr('Voting');
-                var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/display/class.xlvoPlayerEndpoint.php";
+                var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voter/xlvo_voter_ajax.php";
 
                 $.post(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'access_voting', pin_input: pin_input})
                     .done(function (data) {

@@ -1,11 +1,11 @@
-var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/display/class.xlvoPlayerEndpoint.php";
+var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voter/xlvo_voter_ajax.php";
 
 (function ($) {
 	$.fn.loadResults = function () {
 		$(document).ready(function () {
 
-			var current_voting_id = $('#Voting-data').attr('Voting');
-			var object_id = $('#Voting-data').attr('object');
+			var current_voting_id = $('#voting-data').attr('Voting');
+			var object_id = $('#voting-data').attr('object');
 
 			// load Voting
 			$.get(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'load_results'})
@@ -28,8 +28,8 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 	$.fn.loadPlayerInfo = function () {
 		$(document).ready(function () {
 
-			var current_voting_id = $('#Voting-data').attr('Voting');
-			var object_id = $('#Voting-data').attr('object');
+			var current_voting_id = $('#voting-data').attr('Voting');
+			var object_id = $('#voting-data').attr('object');
 
 			// load Voting
 			$.get(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'load_player_info'})
@@ -106,7 +106,7 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 			btnHideResults.hide();
 			btnHideResults.parent().hide();
 
-			var isFrozen = $('#Voting-data').attr('frozen');
+			var isFrozen = $('#voting-data').attr('frozen');
 			var btnFreeze = $('#btn-freeze');
 			var btnUnfreeze = $('#btn-unfreeze');
 			if (isFrozen == true) {
@@ -135,8 +135,8 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 
 			btnFreeze.click(function () {
 
-				var current_voting_id = $('#Voting-data').attr('Voting');
-				var object_id = $('#Voting-data').attr('object');
+				var current_voting_id = $('#voting-data').attr('Voting');
+				var object_id = $('#voting-data').attr('object');
 
 				// freeze
 				var post_data = {voting_id_current: current_voting_id, object_id: object_id, type_player: 'freeze_voting'};
@@ -172,9 +172,9 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 
 			btnUnfreeze.click(function () {
 
-				var current_voting_id = $('#Voting-data').attr('Voting');
+				var current_voting_id = $('#voting-data').attr('Voting');
 
-				var object_id = $('#Voting-data').attr('object');
+				var object_id = $('#voting-data').attr('object');
 
 				// unfreeze
 				$.post(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'unfreeze_voting'})
@@ -206,8 +206,8 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 
 			btnReset.click(function () {
 
-				var current_voting_id = $('#Voting-data').attr('Voting');
-				var object_id = $('#Voting-data').attr('object');
+				var current_voting_id = $('#voting-data').attr('Voting');
+				var object_id = $('#voting-data').attr('object');
 
 				$('.ilToolbar').find('.btn.btn-default').attr('class', 'btn btn-default disabled');
 
