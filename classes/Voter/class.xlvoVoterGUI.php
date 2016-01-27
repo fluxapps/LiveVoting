@@ -90,11 +90,14 @@ class xlvoVoterGUI {
 
 
 	public function executeCommand() {
+		global $ilLog;
+
 		$this->tabs->addTab(self::TAB_STANDARD, $this->pl->txt('Voting'), $this->ctrl->getLinkTarget($this, self::CMD_STANDARD));
 		$nextClass = $this->ctrl->getNextClass();
 		switch ($nextClass) {
 			default:
 				$cmd = $this->ctrl->getCmd(self::CMD_STANDARD);
+				$ilLog->write('XLVO execute ' . $cmd);
 				$this->{$cmd}();
 				break;
 		}
@@ -111,13 +114,15 @@ class xlvoVoterGUI {
 	 * @return string
 	 */
 	public function showVoting($obj_id = NULL, $voting_id = NULL, $error_msg = NULL) {
+
 		if ($obj_id == NULL) {
 			$obj_id = 0;
-			$this->tpl->setContent($this->showInfoScreen($obj_id, self::INFO_TYPE_WAITING));
+			$waiting_html = $this->showInfoScreen($obj_id, self::INFO_TYPE_WAITING);
+			$this->tpl->setContent($waiting_html); // we're here for the fist time so we set the output, all following request will come through ajax
 
-			return $this->showInfoScreen($obj_id, self::INFO_TYPE_WAITING);
+			return $this->showInfoScreen($obj_id, self::INFO_TYPE_WAITING); // return the content for the ajax requests
 		} else {
-
+			// A voring is started
 			try {
 				$xlvoPlayer = $this->voting_manager->getPlayer($obj_id);
 			} catch (xlvoVotingManagerException $e) {
@@ -166,7 +171,7 @@ class xlvoVoterGUI {
 			$config = $this->voting_manager->getVotingConfigs()->where(array( 'pin' => $pin ))->first();
 			if ($config instanceof xlvoVotingConfig) {
 				if ($pin == $config->getPin()) {
-					if (! $config->isAnonymous()) {
+					if (!$config->isAnonymous()) {
 						xlvoInitialisation::init(xlvoInitialisation::CONTEXT_ILIAS);
 					}
 
@@ -248,7 +253,7 @@ class xlvoVoterGUI {
 				'voIsAvailable' => $this->voting_manager->isVotingAvailable($obj_id),
 				'voIsAnonymous' => $isAnonymous
 			);
-			if (! $isAnonymous) {
+			if (!$isAnonymous) {
 				$data['redirectUrl'] = $config->getRedirectURL();
 			}
 
@@ -270,7 +275,7 @@ class xlvoVoterGUI {
 		$template->touchBlock('loader');
 		$template->setVariable('OBJ_ID', $obj_id);
 		$template->setVariable('INFO_TYPE', $info_type);
-		if (! $has_error_msg) {
+		if (!$has_error_msg) {
 			$template->setVariable('INFO_TEXT', $this->pl->txt('msg_' . $info_type));
 		} else {
 			$error_message = $template->getMessageHTML($this->pl->txt('msg_validation_error_pin'), 'failure');

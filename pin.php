@@ -16,7 +16,7 @@ global $ilCtrl;
  * @var ilCtrl $ilCtrl
  */
 $ilCtrl->initBaseClass('ilUIPluginRouterGUI');
-$ilCtrl->setTargetScript(dirname($_SERVER['SCRIPT_NAME']) . '/classes/Voting/VoterEndpoint.php');
+$ilCtrl->setTargetScript(dirname($_SERVER['SCRIPT_NAME']) . '/classes/xlvoILIAS.php');
 $ilCtrl->redirectByClass(array(
 	'ilUIPluginRouterGUI',
 	'xlvoVoterGUI'

@@ -6,7 +6,7 @@ xlvoInitialisation::init();
 
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilObjLiveVotingAccess.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilLiveVotingPlugin.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVoterGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voter/class.xlvoVoterGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Option/class.xlvoOption.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVotingManager.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoPlayerGUI.php');
@@ -18,6 +18,11 @@ $posted_type = $_REQUEST['type_player'];
 $posted_voting_id = $_REQUEST['voting_id_current'];
 $posted_object_id = $_REQUEST['object_id'];
 $posted_pin = $_REQUEST['pin_input'];
+
+global $ilLog;
+$ilLog->write('XLVO PlayerEndpoint');
+$ilLog->write('posted_type: ' . $posted_type);
+//$ilLog->write('posted_pin: ' . $posted_pin);
 
 /**
  * Voter

@@ -10,7 +10,7 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 			// load Voting
 			$.get(url, {voting_id_current: current_voting_id, object_id: object_id, type_player: 'load_results'})
 				.done(function (data) {
-					//console.log(data);
+					console.log(data);
 					if (data.length > 10) {
 						$('#display-player').replaceWith(data);
 						$('#display-player').hideAndShowResults();

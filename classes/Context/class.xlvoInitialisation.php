@@ -222,6 +222,7 @@ class xlvoInitialisation extends ilInitialisation {
 	 * @return int
 	 */
 	public static function getCookiePIN() {
+		return false; // FSX remove
 		if (!self::hasCookiePIN()) {
 			return false;
 		}

@@ -438,7 +438,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 			xlvoInitialisation::setCookiePIN($matches[1], true);
 			//			ilUtil::redirect('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?pin='.$matches[1]);
 			$ilCtrl->initBaseClass('ilUIPluginRouterGUI');
-			$ilCtrl->setTargetScript('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/VoterEndpoint.php');
+			$ilCtrl->setTargetScript('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/xlvoILIAS.php');
 			$ilCtrl->redirectByClass(array(
 				'ilUIPluginRouterGUI',
 				'xlvoVoterGUI'

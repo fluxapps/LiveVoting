@@ -17,6 +17,6 @@ global $ilCtrl, $ilBench;
 /**
  * @var ilCtrl $ilCtrl
  */
-$ilCtrl->setTargetScript("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/VoterEndpoint.php");
+$ilCtrl->setTargetScript("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/xlvoILIAS.php");
 $ilCtrl->callBaseClass();
 $ilBench->save();
