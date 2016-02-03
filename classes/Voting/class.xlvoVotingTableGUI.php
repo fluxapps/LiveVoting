@@ -36,7 +36,7 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 	protected $ctrl;
 
 
-	public function  __construct(xlvoVotingGUI $a_parent_obj, $a_parent_cmd) {
+	public function __construct(xlvoVotingGUI $a_parent_obj, $a_parent_cmd) {
 		/**
 		 * @var $ilCtrl    ilCtrl
 		 * @var $ilToolbar ilToolbarGUI
@@ -63,32 +63,41 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 		$this->parseData();
 
 		$this->setFormAction($this->ctrl->getFormAction($a_parent_obj));
-		$this->addCommandButton('saveSorting', $this->pl->txt('voting_save_sorting'));
+		$this->addCommandButton('saveSorting', $this->txt('save_sorting'));
+	}
+
+
+	/**
+	 * @param $key
+	 * @return string
+	 */
+	protected function txt($key) {
+		return $this->voting_gui->txt($key);
 	}
 
 
 	protected function addFilterItems() {
-		$title = new ilTextInputGUI($this->pl->txt('voting_title'), 'title');
+		$title = new ilTextInputGUI($this->txt('title'), 'title');
 		$this->addAndReadFilterItem($title);
 
-		$question = new ilTextInputGUI($this->pl->txt('voting_question'), 'question');
+		$question = new ilTextInputGUI($this->txt('question'), 'question');
 		$this->addAndReadFilterItem($question);
 
-		$status = new ilSelectInputGUI($this->pl->txt('voting_status'), 'voting_status');
+		$status = new ilSelectInputGUI($this->txt('status'), 'voting_status');
 		$status_options = array(
 			- 1 => '',
-			xlvoVoting::STAT_INACTIVE => $this->pl->txt('inactive'),
-			xlvoVoting::STAT_ACTIVE => $this->pl->txt('active'),
-			xlvoVoting::STAT_INCOMPLETE => $this->pl->txt('incomplete')
+			xlvoVoting::STAT_INACTIVE => $this->txt('status_' . xlvoVoting::STAT_INACTIVE),
+			xlvoVoting::STAT_ACTIVE => $this->txt('status_' . xlvoVoting::STAT_ACTIVE),
+			xlvoVoting::STAT_INCOMPLETE => $this->txt('status_' . xlvoVoting::STAT_INCOMPLETE)
 		);
 		$status->setOptions($status_options);
 		$this->addAndReadFilterItem($status);
 
-		$type = new ilSelectInputGUI($this->pl->txt('voting_type'), 'voting_type');
+		$type = new ilSelectInputGUI($this->txt('type'), 'voting_type');
 		$type_options = array(
 			- 1 => '',
-			xlvoVotingType::SINGLE_VOTE => $this->pl->txt('single_vote'),
-			xlvoVotingType::FREE_INPUT => $this->pl->txt('free_input')
+			xlvoVotingType::SINGLE_VOTE => $this->txt('type_' . xlvoVotingType::SINGLE_VOTE),
+			xlvoVotingType::FREE_INPUT => $this->txt('type_' . xlvoVotingType::FREE_INPUT)
 		);
 		$type->setOptions($type_options);
 		$this->addAndReadFilterItem($type);
@@ -120,9 +129,7 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 		$this->tpl->setVariable('TITLE', $xlvoVoting->getTitle());
 		$this->tpl->setVariable('DESCRIPTION', $xlvoVoting->getDescription());
 		$this->tpl->setVariable('QUESTION', $xlvoVoting->getQuestion());
-
-		$voting_type = $this->getVotingType($xlvoVoting->getVotingType());
-		$this->tpl->setVariable('TYPE', $voting_type);
+		$this->tpl->setVariable('TYPE', $this->txt('type_' . $xlvoVoting->getVotingType()));
 
 		$voting_status = $this->getVotingStatus($xlvoVoting->getVotingStatus());
 		$this->tpl->setVariable('STATUS', $voting_status);
@@ -138,11 +145,11 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 
 	protected function initColums() {
 		$this->addColumn('', 'position', '20px');
-		$this->addColumn($this->pl->txt('voting_title'));
-		$this->addColumn($this->pl->txt('voting_question'));
-		$this->addColumn($this->pl->txt('voting_type'));
-		$this->addColumn($this->pl->txt('voting_status'));
-		$this->addColumn($this->pl->txt('common_actions'), '', '150px');
+		$this->addColumn($this->txt('title'));
+		$this->addColumn($this->txt('question'));
+		$this->addColumn($this->txt('type'));
+		$this->addColumn($this->txt('status'));
+		$this->addColumn($this->txt('actions'), '', '150px');
 	}
 
 
@@ -154,15 +161,15 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 		$access = new ilObjLiveVotingAccess();
 
 		$current_selection_list = new ilAdvancedSelectionListGUI();
-		$current_selection_list->setListTitle($this->pl->txt('common_actions'));
+		$current_selection_list->setListTitle($this->txt('actions'));
 		$current_selection_list->setId('xlvo_actions_' . $xlvoVoting->getId());
 		$current_selection_list->setUseImages(false);
 
 		$this->ctrl->setParameter($this->voting_gui, xlvoVotingGUI::IDENTIFIER, $xlvoVoting->getId());
 		if ($access->hasWriteAccess()) {
-			$current_selection_list->addItem($this->pl->txt('edit'), xlvoVotingGUI::CMD_EDIT, $this->ctrl->getLinkTarget($this->voting_gui, xlvoVotingGUI::CMD_EDIT));
-			$current_selection_list->addItem($this->pl->txt('reset'), xlvoVotingGUI::CMD_CONFIRM_RESET, $this->ctrl->getLinkTarget($this->voting_gui, xlvoVotingGUI::CMD_CONFIRM_RESET));
-			$current_selection_list->addItem($this->pl->txt('delete'), xlvoVotingGUI::CMD_CONFIRM_DELETE, $this->ctrl->getLinkTarget($this->voting_gui, xlvoVotingGUI::CMD_CONFIRM_DELETE));
+			$current_selection_list->addItem($this->txt('edit'), xlvoVotingGUI::CMD_EDIT, $this->ctrl->getLinkTarget($this->voting_gui, xlvoVotingGUI::CMD_EDIT));
+			$current_selection_list->addItem($this->txt('reset'), xlvoVotingGUI::CMD_CONFIRM_RESET, $this->ctrl->getLinkTarget($this->voting_gui, xlvoVotingGUI::CMD_CONFIRM_RESET));
+			$current_selection_list->addItem($this->txt('delete'), xlvoVotingGUI::CMD_CONFIRM_DELETE, $this->ctrl->getLinkTarget($this->voting_gui, xlvoVotingGUI::CMD_CONFIRM_DELETE));
 		}
 		$current_selection_list->getHTML();
 		$this->tpl->setVariable('ACTIONS', $current_selection_list->getHTML());
@@ -205,44 +212,11 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 
 
 	/**
-	 * @param $voting_type
-	 *
-	 * @return string
-	 */
-	protected function getVotingType($voting_type) {
-		$type = '';
-		switch ($voting_type) {
-			case xlvoVotingType::SINGLE_VOTE:
-				$type = $this->pl->txt('single_vote');
-				break;
-			case xlvoVotingType::FREE_INPUT:
-				$type = $this->pl->txt('free_input');
-				break;
-		}
-
-		return $type;
-	}
-
-
-	/**
 	 * @param $voting_status
 	 *
 	 * @return string
 	 */
 	protected function getVotingStatus($voting_status) {
-		$status = '';
-		switch ($voting_status) {
-			case xlvoVoting::STAT_ACTIVE:
-				$status = $this->pl->txt('active');
-				break;
-			case xlvoVoting::STAT_INACTIVE:
-				$status = $this->pl->txt('inactive');
-				break;
-			case xlvoVoting::STAT_INCOMPLETE:
-				$status = $this->pl->txt('incomplete');
-				break;
-		}
-
-		return $status;
+		return $this->txt('status_' . $voting_status);
 	}
 }

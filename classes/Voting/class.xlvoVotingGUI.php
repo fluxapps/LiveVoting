@@ -438,4 +438,13 @@ class xlvoVotingGUI {
 	public function setObjId($obj_id) {
 		$this->obj_id = $obj_id;
 	}
+
+
+	/**
+	 * @param $key
+	 * @return string
+	 */
+	public function txt($key) {
+		return $this->pl->txt('voting_' . $key);
+	}
 }

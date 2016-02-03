@@ -19,11 +19,22 @@ subtab_edit#:#Verwalten
 subtab_show#:#Zeigen
 tab_content#:#Inhalt
 tab_edit#:#Einstellungen
+voting_actions#:#Aktionen
 voting_add#:#Voting hinzufügen
+voting_delete,Löschen#:#Delete
+voting_edit#:#Bearbeiten
 voting_msg_sorting_saved#:#Reihenfolge gespeichert
 voting_question#:#Frage
+voting_reset#:#Zurücksetzen
 voting_reset_all#:#Alle Voting zurücksetzen
 voting_save_sorting#:#Reihenfolge speichern
 voting_status#:#Status
+voting_status_1#:#Inaktiv
+voting_status_2#:#Unvollständig
+voting_status_5#:#Aktiv
 voting_title#:#Titel
 voting_type#:#Typ
+voting_type_1#:#Stimmabgabe
+voting_type_2#:#Freitext
+voting_type_3#:#Bereich
+voting_type_4#:#Reihenfolge

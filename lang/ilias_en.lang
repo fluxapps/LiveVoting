@@ -19,11 +19,21 @@ subtab_edit#:#Manage
 subtab_show#:#Show
 tab_content#:#Content
 tab_edit#:#Properties
+voting_actions#:#Actions
 voting_add#:#Add Voting
+voting_edit#:#Edit
 voting_msg_sorting_saved#:#Order saved
 voting_question#:#Question
+voting_reset#:#Reset
 voting_reset_all#:#Reset all Votings
 voting_save_sorting#:#Save Order
 voting_status#:#Status
+voting_status_1#:#Inactive
+voting_status_2#:#Incomplete
+voting_status_5#:#Active
 voting_title#:#Title
 voting_type#:#Type
+voting_type_1#:#Single Vote
+voting_type_2#:#Free Input
+voting_type_3#:#Range
+voting_type_4#:#Order
