@@ -399,7 +399,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 			/*
 			 * SINGLE VOTE
 			 */
-			if ($xlvoVoting->getVotingType() == xlvoVotingType::SINGLE_VOTE) {
+			if ($xlvoVoting->getVotingType() == xlvoVotingType::TYPE_SINGLE_VOTE) {
 				if ($xlvoVoting->isMultiSelection()) {
 					if ($vote->getId() != self::NEW_VOTE) {
 						foreach ($existing_votes as $vo) {
@@ -428,7 +428,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 			/*
 			 * FREE INPUT
 			 */
-			if ($xlvoVoting->getVotingType() == xlvoVotingType::FREE_INPUT) {
+			if ($xlvoVoting->getVotingType() == xlvoVotingType::TYPE_FREE_INPUT) {
 
 				if ($xlvoVoting->isMultiFreeInput()) {
 					if ($vote->getId() != self::NEW_VOTE) {

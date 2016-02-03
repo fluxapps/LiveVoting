@@ -91,13 +91,13 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 			xlvoVoting::STAT_INCOMPLETE => $this->txt('status_' . xlvoVoting::STAT_INCOMPLETE)
 		);
 		$status->setOptions($status_options);
-		$this->addAndReadFilterItem($status);
+		//		$this->addAndReadFilterItem($status); deativated at the moment
 
 		$type = new ilSelectInputGUI($this->txt('type'), 'voting_type');
 		$type_options = array(
 			- 1 => '',
-			xlvoVotingType::SINGLE_VOTE => $this->txt('type_' . xlvoVotingType::SINGLE_VOTE),
-			xlvoVotingType::FREE_INPUT => $this->txt('type_' . xlvoVotingType::FREE_INPUT)
+			xlvoVotingType::TYPE_SINGLE_VOTE => $this->txt('type_' . xlvoVotingType::TYPE_SINGLE_VOTE),
+			xlvoVotingType::TYPE_FREE_INPUT => $this->txt('type_' . xlvoVotingType::TYPE_FREE_INPUT)
 		);
 		$type->setOptions($type_options);
 		$this->addAndReadFilterItem($type);
@@ -132,11 +132,8 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 		$this->tpl->setVariable('TYPE', $this->txt('type_' . $xlvoVoting->getVotingType()));
 
 		$voting_status = $this->getVotingStatus($xlvoVoting->getVotingStatus());
-		$this->tpl->setVariable('STATUS', $voting_status);
+		//		$this->tpl->setVariable('STATUS', $voting_status); // deactivated at the moment
 
-		// Position
-		$this->tpl->setVariable('SRC_IMAGE', './Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/images/move.png');
-		$this->tpl->setVariable('CLASS', 'ctrlmmSeparator');
 		$this->tpl->setVariable('ID', $xlvoVoting->getId());
 
 		$this->addActionMenu($xlvoVoting);
@@ -148,7 +145,7 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 		$this->addColumn($this->txt('title'));
 		$this->addColumn($this->txt('question'));
 		$this->addColumn($this->txt('type'));
-		$this->addColumn($this->txt('status'));
+//		$this->addColumn($this->txt('status'));
 		$this->addColumn($this->txt('actions'), '', '150px');
 	}
 

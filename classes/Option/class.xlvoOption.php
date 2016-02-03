@@ -49,6 +49,15 @@ class xlvoOption extends ActiveRecord {
 	}
 
 
+	public function store() {
+		if (self::where(array( 'id' => $this->getId() ))->hasSets()) {
+			$this->update();
+		} else {
+			$this->create();
+		}
+	}
+
+
 	/**
 	 * @var int
 	 *
@@ -82,7 +91,7 @@ class xlvoOption extends ActiveRecord {
 	 * @db_fieldtype        integer
 	 * @db_length           8
 	 */
-	protected $status;
+	protected $status = self::STAT_ACTIVE;
 
 
 	/**

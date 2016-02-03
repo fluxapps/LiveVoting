@@ -1,6 +1,8 @@
 <!-- language file start -->
 common_actions#:#Actions
 common_back#:#Back
+msg_success_voting_created#:#Voting has been created
+msg_success_voting_updated#:#Voting has been udpated
 obj_anonymous#:#Vote without Login
 obj_description#:#Description
 obj_edit_properties#:#Edit Properties
@@ -15,18 +17,30 @@ obj_terminable_select_start_time#:#Start
 obj_title#:#Title
 player_msg_no_votings#:#There are no Questions, the LiveVoting can be started.
 player_start_voting#:#Start LiveVoting
+qtype_1_colors#:#Different Colors
+qtype_1_multi_selection#:#Multiple Selection
+qtype_1_option_text#:#Option-Text
+qtype_1_options#:#Options
+qtype_2_multi_free_input#:#Multiple Inputs
+qtype_form_header#:#Type-Settings
 subtab_edit#:#Manage
 subtab_show#:#Show
 tab_content#:#Content
 tab_edit#:#Properties
 voting_actions#:#Actions
 voting_add#:#Add Voting
+voting_cancel#:#Cancel
+voting_create#:#Crete
+voting_delete#:#Delete
+voting_delete_confirm#:#Do you really want to delete the Voting?
+voting_description#:#Description
 voting_edit#:#Edit
 voting_msg_sorting_saved#:#Order saved
 voting_question#:#Question
 voting_reset#:#Reset
 voting_reset_all#:#Reset all Votings
 voting_save_sorting#:#Save Order
+voting_select_type#:#Select Type
 voting_status#:#Status
 voting_status_1#:#Inactive
 voting_status_2#:#Incomplete
@@ -34,6 +48,9 @@ voting_status_5#:#Active
 voting_title#:#Title
 voting_type#:#Type
 voting_type_1#:#Single Vote
+voting_type_1_info#:#Multiple- orSingle-Choice
 voting_type_2#:#Free Input
+voting_type_2_info#:#User can hand in free text
 voting_type_3#:#Range
 voting_type_4#:#Order
+voting_update#:#Update

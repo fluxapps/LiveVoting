@@ -45,7 +45,7 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 
 	/**
 	 * @param xlvoVotingGUI $parent_gui
-	 * @param xlvoVoting    $xlvoVoting
+	 * @param xlvoVoting $xlvoVoting
 	 */
 	public function __construct(xlvoVotingGUI $parent_gui, xlvoVoting $xlvoVoting) {
 		global $ilCtrl;
@@ -56,7 +56,6 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 		$this->parent_gui = $parent_gui;
 		$this->ctrl = $ilCtrl;
 		$this->pl = ilLiveVotingPlugin::getInstance();
-
 		$this->ctrl->saveParameter($parent_gui, xlvoVotingGUI::IDENTIFIER);
 		$this->is_new = ($this->voting->getId() == '');
 
@@ -65,59 +64,51 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 
 
 	protected function initForm() {
+		$h = new ilHiddenInputGUI('type');
+		$this->addItem($h);
 
 		$this->setTarget('_top');
 		$this->setFormAction($this->ctrl->getFormAction($this->parent_gui));
 		$this->initButtons();
 
-		$te = new ilTextInputGUI($this->pl->txt('voting_title'), 'title');
-		$te->setInfo($this->pl->txt('info_voting_title'));
+		$te = new ilTextInputGUI($this->parent_gui->txt('title'), 'title');
+		//		$te->setInfo($this->parent_gui->txt('info_voting_title'));
 		$te->setRequired(true);
 		$this->addItem($te);
 
-		$ta = new ilTextAreaInputGUI($this->pl->txt('voting_description'), 'description');
-		$ta->setInfo($this->pl->txt('info_voting_description'));
-		$this->addItem($ta);
+		$ta = new ilTextAreaInputGUI($this->parent_gui->txt('description'), 'description');
+		//		$ta->setInfo($this->parent_gui->txt('info_voting_description'));
+//		$this->addItem($ta);
 
-		$qu = new ilTextAreaInputGUI($this->pl->txt('voting_question'), 'question');
-		$qu->setInfo($this->pl->txt('info_voting_question'));
+		$qu = new ilTextAreaInputGUI($this->parent_gui->txt('question'), 'question');
+		//		$qu->setInfo($this->parent_gui->txt('info_voting_question'));
 		$qu->setRequired(true);
 		$qu->setUseRte(true);
 		$qu->usePurifier(true);
 		$qu->setRTESupport($this->voting->getId(), "xlvo", "xlvo_question", NULL, false, "3.4.7");
 		$this->addItem($qu);
 
-		if ($this->is_new) {
-			$sl = new ilAdvSelectInputGUI($this->pl->txt('voting_type'), 'voting_type');
-			$sl->setInfo($this->pl->txt('info_voting_type'));
-			$sl->addOption(xlvoVotingType::SINGLE_VOTE, $this->pl->txt('single_vote'), $this->pl->txt('single_vote'));
-			$sl->addOption(xlvoVotingType::FREE_INPUT, $this->pl->txt('free_input'), $this->pl->txt('free_input'));
-			$this->addItem($sl);
-		}
-		if (! $this->is_new && $this->voting->getVotingStatus() != xlvoVoting::STAT_INCOMPLETE) {
-			$cb = new ilCheckboxInputGUI($this->pl->txt('voting_active'), 'voting_status');
-			$cb->setInfo($this->pl->txt('info_voting_status'));
-			$this->addItem($cb);
-		}
+		$subform = $this->getSubForm();
+		$subform->appedElementsToForm($this);
 	}
 
 
 	public function fillForm() {
-		if ($this->voting->getObjId() == $this->parent_gui->getObjId()) {
-			$array = array(
-				'title' => $this->voting->getTitle(),
-				'description' => $this->voting->getDescription(),
-				'question' => $this->voting->getQuestion(),
-				'voting_type' => $this->voting->getVotingType(),
-				'voting_status' => ($this->voting->getVotingStatus() == xlvoVoting::STAT_ACTIVE)
-			);
-			$this->setValuesByArray($array);
-			if ($this->voting->getVotingStatus() == xlvoVoting::STAT_INCOMPLETE) {
-				ilUtil::sendInfo($this->pl->txt('msg_voting_not_complete'), false);
-			}
-		} else {
-			ilUtil::sendFailure($this->pl->txt('permission_denied_object'), true);
-			$this->ctrl->redirect($this->parent_gui, xlvoVotingGUI::CMD_STANDARD);
+		$array = array(
+			'type' => $this->voting->getVotingType(),
+			'title' => $this->voting->getTitle(),
+			'description' => $this->voting->getDescription(),
+			'question' => $this->voting->getQuestion(),
+			'voting_type' => $this->voting->getVotingType(),
+			'voting_status' => ($this->voting->getVotingStatus() == xlvoVoting::STAT_ACTIVE)
+		);
+
+		$subform = $this->getSubForm();
+		$array = $subform->appendValues($array);
+
+		$this->setValuesByArray($array);
+		if ($this->voting->getVotingStatus() == xlvoVoting::STAT_INCOMPLETE) {
+			ilUtil::sendInfo($this->parent_gui->txt('msg_voting_not_complete'), false);
 		}
 	}
 
@@ -126,18 +117,21 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 	 * @return bool
 	 */
 	public function fillObject() {
-		if (! $this->checkInput()) {
+		if (!$this->checkInput()) {
 			return false;
 		}
 
+
+		$this->voting->setVotingType($this->getInput('type'));
 		$this->voting->setTitle($this->getInput('title'));
 		$this->voting->setDescription($this->getInput('description'));
 		$this->voting->setQuestion($this->getInput('question'));
 		$this->voting->setObjId($this->parent_gui->getObjId());
 
+		$subform = $this->getSubForm();
+		$subform->handleAfterSubmit($this);
+
 		if ($this->is_new) {
-			$this->voting->setVotingStatus(xlvoVoting::STAT_INCOMPLETE);
-			$this->voting->setVotingType($this->getInput('voting_type'));
 			$lastVoting = xlvoVoting::where(array(
 				'obj_id' => $this->parent_gui->getObjId(),
 				'voting_status' => xlvoVoting::STAT_ACTIVE
@@ -148,10 +142,6 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 				$lastPosition = 0;
 			}
 			$this->voting->setPosition($lastPosition + 1);
-		} else {
-			if ($this->voting->getVotingStatus() != xlvoVoting::STAT_INCOMPLETE) {
-				$this->voting->setVotingStatus(($this->getInput('voting_status') ? xlvoVoting::STAT_ACTIVE : xlvoVoting::STAT_INACTIVE));
-			}
 		}
 
 		return true;
@@ -162,18 +152,14 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 	 * @return bool
 	 */
 	public function saveObject() {
-		if (! $this->fillObject()) {
+		if (!$this->fillObject()) {
 			return false;
 		}
 
 		if ($this->voting->getObjId() == $this->parent_gui->getObjId()) {
-			if (! xlvoVoting::where(array( 'id' => $this->voting->getId() ))->hasSets()) {
-				$this->voting->create();
-			} else {
-				$this->voting->update();
-			}
+			$this->voting->store();
 		} else {
-			ilUtil::sendFailure($this->pl->txt('permission_denied_object'), true);
+			ilUtil::sendFailure($this->parent_gui->txt('permission_denied_object'), true);
 			$this->ctrl->redirect($this->parent_gui, xlvoVotingGUI::CMD_STANDARD);
 		}
 
@@ -183,14 +169,14 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 
 	protected function initButtons() {
 		if ($this->is_new) {
-			$this->setTitle($this->pl->txt('create'));
-			$this->addCommandButton(xlvoVotingGUI::CMD_CREATE, $this->pl->txt('next'));
+			$this->setTitle($this->parent_gui->txt('create'));
+			$this->addCommandButton(xlvoVotingGUI::CMD_CREATE, $this->parent_gui->txt('create'));
 		} else {
-			$this->setTitle($this->pl->txt('update'));
-			$this->addCommandButton(xlvoVotingGUI::CMD_UPDATE, $this->pl->txt('next'));
+			$this->setTitle($this->parent_gui->txt('update'));
+			$this->addCommandButton(xlvoVotingGUI::CMD_UPDATE, $this->parent_gui->txt('update'));
 		}
 
-		$this->addCommandButton(xlvoVotingGUI::CMD_CANCEL, $this->pl->txt('cancel'));
+		$this->addCommandButton(xlvoVotingGUI::CMD_CANCEL, $this->parent_gui->txt('cancel'));
 	}
 
 
@@ -207,5 +193,24 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 	 */
 	public function setVoting($voting) {
 		$this->voting = $voting;
+	}
+
+
+	/**
+	 * @return xlvoFreeInputSubFormGUI
+	 * @throws xlvoVotingManagerException
+	 */
+	protected function getSubForm() {
+		$class = xlvoVotingType::getClassName($this->getVoting()->getVotingType());
+		/**
+		 * @var $class_name xlvoFreeInputSubFormGUI
+		 * @var $subform xlvoFreeInputSubFormGUI
+		 */
+		$class_name = 'xlvo' . $class . 'SubFormGUI';
+		require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/' . $class . '/class.'
+			. $class_name . '.php');
+
+		$subform = new $class_name($this->voting);
+		return $subform;
 	}
 }

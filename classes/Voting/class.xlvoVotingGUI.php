@@ -6,8 +6,6 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVotingFormGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVoting.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVotingTableGUI.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/SingleVote/class.xlvoSingleVoteVotingGUI.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/FreeInput/class.xlvoFreeInputVotingGUI.php');
 
 /**
  *
@@ -26,6 +24,7 @@ class xlvoVotingGUI {
 	const CMD_STANDARD = 'content';
 	const CMD_CONTENT = 'content';
 	const CMD_ADD = 'add';
+	const CMD_SELECT_TYPE = 'selectType';
 	const CMD_CREATE = 'create';
 	const CMD_EDIT = 'edit';
 	const CMD_UPDATE = 'update';
@@ -37,6 +36,7 @@ class xlvoVotingGUI {
 	const CMD_RESET_ALL = 'resetAll';
 	const CMD_CANCEL = 'cancel';
 	const CMD_BACK = 'back';
+	const F_TYPE = 'type';
 	/**
 	 * @var ilTemplate
 	 */
@@ -100,12 +100,6 @@ class xlvoVotingGUI {
 	public function executeCommand() {
 		$nextClass = $this->ctrl->getNextClass();
 		switch ($nextClass) {
-			case 'xlvosinglevotevotinggui':
-				$this->ctrl->forwardCommand(new xlvoSingleVoteVotingGUI());
-				break;
-			case 'xlvofreeinputvotinggui':
-				$this->ctrl->forwardCommand(new xlvoFreeInputVotingGUI());
-				break;
 			default:
 				$cmd = $this->ctrl->getCmd(self::CMD_STANDARD);
 				$this->{$cmd}();
@@ -123,10 +117,10 @@ class xlvoVotingGUI {
 	 */
 	private function redirectToSubGUI($voting_type, $cmd) {
 		switch ($voting_type) {
-			case xlvoVotingType::SINGLE_VOTE:
+			case xlvoVotingType::TYPE_SINGLE_VOTE:
 				$this->ctrl->redirect(new xlvoSingleVoteVotingGUI(), $cmd);
 				break;
-			case xlvoVotingType::FREE_INPUT:
+			case xlvoVotingType::TYPE_FREE_INPUT:
 				$this->ctrl->redirect(new xlvoFreeInputVotingGUI(), $cmd);
 				break;
 		}
@@ -140,12 +134,12 @@ class xlvoVotingGUI {
 			if ($this->access->hasWriteAccess()) {
 				$b = ilLinkButton::getInstance();
 				$b->setPrimary(true);
-				$b->setCaption('rep_robj_xlvo_voting_add');
-				$b->setUrl($this->ctrl->getLinkTarget(new xlvoVotingGUI(), self::CMD_ADD));
+				$b->setCaption($this->txt('add'), false);
+				$b->setUrl($this->ctrl->getLinkTarget(new xlvoVotingGUI(), self::CMD_SELECT_TYPE));
 				$this->toolbar->addButtonInstance($b);
 
 				$b = ilLinkButton::getInstance();
-				$b->setCaption('rep_robj_xlvo_voting_reset_all');
+				$b->setCaption($this->txt('reset_all'), false);
 				$b->setUrl($this->ctrl->getLinkTarget(new xlvoVotingGUI(), self::CMD_CONFIRM_RESET_ALL));
 				$this->toolbar->addButtonInstance($b);
 
@@ -156,12 +150,42 @@ class xlvoVotingGUI {
 	}
 
 
+	protected function selectType() {
+		if (!$this->access->hasWriteAccess()) {
+			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
+			$this->ctrl->redirect($this, self::CMD_STANDARD);
+		} else {
+			require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingType.php');
+
+			$form = new ilPropertyFormGUI();
+			$form->setFormAction($this->ctrl->getFormAction($this, self::CMD_ADD));
+			$form->addCommandButton(self::CMD_ADD, $this->txt('select_type'));
+			$form->addCommandButton(self::CMD_CANCEL, $this->txt('cancel'));
+			$cb = new ilRadioGroupInputGUI($this->txt('type'), self::F_TYPE);
+			$cb->setRequired(true);
+			foreach (xlvoVotingType::getActiveTypes() as $active_type) {
+				$op = new ilRadioOption();
+				$op->setTitle($this->txt('type_' . $active_type));
+				$op->setInfo($this->txt('type_' . $active_type . '_info'));
+				$op->setValue($active_type);
+				$cb->addOption($op);
+			}
+			$form->addItem($cb);
+
+			$this->tpl->setContent($form->getHTML());
+		}
+	}
+
+
 	protected function add() {
 		if (!$this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
-			$xlvoVotingFormGUI = new xlvoVotingFormGUI($this, new xlvoVoting());
+			$xlvoVoting = new xlvoVoting();
+			$xlvoVoting->setVotingType($_POST[self::F_TYPE]);
+			$xlvoVotingFormGUI = new xlvoVotingFormGUI($this, $xlvoVoting);
+			$xlvoVotingFormGUI->fillForm();
 			$this->tpl->setContent($xlvoVotingFormGUI->getHTML());
 		}
 	}
@@ -172,13 +196,13 @@ class xlvoVotingGUI {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
-			$xlvoVotingFormGUI = new xlvoVotingFormGUI($this, new xlvoVoting());
+			$xlvoVoting = new xlvoVoting();
+			$xlvoVoting->setVotingType($_POST[self::F_TYPE]);
+			$xlvoVotingFormGUI = new xlvoVotingFormGUI($this, $xlvoVoting);
 			$xlvoVotingFormGUI->setValuesByPost();
 			if ($xlvoVotingFormGUI->saveObject()) {
 				ilUtil::sendSuccess($this->pl->txt('msg_success_voting_created'), true);
-				$voting = $xlvoVotingFormGUI->getVoting();
-				$this->ctrl->setParameter(new xlvoVotingGUI(), self::IDENTIFIER, $voting->getId());
-				$this->redirectToSubGUI($voting->getVotingType(), self::CMD_ADD);
+				$this->ctrl->redirect($this, self::CMD_STANDARD);
 			}
 			$this->tpl->setContent($xlvoVotingFormGUI->getHTML());
 		}
@@ -206,9 +230,7 @@ class xlvoVotingGUI {
 			$xlvoVotingFormGUI->setValuesByPost();
 			if ($xlvoVotingFormGUI->saveObject()) {
 				ilUtil::sendSuccess($this->pl->txt('msg_success_voting_updated'), true);
-				$voting = $xlvoVotingFormGUI->getVoting();
-				$this->ctrl->setParameter(new xlvoVotingGUI(), self::IDENTIFIER, $voting->getId());
-				$this->redirectToSubGUI($voting->getVotingType(), self::CMD_EDIT);
+				$this->ctrl->redirect($this, self::CMD_STANDARD);
 			}
 			$this->tpl->setContent($xlvoVotingFormGUI->getHTML());
 		}
@@ -227,12 +249,12 @@ class xlvoVotingGUI {
 			$xlvoVoting = xlvoVoting::find($_GET[self::IDENTIFIER]);
 
 			if ($xlvoVoting->getObjId() == $this->getObjId()) {
-				ilUtil::sendQuestion($this->pl->txt('confirm_delete_voting'), true);
+				ilUtil::sendQuestion($this->txt('delete_confirm'), true);
 				$confirm = new ilConfirmationGUI();
 				$confirm->addItem(self::IDENTIFIER, $xlvoVoting->getId(), $xlvoVoting->getTitle());
 				$confirm->setFormAction($this->ctrl->getFormAction($this));
-				$confirm->setCancel($this->pl->txt('cancel'), self::CMD_CANCEL);
-				$confirm->setConfirm($this->pl->txt('delete'), self::CMD_DELETE);
+				$confirm->setCancel($this->txt('cancel'), self::CMD_CANCEL);
+				$confirm->setConfirm($this->txt('delete'), self::CMD_DELETE);
 
 				$this->tpl->setContent($confirm->getHTML());
 			} else {

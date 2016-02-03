@@ -1,6 +1,8 @@
 <!-- language file start -->
 common_actions#:#Aktionen
 common_back#:#Zurück
+msg_success_voting_created#:#Voting wurde erstellt
+msg_success_voting_updated#:#Voting wurde gespeichert
 obj_anonymous#:#Abstimmung ohne Login
 obj_description#:#Beschreibung
 obj_edit_properties#:#Einstellungen bearbeiten
@@ -15,19 +17,31 @@ obj_terminable_select_start_time#:#Start
 obj_title#:#Titel
 player_msg_no_votings#:#Es sind keine Fragen vorhanden, das Voting kann nicht gestartet werden.
 player_start_voting#:#LiveVoting beginnen
+qtype_1_colors#:#Unterschiedliche Farben
+qtype_1_multi_selection#:#Mehrfachauswahl
+qtype_1_option_text#:#Options-Text
+qtype_1_options#:#Optionen
+qtype_2_multi_free_input#:#Mehrfache Eingaben
+qtype_form_header#:#Typ-Einstellugnen
 subtab_edit#:#Verwalten
 subtab_show#:#Zeigen
 tab_content#:#Inhalt
 tab_edit#:#Einstellungen
 voting_actions#:#Aktionen
 voting_add#:#Voting hinzufügen
+voting_cancel#:#Abbrechen
+voting_create#:#Erstellen
+voting_delete#:#Löschen
 voting_delete,Löschen#:#Delete
+voting_delete_confirm#:#Möchten Sie das ausgewählte Voting wirklich löschen?
+voting_description#:#Beschreibung
 voting_edit#:#Bearbeiten
 voting_msg_sorting_saved#:#Reihenfolge gespeichert
 voting_question#:#Frage
 voting_reset#:#Zurücksetzen
 voting_reset_all#:#Alle Voting zurücksetzen
 voting_save_sorting#:#Reihenfolge speichern
+voting_select_type#:#Typ auswählen
 voting_status#:#Status
 voting_status_1#:#Inaktiv
 voting_status_2#:#Unvollständig
@@ -35,6 +49,9 @@ voting_status_5#:#Aktiv
 voting_title#:#Titel
 voting_type#:#Typ
 voting_type_1#:#Stimmabgabe
+voting_type_1_info#:#Multiple- oder Single-Choice
 voting_type_2#:#Freitext
+voting_type_2_info#:#Benutzer können Stichwort selber eingeben
 voting_type_3#:#Bereich
 voting_type_4#:#Reihenfolge
+voting_update#:#Speichern

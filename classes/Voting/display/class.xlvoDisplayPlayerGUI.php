@@ -57,10 +57,10 @@ class xlvoDisplayPlayerGUI {
 		$player = $this->voting_manager->getPlayer($this->voting->getObjId());
 
 		switch ($this->voting->getVotingType()) {
-			case xlvoVotingType::SINGLE_VOTE:
+			case xlvoVotingType::TYPE_SINGLE_VOTE:
 				$this->tpl->setVariable('OPTION_CONTENT', $this->renderSingleVote());
 				break;
-			case xlvoVotingType::FREE_INPUT:
+			case xlvoVotingType::TYPE_FREE_INPUT:
 				$this->tpl->setVariable('OPTION_CONTENT', $this->renderFreeInput());
 				break;
 		}
