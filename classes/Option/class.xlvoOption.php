@@ -22,10 +22,7 @@ class xlvoOption extends ActiveRecord {
 		return 'rep_robj_xlvo_option_n';
 	}
 
-	/*
-	 * START
-	 * xlvoSingleVoteOption
-	 */
+
 	/**
 	 * @var string
 	 *
@@ -50,9 +47,7 @@ class xlvoOption extends ActiveRecord {
 	public function setText($text) {
 		$this->text = $text;
 	}
-	/*
-	 * END
-	 */
+
 
 	/**
 	 * @var int

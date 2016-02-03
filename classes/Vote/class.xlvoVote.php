@@ -24,10 +24,6 @@ class xlvoVote extends ActiveRecord {
 		return 'rep_robj_xlvo_vote_n';
 	}
 
-	/*
-    * START
-    * xlvoFreeInputVote
-    */
 	/**
 	 * @var string
 	 *
@@ -52,9 +48,6 @@ class xlvoVote extends ActiveRecord {
 	public function setFreeInput($free_input) {
 		$this->free_input = $free_input;
 	}
-	/*
-	 * END
-	 */
 
 	/**
 	 * @var string
