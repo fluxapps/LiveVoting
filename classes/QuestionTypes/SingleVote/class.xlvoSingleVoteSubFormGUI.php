@@ -13,6 +13,10 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 	const F_TEXT = 'text';
 	const F_COLORS = 'colors';
 	const F_ID = 'id';
+	/**
+	 * @var xlvoOption[]
+	 */
+	protected $options = array();
 
 
 	protected function initFormElements() {
@@ -48,12 +52,15 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 				break;
 			case self::F_OPTIONS:
 				foreach ($value as $item) {
-					$xlvoOption = new xlvoOption($item[self::F_ID]);
+					/**
+					 * @var $xlvoOption xlvoOption
+					 */
+					$xlvoOption = xlvoOption::findOrGetInstance($item[self::F_ID]);
 					$xlvoOption->setText($item[self::F_TEXT]);
 					$xlvoOption->setStatus(xlvoOption::STAT_ACTIVE);
 					$xlvoOption->setVotingId($this->getXlvoVoting()->getId());
 					$xlvoOption->setType($this->getXlvoVoting()->getVotingType());
-					$xlvoOption->store();
+					$this->options[] = $xlvoOption;
 				}
 				break;
 			case self::F_COLORS:
@@ -77,7 +84,11 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 				/**
 				 * @var $option xlvoOption
 				 */
-				foreach ($this->getXlvoVoting()->getVotingOptions()->get() as $option) {
+				$options = $this->getXlvoVoting()->getVotingOptions();
+				if (!$options instanceof ActiveRecordList) {
+					return $array;
+				}
+				foreach ($options->get() as $option) {
 					$array[] = array(
 						self::F_ID => $option->getId(),
 						self::F_TEXT => $option->getText(),
@@ -87,6 +98,14 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 
 			case self::F_COLORS:
 				return $this->getXlvoVoting()->isColors();
+		}
+	}
+
+
+	protected function handleOptions() {
+		foreach ($this->options as $xlvoOption) {
+			$xlvoOption->setVotingId($this->getXlvoVoting()->getId());
+			$xlvoOption->store();
 		}
 	}
 }

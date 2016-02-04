@@ -111,6 +111,32 @@ class xlvoVoting extends ActiveRecord {
 
 
 	/**
+	 * @return bool
+	 */
+	public function isFirst() {
+		/**
+		 * @var $first xlvoVoting
+		 */
+		$first = self::where(array( 'obj_id' => $this->getObjId() ))->orderBy('position', 'ASC')->first();
+
+		return $first->getId() == $this->getId();
+	}
+
+
+	/**
+	 * @return bool
+	 */
+	public function isLast() {
+		/**
+		 * @var $first xlvoVoting
+		 */
+		$first = self::where(array( 'obj_id' => $this->getObjId() ))->orderBy('position', 'DESC')->first();
+
+		return $first->getId() == $this->getId();
+	}
+
+
+	/**
 	 * @return string
 	 */
 	public static function returnDbTableName() {

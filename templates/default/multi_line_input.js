@@ -38,7 +38,6 @@
 					var new_line = clone_line.clone();
 					new_line.show();
 					$(new_line).addClass("multi_input_line");
-
 					setup_line(new_line);
 					$(element).append(new_line);
 					$(element).change();

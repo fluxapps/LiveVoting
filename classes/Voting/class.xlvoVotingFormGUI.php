@@ -3,7 +3,7 @@
 require_once('./Services/Form/classes/class.ilPropertyFormGUI.php');
 require_once('./Services/Form/classes/class.ilAdvSelectInputGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingType.php');
-
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoSubFormGUI.php');
 /**
  * Class xlvoVotingFormGUI
  *
@@ -88,8 +88,7 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 		$qu->setRTESupport($this->voting->getId(), "xlvo", "xlvo_question", NULL, false, "3.4.7");
 		$this->addItem($qu);
 
-		$subform = $this->getSubForm();
-		$subform->appedElementsToForm($this);
+		xlvoSubFormGUI::getInstance($this->getVoting())->appedElementsToForm($this);
 	}
 
 
@@ -103,8 +102,7 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 			'voting_status' => ($this->voting->getVotingStatus() == xlvoVoting::STAT_ACTIVE)
 		);
 
-		$subform = $this->getSubForm();
-		$array = $subform->appendValues($array);
+		$array = xlvoSubFormGUI::getInstance($this->getVoting())->appendValues($array);
 
 		$this->setValuesByArray($array);
 		if ($this->voting->getVotingStatus() == xlvoVoting::STAT_INCOMPLETE) {
@@ -121,15 +119,13 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 			return false;
 		}
 
-
 		$this->voting->setVotingType($this->getInput('type'));
 		$this->voting->setTitle($this->getInput('title'));
 		$this->voting->setDescription($this->getInput('description'));
 		$this->voting->setQuestion($this->getInput('question'));
 		$this->voting->setObjId($this->parent_gui->getObjId());
 
-		$subform = $this->getSubForm();
-		$subform->handleAfterSubmit($this);
+		xlvoSubFormGUI::getInstance($this->getVoting())->handleAfterSubmit($this);
 
 		if ($this->is_new) {
 			$lastVoting = xlvoVoting::where(array(
@@ -158,6 +154,7 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 
 		if ($this->voting->getObjId() == $this->parent_gui->getObjId()) {
 			$this->voting->store();
+			xlvoSubFormGUI::getInstance($this->getVoting())->handleAfterCreation($this->voting);
 		} else {
 			ilUtil::sendFailure($this->parent_gui->txt('permission_denied_object'), true);
 			$this->ctrl->redirect($this->parent_gui, xlvoVotingGUI::CMD_STANDARD);
@@ -195,22 +192,4 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 		$this->voting = $voting;
 	}
 
-
-	/**
-	 * @return xlvoFreeInputSubFormGUI
-	 * @throws xlvoVotingManagerException
-	 */
-	protected function getSubForm() {
-		$class = xlvoVotingType::getClassName($this->getVoting()->getVotingType());
-		/**
-		 * @var $class_name xlvoFreeInputSubFormGUI
-		 * @var $subform xlvoFreeInputSubFormGUI
-		 */
-		$class_name = 'xlvo' . $class . 'SubFormGUI';
-		require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/' . $class . '/class.'
-			. $class_name . '.php');
-
-		$subform = new $class_name($this->voting);
-		return $subform;
-	}
 }

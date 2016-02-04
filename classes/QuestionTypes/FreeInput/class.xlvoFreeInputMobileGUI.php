@@ -1,16 +1,12 @@
 <?php
-
-require_once('./Services/Form/classes/class.ilPropertyFormGUI.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVotingManager.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoInputMobileGUI.php');
 
 /**
- * Class xlvoFreeInputGUI
+ * Class xlvoFreeInputMobileGUI
  *
- * @author  Daniel Aemmer <daniel.aemmer@phbern.ch>
- * @author  Fabian Schmid <fs@studer-raimann.ch>
- * @version 1.0.0
+ * @author Fabian Schmid <fs@studer-raimann.ch>
  */
-class xlvoFreeInputGUI extends ilPropertyFormGUI {
+class xlvoFreeInputMobileGUI extends xlvoInputMobileGUI {
 
 	/**
 	 * @var ilTemplate
@@ -24,18 +20,10 @@ class xlvoFreeInputGUI extends ilPropertyFormGUI {
 	 * @var ilLiveVotingPlugin
 	 */
 	protected $pl;
-
-
 	/**
-	 * @param xlvoVoting $voting
+	 * @var xlvoVotingManager
 	 */
-	public function __construct(xlvoVoting $voting) {
-
-		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voting/display/tpl.free_input.html', true, true);
-		$this->voting = $voting;
-		$this->voting_manager = new xlvoVotingManager();
-		$this->pl = ilLiveVotingPlugin::getInstance();
-	}
+	protected $voting_manager;
 
 
 	/**
@@ -68,7 +56,7 @@ class xlvoFreeInputGUI extends ilPropertyFormGUI {
 
 
 	/**
-	 * @param array      $votes
+	 * @param array $votes
 	 * @param xlvoOption $option
 	 *
 	 * @return string
@@ -113,7 +101,7 @@ class xlvoFreeInputGUI extends ilPropertyFormGUI {
 			 * @var xlvoVote $vote
 			 */
 			$vote = $this->voting_manager->getVotesOfUserOfOption($this->voting->getId(), $option->getId())->first();
-			if (! $vote instanceof xlvoVote) {
+			if (!$vote instanceof xlvoVote) {
 				$vote = new xlvoVote();
 				$vote->setOptionId($option->getId());
 			}
@@ -128,6 +116,9 @@ class xlvoFreeInputGUI extends ilPropertyFormGUI {
 	 * @return string
 	 */
 	public function getHTML() {
+		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voting/display/tpl.free_input.html', true, true);
+		$this->pl = ilLiveVotingPlugin::getInstance();
+		$this->voting_manager = new xlvoVotingManager();
 		$this->render();
 
 		return $this->tpl->get();

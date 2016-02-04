@@ -1,5 +1,5 @@
 <?php
-//require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/OpenCast/classes/class.xoctDynLan.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/OpenCast/classes/class.xoctDynLan.php');
 include_once('./Services/Repository/classes/class.ilRepositoryObjectPlugin.php');
 
 /**
@@ -9,7 +9,7 @@ include_once('./Services/Repository/classes/class.ilRepositoryObjectPlugin.php')
  * @version $Id$
  *
  */
-class ilLiveVotingPlugin extends ilRepositoryObjectPlugin  { //implements xoctDynLanInterface
+class ilLiveVotingPlugin extends ilRepositoryObjectPlugin implements xoctDynLanInterface {
 
 	const PLUGIN_NAME = 'LiveVoting';
 	/**
@@ -65,7 +65,7 @@ class ilLiveVotingPlugin extends ilRepositoryObjectPlugin  { //implements xoctDy
 	 *
 	 * @return string
 	 */
-//	public function txt22($a_var) {
+//	public function txt($a_var) {
 //		return xoctDynLan::getInstance($this, xoctDynLan::MODE_DEV)->txt($a_var);
 //	}
 }

@@ -648,7 +648,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	/**
 	 * @param $obj_id
 	 *
-	 * @return ActiveRecord
+	 * @return xlvoVoting
 	 * @throws xlvoVotingManagerException
 	 */
 	public function getActiveVotingObject($obj_id) {

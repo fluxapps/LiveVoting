@@ -44,11 +44,11 @@ class xlvoInitialisation extends ilInitialisation {
 		/**
 		 * @var $ilLog ilLog
 		 */
-		try {
-			throw new Exception();
-		} catch (Exception $e) {
-			$ilLog->write('LVO CONTEXT: ' . self::getContext());
-		}
+//		try {
+//			throw new Exception();
+//		} catch (Exception $e) {
+//			$ilLog->write('LVO CONTEXT: ' . self::getContext());
+//		}
 	}
 
 

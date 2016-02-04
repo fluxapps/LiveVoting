@@ -3,7 +3,6 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/display/class.xlvoBarCollectionGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/display/class.xlvoBarPercentageGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/display/class.xlvoBarOptionGUI.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/display/class.xlvoFreeInputGUI.php');
 
 /**
  * Class xlvoDisplayVoterGUI
@@ -11,6 +10,8 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
  * @author  Daniel Aemmer <daniel.aemmer@phbern.ch>
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version 1.0.0
+ *
+ * renders the voting mask for the voter
  */
 class xlvoDisplayVoterGUI {
 
@@ -44,13 +45,13 @@ class xlvoDisplayVoterGUI {
 
 
 	protected function render() {
-		switch ($this->voting->getVotingType()) {
-			case xlvoVotingType::TYPE_SINGLE_VOTE:
-				$this->tpl->setVariable('OPTION_CONTENT', $this->renderSingleVote());
-				break;
-			case xlvoVotingType::TYPE_FREE_INPUT:
-				$this->tpl->setVariable('OPTION_CONTENT', $this->renderFreeInput());
-				break;
+		require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoInputMobileGUI.php');
+
+		$xlvoInputMobileGUI = xlvoInputMobileGUI::getInstance($this->voting);
+		$this->tpl->setVariable('OPTION_CONTENT', $xlvoInputMobileGUI->getHTML());
+
+		foreach ($this->voting->getVotingOptions()->get() as $item) {
+			$this->addOption($item);
 		}
 
 		$votings = xlvoVoting::where(array( 'obj_id' => $this->voting->getObjId(), 'voting_status' => xlvoVoting::STAT_ACTIVE ))
@@ -86,15 +87,30 @@ class xlvoDisplayVoterGUI {
 	}
 
 
+//	/**
+//	 * @param xlvoOption $option
+//	 */
+//	protected function addAnswer(xlvoOption $option) {
+//		$this->tpl->setCurrentBlock('option');
+//		$this->tpl->setVariable('OPTION_LETTER', (chr($this->answer_count)));
+//		$this->tpl->setVariable('OPTION_TEXT', $option->getText());
+//		$this->tpl->parseCurrentBlock();
+//	}
+
 	/**
 	 * @param xlvoOption $option
 	 */
-	protected function addAnswer(xlvoOption $option) {
+	protected function addOption(xlvoOption $option) {
+		if ($option->getType() == xlvoVotingType::TYPE_FREE_INPUT) {
+			return;
+		}
+		$this->answer_count ++;
 		$this->tpl->setCurrentBlock('option');
 		$this->tpl->setVariable('OPTION_LETTER', (chr($this->answer_count)));
 		$this->tpl->setVariable('OPTION_TEXT', $option->getText());
 		$this->tpl->parseCurrentBlock();
 	}
+
 
 
 	/**

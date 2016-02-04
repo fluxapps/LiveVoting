@@ -8,6 +8,34 @@
 abstract class xlvoSubFormGUI {
 
 	/**
+	 * @var xlvoSubFormGUI
+	 */
+	protected static $instance;
+
+
+	/**
+	 * @param xlvoVoting $xlvoVoting
+	 * @return xlvoSubFormGUI
+	 */
+	public static function getInstance(xlvoVoting $xlvoVoting) {
+		if (!self::$instance instanceof self) {
+
+			$class = xlvoVotingType::getClassName($xlvoVoting->getVotingType());
+			/**
+			 * @var $class_name xlvoFreeInputSubFormGUI
+			 * @var $subform xlvoFreeInputSubFormGUI
+			 */
+			$class_name = 'xlvo' . $class . 'SubFormGUI';
+			require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/' . $class . '/class.'
+				. $class_name . '.php');
+
+			self::$instance = new $class_name($xlvoVoting);
+		}
+		return self::$instance;
+	}
+
+
+	/**
 	 * @var xlvoVoting
 	 */
 	protected $xlvoVoting;
@@ -106,6 +134,15 @@ abstract class xlvoSubFormGUI {
 
 
 	/**
+	 * @param xlvoVoting $xlvoVoting
+	 */
+	public function handleAfterCreation(xlvoVoting $xlvoVoting) {
+		$this->setXlvoVoting($xlvoVoting);
+		$this->handleOptions();
+	}
+
+
+	/**
 	 * @param array $existing
 	 * @return array
 	 */
@@ -114,6 +151,10 @@ abstract class xlvoSubFormGUI {
 			$existing[$formElement->getPostVar()] = $this->getFieldValue($formElement);
 		}
 		return $existing;
+	}
+
+
+	protected function handleOptions() {
 	}
 
 

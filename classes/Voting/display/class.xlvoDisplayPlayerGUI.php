@@ -2,7 +2,7 @@
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/display/class.xlvoBarGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/display/class.xlvoBarCollectionGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/display/class.xlvoBarPercentageGUI.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/display/class.xlvoBarFreeInputGUI.php');
+require_once('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoInputResultsGUI.php');
 
 /**
  * Class xlvoDisplayPlayerGUI
@@ -10,6 +10,8 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
  * @author  Daniel Aemmer <daniel.aemmer@phbern.ch>
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version 1.0.0
+ *
+ * The display is used in the view of a admin when presenting the livevoting, only the content of a voting
  */
 class xlvoDisplayPlayerGUI {
 
@@ -56,17 +58,17 @@ class xlvoDisplayPlayerGUI {
 		 */
 		$player = $this->voting_manager->getPlayer($this->voting->getObjId());
 
-		switch ($this->voting->getVotingType()) {
-			case xlvoVotingType::TYPE_SINGLE_VOTE:
-				$this->tpl->setVariable('OPTION_CONTENT', $this->renderSingleVote());
-				break;
-			case xlvoVotingType::TYPE_FREE_INPUT:
-				$this->tpl->setVariable('OPTION_CONTENT', $this->renderFreeInput());
-				break;
+		$xlvoInputDisplayGUI = xlvoInputResultsGUI::getInstance($this->voting, $this->voting_manager);
+		$this->tpl->setVariable('OPTION_CONTENT', $xlvoInputDisplayGUI->getHTML());
+
+		foreach ($this->voting->getVotingOptions()->get() as $item) {
+			$this->addOption($item);
 		}
 
-		$votings = xlvoVoting::where(array( 'obj_id' => $this->voting->getObjId(), 'voting_status' => xlvoVoting::STAT_ACTIVE ))
-			->orderBy('position', 'ASC');
+		$votings = xlvoVoting::where(array(
+			'obj_id' => $this->voting->getObjId(),
+			'voting_status' => xlvoVoting::STAT_ACTIVE
+		))->orderBy('position', 'ASC');
 
 		$votings_count = $votings->count();
 
@@ -102,59 +104,14 @@ class xlvoDisplayPlayerGUI {
 	/**
 	 * @param xlvoOption $option
 	 */
-	protected function addAnswer(xlvoOption $option) {
+	protected function addOption(xlvoOption $option) {
+		if ($option->getType() == xlvoVotingType::TYPE_FREE_INPUT) {
+			return;
+		}
+		$this->answer_count ++;
 		$this->tpl->setCurrentBlock('option');
 		$this->tpl->setVariable('OPTION_LETTER', (chr($this->answer_count)));
 		$this->tpl->setVariable('OPTION_TEXT', $option->getText());
 		$this->tpl->parseCurrentBlock();
-	}
-
-
-	/**
-	 * @return string
-	 */
-	protected function renderSingleVote() {
-		/**
-		 * @var xlvoBarCollectionGUI
-		 */
-		$bars = new xlvoBarCollectionGUI();
-
-		/**
-		 * @var xlvoOption $options
-		 */
-		$options = $this->voting->getVotingOptions()->get();
-		foreach ($options as $option) {
-			$this->answer_count ++;
-			/**
-			 * @var xlvoVote $votes
-			 */
-			$votes = $this->voting_manager->getVotesOfVoting($this->voting->getId());
-
-			$bars->addBar(new xlvoBarPercentageGUI($this->voting, $option, $votes, (chr($this->answer_count))));
-			$this->addAnswer($option);
-		}
-
-		return $bars->getHTML();
-	}
-
-
-	/**
-	 * @return string
-	 */
-	protected function renderFreeInput() {
-		$bars = new xlvoBarCollectionGUI();
-		/**
-		 * @var xlvoOption $option
-		 */
-		$option = $this->voting->getVotingOptions()->first();
-		/**
-		 * @var xlvoVote[] $votes
-		 */
-		$votes = $this->voting_manager->getVotesOfOption($option->getId())->get();
-		foreach ($votes as $vote) {
-			$bars->addBar(new xlvoBarFreeInputGUI($this->voting, $vote));
-		}
-
-		return $bars->getHTML();
 	}
 }

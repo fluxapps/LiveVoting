@@ -202,9 +202,8 @@ class xlvoPlayerGUI {
 
 				if ($isAvailable && $isRunning == xlvoPlayer::STAT_RUNNING) {
 
-					$this->initToolbar();
-
 					$this->setActiveVoting($xlvoVoting->getId());
+					$this->initToolbar();
 
 					$display = new xlvoDisplayPlayerGUI($xlvoVoting);
 
@@ -512,12 +511,20 @@ class xlvoPlayerGUI {
 		$this->toolbar->addText($current_selection_list->getHTML());
 
 		$b = ilLinkButton::getInstance();
+		if($this->obj_id) {
+			$is_first = $this->voting_manager->getActiveVotingObject($this->obj_id)->isFirst();
+			$b->setDisabled($is_first);
+		}
 		//		$b->setCaption('rep_robj_xlvo_back');
 		$b->setUrl($this->ctrl->getLinkTarget($this, self::CMD_PREVIOUS));
 		$b->setId('btn-previous');
 		$this->toolbar->addButtonInstance($b);
 
 		$b = ilLinkButton::getInstance();
+		if($this->obj_id) {
+			$is_last = $this->voting_manager->getActiveVotingObject($this->obj_id)->isLast();
+			$b->setDisabled($is_last);
+		}
 		//		$b->setCaption('rep_robj_xlvo_next');
 		$b->setUrl($this->ctrl->getLinkTarget($this, self::CMD_NEXT));
 		$b->setId('btn-next');

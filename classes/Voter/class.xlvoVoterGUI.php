@@ -10,7 +10,8 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVotingManager.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoMultiLineInputGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Context/class.xlvoInitialisation.php');
-
+require_once('./Services/Form/classes/class.ilPropertyFormGUI.php');
+require_once('./Services/Form/classes/class.ilTextInputGUI.php');
 /**
  * Class xlvoVoterGUI
  *
@@ -315,7 +316,7 @@ class xlvoVoterGUI {
 	 * @return string
 	 */
 	public function showAccessScreen($has_error_msg) {
-		xlvoInitialisation::resetCookiePIN();
+//		xlvoInitialisation::resetCookiePIN();
 		$template = new ilTemplate(self::TPL_INFO_SCREEN, true, true);
 		$template->setVariable('VOTING_ID', 0);
 		$template->setVariable('OBJ_ID', 0);
