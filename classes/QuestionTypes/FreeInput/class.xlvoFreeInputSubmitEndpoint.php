@@ -123,7 +123,11 @@ if ($request_type == 'vote_multi') {
 
 	// create and update votes
 	foreach ($posted_votes as $p_vote) {
-		$is_found = array_search($p_vote['vote_id'], array_column($existing_votes, 'id'));
+		$exising_ids = array();
+		foreach ($existing_votes as $existing_vote) {
+			$exising_ids[] = $existing_vote['id'];
+		}
+		$is_found = in_array($p_vote['vote_id'], $exising_ids);
 		if ($is_found !== false) {
 			// create vote
 			$vote_to_save = new xlvoVote();
