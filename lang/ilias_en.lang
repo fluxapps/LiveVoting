@@ -1,6 +1,14 @@
 <!-- language file start -->
 common_actions#:#Actions
 common_back#:#Back
+config_allow_shortlink#:#Activate Short URL
+config_allow_shortlink_info#:#Use a Short URL like /vote by adding the following RewriteRule to your .htaccess:
+config_allow_shortlink_link#:#Short URL
+config_allow_shortlink_link_info#:#Full Short URL of your Installation , e.g. https://ilias.domain.com/vote
+config_base_url#:#Base URL
+config_base_url_info#:#URL of yout ILIAS-Installation incl. Subfolders, e.g. https://www.domain.com/ilias
+config_cancel#:#Cancel
+config_update#:#Update
 msg_success_voting_created#:#Voting has been created
 msg_success_voting_updated#:#Voting has been udpated
 obj_anonymous#:#Vote without Login
@@ -15,18 +23,33 @@ obj_terminable_select#:#Time range
 obj_terminable_select_end_time#:#End
 obj_terminable_select_start_time#:#Start
 obj_title#:#Title
+player_freeze#:#Freeze
+player_hide_results#:#Hide Results
 player_msg_no_votings#:#There are no Questions, the LiveVoting can be started.
+player_reset#:#Reset
+player_show_results#:#Show Results
 player_start_voting#:#Start LiveVoting
+player_terminate#:#Terminate
+player_unfreeze#:#Unfreeze
+player_voting_list#:#Votings
 qtype_1_colors#:#Different Colors
 qtype_1_multi_selection#:#Multiple Selection
 qtype_1_option_text#:#Option-Text
 qtype_1_options#:#Options
 qtype_2_multi_free_input#:#Multiple Inputs
 qtype_form_header#:#Type-Settings
+qtype_multi_free_input#:#Multiple Inputs
 subtab_edit#:#Manage
 subtab_show#:#Show
 tab_content#:#Content
 tab_edit#:#Properties
+voter_answer#:#Input
+voter_delete#:#Delete
+voter_msg_access_screen#:#PIN-Access
+voter_msg_start_of_voting_screen#:#Please wait untill the Presenter starts the Voting
+voter_msg_waiting_screen#:#Please wait
+voter_pin_input#:#PIN
+voter_send#:#Send
 voting_actions#:#Actions
 voting_add#:#Add Voting
 voting_cancel#:#Cancel

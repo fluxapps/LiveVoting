@@ -1,6 +1,14 @@
 <!-- language file start -->
 common_actions#:#Aktionen
 common_back#:#Zurück
+config_allow_shortlink#:#Kurz-URL einschalten
+config_allow_shortlink_info#:#Eine Kurz-URL kann bspw. durch hinzufügen einer RewriteRule in der .htaccess erstellt werden, dadurch kann auf https://ilias.domain.com/vote angestimmt werden:
+config_allow_shortlink_link#:#Kurz-URL
+config_allow_shortlink_link_info#:#Ganze Kurz-URL ihrer Installation, bspw. https://ilias.domain.com/vote
+config_base_url#:#Basis-URL
+config_base_url_info#:#URL Ihrer ILIAS-Installation inkl. Unterverzeichnis, bspw. https://www.domain.com/ilias
+config_cancel#:#Abbrechen
+config_update#:#Update
 msg_success_voting_created#:#Voting wurde erstellt
 msg_success_voting_updated#:#Voting wurde gespeichert
 obj_anonymous#:#Abstimmung ohne Login
@@ -15,25 +23,39 @@ obj_terminable_select#:#Zeitraum
 obj_terminable_select_end_time#:#Ende
 obj_terminable_select_start_time#:#Start
 obj_title#:#Titel
+player_freeze#:#Unterbrechen
+player_hide_results#:#Resultate ausblenden
 player_msg_no_votings#:#Es sind keine Fragen vorhanden, das Voting kann nicht gestartet werden.
+player_reset#:#Zurücksetzen
+player_show_results#:#Resultate einblenden
 player_start_voting#:#LiveVoting beginnen
+player_terminate#:#Beenden
+player_unfreeze#:#Freigeben
+player_voting_list#:#Votings
 qtype_1_colors#:#Unterschiedliche Farben
 qtype_1_multi_selection#:#Mehrfachauswahl
 qtype_1_option_text#:#Options-Text
 qtype_1_options#:#Optionen
 qtype_2_multi_free_input#:#Mehrfache Eingaben
 qtype_form_header#:#Typ-Einstellugnen
+qtype_multi_free_input#:#Mehrfache Eingaben
 subtab_edit#:#Verwalten
 subtab_show#:#Zeigen
 tab_content#:#Inhalt
 tab_edit#:#Einstellungen
+voter_answer#:#Eingabe
+voter_delete#:#Löschen
+voter_msg_access_screen#:#PIN-Eingabe
+voter_msg_start_of_voting_screen#:#Bitte warten, bis der Präsentator das Voting freigibt
+voter_msg_waiting_screen#:#Bitte warten
+voter_pin_input#:#PIN zum Voting
+voter_send#:#Abschicken
 voting_actions#:#Aktionen
 voting_add#:#Voting hinzufügen
 voting_cancel#:#Abbrechen
 voting_create#:#Erstellen
 voting_delete#:#Löschen
-voting_delete,Löschen#:#Delete
-voting_delete_confirm#:#Möchten Sie das ausgewählte Voting wirklich löschen?
+voting_delete_confirm#:#Do you really want to delete the Voting?
 voting_description#:#Beschreibung
 voting_edit#:#Bearbeiten
 voting_msg_sorting_saved#:#Reihenfolge gespeichert
