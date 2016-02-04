@@ -313,16 +313,16 @@ class xlvoVotingGUI {
 			$xlvoVoting = xlvoVoting::find($_GET[self::IDENTIFIER]);
 
 			if ($xlvoVoting->getObjId() == $this->getObjId()) {
-				ilUtil::sendQuestion($this->pl->txt('confirm_reset_voting'), true);
+				ilUtil::sendQuestion($this->txt('confirm_reset'), true);
 				$confirm = new ilConfirmationGUI();
 				$confirm->addItem(self::IDENTIFIER, $xlvoVoting->getId(), $xlvoVoting->getTitle());
 				$confirm->setFormAction($this->ctrl->getFormAction($this));
-				$confirm->setCancel($this->pl->txt('cancel'), self::CMD_CANCEL);
-				$confirm->setConfirm($this->pl->txt('reset'), self::CMD_RESET);
+				$confirm->setCancel($this->txt('cancel'), self::CMD_CANCEL);
+				$confirm->setConfirm($this->txt('reset'), self::CMD_RESET);
 
 				$this->tpl->setContent($confirm->getHTML());
 			} else {
-				ilUtil::sendFailure($this->pl->txt('permission_denied_object'), true);
+				ilUtil::sendFailure($this->txt('permission_denied_object'), true);
 				$this->ctrl->redirect($this, self::CMD_STANDARD);
 			}
 		}
@@ -362,7 +362,7 @@ class xlvoVotingGUI {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
-			ilUtil::sendQuestion($this->pl->txt('confirm_reset_all_votings'), true);
+			ilUtil::sendQuestion($this->txt('confirm_reset_all'), true);
 			$confirm = new ilConfirmationGUI();
 			/**
 			 * @var $votings xlvoVoting[]
@@ -372,10 +372,10 @@ class xlvoVotingGUI {
 			foreach ($votings as $voting) {
 				$num_votes += xlvoVote::where(array( 'voting_id' => $voting->getId() ))->count();
 			}
-			$confirm->addItem(self::IDENTIFIER, 0, $this->pl->txt('confirm_number_of_votes') . ": " . $num_votes);
+			$confirm->addItem(self::IDENTIFIER, 0, $this->txt('confirm_number_of_votes') . ": " . $num_votes);
 			$confirm->setFormAction($this->ctrl->getFormAction($this));
-			$confirm->setCancel($this->pl->txt('cancel'), self::CMD_CANCEL);
-			$confirm->setConfirm($this->pl->txt('reset_all'), self::CMD_RESET_ALL);
+			$confirm->setCancel($this->txt('cancel'), self::CMD_CANCEL);
+			$confirm->setConfirm($this->txt('reset_all'), self::CMD_RESET_ALL);
 
 			$this->tpl->setContent($confirm->getHTML());
 		}

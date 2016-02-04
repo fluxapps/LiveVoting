@@ -18,13 +18,16 @@ obj_info_anonymous#:#The LiveVoting can be used for the voters without authentic
 obj_info_online#:#Object is online and available
 obj_info_reuse_status#:#Re-use the state of the current Voting when switching to the next (frozen / not frozen).
 obj_info_terminable#:#The LiveVoting only can be used in the definied period of time
+obj_msg_properties_form_saved#:#Settings saved
 obj_online#:#Online
 obj_reuse_status#:#Re-use Player State
+obj_save#:#Save
 obj_terminable#:#Limit voting time
 obj_terminable_select#:#Time range
 obj_terminable_select_end_time#:#End
 obj_terminable_select_start_time#:#Start
 obj_title#:#Title
+offline#:#Offline
 player_freeze#:#Freeze
 player_hide_results#:#Hide Results
 player_msg_no_votings#:#There are no Questions, the LiveVoting can be started.
@@ -42,6 +45,7 @@ qtype_1_options#:#Options
 qtype_2_multi_free_input#:#Multiple Inputs
 qtype_form_header#:#Type-Settings
 qtype_multi_free_input#:#Multiple Inputs
+status#:#Status
 subtab_edit#:#Manage
 subtab_show#:#Show
 tab_content#:#Content
@@ -59,6 +63,9 @@ voter_text#:#Input
 voting_actions#:#Actions
 voting_add#:#Add Voting
 voting_cancel#:#Cancel
+voting_confirm_number_of_votes#:#Amount of User-Inputs:
+voting_confirm_reset#:#Do you like to reset this Voting? All User-Inputs will be deleted.
+voting_confirm_reset_all#:#Do you like to reset all Voting? All User-Inputs will be deleted.
 voting_create#:#Crete
 voting_delete#:#Delete
 voting_delete_confirm#:#Do you really want to delete the Voting?

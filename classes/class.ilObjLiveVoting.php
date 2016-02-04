@@ -75,15 +75,10 @@ class ilObjLiveVoting extends ilObjectPlugin {
 	 * Create object
 	 */
 	function doCreate() {
-		xlvoVotingConfig::updateDB();
 		$xlvoPin = new xlvoPin();
-
 		$config = new xlvoVotingConfig();
 		$config->setObjId($this->getId());
 		$config->setPin($xlvoPin->getPin());
-		$config->setTerminable(false);
-		$config->setAnonymous(false);
-		$config->setObjOnline(false);
 		$config->save();
 	}
 

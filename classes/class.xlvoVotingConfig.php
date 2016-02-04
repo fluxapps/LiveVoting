@@ -35,7 +35,7 @@ class xlvoVotingConfig extends ActiveRecord {
 	 * @db_fieldtype        text
 	 * @db_length           256
 	 */
-	protected $pin;
+	protected $pin = '';
 	/**
 	 * @var bool
 	 *
@@ -43,7 +43,7 @@ class xlvoVotingConfig extends ActiveRecord {
 	 * @db_fieldtype        integer
 	 * @db_length           1
 	 */
-	protected $obj_online;
+	protected $obj_online = true;
 	/**
 	 * @var bool
 	 *
@@ -51,7 +51,7 @@ class xlvoVotingConfig extends ActiveRecord {
 	 * @db_fieldtype        integer
 	 * @db_length           1
 	 */
-	protected $anonymous;
+	protected $anonymous = true;
 	/**
 	 * @var bool
 	 *

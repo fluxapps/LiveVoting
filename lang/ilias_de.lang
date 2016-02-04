@@ -18,14 +18,17 @@ obj_info_anonymous#:#Das LiveVoting kann von den Abstimmenden ohne Login verwend
 obj_info_online#:#Objekt ist online und verfügbar
 obj_info_reuse_status#:#Beim Wechseln zwischen Voting wird jeweils übernommen, ob das nächste Voting freigegeben werden soll, oder nicht.
 obj_info_terminable#:#Das LiveVoting kann nur innerhalb der definierten Zeit zum Abstimmen genutzt werden
+obj_msg_properties_form_saved#:#Einstellungen gespeichert
 obj_online#:#Online
 obj_reuse_status#:#Player-Status übernehmen
+obj_save#:#Speichern
 obj_save:Speichern#:#Save
 obj_terminable#:#Abstimmung zeitlich beschränken
 obj_terminable_select#:#Zeitraum
 obj_terminable_select_end_time#:#Ende
 obj_terminable_select_start_time#:#Start
 obj_title#:#Titel
+offline#:#Offline
 player_freeze#:#Unterbrechen
 player_hide_results#:#Resultate ausblenden
 player_msg_no_votings#:#Es sind keine Fragen vorhanden, das Voting kann nicht gestartet werden.
@@ -43,6 +46,7 @@ qtype_1_options#:#Optionen
 qtype_2_multi_free_input#:#Mehrfache Eingaben
 qtype_form_header#:#Typ-Einstellugnen
 qtype_multi_free_input#:#Mehrfache Eingaben
+status#:#Status
 subtab_edit#:#Verwalten
 subtab_show#:#Zeigen
 tab_content#:#Inhalt
@@ -60,6 +64,9 @@ voter_text#:#Eingabe
 voting_actions#:#Aktionen
 voting_add#:#Voting hinzufügen
 voting_cancel#:#Abbrechen
+voting_confirm_number_of_votes#:#Anzahl Benutzer-Eingaben:
+voting_confirm_reset#:#Möchten Sie das Voting zurücksetzen? Alle Benutzer-Eingaben werden gelöscht.
+voting_confirm_reset_all#:#Möchten Sie alle Votings zurücksetzen? Alle Benutzer-Eingaben werden gelöscht.
 voting_create#:#Erstellen
 voting_delete#:#Löschen
 voting_delete_confirm#:#Do you really want to delete the Voting?
