@@ -1,8 +1,8 @@
 <?php
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/display/class.xlvoBarGUI.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/display/class.xlvoBarCollectionGUI.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/display/class.xlvoBarPercentageGUI.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/display/class.xlvoBarOptionGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/class.xlvoBarGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/class.xlvoBarCollectionGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/class.xlvoBarPercentageGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/class.xlvoBarOptionGUI.php');
 
 /**
  * Class xlvoDisplayVoterGUI
@@ -35,7 +35,7 @@ class xlvoDisplayVoterGUI {
 
 	/**
 	 * @param xlvoVoting $voting
-	 * @param string     $error_msg
+	 * @param string $error_msg
 	 */
 	public function __construct(xlvoVoting $voting, $error_msg = '') {
 		$this->voting = $voting;
@@ -54,8 +54,10 @@ class xlvoDisplayVoterGUI {
 			$this->addOption($item);
 		}
 
-		$votings = xlvoVoting::where(array( 'obj_id' => $this->voting->getObjId(), 'voting_status' => xlvoVoting::STAT_ACTIVE ))
-			->orderBy('position', 'ASC');
+		$votings = xlvoVoting::where(array(
+			'obj_id' => $this->voting->getObjId(),
+			'voting_status' => xlvoVoting::STAT_ACTIVE
+		))->orderBy('position', 'ASC');
 
 		$votings_count = $votings->count();
 
@@ -87,16 +89,6 @@ class xlvoDisplayVoterGUI {
 	}
 
 
-//	/**
-//	 * @param xlvoOption $option
-//	 */
-//	protected function addAnswer(xlvoOption $option) {
-//		$this->tpl->setCurrentBlock('option');
-//		$this->tpl->setVariable('OPTION_LETTER', (chr($this->answer_count)));
-//		$this->tpl->setVariable('OPTION_TEXT', $option->getText());
-//		$this->tpl->parseCurrentBlock();
-//	}
-
 	/**
 	 * @param xlvoOption $option
 	 */
@@ -110,7 +102,6 @@ class xlvoDisplayVoterGUI {
 		$this->tpl->setVariable('OPTION_TEXT', $option->getText());
 		$this->tpl->parseCurrentBlock();
 	}
-
 
 
 	/**
