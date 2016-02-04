@@ -48,11 +48,14 @@ class xlvoConfFormGUI extends ilPropertyFormGUI {
 		$this->initButtons();
 
 		$use_shortlink = new ilCheckboxInputGUI($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK), xlvoConf::F_ALLOW_SHORTLINK);
+		$use_shortlink->setInfo($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK . '_info') . '<br><br><span class="label label-default">' . xlvoConf::REWRITE_RULE . '</span><br><br>');
 
 		$shortlink = new ilTextInputGUI($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_LINK), xlvoConf::F_ALLOW_SHORTLINK_LINK);
+		$shortlink->setInfo($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_LINK . '_info'));
 		$use_shortlink->addSubItem($shortlink);
 
 		$base_url = new ilTextInputGUI($this->parent_gui->txt(xlvoConf::F_BASE_URL), xlvoConf::F_BASE_URL);
+		$base_url->setInfo($this->parent_gui->txt(xlvoConf::F_BASE_URL . '_info'));
 		$use_shortlink->addSubItem($base_url);
 
 		$this->addItem($use_shortlink);
