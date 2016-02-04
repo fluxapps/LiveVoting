@@ -91,14 +91,10 @@ class xlvoVoterGUI {
 
 
 	public function executeCommand() {
-		global $ilLog;
-
-		$this->tabs->addTab(self::TAB_STANDARD, $this->pl->txt('Voting'), $this->ctrl->getLinkTarget($this, self::CMD_STANDARD));
 		$nextClass = $this->ctrl->getNextClass();
 		switch ($nextClass) {
 			default:
 				$cmd = $this->ctrl->getCmd(self::CMD_STANDARD);
-				$ilLog->write('XLVO execute ' . $cmd);
 				$this->{$cmd}();
 				break;
 		}
@@ -134,7 +130,7 @@ class xlvoVoterGUI {
 				try {
 					$xlvoVoting = $this->voting_manager->getVoting($xlvoPlayer->getActiveVoting());
 				} catch (xlvoVotingManagerException $e) {
-					return $this->tpl->getMessageHTML($this->pl->txt('error_load_voting_failed'), 'failure');
+					return $this->tpl->getMessageHTML($this->txt('error_load_voting_failed'), 'failure');
 				}
 
 				if ($xlvoVoting instanceof xlvoVoting) {
@@ -144,7 +140,7 @@ class xlvoVoterGUI {
 
 						return $display->getHtml();
 					} else {
-						$err_msg = $this->tpl->getMessageHTML($this->pl->txt($error_msg), 'failure');
+						$err_msg = $this->tpl->getMessageHTML($this->txt($error_msg), 'failure');
 						$display = new xlvoDisplayVoterGUI($xlvoVoting, $err_msg);
 
 						return $display->getHTML();
@@ -277,9 +273,9 @@ class xlvoVoterGUI {
 		$template->setVariable('OBJ_ID', $obj_id);
 		$template->setVariable('INFO_TYPE', $info_type);
 		if (!$has_error_msg) {
-			$template->setVariable('INFO_TEXT', $this->pl->txt('msg_' . $info_type));
+			$template->setVariable('INFO_TEXT', $this->txt('msg_' . $info_type));
 		} else {
-			$error_message = $template->getMessageHTML($this->pl->txt('msg_validation_error_pin'), 'failure');
+			$error_message = $template->getMessageHTML($this->txt('msg_validation_error_pin'), 'failure');
 			$template->setVariable('ERROR', $error_message);
 		}
 
@@ -322,21 +318,30 @@ class xlvoVoterGUI {
 		$template->setVariable('OBJ_ID', 0);
 		$template->setVariable('INFO_TYPE', 'access_screen');
 
-		$t = new ilTextInputGUI($this->pl->txt('pin_input'), 'pin_input');
+		$t = new ilTextInputGUI($this->txt('pin_input'), 'pin_input');
 		$form = new ilPropertyFormGUI();
 		$form->setId('access');
 		$form->addItem($t);
-		$form->addCommandButton(self::CMD_ACCESS_VOTING, $this->pl->txt('send'));
+		$form->addCommandButton(self::CMD_ACCESS_VOTING, $this->txt('send'));
 
-		$template->setVariable('INFO_TEXT', $this->pl->txt('msg_access_screen'));
+		$template->setVariable('INFO_TEXT', $this->txt('msg_access_screen'));
 		$template->setVariable('INFO_BODY', $form->getHTML());
 
 		if ($has_error_msg) {
-			$error_message = $template->getMessageHTML($this->pl->txt('msg_validation_error_pin'), 'failure');
+			$error_message = $template->getMessageHTML($this->txt('msg_validation_error_pin'), 'failure');
 			$template->setVariable('ERROR', $error_message);
 		}
 
 		return $template->get();
+	}
+
+
+	/**
+	 * @param $key
+	 * @return string
+	 */
+	protected function txt($key) {
+		return $this->pl->txt('voter_'.$key);
 	}
 
 

@@ -33,7 +33,7 @@ class xlvoFreeInputMobileGUI extends xlvoInputMobileGUI {
 	 */
 	protected function renderForm(xlvoVote $vote) {
 
-		$an = new ilTextInputGUI($this->pl->txt('answer'), 'free_input');
+		$an = new ilTextInputGUI($this->pl->txt('voter_answer'), 'free_input');
 		$an->setValue($vote->getFreeInput());
 		$an->setMaxLength(45);
 
@@ -48,8 +48,8 @@ class xlvoFreeInputMobileGUI extends xlvoInputMobileGUI {
 		$form->addItem($an);
 		$form->addItem($hi1);
 		$form->addItem($hi2);
-		$form->addCommandButton('send_unvote', $this->pl->txt('delete'));
-		$form->addCommandButton('send_vote', $this->pl->txt('send'));
+		$form->addCommandButton('send_unvote', $this->pl->txt('voter_delete'));
+		$form->addCommandButton('send_vote', $this->pl->txt('voter_send'));
 
 		return $form->getHTML();
 	}
@@ -63,15 +63,15 @@ class xlvoFreeInputMobileGUI extends xlvoInputMobileGUI {
 	 */
 	protected function renderMultiForm(array $votes, xlvoOption $option) {
 		$mli = new xlvoMultiLineInputGUI($this->pl->txt('answers'), 'vote_multi_line_input');
-		$te = new ilTextInputGUI($this->pl->txt('text'), 'free_input');
+		$te = new ilTextInputGUI($this->pl->txt('voter_text'), 'free_input');
 		$te->setMaxLength(45);
 		$mli->addCustomAttribute('option_id', $option->getId());
 		$mli->addInput($te);
 
 		$form = new ilPropertyFormGUI();
 		$form->setId('free_input_multi');
-		$form->addCommandButton('unvote_all', $this->pl->txt('delete_all'));
-		$form->addCommandButton('send_votes', $this->pl->txt('send'));
+		$form->addCommandButton('unvote_all', $this->pl->txt('voter_delete_all'));
+		$form->addCommandButton('send_votes', $this->pl->txt('voter_send'));
 		$form->addItem($mli);
 
 		$array = array(

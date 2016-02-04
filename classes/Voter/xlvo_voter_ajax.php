@@ -3,7 +3,6 @@
 chdir(strstr($_SERVER['SCRIPT_FILENAME'], 'Customizing', true));
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Context/class.xlvoInitialisation.php');
 xlvoInitialisation::init();
-
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilObjLiveVotingAccess.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilLiveVotingPlugin.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voter/class.xlvoVoterGUI.php');
@@ -37,7 +36,7 @@ if ($posted_type == 'get_voting_data') {
 if ($posted_type == 'access_screen') {
 	header('Content-type: text/html');
 	if (xlvoInitialisation::getCookiePIN()) {
-		echo $voter_gui->accessVoting($_COOKIE['xlvo_pin']);
+		echo $voter_gui->accessVoting(xlvoInitialisation::getCookiePIN());
 	} else {
 		echo $voter_gui->showAccessScreen(false);
 	}

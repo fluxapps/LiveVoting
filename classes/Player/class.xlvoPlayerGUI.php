@@ -16,6 +16,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoLinkButton.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Conf/class.xlvoConf.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/lib/QrCode-master/src/QrCode.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoGlyphGUI.php');
 use Endroid\QrCode\QrCode;
 
 /**
@@ -129,7 +130,7 @@ class xlvoPlayerGUI {
 	 */
 	public function startVoting() {
 		if (!$this->access->hasWriteAccess()) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
+			ilUtil::sendFailure($this->txt('permission_denied_write'), true);
 		} else {
 			/**
 			 * @var xlvoVoting $vo
@@ -171,15 +172,15 @@ class xlvoPlayerGUI {
 				 */
 				$xlvoVoting = $this->voting_manager->getVoting($voting_id);
 			} catch (xlvoVotingManagerException $e) {
-				ilUtil::sendFailure($this->pl->txt('error_load_voting_failed'), true);
+				ilUtil::sendFailure($this->txt('error_load_voting_failed'), true);
 
-				return $this->tpl->getMessageHTML($this->pl->txt('error_load_voting_failed'), 'failure');
+				return $this->tpl->getMessageHTML($this->txt('error_load_voting_failed'), 'failure');
 			}
 
 			if (!$this->access->hasWriteAccessForObject($xlvoVoting->getObjId(), $this->usr->getId())) {
-				ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
+				ilUtil::sendFailure($this->txt('permission_denied_write'), true);
 
-				return $this->tpl->getMessageHTML($this->pl->txt('permission_denied_write'), 'failure');
+				return $this->tpl->getMessageHTML($this->txt('permission_denied_write'), 'failure');
 			} else {
 
 				/**
@@ -193,9 +194,9 @@ class xlvoPlayerGUI {
 					 */
 					$xlvoPlayer = $this->voting_manager->getPlayer($xlvoVoting->getObjId());
 				} catch (xlvoVotingManagerException $e) {
-					ilUtil::sendFailure($this->pl->txt('msg_voting_not_available'), false);
+					ilUtil::sendFailure($this->txt('msg_voting_not_available'), false);
 
-					return $this->tpl->getMessageHTML($this->pl->txt('msg_voting_not_available'), 'failure');
+					return $this->tpl->getMessageHTML($this->txt('msg_voting_not_available'), 'failure');
 				}
 
 				$isRunning = $xlvoPlayer->getStatus();
@@ -211,15 +212,15 @@ class xlvoPlayerGUI {
 
 					return $display->getHTML();
 				} else {
-					ilUtil::sendFailure($this->pl->txt('msg_voting_not_available'), false);
+					ilUtil::sendFailure($this->txt('msg_voting_not_available'), false);
 
-					return $this->tpl->getMessageHTML($this->pl->txt('error_voting_terminated'), 'failure');
+					return $this->tpl->getMessageHTML($this->txt('error_voting_terminated'), 'failure');
 				}
 			}
 		} else {
-			ilUtil::sendFailure($this->pl->txt('msg_voting_not_available'), false);
+			ilUtil::sendFailure($this->txt('msg_voting_not_available'), false);
 
-			return $this->tpl->getMessageHTML($this->pl->txt('msg_voting_not_available'), 'failure');
+			return $this->tpl->getMessageHTML($this->txt('msg_voting_not_available'), 'failure');
 		}
 	}
 
@@ -247,7 +248,7 @@ class xlvoPlayerGUI {
 	 */
 	public function nextVoting() {
 		if (!$this->access->hasWriteAccess()) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
+			ilUtil::sendFailure($this->txt('permission_denied_write'), true);
 		} else {
 			$voting_id_current = $this->getActiveVoting($this->obj_id);
 
@@ -289,7 +290,7 @@ class xlvoPlayerGUI {
 	 */
 	public function previousVoting() {
 		if (!$this->access->hasWriteAccess()) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
+			ilUtil::sendFailure($this->txt('permission_denied_write'), true);
 		} else {
 			$voting_id_current = $this->getActiveVoting($this->obj_id);
 			/**
@@ -332,7 +333,7 @@ class xlvoPlayerGUI {
 	 */
 	public function startOfVotingScreen() {
 		if (!$this->access->hasWriteAccess()) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
+			ilUtil::sendFailure($this->txt('permission_denied_write'), true);
 		} else {
 			try {
 				/**
@@ -364,7 +365,7 @@ class xlvoPlayerGUI {
 	 */
 	public function endOfVotingScreen() {
 		if (!$this->access->hasWriteAccess()) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
+			ilUtil::sendFailure($this->txt('permission_denied_write'), true);
 		} else {
 			/**
 			 * @var xlvoPlayer $xlvoPlayer
@@ -389,9 +390,9 @@ class xlvoPlayerGUI {
 	 */
 	public function resetVotes($obj_id, $voting_id) {
 		if (!$this->access->hasWriteAccessForObject($obj_id, $this->usr->getId())) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
+			ilUtil::sendFailure($this->txt('permission_denied_write'), true);
 
-			return $this->tpl->getMessageHTML($this->pl->txt('permission_denied_write'), 'failure');
+			return $this->tpl->getMessageHTML($this->txt('permission_denied_write'), 'failure');
 		} else {
 			/**
 			 * @var xlvoPlayer $xlvoPlayer
@@ -413,9 +414,9 @@ class xlvoPlayerGUI {
 	 */
 	public function freeze($obj_id) {
 		if (!$this->access->hasWriteAccessForObject($obj_id, $this->usr->getId())) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
+			ilUtil::sendFailure($this->txt('permission_denied_write'), true);
 
-			return $this->tpl->getMessageHTML($this->pl->txt('permission_denied_write'), 'failure');
+			return $this->tpl->getMessageHTML($this->txt('permission_denied_write'), 'failure');
 		} else {
 			$xlvoPlayer = $this->voting_manager->getPlayer($obj_id);
 
@@ -425,7 +426,7 @@ class xlvoPlayerGUI {
 				return '';
 			} else {
 
-				return $this->tpl->getMessageHTML($this->pl->txt('msg_voting_not_available'), 'failure');
+				return $this->tpl->getMessageHTML($this->txt('msg_voting_not_available'), 'failure');
 			}
 		}
 	}
@@ -438,9 +439,9 @@ class xlvoPlayerGUI {
 	 */
 	public function unfreeze($obj_id) {
 		if (!$this->access->hasWriteAccessForObject($obj_id, $this->usr->getId())) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
+			ilUtil::sendFailure($this->txt('permission_denied_write'), true);
 
-			return $this->tpl->getMessageHTML($this->pl->txt('permission_denied_write'), 'failure');
+			return $this->tpl->getMessageHTML($this->txt('permission_denied_write'), 'failure');
 		} else {
 			$xlvoPlayer = $this->voting_manager->getPlayer($obj_id);
 
@@ -449,7 +450,7 @@ class xlvoPlayerGUI {
 
 				return '';
 			} else {
-				return $this->tpl->getMessageHTML($this->pl->txt('msg_voting_not_available'), 'failure');
+				return $this->tpl->getMessageHTML($this->txt('msg_voting_not_available'), 'failure');
 			}
 		}
 	}
@@ -460,11 +461,20 @@ class xlvoPlayerGUI {
 	 */
 	public function terminate() {
 		if (!$this->access->hasWriteAccess()) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
+			ilUtil::sendFailure($this->txt('permission_denied_write'), true);
 		} else {
 			$this->voting_manager->terminateVoting($this->obj_id);
 			$this->ctrl->redirect(new xlvoVotingGUI(), xlvoVotingGUI::CMD_STANDARD);
 		}
+	}
+
+
+	/**
+	 * @param $key
+	 * @return string
+	 */
+	protected function txt($key) {
+		return $this->pl->txt('player_' . $key);
 	}
 
 
@@ -475,20 +485,20 @@ class xlvoPlayerGUI {
 		$b = xlvoLinkButton::getInstance();
 		$b->clearClasses();
 		$b->addCSSClass('btn-warning');
-		$b->setCaption('rep_robj_xlvo_freeze');
+		$b->setCaption(xlvoGlyphGUI::get('pause') . $this->txt('freeze'), false);
 		$b->setUrl('#');
 		$b->setId('btn-freeze');
 		$this->toolbar->addButtonInstance($b);
 
 		$b = ilLinkButton::getInstance();
 		$b->setPrimary(true);
-		$b->setCaption('rep_robj_xlvo_unfreeze');
+		$b->setCaption(xlvoGlyphGUI::get('play') . $this->txt('unfreeze'), false);
 		$b->setUrl('#');
 		$b->setId('btn-unfreeze');
 		$this->toolbar->addButtonInstance($b);
 
 		$b = ilLinkButton::getInstance();
-		$b->setCaption('rep_robj_xlvo_terminate');
+		$b->setCaption(xlvoGlyphGUI::get('stop') .$this->txt('terminate'), false);
 		$b->setUrl($this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_TERMINATE));
 		$b->setId('btn-terminate');
 		$this->toolbar->addButtonInstance($b);
@@ -496,7 +506,7 @@ class xlvoPlayerGUI {
 		$this->toolbar->addSeparator();
 
 		$current_selection_list = new ilAdvancedSelectionListGUI();
-		$current_selection_list->setListTitle($this->pl->txt('voting_list'));
+		$current_selection_list->setListTitle($this->txt('voting_list'));
 		$current_selection_list->setId('xlvo_select');
 		$current_selection_list->setTriggerEvent('xlvo_voting');
 		$current_selection_list->setUseImages(false);
@@ -510,42 +520,45 @@ class xlvoPlayerGUI {
 		}
 		$this->toolbar->addText($current_selection_list->getHTML());
 
+		// PREV
 		$b = ilLinkButton::getInstance();
-		if($this->obj_id) {
+		if ($this->obj_id) {
 			$is_first = $this->voting_manager->getActiveVotingObject($this->obj_id)->isFirst();
 			$b->setDisabled($is_first);
 		}
-		//		$b->setCaption('rep_robj_xlvo_back');
 		$b->setUrl($this->ctrl->getLinkTarget($this, self::CMD_PREVIOUS));
+		$b->setCaption(xlvoGlyphGUI::get(xlvoGlyphGUI::PREVIOUS), false);
 		$b->setId('btn-previous');
 		$this->toolbar->addButtonInstance($b);
 
+		// NEXT
 		$b = ilLinkButton::getInstance();
-		if($this->obj_id) {
+		if ($this->obj_id) {
 			$is_last = $this->voting_manager->getActiveVotingObject($this->obj_id)->isLast();
 			$b->setDisabled($is_last);
 		}
-		//		$b->setCaption('rep_robj_xlvo_next');
+		$b->setCaption(xlvoGlyphGUI::get(xlvoGlyphGUI::NEXT), false);
 		$b->setUrl($this->ctrl->getLinkTarget($this, self::CMD_NEXT));
 		$b->setId('btn-next');
 		$this->toolbar->addButtonInstance($b);
 
 		$this->toolbar->addSeparator();
 
+		//
 		$b = ilLinkButton::getInstance();
-		$b->setCaption('rep_robj_xlvo_reset');
+		$b->setCaption($this->txt('reset'), false);
 		$b->setUrl('#');
 		$b->setId('btn-reset');
 		$this->toolbar->addButtonInstance($b);
 
 		$b = ilLinkButton::getInstance();
-		$b->setCaption('rep_robj_xlvo_hide_results');
+		$b->setCaption($this->txt('hide_results'), false);
 		$b->setUrl('#');
 		$b->setId('btn-hide-results');
 		$this->toolbar->addButtonInstance($b);
 
 		$b = ilLinkButton::getInstance();
-		$b->setCaption('rep_robj_xlvo_show_results');
+		$b->setCaption($this->txt('show_results'), false);
 		$b->setUrl('#');
 		$b->setId('btn-show-results');
 		$this->toolbar->addButtonInstance($b);
@@ -557,7 +570,7 @@ class xlvoPlayerGUI {
 	 */
 	protected function setContentStartOfVoting() {
 		if (!$this->voting_manager->getActiveVotings($this->obj_id)->hasSets()) {
-			ilUtil::sendFailure($this->pl->txt('player_msg_no_votings'));
+			ilUtil::sendFailure($this->txt('player_msg_no_votings'));
 		} else {
 			$b = ilLinkButton::getInstance();
 			$b->setCaption('rep_robj_xlvo_player_start_voting');
@@ -617,7 +630,7 @@ class xlvoPlayerGUI {
 		$template->setVariable('QR-CODE-MODAL', $qrCodeDataModal);
 
 		$template->setVariable('SHORTLINK', xlvoConf::getShortLinkURL() . $xlvoVotingConfig->getPin());
-		$template->setVariable('CLOSE_BUTTON', $this->pl->txt('cancel'));
+		$template->setVariable('CLOSE_BUTTON', $this->txt('cancel'));
 
 		$this->tpl->setContent($template->get());
 	}
@@ -641,6 +654,6 @@ class xlvoPlayerGUI {
 		$this->toolbar->addButtonInstance($bb);
 		$this->toolbar->addButtonInstance($bt);
 
-		$this->tpl->setContent($this->pl->txt('msg_end_of_voting'));
+		$this->tpl->setContent($this->txt('msg_end_of_voting'));
 	}
 }

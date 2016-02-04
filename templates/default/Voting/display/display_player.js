@@ -86,23 +86,23 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 		$(document).ready(function () {
 
 			var btnNext = $('#btn-next');
-			btnNext.html(btnNext.text() + '<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>');
+			//btnNext.html(btnNext.text() + '<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>');
 			var btnPrevious = $('#btn-previous');
-			btnPrevious.html('<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>' + btnPrevious.text());
+			//btnPrevious.html('<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>' + btnPrevious.text());
 			var btnTerminate = $('#btn-terminate');
-			btnTerminate.html('<span class="glyphicon glyphicon-stop" aria-hidden="true"></span>' + btnTerminate.text());
+			//btnTerminate.html('<span class="glyphicon glyphicon-stop" aria-hidden="true"></span>' + btnTerminate.text());
 			var btnReset = $('#btn-reset');
-			btnReset.html('<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>' + btnReset.text());
+			//btnReset.html('<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>' + btnReset.text());
 			var btnBackToVoting = $('#btn-back-to-Voting');
-			btnBackToVoting.html('<span class="glyphicon glyphicon-fast-backward" aria-hidden="true"></span>' + btnBackToVoting.text());
+			//btnBackToVoting.html('<span class="glyphicon glyphicon-fast-backward" aria-hidden="true"></span>' + btnBackToVoting.text());
 			var btnStartVoting = $('#btn-start-Voting');
-			btnStartVoting.html('<span class="glyphicon glyphicon-play" aria-hidden="true"></span>' + btnStartVoting.text());
+			//btnStartVoting.html('<span class="glyphicon glyphicon-play" aria-hidden="true"></span>' + btnStartVoting.text());
 
 
 			var btnShowResults = $('#btn-show-results');
-			btnShowResults.html('<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>' + btnShowResults.text());
+			//btnShowResults.html('<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>' + btnShowResults.text());
 			var btnHideResults = $('#btn-hide-results');
-			btnHideResults.html('<span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>' + btnHideResults.text());
+			//btnHideResults.html('<span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>' + btnHideResults.text());
 			btnHideResults.hide();
 			btnHideResults.parent().hide();
 
@@ -112,12 +112,12 @@ var url = "./Customizing/global/plugins/Services/Repository/RepositoryObject/Liv
 			if (isFrozen == true) {
 				btnFreeze.hide();
 				btnFreeze.parent().hide();
-				btnUnfreeze.html('<span class="glyphicon glyphicon-play" aria-hidden="true"></span>' + btnUnfreeze.text());
+				//btnUnfreeze.html('<span class="glyphicon glyphicon-play" aria-hidden="true"></span>' + btnUnfreeze.text());
 				btnReset.attr('disabled', false);
 			} else {
 				btnUnfreeze.hide();
 				btnUnfreeze.parent().hide();
-				btnFreeze.html('<span class="glyphicon glyphicon-pause" aria-hidden="true"></span>' + btnFreeze.text());
+				//btnFreeze.html('<span class="glyphicon glyphicon-pause" aria-hidden="true"></span>' + btnFreeze.text());
 				btnReset.attr('disabled', 'disabled');
 			}
 
