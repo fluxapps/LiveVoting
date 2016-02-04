@@ -56,7 +56,9 @@ voter_answers#:#Eingaben
 voter_delete#:#Löschen
 voter_delete_all#:#Alle löschen
 voter_msg_access_screen#:#PIN-Eingabe
+voter_msg_not_running_screen#:#Das Voting ist nicht aktiv. Vielen Dank für die Teilnahme
 voter_msg_start_of_voting_screen#:#Bitte warten, bis der Präsentator das Voting freigibt
+voter_msg_validation_error_pin#:#Diese PIN ist nicht vorhanden oder nicht aktiv
 voter_msg_waiting_screen#:#Bitte warten
 voter_pin_input#:#PIN zum Voting
 voter_send#:#Abschicken
@@ -91,4 +93,3 @@ voting_type_2_info#:#Benutzer können Stichwort selber eingeben
 voting_type_3#:#Bereich
 voting_type_4#:#Reihenfolge
 voting_update#:#Speichern
-voter_msg_validation_error_pin#:#Diese PIN ist nicht vorhanden oder nicht aktiv

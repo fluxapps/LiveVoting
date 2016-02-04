@@ -55,7 +55,9 @@ voter_answers#:#Inputs
 voter_delete#:#Delete
 voter_delete_all#:#Delete All
 voter_msg_access_screen#:#PIN-Access
+voter_msg_not_running_screen#:#This Voting is no longer active. Thanks for your participation
 voter_msg_start_of_voting_screen#:#Please wait untill the Presenter starts the Voting
+voter_msg_validation_error_pin#:#This PIN is not available or not active.
 voter_msg_waiting_screen#:#Please wait
 voter_pin_input#:#PIN
 voter_send#:#Send
@@ -90,4 +92,3 @@ voting_type_2_info#:#User can hand in free text
 voting_type_3#:#Range
 voting_type_4#:#Order
 voting_update#:#Update
-voter_msg_validation_error_pin#:#This PIN is not available or not active.
