@@ -1,57 +1,152 @@
 part;var;de;en
-common;actions;"Aktionen";"Actions"
-common;back;"Zurück";"Back"
-msg_success;voting_created;"Voting wurde erstellt";"Voting has been created"
-msg_success;voting_updated;"Voting wurde gespeichert";"Voting has been udpated"
-obj;anonymous;"Abstimmung ohne Login";"Vote without Login"
-obj;description;"Beschreibung";"Description"
-obj;edit_properties;"Einstellungen bearbeiten";"Edit Properties"
-obj;info_anonymous;"Das LiveVoting kann von den Abstimmenden ohne Login verwendet werden, auch wenn das Objekt in geschützen Bereich wie bspw. einem Kurs liegt.";"The LiveVoting can be used for the voters without authentication, even when the Object is in a secured Space like a Course"
-obj;info_online;"Objekt ist online und verfügbar";"Object is online and available"
-obj;info_terminable;"Das LiveVoting kann nur innerhalb der definierten Zeit zum Abstimmen genutzt werden";"The LiveVoting only can be used in the definied period of time"
-obj;online;"Online";"Online"
-obj;terminable;"Abstimmung zeitlich beschränken";"Limit voting time"
-obj;terminable_select;"Zeitraum";"Time range"
-obj;terminable_select_end_time;"Ende";"End"
-obj;terminable_select_start_time;"Start";"Start"
-obj;title;"Titel";"Title"
-player;msg_no_votings;"Es sind keine Fragen vorhanden, das Voting kann nicht gestartet werden.";"There are no Questions, the LiveVoting can be started."
-player;start_voting;"LiveVoting beginnen";"Start LiveVoting"
-qtype_1;colors;"Unterschiedliche Farben";"Different Colors"
-qtype_1;multi_selection;"Mehrfachauswahl";"Multiple Selection"
-qtype_1;option_text;"Options-Text";"Option-Text"
-qtype_1;options;"Optionen";"Options"
-qtype_2;multi_free_input;"Mehrfache Eingaben";"Multiple Inputs"
-qtype;form_header;"Typ-Einstellugnen";"Type-Settings"
-subtab;edit;"Verwalten";"Manage"
-subtab;show;"Zeigen";"Show"
-tab;content;"Inhalt";"Content"
-tab;edit;"Einstellungen";"Properties"
-voting;actions;"Aktionen";"Actions"
-voting;add;"Voting hinzufügen";"Add Voting"
-voting;cancel;"Abbrechen";"Cancel"
-voting;create;"Erstellen";"Crete"
-voting;delete;"Löschen";"Delete"
-voting;delete,Löschen;"Delete";""
-voting;delete_confirm;"Möchten Sie das ausgewählte Voting wirklich löschen?";"Do you really want to delete the Voting?"
-voting;description;"Beschreibung";"Description"
-voting;edit;"Bearbeiten";"Edit"
-voting;msg_sorting_saved;"Reihenfolge gespeichert";"Order saved"
-voting;question;"Frage";"Question"
-voting;reset;"Zurücksetzen";"Reset"
-voting;reset_all;"Alle Voting zurücksetzen";"Reset all Votings"
-voting;save_sorting;"Reihenfolge speichern";"Save Order"
-voting;select_type;"Typ auswählen";"Select Type"
-voting;status;"Status";"Status"
-voting;status_1;"Inaktiv";"Inactive"
-voting;status_2;"Unvollständig";"Incomplete"
-voting;status_5;"Aktiv";"Active"
-voting;title;"Titel";"Title"
-voting;type;"Typ";"Type"
-voting;type_1;"Stimmabgabe";"Single Vote"
-voting;type_1_info;"Multiple- oder Single-Choice";"Multiple- orSingle-Choice"
-voting;type_2;"Freitext";"Free Input"
-voting;type_2_info;"Benutzer können Stichwort selber eingeben";"User can hand in free text"
-voting;type_3;"Bereich";"Range"
-voting;type_4;"Reihenfolge";"Order"
-voting;update;"Speichern";"Update"
+common;actions;Actions;Actions
+common;actions;Aktionen;Actions
+common;back;Back;Back
+common;back;Zurück;Back
+config;allow_shortlink;Activate Short URL;Activate Short URL
+config;allow_shortlink;Kurz-URL einschalten;Activate Short URL
+config;allow_shortlink_info;Use a Short URL like /vote by adding the following RewriteRule to your .htaccess:;Use a Short URL like /vote by adding the following RewriteRule to your .htaccess:
+config;allow_shortlink_info;Eine Kurz-URL kann bspw. durch hinzufügen einer RewriteRule in der .htaccess erstellt werden, dadurch kann auf https://ilias.domain.com/vote angestimmt werden:;Use a Short URL like /vote by adding the following RewriteRule to your .htaccess:
+config;allow_shortlink_link;Short URL;Short URL
+config;allow_shortlink_link;Kurz-URL;Short URL
+config;allow_shortlink_link_info;Full Short URL of your Installation , e.g. https://ilias.domain.com/vote;Full Short URL of your Installation , e.g. https://ilias.domain.com/vote
+config;allow_shortlink_link_info;Ganze Kurz-URL ihrer Installation, bspw. https://ilias.domain.com/vote;Full Short URL of your Installation , e.g. https://ilias.domain.com/vote
+config;base_url;Base URL;Base URL
+config;base_url;Basis-URL;Base URL
+config;base_url_info;URL of yout ILIAS-Installation incl. Subfolders, e.g. https://www.domain.com/ilias;URL of yout ILIAS-Installation incl. Subfolders, e.g. https://www.domain.com/ilias
+config;base_url_info;URL Ihrer ILIAS-Installation inkl. Unterverzeichnis, bspw. https://www.domain.com/ilias;URL of yout ILIAS-Installation incl. Subfolders, e.g. https://www.domain.com/ilias
+config;cancel;Cancel;Cancel
+config;cancel;Abbrechen;Cancel
+config;update;Update;Update
+msg_success;voting_created;Voting has been created;Voting has been created
+msg_success;voting_created;Voting wurde erstellt;Voting has been created
+msg_success;voting_updated;Voting has been udpated;Voting has been udpated
+msg_success;voting_updated;Voting wurde gespeichert;Voting has been udpated
+obj;anonymous;Vote without Login;Vote without Login
+obj;anonymous;Abstimmung ohne Login;Vote without Login
+obj;description;Description;Description
+obj;description;Beschreibung;Description
+obj;edit_properties;Edit Properties;Edit Properties
+obj;edit_properties;Einstellungen bearbeiten;Edit Properties
+obj;info_anonymous;The LiveVoting can be used for the voters without authentication, even when the Object is in a secured Space like a Course;The LiveVoting can be used for the voters without authentication, even when the Object is in a secured Space like a Course
+obj;info_anonymous;Das LiveVoting kann von den Abstimmenden ohne Login verwendet werden, auch wenn das Objekt in geschützen Bereich wie bspw. einem Kurs liegt.;The LiveVoting can be used for the voters without authentication, even when the Object is in a secured Space like a Course
+obj;info_online;Object is online and available;Object is online and available
+obj;info_online;Objekt ist online und verfügbar;Object is online and available
+obj;info_terminable;The LiveVoting only can be used in the definied period of time;The LiveVoting only can be used in the definied period of time
+obj;info_terminable;Das LiveVoting kann nur innerhalb der definierten Zeit zum Abstimmen genutzt werden;The LiveVoting only can be used in the definied period of time
+obj;online;Online;Online
+obj;terminable;Limit voting time;Limit voting time
+obj;terminable;Abstimmung zeitlich beschränken;Limit voting time
+obj;terminable_select;Time range;Time range
+obj;terminable_select;Zeitraum;Time range
+obj;terminable_select_end_time;End;End
+obj;terminable_select_end_time;Ende;End
+obj;terminable_select_start_time;Start;Start
+obj;title;Title;Title
+obj;title;Titel;Title
+player;freeze;Freeze;Freeze
+player;freeze;Unterbrechen;Freeze
+player;hide_results;Hide Results;Hide Results
+player;hide_results;Resultate ausblenden;Hide Results
+player;msg_no_votings;There are no Questions, the LiveVoting can be started.;There are no Questions, the LiveVoting can be started.
+player;msg_no_votings;Es sind keine Fragen vorhanden, das Voting kann nicht gestartet werden.;There are no Questions, the LiveVoting can be started.
+player;reset;Reset;Reset
+player;reset;Zurücksetzen;Reset
+player;show_results;Show Results;Show Results
+player;show_results;Resultate einblenden;Show Results
+player;start_voting;Start LiveVoting;Start LiveVoting
+player;start_voting;LiveVoting beginnen;Start LiveVoting
+player;terminate;Terminate;Terminate
+player;terminate;Beenden;Terminate
+player;unfreeze;Unfreeze;Unfreeze
+player;unfreeze;Freigeben;Unfreeze
+player;voting_list;Votings;Votings
+qtype;1_colors;Different Colors;Different Colors
+qtype;1_colors;Unterschiedliche Farben;Different Colors
+qtype;1_multi_selection;Multiple Selection;Multiple Selection
+qtype;1_multi_selection;Mehrfachauswahl;Multiple Selection
+qtype;1_options;Options;Options
+qtype;1_options;Optionen;Options
+qtype;1_option_text;Option-Text;Option-Text
+qtype;1_option_text;Options-Text;Option-Text
+qtype;2_multi_free_input;Multiple Inputs;Multiple Inputs
+qtype;2_multi_free_input;Mehrfache Eingaben;Multiple Inputs
+qtype;form_header;Type-Settings;Type-Settings
+qtype;form_header;Typ-Einstellugnen;Type-Settings
+qtype;multi_free_input;Multiple Inputs;Multiple Inputs
+qtype;multi_free_input;Mehrfache Eingaben;Multiple Inputs
+subtab;edit;Manage;Manage
+subtab;edit;Verwalten;Manage
+subtab;show;Show;Show
+subtab;show;Zeigen;Show
+tab;content;Content;Content
+tab;content;Inhalt;Content
+tab;edit;Properties;Properties
+tab;edit;Einstellungen;Properties
+voter;answer;Input;Input
+voter;answer;Eingabe;Input
+voter;delete;Delete;Delete
+voter;delete;Löschen;Delete
+voter;msg_access_screen;PIN-Access;PIN-Access
+voter;msg_access_screen;PIN-Eingabe;PIN-Access
+voter;msg_start_of_voting_screen;Please wait untill the Presenter starts the Voting;Please wait untill the Presenter starts the Voting
+voter;msg_start_of_voting_screen;Bitte warten, bis der Präsentator das Voting freigibt;Please wait untill the Presenter starts the Voting
+voter;msg_waiting_screen;Please wait;Please wait
+voter;msg_waiting_screen;Bitte warten;Please wait
+voter;pin_input;PIN;PIN
+voter;pin_input;PIN zum Voting;PIN
+voter;send;Send;Send
+voter;send;Abschicken;Send
+voting;actions;Actions;Actions
+voting;actions;Aktionen;Actions
+voting;add;Add Voting;Add Voting
+voting;add;Voting hinzufügen;Add Voting
+voting;cancel;Cancel;Cancel
+voting;cancel;Abbrechen;Cancel
+voting;create;Crete;Crete
+voting;create;Erstellen;Crete
+voting;delete;Delete;Delete
+voting;delete;Löschen;Delete
+voting;delete_confirm;Möchten Sie das ausgewählte Voting wirklich löschen?;Do you really want to delete the Voting?
+voting;delete_confirm;Do you really want to delete the Voting?;Do you really want to delete the Voting?
+voting;description;Description;Description
+voting;description;Beschreibung;Description
+voting;edit;Edit;Edit
+voting;edit;Bearbeiten;Edit
+voting;msg_sorting_saved;Order saved;Order saved
+voting;msg_sorting_saved;Reihenfolge gespeichert;Order saved
+voting;question;Question;Question
+voting;question;Frage;Question
+voting;reset;Reset;Reset
+voting;reset;Zurücksetzen;Reset
+voting;reset_all;Reset all Votings;Reset all Votings
+voting;reset_all;Alle Voting zurücksetzen;Reset all Votings
+voting;save_sorting;Save Order;Save Order
+voting;save_sorting;Reihenfolge speichern;Save Order
+voting;select_type;Select Type;Select Type
+voting;select_type;Typ auswählen;Select Type
+voting;status;Status;Status
+voting;status_1;Inactive;Inactive
+voting;status_1;Inaktiv;Inactive
+voting;status_2;Incomplete;Incomplete
+voting;status_2;Unvollständig;Incomplete
+voting;status_5;Active;Active
+voting;status_5;Aktiv;Active
+voting;title;Title;Title
+voting;title;Titel;Title
+voting;type;Type;Type
+voting;type;Typ;Type
+voting;type_1;Single Vote;Single Vote
+voting;type_1;Stimmabgabe;Single Vote
+voting;type_1_info;Multiple- orSingle-Choice;Multiple- orSingle-Choice
+voting;type_1_info;Multiple- oder Single-Choice;Multiple- orSingle-Choice
+voting;type_2;Free Input;Free Input
+voting;type_2;Freitext;Free Input
+voting;type_2_info;User can hand in free text;User can hand in free text
+voting;type_2_info;Benutzer können Stichwort selber eingeben;User can hand in free text
+voting;type_3;Range;Range
+voting;type_3;Bereich;Range
+voting;type_4;Order;Order
+voting;type_4;Reihenfolge;Order
+voting;update;Update;Update
+voting;update;Speichern;Update
