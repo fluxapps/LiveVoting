@@ -12,6 +12,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Context/class.xlvoInitialisation.php');
 require_once('./Services/Form/classes/class.ilPropertyFormGUI.php');
 require_once('./Services/Form/classes/class.ilTextInputGUI.php');
+
 /**
  * Class xlvoVoterGUI
  *
@@ -245,7 +246,7 @@ class xlvoVoterGUI {
 			$data = array(
 				'voIsVoting' => true,
 				'voIsFrozen' => $player->isFrozenOrUnattended(),
-				'voStatus' => $player->getStatus(),
+				'voStatus' => $player->isUnattended() ? xlvoPlayer::STAT_END_VOTING : $player->getStatus(),
 				'voHasAccess' => $this->checkVotingAccess($obj_id),
 				'voIsAvailable' => $this->voting_manager->isVotingAvailable($obj_id),
 				'voIsAnonymous' => $isAnonymous
@@ -312,7 +313,7 @@ class xlvoVoterGUI {
 	 * @return string
 	 */
 	public function showAccessScreen($has_error_msg) {
-//		xlvoInitialisation::resetCookiePIN();
+		//		xlvoInitialisation::resetCookiePIN();
 		$template = new ilTemplate(self::TPL_INFO_SCREEN, true, true);
 		$template->setVariable('VOTING_ID', 0);
 		$template->setVariable('OBJ_ID', 0);
@@ -341,7 +342,7 @@ class xlvoVoterGUI {
 	 * @return string
 	 */
 	protected function txt($key) {
-		return $this->pl->txt('voter_'.$key);
+		return $this->pl->txt('voter_' . $key);
 	}
 
 

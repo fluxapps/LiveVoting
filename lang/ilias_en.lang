@@ -28,13 +28,16 @@ obj_terminable_select_end_time#:#End
 obj_terminable_select_start_time#:#Start
 obj_title#:#Title
 offline#:#Offline
+player_close_modal#:#Close
 player_freeze#:#Freeze
 player_hide_results#:#Hide Results
 player_msg_no_votings#:#There are no Questions, the LiveVoting can be started.
+player_msg_voting_not_available#:#The selected Voting is not available
 player_player_msg_no_votings#:#This LiveVoting can't be started since there are no Votings available yet.
 player_reset#:#Reset
 player_show_results#:#Show Results
 player_start_voting#:#Start LiveVoting
+player_start_voting_and_unfreeze#:#Start LiveVoting and unfreeze directly
 player_terminate#:#Terminate
 player_unfreeze#:#Unfreeze
 player_voting_list#:#Votings
@@ -55,7 +58,8 @@ voter_answers#:#Inputs
 voter_delete#:#Delete
 voter_delete_all#:#Delete All
 voter_msg_access_screen#:#PIN-Access
-voter_msg_not_running_screen#:#This Voting is no longer active. Thanks for your participation
+voter_msg_end_of_voting_screen#:#This LiveVoting has been terminated. Thanks for your participation.
+voter_msg_not_running_screen#:#This LiveVoting is currently not active.
 voter_msg_start_of_voting_screen#:#Please wait untill the Presenter starts the Voting
 voter_msg_validation_error_pin#:#This PIN is not available or not active.
 voter_msg_waiting_screen#:#Please wait

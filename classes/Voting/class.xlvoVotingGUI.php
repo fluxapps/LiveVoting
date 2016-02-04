@@ -372,7 +372,7 @@ class xlvoVotingGUI {
 			foreach ($votings as $voting) {
 				$num_votes += xlvoVote::where(array( 'voting_id' => $voting->getId() ))->count();
 			}
-			$confirm->addItem(self::IDENTIFIER, 0, $this->txt('confirm_number_of_votes') . ": " . $num_votes);
+			$confirm->addItem(self::IDENTIFIER, 0, $this->txt('confirm_number_of_votes') . " " . $num_votes);
 			$confirm->setFormAction($this->ctrl->getFormAction($this));
 			$confirm->setCancel($this->txt('cancel'), self::CMD_CANCEL);
 			$confirm->setConfirm($this->txt('reset_all'), self::CMD_RESET_ALL);

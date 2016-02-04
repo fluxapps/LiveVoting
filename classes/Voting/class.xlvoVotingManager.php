@@ -337,7 +337,6 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	 * @return xlvoPlayer
 	 */
 	public function updatePlayer(xlvoPlayer $xlvoPlayer) {
-
 		$xlvoPlayer->update();
 
 		return $xlvoPlayer;

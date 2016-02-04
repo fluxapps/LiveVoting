@@ -18,11 +18,6 @@ $posted_voting_id = $_REQUEST['voting_id_current'];
 $posted_object_id = $_REQUEST['object_id'];
 $posted_pin = $_REQUEST['pin_input'];
 
-global $ilLog;
-$ilLog->write('XLVO PlayerEndpoint');
-$ilLog->write('posted_type: ' . $posted_type);
-//$ilLog->write('posted_pin: ' . $posted_pin);
-
 /**
  * Voter
  */
