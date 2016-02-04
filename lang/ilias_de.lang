@@ -91,3 +91,4 @@ voting_type_2_info#:#Benutzer können Stichwort selber eingeben
 voting_type_3#:#Bereich
 voting_type_4#:#Reihenfolge
 voting_update#:#Speichern
+voter_msg_validation_error_pin#:#Diese PIN ist nicht vorhanden oder nicht aktiv

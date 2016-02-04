@@ -91,3 +91,4 @@ voting;type_2_info;"Benutzer können Stichwort selber eingeben";"User can hand i
 voting;type_3;"Bereich";"Range"
 voting;type_4;"Reihenfolge";"Order"
 voting;update;"Speichern";"Update"
+voter;msg_validation_error_pin;Diese PIN ist nicht vorhanden oder nicht aktiv;This PIN is not available or not active.

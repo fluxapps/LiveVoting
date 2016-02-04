@@ -90,3 +90,4 @@ voting_type_2_info#:#User can hand in free text
 voting_type_3#:#Range
 voting_type_4#:#Order
 voting_update#:#Update
+voter_msg_validation_error_pin#:#This PIN is not available or not active.
