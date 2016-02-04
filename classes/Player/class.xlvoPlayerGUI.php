@@ -277,8 +277,10 @@ class xlvoPlayerGUI {
 			if ($voting_id_current == $voting_last->getId()) {
 				$this->ctrl->redirect(new xlvoPlayerGUI(), self::CMD_END_OF_VOTING_SCREEN);
 			}
+			if (!$this->voting_manager->getVotingConfig($this->obj_id)->isReuseStatus()) {
+				$this->freeze($this->obj_id);
+			}
 
-			$this->freeze($this->obj_id);
 			$this->ctrl->setParameter(new xlvoPlayerGUI(), self::IDENTIFIER, $voting_id_next);
 			$this->ctrl->redirect(new xlvoPlayerGUI(), self::CMD_SHOW_VOTING);
 		}
@@ -319,7 +321,10 @@ class xlvoPlayerGUI {
 				$this->ctrl->redirect(new xlvoPlayerGUI(), self::CMD_START_OF_VOTING_SCREEN);
 			}
 
-			$this->freeze($this->obj_id);
+			if(!$this->voting_manager->getVotingConfig($this->obj_id)->isReuseStatus()){
+				$this->freeze($this->obj_id);
+			}
+
 			$this->ctrl->setParameter(new xlvoPlayerGUI(), self::IDENTIFIER, $voting_id_previous);
 			$this->ctrl->redirect(new xlvoPlayerGUI(), self::CMD_SHOW_VOTING);
 		}

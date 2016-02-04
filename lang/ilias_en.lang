@@ -16,8 +16,10 @@ obj_description#:#Description
 obj_edit_properties#:#Edit Properties
 obj_info_anonymous#:#The LiveVoting can be used for the voters without authentication, even when the Object is in a secured Space like a Course
 obj_info_online#:#Object is online and available
+obj_info_reuse_status#:#Re-use the state of the current Voting when switching to the next (frozen / not frozen).
 obj_info_terminable#:#The LiveVoting only can be used in the definied period of time
 obj_online#:#Online
+obj_reuse_status#:#Re-use Player State
 obj_terminable#:#Limit voting time
 obj_terminable_select#:#Time range
 obj_terminable_select_end_time#:#End
@@ -26,6 +28,7 @@ obj_title#:#Title
 player_freeze#:#Freeze
 player_hide_results#:#Hide Results
 player_msg_no_votings#:#There are no Questions, the LiveVoting can be started.
+player_player_msg_no_votings#:#This LiveVoting can't be started since there are no Votings available yet.
 player_reset#:#Reset
 player_show_results#:#Show Results
 player_start_voting#:#Start LiveVoting
@@ -44,12 +47,15 @@ subtab_show#:#Show
 tab_content#:#Content
 tab_edit#:#Properties
 voter_answer#:#Input
+voter_answers#:#Inputs
 voter_delete#:#Delete
+voter_delete_all#:#Delete All
 voter_msg_access_screen#:#PIN-Access
 voter_msg_start_of_voting_screen#:#Please wait untill the Presenter starts the Voting
 voter_msg_waiting_screen#:#Please wait
 voter_pin_input#:#PIN
 voter_send#:#Send
+voter_text#:#Input
 voting_actions#:#Actions
 voting_add#:#Add Voting
 voting_cancel#:#Cancel

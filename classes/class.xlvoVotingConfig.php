@@ -74,6 +74,21 @@ class xlvoVotingConfig extends ActiveRecord {
 	 * @db_fieldtype        timestamp
 	 */
 	protected $end_date;
+	/**
+	 * @var bool
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           1
+	 */
+	protected $reuse_status = true;
+	/**
+	 * @var string
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        timestamp
+	 */
+	protected $last_access = '';
 
 
 	/**
@@ -197,5 +212,37 @@ class xlvoVotingConfig extends ActiveRecord {
 	 */
 	public function setEndDate($end_date) {
 		$this->end_date = $end_date;
+	}
+
+
+	/**
+	 * @return boolean
+	 */
+	public function isReuseStatus() {
+		return $this->reuse_status;
+	}
+
+
+	/**
+	 * @param boolean $reuse_status
+	 */
+	public function setReuseStatus($reuse_status) {
+		$this->reuse_status = $reuse_status;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getLastAccess() {
+		return $this->last_access;
+	}
+
+
+	/**
+	 * @param string $last_access
+	 */
+	public function setLastAccess($last_access) {
+		$this->last_access = $last_access;
 	}
 }

@@ -62,7 +62,7 @@ class xlvoFreeInputMobileGUI extends xlvoInputMobileGUI {
 	 * @return string
 	 */
 	protected function renderMultiForm(array $votes, xlvoOption $option) {
-		$mli = new xlvoMultiLineInputGUI($this->pl->txt('answers'), 'vote_multi_line_input');
+		$mli = new xlvoMultiLineInputGUI($this->pl->txt('voter_answers'), 'vote_multi_line_input');
 		$te = new ilTextInputGUI($this->pl->txt('voter_text'), 'free_input');
 		$te->setMaxLength(45);
 		$mli->addCustomAttribute('option_id', $option->getId());

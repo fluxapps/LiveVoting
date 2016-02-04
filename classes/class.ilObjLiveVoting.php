@@ -26,7 +26,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVoting.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Vote/class.xlvoVote.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Option/class.xlvoOption.php');
-
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Pin/class.xlvoPin.php');
 /**
  * Class ilObjLiveVoting
  *
@@ -38,7 +38,6 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
  */
 class ilObjLiveVoting extends ilObjectPlugin {
 
-	const PIN_LENGTH = 4;
 	/**
 	 * @var ilDB
 	 */
@@ -76,10 +75,12 @@ class ilObjLiveVoting extends ilObjectPlugin {
 	 * Create object
 	 */
 	function doCreate() {
-		$pin = $this->createPin();
+		xlvoVotingConfig::updateDB();
+		$xlvoPin = new xlvoPin();
+
 		$config = new xlvoVotingConfig();
 		$config->setObjId($this->getId());
-		$config->setPin($pin);
+		$config->setPin($xlvoPin->getPin());
 		$config->setTerminable(false);
 		$config->setAnonymous(false);
 		$config->setObjOnline(false);
@@ -87,45 +88,7 @@ class ilObjLiveVoting extends ilObjectPlugin {
 	}
 
 
-	/**
-	 * @return string
-	 */
-	function createPin() {
 
-		$length = self::PIN_LENGTH;
-
-		$array = array();
-
-		// numbers
-		for ($i = 48; $i < 58; $i ++) {
-			$array[] = chr($i);
-		}
-
-		// lower case
-		for ($i = 97; $i <= 122; $i ++) {
-			$array[] = chr($i);
-		}
-
-		// upper case
-		for ($i = 65; $i <= 90; $i ++) {
-			$array[] = chr($i);
-		}
-
-		$pin = '';
-		$pin_found = false;
-
-		while (!$pin_found) {
-			for ($i = 1; $i <= $length; $i ++) {
-				$rnd = mt_rand(0, count($array) - 1);
-				$pin .= $array[$rnd];
-			}
-			if (xlvoVotingConfig::where(array( 'pin' => $pin ))->count() <= 0) {
-				$pin_found = true;
-			}
-		}
-
-		return $pin;
-	}
 
 
 	/**

@@ -285,7 +285,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 
 	public function editProperties() {
 		if (!$this->access->hasWriteAccess()) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied'), true);
+			ilUtil::sendFailure($this->pl->txt('obj_permission_denied'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
 			$this->tabs->setTabActive(self::TAB_EDIT);
@@ -298,7 +298,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 
 	protected function initPropertiesForm() {
 		if (!$this->access->hasWriteAccess()) {
-			ilUtil::sendFailure(ilLiveVotingPlugin::getInstance()->txt('permission_denied'), true);
+			ilUtil::sendFailure(ilLiveVotingPlugin::getInstance()->txt('obj_permission_denied'), true);
 		} else {
 			$this->form = new ilPropertyFormGUI();
 			$this->form->setTitle($this->pl->txt('obj_edit_properties'));
@@ -314,9 +314,15 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 			$cb = new ilCheckboxInputGUI($this->pl->txt('obj_anonymous'), 'anonymous');
 			$cb->setInfo($this->pl->txt('obj_info_anonymous'));
 			$this->form->addItem($cb);
+
+			$cb = new ilCheckboxInputGUI($this->pl->txt('obj_reuse_status'), 'reuse_status');
+			$cb->setInfo($this->pl->txt('obj_info_reuse_status'));
+			$this->form->addItem($cb);
+
 			$cb = new ilCheckboxInputGUI($this->pl->txt('obj_terminable'), 'terminable');
 			$cb->setInfo($this->pl->txt('obj_info_terminable'));
 			$this->form->addItem($cb);
+
 			$te = new ilDateDurationInputGUI($this->pl->txt("obj_terminable_select"), "terminable_select");
 			$te->setShowTime(true);
 			$te->setStartText($this->pl->txt('obj_terminable_select_start_time'));
@@ -337,7 +343,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 			}
 			$cb->addSubItem($te);
 
-			$this->form->addCommandButton('updateProperties', $this->pl->txt('save'));
+			$this->form->addCommandButton('updateProperties', $this->pl->txt('obj_save'));
 
 			$this->form->setFormAction($this->ctrl->getFormAction($this));
 		}
@@ -356,6 +362,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 		$values['online'] = $config->isObjOnline();
 		$values['anonymous'] = $config->isAnonymous();
 		$values['terminable'] = $config->isTerminable();
+		$values['reuse_status'] = $config->isReuseStatus();
 
 		$this->form->setValuesByArray($values);
 	}
@@ -363,7 +370,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 
 	public function updateProperties() {
 		if (!$this->access->hasWriteAccess()) {
-			ilUtil::sendFailure(ilLiveVotingPlugin::getInstance()->txt('permission_denied_write'), true);
+			ilUtil::sendFailure(ilLiveVotingPlugin::getInstance()->txt('obj_permission_denied_write'), true);
 		} else {
 			$this->tabs->setTabActive(self::TAB_EDIT);
 			$this->initPropertiesForm();
@@ -379,6 +386,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 				$config = xlvoVotingConfig::find($this->obj_id);
 				$config->setObjOnline($this->form->getInput('online'));
 				$config->setAnonymous($this->form->getInput('anonymous'));
+				$config->setReuseStatus($this->form->getInput('reuse_status'));
 				$terminable = $this->form->getInput('terminable');
 				$config->setTerminable($terminable);
 				$terminable_select = $this->form->getInput("terminable_select");
@@ -389,9 +397,8 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 					$config->setStartDate(NULL);
 					$config->setEndDate(NULL);
 				}
-
 				$config->update();
-				ilUtil::sendSuccess($this->pl->txt('msg_properties_form_saved'), true);
+				ilUtil::sendSuccess($this->pl->txt('obj_msg_properties_form_saved'), true);
 				$this->ctrl->redirect($this, self::CMD_EDIT);
 			}
 

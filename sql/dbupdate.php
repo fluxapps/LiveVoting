@@ -320,3 +320,8 @@ while ($data = $ilDB->fetchObject($a_set)) {
 	xlvoConf::set($data->config_key, $data->config_value);
 }
 ?>
+<#17>
+<?php
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingConfig.php');
+xlvoVotingConfig::updateDB();
+?>
