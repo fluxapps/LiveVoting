@@ -101,11 +101,20 @@ if ($request_type == 'vote_multi') {
 	 */
 	$existing_votes = $voting_manager->getVotesOfUserOfOption($option->getVotingId(), $option->getId())->getArray();
 	$posted_votes = $_REQUEST['votes'];
+	$existing_ids = array();
+	$posted_ids = array();
+
+	foreach ($existing_votes as $existing_vote) {
+		$existing_ids[] = $existing_vote['id'];
+	}
+
+	foreach ($posted_votes as $posted_vote) {
+		$posted_ids[] = $posted_vote['vote_id'];
+	}
 
 	// delete votes
 	foreach ($existing_votes as $vo) {
-		$id_to_delete_found = array_search($vo['id'], array_column($posted_votes, 'vote_id'));
-
+		$id_to_delete_found = in_array($vo['id'], $posted_ids);
 		$failure = false;
 
 		if ($id_to_delete_found === false) {
@@ -115,7 +124,7 @@ if ($request_type == 'vote_multi') {
 			$vote_to_delete->setFreeInput($vo['free_input']);
 			$vote_to_delete->setStatus(xlvoVote::STAT_INACTIVE);
 			$success = $voter_gui->vote($vote_to_delete);
-			if (! $success) {
+			if (!$success) {
 				$failure = true;
 			}
 		}
@@ -123,11 +132,8 @@ if ($request_type == 'vote_multi') {
 
 	// create and update votes
 	foreach ($posted_votes as $p_vote) {
-		$exising_ids = array();
-		foreach ($existing_votes as $existing_vote) {
-			$exising_ids[] = $existing_vote['id'];
-		}
-		$is_found = in_array($p_vote['vote_id'], $exising_ids);
+
+		$is_found = in_array($p_vote['vote_id'], $existing_ids);
 		if ($is_found !== false) {
 			// create vote
 			$vote_to_save = new xlvoVote();
@@ -136,7 +142,7 @@ if ($request_type == 'vote_multi') {
 			$vote_to_save->setFreeInput($p_vote['free_input']);
 			$vote_to_save->setStatus(xlvoVote::STAT_ACTIVE);
 			$success = $voter_gui->vote($vote_to_save);
-			if (! $success) {
+			if (!$success) {
 				$failure = true;
 			}
 		} else {
@@ -147,13 +153,13 @@ if ($request_type == 'vote_multi') {
 			$vote_to_update->setFreeInput($p_vote['free_input']);
 			$vote_to_update->setStatus(xlvoVote::STAT_ACTIVE);
 			$success = $voter_gui->vote($vote_to_update);
-			if (! $success) {
+			if (!$success) {
 				$failure = true;
 			}
 		}
 	}
 
-	if (! $failure) {
+	if (!$failure) {
 		header('Content-type: text/html');
 		// votingId is NULL to reload Voting page
 		echo $voter_gui->showVoting($obj_id, NULL);
@@ -179,12 +185,12 @@ if ($request_type == 'delete_all') {
 	foreach ($votes as $vote) {
 		$vote->setStatus(xlvoVote::STAT_INACTIVE);
 		$success = $voter_gui->vote($vote);
-		if (! $success) {
+		if (!$success) {
 			$failure = true;
 		}
 	}
 
-	if (! $failure) {
+	if (!$failure) {
 		header('Content-type: text/html');
 		// votingId is NULL to reload Voting page
 		echo $voter_gui->showVoting($obj_id, NULL);
