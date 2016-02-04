@@ -498,7 +498,7 @@ class xlvoPlayerGUI {
 		$this->toolbar->addButtonInstance($b);
 
 		$b = ilLinkButton::getInstance();
-		$b->setCaption(xlvoGlyphGUI::get('stop') .$this->txt('terminate'), false);
+		$b->setCaption(xlvoGlyphGUI::get('stop') . $this->txt('terminate'), false);
 		$b->setUrl($this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_TERMINATE));
 		$b->setId('btn-terminate');
 		$this->toolbar->addButtonInstance($b);
@@ -546,19 +546,19 @@ class xlvoPlayerGUI {
 
 		//
 		$b = ilLinkButton::getInstance();
-		$b->setCaption($this->txt('reset'), false);
+		$b->setCaption(xlvoGlyphGUI::get('remove') . $this->txt('reset'), false);
 		$b->setUrl('#');
 		$b->setId('btn-reset');
 		$this->toolbar->addButtonInstance($b);
 
 		$b = ilLinkButton::getInstance();
-		$b->setCaption($this->txt('hide_results'), false);
+		$b->setCaption(xlvoGlyphGUI::get('eye-close') . $this->txt('hide_results'), false);
 		$b->setUrl('#');
 		$b->setId('btn-hide-results');
 		$this->toolbar->addButtonInstance($b);
 
 		$b = ilLinkButton::getInstance();
-		$b->setCaption($this->txt('show_results'), false);
+		$b->setCaption(xlvoGlyphGUI::get('eye-open') . $this->txt('show_results'), false);
 		$b->setUrl('#');
 		$b->setId('btn-show-results');
 		$this->toolbar->addButtonInstance($b);

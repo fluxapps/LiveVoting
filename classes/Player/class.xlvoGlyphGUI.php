@@ -16,9 +16,12 @@ class xlvoGlyphGUI extends ilGlyphGUI {
 	 * @return string html
 	 */
 	static function get($a_glyph, $a_text = "") {
+		if ($a_glyph == 'remove') {
+			self::$map[$a_glyph]['class'] = 'glyphicon glyphicon-' . $a_glyph;
+		}
 		if (!isset(self::$map[$a_glyph])) {
 			self::$map[$a_glyph]['class'] = 'glyphicon glyphicon-' . $a_glyph;
 		}
-		return parent::get($a_glyph, $a_text);
+		return parent::get($a_glyph, $a_text) . ' ';
 	}
 }
