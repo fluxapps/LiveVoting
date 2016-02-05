@@ -1,5 +1,3 @@
-
-
 <?php
 
 /**
@@ -17,6 +15,10 @@ abstract class xlvoInputResultsGUI {
 	 * @var xlvoVotingManager
 	 */
 	protected $voting_manager;
+	/**
+	 * @var bool
+	 */
+	protected $shuffle_results = false;
 
 
 	/**
@@ -33,13 +35,13 @@ abstract class xlvoInputResultsGUI {
 	/**
 	 * @param xlvoVoting $voting
 	 * @param xlvoVotingManager $voting_manager
-	 * @return xlvoFreeInputSubFormGUI
+	 * @return xlvoFreeInputResultsGUI
 	 */
 	public static function getInstance(xlvoVoting $voting, xlvoVotingManager $voting_manager) {
-		$class = xlvoVotingType::getClassName($voting->getVotingType());
+		$class = xlvoQuestionTypes::getClassName($voting->getVotingType());
 		/**
-		 * @var $class_name xlvoFreeInputSubFormGUI
-		 * @var $subform xlvoFreeInputSubFormGUI
+		 * @var $class_name xlvoFreeInputResultsGUI
+		 * @var $subform xlvoFreeInputResultsGUI
 		 */
 		$class_name = 'xlvo' . $class . 'ResultsGUI';
 		require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/' . $class . '/class.'
@@ -47,6 +49,22 @@ abstract class xlvoInputResultsGUI {
 
 		$subform = new $class_name($voting, $voting_manager);
 		return $subform;
+	}
+
+
+	/**
+	 * @return boolean
+	 */
+	public function isShuffleResults() {
+		return $this->shuffle_results;
+	}
+
+
+	/**
+	 * @param boolean $shuffle_results
+	 */
+	public function setShuffleResults($shuffle_results) {
+		$this->shuffle_results = $shuffle_results;
 	}
 
 

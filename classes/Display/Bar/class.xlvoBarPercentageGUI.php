@@ -1,5 +1,5 @@
 <?php
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/class.xlvoBarGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/Bar/class.xlvoBarGUI.php');
 
 /**
  * Class xlvoBarPercentageGUI
@@ -8,7 +8,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version 1.0.0
  */
-class xlvoBarPercentageGUI extends xlvoBarGUI {
+class xlvoBarPercentageGUI implements xlvoBarGUI {
 
 	/**
 	 * @var xlvoVoting
@@ -26,6 +26,10 @@ class xlvoBarPercentageGUI extends xlvoBarGUI {
 	 * @var string
 	 */
 	protected $option_letter;
+	/**
+	 * @var ilTemplate
+	 */
+	protected $tpl;
 
 
 	/**
@@ -35,9 +39,6 @@ class xlvoBarPercentageGUI extends xlvoBarGUI {
 	 * @param            $option_letter
 	 */
 	public function __construct(xlvoVoting $voting, xlvoOption $option, $votes, $option_letter) {
-
-		parent::__construct();
-
 		$this->voting = $voting;
 		$this->option = $option;
 		$this->votes = clone $votes;

@@ -117,10 +117,10 @@ class xlvoVotingGUI {
 	 */
 	private function redirectToSubGUI($voting_type, $cmd) {
 		switch ($voting_type) {
-			case xlvoVotingType::TYPE_SINGLE_VOTE:
+			case xlvoQuestionTypes::TYPE_SINGLE_VOTE:
 				$this->ctrl->redirect(new xlvoSingleVoteVotingGUI(), $cmd);
 				break;
-			case xlvoVotingType::TYPE_FREE_INPUT:
+			case xlvoQuestionTypes::TYPE_FREE_INPUT:
 				$this->ctrl->redirect(new xlvoFreeInputVotingGUI(), $cmd);
 				break;
 		}
@@ -155,7 +155,7 @@ class xlvoVotingGUI {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
-			require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingType.php');
+			require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoQuestionTypes.php');
 
 			$form = new ilPropertyFormGUI();
 			$form->setFormAction($this->ctrl->getFormAction($this, self::CMD_ADD));
@@ -163,7 +163,7 @@ class xlvoVotingGUI {
 			$form->addCommandButton(self::CMD_CANCEL, $this->txt('cancel'));
 			$cb = new ilRadioGroupInputGUI($this->txt('type'), self::F_TYPE);
 			$cb->setRequired(true);
-			foreach (xlvoVotingType::getActiveTypes() as $active_type) {
+			foreach (xlvoQuestionTypes::getActiveTypes() as $active_type) {
 				$op = new ilRadioOption();
 				$op->setTitle($this->txt('type_' . $active_type));
 				$op->setInfo($this->txt('type_' . $active_type . '_info'));

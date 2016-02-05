@@ -4,7 +4,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Vote/class.xlvoVote.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVoting.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoPlayer.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingType.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoQuestionTypes.php');
 require_once('./Services/Object/classes/class.ilObject2.php');
 
 /**
@@ -398,7 +398,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 			/*
 			 * SINGLE VOTE
 			 */
-			if ($xlvoVoting->getVotingType() == xlvoVotingType::TYPE_SINGLE_VOTE) {
+			if ($xlvoVoting->getVotingType() == xlvoQuestionTypes::TYPE_SINGLE_VOTE) {
 				if ($xlvoVoting->isMultiSelection()) {
 					if ($vote->getId() != self::NEW_VOTE) {
 						foreach ($existing_votes as $vo) {
@@ -427,7 +427,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 			/*
 			 * FREE INPUT
 			 */
-			if ($xlvoVoting->getVotingType() == xlvoVotingType::TYPE_FREE_INPUT) {
+			if ($xlvoVoting->getVotingType() == xlvoQuestionTypes::TYPE_FREE_INPUT) {
 
 				if ($xlvoVoting->isMultiFreeInput()) {
 					if ($vote->getId() != self::NEW_VOTE) {

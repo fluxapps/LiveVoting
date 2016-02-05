@@ -1,5 +1,5 @@
 <?php
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/class.xlvoBarGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/Bar/class.xlvoBarGUI.php');
 
 /**
  * Class xlvoBarCollectionGUI
@@ -25,7 +25,6 @@ class xlvoBarCollectionGUI {
 	 * @return string
 	 */
 	public function getHTML() {
-
 		return $this->tpl->get();
 	}
 
@@ -34,10 +33,8 @@ class xlvoBarCollectionGUI {
 	 * @param $bar_gui xlvoBarGUI
 	 */
 	public function addBar(xlvoBarGUI $bar_gui) {
-		if ($bar_gui instanceof xlvoBarGUI) {
-			$this->tpl->setCurrentBlock('bar');
-			$this->tpl->setVariable('BAR', $bar_gui->getHTML());
-			$this->tpl->parseCurrentBlock();
-		}
+		$this->tpl->setCurrentBlock('bar');
+		$this->tpl->setVariable('BAR', $bar_gui->getHTML());
+		$this->tpl->parseCurrentBlock();
 	}
 }

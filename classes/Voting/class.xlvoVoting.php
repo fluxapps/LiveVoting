@@ -105,9 +105,13 @@ class xlvoVoting extends ActiveRecord {
 	 */
 	protected $position;
 	/**
-	 * @var xlvoOption []
+	 * @var xlvoOption[]
 	 */
 	protected $voting_options;
+	/**
+	 * @var xlvoOption
+	 */
+	protected $first_voting_option;
 
 
 	/**
@@ -193,12 +197,14 @@ class xlvoVoting extends ActiveRecord {
 
 
 	public function afterObjectLoad() {
-		// set all options for this Voting
 		/**
-		 * @var ActiveRecordList $xlvoOptions
+		 * @var xlvoOption[] $xlvoOptions
+		 * @var xlvoOption $first_voting_option
 		 */
-		$xlvoOptions = xlvoOption::where(array( 'voting_id' => $this->id ));
+		$xlvoOptions = xlvoOption::where(array( 'voting_id' => $this->id ))->orderBy('position')->get();
 		$this->setVotingOptions($xlvoOptions);
+		$first_voting_option = xlvoOption::where(array( 'voting_id' => $this->id ))->orderBy('position')->first();
+		$this->setFirstVotingOption($first_voting_option);
 	}
 
 
@@ -340,7 +346,7 @@ class xlvoVoting extends ActiveRecord {
 
 
 	/**
-	 * @return ActiveRecordList
+	 * @return xlvoOption[]
 	 */
 	public function getVotingOptions() {
 		return $this->voting_options;
@@ -348,9 +354,25 @@ class xlvoVoting extends ActiveRecord {
 
 
 	/**
-	 * @param ActiveRecordList $voting_options
+	 * @param xlvoOption[] $voting_options
 	 */
 	public function setVotingOptions($voting_options) {
 		$this->voting_options = $voting_options;
+	}
+
+
+	/**
+	 * @return xlvoOption
+	 */
+	public function getFirstVotingOption() {
+		return $this->first_voting_option;
+	}
+
+
+	/**
+	 * @param xlvoOption $first_voting_option
+	 */
+	public function setFirstVotingOption($first_voting_option) {
+		$this->first_voting_option = $first_voting_option;
 	}
 }

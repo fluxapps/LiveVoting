@@ -19,7 +19,7 @@ class xlvoSingleVoteMobileGUI extends xlvoInputMobileGUI {
 	 */
 	public function getHTML() {
 		$bars = new xlvoBarCollectionGUI();
-		foreach ($this->voting->getVotingOptions()->get() as $option) {
+		foreach ($this->voting->getVotingOptions() as $option) {
 			$this->answer_count ++;
 			$bars->addBar(new xlvoBarOptionGUI($this->voting, $option, (chr($this->answer_count))));
 		}

@@ -43,17 +43,4 @@ class xlvoFreeInputSubFormGUI extends xlvoSubFormGUI {
 				break;
 		}
 	}
-
-
-	protected function handleOptions() {
-		$xlvoOption = xlvoOption::where(array( 'voting_id' => $this->getXlvoVoting()->getId() ))->first();
-		if (!$xlvoOption instanceof xlvoOption) {
-			$xlvoOption = new xlvoOption();
-			$xlvoOption->create();
-		}
-		$xlvoOption->setStatus(xlvoOption::STAT_ACTIVE);
-		$xlvoOption->setVotingId($this->getXlvoVoting()->getId());
-		$xlvoOption->setType($this->getXlvoVoting()->getVotingType());
-		$xlvoOption->update();
-	}
 }

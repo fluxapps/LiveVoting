@@ -1,8 +1,9 @@
 <?php
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/class.xlvoBarGUI.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/class.xlvoBarCollectionGUI.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/class.xlvoBarPercentageGUI.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/class.xlvoBarOptionGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/Bar/class.xlvoBarGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/Bar/class.xlvoBarCollectionGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/Bar/class.xlvoBarPercentageGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/Bar/class.xlvoBarOptionGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoInputMobileGUI.php');
 
 /**
  * Class xlvoDisplayVoterGUI
@@ -45,13 +46,13 @@ class xlvoDisplayVoterGUI {
 
 
 	protected function render() {
-		require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoInputMobileGUI.php');
-
 		$xlvoInputMobileGUI = xlvoInputMobileGUI::getInstance($this->voting);
 		$this->tpl->setVariable('OPTION_CONTENT', $xlvoInputMobileGUI->getHTML());
 
-		foreach ($this->voting->getVotingOptions()->get() as $item) {
-			$this->addOption($item);
+		if ($xlvoInputMobileGUI->isShowOption()) {
+			foreach ($this->voting->getVotingOptions() as $item) {
+				$this->addOption($item);
+			}
 		}
 
 		$votings = xlvoVoting::where(array(
@@ -93,7 +94,7 @@ class xlvoDisplayVoterGUI {
 	 * @param xlvoOption $option
 	 */
 	protected function addOption(xlvoOption $option) {
-		if ($option->getType() == xlvoVotingType::TYPE_FREE_INPUT) {
+		if ($option->getType() == xlvoQuestionTypes::TYPE_FREE_INPUT) {
 			return;
 		}
 		$this->answer_count ++;
@@ -101,30 +102,5 @@ class xlvoDisplayVoterGUI {
 		$this->tpl->setVariable('OPTION_LETTER', (chr($this->answer_count)));
 		$this->tpl->setVariable('OPTION_TEXT', $option->getText());
 		$this->tpl->parseCurrentBlock();
-	}
-
-
-	/**
-	 * @return string
-	 */
-	protected function renderSingleVote() {
-		$bars = new xlvoBarCollectionGUI();
-		foreach ($this->voting->getVotingOptions()->get() as $option) {
-			$this->answer_count ++;
-			$bars->addBar(new xlvoBarOptionGUI($this->voting, $option, (chr($this->answer_count))));
-			$this->addAnswer($option);
-		}
-
-		return $bars->getHTML();
-	}
-
-
-	/**
-	 * @return string
-	 */
-	protected function renderFreeInput() {
-		$input_gui = new xlvoFreeInputGUI($this->voting);
-
-		return $input_gui->getHTML();
 	}
 }

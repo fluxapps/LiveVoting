@@ -1,7 +1,7 @@
 <?php
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/class.xlvoBarGUI.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/class.xlvoBarCollectionGUI.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/class.xlvoBarPercentageGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/Bar/class.xlvoBarGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/Bar/class.xlvoBarCollectionGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/Bar/class.xlvoBarPercentageGUI.php');
 require_once('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoInputResultsGUI.php');
 
 /**
@@ -60,8 +60,11 @@ class xlvoDisplayPlayerGUI {
 
 		$xlvoInputDisplayGUI = xlvoInputResultsGUI::getInstance($this->voting, $this->voting_manager);
 		$this->tpl->setVariable('OPTION_CONTENT', $xlvoInputDisplayGUI->getHTML());
-
-		foreach ($this->voting->getVotingOptions()->get() as $item) {
+		$xlvoOptions = $this->voting->getVotingOptions();
+		if ($xlvoInputDisplayGUI->isShuffleResults()) {
+			shuffle($xlvoOptions);
+		}
+		foreach ($xlvoOptions as $item) {
 			$this->addOption($item);
 		}
 
@@ -86,6 +89,7 @@ class xlvoDisplayPlayerGUI {
 		$this->tpl->setVariable('OBJ_ID', $this->voting->getObjId());
 		$this->tpl->setVariable('FROZEN', $player->isFrozen());
 		$this->tpl->setVariable('PIN', $config->getPin());
+		//		$this->tpl->setVariable('ONLINE', $config->getPin());
 		$this->tpl->setVariable('COUNT', $votings_count);
 		$this->tpl->setVariable('POSITION', $voting_position);
 	}
@@ -105,7 +109,7 @@ class xlvoDisplayPlayerGUI {
 	 * @param xlvoOption $option
 	 */
 	protected function addOption(xlvoOption $option) {
-		if ($option->getType() == xlvoVotingType::TYPE_FREE_INPUT) {
+		if ($option->getType() == xlvoQuestionTypes::TYPE_FREE_INPUT) {
 			return;
 		}
 		$this->answer_count ++;

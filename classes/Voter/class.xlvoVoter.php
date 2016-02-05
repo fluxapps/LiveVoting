@@ -23,6 +23,7 @@ class xlvoVoter extends ActiveRecord {
 	 * @param $player_id
 	 */
 	public static function register($user_identifier, $player_id) {
+		self::updateDB();
 		$obj = self::where(array(
 			'user_identifier' => $user_identifier,
 			'player_id' => $player_id
@@ -39,13 +40,25 @@ class xlvoVoter extends ActiveRecord {
 
 
 	/**
+	 * @param $player_id
+	 * @return int
+	 */
+	public static function count($player_id) {
+		return self::where(array( 'player_id' => $player_id ))->count();
+	}
+
+
+	/**
 	 * @param $field_name
 	 *
 	 * @return mixed
 	 */
 	public function sleep($field_name) {
 		if ($field_name == 'last_access') {
-			return $this->last_access->getTimestamp();
+			if (!$this->last_access instanceof DateTime) {
+				$this->last_access = new DateTime();
+			}
+			return $this->last_access->format(DateTime::ATOM);
 		}
 		return null;
 	}
@@ -70,6 +83,7 @@ class xlvoVoter extends ActiveRecord {
 	 *
 	 * @con_is_primary true
 	 * @con_is_unique  true
+	 * @con_sequence  true
 	 * @con_has_field  true
 	 * @con_fieldtype  integer
 	 * @con_length     8

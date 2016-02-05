@@ -41,12 +41,18 @@ player_start_voting#:#LiveVoting beginnen
 player_start_voting_and_unfreeze#:#LiveVoting beginnen und direkt freigeben
 player_terminate#:#Beenden
 player_unfreeze#:#Freigeben
+player_voters_online#:#Online
 player_voting_list#:#Votings
 qtype_1_colors#:#Unterschiedliche Farben
 qtype_1_multi_selection#:#Mehrfachauswahl
 qtype_1_option_text#:#Options-Text
 qtype_1_options#:#Optionen
 qtype_2_multi_free_input#:#Mehrfache Eingaben
+qtype_4_id#:#ID
+qtype_4_option_correct_position#:#Korrekte Position
+qtype_4_option_position#:#Position
+qtype_4_option_text#:#Begriff
+qtype_4_options#:#Optionen
 qtype_form_header#:#Typ-Einstellugnen
 qtype_multi_free_input#:#Mehrfache Eingaben
 status#:#Status
@@ -95,5 +101,7 @@ voting_type_1_info#:#Multiple- oder Single-Choice
 voting_type_2#:#Freitext
 voting_type_2_info#:#Benutzer können Stichwort selber eingeben
 voting_type_3#:#Bereich
-voting_type_4#:#Reihenfolge
+voting_type_4#:#Korrekte Reihenfolge
+voting_type_4_info#:#Begriffe müssen in die richtige Reihenfolge gebracht werden
 voting_update#:#Speichern
+config_msg_success#:#Gespeichert

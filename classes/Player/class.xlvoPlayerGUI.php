@@ -7,7 +7,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilObjLiveVotingAccess.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilObjLiveVotingAccess.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilLiveVotingPlugin.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingType.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoQuestionTypes.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voter/class.xlvoVoterGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Option/class.xlvoOption.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoPlayer.php');
@@ -17,6 +17,8 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Conf/class.xlvoConf.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/lib/QrCode-master/src/QrCode.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoGlyphGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voter/class.xlvoVoter.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Js/class.xlvoJs.php');
 use Endroid\QrCode\QrCode;
 
 /**
@@ -589,6 +591,16 @@ class xlvoPlayerGUI {
 		if (!$this->voting_manager->getActiveVotings($this->obj_id)->hasSets()) {
 			ilUtil::sendFailure($this->txt('player_msg_no_votings'));
 		} else {
+
+
+
+//			$xlvoJs = new xlvoJs('Player');
+//			$xlvoJsSettings = xlvoJsSettings::getInstance($this->ctrl->getLinkTarget($this));
+//			$xlvoJsSettings->addSetting('voter_count_element_id', 'xlvo_voter_counter');
+//			$xlvoJsSettings->addTranslation('player_voters_online');
+//			$xlvoJs->init($xlvoJsSettings);
+//			$xlvoJs->call('updateVoterCounter');
+
 			$b = ilLinkButton::getInstance();
 			$b->setCaption($this->txt('start_voting'), false);
 			$b->setUrl($this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_START_VOTING));
@@ -602,8 +614,8 @@ class xlvoPlayerGUI {
 			$b->setId('btn-start-voting-unfreeze');
 			$this->toolbar->addButtonInstance($b);
 
-			$current_selection_list = $this->getVotingSelectionList();
-			$this->toolbar->addText($current_selection_list->getHTML());
+			//			$current_selection_list = $this->getVotingSelectionList();
+			//			$this->toolbar->addText($current_selection_list->getHTML()); // Not yet working
 		}
 
 		$template = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voting/display/tpl.player_start_screen.html', true, true);
@@ -703,5 +715,11 @@ class xlvoPlayerGUI {
 			$current_selection_list->addItem($voting->getTitle(), $voting->getId(), $this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_SHOW_VOTING));
 		}
 		return $current_selection_list;
+	}
+
+
+	protected function getVoterCounterData() {
+		echo xlvoVoter::count($this->voting_manager->getPlayer($this->obj_id)->getId());
+		exit;
 	}
 }

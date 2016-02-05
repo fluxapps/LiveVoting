@@ -49,12 +49,20 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	 * @var bool
 	 */
 	protected $show_label = false;
+	/**
+	 * @var array
+	 */
+	protected $hidden_inputs = array();
+	/**
+	 * @var bool
+	 */
+	protected $position_movable = false;
 
 
 	/**
 	 * Constructor
 	 *
-	 * @param    string $a_title   Title
+	 * @param    string $a_title Title
 	 * @param    string $a_postvar Post Variable
 	 */
 	public function __construct($a_title = "", $a_postvar = "") {
@@ -62,9 +70,6 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 		$this->setType("line_select");
 		$this->setMulti(true);
 		global $tpl;
-//		$tpl->addOnLoadCode('$(".multi_input_line input[disabled]").on("load", function(){
-//			$(this).parent().hide();
-//		});');
 		$tpl->addInlineCss('.multi_input_line input[disabled] {
 			display: none;
 		}');
@@ -232,16 +237,16 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 			}
 		}
 		$_POST[$this->getPostVar()] = $out_array;
-		if ($this->getRequired() && ! trim(implode("", $_POST[$this->getPostVar()]))) {
+		if ($this->getRequired() && !trim(implode("", $_POST[$this->getPostVar()]))) {
 			$valid = false;
 		}
 		// validate
 		foreach ($this->inputs as $input_key => $inputs) {
-			if (! $inputs->checkInput()) {
+			if (!$inputs->checkInput()) {
 				$valid = false;
 			}
 		}
-		if (! $valid) {
+		if (!$valid) {
 			$this->setAlert($lng->txt("msg_input_is_required"));
 
 			return false;
@@ -257,7 +262,7 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	 * @param bool|false $override
 	 */
 	public function addCustomAttribute($key, $value, $override = false) {
-		if (isset($this->cust_attr[$key]) && ! $override) {
+		if (isset($this->cust_attr[$key]) && !$override) {
 			$this->cust_attr[$key] .= ' ' . $value;
 		} else {
 			$this->cust_attr[$key] = $value;
@@ -309,18 +314,24 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 		$inputs = $this->inputs;
 		foreach ($inputs as $key => $input) {
 			$input = clone $input;
-			if (! method_exists($input, 'render')) {
-				throw new ilException("Method " . get_class($input)
-					. "::render() does not exists! You cannot use this input-type in ilMultiLineInputGUI");
+			$is_hidden = false;
+			if (!method_exists($input, 'render')) {
+				if (!$input instanceof ilHiddenInputGUI) {
+					throw new ilException("Method " . get_class($input)
+						. "::render() does not exists! You cannot use this input-type in ilMultiLineInputGUI");
+				} else {
+					$is_hidden = true;
+				}
 			}
+
 			$is_disabled_hook = $this->getHook(self::HOOK_IS_INPUT_DISABLED);
-			if ($is_disabled_hook !== false && ! $clean_render) {
+			if ($is_disabled_hook !== false && !$clean_render) {
 				$input->setDisabled($is_disabled_hook($this->getValue()));
 			}
 			if ($this->getDisabled()) {
 				$input->setDisabled(true);
 			}
-			if ($iterator_id == 0 && ! isset($this->post_var_cache[$key])) {
+			if ($iterator_id == 0 && !isset($this->post_var_cache[$key])) {
 				$this->post_var_cache[$key] = $input->getPostVar();
 			} else {
 				// Reset post var
@@ -329,32 +340,47 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 			$post_var = $this->createInputPostVar($iterator_id, $input);
 			$input->setPostVar($post_var);
 			$before_render_hook = $this->getHook(self::HOOK_BEFORE_INPUT_RENDER);
-			if ($before_render_hook !== false && ! $clean_render) {
+			if ($before_render_hook !== false && !$clean_render) {
 				$input = $before_render_hook($this->getValue(), $key, $input);
 			}
-			if ($this->isShowLabel()) {
-				$tpl->setCurrentBlock('input_label');
-				$tpl->setVariable('LABEL', $input->getTitle());
-				$tpl->setVariable('CONTENT', $input->render());
+			if ($is_hidden) {
+				$tpl->setCurrentBlock('hidden');
+				$tpl->setVariable('NAME', $post_var);
+				$tpl->setVariable('VALUE', ilUtil::prepareFormOutput($input->getValue()));
 				$tpl->parseCurrentBlock();
 			} else {
-				$tpl->setCurrentBlock('input');
-				$tpl->setVariable('CONTENT', $input->render());
-				$tpl->parseCurrentBlock();
+				if ($this->isShowLabel()) {
+					$tpl->setCurrentBlock('input_label');
+					$tpl->setVariable('LABEL', $input->getTitle());
+					$tpl->setVariable('CONTENT', $input->render());
+					$tpl->parseCurrentBlock();
+				} else {
+					$tpl->setCurrentBlock('input');
+					$tpl->setVariable('CONTENT', $input->render());
+					$tpl->parseCurrentBlock();
+				}
 			}
 		}
-		if ($this->getMulti() && ! $this->getDisabled()) {
-			$image_plus = '<span class="glyphicon glyphicon-plus"></span>';
+		if ($this->getMulti() && !$this->getDisabled()) {
+			require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoGlyphGUI.php');
+			$image_plus = xlvoGlyphGUI::get('plus');
 			$show_remove = true;
 			$is_removeable_hook = $this->getHook(self::HOOK_IS_LINE_REMOVABLE);
-			if ($is_removeable_hook !== false && ! $clean_render) {
+			if ($is_removeable_hook !== false && !$clean_render) {
 				$show_remove = $is_removeable_hook($this->getValue());
 			}
-			$image_minus = ($show_remove) ? '<span class="glyphicon glyphicon-minus"></span>' : '<span class="glyphicon glyphicon-minus hide"></span>';
+			$show_remove = true;
+			$image_minus = ($show_remove) ? xlvoGlyphGUI::get('minus') : '<span class="glyphicon glyphicon-minus hide"></span>';
 			$tpl->setCurrentBlock('multi_icons');
 			$tpl->setVariable('IMAGE_PLUS', $image_plus);
 			$tpl->setVariable('IMAGE_MINUS', $image_minus);
 			$tpl->parseCurrentBlock();
+			if ($this->isPositionMovable()) {
+				$tpl->setCurrentBlock('multi_icons_move');
+				$tpl->setVariable('IMAGE_UP', xlvoGlyphGUI::get(xlvoGlyphGUI::UP));
+				$tpl->setVariable('IMAGE_DOWN', xlvoGlyphGUI::get(xlvoGlyphGUI::DOWN));
+				$tpl->parseCurrentBlock();
+			}
 		}
 
 		return $tpl->get();
@@ -369,7 +395,7 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	public function insert(&$a_tpl) {
 		global $tpl;
 		$output = "";
-		$tpl->addCss($this->getTemplateDir() . '/templates/css/multi_line_input.css');
+		$tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/multi_line_input.css');
 		$output .= $this->render(0, true);
 		if ($this->getMulti() && is_array($this->line_values) && count($this->line_values) > 0) {
 			foreach ($this->line_values as $run => $data) {
@@ -413,30 +439,31 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 
 
 	/**
+	 * @return boolean
+	 */
+	public function isPositionMovable() {
+		return $this->position_movable;
+	}
+
+
+	/**
+	 * @param boolean $position_movable
+	 */
+	public function setPositionMovable($position_movable) {
+		$this->position_movable = $position_movable;
+	}
+
+
+	/**
 	 * @param bool|false $a_sortable
 	 *
 	 * @return string
 	 */
-	public function getMultiIconsHTML($a_sortable = false) {
+	public function getMultiIconsHTML($a_sortable = true) {
 		$id = $this->getFieldId();
-		if (file_exists(ilUtil::getImagePath('edit_add.png'))) {
-			$html = '<a href="#" style="display: inline-block;" class="add_button"><img src="' . ilUtil::getImagePath('edit_add.png') . '" /></a>';
-			$html .= '<a href="#" style="display: inline-block;" class="remove_button"><img src="' . ilUtil::getImagePath('edit_remove.png')
-				. '" /></a>';
-		} else {
-			$html = '<a href="#" style="display: inline-block;" class="add_button"><span class="sr-only"></span><span class="glyphicon glyphicon-plus"></span></a>';
-			$html .= '<a href="#" style="display: inline-block;" class="remove_button"><span class="sr-only"></span><span class="glyphicon glyphicon-minus"></span></a>';
-		}
 
-		/*if($a_sortable)
-		{
-			$html .= '&nbsp;<input align="absmiddle" type="image" id="ilMultiDwn~'.$id.'~0"'.
-				' src="'.ilUtil::getImagePath('icon_down_s.png').'" alt="'.
-				$lng->txt("down").'" title="'.$lng->txt("down").'" onclick="javascript: return false;" />'.
-				'<input align="absmiddle" type="image" id="ilMultiUp~'.$id.'~0"'.
-				' src="'.ilUtil::getImagePath('icon_up_s.png').'" alt="'.$lng->txt("up").
-				'" title="'.$lng->txt("up").'"  onclick="javascript: return false;" />';
-		}*/
+		$html = '<a href="#" style="display: inline-block;" class="add_button"><span class="sr-only"></span><span class="glyphicon glyphicon-plus"></span></a>';
+		$html .= '<a href="#" style="display: inline-block;" class="remove_button"><span class="sr-only"></span><span class="glyphicon glyphicon-minus"></span></a>';
 
 		return $html;
 	}

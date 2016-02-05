@@ -1,5 +1,5 @@
 <?php
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/class.xlvoBarGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/Bar/class.xlvoBarGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVotingManager.php');
 
 /**
@@ -9,7 +9,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version 1.0.0
  */
-class xlvoBarOptionGUI extends xlvoBarGUI {
+class xlvoBarOptionGUI implements xlvoBarGUI {
 
 	/**
 	 * @var xlvoVoting
@@ -23,6 +23,14 @@ class xlvoBarOptionGUI extends xlvoBarGUI {
 	 * @var string
 	 */
 	protected $option_letter;
+	/**
+	 * @var ilTemplate
+	 */
+	protected $tpl;
+	/**
+	 * @var xlvoVotingManager
+	 */
+	protected $voting_manager;
 
 
 	/**
@@ -31,9 +39,6 @@ class xlvoBarOptionGUI extends xlvoBarGUI {
 	 * @param            $option_letter
 	 */
 	public function __construct(xlvoVoting $voting, xlvoOption $option, $option_letter) {
-
-		parent::__construct();
-
 		$this->voting_manager = new xlvoVotingManager();
 		$this->voting = $voting;
 		$this->option = $option;

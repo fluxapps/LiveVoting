@@ -225,7 +225,7 @@ $ilDB->addTableColumn('rep_robj_xlvo_data', 'end_time', array(
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingConfig.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVoting.php');
 require_once('./Services/Object/classes/class.ilObject2.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingType.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoQuestionTypes.phpphp');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Option/class.xlvoOption.php');
 
 $query = "SELECT * FROM rep_robj_xlvo_data";
@@ -264,7 +264,7 @@ while ($resData = $ilDB->fetchAssoc($setData)) {
 	$xlvoVoting->setColors($resData['is_colorful']);
 	$xlvoVoting->setTitle(ilObject2::_lookupTitle($xlvoVotingConfig->getObjId()));
 	$xlvoVoting->setMultiSelection(($resData['options_type'] == 1));
-	$xlvoVoting->setVotingType(xlvoVotingType::TYPE_SINGLE_VOTE);
+	$xlvoVoting->setVotingType(xlvoQuestionTypes::TYPE_SINGLE_VOTE);
 	$xlvoVoting->setVotingStatus(xlvoVoting::STAT_ACTIVE);
 	$xlvoVoting->setPosition(1);
 	if ($xlvoVoting->getId()) {
@@ -283,7 +283,7 @@ while ($resData = $ilDB->fetchAssoc($setData)) {
 		$xlvoOption = new xlvoOption();
 		$xlvoOption->setText($resOption['title']);
 		$xlvoOption->setVotingId($xlvoVoting->getId());
-		$xlvoOption->setType(xlvoVotingType::TYPE_SINGLE_VOTE);
+		$xlvoOption->setType(xlvoQuestionTypes::TYPE_SINGLE_VOTE);
 		$xlvoOption->setStatus(xlvoOption::STAT_ACTIVE);
 		$xlvoOption->create();
 
@@ -303,7 +303,7 @@ while ($resData = $ilDB->fetchAssoc($setData)) {
 				$xlvoVote->setUserIdentifier($resVote['usr_session']);
 			}
 
-			$xlvoVote->setType(xlvoVotingType::TYPE_SINGLE_VOTE);
+			$xlvoVote->setType(xlvoQuestionTypes::TYPE_SINGLE_VOTE);
 			$xlvoVote->setStatus(xlvoVote::STAT_ACTIVE);
 			$xlvoVote->setOptionId($xlvoOption->getId());
 			$xlvoVote->setVotingId($xlvoVoting->getId());
@@ -324,4 +324,9 @@ while ($data = $ilDB->fetchObject($a_set)) {
 <?php
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingConfig.php');
 xlvoVotingConfig::updateDB();
+?>
+<#18>
+<?php
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voter/class.xlvoVoter.php');
+xlvoVoter::installDB();
 ?>

@@ -88,7 +88,7 @@ class xlvoFreeInputMobileGUI extends xlvoInputMobileGUI {
 		/**
 		 * @var xlvoOption $option
 		 */
-		$option = $this->voting->getVotingOptions()->first();
+		$option = $this->voting->getFirstVotingOption();
 
 		if ($this->voting->isMultiFreeInput()) {
 			/**

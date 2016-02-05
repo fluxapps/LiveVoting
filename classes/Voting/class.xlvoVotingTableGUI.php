@@ -96,8 +96,8 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 		$type = new ilSelectInputGUI($this->txt('type'), 'voting_type');
 		$type_options = array(
 			- 1 => '',
-			xlvoVotingType::TYPE_SINGLE_VOTE => $this->txt('type_' . xlvoVotingType::TYPE_SINGLE_VOTE),
-			xlvoVotingType::TYPE_FREE_INPUT => $this->txt('type_' . xlvoVotingType::TYPE_FREE_INPUT)
+			xlvoQuestionTypes::TYPE_SINGLE_VOTE => $this->txt('type_' . xlvoQuestionTypes::TYPE_SINGLE_VOTE),
+			xlvoQuestionTypes::TYPE_FREE_INPUT => $this->txt('type_' . xlvoQuestionTypes::TYPE_FREE_INPUT)
 		);
 		$type->setOptions($type_options);
 		$this->addAndReadFilterItem($type);

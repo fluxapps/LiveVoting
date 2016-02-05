@@ -40,12 +40,18 @@ player_start_voting#:#Start LiveVoting
 player_start_voting_and_unfreeze#:#Start LiveVoting and unfreeze directly
 player_terminate#:#Terminate
 player_unfreeze#:#Unfreeze
+player_voters_online#:#Online
 player_voting_list#:#Votings
 qtype_1_colors#:#Different Colors
 qtype_1_multi_selection#:#Multiple Selection
 qtype_1_option_text#:#Option-Text
 qtype_1_options#:#Options
 qtype_2_multi_free_input#:#Multiple Inputs
+qtype_4_id#:#ID
+qtype_4_option_correct_position#:#Correct Position
+qtype_4_option_position#:#Position
+qtype_4_option_text#:#Term
+qtype_4_options#:#Options
 qtype_form_header#:#Type-Settings
 qtype_multi_free_input#:#Multiple Inputs
 status#:#Status
@@ -94,5 +100,7 @@ voting_type_1_info#:#Multiple- orSingle-Choice
 voting_type_2#:#Free Input
 voting_type_2_info#:#User can hand in free text
 voting_type_3#:#Range
-voting_type_4#:#Order
+voting_type_4#:#Correct Order
+voting_type_4_info#:#Terms must be sorted in the correct order.
 voting_update#:#Update
+config_msg_success#:#Saved

@@ -2,17 +2,17 @@
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoSubFormGUI.php');
 
 /**
- * Class xlvoSingleVoteSubFormGUI
+ * Class xlvoCorrectOrderSubFormGUI
  *
  * @author Fabian Schmid <fs@studer-raimann.ch>
  */
-class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
+class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI {
 
-	const F_MULTI_SELECTION = 'multi_selection';
 	const F_OPTIONS = 'options';
 	const F_TEXT = 'text';
-	const F_COLORS = 'colors';
 	const F_ID = 'id';
+	const F_POSITION = 'position';
+	const F_CORRECT_POSITION = 'correct_position';
 	/**
 	 * @var xlvoOption[]
 	 */
@@ -20,23 +20,22 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 
 
 	protected function initFormElements() {
-		$cb = new ilCheckboxInputGUI($this->txt(self::F_MULTI_SELECTION), self::F_MULTI_SELECTION);
-		//		$cb->setInfo($this->pl->txt('info_singlevote_multi_selection'));
-		$this->addFormElement($cb);
+		$xlvoMultiLineInputGUI = new xlvoMultiLineInputGUI($this->txt(self::F_OPTIONS), self::F_OPTIONS);
+		$xlvoMultiLineInputGUI->setShowLabel(true);
+		$xlvoMultiLineInputGUI->setPositionMovable(true);
 
-		$cb = new ilCheckboxInputGUI($this->txt(self::F_COLORS), self::F_COLORS);
-		//		$cb->setInfo($this->pl->txt('info_singlevote_colors'));
-		//		$this->addFormElement($cb);
+		$h = new ilHiddenInputGUI(self::F_ID);
+		$xlvoMultiLineInputGUI->addInput($h);
 
-		$mli = new xlvoMultiLineInputGUI($this->txt(self::F_OPTIONS), self::F_OPTIONS);
+		$position = new ilNumberInputGUI($this->txt('option_correct_position'), self::F_CORRECT_POSITION);
+		$position->setSize(2);
+		$position->setMaxLength(2);
+		$xlvoMultiLineInputGUI->addInput($position);
+
 		$te = new ilTextInputGUI($this->txt('option_text'), self::F_TEXT);
-		$mli->addInput($te);
+		$xlvoMultiLineInputGUI->addInput($te);
 
-		$h = new ilTextInputGUI($this->txt(self::F_ID), self::F_ID);
-		$h->setDisabled(true);
-		$mli->addInput($h);
-
-		$this->addFormElement($mli);
+		$this->addFormElement($xlvoMultiLineInputGUI);
 	}
 
 
@@ -47,10 +46,9 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 	 */
 	protected function handleField(ilFormPropertyGUI $element, $value) {
 		switch ($element->getPostVar()) {
-			case self::F_MULTI_SELECTION:
-				$this->getXlvoVoting()->setMultiSelection($value);
-				break;
 			case self::F_OPTIONS:
+				xlvoOption::updateDB();
+				$pos = 1;
 				foreach ($value as $item) {
 					/**
 					 * @var $xlvoOption xlvoOption
@@ -59,12 +57,12 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 					$xlvoOption->setText($item[self::F_TEXT]);
 					$xlvoOption->setStatus(xlvoOption::STAT_ACTIVE);
 					$xlvoOption->setVotingId($this->getXlvoVoting()->getId());
+					$xlvoOption->setPosition($pos);
+					$xlvoOption->setCorrectPosition($item[self::F_CORRECT_POSITION]);
 					$xlvoOption->setType($this->getXlvoVoting()->getVotingType());
 					$this->options[] = $xlvoOption;
+					$pos ++;
 				}
-				break;
-			case self::F_COLORS:
-				$this->getXlvoVoting()->setColors($value);
 				break;
 		}
 	}
@@ -76,9 +74,6 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 	 */
 	protected function getFieldValue(ilFormPropertyGUI $element) {
 		switch ($element->getPostVar()) {
-			case self::F_MULTI_SELECTION:
-				return $this->getXlvoVoting()->isMultiSelection();
-
 			case self::F_OPTIONS:
 				$array = array();
 				/**
@@ -89,12 +84,11 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 					$array[] = array(
 						self::F_ID => $option->getId(),
 						self::F_TEXT => $option->getText(),
+						self::F_POSITION => $option->getPosition(),
+						self::F_CORRECT_POSITION => $option->getCorrectPosition(),
 					);
 				}
 				return $array;
-
-			case self::F_COLORS:
-				return $this->getXlvoVoting()->isColors();
 		}
 	}
 
@@ -107,6 +101,7 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 			$ids[] = $xlvoOption->getId();
 		}
 		$options = $this->getXlvoVoting()->getVotingOptions();
+
 		foreach ($options as $xlvoOption) {
 			if (!in_array($xlvoOption->getId(), $ids)) {
 				$xlvoOption->delete();

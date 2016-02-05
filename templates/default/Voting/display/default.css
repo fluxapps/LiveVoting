@@ -61,3 +61,7 @@ li.ilToolbarTextonly {
 li.ilToolbarTextonly button {
   line-height: 1.42857143 !important;
 }
+.xlvolist-group-fix {
+  height: 42px;
+  margin-bottom: 5px;
+}

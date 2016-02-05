@@ -20,7 +20,7 @@ abstract class xlvoSubFormGUI {
 	public static function getInstance(xlvoVoting $xlvoVoting) {
 		if (!self::$instance instanceof self) {
 
-			$class = xlvoVotingType::getClassName($xlvoVoting->getVotingType());
+			$class = xlvoQuestionTypes::getClassName($xlvoVoting->getVotingType());
 			/**
 			 * @var $class_name xlvoFreeInputSubFormGUI
 			 * @var $subform xlvoFreeInputSubFormGUI
@@ -155,6 +155,15 @@ abstract class xlvoSubFormGUI {
 
 
 	protected function handleOptions() {
+		$xlvoOption = xlvoOption::where(array( 'voting_id' => $this->getXlvoVoting()->getId() ))->first();
+		if (!$xlvoOption instanceof xlvoOption) {
+			$xlvoOption = new xlvoOption();
+			$xlvoOption->create();
+		}
+		$xlvoOption->setStatus(xlvoOption::STAT_ACTIVE);
+		$xlvoOption->setVotingId($this->getXlvoVoting()->getId());
+		$xlvoOption->setType($this->getXlvoVoting()->getVotingType());
+		$xlvoOption->update();
 	}
 
 

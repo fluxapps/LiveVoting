@@ -92,6 +92,22 @@ class xlvoOption extends ActiveRecord {
 	 * @db_length           8
 	 */
 	protected $status = self::STAT_ACTIVE;
+	/**
+	 * @var string
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           8
+	 */
+	protected $position;
+	/**
+	 * @var string
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           8
+	 */
+	protected $correct_position = null;
 
 
 	/**
@@ -155,5 +171,37 @@ class xlvoOption extends ActiveRecord {
 	 */
 	public function setStatus($status) {
 		$this->status = $status;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getPosition() {
+		return $this->position;
+	}
+
+
+	/**
+	 * @param string $position
+	 */
+	public function setPosition($position) {
+		$this->position = $position;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getCorrectPosition() {
+		return $this->correct_position;
+	}
+
+
+	/**
+	 * @param string $correct_position
+	 */
+	public function setCorrectPosition($correct_position) {
+		$this->correct_position = $correct_position;
 	}
 }

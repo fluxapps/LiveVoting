@@ -48,7 +48,6 @@ if ($posted_type == 'voting_screen') {
 
 	try {
 		$player = $voting_manager->getPlayer($posted_object_id);
-
 		if ($player->isFrozenOrUnattended()) {
 			echo $voter_gui->showWaitForQuestionScreen($posted_object_id);
 		} else {
