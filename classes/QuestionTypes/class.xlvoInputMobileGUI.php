@@ -1,4 +1,6 @@
 <?php
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoQuestionTypes.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVotingManager.php');
 
 /**
  * Class xlvoInputMobileGUI
@@ -70,6 +72,19 @@ abstract class xlvoInputMobileGUI {
 	abstract public function getHTML();
 
 
-//	abstract public function initJS();
+	/**
+	 * @return array
+	 */
+	public function getJsLibraries() {
+		return array();
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getOnloadCode() {
+		return '';
+	}
 }
 

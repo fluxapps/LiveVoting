@@ -1,5 +1,6 @@
 <?php
 require_once('./Services/ActiveRecord/class.ActiveRecord.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Js/class.xlvoJs.php');
 
 /**
  * Class xlvoConf
@@ -18,6 +19,7 @@ class xlvoConf extends ActiveRecord {
 	const F_ALLOW_GLOBAL_ANONYMOUS = 'global_anonymous';
 	const F_USE_QR = 'use_qr';
 	const REWRITE_RULE = "RewriteRule ^vote(/[\\w]*|) Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?pin=$1 [L]";
+	const API_URL = './Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/xlvoILIAS.php';
 
 
 	/**
@@ -51,10 +53,18 @@ class xlvoConf extends ActiveRecord {
 			$url = self::get(self::F_BASE_URL);
 			$url = rtrim($url, "/") . "/";
 		} else {
-			$url = ILIAS_HTTP_PATH;
+			$url = rtrim(ILIAS_HTTP_PATH, "/") . "/";
 		}
 
 		return $url;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public static function getFullApiURL() {
+		return self::getBaseURL() . ltrim(self::API_URL, "./");
 	}
 
 

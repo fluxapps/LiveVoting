@@ -387,6 +387,12 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	}
 
 
+	public function initCSSandJS() {
+		global $tpl;
+		$tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/multi_line_input.css');
+		$tpl->addJavascript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/multi_line_input.js');
+	}
+
 	/**
 	 * Insert property html
 	 *
@@ -395,7 +401,7 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	public function insert(&$a_tpl) {
 		global $tpl;
 		$output = "";
-		$tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/multi_line_input.css');
+
 		$output .= $this->render(0, true);
 		if ($this->getMulti() && is_array($this->line_values) && count($this->line_values) > 0) {
 			foreach ($this->line_values as $run => $data) {
@@ -408,7 +414,6 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 		}
 		if ($this->getMulti()) {
 			$output = '<div id="' . $this->getFieldId() . '" class="multi_line_input">' . $output . '</div>';
-			$tpl->addJavascript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/multi_line_input.js');
 			$output .= '<script type="text/javascript">$("#' . $this->getFieldId() . '").multi_line_input(' . json_encode($this->input_options)
 				. ')</script>';
 		}

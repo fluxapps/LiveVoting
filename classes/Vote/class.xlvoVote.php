@@ -18,11 +18,97 @@ class xlvoVote extends ActiveRecord {
 
 
 	/**
+	 * @param xlvoUser $xlvoUser
+	 * @param $voting_id
+	 * @param null $option_id
+	 */
+	public static function vote(xlvoUser $xlvoUser, $voting_id, $option_id = null) {
+		$obj = self::getUserInstance($xlvoUser, $voting_id, $option_id);
+		$obj->setStatus(self::STAT_ACTIVE);
+		$obj->store();
+	}
+
+
+	/**
+	 * @param xlvoUser $xlvoUser
+	 * @param $voting_id
+	 * @param null $option_id
+	 */
+	public static function unvote(xlvoUser $xlvoUser, $voting_id, $option_id = null) {
+		$obj = self::getUserInstance($xlvoUser, $voting_id, $option_id);
+		$obj->setStatus(self::STAT_INACTIVE);
+		$obj->store();
+	}
+
+
+	public function store() {
+		if (self::where(array( 'id' => $this->getId() ))->hasSets()) {
+			$this->update();
+		} else {
+			$this->create();
+		}
+	}
+
+
+	/**
+	 * @param xlvoUser $xlvoUser
+	 * @param $voting_id
+	 * @return ActiveRecord[]
+	 */
+	public static function getVotesOfUser(xlvoUser $xlvoUser, $voting_id) {
+
+		$where = array( 'voting_id' => $voting_id );
+		if ($xlvoUser->isILIASUser()) {
+			$where['user_id'] = $xlvoUser->getIdentifier();
+		} else {
+			$where['user_identifier'] = $xlvoUser->getIdentifier();
+		}
+
+		return self::where($where)->get();
+	}
+
+
+	/**
+	 * @param xlvoUser $xlvoUser
+	 * @param $voting_id
+	 * @param $option_id
+	 * @return ActiveRecord|xlvoVote
+	 */
+	protected static function getUserInstance(xlvoUser $xlvoUser, $voting_id, $option_id) {
+		$where = array( 'voting_id' => $voting_id );
+		if ($option_id) {
+			$where = array( 'option_id' => $option_id );
+		}
+		if ($xlvoUser->isILIASUser()) {
+			$where['user_id'] = $xlvoUser->getIdentifier();
+		} else {
+			$where['user_identifier'] = $xlvoUser->getIdentifier();
+		}
+
+		$vote = self::where($where)->first();
+
+		if (!$vote instanceof self) {
+			$vote = new self();
+			if ($xlvoUser->isILIASUser()) {
+				$vote->setUserIdType(self::USER_ILIAS);
+				$vote->setUserId($xlvoUser->getIdentifier());
+			} else {
+				$vote->setUserIdType(self::USER_ILIAS);
+				$vote->setUserIdentifier($xlvoUser->getIdentifier());
+			}
+		}
+
+		return $vote;
+	}
+
+
+	/**
 	 * @return string
 	 */
 	public static function returnDbTableName() {
 		return 'rep_robj_xlvo_vote_n';
 	}
+
 
 	/**
 	 * @var string
@@ -48,6 +134,7 @@ class xlvoVote extends ActiveRecord {
 	public function setFreeInput($free_input) {
 		$this->free_input = $free_input;
 	}
+
 
 	/**
 	 * @var string

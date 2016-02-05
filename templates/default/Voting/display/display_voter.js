@@ -64,7 +64,6 @@
                 //console.log(parameter);
                 $.get(url, parameter)
                     .done(function (data) {
-                        console.log(data);
                         var isAnonymous = +data.voIsAnonymous;
                         var isVoting = +data.voIsVoting;
                         var isFrozen = +data.voIsFrozen;

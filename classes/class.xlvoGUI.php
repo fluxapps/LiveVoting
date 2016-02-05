@@ -1,4 +1,6 @@
 <?php
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilLiveVotingPlugin.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Js/class.xlvoJs.php');
 
 /**
  * Class xlvoGUI
@@ -6,7 +8,7 @@
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version 1.0.0
  */
-abstract class xlvoGUI {
+class xlvoGUI {
 
 	const CMD_STANDARD = 'index';
 	const CMD_ADD = 'add';
@@ -33,6 +35,7 @@ abstract class xlvoGUI {
 		$this->ctrl = $ilCtrl;
 		$this->toolbar = $ilToolbar;
 		$this->pl = ilLiveVotingPlugin::getInstance();
+		$this->is_api_call = ($this->ctrl->getTargetScript() == xlvoConf::getFullApiURL());
 	}
 
 
@@ -45,28 +48,10 @@ abstract class xlvoGUI {
 				$this->{$cmd}();
 				break;
 		}
+		if ($this->is_api_call) {
+			$this->tpl->show();
+		}
 	}
-
-
-	abstract protected function index();
-
-
-	abstract protected function add();
-
-
-	abstract protected function create();
-
-
-	abstract protected function edit();
-
-
-	abstract protected function update();
-
-
-	abstract protected function confirmDelete();
-
-
-	abstract protected function delete();
 
 
 	protected function cancel() {

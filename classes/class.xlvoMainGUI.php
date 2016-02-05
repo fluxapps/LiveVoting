@@ -39,57 +39,12 @@ class xlvoMainGUI extends xlvoGUI {
 	 */
 	public function executeCommand() {
 		$nextClass = $this->ctrl->getNextClass();
-
-		//		$this->tabs->addTab(self::TAB_SETTINGS, $this->pl->txt('tab_' . self::TAB_SETTINGS), $this->ctrl->getLinkTarget(new xlvoConfGUI()));
-		//		$this->tabs->addTab(self::TAB_SYSTEM_ACCOUNTS, $this->pl->txt('tab_'
-		//			. self::TAB_SYSTEM_ACCOUNTS), $this->ctrl->getLinkTarget(new xoctSystemAccountGUI()));
-		//		$this->tabs->addTab(self::TAB_PUBLICATION_USAGE, $this->pl->txt('tab_'
-		//			. self::TAB_PUBLICATION_USAGE), $this->ctrl->getLinkTarget(new xoctPublicationUsageGUI()));
-		//		$this->tabs->addTab(self::TAB_EXPORT, $this->pl->txt('tab_' . self::TAB_EXPORT), $this->ctrl->getLinkTarget(new xoctConfExportGUI()));
-		//
 		switch ($nextClass) {
-
 			default:
-				//						$this->tabs->setTabActive(self::TAB_SETTINGS);
 				$xlvoConfGUI = new xlvoConfGUI();
 				$this->ctrl->forwardCommand($xlvoConfGUI);
 				break;
 		}
-	}
-
-
-	protected function index() {
-		// TODO: Implement index() method.
-	}
-
-
-	protected function add() {
-		// TODO: Implement add() method.
-	}
-
-
-	protected function create() {
-		// TODO: Implement create() method.
-	}
-
-
-	protected function edit() {
-		// TODO: Implement edit() method.
-	}
-
-
-	protected function update() {
-		// TODO: Implement update() method.
-	}
-
-
-	protected function confirmDelete() {
-		// TODO: Implement confirmDelete() method.
-	}
-
-
-	protected function delete() {
-		// TODO: Implement delete() method.
 	}
 }
 

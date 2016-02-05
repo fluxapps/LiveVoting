@@ -1,8 +1,7 @@
 .multi_icons_wrapper {
-	height:         45px;
 	display:        inline-block;
 	vertical-align: bottom;
-	float: right;
+	float:          right;
 }
 
 .multi_icon {

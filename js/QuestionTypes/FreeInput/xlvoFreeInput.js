@@ -1,8 +1,8 @@
 /**
- * Class xlvoCorrectOrder
+ * Class xlvoFreeInput
  * @type {{}}
  */
-var xlvoCorrectOrder = {
+var xlvoFreeInput = {
     init: function (json) {
         var config = JSON.parse(json);
         var replacer = new RegExp('amp;', 'g');
@@ -13,13 +13,5 @@ var xlvoCorrectOrder = {
     config: {},
     base_url: '',
     run: function () {
-        this.addSortable();
-    }
-    ,
-    addSortable: function () {
-        $('#lvo_bar_movable').sortable({
-            placeholder: "list-group-item list-group-item-default xlvolist-group-fix"
-        });
-        $("#lvo_bar_movable").disableSelection();
     }
 };

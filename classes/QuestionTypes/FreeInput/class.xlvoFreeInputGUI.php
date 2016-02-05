@@ -1,30 +1,55 @@
 <?php
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoInputMobileGUI.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/FreeInput/class.xlvoMultiLineInputGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoQuestionTypesGUI.php');
+require_once('class.xlvoMultiLineInputGUI.php');
 /**
- * Class xlvoFreeInputMobileGUI
+ * Class xlvoFreeInputGUI
  *
- * @deprecated
  * @author Fabian Schmid <fs@studer-raimann.ch>
+ *
+ * @ilCtrl_IsCalledBy xlvoFreeInputGUI: xlvoVoter2GUI
  */
-class xlvoFreeInputMobileGUI extends xlvoInputMobileGUI {
+class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
+
+	const CMD_UNVOTE_ALL = 'unvoteAll';
+	const CMD_SUBMIT = 'submit';
+	const F_VOTE_MULTI_LINE_INPUT = 'vote_multi_line_input';
+	const F_FREE_INPUT = 'free_input';
+
 
 	/**
-	 * @var ilTemplate
+	 * @description add JS to the HEAD
 	 */
-	protected $tpl;
+	public function initJS() {
+		$xlvoMultiLineInputGUI = new xlvoMultiLineInputGUI();
+		$xlvoMultiLineInputGUI->initCSSandJS();
+		xlvoJs::getInstance()->api($this)->name('CorrectOrder')->category('FreeInput')->init();
+	}
+
+
 	/**
-	 * @var xlvoVoting
+	 * @description Vote
 	 */
-	protected $voting;
+	protected function submit() {
+		echo '<pre>' . print_r($_POST, 1) . '</pre>';
+
+
+		exit;
+	}
+
+
 	/**
-	 * @var ilLiveVotingPlugin
+	 * @return string
 	 */
-	protected $pl;
-	/**
-	 * @var xlvoVotingManager
-	 */
-	protected $voting_manager;
+	public function getMobileHTML() {
+		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voting/display/tpl.free_input.html', true, true);
+		$this->pl = ilLiveVotingPlugin::getInstance();
+		$this->render();
+
+		return $this->tpl->get();
+	}
+
+
+
 
 
 	/**
@@ -33,8 +58,7 @@ class xlvoFreeInputMobileGUI extends xlvoInputMobileGUI {
 	 * @return string
 	 */
 	protected function renderForm(xlvoVote $vote) {
-
-		$an = new ilTextInputGUI($this->pl->txt('voter_answer'), 'free_input');
+		$an = new ilTextInputGUI($this->pl->txt('voter_answer'), self::F_FREE_INPUT);
 		$an->setValue($vote->getFreeInput());
 		$an->setMaxLength(45);
 
@@ -45,7 +69,7 @@ class xlvoFreeInputMobileGUI extends xlvoInputMobileGUI {
 		$hi2->setValue($vote->getId());
 
 		$form = new ilPropertyFormGUI();
-		$form->setId('free_input');
+		$form->setId(self::F_FREE_INPUT);
 		$form->addItem($an);
 		$form->addItem($hi1);
 		$form->addItem($hi2);
@@ -63,20 +87,20 @@ class xlvoFreeInputMobileGUI extends xlvoInputMobileGUI {
 	 * @return string
 	 */
 	protected function renderMultiForm(array $votes, xlvoOption $option) {
-		$mli = new xlvoMultiLineInputGUI($this->pl->txt('voter_answers'), 'vote_multi_line_input');
-		$te = new ilTextInputGUI($this->pl->txt('voter_text'), 'free_input');
+		$mli = new xlvoMultiLineInputGUI($this->pl->txt('voter_answers'), self::F_VOTE_MULTI_LINE_INPUT);
+		$te = new ilTextInputGUI($this->pl->txt('voter_text'), self::F_FREE_INPUT);
 		$te->setMaxLength(45);
 		$mli->addCustomAttribute('option_id', $option->getId());
 		$mli->addInput($te);
 
 		$form = new ilPropertyFormGUI();
-		$form->setId('free_input_multi');
-		$form->addCommandButton('unvote_all', $this->pl->txt('voter_delete_all'));
-		$form->addCommandButton('send_votes', $this->pl->txt('voter_send'));
+		$form->setFormAction($this->ctrl->getFormAction($this));
+		$form->addCommandButton(self::CMD_UNVOTE_ALL, $this->pl->txt('voter_delete_all'));
+		$form->addCommandButton(self::CMD_SUBMIT, $this->pl->txt('voter_send'));
 		$form->addItem($mli);
 
 		$array = array(
-			'vote_multi_line_input' => $votes
+			self::F_VOTE_MULTI_LINE_INPUT => $votes
 		);
 
 		$form->setValuesByArray($array);
@@ -112,16 +136,4 @@ class xlvoFreeInputMobileGUI extends xlvoInputMobileGUI {
 		$this->tpl->setVariable('FREE_INPUT_FORM', $form);
 	}
 
-
-	/**
-	 * @return string
-	 */
-	public function getHTML() {
-		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voting/display/tpl.free_input.html', true, true);
-		$this->pl = ilLiveVotingPlugin::getInstance();
-		$this->voting_manager = new xlvoVotingManager();
-		$this->render();
-
-		return $this->tpl->get();
-	}
 }

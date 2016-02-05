@@ -11,12 +11,16 @@
 
 chdir(strstr($_SERVER['SCRIPT_FILENAME'], 'Customizing', true));
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Context/class.xlvoInitialisation.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Js/class.xlvoJs.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Conf/class.xlvoConf.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/User/class.xlvoUser.php');
 xlvoInitialisation::init();
-
+xlvoUser::getInstance()->setIdentifier(session_id())->setType(xlvoUser::TYPE_PIN);
 global $ilCtrl, $ilBench;
 /**
  * @var ilCtrl $ilCtrl
  */
-$ilCtrl->setTargetScript("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/xlvoILIAS.php");
+
+$ilCtrl->setTargetScript(xlvoConf::getFullApiURL());
 $ilCtrl->callBaseClass();
 $ilBench->save();

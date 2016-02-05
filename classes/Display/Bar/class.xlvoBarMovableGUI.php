@@ -32,11 +32,14 @@ class xlvoBarMovableGUI implements xlvoBarGUI {
 	 * @return string
 	 */
 	public function getHTML() {
+		$i = 1;
 		foreach ($this->options as $xlvoOption) {
 			$this->tpl->setCurrentBlock('option');
 			$this->tpl->setVariable('ID', $xlvoOption->getId());
+			$this->tpl->setVariable('OPTION_LETTER', chr(64 + $i));
 			$this->tpl->setVariable('OPTION', $xlvoOption->getText());
 			$this->tpl->parseCurrentBlock();
+			$i ++;
 		}
 
 		return $this->tpl->get();

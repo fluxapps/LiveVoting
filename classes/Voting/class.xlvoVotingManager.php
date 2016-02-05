@@ -6,10 +6,11 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoPlayer.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoQuestionTypes.php');
 require_once('./Services/Object/classes/class.ilObject2.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilObjLiveVotingAccess.php');
 
 /**
  * Class xlvoVotingManager
- *
+ * @deprecated
  * @author  Daniel Aemmer <daniel.aemmer@phbern.ch>
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version 1.0.0
@@ -27,6 +28,11 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	protected $access;
 
 
+	/**
+	 * xlvoVotingManager constructor.
+	 *
+	 * @deprecated
+	 */
 	public function __construct() {
 		global $ilUser;
 
@@ -41,6 +47,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	/**
 	 * @param $obj_id
 	 * @return ActiveRecordList
+	 * @deprecated
 	 */
 	public function getActiveVotings($obj_id) {
 		/**
@@ -59,6 +66,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	 * @param $obj_id
 	 *
 	 * @return xlvoVoting
+	 * @deprecated
 	 */
 	public function getVotings($obj_id) {
 		/**
@@ -75,6 +83,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	 *
 	 * @return xlvoVoting
 	 * @throws xlvoVotingManagerException
+	 * @deprecated
 	 */
 	public function getVoting($id) {
 		/**
@@ -94,6 +103,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	 * @param $voting_id
 	 *
 	 * @return xlvoOption
+	 * @deprecated
 	 */
 	public function getOptionsOfVoting($voting_id) {
 		/**
@@ -110,6 +120,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	 *
 	 * @return xlvoOption
 	 * @throws xlvoVotingManagerException
+	 * @deprecated
 	 */
 	public function getOption($option_id) {
 		/**
@@ -129,6 +140,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	 * @param $voting_id
 	 *
 	 * @return xlvoVote
+	 * @deprecated
 	 */
 	public function getVotesOfVoting($voting_id) {
 		/**
@@ -144,6 +156,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	 * @param $option_id
 	 *
 	 * @return xlvoVote
+	 * @deprecated
 	 */
 	public function getVotesOfOption($option_id) {
 		/**
@@ -162,6 +175,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	 * @return xlvoVote
 	 * @throws Exception
 	 * @throws xlvoVotingManagerException
+	 * @deprecated
 	 */
 	public function getVotesOfUserOfOption($voting_id, $option_id) {
 		/**
@@ -198,6 +212,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	 * @return xlvoVote
 	 * @throws Exception
 	 * @throws xlvoVotingManagerException
+	 * @deprecated
 	 */
 	public function getVotesOfUserOfVoting($voting_id) {
 		/**
@@ -233,6 +248,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	 *
 	 * @return xlvoVote
 	 * @throws xlvoVotingManagerException
+	 * @deprecated
 	 */
 	public function getVote($vote_id) {
 		/**
@@ -253,6 +269,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	 *
 	 * @return xlvoVotingConfig
 	 * @throws xlvoVotingManagerException
+	 * @deprecated
 	 */
 	public function getVotingConfig($obj_id) {
 		/**
@@ -272,6 +289,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	 * @param xlvoVotingConfig $xlvoVotingConfig
 	 *
 	 * @return xlvoVotingConfig
+	 * @deprecated
 	 */
 	public function updateVotingConfig(xlvoVotingConfig $xlvoVotingConfig) {
 		/**
@@ -285,6 +303,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 
 	/**
 	 * @return xlvoVotingConfig
+	 * @deprecated
 	 */
 	public function getVotingConfigs() {
 		/**
@@ -301,6 +320,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	 *
 	 * @return xlvoPlayer
 	 * @throws xlvoVotingManagerException
+	 * @deprecated
 	 */
 	public function getPlayer($obj_id) {
 		/**
@@ -319,6 +339,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	/**
 	 * @param     $obj_id
 	 * @param int $voting_id
+	 * @deprecated
 	 */
 	public function createPlayer($obj_id, $voting_id = 0) {
 		$xlvoPlayer = new xlvoPlayer();
@@ -335,6 +356,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	 * @param xlvoPlayer $xlvoPlayer
 	 *
 	 * @return xlvoPlayer
+	 * @deprecated
 	 */
 	public function updatePlayer(xlvoPlayer $xlvoPlayer) {
 		$xlvoPlayer->update();
@@ -348,6 +370,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	 *
 	 * @return ActiveRecord|null|xlvoVote
 	 * @throws xlvoVotingManagerException
+	 * @deprecated
 	 */
 	public function vote(xlvoVote $vote) {
 		if ($vote->getOptionId() == NULL) {
@@ -475,6 +498,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	 * @param xlvoVotingConfig $config
 	 * @param xlvoOption $option
 	 * @param xlvoVote $vote
+	 * @deprecated
 	 */
 	protected function createVote(xlvoVotingConfig $config, xlvoOption $option, xlvoVote $vote) {
 		$vote->setOptionId($option->getId());
@@ -498,6 +522,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 	/**
 	 * @param xlvoVote $existing_vote
 	 * @param xlvoVote $new_vote
+	 * @deprecated
 	 */
 	protected function updateVote(xlvoVote $existing_vote, xlvoVote $new_vote) {
 		$existing_vote->setFreeInput($new_vote->getFreeInput());
@@ -508,6 +533,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 
 	/**
 	 * @param xlvoVote $vote
+	 * @deprecated
 	 */
 	protected function deleteVote(xlvoVote $vote) {
 		$vote->delete();
@@ -516,6 +542,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 
 	/**
 	 * @param $option_id
+	 * @deprecated
 	 */
 	public function deleteVotesOfOption($option_id) {
 
@@ -532,6 +559,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 
 	/**
 	 * @param $voting_id
+	 * @deprecated
 	 */
 	public function deleteVotesOfVoting($voting_id) {
 		/**
@@ -546,7 +574,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 
 	/**
 	 * @param $obj_id
-	 *
+	 * @deprecated
 	 * @return bool
 	 */
 	public function deleteVotesOfObject($obj_id) {
@@ -564,7 +592,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 
 	/**
 	 * @param $obj_id
-	 *
+	 * @deprecated
 	 * @return bool
 	 */
 	public function isVotingAvailable($obj_id) {
@@ -592,7 +620,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 
 	/**
 	 * @param $voting_id
-	 *
+	 * @deprecated
 	 * @throws Exception
 	 */
 	public function setActiveVoting($voting_id) {
@@ -622,7 +650,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 
 	/**
 	 * @param $obj_id
-	 *
+	 * @deprecated
 	 * @return int
 	 * @throws xlvoVotingManagerException
 	 */
@@ -646,7 +674,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 
 	/**
 	 * @param $obj_id
-	 *
+	 * @deprecated
 	 * @return xlvoVoting
 	 * @throws xlvoVotingManagerException
 	 */
@@ -669,7 +697,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 
 	/**
 	 * @param $obj_id
-	 *
+	 * @deprecated
 	 * @throws Exception
 	 */
 	public function freezeVoting($obj_id) {
@@ -684,7 +712,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 
 	/**
 	 * @param $obj_id
-	 *
+	 * @deprecated
 	 * @throws Exception
 	 */
 	public function unfreezeVoting($obj_id) {
@@ -699,7 +727,7 @@ class xlvoVotingManager implements xlvoVotingInterface {
 
 	/**
 	 * @param $obj_id
-	 *
+	 * @deprecated
 	 * @throws Exception
 	 */
 	public function terminateVoting($obj_id) {
@@ -710,5 +738,122 @@ class xlvoVotingManager implements xlvoVotingInterface {
 		$this->freezeVoting($obj_id);
 		$xlvoPlayer->setStatus(xlvoPlayer::STAT_STOPPED);
 		$this->updatePlayer($xlvoPlayer);
+	}
+}
+
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Vote/class.xlvoVote.php');
+
+/**
+ * Class xlvoVotingManager2
+ *
+ * @author Fabian Schmid <fs@studer-raimann.ch>
+ */
+class xlvoVotingManager2 {
+
+	/**
+	 * @var xlvoPlayer
+	 */
+	protected $player;
+	/**
+	 * @var xlvoVoting
+	 */
+	protected $voting;
+	/**
+	 * @var int
+	 */
+	protected $obj_id = 0;
+
+
+	/**
+	 * xlvoVotingManager2 constructor.
+	 * @param $pin
+	 */
+	public function __construct($pin) {
+		$this->obj_id = xlvoPin::checkPin($pin);
+		$this->player = xlvoPlayer::getInstanceForObjId($this->obj_id);
+		$this->voting = xlvoVoting::findOrGetInstance($this->getPlayer()->getActiveVoting());
+	}
+
+
+	/**
+	 * @param xlvoUser $xlvoUser
+	 * @param null $option
+	 */
+	public function vote(xlvoUser $xlvoUser, $option = null) {
+		xlvoVote::vote($xlvoUser, $this->getVoting()->getId(), $option);
+	}
+
+
+	/**
+	 * @param xlvoUser $xlvoUser
+	 * @param null $option
+	 */
+	public function unvote(xlvoUser $xlvoUser, $option = null) {
+		xlvoVote::unvote($xlvoUser, $this->getVoting()->getId(), $option);
+	}
+
+
+	/**
+	 * @param xlvoUser $xlvoUser
+	 * @return xlvoVote[]
+	 */
+	public function getVotesOfUser(xlvoUser $xlvoUser) {
+		return xlvoVote::getVotesOfUser($xlvoUser, $this->getVoting()->getId());
+	}
+
+
+	/**
+	 * @return xlvoOption[]
+	 */
+	public function getOptions() {
+		return $this->voting->getVotingOptions();
+	}
+
+
+	/**
+	 * @return xlvoPlayer
+	 */
+	public function getPlayer() {
+		return $this->player;
+	}
+
+
+	/**
+	 * @param xlvoPlayer $player
+	 */
+	public function setPlayer($player) {
+		$this->player = $player;
+	}
+
+
+	/**
+	 * @return xlvoVoting
+	 */
+	public function getVoting() {
+		return $this->voting;
+	}
+
+
+	/**
+	 * @param xlvoVoting $voting
+	 */
+	public function setVoting($voting) {
+		$this->voting = $voting;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getObjId() {
+		return $this->obj_id;
+	}
+
+
+	/**
+	 * @param int $obj_id
+	 */
+	public function setObjId($obj_id) {
+		$this->obj_id = $obj_id;
 	}
 }

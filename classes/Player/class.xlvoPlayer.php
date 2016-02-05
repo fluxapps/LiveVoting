@@ -15,6 +15,7 @@ class xlvoPlayer extends ActiveRecord {
 	const STAT_RUNNING = 1;
 	const STAT_START_VOTING = 2;
 	const STAT_END_VOTING = 3;
+	const STAT_FROZEN = 4;
 	const SECONDS_ACTIVE = 4;
 	const SECONDS_TO_SLEEP = 30;
 
@@ -28,10 +29,54 @@ class xlvoPlayer extends ActiveRecord {
 
 
 	/**
+	 * @param $obj_id
+	 * @return xlvoPlayer
+	 */
+	public static function getInstanceForObjId($obj_id) {
+		$obj = self::where(array( 'obj_id' => $obj_id ))->first();
+		if (!$obj instanceof self) {
+			$obj = new self();
+			$obj->setObjId($obj_id);
+		}
+
+		return $obj;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getStatus($simulate_user = false) {
+		if ($simulate_user && $this->isFrozenOrUnattended()) {
+			return self::STAT_FROZEN;
+		}
+		return $this->status;
+	}
+
+
+	/**
+	 * @return stdClass
+	 */
+	public function getStdClassForVoter() {
+		$obj = new stdClass();
+		$obj->id = $this->getObjId();
+		$obj->obj_id = $this->getObjId();
+		$obj->status = $this->getStatus(true);
+		$obj->active_voting_id = $this->getActiveVoting();
+
+		return $obj;
+	}
+
+
+	/**
 	 * @return bool
 	 */
 	public function isFrozenOrUnattended() {
-		return (bool)($this->isFrozen() OR $this->isUnattended());
+		if ($this->getStatus() == self::STAT_RUNNING) {
+			return (bool)($this->isFrozen() || $this->isUnattended());
+		} else {
+			return false;
+		}
 	}
 
 
@@ -101,7 +146,7 @@ class xlvoPlayer extends ActiveRecord {
 	 * @db_fieldtype        integer
 	 * @db_length           1
 	 */
-	protected $frozen = false;
+	protected $frozen = true;
 	/**
 	 * @var int
 	 *
@@ -157,14 +202,6 @@ class xlvoPlayer extends ActiveRecord {
 	 */
 	public function setActiveVoting($active_voting) {
 		$this->active_voting = $active_voting;
-	}
-
-
-	/**
-	 * @return int
-	 */
-	public function getStatus() {
-		return $this->status;
 	}
 
 

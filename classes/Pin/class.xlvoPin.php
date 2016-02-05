@@ -1,11 +1,12 @@
 <?php
-
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingConfig.php');
 /**
  * Class xlvoPin
  *
  * @author Fabian Schmid <fs@studer-raimann.ch>
  */
 class xlvoPin {
+
 	/**
 	 * @var string
 	 */
@@ -26,6 +27,19 @@ class xlvoPin {
 	 * @var int
 	 */
 	protected $pin_length = 4;
+
+
+	/**
+	 * @param $pin
+	 * @return bool|int
+	 */
+	public static function checkPin($pin) {
+		$xlvoVotingConfig = xlvoVotingConfig::where(array( 'pin' => $pin ))->first();
+		if ($xlvoVotingConfig instanceof xlvoVotingConfig) {
+			return $xlvoVotingConfig->getObjId();
+		}
+		return false;
+	}
 
 
 	/**
