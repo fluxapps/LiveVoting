@@ -60,7 +60,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 				require_once($this->ctrl->lookupClassPath($nextClass));
 				$gui = new $nextClass();
 				if ($gui instanceof xlvoQuestionTypesGUI) {
-					$gui->setVoting($this->manager->getVoting());
+					$gui->setManager($this->manager);
 				}
 				$this->ctrl->forwardCommand($gui);
 				break;
@@ -117,7 +117,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 		);
 		xlvoJs::getInstance()->api($this, array( 'ilUIPluginRouterGUI' ))->name('Voter')->addSettings($settings)->init()->call('run');
 		foreach (xlvoQuestionTypes::getActiveTypes() as $type) {
-			xlvoQuestionTypesGUI::getInstance($type)->initJS();
+			xlvoQuestionTypesGUI::getInstance($this->manager, $type)->initJS();
 		}
 	}
 
@@ -133,7 +133,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 				$tpl->setVariable('TITLE', $this->manager->getVoting()->getTitle());
 				$tpl->setVariable('DESCRIPTION', $this->manager->getVoting()->getDescription());
 
-				$xlvoQuestionTypesGUI = xlvoQuestionTypesGUI::getInstance($this->manager->getVoting()->getVotingType(), $this->manager->getVoting());
+				$xlvoQuestionTypesGUI = xlvoQuestionTypesGUI::getInstance($this->manager);
 
 				$tpl->setVariable('QUESTION', $xlvoQuestionTypesGUI->getMobileHTML());
 				break;

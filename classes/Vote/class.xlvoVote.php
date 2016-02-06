@@ -53,11 +53,13 @@ class xlvoVote extends ActiveRecord {
 	/**
 	 * @param xlvoUser $xlvoUser
 	 * @param $voting_id
-	 * @return ActiveRecord[]
+	 * @return xlvoVote[]
 	 */
 	public static function getVotesOfUser(xlvoUser $xlvoUser, $voting_id) {
-
-		$where = array( 'voting_id' => $voting_id );
+		$where = array(
+			'voting_id' => $voting_id,
+			'status' => self::STAT_ACTIVE
+		);
 		if ($xlvoUser->isILIASUser()) {
 			$where['user_id'] = $xlvoUser->getIdentifier();
 		} else {
@@ -96,6 +98,8 @@ class xlvoVote extends ActiveRecord {
 				$vote->setUserIdType(self::USER_ILIAS);
 				$vote->setUserIdentifier($xlvoUser->getIdentifier());
 			}
+			$vote->setOptionId($option_id);
+			$vote->setVotingId($voting_id);
 		}
 
 		return $vote;

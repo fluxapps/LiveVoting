@@ -22,7 +22,7 @@ class xlvoSingleVoteGUI extends xlvoQuestionTypesGUI {
 	 * @description Vote
 	 */
 	protected function submit() {
-		// TODO: Implement submit() method.
+		$this->manager->vote($_GET['option_id']);
 	}
 
 
@@ -30,6 +30,30 @@ class xlvoSingleVoteGUI extends xlvoQuestionTypesGUI {
 	 * @return string
 	 */
 	public function getMobileHTML() {
-		// TODO: Implement getMobileHTML() method.
+		//		$answer_count = 64;
+		//		$bars = new xlvoBarCollectionGUI();
+		//		foreach ($this->voting->getVotingOptions() as $option) {
+		//			$answer_count ++;
+		//			$bars->addBar(new xlvoBarOptionGUI($this->voting, $option, (chr($answer_count))));
+		//		}
+		//
+		//		return $bars->getHTML();
+
+		$tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/QuestionTypes/SingleVote/tpl.single_vote.html', false, true);
+		$answer_count = 64;
+		foreach ($this->manager->getVoting()->getVotingOptions() as $xlvoOption) {
+			$answer_count ++;
+			$this->ctrl->setParameter($this, 'option_id', $xlvoOption->getId());
+			$tpl->setCurrentBlock('option');
+			$tpl->setVariable('TITLE', $xlvoOption->getText());
+			$tpl->setVariable('LINK', $this->ctrl->getLinkTarget($this, self::CMD_SUBMIT));
+			$tpl->setVariable('OPTION_LETTER', chr($answer_count));
+			if($this->manager->hasUserVotedForOption($xlvoOption)) {
+				$tpl->setVariable('VOTED', 'ja');
+			}
+			$tpl->parseCurrentBlock();
+		}
+
+		return $tpl->get();
 	}
 }

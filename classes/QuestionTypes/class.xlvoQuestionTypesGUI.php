@@ -11,14 +11,6 @@ abstract class xlvoQuestionTypesGUI extends xlvoGUI {
 
 	const CMD_SUBMIT = 'submit';
 	/**
-	 * @var xlvoVoting
-	 */
-	protected $voting;
-	/**
-	 * @var xlvoVotingManager
-	 */
-	protected $voting_manager;
-	/**
 	 * @var xlvoVotingManager2
 	 */
 	protected $manager;
@@ -31,12 +23,12 @@ abstract class xlvoQuestionTypesGUI extends xlvoGUI {
 
 
 	/**
-	 * @param $voting_type
-	 * @param xlvoVoting|null $xlvoVoting
+	 * @param xlvoVotingManager2 $manager
+	 * @param null $override_type
 	 * @return xlvoQuestionTypesGUI
 	 */
-	public static function getInstance($voting_type, xlvoVoting $xlvoVoting = null) {
-		$class_type = xlvoQuestionTypes::getClassName($voting_type);
+	public static function getInstance(xlvoVotingManager2 $manager, $override_type = null) {
+		$class_type = xlvoQuestionTypes::getClassName($override_type ? $override_type : $manager->getVoting()->getVotingType());
 		/**
 		 * @var $class_name xlvoQuestionTypesGUI
 		 * @var $gui xlvoQuestionTypesGUI
@@ -46,7 +38,7 @@ abstract class xlvoQuestionTypesGUI extends xlvoGUI {
 		require_once($base . $class_type . '/class.' . $class_name . '.php');
 
 		$gui = new $class_name();
-		$gui->setVoting($xlvoVoting);
+		$gui->setManager($manager);
 
 		return $gui;
 	}
@@ -72,18 +64,18 @@ abstract class xlvoQuestionTypesGUI extends xlvoGUI {
 
 
 	/**
-	 * @return xlvoVoting
+	 * @return xlvoVotingManager2
 	 */
-	public function getVoting() {
-		return $this->voting;
+	public function getManager() {
+		return $this->manager;
 	}
 
 
 	/**
-	 * @param xlvoVoting $voting
+	 * @param xlvoVotingManager2 $manager
 	 */
-	public function setVoting($voting) {
-		$this->voting = $voting;
+	public function setManager($manager) {
+		$this->manager = $manager;
 	}
 
 

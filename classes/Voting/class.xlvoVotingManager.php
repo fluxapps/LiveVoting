@@ -7,7 +7,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoQuestionTypes.php');
 require_once('./Services/Object/classes/class.ilObject2.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilObjLiveVotingAccess.php');
-
+require_once('class.xlvoVotingManager2.php');
 /**
  * Class xlvoVotingManager
  * @deprecated
@@ -738,122 +738,5 @@ class xlvoVotingManager implements xlvoVotingInterface {
 		$this->freezeVoting($obj_id);
 		$xlvoPlayer->setStatus(xlvoPlayer::STAT_STOPPED);
 		$this->updatePlayer($xlvoPlayer);
-	}
-}
-
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Vote/class.xlvoVote.php');
-
-/**
- * Class xlvoVotingManager2
- *
- * @author Fabian Schmid <fs@studer-raimann.ch>
- */
-class xlvoVotingManager2 {
-
-	/**
-	 * @var xlvoPlayer
-	 */
-	protected $player;
-	/**
-	 * @var xlvoVoting
-	 */
-	protected $voting;
-	/**
-	 * @var int
-	 */
-	protected $obj_id = 0;
-
-
-	/**
-	 * xlvoVotingManager2 constructor.
-	 * @param $pin
-	 */
-	public function __construct($pin) {
-		$this->obj_id = xlvoPin::checkPin($pin);
-		$this->player = xlvoPlayer::getInstanceForObjId($this->obj_id);
-		$this->voting = xlvoVoting::findOrGetInstance($this->getPlayer()->getActiveVoting());
-	}
-
-
-	/**
-	 * @param xlvoUser $xlvoUser
-	 * @param null $option
-	 */
-	public function vote(xlvoUser $xlvoUser, $option = null) {
-		xlvoVote::vote($xlvoUser, $this->getVoting()->getId(), $option);
-	}
-
-
-	/**
-	 * @param xlvoUser $xlvoUser
-	 * @param null $option
-	 */
-	public function unvote(xlvoUser $xlvoUser, $option = null) {
-		xlvoVote::unvote($xlvoUser, $this->getVoting()->getId(), $option);
-	}
-
-
-	/**
-	 * @param xlvoUser $xlvoUser
-	 * @return xlvoVote[]
-	 */
-	public function getVotesOfUser(xlvoUser $xlvoUser) {
-		return xlvoVote::getVotesOfUser($xlvoUser, $this->getVoting()->getId());
-	}
-
-
-	/**
-	 * @return xlvoOption[]
-	 */
-	public function getOptions() {
-		return $this->voting->getVotingOptions();
-	}
-
-
-	/**
-	 * @return xlvoPlayer
-	 */
-	public function getPlayer() {
-		return $this->player;
-	}
-
-
-	/**
-	 * @param xlvoPlayer $player
-	 */
-	public function setPlayer($player) {
-		$this->player = $player;
-	}
-
-
-	/**
-	 * @return xlvoVoting
-	 */
-	public function getVoting() {
-		return $this->voting;
-	}
-
-
-	/**
-	 * @param xlvoVoting $voting
-	 */
-	public function setVoting($voting) {
-		$this->voting = $voting;
-	}
-
-
-	/**
-	 * @return int
-	 */
-	public function getObjId() {
-		return $this->obj_id;
-	}
-
-
-	/**
-	 * @param int $obj_id
-	 */
-	public function setObjId($obj_id) {
-		$this->obj_id = $obj_id;
 	}
 }
