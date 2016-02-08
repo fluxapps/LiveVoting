@@ -316,7 +316,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 
 			$cb = new ilCheckboxInputGUI($this->pl->txt('obj_reuse_status'), 'reuse_status');
 			$cb->setInfo($this->pl->txt('obj_info_reuse_status'));
-			$this->form->addItem($cb);
+//			$this->form->addItem($cb);
 
 			$cb = new ilCheckboxInputGUI($this->pl->txt('obj_terminable'), 'terminable');
 			$cb->setInfo($this->pl->txt('obj_info_terminable'));
