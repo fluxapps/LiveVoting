@@ -137,7 +137,10 @@ class xlvoVotingGUI {
 				$this->toolbar->addButtonInstance($b);
 
 				$voting_ids = xlvoVoting::where(array( 'obj_id' => $this->obj_id ))->getArray(null, 'id');
-				$has_votes = xlvoVote::where(array( 'voting_id' => $voting_ids ))->hasSets();
+				$has_votes = false;
+				if (count($voting_ids) > 0) {
+					$has_votes = xlvoVote::where(array( 'voting_id' => $voting_ids ))->hasSets();
+				}
 
 				$b = ilLinkButton::getInstance();
 				$b->setDisabled(!$has_votes);
