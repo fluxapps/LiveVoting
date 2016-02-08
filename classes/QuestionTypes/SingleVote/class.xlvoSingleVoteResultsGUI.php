@@ -28,7 +28,7 @@ class xlvoSingleVoteResultsGUI extends xlvoInputResultsGUI {
 		}
 
 		$bars->setShowTotalVotes(true);
-		$bars->setTotalVotes(10);
+		$bars->setTotalVotes($this->manager->countVotes());
 
 		return $bars->getHTML();
 	}

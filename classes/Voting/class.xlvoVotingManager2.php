@@ -207,6 +207,18 @@ class xlvoVotingManager2 {
 	}
 
 
+	/**
+	 * @return int
+	 */
+	public function countVotes() {
+		$ids = $this->getVotingsList()->getArray(null, 'id');
+		return xlvoVote::where(array(
+			'voting_id' => $ids,
+			'status' => xlvoVote::STAT_ACTIVE
+		))->count();
+	}
+
+
 	public function reset() {
 		foreach (xlvoVote::where(array( 'voting_id' => $this->getVoting()->getId() ))->get() as $xlvoVote) {
 			$xlvoVote->delete();
