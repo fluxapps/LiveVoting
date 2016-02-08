@@ -5,10 +5,8 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoPlayer.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVoting.php');
 require_once('./Services/jQuery/classes/class.iljQueryUtil.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoInputMobileGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoQuestionTypes.php');
-
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVotingManager.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVotingManager2.php');
 
 /**
  * Class xlvoVoter2GUI
@@ -104,6 +102,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 
 
 	protected function getVotingData() {
+		xlvoVoter::register($this->manager->getPlayer()->getId());
 		xlvoJsResponse::getInstance($this->manager->getPlayer()->getStdClassForVoter())->send();
 	}
 

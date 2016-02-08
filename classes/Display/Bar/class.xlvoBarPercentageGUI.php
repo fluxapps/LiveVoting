@@ -41,7 +41,7 @@ class xlvoBarPercentageGUI implements xlvoBarGUI {
 	public function __construct(xlvoVoting $voting, xlvoOption $option, $votes, $option_letter) {
 		$this->voting = $voting;
 		$this->option = $option;
-		$this->votes = clone $votes;
+		$this->votes = $votes;
 		$this->option_letter = $option_letter;
 		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voting/display/tpl.bar_percentage.html', true, true);
 	}
@@ -69,11 +69,15 @@ class xlvoBarPercentageGUI implements xlvoBarGUI {
 	 * @return float|int
 	 */
 	protected function getPercentage() {
-		$total_votes = $this->votes->count();
+		$total_votes = count($this->votes);
 		if ($total_votes === 0) {
 			return 0;
 		}
-		$option_votes = $this->votes->where(array( 'option_id' => $this->option->getId() ))->count();
+		$option_votes = xlvoVote::where(array(
+			'voting_id' => $this->voting->getId(),
+			'status' => xlvoVote::STAT_ACTIVE,
+			'option_id' => $this->option->getId()
+		))->count(); // TODO REFACTOR
 		$percentage = ($option_votes / $total_votes) * 100;
 
 		return round($percentage, 1);

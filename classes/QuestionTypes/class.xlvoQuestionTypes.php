@@ -1,7 +1,6 @@
 <?php
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoQuestionTypesGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoInputResultsGUI.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoInputMobileGUI.php');
 
 /**
  * Class xlvoQuestionTypes
@@ -22,7 +21,7 @@ class xlvoQuestionTypes {
 	protected static $active_types = array(
 		self::TYPE_FREE_INPUT,
 		self::TYPE_SINGLE_VOTE,
-		self::TYPE_CORRECT_ORDER
+//		self::TYPE_CORRECT_ORDER
 	);
 	/**
 	 * @var array

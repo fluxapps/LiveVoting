@@ -68,6 +68,18 @@ class xlvoJs {
 
 
 	/**
+	 * @param array $translations
+	 * @return $this
+	 */
+	public function addTranslations(array $translations) {
+		foreach ($translations as $translation) {
+			$this->settings->addTranslation($translation);
+		}
+		return $this;
+	}
+
+
+	/**
 	 * @param xlvoGUI $xlvoGUI
 	 * @param array $additional_classes
 	 * @param string $cmd

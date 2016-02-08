@@ -1,7 +1,7 @@
 <?php
 
 require_once('./Services/ActiveRecord/class.ActiveRecord.php');
-
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voter/class.xlvoVoter.php');
 /**
  * Class xlvoPlayer
  *
@@ -54,15 +54,73 @@ class xlvoPlayer extends ActiveRecord {
 	}
 
 
+	public function freeze() {
+		$this->setFrozen(true);
+		$this->setStatus(self::STAT_RUNNING);
+		$this->update();
+	}
+
+
+	public function unfreeze() {
+		$this->setFrozen(false);
+		$this->setStatus(self::STAT_RUNNING);
+		$this->update();
+	}
+
+
+	public function show() {
+		$this->setShowResults(true);
+		$this->update();
+	}
+
+
+	public function hide() {
+		$this->setShowResults(false);
+		$this->update();
+	}
+
+
+	public function terminate() {
+		$this->setStatus(xlvoPlayer::STAT_END_VOTING);
+		$this->setFrozen(true);
+		$this->setShowResults(false);
+		$this->update();
+	}
+
+
 	/**
 	 * @return stdClass
 	 */
 	public function getStdClassForVoter() {
 		$obj = new stdClass();
-		$obj->id = $this->getObjId();
-		$obj->obj_id = $this->getObjId();
-		$obj->status = $this->getStatus(true);
-		$obj->active_voting_id = $this->getActiveVoting();
+		$obj->id = (int)$this->getObjId();
+		$obj->obj_id = (int)$this->getObjId();
+		$obj->status = (int)$this->getStatus(true);
+		$obj->active_voting_id = (int)$this->getActiveVoting();
+
+		return $obj;
+	}
+
+
+	/**
+	 * @return stdClass
+	 */
+	public function getStdClassForPlayer() {
+		$obj = new stdClass();
+		$obj->is_first = (bool)$this->getCurrentVotingObject()->isFirst();
+		$obj->is_last = (bool)$this->getCurrentVotingObject()->isLast();
+		$obj->status = (int)$this->getStatus(true);
+		$obj->active_voting_id = (int)$this->getActiveVoting();
+		$obj->show_results = (bool)$this->isShowResults();
+		$obj->frozen = (bool)$this->isFrozen();
+
+		$last_update = xlvoVote::where(array(
+			'voting_id' => $this->getActiveVoting(),
+			'status' => xlvoVote::STAT_ACTIVE
+		))->orderBy('last_update', 'DESC')->getArray('last_update', 'last_update');
+		$last_update = array_shift(array_values($last_update));
+		$obj->last_update = (int)$last_update;
+		$obj->attendees = (int)xlvoVoter::count($this->getId());;
 
 		return $obj;
 	}
@@ -80,10 +138,25 @@ class xlvoPlayer extends ActiveRecord {
 	}
 
 
-	public function prepareStart() {
+	/**
+	 * @param $voting_id
+	 */
+	public function prepareStart($voting_id) {
 		$this->setStatus(self::STAT_START_VOTING);
+		$this->setFrozen(true);
+		$this->setShowResults(false);
 		$this->setTimestampRefresh(time() + self::SECONDS_TO_SLEEP);
-		$this->update();
+		$this->setActiveVoting($voting_id);
+		$this->store();
+	}
+
+
+	public function store() {
+		if (self::where(array( 'id' => $this->getId() ))->hasSets()) {
+			$this->update();
+		} else {
+			$this->create();
+		}
 	}
 
 
@@ -102,6 +175,21 @@ class xlvoPlayer extends ActiveRecord {
 			return false;
 		}
 		return (bool)($this->getTimestampRefresh() < (time() - self::SECONDS_ACTIVE));
+	}
+
+
+	public function attend() {
+		$this->setStatus(self::STAT_RUNNING);
+		$this->setTimestampRefresh(time());
+		$this->update();
+	}
+
+
+	/**
+	 * @return xlvoVoting
+	 */
+	protected function getCurrentVotingObject() {
+		return xlvoVoting::find($this->getActiveVoting());
 	}
 
 
@@ -155,6 +243,14 @@ class xlvoPlayer extends ActiveRecord {
 	 * @db_length           8
 	 */
 	protected $timestamp_refresh;
+	/**
+	 * @var bool
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           1
+	 */
+	protected $show_results = false;
 
 
 	/**
@@ -242,5 +338,21 @@ class xlvoPlayer extends ActiveRecord {
 	 */
 	public function setTimestampRefresh($timestamp_refresh) {
 		$this->timestamp_refresh = $timestamp_refresh;
+	}
+
+
+	/**
+	 * @return boolean
+	 */
+	public function isShowResults() {
+		return $this->show_results;
+	}
+
+
+	/**
+	 * @param boolean $show_results
+	 */
+	public function setShowResults($show_results) {
+		$this->show_results = $show_results;
 	}
 }

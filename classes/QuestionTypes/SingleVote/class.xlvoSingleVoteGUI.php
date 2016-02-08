@@ -30,15 +30,6 @@ class xlvoSingleVoteGUI extends xlvoQuestionTypesGUI {
 	 * @return string
 	 */
 	public function getMobileHTML() {
-		//		$answer_count = 64;
-		//		$bars = new xlvoBarCollectionGUI();
-		//		foreach ($this->voting->getVotingOptions() as $option) {
-		//			$answer_count ++;
-		//			$bars->addBar(new xlvoBarOptionGUI($this->voting, $option, (chr($answer_count))));
-		//		}
-		//
-		//		return $bars->getHTML();
-
 		$tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/QuestionTypes/SingleVote/tpl.single_vote.html', false, true);
 		$answer_count = 64;
 		foreach ($this->manager->getVoting()->getVotingOptions() as $xlvoOption) {
@@ -49,7 +40,7 @@ class xlvoSingleVoteGUI extends xlvoQuestionTypesGUI {
 			$tpl->setVariable('LINK', $this->ctrl->getLinkTarget($this, self::CMD_SUBMIT));
 			$tpl->setVariable('OPTION_LETTER', chr($answer_count));
 			if($this->manager->hasUserVotedForOption($xlvoOption)) {
-				$tpl->setVariable('VOTED', 'ja');
+				$tpl->setVariable('ACTIVE', 'active');
 			}
 			$tpl->parseCurrentBlock();
 		}

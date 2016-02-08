@@ -69,10 +69,7 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 		parent::__construct($a_title, $a_postvar);
 		$this->setType("line_select");
 		$this->setMulti(true);
-		global $tpl;
-		$tpl->addInlineCss('.multi_input_line input[disabled] {
-			display: none;
-		}');
+		$this->initCSSandJS();
 	}
 
 

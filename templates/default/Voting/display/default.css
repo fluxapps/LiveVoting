@@ -65,3 +65,14 @@ li.ilToolbarTextonly button {
   height: 42px;
   margin-bottom: 5px;
 }
+.xlvo-question {
+  font-size: 1.4em;
+}
+.xlvo-option {
+  display: inline;
+  font-size: 1.2em;
+  line-height: 1.2em;
+}
+#xlvo-player-header h1.pull-right {
+  margin-left: 5px;
+}

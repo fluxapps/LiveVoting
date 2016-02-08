@@ -89,6 +89,14 @@ class xlvoVotingConfig extends ActiveRecord {
 	 * @db_fieldtype        timestamp
 	 */
 	protected $last_access = '';
+	/**
+	 * @var bool
+	 */
+	protected $full_screen = false;
+	/**
+	 * @var bool
+	 */
+	protected $show_attendees = false;
 
 
 	/**
@@ -245,4 +253,38 @@ class xlvoVotingConfig extends ActiveRecord {
 	public function setLastAccess($last_access) {
 		$this->last_access = $last_access;
 	}
+
+
+	/**
+	 * @return boolean
+	 */
+	public function isFullScreen() {
+		return $this->full_screen;
+	}
+
+
+	/**
+	 * @param boolean $full_screen
+	 */
+	public function setFullScreen($full_screen) {
+		$this->full_screen = $full_screen;
+	}
+
+
+	/**
+	 * @return boolean
+	 */
+	public function isShowAttendees() {
+		return $this->show_attendees;
+	}
+
+
+	/**
+	 * @param boolean $show_attendees
+	 */
+	public function setShowAttendees($show_attendees) {
+		$this->show_attendees = $show_attendees;
+	}
+
+
 }

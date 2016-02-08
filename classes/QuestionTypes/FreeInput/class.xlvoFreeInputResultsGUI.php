@@ -13,19 +13,18 @@ class xlvoFreeInputResultsGUI extends xlvoInputResultsGUI {
 	 * @return string
 	 */
 	public function getHTML() {
-
 		$bars = new xlvoBarCollectionGUI();
 		/**
 		 * @var xlvoOption $option
 		 */
-		$option = $this->voting->getFirstVotingOption();
+		$option = $this->manager->getVoting()->getFirstVotingOption();
 
 		/**
 		 * @var xlvoVote[] $votes
 		 */
-		$votes = $this->voting_manager->getVotesOfOption($option->getId())->get();
+		$votes = $this->manager->getVotesOfOption($option->getId());
 		foreach ($votes as $vote) {
-			$bars->addBar(new xlvoBarFreeInputsGUI($this->voting, $vote));
+			$bars->addBar(new xlvoBarFreeInputsGUI($this->manager->getVoting(), $vote));
 		}
 
 		return $bars->getHTML();

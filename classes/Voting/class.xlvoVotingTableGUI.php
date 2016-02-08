@@ -14,6 +14,7 @@ require_once('./Services/Form/classes/class.ilMultiSelectInputGUI.php');
 class xlvoVotingTableGUI extends ilTable2GUI {
 
 	const TBL_ID = 'tbl_xlvo';
+	const LENGTH = 100;
 	/**
 	 * @var ilLiveVotingPlugin
 	 */
@@ -96,9 +97,12 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 		$type = new ilSelectInputGUI($this->txt('type'), 'voting_type');
 		$type_options = array(
 			- 1 => '',
-			xlvoQuestionTypes::TYPE_SINGLE_VOTE => $this->txt('type_' . xlvoQuestionTypes::TYPE_SINGLE_VOTE),
-			xlvoQuestionTypes::TYPE_FREE_INPUT => $this->txt('type_' . xlvoQuestionTypes::TYPE_FREE_INPUT)
 		);
+
+		foreach (xlvoQuestionTypes::getActiveTypes() as $qtype) {
+			$type_options[$qtype] = $this->txt('type_' . $qtype);
+		}
+
 		$type->setOptions($type_options);
 		$this->addAndReadFilterItem($type);
 	}
@@ -128,7 +132,10 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 		$xlvoVoting = xlvoVoting::find($a_set['id']);
 		$this->tpl->setVariable('TITLE', $xlvoVoting->getTitle());
 		$this->tpl->setVariable('DESCRIPTION', $xlvoVoting->getDescription());
-		$this->tpl->setVariable('QUESTION', $xlvoVoting->getQuestion());
+
+		$question = strip_tags($xlvoVoting->getQuestion());
+		$question = strlen($question) > self::LENGTH ? substr($question, 0, self::LENGTH) . "..." : $question;
+		$this->tpl->setVariable('QUESTION', $question);
 		$this->tpl->setVariable('TYPE', $this->txt('type_' . $xlvoVoting->getVotingType()));
 
 		$voting_status = $this->getVotingStatus($xlvoVoting->getVotingStatus());
@@ -145,7 +152,7 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 		$this->addColumn($this->txt('title'));
 		$this->addColumn($this->txt('question'));
 		$this->addColumn($this->txt('type'));
-//		$this->addColumn($this->txt('status'));
+		//		$this->addColumn($this->txt('status'));
 		$this->addColumn($this->txt('actions'), '', '150px');
 	}
 

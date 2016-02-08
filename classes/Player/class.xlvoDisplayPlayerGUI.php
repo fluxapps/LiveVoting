@@ -31,20 +31,19 @@ class xlvoDisplayPlayerGUI {
 	 * @var xlvoVotingManager
 	 */
 	protected $voting_manager;
+	/**
+	 * @var xlvoVotingManager2
+	 */
+	protected $manager;
 
 
 	/**
-	 * @param xlvoVoting $voting
+	 * xlvoDisplayPlayerGUI constructor.
+	 * @param xlvoVotingManager2 $manager
 	 */
-	public function __construct(xlvoVoting $voting) {
-		global $tpl;
-		/**
-		 * @var $tpl       ilTemplate
-		 */
-		$tpl->addJavaScript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voting/display/display_player.js');
-		$this->voting_manager = new xlvoVotingManager();
-		$this->voting = $voting;
-		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voting/display/tpl.display_player.html', true, true);
+	public function __construct(xlvoVotingManager2 $manager) {
+		$this->manager = $manager;
+		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Player/tpl.player.html', true, true);
 	}
 
 
@@ -52,16 +51,18 @@ class xlvoDisplayPlayerGUI {
 		/**
 		 * @var xlvoVotingConfig $config
 		 */
-		$config = $this->voting_manager->getVotingConfig($this->voting->getObjId());
+		$config = $this->manager->getVotingConfig();
 		/**
 		 * @var xlvoPlayer $player
 		 */
-		$player = $this->voting_manager->getPlayer($this->voting->getObjId());
+		$player = $this->manager->getPlayer();
 
-		$xlvoInputDisplayGUI = xlvoInputResultsGUI::getInstance($this->voting, $this->voting_manager);
-		$this->tpl->setVariable('OPTION_CONTENT', $xlvoInputDisplayGUI->getHTML());
-		$xlvoOptions = $this->voting->getVotingOptions();
-		if ($xlvoInputDisplayGUI->isShuffleResults()) {
+		$xlvoInputResultGUI = xlvoInputResultsGUI::getInstance($this->manager);
+		if ($player->isShowResults()) {
+			$this->tpl->setVariable('OPTION_CONTENT', $xlvoInputResultGUI->getHTML());
+		}
+		$xlvoOptions = $this->manager->getVoting()->getVotingOptions();
+		if ($xlvoInputResultGUI->isShuffleResults()) {
 			shuffle($xlvoOptions);
 		}
 		foreach ($xlvoOptions as $item) {
@@ -69,7 +70,7 @@ class xlvoDisplayPlayerGUI {
 		}
 
 		$votings = xlvoVoting::where(array(
-			'obj_id' => $this->voting->getObjId(),
+			'obj_id' => $this->manager->getVoting()->getObjId(),
 			'voting_status' => xlvoVoting::STAT_ACTIVE
 		))->orderBy('position', 'ASC');
 
@@ -77,31 +78,42 @@ class xlvoDisplayPlayerGUI {
 
 		$voting_position = 1;
 		foreach ($votings->getArray() as $key => $voting) {
-			if ($this->voting->getId() == $key) {
+			if ($this->manager->getVoting()->getId() == $key) {
 				break;
 			}
 			$voting_position ++;
 		}
 
-		$this->tpl->setVariable('TITLE', $this->voting->getTitle());
-		$this->tpl->setVariable('QUESTION', $this->voting->getQuestion());
-		$this->tpl->setVariable('VOTING_ID', $this->voting->getId());
-		$this->tpl->setVariable('OBJ_ID', $this->voting->getObjId());
+		$this->tpl->setVariable('TITLE', $this->manager->getVoting()->getTitle());
+		$this->tpl->setVariable('QUESTION', $this->manager->getVoting()->getQuestion());
+		$this->tpl->setVariable('VOTING_ID', $this->manager->getVoting()->getId());
+		$this->tpl->setVariable('OBJ_ID', $this->manager->getVoting()->getObjId());
 		$this->tpl->setVariable('FROZEN', $player->isFrozen());
 		$this->tpl->setVariable('PIN', $config->getPin());
-		//		$this->tpl->setVariable('ONLINE', $config->getPin());
+		if ($this->manager->getVotingConfig()->isShowAttendees()) {
+			$this->tpl->setCurrentBlock('attendees');
+			$this->tpl->setVariable('ATTENDEES', xlvoVoter::count($this->manager->getPlayer()->getId()));
+			$this->tpl->setVariable('ONLINE', ilLiveVotingPlugin::getInstance()->txt('player_voters_online'));
+			$this->tpl->parseCurrentBlock();
+		}
 		$this->tpl->setVariable('COUNT', $votings_count);
 		$this->tpl->setVariable('POSITION', $voting_position);
 	}
 
 
 	/**
+	 * @param bool $inner
 	 * @return string
 	 */
-	public function getHTML() {
+	public function getHTML($inner = false) {
 		$this->render();
-
-		return $this->tpl->get();
+		$open = '<div id="xlvo-display-player" class="display-player panel panel-primary">';
+		$close = '</div>';
+		if ($inner) {
+			return $this->tpl->get();
+		} else {
+			return $open . $this->tpl->get() . $close;
+		}
 	}
 
 

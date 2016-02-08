@@ -32,7 +32,7 @@ class xlvoVoting extends ActiveRecord {
 	 * @db_fieldtype        integer
 	 * @db_length           1
 	 */
-	protected $multi_selection;
+	protected $multi_selection = false;
 	/**
 	 * @var bool
 	 *
@@ -40,7 +40,7 @@ class xlvoVoting extends ActiveRecord {
 	 * @db_fieldtype        integer
 	 * @db_length           1
 	 */
-	protected $colors;
+	protected $colors = false;
 	/**
 	 * @var bool
 	 *
@@ -48,7 +48,7 @@ class xlvoVoting extends ActiveRecord {
 	 * @db_fieldtype        integer
 	 * @db_length           1
 	 */
-	protected $multi_free_input;
+	protected $multi_free_input = false;
 	/**
 	 * @var int
 	 *
@@ -56,7 +56,7 @@ class xlvoVoting extends ActiveRecord {
 	 * @db_fieldtype        integer
 	 * @db_length           8
 	 */
-	protected $obj_id;
+	protected $obj_id = 0;
 	/**
 	 * @var string
 	 *
@@ -64,7 +64,7 @@ class xlvoVoting extends ActiveRecord {
 	 * @db_fieldtype        text
 	 * @db_length           256
 	 */
-	protected $title;
+	protected $title = '';
 	/**
 	 * @var string
 	 *
@@ -72,7 +72,7 @@ class xlvoVoting extends ActiveRecord {
 	 * @db_fieldtype        text
 	 * @db_length           4000
 	 */
-	protected $description;
+	protected $description = '';
 	/**
 	 * @var string
 	 *
@@ -80,7 +80,7 @@ class xlvoVoting extends ActiveRecord {
 	 * @db_fieldtype        text
 	 * @db_length           4000
 	 */
-	protected $question;
+	protected $question = '';
 	/**
 	 * @var string
 	 *
@@ -88,7 +88,7 @@ class xlvoVoting extends ActiveRecord {
 	 * @db_fieldtype        integer
 	 * @db_length           8
 	 */
-	protected $voting_type;
+	protected $voting_type = xlvoQuestionTypes::TYPE_SINGLE_VOTE;
 	/**
 	 * @var int
 	 *
@@ -104,15 +104,15 @@ class xlvoVoting extends ActiveRecord {
 	 * @db_fieldtype        integer
 	 * @db_length           8
 	 */
-	protected $position;
+	protected $position = 99;
 	/**
 	 * @var xlvoOption[]
 	 */
-	protected $voting_options;
+	protected $voting_options = array();
 	/**
 	 * @var xlvoOption
 	 */
-	protected $first_voting_option;
+	protected $first_voting_option = null;
 
 
 	/**
@@ -133,6 +133,9 @@ class xlvoVoting extends ActiveRecord {
 		 * @var $first xlvoVoting
 		 */
 		$first = self::where(array( 'obj_id' => $this->getObjId() ))->orderBy('position', 'ASC')->first();
+		if (!$first instanceof self) {
+			$first = new self();
+		}
 
 		return $first->getId() == $this->getId();
 	}
@@ -146,6 +149,10 @@ class xlvoVoting extends ActiveRecord {
 		 * @var $first xlvoVoting
 		 */
 		$first = self::where(array( 'obj_id' => $this->getObjId() ))->orderBy('position', 'DESC')->first();
+
+		if (!$first instanceof self) {
+			$first = new self();
+		}
 
 		return $first->getId() == $this->getId();
 	}

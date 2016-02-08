@@ -330,3 +330,10 @@ xlvoVotingConfig::updateDB();
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voter/class.xlvoVoter.php');
 xlvoVoter::installDB();
 ?>
+<#19>
+<?php
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoPlayer.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Vote/class.xlvoVote.php');
+xlvoPlayer::updateDB();
+xlvoVote::updateDB();
+?>

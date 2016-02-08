@@ -16,9 +16,12 @@ abstract class xlvoQuestionTypesGUI extends xlvoGUI {
 	protected $manager;
 
 
-	public function __construct() {
-		parent::__construct();
-		$this->voting_manager = new xlvoVotingManager();
+	/**
+	 * @param $key
+	 * @return string
+	 */
+	protected function txt($key) {
+		return $this->pl->txt('qtype_' . $this->manager->getVoting()->getVotingType() . '_' . $key);
 	}
 
 

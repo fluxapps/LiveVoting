@@ -2,7 +2,6 @@
 
 require_once('./Services/Object/classes/class.ilObject2.php');
 require_once('./Services/Utilities/classes/class.ilConfirmationGUI.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVotingManager.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVotingFormGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVoting.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVotingTableGUI.php');
@@ -92,7 +91,6 @@ class xlvoVotingGUI {
 		$this->toolbar = $ilToolbar;
 		$this->access = new ilObjLiveVotingAccess();
 		$this->pl = ilLiveVotingPlugin::getInstance();
-		$this->voting_manager = new xlvoVotingManager();
 		$this->obj_id = ilObject2::_lookupObjId($_GET['ref_id']);
 	}
 
@@ -138,7 +136,11 @@ class xlvoVotingGUI {
 				$b->setUrl($this->ctrl->getLinkTarget(new xlvoVotingGUI(), self::CMD_SELECT_TYPE));
 				$this->toolbar->addButtonInstance($b);
 
+				$voting_ids = xlvoVoting::where(array( 'obj_id' => $this->obj_id ))->getArray(null, 'id');
+				$has_votes = xlvoVote::where(array( 'voting_id' => $voting_ids ))->hasSets();
+
 				$b = ilLinkButton::getInstance();
+				$b->setDisabled(!$has_votes);
 				$b->setCaption($this->txt('reset_all'), false);
 				$b->setUrl($this->ctrl->getLinkTarget(new xlvoVotingGUI(), self::CMD_CONFIRM_RESET_ALL));
 				$this->toolbar->addButtonInstance($b);

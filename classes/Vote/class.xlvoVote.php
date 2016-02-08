@@ -21,11 +21,22 @@ class xlvoVote extends ActiveRecord {
 	 * @param xlvoUser $xlvoUser
 	 * @param $voting_id
 	 * @param null $option_id
+	 * @return string
 	 */
 	public static function vote(xlvoUser $xlvoUser, $voting_id, $option_id = null) {
 		$obj = self::getUserInstance($xlvoUser, $voting_id, $option_id);
 		$obj->setStatus(self::STAT_ACTIVE);
 		$obj->store();
+
+		return $obj->getId();
+	}
+
+
+	/**
+	 * @return bool
+	 */
+	public function isActive() {
+		return ($this->getStatus() == self::STAT_ACTIVE);
 	}
 
 
@@ -33,11 +44,14 @@ class xlvoVote extends ActiveRecord {
 	 * @param xlvoUser $xlvoUser
 	 * @param $voting_id
 	 * @param null $option_id
+	 * @return string
 	 */
 	public static function unvote(xlvoUser $xlvoUser, $voting_id, $option_id = null) {
 		$obj = self::getUserInstance($xlvoUser, $voting_id, $option_id);
 		$obj->setStatus(self::STAT_INACTIVE);
 		$obj->store();
+
+		return $obj->getId();
 	}
 
 
@@ -50,16 +64,32 @@ class xlvoVote extends ActiveRecord {
 	}
 
 
+	public function update() {
+
+		$this->setLastUpdate(time());
+		parent::update();
+	}
+
+
+	public function create() {
+		$this->setLastUpdate(time());
+		parent::create();
+	}
+
+
 	/**
 	 * @param xlvoUser $xlvoUser
 	 * @param $voting_id
 	 * @return xlvoVote[]
 	 */
-	public static function getVotesOfUser(xlvoUser $xlvoUser, $voting_id) {
+	public static function getVotesOfUser(xlvoUser $xlvoUser, $voting_id, $incl_inactive = false) {
 		$where = array(
 			'voting_id' => $voting_id,
-			'status' => self::STAT_ACTIVE
+			'status' => array( self::STAT_ACTIVE )
 		);
+		if ($incl_inactive) {
+			$where['status'][] = self::STAT_INACTIVE;
+		}
 		if ($xlvoUser->isILIASUser()) {
 			$where['user_id'] = $xlvoUser->getIdentifier();
 		} else {
@@ -206,6 +236,14 @@ class xlvoVote extends ActiveRecord {
 	 * @db_length           8
 	 */
 	protected $user_id = 0;
+	/**
+	 * @var int
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           8
+	 */
+	protected $last_update;
 
 
 	/**
@@ -333,5 +371,21 @@ class xlvoVote extends ActiveRecord {
 	 */
 	public function setUserId($user_id) {
 		$this->user_id = $user_id;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getLastUpdate() {
+		return $this->last_update;
+	}
+
+
+	/**
+	 * @param int $last_update
+	 */
+	public function setLastUpdate($last_update) {
+		$this->last_update = $last_update;
 	}
 }

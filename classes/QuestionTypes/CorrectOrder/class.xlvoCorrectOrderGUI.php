@@ -22,7 +22,7 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 		$form->setKeepOpen(true);
 		$form->setFormAction($this->ctrl->getFormAction($this));
 
-		$bars = new xlvoBarMovableGUI($this->getVoting()->getVotingOptions());
+		$bars = new xlvoBarMovableGUI($this->manager->getVoting()->getVotingOptions());
 
 		$form2 = new ilPropertyFormGUI();
 		$form2->addCommandButton(self::CMD_SUBMIT, $pl->txt('voter_save'));
@@ -38,6 +38,8 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 
 
 	protected function submit() {
+		echo '<pre>' . print_r($_POST, 1) . '</pre>';
+		exit;
 		foreach ($_POST['id'] as $i => $id) {
 		}
 	}

@@ -9,7 +9,6 @@ require_once('./Services/Form/classes/class.ilDateDurationInputGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilObjLiveVotingAccess.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilLiveVotingPlugin.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVotingGUI.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voter/class.xlvoVoterGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoPlayerGUI.php');
 
 /**
@@ -17,7 +16,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
  *
  * @ilCtrl_isCalledBy ilObjLiveVotingGUI: ilRepositoryGUI, ilObjPluginDispatchGUI, ilAdministrationGUI
  * @ilCtrl_Calls      ilObjLiveVotingGUI: ilPermissionGUI, ilInfoScreenGUI, ilObjectCopyGUI, ilCommonActionDispatcherGUI
- * @ilCtrl_Calls      ilObjLiveVotingGUI: xlvoVoterGUI, xlvoPlayerGUI, xlvoVotingGUI
+ * @ilCtrl_Calls      ilObjLiveVotingGUI: xlvoVoterGUI, xlvoPlayerGUI, xlvoPlayer2GUI, xlvoVotingGUI
  *
  * @author            Daniel Aemmer <daniel.aemmer@phbern.ch>
  * @author            Fabian Schmid <fs@studer-raimann.ch>
@@ -243,7 +242,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 
 
 	protected function setTabs() {
-		$this->tabs->addTab(self::TAB_CONTENT, $this->pl->txt(self::TAB_CONTENT), $this->ctrl->getLinkTarget(new xlvoPlayerGUI(), xlvoPlayerGUI::CMD_START_OF_VOTING_SCREEN));
+		$this->tabs->addTab(self::TAB_CONTENT, $this->pl->txt(self::TAB_CONTENT), $this->ctrl->getLinkTarget(new xlvoPlayerGUI(), xlvoPlayerGUI::CMD_STANDARD));
 		$this->addInfoTab();
 		if ($this->access->hasWriteAccess()) {
 			$this->tabs->addTab(self::TAB_EDIT, $this->pl->txt(self::TAB_EDIT), $this->ctrl->getLinkTarget($this, self::CMD_EDIT));
@@ -261,7 +260,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 		$this->tabs->setTabActive($tab);
 		switch ($tab) {
 			case self::TAB_CONTENT:
-				$this->tabs->addSubTab(self::SUBTAB_SHOW, $this->pl->txt(self::SUBTAB_SHOW), $this->ctrl->getLinkTarget(new xlvoPlayerGUI(), xlvoPlayerGUI::CMD_START_OF_VOTING_SCREEN));
+				$this->tabs->addSubTab(self::SUBTAB_SHOW, $this->pl->txt(self::SUBTAB_SHOW), $this->ctrl->getLinkTarget(new xlvoPlayerGUI(), xlvoPlayerGUI::CMD_STANDARD));
 				if ($this->access->hasWriteAccess()) {
 					$this->tabs->addSubTab(self::SUBTAB_EDIT, $this->pl->txt(self::SUBTAB_EDIT), $this->ctrl->getLinkTarget(new xlvoVotingGUI(), xlvoVotingGUI::CMD_STANDARD));
 				}
@@ -274,7 +273,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 
 
 	public function showContent() {
-		$this->ctrl->redirect(new xlvoPlayerGUI(), xlvoPlayerGUI::CMD_START_OF_VOTING_SCREEN);
+		$this->ctrl->redirect(new xlvoPlayerGUI(), xlvoPlayerGUI::CMD_STANDARD);
 	}
 
 

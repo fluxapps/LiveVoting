@@ -1,6 +1,7 @@
 <?php
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoSubFormGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/FreeInput/class.xlvoMultiLineInputGUI.php');
+
 /**
  * Class xlvoSingleVoteSubFormGUI
  *
@@ -21,7 +22,7 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 
 	protected function initFormElements() {
 		$cb = new ilCheckboxInputGUI($this->txt(self::F_MULTI_SELECTION), self::F_MULTI_SELECTION);
-		//		$cb->setInfo($this->pl->txt('info_singlevote_multi_selection'));
+		$cb->setInfo($this->txt(self::F_MULTI_SELECTION . '_info'));
 		$this->addFormElement($cb);
 
 		$cb = new ilCheckboxInputGUI($this->txt(self::F_COLORS), self::F_COLORS);
@@ -32,8 +33,7 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 		$te = new ilTextInputGUI($this->txt('option_text'), self::F_TEXT);
 		$mli->addInput($te);
 
-		$h = new ilTextInputGUI($this->txt(self::F_ID), self::F_ID);
-		$h->setDisabled(true);
+		$h = new ilHiddenInputGUI(self::F_ID);
 		$mli->addInput($h);
 
 		$this->addFormElement($mli);
@@ -109,7 +109,7 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 		$options = $this->getXlvoVoting()->getVotingOptions();
 		foreach ($options as $xlvoOption) {
 			if (!in_array($xlvoOption->getId(), $ids)) {
-				$xlvoOption->delete();
+				//				$xlvoOption->delete();
 			}
 		}
 	}

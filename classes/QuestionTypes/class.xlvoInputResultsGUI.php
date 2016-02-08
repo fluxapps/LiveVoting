@@ -19,26 +19,29 @@ abstract class xlvoInputResultsGUI {
 	 * @var bool
 	 */
 	protected $shuffle_results = false;
+	/**
+	 * @var xlvoVotingManager2
+	 */
+	protected $manager;
 
 
 	/**
-	 * xlvoFreeInputDisplayGUI constructor.
+	 * xlvoInputResultsGUI constructor.
+	 * @param xlvoVotingManager2 $manager
 	 * @param xlvoVoting $voting
-	 * @param xlvoVotingManager $voting_manager
 	 */
-	public function __construct(xlvoVoting $voting, xlvoVotingManager $voting_manager) {
+	public function __construct(xlvoVotingManager2 $manager, xlvoVoting $voting) {
+		$this->manager = $manager;
 		$this->voting = $voting;
-		$this->voting_manager = $voting_manager;
 	}
 
 
 	/**
-	 * @param xlvoVoting $voting
-	 * @param xlvoVotingManager $voting_manager
+	 * @param xlvoVotingManager2 $manager
 	 * @return xlvoFreeInputResultsGUI
 	 */
-	public static function getInstance(xlvoVoting $voting, xlvoVotingManager $voting_manager) {
-		$class = xlvoQuestionTypes::getClassName($voting->getVotingType());
+	public static function getInstance(xlvoVotingManager2 $manager) {
+		$class = xlvoQuestionTypes::getClassName($manager->getVoting()->getVotingType());
 		/**
 		 * @var $class_name xlvoFreeInputResultsGUI
 		 * @var $subform xlvoFreeInputResultsGUI
@@ -47,7 +50,7 @@ abstract class xlvoInputResultsGUI {
 		require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/' . $class . '/class.'
 			. $class_name . '.php');
 
-		$subform = new $class_name($voting, $voting_manager);
+		$subform = new $class_name($manager, $manager->getVoting());
 		return $subform;
 	}
 

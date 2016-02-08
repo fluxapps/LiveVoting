@@ -25,6 +25,7 @@ var xlvoVoter = {
     getVotingData: function () {
         $.get(xlvoVoter.config.base_url, {cmd: xlvoVoter.config.cmd_voting_data})
             .done(function (data) {
+                console.log(data);
                 var voting_has_changed = (xlvoVoter.active_voting_id != data.active_voting_id);
                 //console.log('voting: ' + voting_has_changed);
                 var status_has_changed = (xlvoVoter.status != data.status);

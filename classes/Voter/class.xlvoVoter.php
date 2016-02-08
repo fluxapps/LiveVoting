@@ -19,18 +19,17 @@ class xlvoVoter extends ActiveRecord {
 
 
 	/**
-	 * @param $user_identifier
 	 * @param $player_id
 	 */
-	public static function register($user_identifier, $player_id) {
-		self::updateDB();
+	public static function register($player_id) {
 		$obj = self::where(array(
-			'user_identifier' => $user_identifier,
+			'user_identifier' => xlvoUser::getInstance()->getIdentifier(),
 			'player_id' => $player_id
 		))->first();
+
 		if (!$obj instanceof xlvoVoter) {
 			$obj = new self();
-			$obj->setUserIdentifier($user_identifier);
+			$obj->setUserIdentifier(xlvoUser::getInstance()->getIdentifier());
 			$obj->setPlayerId($player_id);
 			$obj->create();
 		}
@@ -44,7 +43,7 @@ class xlvoVoter extends ActiveRecord {
 	 * @return int
 	 */
 	public static function count($player_id) {
-		return self::where(array( 'player_id' => $player_id ))->count();
+		return self::where(array( 'player_id' => $player_id ))->where(array( 'last_access' => date(DATE_ATOM, time() - 3) ), '>')->count();
 	}
 
 

@@ -4,6 +4,7 @@ require_once('./Services/Form/classes/class.ilPropertyFormGUI.php');
 require_once('./Services/Form/classes/class.ilAdvSelectInputGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoQuestionTypes.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoSubFormGUI.php');
+
 /**
  * Class xlvoVotingFormGUI
  *
@@ -78,15 +79,39 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 
 		$ta = new ilTextAreaInputGUI($this->parent_gui->txt('description'), 'description');
 		//		$ta->setInfo($this->parent_gui->txt('info_voting_description'));
-//		$this->addItem($ta);
+		//		$this->addItem($ta);
 
-		$qu = new ilTextAreaInputGUI($this->parent_gui->txt('question'), 'question');
-		//		$qu->setInfo($this->parent_gui->txt('info_voting_question'));
-		$qu->setRequired(true);
-		$qu->setUseRte(true);
-		$qu->usePurifier(true);
-		$qu->setRTESupport($this->voting->getId(), "xlvo", "xlvo_question", NULL, false, "3.4.7");
-		$this->addItem($qu);
+		$te = new ilTextAreaInputGUI($this->parent_gui->txt('question'), 'question');
+		$te->setRequired(true);
+		$te->setUseRte(true);
+		$te->setRteTags(array(
+			'p',
+			'a',
+			'br',
+			'strong',
+			'b',
+			'i',
+		));
+		$te->usePurifier(true);
+		$te->disableButtons(array(
+			'charmap',
+			'undo',
+			'redo',
+			'justifyleft',
+			'justifycenter',
+			'justifyright',
+			'justifyfull',
+			'anchor',
+			'fullscreen',
+			'cut',
+			'copy',
+			'paste',
+			'pastetext',
+			'formatselect'
+		));
+
+		$te->setRows(5);
+		$this->addItem($te);
 
 		xlvoSubFormGUI::getInstance($this->getVoting())->appedElementsToForm($this);
 	}
@@ -191,5 +216,4 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 	public function setVoting($voting) {
 		$this->voting = $voting;
 	}
-
 }
