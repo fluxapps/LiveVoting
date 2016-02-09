@@ -97,6 +97,10 @@ class xlvoVotingConfig extends ActiveRecord {
 	 * @var bool
 	 */
 	protected $show_attendees = true;
+	/**
+	 * @var bool
+	 */
+	protected $self_vote = false;
 
 
 	/**
@@ -284,5 +288,21 @@ class xlvoVotingConfig extends ActiveRecord {
 	 */
 	public function setShowAttendees($show_attendees) {
 		$this->show_attendees = $show_attendees;
+	}
+
+
+	/**
+	 * @return boolean
+	 */
+	public function isSelfVote() {
+		return $this->self_vote;
+	}
+
+
+	/**
+	 * @param boolean $self_vote
+	 */
+	public function setSelfVote($self_vote) {
+		$this->self_vote = $self_vote;
 	}
 }

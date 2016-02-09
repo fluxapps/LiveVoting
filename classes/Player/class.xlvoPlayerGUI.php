@@ -136,6 +136,10 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$this->initJS($settings);
 		$this->initToolbarDuringVoting();
 		$this->tpl->setContent($this->getPlayerHTML());
+		if ($this->manager->getVotingConfig()->isSelfVote()) {
+			$url = xlvoConf::getShortLinkURL() . $this->manager->getVotingConfig()->getPin();
+			$this->tpl->setRightContent('<iframe class="xlvo-preview" src="' . $url . '"> </iframe>');
+		}
 	}
 
 
