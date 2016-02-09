@@ -67,7 +67,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 			$b->setId('btn-start-voting-unfreeze');
 			$this->toolbar->addButtonInstance($b);
 
-			$current_selection_list = $this->getVotingSelectionList();
+			$current_selection_list = $this->getVotingSelectionList(false);
 			$this->toolbar->addText($current_selection_list->getHTML());
 		}
 		$template = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Player/tpl.start.html', true, true);
@@ -106,7 +106,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 		if ($this->manager->getVotingConfig()->isShowAttendees()) {
 			xlvoJs::getInstance()->ilias($this)->name('Player')->init()->call('updateAttendees');
 			$template->touchBlock('attendees');
-//			$template->parseCurrentBlock();
+			//			$template->parseCurrentBlock();
 		}
 
 		$this->tpl->setContent($template->get());
@@ -309,9 +309,10 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 
 	/**
+	 * @param bool $async
 	 * @return ilAdvancedSelectionListGUI
 	 */
-	protected function getVotingSelectionList() {
+	protected function getVotingSelectionList($async = true) {
 		$current_selection_list = new ilAdvancedSelectionListGUI();
 		$current_selection_list->setListTitle($this->txt('voting_list'));
 		$current_selection_list->setId('xlvo_select');
@@ -322,8 +323,12 @@ class xlvoPlayerGUI extends xlvoGUI {
 		 */
 		foreach ($this->manager->getAllVotings() as $voting) {
 			$this->ctrl->setParameter(new xlvoPlayerGUI(), self::IDENTIFIER, $voting->getId());
-			$current_selection_list->addItem($voting->getTitle(), $voting->getId(), $this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_START_PLAYER), '', '', '', '', false, 'xlvoPlayer.open('
-				. $voting->getId() . ')');
+			if ($async) {
+				$current_selection_list->addItem($voting->getTitle(), $voting->getId(), $this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_START_PLAYER), '', '', '', '', false, 'xlvoPlayer.open('
+					. $voting->getId() . ')');
+			} else {
+				$current_selection_list->addItem($voting->getTitle(), $voting->getId(), $this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_START_PLAYER));
+			}
 		}
 		return $current_selection_list;
 	}
