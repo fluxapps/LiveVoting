@@ -99,3 +99,6 @@ div#il_prop_cont_pin_input label[for=pin_input] {
   clear: both;
   text-align: center;
 }
+.ilToolbar li.ilToolbarGroup .navbar-text {
+  margin-right: 20px;
+}
