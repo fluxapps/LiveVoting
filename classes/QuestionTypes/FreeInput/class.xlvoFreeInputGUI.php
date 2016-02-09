@@ -34,6 +34,7 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 	 */
 	protected function submit() {
 		if ($this->manager->getVoting()->isMultiFreeInput()) {
+			$this->manager->unvoteAll();
 			foreach ($_POST[self::F_VOTE_MULTI_LINE_INPUT] as $item) {
 				$this->manager->input($item[self::F_FREE_INPUT], $item[self::F_VOTE_ID]);
 			}
@@ -69,6 +70,11 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 	 * @return string
 	 */
 	protected function renderForm() {
+		$form = new ilPropertyFormGUI();
+		$form->setFormAction($this->ctrl->getFormAction($this));
+		$form->setId('xlvo_free_input');
+		$form->addCommandButton(self::CMD_SUBMIT, $this->txt('send'));
+
 		$votes = $this->manager->getVotesOfUser(true);
 		$vote = array_shift(array_values($votes));
 		$an = new ilTextInputGUI($this->txt('input'), self::F_FREE_INPUT);
@@ -80,15 +86,11 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 				$an->setValue($vote->getFreeInput());
 			}
 			$hi2->setValue($vote->getId());
+			$form->addCommandButton(self::CMD_CLEAR, $this->txt(self::CMD_CLEAR));
 		}
 
-		$form = new ilPropertyFormGUI();
-		$form->setFormAction($this->ctrl->getFormAction($this));
-		$form->setId('xlvo_free_input');
 		$form->addItem($an);
 		$form->addItem($hi2);
-		$form->addCommandButton(self::CMD_SUBMIT, $this->txt('send'));
-		$form->addCommandButton(self::CMD_CLEAR, $this->txt(self::CMD_CLEAR));
 
 		return $form->getHTML();
 	}
@@ -98,21 +100,29 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 	 * @return string
 	 */
 	protected function renderMultiForm() {
-		$mli = new xlvoMultiLineInputGUI($this->pl->txt('voter_answers'), self::F_VOTE_MULTI_LINE_INPUT);
-		$te = new ilTextInputGUI($this->pl->txt('voter_text'), self::F_FREE_INPUT);
+		$form = new ilPropertyFormGUI();
+		$form->setFormAction($this->ctrl->getFormAction($this));
+		$form->addCommandButton(self::CMD_SUBMIT, $this->txt('send'));
+
+		$xlvoVotes = $this->manager->getVotesOfUser();
+		if (count($xlvoVotes) > 0) {
+			$te = new ilNonEditableValueGUI();
+			$te->setValue($this->txt('your_input'));
+			$form->addItem($te);
+			$form->addCommandButton(self::CMD_CLEAR, $this->txt('delete_all'));
+		}
+
+		$mli = new xlvoMultiLineInputGUI($this->txt('answers'), self::F_VOTE_MULTI_LINE_INPUT);
+		$te = new ilTextInputGUI($this->txt('text'), self::F_FREE_INPUT);
 		$te->setMaxLength(45);
 
 		$hi2 = new ilHiddenInputGUI(self::F_VOTE_ID);
 		$mli->addInput($te);
 		$mli->addInput($hi2);
 
-		$form = new ilPropertyFormGUI();
-		$form->setFormAction($this->ctrl->getFormAction($this));
-		$form->addCommandButton(self::CMD_SUBMIT, $this->pl->txt('voter_send'));
-		$form->addCommandButton(self::CMD_CLEAR, $this->pl->txt('voter_delete_all'));
 		$form->addItem($mli);
 		$array = array();
-		foreach ($this->manager->getVotesOfUser() as $xlvoVote) {
+		foreach ($xlvoVotes as $xlvoVote) {
 			$array[] = array(
 				self::F_FREE_INPUT => $xlvoVote->getFreeInput(),
 				self::F_VOTE_ID => $xlvoVote->getId()

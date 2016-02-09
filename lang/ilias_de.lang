@@ -56,6 +56,7 @@ qtype_2_clear#:#Zurücksetzen
 qtype_2_input#:#Eingabe
 qtype_2_multi_free_input#:#Mehrfache Eingaben
 qtype_2_send#:#Senden
+qtype_2_your_input#:#Ihre gespeicherte Eingabe:
 qtype_4_clear#:#Zurücksetzen
 qtype_4_id#:#ID
 qtype_4_option_correct_position#:#Korrekte Position
@@ -72,9 +73,9 @@ subtab_show#:#Zeigen
 tab_content#:#Inhalt
 tab_edit#:#Einstellungen
 voter_answer#:#Eingabe
-voter_answers#:#Eingaben
+qtype_2_answers#:#Eingaben
 voter_delete#:#Löschen
-voter_delete_all#:#Alle löschen
+qtype_2_delete_all#:#Alle löschen
 voter_header_frozen#:#Abstimmung noch nicht freigegeben
 voter_header_start#:#Bitte auf Start warten
 voter_header_stopped#:#Abstimmung gestoppt

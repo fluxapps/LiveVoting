@@ -55,6 +55,7 @@ qtype_2_clear#:#Clear
 qtype_2_input#:#Input
 qtype_2_multi_free_input#:#Multiple Inputs
 qtype_2_send#:#Send
+qtype_2_your_input#:#Your saved input:
 qtype_4_clear#:#Clear
 qtype_4_id#:#ID
 qtype_4_option_correct_position#:#Correct Position
@@ -71,9 +72,9 @@ subtab_show#:#Show
 tab_content#:#Content
 tab_edit#:#Settings
 voter_answer#:#Input
-voter_answers#:#Inputs
+qtype_2_answers#:#Inputs
 voter_delete#:#Delete
-voter_delete_all#:#Delete All
+qtype_2_delete_all#:#Delete All
 voter_header_frozen#:#Voting frozen
 voter_header_stopped#:#Voting stopped
 voter_info_frozen#:#This Questions is not yet active, please wait...
