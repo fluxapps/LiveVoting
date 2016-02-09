@@ -289,7 +289,13 @@ class xlvoPlayerGUI extends xlvoGUI {
 			$b = ilLinkButton::getInstance();
 			$b->setCaption(xlvoGlyphGUI::get('fullscreen'), false);
 			$b->setUrl('#');
-			$b->setId('btn-toggle-fullscreen');
+			$b->setId('btn-start-fullscreen');
+			$this->toolbar->addButtonInstance($b);
+
+			$b = ilLinkButton::getInstance();
+			$b->setCaption(xlvoGlyphGUI::get('resize-small'), false);
+			$b->setUrl('#');
+			$b->setId('btn-close-fullscreen');
 			$this->toolbar->addButtonInstance($b);
 		}
 

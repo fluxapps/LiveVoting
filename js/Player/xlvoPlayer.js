@@ -35,7 +35,36 @@ var xlvoPlayer = {
         this.registerElements();
         this.getPlayerData();
     },
-    registerElements: function () {
+    handleFullScreen: function () {
+        this.btn_close_fullscreen.parent().hide();
+        var jq_target = $('div.ilTabsContentOuter');
+        var target = jq_target[0];
+        var self = this;
+        this.btn_start_fullscreen.click(function () {
+            if (screenfull.enabled) {
+                screenfull.request(target);
+            }
+        });
+        this.btn_close_fullscreen.click(function () {
+            if (screenfull.enabled) {
+                screenfull.exit(target);
+            }
+        });
+
+        if (screenfull.enabled) {
+            document.addEventListener(screenfull.raw.fullscreenchange, function () {
+                if (!screenfull.isFullscreen) {
+                    jq_target.removeClass('xlvo-fullscreen');
+                    self.btn_start_fullscreen.parent().show();
+                    self.btn_close_fullscreen.parent().hide();
+                } else {
+                    jq_target.addClass('xlvo-fullscreen');
+                    self.btn_start_fullscreen.parent().hide();
+                    self.btn_close_fullscreen.parent().show();
+                }
+            });
+        }
+    }, registerElements: function () {
         this.btn_freeze = $('#btn-freeze');
         this.btn_previous = $('#btn-previous');
         this.btn_next = $('#btn-next');
@@ -46,7 +75,8 @@ var xlvoPlayer = {
         this.btn_hide_results = $('#btn-hide-results');
         this.btn_show_results = $('#btn-show-results');
         this.btn_show_results.parent().hide();
-        this.btn_toggle_fullscreen = $('#btn-toggle-fullscreen');
+        this.btn_start_fullscreen = $('#btn-start-fullscreen');
+        this.btn_close_fullscreen = $('#btn-close-fullscreen');
         this.div_display_results = $('#xlvo-display-results');
 
         this.btn_freeze.click(function () {
@@ -81,13 +111,7 @@ var xlvoPlayer = {
             xlvoPlayer.callPlayer('previous');
             return false;
         });
-
-        var target = $('div.ilTabsContentOuter')[0];
-        this.btn_toggle_fullscreen.click(function () {
-            if (screenfull.enabled) {
-                screenfull.request(target);
-            }
-        });
+        this.handleFullScreen();
     },
     initElements: function () {
         if (this.player.frozen) {
