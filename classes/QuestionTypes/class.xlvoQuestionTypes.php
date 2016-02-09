@@ -21,7 +21,7 @@ class xlvoQuestionTypes {
 	protected static $active_types = array(
 		self::TYPE_FREE_INPUT,
 		self::TYPE_SINGLE_VOTE,
-//		self::TYPE_CORRECT_ORDER
+		self::TYPE_CORRECT_ORDER
 	);
 	/**
 	 * @var array

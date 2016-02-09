@@ -55,11 +55,14 @@ qtype_2_clear#:#Clear
 qtype_2_input#:#Input
 qtype_2_multi_free_input#:#Multiple Inputs
 qtype_2_send#:#Send
+qtype_4_clear#:#Clear
 qtype_4_id#:#ID
 qtype_4_option_correct_position#:#Correct Position
 qtype_4_option_position#:#Position
 qtype_4_option_text#:#Term
 qtype_4_options#:#Options
+qtype_4_save#:#Save
+qtype_4_your_order#:#Your Submission:
 qtype_form_header#:#Type-Settings
 qtype_multi_free_input#:#Multiple Inputs
 status#:#Status
@@ -81,6 +84,7 @@ voter_msg_not_running_screen#:#This LiveVoting is currently not active.
 voter_msg_start_of_voting_screen#:#Please wait untill the Presenter starts the Voting
 voter_msg_validation_error_pin#:#This PIN is not available or not active.
 voter_msg_waiting_screen#:#Please wait
+voter_pin_form_title#:#Start LiveVoting
 voter_pin_input#:#PIN
 voter_save#:#Save
 voter_send#:#Send

@@ -21,11 +21,23 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 		$form->setShowTopButtons(false);
 		$form->setKeepOpen(true);
 		$form->setFormAction($this->ctrl->getFormAction($this));
-
-		$bars = new xlvoBarMovableGUI($this->manager->getVoting()->getVotingOptions());
+		/**
+		 * @var $vote xlvoVote
+		 */
+		$vote = array_shift(array_values($this->manager->getVotesOfUser()));
+		$order = array();
+		$vote_id = null;
+		if ($vote instanceof xlvoVote) {
+			$order = json_decode($vote->getFreeInput());
+			$vote_id = $vote->getId();
+		}
+		$bars = new xlvoBarMovableGUI($this->manager->getVoting()->getVotingOptions(), $order, $vote_id);
 
 		$form2 = new ilPropertyFormGUI();
-		$form2->addCommandButton(self::CMD_SUBMIT, $pl->txt('voter_save'));
+		$form2->addCommandButton(self::CMD_SUBMIT, $pl->txt('qtype_4_save'));
+		if ($vote_id) {
+			$form2->addCommandButton('clear', $pl->txt('qtype_4_clear'));
+		}
 		$form2->setOpenTag(false);
 
 		return $form->getHTML() . $bars->getHTML() . $form2->getHTML();
@@ -38,9 +50,12 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 
 
 	protected function submit() {
-		echo '<pre>' . print_r($_POST, 1) . '</pre>';
-		exit;
-		foreach ($_POST['id'] as $i => $id) {
-		}
+		$this->manager->input(json_encode($_POST['id']), $_POST['vote_id']);
+	}
+
+
+	protected function clear() {
+		$this->manager->unvoteAll();
+		$this->afterSubmit();
 	}
 }

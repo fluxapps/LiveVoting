@@ -85,10 +85,13 @@ class xlvoVote extends ActiveRecord {
 	public static function getVotesOfUser(xlvoUser $xlvoUser, $voting_id, $incl_inactive = false) {
 		$where = array(
 			'voting_id' => $voting_id,
-			'status' => array( self::STAT_ACTIVE )
+			'status' => self::STAT_ACTIVE
 		);
 		if ($incl_inactive) {
-			$where['status'][] = self::STAT_INACTIVE;
+			$where['status'] = array(
+				self::STAT_INACTIVE,
+				self::STAT_ACTIVE
+			);
 		}
 		if ($xlvoUser->isILIASUser()) {
 			$where['user_id'] = $xlvoUser->getIdentifier();

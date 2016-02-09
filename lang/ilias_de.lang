@@ -56,11 +56,14 @@ qtype_2_clear#:#Zurücksetzen
 qtype_2_input#:#Eingabe
 qtype_2_multi_free_input#:#Mehrfache Eingaben
 qtype_2_send#:#Senden
+qtype_4_clear#:#Zurücksetzen
 qtype_4_id#:#ID
 qtype_4_option_correct_position#:#Korrekte Position
 qtype_4_option_position#:#Position
 qtype_4_option_text#:#Begriff
 qtype_4_options#:#Optionen
+qtype_4_save#:#Speichern
+qtype_4_your_order#:#Ihre gespeicherte Eingabe:
 qtype_form_header#:#Typ-Einstellugnen
 qtype_multi_free_input#:#Mehrfache Eingaben
 status#:#Status
@@ -84,6 +87,7 @@ voter_msg_not_running_screen#:#Dieses LiveVoting ist zur Zeit nicht aktiv.
 voter_msg_start_of_voting_screen#:#Bitte warten, bis der Präsentator das Voting freigibt
 voter_msg_validation_error_pin#:#Diese PIN ist nicht vorhanden oder nicht aktiv
 voter_msg_waiting_screen#:#Bitte warten
+voter_pin_form_title#:#LiveVoting starten
 voter_pin_input#:#PIN zum LiveVoting
 voter_save#:#Speichern
 voter_send#:#Abschicken

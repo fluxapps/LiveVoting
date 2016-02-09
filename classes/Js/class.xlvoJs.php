@@ -12,6 +12,7 @@ class xlvoJs {
 
 	const API_URL = xlvoConf::API_URL;
 	const BASE_URL_SETTING = 'base_url';
+	const BASE_PATH = './Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/js/';
 	/**
 	 * @var string
 	 */
@@ -139,10 +140,17 @@ class xlvoJs {
 
 
 	protected function resolveLib() {
-		$base_path = './Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/js/';
+		$base_path = self::BASE_PATH;
 		$category = ($this->category ? $this->category . '/' : '') . $this->name . '/';
 		$file_name = 'xlvo' . $this->name . '.js';
-		$this->lib = $base_path . $category . $file_name;
+		$file_name_min = 'xlvo' . $this->name . '.min.js';
+		$full_path_min = $base_path . $category . $file_name_min;
+		$full_path = $base_path . $category . $file_name;
+		if (is_file($full_path_min)) {
+			$this->lib = $full_path_min;
+		} else {
+			$this->lib = $full_path;
+		}
 	}
 
 

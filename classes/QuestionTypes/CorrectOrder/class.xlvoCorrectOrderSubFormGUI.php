@@ -1,6 +1,7 @@
 <?php
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoSubFormGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/FreeInput/class.xlvoMultiLineInputGUI.php');
+
 /**
  * Class xlvoCorrectOrderSubFormGUI
  *
@@ -47,7 +48,6 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI {
 	protected function handleField(ilFormPropertyGUI $element, $value) {
 		switch ($element->getPostVar()) {
 			case self::F_OPTIONS:
-				xlvoOption::updateDB();
 				$pos = 1;
 				foreach ($value as $item) {
 					/**
@@ -107,5 +107,7 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI {
 				$xlvoOption->delete();
 			}
 		}
+		$this->getXlvoVoting()->setMultiFreeInput(true);
+		$this->getXlvoVoting()->update();
 	}
 }

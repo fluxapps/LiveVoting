@@ -92,11 +92,11 @@ class xlvoVotingConfig extends ActiveRecord {
 	/**
 	 * @var bool
 	 */
-	protected $full_screen = false;
+	protected $full_screen = true;
 	/**
 	 * @var bool
 	 */
-	protected $show_attendees = false;
+	protected $show_attendees = true;
 
 
 	/**
@@ -285,6 +285,4 @@ class xlvoVotingConfig extends ActiveRecord {
 	public function setShowAttendees($show_attendees) {
 		$this->show_attendees = $show_attendees;
 	}
-
-
 }

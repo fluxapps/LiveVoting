@@ -43,7 +43,7 @@ var xlvoVoter = {
     riddler: '+',
     replaceHTML: function () {
         console.log('replace');
-        $.get(xlvoVoter.config.base_url, {cmd: 'getHTML', translate: 1}).done(function (data) {
+        $.get(xlvoVoter.config.base_url, {cmd: 'getHTML'}).done(function (data) {
             $(xlvoVoter.config.player_id).html(data).parent();
         });
     }

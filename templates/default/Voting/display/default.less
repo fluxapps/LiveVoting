@@ -25,6 +25,14 @@ div.xlvo_pin {
   padding:     0;
 }
 
+div.xlvo_shortlink {
+  height:         @xlvo_pin_height/2-10;
+  line-height:    @xlvo_pin_height/2-10;
+  text-align:     center;
+
+  vertical-align: middle;
+}
+
 div.xlvo_pin * {
   margin: 0;
 }
@@ -64,12 +72,33 @@ li.ilToolbarTextonly button {
 
 .xlvo-option {
   display:     inline;
-  font-size: 1.2em;
+  font-size:   1.2em;
   line-height: 1.2em;
 }
 
 #xlvo-player-header {
   h1.pull-right {
-  margin-left: 5px;
+	margin-left: 5px;
+  }
+}
+
+div#il_prop_cont_pin_input {
+  div.col-sm-9 {
+	width:      100%;
+	text-align: center;
+  }
+  input#pin_input {
+	font-size:   3em;
+	line-height: 2em;
+	height:      80px;
+	text-align:  center;
+	width:       60%;
+	margin:      auto;
+  }
+
+  label[for=pin_input] {
+	width:      100%;
+	clear:      both;
+	text-align: center;
   }
 }

@@ -8,7 +8,6 @@ var xlvoPlayer = {
         var replacer = new RegExp('amp;', 'g');
         config.base_url = config.base_url.replace(replacer, '');
         this.config = config;
-        console.log(config);
         this.ready = true;
     },
     delay: 1000,
@@ -49,8 +48,6 @@ var xlvoPlayer = {
         this.btn_show_results.parent().hide();
         this.btn_toggle_fullscreen = $('#btn-toggle-fullscreen');
         this.div_display_results = $('#xlvo-display-results');
-        this.div_display_results = $('#xlvo-display-results');
-        //this.div_xlvo_attendees = $('#xlvo-attendees');
 
         this.btn_freeze.click(function () {
             xlvoPlayer.callPlayer('freeze');
@@ -123,15 +120,18 @@ var xlvoPlayer = {
             this.btn_next.removeAttr('disabled');
             this.btn_previous.removeAttr('disabled');
         }
-        //var attendees = document.getElementById('xlvo-attendees');
-        //attendees.innerHTML = (this.player.attendees);
+        if (this.player.is_last && this.player.is_first) {
+            this.btn_next.attr('disabled', 'disabled');
+            this.btn_previous.attr('disabled', 'disabled');
+        }
+        var attendees = document.getElementById('xlvo-attendees');
+        attendees.innerHTML = (this.player.attendees + ' Online');
     },
     getPlayerData: function () {
         $.get(xlvoPlayer.config.base_url, {cmd: 'getPlayerData'}).done(function (data) {
             console.log(data);
             xlvoPlayer.counter++;
             if ((xlvoPlayer.counter > xlvoPlayer.forced_update_interval) || (data.player.last_update != xlvoPlayer.player.last_update) || (data.player.show_results != xlvoPlayer.player.show_results) || (data.player.status != xlvoPlayer.player.status) || (data.player.active_voting_id != xlvoPlayer.player.active_voting_id)) {
-                console.log('replace_player');
                 $('#xlvo-display-player').html(data.player_html);
                 xlvoPlayer.counter = 0;
             }
@@ -142,7 +142,6 @@ var xlvoPlayer = {
         });
     },
     /**
-     *
      * @param cmd
      * @param success
      * @param fail
@@ -153,7 +152,6 @@ var xlvoPlayer = {
         }, fail = fail ? fail : function () {
         }, voting_id = voting_id ? voting_id : null;
 
-
         $.post(xlvoPlayer.config.base_url + '&cmd=apiCall', {call: cmd, xvi: voting_id}).done(function (data) {
             if (data) {
                 success();
@@ -161,7 +159,6 @@ var xlvoPlayer = {
                 fail();
             }
         });
-
     },
     /**
      *
@@ -174,11 +171,11 @@ var xlvoPlayer = {
     /**
      * unused
      */
-    updateVoterCounter: function () {
-        $.get(this.base_url, {cmd: "getVoterCounterData"})
+    updateAttendees: function () {
+        $.get(this.base_url, {cmd: "getAttendees"})
             .done(function (data) {
-                $('#' + xlvoPlayer.voter_count_element_id).html(data + ' ' + xlvoPlayer.lng['player_voters_online']);
+                $('#xlvo-attendees').html(data + ' Online');
             });
-        setTimeout(xlvoPlayer.updateVoterCounter, 1500);
+        setTimeout(xlvoPlayer.updateAttendees, 1500);
     }
 };

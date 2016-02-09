@@ -17,14 +17,14 @@ class xlvoSingleVoteResultsGUI extends xlvoInputResultsGUI {
 		 */
 		$answer_count = 64;
 		$bars = new xlvoBarCollectionGUI();
+		$total = $this->manager->countVotes();
 		foreach ($this->voting->getVotingOptions() as $option) {
 			$answer_count ++;
 			/**
 			 * @var xlvoVote $votes
 			 */
-			$votes = $this->manager->getVotesOfVoting();
-
-			$bars->addBar(new xlvoBarPercentageGUI($this->manager->getVoting(), $option, $votes, chr($answer_count)));
+			$votes = $this->manager->getVotesOfOption($option->getId());
+			$bars->addBar(xlvoBarPercentageGUI::getInstanceFromOption($option, count($votes), $total, chr($answer_count)));
 		}
 
 		$bars->setShowTotalVotes(true);

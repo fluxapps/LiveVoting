@@ -70,15 +70,22 @@ class xlvoVoter2GUI extends xlvoGUI {
 		if ($this->manager->getObjId()) {
 			$this->ctrl->redirect($this, self::CMD_START_VOTER_PLAYER);
 		}
+		$tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voter/tpl.pin.html', true, false);
+		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voting/display/default.css');
 		$pin_form = new ilPropertyFormGUI();
 		$pin_form->setFormAction($this->ctrl->getLinkTarget($this, self::CMD_CHECK_PIN));
 		$pin_form->addCommandButton(self::CMD_CHECK_PIN, $this->txt('send'));
 
+		$xlvoPin = new xlvoPin();
+
 		$te = new ilTextInputGUI($this->txt(self::F_PIN_INPUT), self::F_PIN_INPUT);
-		$te->setCssClass('xlvo_pin_field');
+		$te->setMaxLength($xlvoPin->getPinLength());
 		$pin_form->addItem($te);
 
-		$this->tpl->setContent($pin_form->getHTML());
+		$tpl->setVariable('TITLE', $this->txt('pin_form_title'));
+		$tpl->setVariable('FORM', $pin_form->getHTML());
+
+		$this->tpl->setContent($tpl->get());
 	}
 
 

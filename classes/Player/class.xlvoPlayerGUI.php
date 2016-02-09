@@ -70,7 +70,6 @@ class xlvoPlayerGUI extends xlvoGUI {
 			$current_selection_list = $this->getVotingSelectionList();
 			$this->toolbar->addText($current_selection_list->getHTML());
 		}
-
 		$template = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Player/tpl.start.html', true, true);
 		/**
 		 * @var xlvoVotingConfig $xlvoVotingConfig
@@ -104,7 +103,18 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$template->setVariable('SHORTLINK', xlvoConf::getShortLinkURL() . $xlvoVotingConfig->getPin());
 		$template->setVariable('CLOSE_BUTTON', $this->txt('close_modal'));
 
+		if ($this->manager->getVotingConfig()->isShowAttendees()) {
+			xlvoJs::getInstance()->ilias($this)->name('Player')->init()->call('updateAttendees');
+			$template->touchBlock('attendees');
+//			$template->parseCurrentBlock();
+		}
+
 		$this->tpl->setContent($template->get());
+	}
+
+
+	protected function getAttendees() {
+		xlvoJsResponse::getInstance(xlvoVoter::count($this->manager->getPlayer()->getId()))->send();
 	}
 
 

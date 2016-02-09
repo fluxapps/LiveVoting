@@ -81,7 +81,6 @@ class xlvoVotingManager2 {
 		$xlvoVote = xlvoVote::find($vote_id);
 		if (!$xlvoVote instanceof xlvoVote) {
 			$xlvoVote = new xlvoVote();
-			$xlvoVote->setVotingId($this->getVoting()->getId());
 		}
 		$xlvoUser = xlvoUser::getInstance();
 		if ($xlvoUser->getType() == xlvoUser::TYPE_ILIAS) {
@@ -91,6 +90,7 @@ class xlvoVotingManager2 {
 			$xlvoVote->setUserIdentifier($xlvoUser->getIdentifier());
 			$xlvoVote->setUserIdType(xlvoVote::USER_ANONYMOUS);
 		}
+		$xlvoVote->setVotingId($this->getVoting()->getId());
 		$xlvoVote->setOptionId($option->getId());
 		$xlvoVote->setType(xlvoQuestionTypes::TYPE_FREE_INPUT);
 		$xlvoVote->setStatus(xlvoVote::STAT_ACTIVE);
@@ -143,7 +143,8 @@ class xlvoVotingManager2 {
 	 * @return xlvoVote[]
 	 */
 	public function getVotesOfUser($incl_inactive = false) {
-		return xlvoVote::getVotesOfUser(xlvoUser::getInstance(), $this->getVoting()->getId(), $incl_inactive);
+		$xlvoVotes = xlvoVote::getVotesOfUser(xlvoUser::getInstance(), $this->getVoting()->getId(), $incl_inactive);
+		return $xlvoVotes;
 	}
 
 
