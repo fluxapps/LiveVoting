@@ -52,7 +52,11 @@ qtype_1_multi_selection_info#:#Ein Nutzer kann mehr als einen Text eingeben
 qtype_1_option_text#:#Options-Text
 qtype_1_options#:#Mögliche Antworten
 qtype_1_total_votes#:#Anzahl Stimmen
+qtype_1_unvote#:#Unvote
+qtype_1_vote#:#Vote
+qtype_2_answers#:#Eingaben
 qtype_2_clear#:#Zurücksetzen
+qtype_2_delete_all#:#Alle löschen
 qtype_2_input#:#Eingabe
 qtype_2_multi_free_input#:#Mehrfache Eingaben
 qtype_2_send#:#Senden
@@ -73,9 +77,7 @@ subtab_show#:#Zeigen
 tab_content#:#Inhalt
 tab_edit#:#Einstellungen
 voter_answer#:#Eingabe
-qtype_2_answers#:#Eingaben
 voter_delete#:#Löschen
-qtype_2_delete_all#:#Alle löschen
 voter_header_frozen#:#Abstimmung noch nicht freigegeben
 voter_header_start#:#Bitte auf Start warten
 voter_header_stopped#:#Abstimmung gestoppt

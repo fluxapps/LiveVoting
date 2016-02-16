@@ -52,6 +52,8 @@ qtype;1_multi_selection_info;"Ein Nutzer kann mehr als einen Text eingeben";"Use
 qtype;1_option_text;"Options-Text";"Option-Text"
 qtype;1_options;"Mögliche Antworten";"Options"
 qtype;1_total_votes;"Anzahl Stimmen";"Total Votes"
+qtype;1_unvote;"Unvote";"Unvote"
+qtype;1_vote;"Vote";"Vote"
 qtype;2_answers;"Eingaben";"Inputs"
 qtype;2_clear;"Zurücksetzen";"Clear"
 qtype;2_delete_all;"Alle löschen";"Delete All"
