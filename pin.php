@@ -17,7 +17,6 @@ global $ilCtrl;
  * @var ilCtrl $ilCtrl
  */
 $ilCtrl->initBaseClass('ilUIPluginRouterGUI');
-var_dump(xlvoConf::getFullApiURL()); // FSX
 $ilCtrl->setTargetScript(xlvoConf::getFullApiURL());
 $ilCtrl->redirectByClass(array(
 	'ilUIPluginRouterGUI',

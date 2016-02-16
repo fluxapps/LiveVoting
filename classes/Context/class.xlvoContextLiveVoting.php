@@ -30,7 +30,7 @@ class xlvoContextLiveVoting extends ilContextBase {
 	 * @return bool
 	 */
 	public static function usesHTTP() {
-		return false;
+		return true;
 	}
 
 

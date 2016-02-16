@@ -38,7 +38,7 @@ class xlvoConf extends ActiveRecord {
 				$url = 'http://' . $url;
 			}
 		} else {
-			$url = ILIAS_HTTP_PATH . '/Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?';
+			$url = ILIAS_HTTP_PATH . '/Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?pin=';
 		}
 
 		return $url;
@@ -53,7 +53,8 @@ class xlvoConf extends ActiveRecord {
 			$url = self::get(self::F_BASE_URL);
 			$url = rtrim($url, "/") . "/";
 		} else {
-			$url = rtrim(ILIAS_HTTP_PATH, "/") . "/";
+			$str = strstr(ILIAS_HTTP_PATH, 'Customizing', true);
+			$url = rtrim($str, "/") . "/";
 		}
 
 		return $url;
