@@ -200,7 +200,9 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 			switch ($filter_key) {
 				case 'title':
 				case 'question':
-					$collection = $collection->where(array( $filter_key => '%' . $filter_value . '%' ), 'LIKE');
+					if($filter_value) {
+						$collection = $collection->where(array( $filter_key => '%' . $filter_value . '%' ), 'LIKE');
+					}
 					break;
 				case 'voting_status':
 
