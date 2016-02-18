@@ -15,7 +15,7 @@ msg_success_voting_updated#:#Voting wurde gespeichert
 obj_anonymous#:#Abstimmung ohne Login
 obj_description#:#Beschreibung
 obj_edit_properties#:#Einstellungen bearbeiten
-obj_info_anonymous#:#Das LiveVoting kann von den Abstimmenden ohne Login verwendet werden, auch wenn das Objekt in geschützen Bereich wie bspw. einem Kurs liegt.
+obj_info_anonymous#:#Das LiveVoting kann von den Abstimmenden ohne Login verwendet werden, auch wenn das Objekt in einem geschützten Bereich wie bspw. einem Kurs liegt.
 obj_info_online#:#Nur wenn das LiveVoting online geschaltet ist, können Benutzer das LiveVoting sehen und benutzen.
 obj_info_reuse_status#:#Beim Wechseln zwischen Voting wird jeweils übernommen, ob das nächste Voting freigegeben werden soll, oder nicht.
 obj_info_terminable#:#Das LiveVoting kann nur innerhalb der definierten Zeit zum Abstimmen genutzt werden

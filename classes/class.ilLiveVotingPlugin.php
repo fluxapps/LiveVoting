@@ -1,5 +1,5 @@
 <?php
-//require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/OpenCast/classes/class.xoctDynLan.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/OpenCast/classes/class.xoctDynLan.php');
 include_once('./Services/Repository/classes/class.ilRepositoryObjectPlugin.php');
 
 /**
@@ -9,7 +9,7 @@ include_once('./Services/Repository/classes/class.ilRepositoryObjectPlugin.php')
  * @version $Id$
  *
  */
-class ilLiveVotingPlugin extends ilRepositoryObjectPlugin { // implements xoctDynLanInterface
+class ilLiveVotingPlugin extends ilRepositoryObjectPlugin implements xoctDynLanInterface { //
 
 	const PLUGIN_NAME = 'LiveVoting';
 	/**
@@ -43,32 +43,32 @@ class ilLiveVotingPlugin extends ilRepositoryObjectPlugin { // implements xoctDy
 	}
 
 
-	//	/**
-	//	 * @return string
-	//	 */
-	//	public function getCsvPath() {
-	//		return './Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/lang/lang.csv';
-	//	}
-	//
-	//
-	//	/**
-	//	 * @return string
-	//	 */
-	//	public function getAjaxLink() {
-	//		return NULL;
-	//	}
-	//
-	//
-	//	/**
-	//	 * @param $a_var
-	//	 *
-	//	 * @return string
-	//	 */
-	//	public function txt($a_var) {
-	//		if ($_GET['translate']) {
-	//			return xoctDynLan::getInstance($this, xoctDynLan::MODE_DEV)->txt($a_var);
-	//		} else {
-	//			return parent::txt($a_var);
-	//		}
-	//	}
+	/**
+	 * @return string
+	 */
+	public function getCsvPath() {
+		return './Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/lang/lang.csv';
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getAjaxLink() {
+		return null;
+	}
+
+
+	/**
+	 * @param $a_var
+	 *
+	 * @return string
+	 */
+	public function txt($a_var) {
+		return xoctDynLan::getInstance($this, xoctDynLan::MODE_DEV)->txt($a_var);
+		if ($_GET['translate']) {
+		} else {
+			return parent::txt($a_var);
+		}
+	}
 }
