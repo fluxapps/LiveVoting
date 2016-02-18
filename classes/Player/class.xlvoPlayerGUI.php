@@ -50,26 +50,29 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 
 	protected function index() {
-		if (!$this->manager->prepareStart()) {
-			ilUtil::sendFailure($this->txt('player_msg_no_votings'));
-			return;
-		} else {
-			$b = ilLinkButton::getInstance();
-			$b->setCaption($this->txt('start_voting'), false);
-			$b->setUrl($this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_START_PLAYER));
-			$b->setId('btn-start-voting');
-			$b->setPrimary(true);
-			$this->toolbar->addButtonInstance($b);
-
-			$b = ilLinkButton::getInstance();
-			$b->setCaption($this->txt('start_voting_and_unfreeze'), false);
-			$b->setUrl($this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_START_PLAYER_AND_UNFREEZE));
-			$b->setId('btn-start-voting-unfreeze');
-			$this->toolbar->addButtonInstance($b);
-
-			$current_selection_list = $this->getVotingSelectionList(false);
-			$this->toolbar->addText($current_selection_list->getHTML());
+		try {
+			$this->manager->prepareStart();
+		} catch (xlvoPlayerException $e) {
+			ilUtil::sendFailure($this->txt('msg_no_start_' . $e->getCode()));
+			return true;
 		}
+
+		$b = ilLinkButton::getInstance();
+		$b->setCaption($this->txt('start_voting'), false);
+		$b->setUrl($this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_START_PLAYER));
+		$b->setId('btn-start-voting');
+		$b->setPrimary(true);
+		$this->toolbar->addButtonInstance($b);
+
+		$b = ilLinkButton::getInstance();
+		$b->setCaption($this->txt('start_voting_and_unfreeze'), false);
+		$b->setUrl($this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_START_PLAYER_AND_UNFREEZE));
+		$b->setId('btn-start-voting-unfreeze');
+		$this->toolbar->addButtonInstance($b);
+
+		$current_selection_list = $this->getVotingSelectionList(false);
+		$this->toolbar->addText($current_selection_list->getHTML());
+
 		$template = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Player/tpl.start.html', true, true);
 		/**
 		 * @var xlvoVotingConfig $xlvoVotingConfig
@@ -85,13 +88,13 @@ class xlvoPlayerGUI extends xlvoGUI {
 			'r' => 0,
 			'g' => 0,
 			'b' => 0,
-			'a' => 0
+			'a' => 0,
 		));
 		$qrCode->setBackgroundColor(array(
 			'r' => 255,
 			'g' => 255,
 			'b' => 255,
-			'a' => 0
+			'a' => 0,
 		));
 		$qrCode->setPadding(10);
 		$qrCodeLarge = clone($qrCode);
@@ -128,7 +131,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 	protected function startPlayer() {
 		$settings = array(
-			'status_running' => xlvoPlayer::STAT_RUNNING
+			'status_running' => xlvoPlayer::STAT_RUNNING,
 		);
 		if ($_GET[self::IDENTIFIER]) {
 			$this->manager->open($_GET[self::IDENTIFIER]);
@@ -147,8 +150,8 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$this->manager->getPlayer()->attend();
 		$player = $this->manager->getPlayer()->getStdClassForPlayer();
 		$results = array(
-			'player' => $player,
-			'player_html' => $this->getPlayerHTML(true)
+			'player'      => $player,
+			'player_html' => $this->getPlayerHTML(true),
 		);
 		xlvoJsResponse::getInstance($results)->send();
 	}
@@ -329,11 +332,13 @@ class xlvoPlayerGUI extends xlvoGUI {
 			$this->ctrl->setParameter(new xlvoPlayerGUI(), self::IDENTIFIER, $voting->getId());
 			if ($async) {
 				$current_selection_list->addItem($voting->getTitle(), $voting->getId(), $this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_START_PLAYER), '', '', '', '', false, 'xlvoPlayer.open('
-					. $voting->getId() . ')');
+				                                                                                                                                                                        . $voting->getId()
+				                                                                                                                                                                        . ')');
 			} else {
 				$current_selection_list->addItem($voting->getTitle(), $voting->getId(), $this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_START_PLAYER));
 			}
 		}
+
 		return $current_selection_list;
 	}
 
@@ -341,11 +346,11 @@ class xlvoPlayerGUI extends xlvoGUI {
 	protected function initJS() {
 		$settings = array(
 			'status_running' => xlvoPlayer::STAT_RUNNING,
-			'identifier' => self::IDENTIFIER
+			'identifier'     => self::IDENTIFIER,
 		);
 		iljQueryUtil::initjQuery();
 		xlvoJs::getInstance()->addLibToHeader('screenfull.min.js');
 		xlvoJs::getInstance()->ilias($this)->addSettings($settings)->name('Player')->addTranslations(array( 'player_voters_online' ))->init()
-			->call('run');
+		      ->call('run');
 	}
 }

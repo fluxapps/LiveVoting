@@ -35,9 +35,10 @@ offline#:#Offline
 player_close_modal#:#Schliessen
 player_freeze#:#Pausieren
 player_hide_results#:#Resultate ausblenden
+player_msg_no_start_1#:#Sie können das LiveVoting nicht starten! Das LiveVoting ist offline.
+player_msg_no_start_2#:#Das LiveVoting kann nicht gestartet werden, da noch keine Votings vorhanden sind.
 player_msg_no_votings#:#Es sind keine Fragen vorhanden, das Voting kann nicht gestartet werden.
 player_msg_voting_not_available#:#Das ausgewählte Voting ist nicht vorhanden
-player_player_msg_no_votings#:#Das LiveVoting kann nicht gestartet werden, da noch keine Votings vorhanden sind.
 player_reset#:#Zurücksetzen
 player_show_results#:#Resultate einblenden
 player_start_voting#:#LiveVoting beginnen

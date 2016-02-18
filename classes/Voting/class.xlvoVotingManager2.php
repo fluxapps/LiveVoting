@@ -1,5 +1,5 @@
 <?php
-
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/ex.xlvoPlayerException.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Vote/class.xlvoVote.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Pin/class.xlvoPin.php');
 
@@ -26,6 +26,7 @@ class xlvoVotingManager2 {
 
 	/**
 	 * xlvoVotingManager2 constructor.
+	 *
 	 * @param $pin
 	 */
 	public function __construct($pin) {
@@ -44,6 +45,7 @@ class xlvoVotingManager2 {
 		 * @var $xlvoVotingConfig xlvoVotingConfig
 		 */
 		$xlvoVotingConfig = xlvoVotingConfig::findOrGetInstance($obj_id);
+
 		return new self($xlvoVotingConfig->getPin());
 	}
 
@@ -112,7 +114,7 @@ class xlvoVotingManager2 {
 		 */
 		return xlvoVote::where(array(
 			'option_id' => $option_id,
-			'status' => xlvoVote::STAT_ACTIVE
+			'status'    => xlvoVote::STAT_ACTIVE,
 		))->get();
 	}
 
@@ -144,6 +146,7 @@ class xlvoVotingManager2 {
 	 */
 	public function getVotesOfUser($incl_inactive = false) {
 		$xlvoVotes = xlvoVote::getVotesOfUser(xlvoUser::getInstance(), $this->getVoting()->getId(), $incl_inactive);
+
 		return $xlvoVotes;
 	}
 
@@ -157,6 +160,7 @@ class xlvoVotingManager2 {
 		foreach ($this->getVotesOfUser() as $xlvoVote) {
 			$options[] = $xlvoVote->getOptionId();
 		}
+
 		return in_array($xlvoOption->getId(), $options);
 	}
 
@@ -172,6 +176,7 @@ class xlvoVotingManager2 {
 				$return[] = $xlvoVote;
 			}
 		}
+
 		return $return;
 	}
 
@@ -213,9 +218,10 @@ class xlvoVotingManager2 {
 	 */
 	public function countVotes() {
 		$ids = $this->getVotingsList()->getArray(null, 'id');
+
 		return xlvoVote::where(array(
 			'voting_id' => $ids,
-			'status' => xlvoVote::STAT_ACTIVE
+			'status'    => xlvoVote::STAT_ACTIVE,
 		))->count();
 	}
 
@@ -237,14 +243,19 @@ class xlvoVotingManager2 {
 
 	/**
 	 * @return bool
+	 * @throws \xlvoPlayerException
 	 */
 	public function prepareStart() {
+		if (!$this->getVotingConfig()->isObjOnline()) {
+			throw new xlvoPlayerException('', xlvoPlayerException::OBJ_OFFLINE);
+		}
 		if ($this->canBeStarted()) {
 			$xlvoVoting = $this->getVotingsList()->first();
 			$this->getPlayer()->prepareStart($xlvoVoting->getId());
+
 			return true;
 		} else {
-			return false;
+			throw new xlvoPlayerException('', xlvoPlayerException::NO_VTOTINGS);
 		}
 	}
 
@@ -272,7 +283,7 @@ class xlvoVotingManager2 {
 		 */
 		return xlvoVote::where(array(
 			'voting_id' => $this->getVoting()->getId(),
-			'status' => xlvoOption::STAT_ACTIVE
+			'status'    => xlvoOption::STAT_ACTIVE,
 		))->get();
 	}
 
@@ -360,8 +371,8 @@ class xlvoVotingManager2 {
 	 */
 	protected function getVotingsList($order = 'ASC') {
 		return xlvoVoting::where(array(
-			'obj_id' => $this->getObjId(),
-			'voting_status' => xlvoVoting::STAT_ACTIVE
+			'obj_id'        => $this->getObjId(),
+			'voting_status' => xlvoVoting::STAT_ACTIVE,
 		))->orderBy('position', $order);
 	}
 }

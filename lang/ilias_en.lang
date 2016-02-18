@@ -34,9 +34,10 @@ offline#:#Offline
 player_close_modal#:#Close
 player_freeze#:#Freeze
 player_hide_results#:#Hide Results
+player_msg_no_start_1#:#This LiveVoting can't be started since it is offline.
+player_msg_no_start_2#:#This LiveVoting can't be started since there are no Votings available yet.
 player_msg_no_votings#:#There are no Questions, the LiveVoting can be started.
 player_msg_voting_not_available#:#The selected Voting is not available
-player_player_msg_no_votings#:#This LiveVoting can't be started since there are no Votings available yet.
 player_reset#:#Reset
 player_show_results#:#Show Results
 player_start_voting#:#Start LiveVoting
