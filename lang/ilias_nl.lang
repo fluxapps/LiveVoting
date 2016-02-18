@@ -1,0 +1,107 @@
+list_title#:#Menu Items
+title#:#Titel
+type#:#Type
+css_prefix#:#CSS Prefix
+configuration#:#Configuratie
+add_new#:#Toevoegen nieuw item
+save_sorting#:#Volgorde Opslaan
+sorting_saved#:#Volgorde Opslaan
+css_active#:#Actieve CSS Class 
+css_inactive#:#Inactieve CSS Class 
+actions#:#Acties
+edit#:#Wijzigen
+delete#:#Verwijderen
+add_new#:#Toevoegen Item 
+select#:#Selecteren Type
+cancel#:#Anuleren
+select_type#:#Selecteer Type
+form_title#:#Toevoegen nieuw item
+permission_type#:#Selecteer Toegangsbeperkingen
+create#:#Opslaan
+perm_none#:#Geen toegangsbeperkingen
+perm_input#:#Input:
+perm_role#:#Beperkt tot rol
+perm_role_exeption#:#Alle rollen behalve de volgende
+perm_ref_read#:#Leestoegang op Ref-ID
+perm_ref_write#:#Schrijftoegang op Ref-ID
+perm_script#:#Controleer rechten per script (Geavanceerd)
+perm_input_script_path#:#Script Pad
+perm_input_script_class#:#Class Naam
+perm_input_script_method#:#Method Naam
+
+get_parameters#:#URL-Parameters
+get_parameters_description#:#De eerste input is de naam van de parameter. The tweede is de waarde. De output is iets als: URL?name1=waarde1&name2=waarde2
+
+gui_class#:#GUI Classes, comma-separated
+cmd#:#Commando
+
+type_ctrl#:#ilCtrl
+type_link#:#URL
+type_dropdown#:#Dropdown
+type_refid#:#Ref-ID
+type_admin#:#Beheer
+type_lastvisited#:#Laatste bezocht
+type_repository#:#Studiecentrum
+type_desktop#:#Persoonlijk Scherm
+type_settings#:#Gebruikersinstellingen
+type_separator#:#Scheiding
+type_search#:#Snel-zoeken
+type_statusbox#:#E-mail-Status
+type_auth#:#Authenticatie
+type_subtitle#:#Subtitel
+
+title_en#:#Engelse Titel
+title_de#:#Duitste Titel
+title_fr#:#Franse Titel
+title_it#:#Italiaanse Titel
+title_nl#:#Nederlandse Titel
+settings#:#Specifieke instellingen
+link#:#URL
+target#:#Doel
+ref_id#:#Ref-ID
+entry_added#:#Item toegevoegd
+entry_updated#:#Item gewijzigd
+entry_deleted#:#Item verwijderd
+qst_delete_entry#:#Weet je zeker dat je het volgende item wilt verwijderen?
+edit_childs#:#Items wijzigen
+
+back_to_main#:#Terug
+tabs_title_childs#:#Wijzigen dropdown
+tab_main#:#Wijzigen items
+use_image#:#Gebruiken van pijlafbeelding
+use_user_image#:#Gebruik Gebruikersafbeelding als titel
+
+same_page#:#Zelfde Window
+new_page#:#Nieuw Window
+not_visible_for_admin#:#<p class='warning'>Niet zichtbaar voor huidige gebruiker</p>
+no_childs#:#<p class='warning'>Niet zichtbaar omdat er geen items zijn</p>
+css_settings#:#CSS Instellingen
+recursive#:#Item moet actief zijn, zelfs bij sub-objecten
+
+conf_saved#:#Opgeslagen
+create_and_stay#:#Opslaan
+perm_input_locale#:#Lokale Rollen
+perm_input_locale_info#:#Geef ID's van lokale rollen in(gescheiden door komma's)
+perm_userid#:#Alleen voor sommige gebruikers
+perm_input_user#:#User-IDs
+perm_input_user_info#:#User-IDs gescheiden door komma's
+
+show_logout#:#Logout tonen
+
+show_icons#:#Iconen tonen
+
+doubleclick_prevention#:#Voorkom dubbelklikken (experimenteel)
+simple_form_validation#:#Inschakelen eenvoudige formuliervalidatie (experimenteel)
+
+settentr_button_save#:#Opslaan
+replace_full_header#:#Volledige Header vervangen (experimenteel)
+
+cache_settings#:#Cache
+update_cache_settings#:#Opslaan
+cache_settings_updated#:#Cache-Settings opgeslagen
+activate_cache#:#Inschakelen GlobalCache (experimenteel)
+activate_cache_info#:#Entries zullen worden opgeslagen in Webserver's geheugen voor 120 seconden.
+cache_cleared#:#Cache geleegd
+clear_cache#:#Legen van Cache
+
+show_with_no_children#:#Ook tonen als er geen kind elementen zijn
