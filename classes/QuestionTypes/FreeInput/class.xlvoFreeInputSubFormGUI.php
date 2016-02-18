@@ -13,7 +13,7 @@ class xlvoFreeInputSubFormGUI extends xlvoSubFormGUI {
 
 	protected function initFormElements() {
 		$cb = new ilCheckboxInputGUI($this->txt(self::F_MULTI_FREE_INPUT), self::F_MULTI_FREE_INPUT);
-		//		$cb->setInfo($this->pl->txt('qtype_multi_free_input_info'));
+		$cb->setInfo($this->txt(self::F_MULTI_FREE_INPUT . '_info'));
 		$this->addFormElement($cb);
 	}
 

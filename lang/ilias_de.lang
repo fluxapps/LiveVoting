@@ -60,6 +60,7 @@ qtype_2_clear#:#Zurücksetzen
 qtype_2_delete_all#:#Alle löschen
 qtype_2_input#:#Eingabe
 qtype_2_multi_free_input#:#Mehrfache Eingaben
+qtype_2_multi_free_input_info#:#Ein Nutzer kann mehr als einen Text eingeben
 qtype_2_send#:#Senden
 qtype_2_your_input#:#Ihre gespeicherte Eingabe:
 qtype_4_clear#:#Zurücksetzen
