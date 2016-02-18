@@ -34,6 +34,7 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI {
 		$xlvoMultiLineInputGUI->addInput($position);
 
 		$te = new ilTextInputGUI($this->txt('option_text'), self::F_TEXT);
+		$te->setInlineStyle('width: 350px;');
 		$xlvoMultiLineInputGUI->addInput($te);
 
 		$this->addFormElement($xlvoMultiLineInputGUI);
@@ -82,12 +83,13 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI {
 				$options = $this->getXlvoVoting()->getVotingOptions();
 				foreach ($options as $option) {
 					$array[] = array(
-						self::F_ID => $option->getId(),
-						self::F_TEXT => $option->getText(),
-						self::F_POSITION => $option->getPosition(),
+						self::F_ID               => $option->getId(),
+						self::F_TEXT             => $option->getText(),
+						self::F_POSITION         => $option->getPosition(),
 						self::F_CORRECT_POSITION => $option->getCorrectPosition(),
 					);
 				}
+
 				return $array;
 		}
 	}
