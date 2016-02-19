@@ -222,10 +222,8 @@ class xlvoVotingManager2 {
 	 * @return int
 	 */
 	public function countVotes() {
-		$ids = $this->getVotingsList()->getArray(null, 'id');
-
 		return xlvoVote::where(array(
-			'voting_id' => $ids,
+			'voting_id' => $this->getVoting()->getId(),
 			'status'    => xlvoVote::STAT_ACTIVE,
 		))->count();
 	}
