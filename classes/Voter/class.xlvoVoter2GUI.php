@@ -101,8 +101,8 @@ class xlvoVoter2GUI extends xlvoGUI {
 			$redirect = false;
 		}
 		if ($redirect) {
-//			xlvoInitialisation::setCookiePIN($_POST[self::F_PIN_INPUT]);
-//			$this->ctrl->redirect($this, self::CMD_START_VOTER_PLAYER);
+			xlvoInitialisation::setCookiePIN($_POST[self::F_PIN_INPUT]);
+			$this->ctrl->redirect($this, self::CMD_START_VOTER_PLAYER);
 		}
 	}
 
