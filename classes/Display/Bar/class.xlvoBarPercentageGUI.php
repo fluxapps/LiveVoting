@@ -40,7 +40,7 @@ class xlvoBarPercentageGUI implements xlvoBarGUI {
 	 * xlvoBarPercentageGUI constructor.
 	 */
 	public function __construct() {
-		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voting/display/tpl.bar_percentage.html', true, true);
+		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Display/Bar/tpl.bar_percentage.html', true, true);
 	}
 
 

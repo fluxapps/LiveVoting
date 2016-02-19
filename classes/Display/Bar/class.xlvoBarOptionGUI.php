@@ -43,7 +43,7 @@ class xlvoBarOptionGUI implements xlvoBarGUI {
 		$this->voting = $voting;
 		$this->option = $option;
 		$this->option_letter = $option_letter;
-		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voting/display/tpl.bar_option.html', true, true);
+		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Display/Bar/tpl.bar_option.html', true, true);
 	}
 
 

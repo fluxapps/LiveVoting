@@ -35,7 +35,7 @@ class xlvoBarMovableGUI implements xlvoBarGUI {
 		$this->options = $options;
 		$this->order = $order;
 		$this->vote_id = $vote_id;
-		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Display/tpl.bar_movable.html', false, true);
+		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Display/Bar/tpl.bar_movable.html', false, true);
 	}
 
 

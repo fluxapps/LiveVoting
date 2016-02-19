@@ -3,6 +3,7 @@
 require_once('./Services/Table/classes/class.ilTable2GUI.php');
 require_once('./Services/UIComponent/AdvancedSelectionList/classes/class.ilAdvancedSelectionListGUI.php');
 require_once('./Services/Form/classes/class.ilMultiSelectInputGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Js/class.xlvoJs.php');
 
 /**
  * Class xlvoVotingTableGUI
@@ -48,7 +49,7 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 		$this->ctrl = $ilCtrl;
 		$this->pl = ilLiveVotingPlugin::getInstance();
 
-		$this->voting_gui->tpl->addJavaScript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voting/sortable.js');
+		xlvoJs::getInstance()->addLibToHeader('sortable.js');
 
 		$this->setId(self::TBL_ID);
 		$this->setPrefix(self::TBL_ID);
