@@ -228,10 +228,6 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 				}
 				break;
 		}
-
-		if (!$this->getCreationMode()) {
-			$this->tpl->show();
-		}
 	}
 
 
