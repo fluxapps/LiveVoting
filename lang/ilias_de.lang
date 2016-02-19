@@ -75,7 +75,6 @@ qtype_4_save#:#Speichern
 qtype_4_your_order#:#Ihre gespeicherte Eingabe:
 qtype_form_header#:#Typ-Einstellugnen
 qtype_multi_free_input#:#Mehrfache Eingaben
-status#:#Status
 subtab_edit#:#Verwalten
 subtab_show#:#Zeigen
 tab_content#:#Inhalt
@@ -95,6 +94,7 @@ voter_msg_start_of_voting_screen#:#Bitte warten, bis der Präsentator das Voting
 voter_msg_validation_error_pin_1#:#Dieses LiveVoting ist zur Zeit nicht online
 voter_msg_validation_error_pin_2#:#Bitte Logen Sie sich ein, um dieses LiveVoting verwendet zu können
 voter_msg_validation_error_pin_3#:#Zu diesem PIN wurde keine LiveVoting gefunden
+voter_msg_validation_error_pin_4#:#Dieses LiveVoting ist zum aktuellen Zeitpunkt nicht verfügbar
 voter_msg_waiting_screen#:#Bitte warten
 voter_pin_form_title#:#LiveVoting starten
 voter_pin_input#:#PIN zum LiveVoting

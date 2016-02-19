@@ -74,7 +74,6 @@ qtype_4_save#:#Save
 qtype_4_your_order#:#Your Submission:
 qtype_form_header#:#Type-Settings
 qtype_multi_free_input#:#Multiple Inputs
-status#:#Status
 subtab_edit#:#Manage
 subtab_show#:#Show
 tab_content#:#Content
@@ -94,6 +93,7 @@ voter_msg_start_of_voting_screen#:#Please wait untill the Presenter starts the V
 voter_msg_validation_error_pin_1#:#This LiveVoting is not online
 voter_msg_validation_error_pin_2#:#Please log in to use this LiveVoting
 voter_msg_validation_error_pin_3#:#No LiveVoting with this PIN found
+voter_msg_validation_error_pin_4#:#This LiveVoting is not available at the Moment
 voter_msg_waiting_screen#:#Please wait
 voter_pin_form_title#:#Start LiveVoting
 voter_pin_input#:#PIN
