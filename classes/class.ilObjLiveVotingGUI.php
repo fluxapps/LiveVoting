@@ -11,6 +11,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVotingGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoPlayerGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Context/class.xlvoInitialisation.php');
+
 /**
  * Class ilObjLiveVotingGUI
  *
@@ -168,27 +169,22 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 				$this->ctrl->forwardCommand($xlvoVotingGUI);
 				break;
 
-			case 'xlvovotergui':
-				$xlvoVoterGUI = new xlvoVoterGUI();
-				$this->ctrl->forwardCommand($xlvoVoterGUI);
-				break;
-
 			case 'xlvoplayergui':
 				$xlvoPlayerGUI = new xlvoPlayerGUI();
 				$this->setSubTabs(self::TAB_CONTENT, self::SUBTAB_SHOW);
 				$this->ctrl->forwardCommand($xlvoPlayerGUI);
 				break;
 
-			case 'ilinfoscreengui':
-				$this->checkPermission('visible');
+			case "ilinfoscreengui":
+				$this->checkPermission("visible");
 				$this->infoScreen();    // forwards command
 				break;
 
 			case 'ilpermissiongui':
-				include_once('Services/AccessControl/classes/class.ilPermissionGUI.php');
+				include_once("Services/AccessControl/classes/class.ilPermissionGUI.php");
 				$perm_gui = new ilPermissionGUI($this);
-				$this->tabs->setTabActive('id_permissions');
-				$this->ctrl->forwardCommand($perm_gui);
+				$this->tabs->setTabActive("perm_settings");
+				$ret = $this->ctrl->forwardCommand($perm_gui);
 				break;
 
 			case 'ilobjectcopygui':
@@ -198,12 +194,17 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 				$this->ctrl->forwardCommand($cp);
 				break;
 
-			//			case 'illearningprogressgui':
-			//				$this->tabs->setTabActive('learning_progress');
-			//				include_once './Services/Tracking/classes/class.ilLearningProgressGUI.php';
-			//				$new_gui = new ilLearningProgressGUI(ilLearningProgressGUI::LP_CONTEXT_REPOSITORY, $this->object->getRefId(), $_GET['user_id'] ? $_GET['user_id'] : $GLOBALS['ilUser']->getId());
-			//				$this->ctrl->forwardCommand($new_gui);
-			//				break;
+			case 'illearningprogressgui':
+				$this->tabs->setTabActive("learning_progress");
+				include_once './Services/Tracking/classes/class.ilLearningProgressGUI.php';
+				$new_gui = new ilLearningProgressGUI(ilLearningProgressGUI::LP_CONTEXT_REPOSITORY, $this->object->getRefId(), $_GET['user_id'] ? $_GET['user_id'] : $GLOBALS['ilUser']->getId());
+				$this->ctrl->forwardCommand($new_gui);
+				break;
+			case 'ilcommonactiondispatchergui':
+				include_once("Services/Object/classes/class.ilCommonActionDispatcherGUI.php");
+				$gui = ilCommonActionDispatcherGUI::getInstanceFromAjaxCall();
+				$this->ctrl->forwardCommand($gui);
+				break;
 
 			default:
 				if (strtolower($_GET['baseClass']) == 'iladministrationgui') {
