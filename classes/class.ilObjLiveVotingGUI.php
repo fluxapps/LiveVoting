@@ -35,6 +35,13 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 	const SUBTAB_SHOW = 'subtab_show';
 	const SUBTAB_EDIT = 'subtab_edit';
 	const TAB_CONTENT = 'tab_content';
+	const F_TITLE = 'title';
+	const F_DESCRIPTION = 'description';
+	const F_ONLINE = 'online';
+	const F_ANONYMOUS = 'anonymous';
+	const F_REUSE_STATUS = 'reuse_status';
+	const F_TERMINABLE = 'terminable';
+	const F_TERMINABLE_SELECT = "terminable_select";
 	/**
 	 * @var ilTemplate
 	 */
@@ -302,27 +309,27 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 			$this->form = new ilPropertyFormGUI();
 			$this->form->setTitle($this->pl->txt('obj_edit_properties'));
 
-			$ti = new ilTextInputGUI($this->pl->txt('obj_title'), 'title');
+			$ti = new ilTextInputGUI($this->pl->txt('obj_title'), self::F_TITLE);
 			$ti->setRequired(true);
 			$this->form->addItem($ti);
-			$ta = new ilTextAreaInputGUI($this->pl->txt('obj_description'), 'description');
+			$ta = new ilTextAreaInputGUI($this->pl->txt('obj_description'), self::F_DESCRIPTION);
 			$this->form->addItem($ta);
-			$cb = new ilCheckboxInputGUI($this->pl->txt('obj_online'), 'online');
+			$cb = new ilCheckboxInputGUI($this->pl->txt('obj_online'), self::F_ONLINE);
 			$cb->setInfo($this->pl->txt('obj_info_online'));
 			$this->form->addItem($cb);
-			$cb = new ilCheckboxInputGUI($this->pl->txt('obj_anonymous'), 'anonymous');
+			$cb = new ilCheckboxInputGUI($this->pl->txt('obj_anonymous'), self::F_ANONYMOUS);
 			$cb->setInfo($this->pl->txt('obj_info_anonymous'));
 			$this->form->addItem($cb);
 
-			$cb = new ilCheckboxInputGUI($this->pl->txt('obj_reuse_status'), 'reuse_status');
+			$cb = new ilCheckboxInputGUI($this->pl->txt('obj_reuse_status'), self::F_REUSE_STATUS);
 			$cb->setInfo($this->pl->txt('obj_info_reuse_status'));
 //			$this->form->addItem($cb);
 
-			$cb = new ilCheckboxInputGUI($this->pl->txt('obj_terminable'), 'terminable');
+			$cb = new ilCheckboxInputGUI($this->pl->txt('obj_terminable'), self::F_TERMINABLE);
 			$cb->setInfo($this->pl->txt('obj_info_terminable'));
 //			$this->form->addItem($cb);
 
-			$te = new ilDateDurationInputGUI($this->pl->txt("obj_terminable_select"), "terminable_select");
+			$te = new ilDateDurationInputGUI($this->pl->txt("obj_terminable_select"), self::F_TERMINABLE_SELECT);
 			$te->setShowTime(true);
 			$te->setStartText($this->pl->txt('obj_terminable_select_start_time'));
 			$te->setEndText($this->pl->txt('obj_terminable_select_end_time'));
@@ -343,7 +350,6 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 			$cb->addSubItem($te);
 
 			$this->form->addCommandButton('updateProperties', $this->pl->txt('obj_save'));
-
 			$this->form->setFormAction($this->ctrl->getFormAction($this));
 		}
 	}
@@ -356,12 +362,12 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 		 */
 		$config = xlvoVotingConfig::find($this->obj_id);
 
-		$values['title'] = $this->object->getTitle();
-		$values['description'] = $this->object->getDescription();
-		$values['online'] = $config->isObjOnline();
-		$values['anonymous'] = $config->isAnonymous();
-		$values['terminable'] = $config->isTerminable();
-		$values['reuse_status'] = $config->isReuseStatus();
+		$values[self::F_TITLE] = $this->object->getTitle();
+		$values[self::F_DESCRIPTION] = $this->object->getDescription();
+		$values[self::F_ONLINE] = $config->isObjOnline();
+		$values[self::F_ANONYMOUS] = $config->isAnonymous();
+		$values[self::F_TERMINABLE] = $config->isTerminable();
+		$values[self::F_REUSE_STATUS] = $config->isReuseStatus();
 
 		$this->form->setValuesByArray($values);
 	}
@@ -375,20 +381,20 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 			$this->initPropertiesForm();
 
 			if ($this->form->checkInput()) {
-				$this->object->setTitle($this->form->getInput('title'));
-				$this->object->setDescription($this->form->getInput('description'));
+				$this->object->setTitle($this->form->getInput(self::F_TITLE));
+				$this->object->setDescription($this->form->getInput(self::F_DESCRIPTION));
 				$this->object->update();
 
 				/**
 				 * @var xlvoVotingConfig $config
 				 */
 				$config = xlvoVotingConfig::find($this->obj_id);
-				$config->setObjOnline($this->form->getInput('online'));
-				$config->setAnonymous($this->form->getInput('anonymous'));
-				$config->setReuseStatus($this->form->getInput('reuse_status'));
-				$terminable = $this->form->getInput('terminable');
+				$config->setObjOnline($this->form->getInput(self::F_ONLINE));
+				$config->setAnonymous($this->form->getInput(self::F_ANONYMOUS));
+				$config->setReuseStatus($this->form->getInput(self::F_REUSE_STATUS));
+				$terminable = $this->form->getInput(self::F_TERMINABLE);
 				$config->setTerminable($terminable);
-				$terminable_select = $this->form->getInput("terminable_select");
+				$terminable_select = $this->form->getInput(self::F_TERMINABLE_SELECT);
 				if ($terminable) {
 					$config->setStartDate($this->getDateTimeFromArray($terminable_select['start']));
 					$config->setEndDate($this->getDateTimeFromArray($terminable_select['end']));
@@ -396,6 +402,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 					$config->setStartDate(NULL);
 					$config->setEndDate(NULL);
 				}
+
 				$config->update();
 				ilUtil::sendSuccess($this->pl->txt('obj_msg_properties_form_saved'), true);
 				$this->ctrl->redirect($this, self::CMD_EDIT);
