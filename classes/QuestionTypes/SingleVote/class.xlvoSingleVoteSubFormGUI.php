@@ -29,15 +29,18 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 		//		$cb->setInfo($this->pl->txt('info_singlevote_colors'));
 		//		$this->addFormElement($cb);
 
-		$mli = new xlvoMultiLineInputGUI($this->txt(self::F_OPTIONS), self::F_OPTIONS);
+		$xlvoMultiLineInputGUI = new xlvoMultiLineInputGUI($this->txt(self::F_OPTIONS), self::F_OPTIONS);
+		$xlvoMultiLineInputGUI->setShowLabel(true);
+		$xlvoMultiLineInputGUI->setPositionMovable(true);
+
 		$te = new ilTextInputGUI($this->txt('option_text'), self::F_TEXT);
 		$te->setInlineStyle('width: 350px;');
-		$mli->addInput($te);
+		$xlvoMultiLineInputGUI->addInput($te);
 
 		$h = new ilHiddenInputGUI(self::F_ID);
-		$mli->addInput($h);
+		$xlvoMultiLineInputGUI->addInput($h);
 
-		$this->addFormElement($mli);
+		$this->addFormElement($xlvoMultiLineInputGUI);
 	}
 
 
@@ -52,16 +55,19 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 				$this->getXlvoVoting()->setMultiSelection($value);
 				break;
 			case self::F_OPTIONS:
+				$position = 0;
 				foreach ($value as $item) {
 					/**
 					 * @var $xlvoOption xlvoOption
 					 */
 					$xlvoOption = xlvoOption::findOrGetInstance($item[self::F_ID]);
 					$xlvoOption->setText($item[self::F_TEXT]);
+					$xlvoOption->setPosition($position);
 					$xlvoOption->setStatus(xlvoOption::STAT_ACTIVE);
 					$xlvoOption->setVotingId($this->getXlvoVoting()->getId());
 					$xlvoOption->setType($this->getXlvoVoting()->getVotingType());
 					$this->options[] = $xlvoOption;
+					$position ++;
 				}
 				break;
 			case self::F_COLORS:
@@ -88,10 +94,11 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 				$options = $this->getXlvoVoting()->getVotingOptions();
 				foreach ($options as $option) {
 					$array[] = array(
-						self::F_ID => $option->getId(),
+						self::F_ID   => $option->getId(),
 						self::F_TEXT => $option->getText(),
 					);
 				}
+
 				return $array;
 
 			case self::F_COLORS:
