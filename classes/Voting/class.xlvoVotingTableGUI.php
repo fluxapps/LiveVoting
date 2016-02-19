@@ -59,6 +59,7 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 
 		$this->setRowTemplate('tpl.tbl_voting.html', 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting');
 		$this->setExternalSorting(true);
+		$this->setExternalSegmentation(true);
 		$this->initColums();
 		$this->addFilterItems();
 		$this->parseData();
@@ -186,7 +187,7 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 		$this->determineLimit();
 
 		$collection = xlvoVoting::where(array( 'obj_id' => $this->voting_gui->getObjId() ))->orderBy('position', 'ASC');
-
+		$this->setMaxCount($collection->count());
 		$sorting_column = $this->getOrderField() ? $this->getOrderField() : 'position';
 		$offset = $this->getOffset() ? $this->getOffset() : 0;
 
