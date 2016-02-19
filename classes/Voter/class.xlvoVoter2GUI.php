@@ -68,9 +68,9 @@ class xlvoVoter2GUI extends xlvoGUI {
 
 
 	protected function index() {
-		//		if ($this->manager->getObjId() > 0) {
-		//			$this->ctrl->redirect($this, self::CMD_START_VOTER_PLAYER);
-		//		}
+		if ($this->manager->getObjId() > 0) {
+			$this->ctrl->redirect($this, self::CMD_START_VOTER_PLAYER);
+		}
 		$tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voter/tpl.pin.html', true, false);
 		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/default.css');
 		$pin_form = new ilPropertyFormGUI();
@@ -101,8 +101,8 @@ class xlvoVoter2GUI extends xlvoGUI {
 			$redirect = false;
 		}
 		if ($redirect) {
-			xlvoInitialisation::setCookiePIN($_POST[self::F_PIN_INPUT]);
-			$this->ctrl->redirect($this, self::CMD_START_VOTER_PLAYER);
+//			xlvoInitialisation::setCookiePIN($_POST[self::F_PIN_INPUT]);
+//			$this->ctrl->redirect($this, self::CMD_START_VOTER_PLAYER);
 		}
 	}
 

@@ -108,13 +108,25 @@ class xlvoVotingConfig extends ActiveRecord {
 
 
 	/**
-	 * @return string
+	 * @return bool
 	 */
-	public function getRedirectURL() {
-		$ref_id = array_shift(array_values(ilObject2::_getAllReferences($this->getObjId())));
-		$ilias_http_path = $directory = strstr($_SERVER['SCRIPT_URI'], 'Customizing', true);
+	public function isAvailableForUser() {
+		if (!$this->getObjId()) {
+			return false;
+		}
+		$available = true;
+		require_once('./Services/Object/classes/class.ilObjectActivation.php');
+		$ref_ids = ilObject2::_getAllReferences($this->getObjId());
+		foreach ($ref_ids as $ref_id) {
+			$item_data = ilObjectActivation::getItem($ref_id);
+			if ($item_data['timing_type'] == ilObjectActivation::TIMINGS_ACTIVATION) {
+				if ($item_data['timing_start'] > time() || $item_data['timing_end'] < time()) {
+					$available = false;
+				}
+			}
+		}
 
-		return $ilias_http_path . 'goto.php?target=xlvo_' . $ref_id . '_pin_' . $this->getPin() . '&client_id=' . CLIENT_ID;
+		return $available;
 	}
 
 

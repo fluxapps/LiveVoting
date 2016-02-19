@@ -51,6 +51,12 @@ class xlvoPin {
 				}
 			}
 
+			if (!$xlvoVotingConfig->isAvailableForUser() && xlvoUser::getInstance()->isPINUser()) {
+				if ($safe_mode) {
+					throw new xlvoVoterException('', xlvoVoterException::VOTING_UNAVAILABLE);
+				}
+			}
+
 			return $xlvoVotingConfig->getObjId();
 		}
 		if ($safe_mode) {
