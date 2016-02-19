@@ -5,9 +5,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoLinkButton.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoGlyphGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoDisplayPlayerGUI.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/lib/QrCode-master/src/QrCode.php');
-require_once('./Services/UIComponent/Modal/classes/class.ilModalGUI.php');
-use Endroid\QrCode\QrCode;
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/Modal/class.xlvoQRModalGUI.php');
 
 /**
  * Class xlvoPlayerGUI
@@ -82,38 +80,10 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$xlvoVotingConfig = $this->manager->getVotingConfig();
 		$template->setVariable('PIN', $xlvoVotingConfig->getPin());
 
-		// QR-Code implementation
 		$short_link = xlvoConf::getShortLinkURL() . $xlvoVotingConfig->getPin();
-		$qrCode = new QrCode($short_link);
-		$qrCode->setErrorCorrection('high');
-		$qrCode->setForegroundColor(array(
-			'r' => 0,
-			'g' => 0,
-			'b' => 0,
-			'a' => 0,
-		));
-		$qrCode->setBackgroundColor(array(
-			'r' => 255,
-			'g' => 255,
-			'b' => 255,
-			'a' => 0,
-		));
-		$qrCode->setPadding(10);
-		$qrCode->setSize(180);
-		$qrCodeLarge = clone($qrCode);
-		$qrCodeLarge->setSize(750);
-
-		$template->setVariable('QR-CODE', $qrCode->getDataUri());
+		$template->setVariable('QR-CODE', xlvoQR::getImageDataString($short_link, 180));
 		$template->setVariable('SHORTLINK', $short_link);
-
-		$ilModalGUI = ilModalGUI::getInstance();
-		$ilModalGUI->setId('QRModal');
-		$ilModalGUI->setHeading('PIN: ' . $xlvoVotingConfig->getPin());
-		$modal_body = '<span class="label label-primary">' . $short_link . '</span>';
-		$modal_body .= '<img id="xlvo-modal-qr" src="' . $qrCodeLarge->getDataUri() . '">';
-		$ilModalGUI->setBody($modal_body);
-		$ilModalGUI->setType(ilModalGUI::TYPE_LARGE);
-		$template->setVariable('MODAL', $ilModalGUI->getHTML());
+		$template->setVariable('MODAL', xlvoQRModalGUI::getInstanceFromVotingConfig($xlvoVotingConfig)->getHTML());
 
 		if ($this->manager->getVotingConfig()->isShowAttendees()) {
 			xlvoJs::getInstance()->ilias($this)->name('Player')->init()->call('updateAttendees');
@@ -133,7 +103,12 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$this->initJS();
 		$this->initToolbarDuringVoting();
 		$this->manager->getPlayer()->unfreeze();
-		$this->tpl->setContent($this->getPlayerHTML());
+		$modal = xlvoQRModalGUI::getInstanceFromVotingConfig($this->manager->getVotingConfig())->getHTML();
+		$this->tpl->setContent($modal . $this->getPlayerHTML());
+		if ($this->manager->getVotingConfig()->isSelfVote()) {
+			$url = xlvoConf::getShortLinkURL() . $this->manager->getVotingConfig()->getPin();
+			$this->tpl->setRightContent('<iframe class="xlvo-preview" src="' . $url . '"> </iframe>');
+		}
 	}
 
 
@@ -146,7 +121,8 @@ class xlvoPlayerGUI extends xlvoGUI {
 		}
 		$this->initJS($settings);
 		$this->initToolbarDuringVoting();
-		$this->tpl->setContent($this->getPlayerHTML());
+		$modal = xlvoQRModalGUI::getInstanceFromVotingConfig($this->manager->getVotingConfig())->getHTML();
+		$this->tpl->setContent($modal . $this->getPlayerHTML());
 		if ($this->manager->getVotingConfig()->isSelfVote()) {
 			$url = xlvoConf::getShortLinkURL() . $this->manager->getVotingConfig()->getPin();
 			$this->tpl->setRightContent('<iframe class="xlvo-preview" src="' . $url . '"> </iframe>');
