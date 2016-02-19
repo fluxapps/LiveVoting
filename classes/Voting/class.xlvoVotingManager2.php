@@ -11,6 +11,10 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 class xlvoVotingManager2 {
 
 	/**
+	 * @var xlvoVotingManager2[]
+	 */
+	protected static $instances = array();
+	/**
 	 * @var xlvoPlayer
 	 */
 	protected $player;
@@ -46,12 +50,16 @@ class xlvoVotingManager2 {
 	 * @return xlvoVotingManager2
 	 */
 	public static function getInstanceFromObjId($obj_id) {
-		/**
-		 * @var $xlvoVotingConfig xlvoVotingConfig
-		 */
-		$xlvoVotingConfig = xlvoVotingConfig::findOrGetInstance($obj_id);
+		if (!isset(self::$instances[$obj_id])) {
+			/**
+			 * @var $xlvoVotingConfig xlvoVotingConfig
+			 */
+			$xlvoVotingConfig = xlvoVotingConfig::findOrGetInstance($obj_id);
 
-		return new self($xlvoVotingConfig->getPin());
+			self::$instances[$obj_id] = new self($xlvoVotingConfig->getPin());
+		}
+
+		return self::$instances[$obj_id];
 	}
 
 
