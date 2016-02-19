@@ -79,6 +79,10 @@ li.ilToolbarTextonly button {
   font-size: 1.2em;
   line-height: 1.2em;
 }
+h1.xlvo-option {
+  font-size: 1.4em;
+  line-height: 1.4em;
+}
 #xlvo-player-header h1.pull-right {
   margin-left: 5px;
 }

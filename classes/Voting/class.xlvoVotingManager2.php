@@ -187,6 +187,9 @@ class xlvoVotingManager2 {
 
 
 	public function previous() {
+		if ($this->getVoting()->isFirst()) {
+			return false;
+		}
 		$prev_id = $this->getVotingsList('DESC')->where(array( 'position' => $this->voting->getPosition() ), '<')->limit(0, 1)->getArray('id', 'id');
 		$prev_id = array_shift(array_values($prev_id));
 		$this->player->setActiveVoting($prev_id);
@@ -206,6 +209,9 @@ class xlvoVotingManager2 {
 
 
 	public function next() {
+		if ($this->getVoting()->isLast()) {
+			return false;
+		}
 		$next_id = $this->getVotingsList()->where(array( 'position' => $this->voting->getPosition() ), '>')->limit(0, 1)->getArray('id', 'id');
 		$next_id = array_shift(array_values($next_id));
 		$this->player->setActiveVoting($next_id);

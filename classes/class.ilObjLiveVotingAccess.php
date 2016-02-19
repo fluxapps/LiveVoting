@@ -176,7 +176,7 @@ class ilObjLiveVotingAccess extends ilObjectPluginAccess {
 //			}
 //		}
 
-		$ilLog->write('XLVO check permission ' . $permission . ' for user ' . $user_id . ' on ref_id ' . $ref_id);
+//		$ilLog->write('XLVO check permission ' . $permission . ' for user ' . $user_id . ' on ref_id ' . $ref_id);
 
 		return $ilAccess->checkAccessOfUser($user_id, $permission, '', $ref_id);
 	}

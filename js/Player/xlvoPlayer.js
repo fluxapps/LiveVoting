@@ -12,7 +12,7 @@ var xlvoPlayer = {
 
         $('#QRModal').on('show.bs.modal', function () {
             $('.modal-content').css('height', $(window).height() * 0.95);
-            $('.modal-content img').css('height', $('.modal-content').height() -120);
+            $('.modal-content img').css('height', $('.modal-content').height() - 120);
         });
     },
     delay: 1000,
@@ -34,7 +34,8 @@ var xlvoPlayer = {
         counter: 0,
         is_first: true,
         is_last: false,
-        attendees: 0
+        attendees: 0,
+        votes: 0
     },
     run: function () {
         this.registerElements();
@@ -70,6 +71,26 @@ var xlvoPlayer = {
             });
         }
     }, registerElements: function () {
+        $(document).keydown(function (e) {
+            switch (e.which) {
+                case 82: // R
+                    xlvoPlayer.callPlayer('toggle_results');
+                    break;
+                case 32: // space
+                    xlvoPlayer.callPlayer('toggle_freeze');
+                    break;
+                case 37: // left
+                    xlvoPlayer.callPlayer('previous');
+                    break;
+                case 39: // right
+                    xlvoPlayer.callPlayer('next');
+                    break;
+                default:
+                    return;
+            }
+            e.preventDefault();
+        });
+
         this.btn_freeze = $('#btn-freeze');
         this.btn_previous = $('#btn-previous');
         this.btn_next = $('#btn-next');
@@ -85,22 +106,22 @@ var xlvoPlayer = {
         this.div_display_results = $('#xlvo-display-results');
 
         this.btn_freeze.click(function () {
-            xlvoPlayer.callPlayer('freeze');
+            xlvoPlayer.callPlayer('toggle_freeze');
             return false;
         });
 
         this.btn_unfreeze.click(function () {
-            xlvoPlayer.callPlayer('unfreeze');
+            xlvoPlayer.callPlayer('toggle_freeze');
             return false;
         });
 
         this.btn_hide_results.click(function () {
-            xlvoPlayer.callPlayer('hide');
+            xlvoPlayer.callPlayer('toggle_results');
             return false;
         });
 
         this.btn_show_results.click(function () {
-            xlvoPlayer.callPlayer('show');
+            xlvoPlayer.callPlayer('toggle_results');
             return false;
         });
 
@@ -122,11 +143,16 @@ var xlvoPlayer = {
         if (this.player.frozen) {
             this.btn_freeze.parent().hide();
             this.btn_unfreeze.parent().show();
-            this.btn_reset.removeAttr('disabled');
+            if (this.player.votes > 0) {
+                this.btn_reset.removeAttr('disabled');
+            } else {
+                this.btn_reset.attr('disabled', 'disabled');
+            }
         } else {
             this.btn_unfreeze.parent().hide();
             this.btn_freeze.parent().show();
             this.btn_reset.attr('disabled', 'disabled');
+
         }
         if (this.player.show_results) {
             this.btn_hide_results.parent().show();
@@ -158,7 +184,6 @@ var xlvoPlayer = {
     },
     getPlayerData: function () {
         $.get(xlvoPlayer.config.base_url, {cmd: 'getPlayerData'}).done(function (data) {
-            console.log(data);
             xlvoPlayer.counter++;
             if ((xlvoPlayer.counter > xlvoPlayer.forced_update_interval) || (data.player.last_update != xlvoPlayer.player.last_update) || (data.player.show_results != xlvoPlayer.player.show_results) || (data.player.status != xlvoPlayer.player.status) || (data.player.active_voting_id != xlvoPlayer.player.active_voting_id)) {
                 $('#xlvo-display-player').html(data.player_html);

@@ -2,6 +2,8 @@
 
 require_once('./Services/ActiveRecord/class.ActiveRecord.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voter/class.xlvoVoter.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Vote/class.xlvoVote.php');
+
 /**
  * Class xlvoPlayer
  *
@@ -50,6 +52,7 @@ class xlvoPlayer extends ActiveRecord {
 		if ($simulate_user && $this->isFrozenOrUnattended()) {
 			return self::STAT_FROZEN;
 		}
+
 		return $this->status;
 	}
 
@@ -68,6 +71,13 @@ class xlvoPlayer extends ActiveRecord {
 	}
 
 
+	public function toggleFreeze() {
+		$this->setFrozen(!$this->isFrozen());
+		$this->setStatus(self::STAT_RUNNING);
+		$this->update();
+	}
+
+
 	public function show() {
 		$this->setShowResults(true);
 		$this->update();
@@ -76,6 +86,12 @@ class xlvoPlayer extends ActiveRecord {
 
 	public function hide() {
 		$this->setShowResults(false);
+		$this->update();
+	}
+
+
+	public function toggleResults() {
+		$this->setShowResults(!$this->isShowResults());
 		$this->update();
 	}
 
@@ -113,10 +129,14 @@ class xlvoPlayer extends ActiveRecord {
 		$obj->active_voting_id = (int)$this->getActiveVoting();
 		$obj->show_results = (bool)$this->isShowResults();
 		$obj->frozen = (bool)$this->isFrozen();
+		$obj->votes = (int)xlvoVote::where(array(
+			'voting_id' => $this->getCurrentVotingObject()->getId(),
+			'status'    => xlvoVote::STAT_ACTIVE,
+		))->count();
 
 		$last_update = xlvoVote::where(array(
 			'voting_id' => $this->getActiveVoting(),
-			'status' => xlvoVote::STAT_ACTIVE
+			'status'    => xlvoVote::STAT_ACTIVE,
 		))->orderBy('last_update', 'DESC')->getArray('last_update', 'last_update');
 		$last_update = array_shift(array_values($last_update));
 		$obj->last_update = (int)$last_update;
@@ -174,6 +194,7 @@ class xlvoPlayer extends ActiveRecord {
 		if ($this->getStatus() == self::STAT_STOPPED) {
 			return false;
 		}
+
 		return (bool)($this->getTimestampRefresh() < (time() - self::SECONDS_ACTIVE));
 	}
 

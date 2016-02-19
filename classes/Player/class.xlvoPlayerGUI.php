@@ -196,17 +196,11 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 	protected function apiCall() {
 		switch ($_POST['call']) {
-			case 'freeze':
-				$this->manager->getPlayer()->freeze();
+			case 'toggle_freeze':
+				$this->manager->getPlayer()->toggleFreeze();
 				break;
-			case 'unfreeze':
-				$this->manager->getPlayer()->unfreeze();
-				break;
-			case 'show':
-				$this->manager->getPlayer()->show();
-				break;
-			case 'hide':
-				$this->manager->getPlayer()->hide();
+			case 'toggle_results':
+				$this->manager->getPlayer()->toggleResults();
 				break;
 			case 'reset':
 				$this->manager->reset();
