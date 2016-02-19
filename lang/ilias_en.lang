@@ -29,6 +29,7 @@ obj_terminable_select_end_time#:#End
 obj_terminable_select_start_time#:#Start
 obj_title#:#Title
 obj_xlvo#:#LiveVoting
+obj_xlvo_duplicate#:#Clone existing LiveVoting
 objs_xlvo#:#LiveVotings
 objs_xlvo_duplicate#:#Clone existing LiveVoting
 offline#:#Offline
@@ -132,6 +133,7 @@ voting_type_4_info#:#Terms must be sorted in the correct order.
 voting_update#:#Update
 xlvo_add#:#Add
 xlvo_delete#:#Delete LiveVoting
+xlvo_edit#:#Edit
 xlvo_edit_permission#:#Edit Permissions
 xlvo_new#:#Add new LiveVoting
 xlvo_read#:#(Not used)

@@ -27,6 +27,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Vote/class.xlvoVote.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Option/class.xlvoOption.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Pin/class.xlvoPin.php');
+
 /**
  * Class ilObjLiveVoting
  *
@@ -81,9 +82,6 @@ class ilObjLiveVoting extends ilObjectPlugin {
 		$config->setPin($xlvoPin->getPin());
 		$config->save();
 	}
-
-
-
 
 
 	/**
@@ -164,8 +162,8 @@ class ilObjLiveVoting extends ilObjectPlugin {
 			$config_clone = $config->copy();
 			$config_clone->setObjId($new_obj->getId());
 			// set unique pin for cloned object
-			$pin = $this->createPin();
-			$config_clone->setPin($pin);
+			$xlvoPin = new xlvoPin();
+			$config_clone->setPin($xlvoPin->getPin());
 			$config_clone->update();
 		}
 

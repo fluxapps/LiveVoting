@@ -39,7 +39,9 @@ class ilObjLiveVotingListGUI extends ilObjectPluginListGUI {
 	 */
 	function initType() {
 		$this->setType("xlvo");
+		$this->copy_enabled = true;
 	}
+
 
 
 	/**
@@ -57,14 +59,14 @@ class ilObjLiveVotingListGUI extends ilObjectPluginListGUI {
 		return array(
 			array(
 				"permission" => "read",
-				"cmd" => "showContent",
-				"default" => true
+				"cmd"        => "showContent",
+				"default"    => true,
 			),
 			array(
 				"permission" => "write",
-				"cmd" => "editProperties",
-				"txt" => $this->txt("edit"),
-				"default" => false
+				"cmd"        => "editProperties",
+				"txt"        => $this->txt("xlvo_edit"),
+				"default"    => false,
 			),
 		);
 	}
@@ -83,11 +85,11 @@ class ilObjLiveVotingListGUI extends ilObjectPluginListGUI {
 		$props = array();
 
 		$this->plugin->includeClass("class.ilObjLiveVotingAccess.php");
-		if (! ilObjLiveVotingAccess::checkOnline($this->obj_id)) {
+		if (!ilObjLiveVotingAccess::checkOnline($this->obj_id)) {
 			$props[] = array(
-				"alert" => true,
+				"alert"    => true,
 				"property" => $this->txt("status"),
-				"value" => $this->txt("offline")
+				"value"    => $this->txt("offline"),
 			);
 		}
 

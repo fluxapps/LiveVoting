@@ -30,6 +30,7 @@ obj_terminable_select_end_time#:#Ende
 obj_terminable_select_start_time#:#Start
 obj_title#:#Titel
 obj_xlvo#:#LiveVoting
+obj_xlvo_duplicate#:#Bestehendes LiveVoting kopieren
 objs_xlvo#:#LiveVotings
 objs_xlvo_duplicate#:#Bestehendes LiveVoting kopieren
 offline#:#Offline
@@ -133,6 +134,7 @@ voting_type_4_info#:#Begriffe müssen in die richtige Reihenfolge gebracht werde
 voting_update#:#Speichern
 xlvo_add#:#Hinzufügen
 xlvo_delete#:#LiveVoting löschen
+xlvo_edit#:#Bearbeiten
 xlvo_edit_permission#:#Rechte bearbeiten
 xlvo_new#:#Neues LiveVoting anlegen
 xlvo_read#:#(keine Auswirkung)
