@@ -1,5 +1,7 @@
 <?php
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingConfig.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/User/class.xlvoUser.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voter/ex.xlvoVoterException.php');
 
 /**
  * Class xlvoPin
@@ -32,14 +34,23 @@ class xlvoPin {
 
 	/**
 	 * @param $pin
-	 * @return bool|int
+	 * @return int
+	 * @throws \xlvoVoterException
 	 */
 	public static function checkPin($pin) {
 		$xlvoVotingConfig = xlvoVotingConfig::where(array( 'pin' => $pin ))->first();
 		if ($xlvoVotingConfig instanceof xlvoVotingConfig) {
+			if (!$xlvoVotingConfig->isObjOnline()) {
+				throw new xlvoVoterException('', xlvoVoterException::VOTING_OFFLINE);
+			}
+			if (!$xlvoVotingConfig->isAnonymous() && xlvoUser::getInstance()->isPINUser()) {
+				throw new xlvoVoterException('', xlvoVoterException::VOTING_NOT_ANONYMOUS);
+			}
+
 			return $xlvoVotingConfig->getObjId();
 		}
-		return false;
+
+		throw new xlvoVoterException('', xlvoVoterException::VOTING_PIN_NOT_FOUND);
 	}
 
 

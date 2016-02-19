@@ -7,11 +7,12 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Services/jQuery/classes/class.iljQueryUtil.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoQuestionTypes.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVotingManager2.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voter/ex.xlvoVoterException.php');
 
 /**
  * Class xlvoVoter2GUI
  *
- * @author Fabian Schmid <fs@studer-raimann.ch>
+ * @author            Fabian Schmid <fs@studer-raimann.ch>
  *
  * @ilCtrl_isCalledBy xlvoVoter2GUI: ilUIPluginRouterGUI
  */
@@ -67,9 +68,9 @@ class xlvoVoter2GUI extends xlvoGUI {
 
 
 	protected function index() {
-		if ($this->manager->getObjId()) {
-			$this->ctrl->redirect($this, self::CMD_START_VOTER_PLAYER);
-		}
+		//		if ($this->manager->getObjId() > 0) {
+		//			$this->ctrl->redirect($this, self::CMD_START_VOTER_PLAYER);
+		//		}
 		$tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voter/tpl.pin.html', true, false);
 		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voting/display/default.css');
 		$pin_form = new ilPropertyFormGUI();
@@ -90,10 +91,16 @@ class xlvoVoter2GUI extends xlvoGUI {
 
 
 	protected function checkPin() {
-		if (!xlvoPin::checkPin($_POST[self::F_PIN_INPUT])) {
-			ilUtil::sendFailure($this->pl->txt('msg_validation_error_pin'));
+		$redirect = true;
+		try {
+			xlvoPin::checkPin($_POST[self::F_PIN_INPUT]);
+		} catch (xlvoVoterException $e) {
+			xlvoInitialisation::resetCookiePIN();
+			ilUtil::sendFailure($this->txt('msg_validation_error_pin_' . $e->getCode()));
 			$this->index();
-		} else {
+			$redirect = false;
+		}
+		if ($redirect) {
 			xlvoInitialisation::setCookiePIN($_POST[self::F_PIN_INPUT]);
 			$this->ctrl->redirect($this, self::CMD_START_VOTER_PLAYER);
 		}
@@ -117,9 +124,9 @@ class xlvoVoter2GUI extends xlvoGUI {
 	protected function initJs() {
 		iljQueryUtil::initjQueryUI();
 		$settings = array(
-			'player_id' => '#xlvo_voter_player',
-			'obj_id' => $this->manager->getObjId(),
-			'cmd_voting_data' => self::CMD_GET_VOTING_DATA
+			'player_id'       => '#xlvo_voter_player',
+			'obj_id'          => $this->manager->getObjId(),
+			'cmd_voting_data' => self::CMD_GET_VOTING_DATA,
 		);
 		xlvoJs::getInstance()->api($this, array( 'ilUIPluginRouterGUI' ))->name('Voter')->addSettings($settings)->init()->call('run');
 		foreach (xlvoQuestionTypes::getActiveTypes() as $type) {

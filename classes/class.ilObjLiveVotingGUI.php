@@ -10,7 +10,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilLiveVotingPlugin.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVotingGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoPlayerGUI.php');
-
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Context/class.xlvoInitialisation.php');
 /**
  * Class ilObjLiveVotingGUI
  *
@@ -130,7 +130,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 			// show info of parent
 			$this->tpl->setTitle(ilObject::_lookupTitle(ilObject::_lookupObjId($_GET['ref_id'])));
 			$this->tpl->setTitleIcon(ilObject::_getIcon(ilObject::_lookupObjId($_GET['ref_id']), 'big'), $this->pl->txt('obj_'
-				. ilObject::_lookupType($_GET['ref_id'], true)));
+			                                                                                                            . ilObject::_lookupType($_GET['ref_id'], true)));
 			$this->setLocator();
 		}
 	}
@@ -144,6 +144,22 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 
 		$next_class = $this->ctrl->getNextClass($this);
 		$cmd = $this->ctrl->getCmd();
+
+		if (!$this->access->hasWriteAccess()) {
+			$xlvoVotingManager2 = xlvoVotingManager2::getInstanceFromObjId($this->obj_id);
+			global $ilCtrl;
+			/**
+			 * @var ilCtrl $ilCtrl
+			 */
+			xlvoInitialisation::setCookiePIN($xlvoVotingManager2->getVotingConfig()->getPin(), true);
+
+			$ilCtrl->initBaseClass('ilUIPluginRouterGUI');
+			$ilCtrl->setTargetScript(xlvoConf::getFullApiURL());
+			$ilCtrl->redirectByClass(array(
+				'ilUIPluginRouterGUI',
+				'xlvoVoter2GUI',
+			));
+		}
 
 		switch ($next_class) {
 			case 'xlvovotinggui':
@@ -323,11 +339,11 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 
 			$cb = new ilCheckboxInputGUI($this->pl->txt('obj_reuse_status'), self::F_REUSE_STATUS);
 			$cb->setInfo($this->pl->txt('obj_info_reuse_status'));
-//			$this->form->addItem($cb);
+			//			$this->form->addItem($cb);
 
 			$cb = new ilCheckboxInputGUI($this->pl->txt('obj_terminable'), self::F_TERMINABLE);
 			$cb->setInfo($this->pl->txt('obj_info_terminable'));
-//			$this->form->addItem($cb);
+			//			$this->form->addItem($cb);
 
 			$te = new ilDateDurationInputGUI($this->pl->txt("obj_terminable_select"), self::F_TERMINABLE_SELECT);
 			$te->setShowTime(true);
@@ -339,7 +355,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 			 */
 			$config = xlvoVotingConfig::find($this->obj_id);
 			if ($config->isTerminable()) {
-				if (!$config->getStartDate() == NULL) {
+				if (!$config->getStartDate() == null) {
 					$te->setStart(new ilDateTime($config->getStartDate(), IL_CAL_DATETIME, $this->usr->getTimeZone()));
 					$te->setEnd(new ilDateTime($config->getEndDate(), IL_CAL_DATETIME, $this->usr->getTimeZone()));
 				} else {
@@ -399,8 +415,8 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 					$config->setStartDate($this->getDateTimeFromArray($terminable_select['start']));
 					$config->setEndDate($this->getDateTimeFromArray($terminable_select['end']));
 				} else {
-					$config->setStartDate(NULL);
-					$config->setEndDate(NULL);
+					$config->setStartDate(null);
+					$config->setEndDate(null);
 				}
 
 				$config->update();
@@ -454,7 +470,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 			$ilCtrl->setTargetScript('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/xlvoILIAS.php');
 			$ilCtrl->redirectByClass(array(
 				'ilUIPluginRouterGUI',
-				'xlvoVoterGUI'
+				'xlvoVoterGUI',
 			));
 		}
 
