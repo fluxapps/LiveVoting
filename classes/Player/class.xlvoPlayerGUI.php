@@ -206,7 +206,11 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$b->setCaption(xlvoGlyphGUI::get('pause') . $this->txt('freeze'), false);
 		$b->setUrl('#');
 		$b->setId('btn-freeze');
-		$this->toolbar->addButtonInstance($b);
+		if (method_exists($this->toolbar, 'addStickyItem')) { // Only ILIAS 5.1
+			$this->toolbar->addStickyItem($b);
+		} else {
+			$this->toolbar->addButtonInstance($b);
+		}
 
 		// Unfreeze
 		$b = ilLinkButton::getInstance();
