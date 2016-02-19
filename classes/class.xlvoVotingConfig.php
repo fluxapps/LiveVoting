@@ -101,6 +101,10 @@ class xlvoVotingConfig extends ActiveRecord {
 	 * @var bool
 	 */
 	protected $self_vote = false;
+	/**
+	 * @var bool
+	 */
+	protected $keyboard_active = false;
 
 
 	/**
@@ -303,5 +307,21 @@ class xlvoVotingConfig extends ActiveRecord {
 	 */
 	public function setSelfVote($self_vote) {
 		$this->self_vote = $self_vote;
+	}
+
+
+	/**
+	 * @return boolean
+	 */
+	public function isKeyboardActive() {
+		return $this->keyboard_active;
+	}
+
+
+	/**
+	 * @param boolean $keyboard_active
+	 */
+	public function setKeyboardActive($keyboard_active) {
+		$this->keyboard_active = $keyboard_active;
 	}
 }

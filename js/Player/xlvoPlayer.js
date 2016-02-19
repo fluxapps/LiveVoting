@@ -16,6 +16,7 @@ var xlvoPlayer = {
         });
     },
     delay: 1000,
+    timeout: null,
     forced_update_interval: 3,
     config: {
         base_url: '',
@@ -23,7 +24,7 @@ var xlvoPlayer = {
         lng: {
             player_voters_online: 'Online'
         },
-        status_running: -1
+        status_running: -1,
     },
     player: {
         status: -1,
@@ -73,16 +74,19 @@ var xlvoPlayer = {
     }, registerElements: function () {
         $(document).keydown(function (e) {
             switch (e.which) {
-                case 82: // R
+                case xlvoPlayer.config.keyboard.toggle_results:
                     xlvoPlayer.callPlayer('toggle_results');
                     break;
-                case 32: // space
+                case xlvoPlayer.config.keyboard.toggle_freeze:
+                case 66:
                     xlvoPlayer.callPlayer('toggle_freeze');
                     break;
-                case 37: // left
+                case 33:
+                case xlvoPlayer.config.keyboard.previous:
                     xlvoPlayer.callPlayer('previous');
                     break;
-                case 39: // right
+                case 34:
+                case xlvoPlayer.config.keyboard.next:
                     xlvoPlayer.callPlayer('next');
                     break;
                 default:
@@ -192,7 +196,7 @@ var xlvoPlayer = {
 
             xlvoPlayer.player = data.player;
             xlvoPlayer.initElements();
-            setTimeout(xlvoPlayer.getPlayerData, xlvoPlayer.delay);
+            xlvoPlayer.timeout = setTimeout(xlvoPlayer.getPlayerData, xlvoPlayer.delay);
         });
     },
     /**
@@ -208,6 +212,8 @@ var xlvoPlayer = {
 
         $.post(xlvoPlayer.config.base_url + '&cmd=apiCall', {call: cmd, xvi: voting_id}).done(function (data) {
             if (data) {
+                clearTimeout(xlvoPlayer.timeout);
+                xlvoPlayer.getPlayerData();
                 success();
             } else {
                 fail();

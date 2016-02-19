@@ -350,6 +350,14 @@ class xlvoPlayerGUI extends xlvoGUI {
 			'status_running' => xlvoPlayer::STAT_RUNNING,
 			'identifier'     => self::IDENTIFIER,
 		);
+		if ($this->manager->getVotingConfig()->isKeyboardActive()) {
+			$keyboard = new stdClass();
+			$keyboard->toggle_results = 9;
+			$keyboard->toggle_freeze = 32;
+			$keyboard->previous = 37;
+			$keyboard->next = 39;
+			$settings['keyboard'] = $keyboard;
+		}
 		iljQueryUtil::initjQuery();
 		xlvoJs::getInstance()->addLibToHeader('screenfull.min.js');
 		xlvoJs::getInstance()->ilias($this)->addSettings($settings)->name('Player')->addTranslations(array( 'player_voters_online' ))->init()
