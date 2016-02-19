@@ -117,6 +117,7 @@ div#il_prop_cont_pin_input label[for=pin_input] {
   z-index: 5000 !important;
   background-color: black !important;
   zoom: 1.2;
+  overflow-y: scroll;
 }
 .xlvo-fullscreen nav.ilToolbar {
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
