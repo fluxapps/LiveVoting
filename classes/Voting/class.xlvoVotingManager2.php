@@ -32,7 +32,7 @@ class xlvoVotingManager2 {
 	public function __construct($pin) {
 		$obj_id = 0;
 		try {
-			$obj_id = xlvoPin::checkPin($pin);
+			$obj_id = xlvoPin::checkPin($pin, false);
 		} catch (xlvoVoterException $e) {
 		}
 		$this->obj_id = $obj_id;

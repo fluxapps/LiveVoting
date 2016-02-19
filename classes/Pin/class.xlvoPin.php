@@ -37,20 +37,25 @@ class xlvoPin {
 	 * @return int
 	 * @throws \xlvoVoterException
 	 */
-	public static function checkPin($pin) {
+	public static function checkPin($pin, $safe_mode = true) {
 		$xlvoVotingConfig = xlvoVotingConfig::where(array( 'pin' => $pin ))->first();
 		if ($xlvoVotingConfig instanceof xlvoVotingConfig) {
 			if (!$xlvoVotingConfig->isObjOnline()) {
-				throw new xlvoVoterException('', xlvoVoterException::VOTING_OFFLINE);
+				if ($safe_mode) {
+					throw new xlvoVoterException('', xlvoVoterException::VOTING_OFFLINE);
+				}
 			}
 			if (!$xlvoVotingConfig->isAnonymous() && xlvoUser::getInstance()->isPINUser()) {
-				throw new xlvoVoterException('', xlvoVoterException::VOTING_NOT_ANONYMOUS);
+				if ($safe_mode) {
+					throw new xlvoVoterException('', xlvoVoterException::VOTING_NOT_ANONYMOUS);
+				}
 			}
 
 			return $xlvoVotingConfig->getObjId();
 		}
-
-		throw new xlvoVoterException('', xlvoVoterException::VOTING_PIN_NOT_FOUND);
+		if ($safe_mode) {
+			throw new xlvoVoterException('', xlvoVoterException::VOTING_PIN_NOT_FOUND);
+		}
 	}
 
 
