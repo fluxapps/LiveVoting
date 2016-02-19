@@ -135,3 +135,13 @@ iframe.xlvo-preview {
   border: none;
   height: 500px;
 }
+.modal-body p {
+  word-wrap: break-word;
+}
+.modal-body #xlvo-modal-qr {
+  width: auto;
+  max-width: 100%;
+  height: 100%;
+  margin: auto;
+  display: block;
+}

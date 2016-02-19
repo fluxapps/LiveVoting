@@ -9,6 +9,11 @@ var xlvoPlayer = {
         config.base_url = config.base_url.replace(replacer, '');
         this.config = config;
         this.ready = true;
+
+        $('#QRModal').on('show.bs.modal', function () {
+            $('.modal-content').css('height', $(window).height() * 0.95);
+            $('.modal-content img').css('height', $('.modal-content').height() -120);
+        });
     },
     delay: 1000,
     forced_update_interval: 3,

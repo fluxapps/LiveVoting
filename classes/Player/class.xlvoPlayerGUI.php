@@ -6,6 +6,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoGlyphGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoDisplayPlayerGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/lib/QrCode-master/src/QrCode.php');
+require_once('./Services/UIComponent/Modal/classes/class.ilModalGUI.php');
 use Endroid\QrCode\QrCode;
 
 /**
@@ -54,6 +55,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 			$this->manager->prepareStart();
 		} catch (xlvoPlayerException $e) {
 			ilUtil::sendFailure($this->txt('msg_no_start_' . $e->getCode()));
+
 			return true;
 		}
 
@@ -81,8 +83,8 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$template->setVariable('PIN', $xlvoVotingConfig->getPin());
 
 		// QR-Code implementation
-		$codeContent = xlvoConf::getShortLinkURL() . $xlvoVotingConfig->getPin();
-		$qrCode = new QrCode($codeContent);
+		$short_link = xlvoConf::getShortLinkURL() . $xlvoVotingConfig->getPin();
+		$qrCode = new QrCode($short_link);
 		$qrCode->setErrorCorrection('high');
 		$qrCode->setForegroundColor(array(
 			'r' => 0,
@@ -97,19 +99,25 @@ class xlvoPlayerGUI extends xlvoGUI {
 			'a' => 0,
 		));
 		$qrCode->setPadding(10);
-		$qrCodeLarge = clone($qrCode);
 		$qrCode->setSize(180);
-		$template->setVariable('QR-CODE', $qrCode->getDataUri());
+		$qrCodeLarge = clone($qrCode);
 		$qrCodeLarge->setSize(750);
-		$template->setVariable('QR-CODE-MODAL', $qrCodeLarge->getDataUri());
 
-		$template->setVariable('SHORTLINK', xlvoConf::getShortLinkURL() . $xlvoVotingConfig->getPin());
-		$template->setVariable('CLOSE_BUTTON', $this->txt('close_modal'));
+		$template->setVariable('QR-CODE', $qrCode->getDataUri());
+		$template->setVariable('SHORTLINK', $short_link);
+
+		$ilModalGUI = ilModalGUI::getInstance();
+		$ilModalGUI->setId('QRModal');
+		$ilModalGUI->setHeading('PIN: ' . $xlvoVotingConfig->getPin());
+		$modal_body = '<span class="label label-primary">' . $short_link . '</span>';
+		$modal_body .= '<img id="xlvo-modal-qr" src="' . $qrCodeLarge->getDataUri() . '">';
+		$ilModalGUI->setBody($modal_body);
+		$ilModalGUI->setType(ilModalGUI::TYPE_LARGE);
+		$template->setVariable('MODAL', $ilModalGUI->getHTML());
 
 		if ($this->manager->getVotingConfig()->isShowAttendees()) {
 			xlvoJs::getInstance()->ilias($this)->name('Player')->init()->call('updateAttendees');
 			$template->touchBlock('attendees');
-			//			$template->parseCurrentBlock();
 		}
 
 		$this->tpl->setContent($template->get());
