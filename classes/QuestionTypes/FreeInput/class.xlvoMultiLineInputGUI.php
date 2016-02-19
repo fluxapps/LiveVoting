@@ -50,6 +50,10 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	 */
 	protected $show_label = false;
 	/**
+	 * @var bool
+	 */
+	protected $show_label_once = false;
+	/**
 	 * @var array
 	 */
 	protected $hidden_inputs = array();
@@ -62,7 +66,7 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	/**
 	 * Constructor
 	 *
-	 * @param    string $a_title Title
+	 * @param    string $a_title   Title
 	 * @param    string $a_postvar Post Variable
 	 */
 	public function __construct($a_title = "", $a_postvar = "") {
@@ -299,6 +303,7 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	 * @throws ilException
 	 */
 	public function render($iterator_id = 0, $clean_render = false) {
+		$first_label = true;
 		$tpl = new ilTemplate("tpl.multi_line_input.html", true, true, 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting');
 		$class = 'multi_input_line';
 		$this->addCustomAttribute('class', $class, true);
@@ -315,7 +320,7 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 			if (!method_exists($input, 'render')) {
 				if (!$input instanceof ilHiddenInputGUI) {
 					throw new ilException("Method " . get_class($input)
-						. "::render() does not exists! You cannot use this input-type in ilMultiLineInputGUI");
+					                      . "::render() does not exists! You cannot use this input-type in ilMultiLineInputGUI");
 				} else {
 					$is_hidden = true;
 				}
@@ -346,11 +351,12 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 				$tpl->setVariable('VALUE', ilUtil::prepareFormOutput($input->getValue()));
 				$tpl->parseCurrentBlock();
 			} else {
-				if ($this->isShowLabel()) {
+				if ($this->isShowLabel() || ($this->isShowLabelOnce() && $first_label)) {
 					$tpl->setCurrentBlock('input_label');
 					$tpl->setVariable('LABEL', $input->getTitle());
 					$tpl->setVariable('CONTENT', $input->render());
 					$tpl->parseCurrentBlock();
+					$first_label = false;
 				} else {
 					$tpl->setCurrentBlock('input');
 					$tpl->setVariable('CONTENT', $input->render());
@@ -390,13 +396,13 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 		$tpl->addJavascript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/multi_line_input.js');
 	}
 
+
 	/**
 	 * Insert property html
 	 *
 	 * @return    int    Size
 	 */
 	public function insert(&$a_tpl) {
-		global $tpl;
 		$output = "";
 
 		$output .= $this->render(0, true);
@@ -412,7 +418,7 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 		if ($this->getMulti()) {
 			$output = '<div id="' . $this->getFieldId() . '" class="multi_line_input">' . $output . '</div>';
 			$output .= '<script type="text/javascript">$("#' . $this->getFieldId() . '").multi_line_input(' . json_encode($this->input_options)
-				. ')</script>';
+			           . ')</script>';
 		}
 		$a_tpl->setCurrentBlock("prop_generic");
 		$a_tpl->setVariable("PROP_GENERIC", $output);
@@ -457,16 +463,18 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 
 
 	/**
-	 * @param bool|false $a_sortable
-	 *
-	 * @return string
+	 * @return boolean
 	 */
-	public function getMultiIconsHTML($a_sortable = true) {
-		$id = $this->getFieldId();
+	public function isShowLabelOnce() {
+		return $this->show_label_once;
+	}
 
-		$html = '<a href="#" style="display: inline-block;" class="add_button"><span class="sr-only"></span><span class="glyphicon glyphicon-plus"></span></a>';
-		$html .= '<a href="#" style="display: inline-block;" class="remove_button"><span class="sr-only"></span><span class="glyphicon glyphicon-minus"></span></a>';
 
-		return $html;
+	/**
+	 * @param boolean $show_label_once
+	 */
+	public function setShowLabelOnce($show_label_once) {
+		$this->setShowLabel(false);
+		$this->show_label_once = $show_label_once;
 	}
 }
