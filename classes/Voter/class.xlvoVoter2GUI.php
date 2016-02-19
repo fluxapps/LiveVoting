@@ -147,6 +147,11 @@ class xlvoVoter2GUI extends xlvoGUI {
 				$tpl->setVariable('DESCRIPTION', $this->manager->getVoting()->getDescription());
 
 				$xlvoQuestionTypesGUI = xlvoQuestionTypesGUI::getInstance($this->manager);
+				if ($xlvoQuestionTypesGUI->isShowQuestion()) {
+					$tpl->setCurrentBlock('question_text');
+					$tpl->setVariable('QUESTION_TEXT', $this->manager->getVoting()->getQuestion());
+					$tpl->parseCurrentBlock();
+				}
 
 				$tpl->setVariable('QUESTION', $xlvoQuestionTypesGUI->getMobileHTML());
 				break;

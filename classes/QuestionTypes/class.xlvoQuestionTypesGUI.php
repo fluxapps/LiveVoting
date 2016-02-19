@@ -14,6 +14,10 @@ abstract class xlvoQuestionTypesGUI extends xlvoGUI {
 	 * @var xlvoVotingManager2
 	 */
 	protected $manager;
+	/**
+	 * @var bool
+	 */
+	protected $show_question = true;
 
 
 	/**
@@ -34,7 +38,7 @@ abstract class xlvoQuestionTypesGUI extends xlvoGUI {
 		$class_type = xlvoQuestionTypes::getClassName($override_type ? $override_type : $manager->getVoting()->getVotingType());
 		/**
 		 * @var $class_name xlvoQuestionTypesGUI
-		 * @var $gui xlvoQuestionTypesGUI
+		 * @var $gui        xlvoQuestionTypesGUI
 		 */
 		$class_name = 'xlvo' . $class_type . 'GUI';
 		$base = './Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/';
@@ -96,6 +100,22 @@ abstract class xlvoQuestionTypesGUI extends xlvoGUI {
 
 	protected function afterSubmit() {
 		$this->ctrl->redirect(new xlvoVoter2GUI(), xlvoVoter2GUI::CMD_START_VOTER_PLAYER);
+	}
+
+
+	/**
+	 * @return boolean
+	 */
+	public function isShowQuestion() {
+		return $this->show_question;
+	}
+
+
+	/**
+	 * @param boolean $show_question
+	 */
+	public function setShowQuestion($show_question) {
+		$this->show_question = $show_question;
 	}
 
 
