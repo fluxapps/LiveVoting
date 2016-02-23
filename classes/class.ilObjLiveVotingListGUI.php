@@ -22,6 +22,7 @@
 */
 
 include_once "./Services/Repository/classes/class.ilObjectPluginListGUI.php";
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoQuestionTypes.php');
 
 /**
  * ListGUI implementation for LiveVoting object plugin. This one
