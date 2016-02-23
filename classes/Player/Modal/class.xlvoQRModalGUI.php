@@ -24,7 +24,7 @@ class xlvoQRModalGUI extends ilModalGUI {
 
 		$short_link = xlvoConf::getShortLinkURL() . $xlvoVotingConfig->getPin();
 
-		$modal_body = '<span class="label label-primary">' . $short_link . '</span>';
+		$modal_body = '<span class="label label-default">' . $short_link . '</span>';
 		$modal_body .= '<img id="xlvo-modal-qr" src="' . xlvoQR::getImageDataString($short_link, 750) . '">';
 
 		$ilModalGUI->setBody($modal_body);
