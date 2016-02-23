@@ -134,7 +134,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$this->manager->getPlayer()->attend();
 		$player = $this->manager->getPlayer()->getStdClassForPlayer();
 		$results = array(
-			'player'      => $player,
+			'player' => $player,
 			'player_html' => $this->getPlayerHTML(true),
 		);
 		xlvoJsResponse::getInstance($results)->send();
@@ -340,7 +340,10 @@ class xlvoPlayerGUI extends xlvoGUI {
 		}
 		iljQueryUtil::initjQuery();
 		xlvoJs::getInstance()->addLibToHeader('screenfull.min.js');
-		xlvoJs::getInstance()->ilias($this)->addSettings($settings)->name('Player')->addTranslations(array( 'player_voters_online' ))->init()
-		      ->call('run');
+		xlvoJs::getInstance()->addLibToHeader('screenfull.min.js');
+		xlvoJs::getInstance()->ilias($this)->addSettings($settings)->name('Player')->addTranslations(array(
+			'player_voters_online',
+			'voting_confirm_reset',
+		))->init()->call('run');
 	}
 }

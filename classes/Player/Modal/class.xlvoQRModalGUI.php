@@ -15,11 +15,9 @@ class xlvoQRModalGUI extends ilModalGUI {
 	 * @return \xlvoQRModalGUI
 	 */
 	public static function getInstanceFromVotingConfig(xlvoVotingConfig $xlvoVotingConfig) {
-		$id = 'QRModal';
-		xlvoJs::getInstance()->name('Modal')->addSettings(array( 'id' => $id ))->category('Player')->init();
-
+		xlvoJs::getInstance()->name('Modal')->addSettings(array( 'id' => 'QRModal' ))->category('Player')->init();
 		$ilModalGUI = new self();
-		$ilModalGUI->setId($id);
+		$ilModalGUI->setId('QRModal');
 		$ilModalGUI->setHeading('PIN: ' . $xlvoVotingConfig->getPin());
 
 		$short_link = xlvoConf::getShortLinkURL() . $xlvoVotingConfig->getPin();

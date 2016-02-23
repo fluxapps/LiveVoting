@@ -5,15 +5,12 @@
 var xlvoPlayer = {
     init: function (json) {
         var config = JSON.parse(json);
+
         var replacer = new RegExp('amp;', 'g');
         config.base_url = config.base_url.replace(replacer, '');
+        console.log(config);
         this.config = config;
         this.ready = true;
-
-        $('#QRModal').on('show.bs.modal', function () {
-            $('.modal-content').css('height', $(window).height() * 0.95);
-            $('.modal-content img').css('height', $('.modal-content').height() - 120);
-        });
     },
     delay: 1000,
     timeout: null,
@@ -22,7 +19,8 @@ var xlvoPlayer = {
         base_url: '',
         voter_count_element_id: '',
         lng: {
-            player_voters_online: 'Online'
+            player_voters_online: 'Online',
+            voting_confirm_reset: 'Reset?'
         },
         status_running: -1,
     },
@@ -130,7 +128,9 @@ var xlvoPlayer = {
         });
 
         this.btn_reset.click(function () {
-            xlvoPlayer.callPlayer('reset');
+            if (window.confirm(xlvoPlayer.config.lng.voting_confirm_reset)) {
+                xlvoPlayer.callPlayer('reset');
+            }
             return false;
         });
         this.btn_next.click(function () {
