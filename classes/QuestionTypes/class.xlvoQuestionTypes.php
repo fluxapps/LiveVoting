@@ -15,21 +15,24 @@ class xlvoQuestionTypes {
 	const TYPE_FREE_INPUT = 2;
 	const TYPE_RANGE = 3;
 	const TYPE_CORRECT_ORDER = 4;
+	const TYPE_FREE_ORDER = 5;
 	/**
 	 * @var array
 	 */
 	protected static $active_types = array(
 		self::TYPE_FREE_INPUT,
 		self::TYPE_SINGLE_VOTE,
-		self::TYPE_CORRECT_ORDER
+		self::TYPE_CORRECT_ORDER,
+		self::TYPE_FREE_ORDER,
 	);
 	/**
 	 * @var array
 	 */
 	protected static $class_map = array(
-		self::TYPE_SINGLE_VOTE => 'SingleVote',
-		self::TYPE_FREE_INPUT => 'FreeInput',
+		self::TYPE_SINGLE_VOTE   => 'SingleVote',
+		self::TYPE_FREE_INPUT    => 'FreeInput',
 		self::TYPE_CORRECT_ORDER => 'CorrectOrder',
+		self::TYPE_FREE_ORDER    => 'FreeOrder',
 	);
 
 
@@ -58,6 +61,7 @@ class xlvoQuestionTypes {
 		if (!isset(self::$class_map[$type])) {
 			//			throw  new xlvoVotingManagerException('Type not available');
 		}
+
 		return self::$class_map[$type];
 	}
 }

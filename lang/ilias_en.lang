@@ -72,6 +72,9 @@ qtype_4_option_text#:#Term
 qtype_4_options#:#Options
 qtype_4_save#:#Save
 qtype_4_your_order#:#Your Submission:
+qtype_5_option_text#:#Text
+qtype_5_option_weight#:#Weight
+qtype_5_options#:#Options
 qtype_form_header#:#Type-Settings
 qtype_multi_free_input#:#Multiple Inputs
 subtab_edit#:#Manage
@@ -130,6 +133,7 @@ voting_type_2_info#:#User can hand in free text
 voting_type_3#:#Range
 voting_type_4#:#Correct Order
 voting_type_4_info#:#Terms must be sorted in the correct order.
+voting_type_5#:#Priorities
 voting_update#:#Update
 xlvo_add#:#Add
 xlvo_delete#:#Delete LiveVoting

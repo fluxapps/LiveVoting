@@ -28,6 +28,7 @@ class xlvoBarMovableGUI implements xlvoBarGUI {
 
 	/**
 	 * xlvoBarMovableGUI constructor.
+	 *
 	 * @param array $options
 	 * @param array $order
 	 */
@@ -54,7 +55,7 @@ class xlvoBarMovableGUI implements xlvoBarGUI {
 				}
 				$this->tpl->setCurrentBlock('option');
 				$this->tpl->setVariable('ID', $xlvoOption->getId());
-				$this->tpl->setVariable('OPTION_LETTER', chr(64 + $i));
+				//				$this->tpl->setVariable('OPTION_LETTER', chr(64 + $i));
 				$this->tpl->setVariable('OPTION', $xlvoOption->getText());
 				$this->tpl->parseCurrentBlock();
 				$i ++;
@@ -63,7 +64,7 @@ class xlvoBarMovableGUI implements xlvoBarGUI {
 			foreach ($this->options as $xlvoOption) {
 				$this->tpl->setCurrentBlock('option');
 				$this->tpl->setVariable('ID', $xlvoOption->getId());
-				$this->tpl->setVariable('OPTION_LETTER', chr(64 + $i));
+				//				$this->tpl->setVariable('OPTION_LETTER', chr(64 + $i));
 				$this->tpl->setVariable('OPTION', $xlvoOption->getText());
 				$this->tpl->parseCurrentBlock();
 				$i ++;
