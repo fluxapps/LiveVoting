@@ -78,6 +78,20 @@ class xlvoVote extends ActiveRecord {
 
 
 	/**
+	 * @param $field_name
+	 * @return mixed
+	 */
+	public function sleep($field_name) {
+		switch ($field_name) {
+			case 'free_input':
+				return preg_replace('/[\x{10000}-\x{10FFFF}]/u', "", $this->free_input);
+		}
+
+		return parent::sleep($field_name);
+	}
+
+
+	/**
 	 * @param xlvoUser $xlvoUser
 	 * @param $voting_id
 	 * @return xlvoVote[]
@@ -85,12 +99,12 @@ class xlvoVote extends ActiveRecord {
 	public static function getVotesOfUser(xlvoUser $xlvoUser, $voting_id, $incl_inactive = false) {
 		$where = array(
 			'voting_id' => $voting_id,
-			'status' => self::STAT_ACTIVE
+			'status'    => self::STAT_ACTIVE,
 		);
 		if ($incl_inactive) {
 			$where['status'] = array(
 				self::STAT_INACTIVE,
-				self::STAT_ACTIVE
+				self::STAT_ACTIVE,
 			);
 		}
 		if ($xlvoUser->isILIASUser()) {
