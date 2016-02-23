@@ -5,7 +5,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 /**
  * Class xlvoCorrectOrderGUI
  *
- * @author Fabian Schmid <fs@studer-raimann.ch>
+ * @author            Fabian Schmid <fs@studer-raimann.ch>
  *
  * @ilCtrl_IsCalledBy xlvoCorrectOrderGUI: xlvoVoter2GUI
  */
@@ -15,32 +15,7 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 	 * @return string
 	 */
 	public function getMobileHTML() {
-		$pl = ilLiveVotingPlugin::getInstance();
-		$form = new ilPropertyFormGUI();
-		$form->setId('xlvo_sortable');
-		$form->setShowTopButtons(false);
-		$form->setKeepOpen(true);
-		$form->setFormAction($this->ctrl->getFormAction($this));
-		/**
-		 * @var $vote xlvoVote
-		 */
-		$vote = array_shift(array_values($this->manager->getVotesOfUser()));
-		$order = array();
-		$vote_id = null;
-		if ($vote instanceof xlvoVote) {
-			$order = json_decode($vote->getFreeInput());
-			$vote_id = $vote->getId();
-		}
-		$bars = new xlvoBarMovableGUI($this->manager->getVoting()->getVotingOptions(), $order, $vote_id);
-
-		$form2 = new ilPropertyFormGUI();
-		$form2->addCommandButton(self::CMD_SUBMIT, $pl->txt('qtype_4_save'));
-		if ($vote_id) {
-			$form2->addCommandButton('clear', $pl->txt('qtype_4_clear'));
-		}
-		$form2->setOpenTag(false);
-
-		return $form->getHTML() . $bars->getHTML() . $form2->getHTML();
+		return $this->getFormContent();
 	}
 
 
@@ -57,5 +32,35 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 	protected function clear() {
 		$this->manager->unvoteAll();
 		$this->afterSubmit();
+	}
+
+
+	/**
+	 * @return string
+	 */
+	protected function getFormContent() {
+		$pl = ilLiveVotingPlugin::getInstance();
+
+		$tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/QuestionTypes/FreeOrder/tpl.free_order.html', true, false);
+		$tpl->setVariable('ACTION', $this->ctrl->getFormAction($this));
+		$tpl->setVariable('ID', 'xlvo_sortable');
+		$tpl->setVariable('BTN_RESET', $pl->txt('qtype_4_clear'));
+		$tpl->setVariable('BTN_SAVE', $pl->txt('qtype_4_save'));
+
+		$vote = array_shift(array_values($this->manager->getVotesOfUser()));
+		$order = array();
+		$vote_id = null;
+		if ($vote instanceof xlvoVote) {
+			$order = json_decode($vote->getFreeInput());
+			$vote_id = $vote->getId();
+		}
+		if (!$vote_id) {
+			$tpl->setVariable('BTN_RESET_DISABLED', 'disabled="disabled"');
+		}
+
+		$bars = new xlvoBarMovableGUI($this->manager->getVoting()->getVotingOptions(), $order, $vote_id);
+		$tpl->setVariable('CONTENT', $bars->getHTML());
+
+		return $tpl->get();
 	}
 }
