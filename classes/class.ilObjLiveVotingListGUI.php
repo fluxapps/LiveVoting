@@ -43,7 +43,6 @@ class ilObjLiveVotingListGUI extends ilObjectPluginListGUI {
 	}
 
 
-
 	/**
 	 * Get name of gui class handling the commands
 	 */
@@ -73,6 +72,19 @@ class ilObjLiveVotingListGUI extends ilObjectPluginListGUI {
 
 
 	/**
+	 * @param string $a_cmd
+	 * @return string
+	 */
+	public function getCommandFrame($a_cmd) {
+		if (!$this->checkCommandAccess("write", $a_cmd, $this->ref_id, $this->type)) {
+			return '_blank';
+		}
+
+		return parent::getCommandFrame($a_cmd);
+	}
+
+
+	/**
 	 * Get item properties
 	 *
 	 * @return    array        array of property arrays:
@@ -81,7 +93,6 @@ class ilObjLiveVotingListGUI extends ilObjectPluginListGUI {
 	 *                        "value" (string) => property value
 	 */
 	function getProperties() {
-
 		$props = array();
 
 		$this->plugin->includeClass("class.ilObjLiveVotingAccess.php");
