@@ -33,7 +33,7 @@ class xlvoInitialisation extends ilInitialisation {
 	 *
 	 * @param int $context
 	 */
-	protected function __construct($context = NULL) {
+	protected function __construct($context = null) {
 		if ($context) {
 			self::saveContext($context);
 		} else {
@@ -75,7 +75,7 @@ class xlvoInitialisation extends ilInitialisation {
 	 *
 	 * @return xlvoInitialisation
 	 */
-	public static function init($context = NULL) {
+	public static function init($context = null) {
 		return new self($context);
 	}
 
@@ -95,22 +95,22 @@ class xlvoInitialisation extends ilInitialisation {
 
 		session_set_save_handler(array(
 			&$session,
-			"open"
+			"open",
 		), array(
 			&$session,
-			"close"
+			"close",
 		), array(
 			&$session,
-			"read"
+			"read",
 		), array(
 			&$session,
-			"write"
+			"write",
 		), array(
 			&$session,
-			"destroy"
+			"destroy",
 		), array(
 			&$session,
-			"gc"
+			"gc",
 		));
 	}
 
@@ -146,7 +146,7 @@ class xlvoInitialisation extends ilInitialisation {
 			$tpl->getStandardTemplate();
 		}
 		require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Conf/class.xlvoConf.php');
-		$tpl->setVariable('BASE', xlvoConf::get(xlvoConf::F_BASE_URL) ? xlvoConf::get(xlvoConf::F_BASE_URL) : '/'); // FSX TODO set to real root
+		$tpl->setVariable('BASE', xlvoConf::getBaseURL());
 		if (self::USE_OWN_GLOBAL_TPL) {
 			include_once("./Services/jQuery/classes/class.iljQueryUtil.php");
 			iljQueryUtil::initjQuery();
@@ -198,7 +198,7 @@ class xlvoInitialisation extends ilInitialisation {
 
 
 	protected static function writeToCookie() {
-		setcookie(self::XLVO_CONTEXT, self::getContext(), NULL, '/');
+		setcookie(self::XLVO_CONTEXT, self::getContext(), null, '/');
 	}
 
 
@@ -234,9 +234,9 @@ class xlvoInitialisation extends ilInitialisation {
 	 * @param int $pin
 	 */
 	public static function setCookiePIN($pin, $forrce = false) {
-		setcookie(self::PIN_COOKIE, $pin, NULL, '/');
+		setcookie(self::PIN_COOKIE, $pin, null, '/');
 		if ($forrce) {
-			setcookie(self::PIN_COOKIE_FORCE, true, NULL, '/');
+			setcookie(self::PIN_COOKIE_FORCE, true, null, '/');
 		}
 	}
 
@@ -244,10 +244,10 @@ class xlvoInitialisation extends ilInitialisation {
 	public static function resetCookiePIN() {
 		if ($_COOKIE[self::PIN_COOKIE_FORCE]) {
 			unset($_COOKIE[self::PIN_COOKIE_FORCE]);
-			setcookie(self::PIN_COOKIE_FORCE, NULL, - 1, '/');
+			setcookie(self::PIN_COOKIE_FORCE, null, - 1, '/');
 		} else {
 			unset($_COOKIE[self::PIN_COOKIE]);
-			setcookie(self::PIN_COOKIE, NULL, - 1, '/');
+			setcookie(self::PIN_COOKIE, null, - 1, '/');
 		}
 	}
 
