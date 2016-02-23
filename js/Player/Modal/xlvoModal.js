@@ -6,19 +6,21 @@ var xlvoModal = {
     init: function (json) {
         this.config = JSON.parse(json);
 
-
-        $('#' + this.config.id).on('show.bs.modal', function () {
+        var ilmodal = $('#' + this.config.id);
+        ilmodal.on('show.bs.modal', function () {
             var modal = $('.modal-content');
-            modal.css('height', $(window).height() * 0.95);
+            if ($('.xlvo-fullscreen').length > 0) {
+                modal.css('height', $(window).height() * 0.75);
+            } else {
+                modal.css('height', $(window).height() * 0.95);
+            }
             var new_img_height = modal.height() - 120;
             var img = modal.find('img');
 
             img.css('height', new_img_height);
-
-
         });
-        //
-        $('#' + this.config.id).on('shown.bs.modal', function () {
+
+        ilmodal.on('shown.bs.modal', function () {
             var modal = $('.modal-content');
             modal.find('span.label').css('font-size', '');
             var modal_width = modal.width(),
