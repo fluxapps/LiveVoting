@@ -117,7 +117,7 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 		$options = $this->getXlvoVoting()->getVotingOptions();
 		foreach ($options as $xlvoOption) {
 			if (!in_array($xlvoOption->getId(), $ids)) {
-				//				$xlvoOption->delete();
+				$xlvoOption->delete();
 			}
 		}
 	}
