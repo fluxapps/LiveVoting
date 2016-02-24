@@ -5,6 +5,7 @@ require_once('./Services/Utilities/classes/class.ilConfirmationGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVotingFormGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVoting.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVotingTableGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoQuestionTypes.php');
 
 /**
  *
@@ -106,25 +107,6 @@ class xlvoVotingGUI {
 	}
 
 
-	/**
-	 *
-	 * Switch for redirecting Voting types to corresponding sub GUI.
-	 *
-	 * @param $voting_type
-	 * @param $cmd
-	 */
-	private function redirectToSubGUI($voting_type, $cmd) {
-		switch ($voting_type) {
-			case xlvoQuestionTypes::TYPE_SINGLE_VOTE:
-				$this->ctrl->redirect(new xlvoSingleVoteVotingGUI(), $cmd);
-				break;
-			case xlvoQuestionTypes::TYPE_FREE_INPUT:
-				$this->ctrl->redirect(new xlvoFreeInputVotingGUI(), $cmd);
-				break;
-		}
-	}
-
-
 	protected function content() {
 		if (!$this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
@@ -148,6 +130,18 @@ class xlvoVotingGUI {
 				$b->setUrl($this->ctrl->getLinkTarget(new xlvoVotingGUI(), self::CMD_CONFIRM_RESET_ALL));
 				$this->toolbar->addButtonInstance($b);
 
+				if ($_GET['import']) {
+					$b = ilLinkButton::getInstance();
+					$b->setCaption($this->txt('export'), false);
+					$b->setUrl($this->ctrl->getLinkTarget(new xlvoVotingGUI(), 'export'));
+					$this->toolbar->addButtonInstance($b);
+
+					$this->toolbar->setFormAction($this->ctrl->getLinkTarget($this, 'import'), true);
+					$import = new ilFileInputGUI('xlvo_import', 'xlvo_import');
+					$this->toolbar->addInputItem($import);
+					$this->toolbar->addFormButton($this->txt('import'), 'import');
+				}
+
 				$xlvoVotingTableGUI = new xlvoVotingTableGUI($this, self::CMD_STANDARD);
 				$this->tpl->setContent($xlvoVotingTableGUI->getHTML());
 			}
@@ -160,8 +154,6 @@ class xlvoVotingGUI {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
-			require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoQuestionTypes.php');
-
 			$form = new ilPropertyFormGUI();
 			$form->setFormAction($this->ctrl->getFormAction($this, self::CMD_ADD));
 			$form->addCommandButton(self::CMD_ADD, $this->txt('select_type'));
@@ -473,5 +465,114 @@ class xlvoVotingGUI {
 	 */
 	public function txt($key) {
 		return $this->pl->txt('voting_' . $key);
+	}
+
+
+	protected function export() {
+		$domxml = new DOMDocument('1.0', 'UTF-8');
+		$domxml->preserveWhiteSpace = false;
+		$domxml->formatOutput = true;
+		$config = $domxml->appendChild(new DOMElement('LiveVoting'));
+
+		$xml_info = $config->appendChild(new DOMElement('info'));
+		$xml_info->appendChild(new DOMElement('plugin_version', $this->pl->getVersion()));
+		$xml_info->appendChild(new DOMElement('plugin_db_version', $this->pl->getDBVersion()));
+
+		// xoctConf
+		$xml_votings = $config->appendChild(new DOMElement('votings'));
+
+		/**
+		 * @var $xlvoVoting xlvoVoting
+		 * @var $xlvoOption xlvoOption
+		 */
+		foreach (xlvoVoting::where(array( 'obj_id' => $this->getObjId() ))->get() as $xlvoVoting) {
+			$xml_voting = $xml_votings->appendChild(new DOMElement('voting'));
+			$xml_voting->appendChild(new DOMElement('title'))->appendChild(new DOMCdataSection($xlvoVoting->getTitle()));
+			$xml_voting->appendChild(new DOMElement('description'))->appendChild(new DOMCdataSection($xlvoVoting->getDescription()));
+			$xml_voting->appendChild(new DOMElement('question'))->appendChild(new DOMCdataSection($xlvoVoting->getQuestion()));
+			$xml_voting->appendChild(new DOMElement('voting_type'))->appendChild(new DOMCdataSection($xlvoVoting->getVotingType()));
+			$xml_voting->appendChild(new DOMElement('multi_selection'))->appendChild(new DOMCdataSection($xlvoVoting->isMultiSelection()));
+			$xml_voting->appendChild(new DOMElement('colors'))->appendChild(new DOMCdataSection($xlvoVoting->isColors()));
+			$xml_voting->appendChild(new DOMElement('multi_free_input'))->appendChild(new DOMCdataSection($xlvoVoting->isMultiFreeInput()));
+			$xml_voting->appendChild(new DOMElement('voting_status'))->appendChild(new DOMCdataSection($xlvoVoting->getVotingStatus()));
+			$xml_voting->appendChild(new DOMElement('position'))->appendChild(new DOMCdataSection($xlvoVoting->getPosition()));
+
+			$xml_options = $xml_voting->appendChild(new DOMElement('options'));
+			foreach ($xlvoVoting->getVotingOptions() as $xlvoOption) {
+				$xml_option = $xml_options->appendChild(new DOMElement('option'));
+				$xml_option->appendChild(new DOMElement('text'))->appendChild(new DOMCdataSection($xlvoOption->getText()));
+				$xml_option->appendChild(new DOMElement('type'))->appendChild(new DOMCdataSection($xlvoOption->getType()));
+				$xml_option->appendChild(new DOMElement('status'))->appendChild(new DOMCdataSection($xlvoOption->getStatus()));
+				$xml_option->appendChild(new DOMElement('position'))->appendChild(new DOMCdataSection($xlvoOption->getPosition()));
+				$xml_option->appendChild(new DOMElement('correct_position'))->appendChild(new DOMCdataSection($xlvoOption->getCorrectPosition()));
+			}
+		}
+
+		file_put_contents('/tmp/votings.xml', $domxml->saveXML());
+		ob_end_clean();
+		ilUtil::deliverFile('/tmp/votings.xml', 'votings.xml');
+		unlink('/tmp/votings.xml');
+	}
+
+
+	protected function import() {
+		$domxml = new DOMDocument('1.0', 'UTF-8');
+		$domxml->loadXML(file_get_contents($_FILES['xlvo_import']['tmp_name']));
+
+		/**
+		 * @var $node DOMElement
+		 */
+		$xoct_confs = $domxml->getElementsByTagName('voting');
+		foreach ($xoct_confs as $node) {
+			$title = $node->getElementsByTagName('title')->item(0)->nodeValue;
+			$description = $node->getElementsByTagName('description')->item(0)->nodeValue;
+			$question = $node->getElementsByTagName('question')->item(0)->nodeValue;
+			$voting_type = $node->getElementsByTagName('voting_type')->item(0)->nodeValue;
+			$multi_selection = $node->getElementsByTagName('multi_selection')->item(0)->nodeValue;
+			$colors = $node->getElementsByTagName('colors')->item(0)->nodeValue;
+			$multi_free_input = $node->getElementsByTagName('multi_free_input')->item(0)->nodeValue;
+			$voting_status = $node->getElementsByTagName('voting_status')->item(0)->nodeValue;
+			$position = $node->getElementsByTagName('position')->item(0)->nodeValue;
+
+			$xlvoVoting = new xlvoVoting();
+			$xlvoVoting->setObjId($this->getObjId());
+			$xlvoVoting->setTitle($title);
+			$xlvoVoting->setDescription($description);
+			$xlvoVoting->setQuestion($question);
+			$xlvoVoting->setVotingType($voting_type);
+			$xlvoVoting->setMultiSelection($multi_selection);
+			$xlvoVoting->setColors($colors);
+			$xlvoVoting->setMultiFreeInput($multi_free_input);
+			$xlvoVoting->setVotingStatus($voting_status);
+			$xlvoVoting->setPosition($position);
+			$xlvoVoting->create();
+
+			$options = $node->getElementsByTagName('option');
+			$xlvoOptions = array();
+			/**
+			 * @var $option DOMElement
+			 */
+			foreach ($options as $option) {
+				$text = $option->getElementsByTagName('text')->item(0)->nodeValue;
+				$type = $option->getElementsByTagName('type')->item(0)->nodeValue;
+				$status = $option->getElementsByTagName('status')->item(0)->nodeValue;
+				$position = $option->getElementsByTagName('position')->item(0)->nodeValue;
+				$correct_position = $option->getElementsByTagName('correct_position')->item(0)->nodeValue;
+
+				$xlvoOption = new xlvoOption();
+				$xlvoOption->setText($text);
+				$xlvoOption->setType($type);
+				$xlvoOption->setStatus($status);
+				$xlvoOption->setPosition($position);
+				$xlvoOption->setCorrectPosition($correct_position);
+				$xlvoOption->setVotingId($xlvoVoting->getId());
+				$xlvoOption->create();
+
+				$xlvoOptions[] = $xlvoOption;
+			}
+
+			$xlvoVoting->setVotingOptions($xlvoOptions);
+		}
+		$this->cancel();
 	}
 }
