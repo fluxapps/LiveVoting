@@ -1,7 +1,6 @@
 <?php
 
 include_once('./Services/Repository/classes/class.ilRepositoryObjectPlugin.php');
-require_once('class.ilLiveVotingConfig.php');
 
 /**
  * LiveVoting repository object plugin
@@ -12,6 +11,7 @@ require_once('class.ilLiveVotingConfig.php');
  */
 class ilLiveVotingPlugin extends ilRepositoryObjectPlugin {
 
+	const PLUGIN_NAME = 'LiveVoting';
 	/**
 	 * @var ilLiveVotingPlugin
 	 */
@@ -33,35 +33,24 @@ class ilLiveVotingPlugin extends ilRepositoryObjectPlugin {
 	/**
 	 * @return string
 	 */
-	function getPluginName() {
-		return 'LiveVoting';
+	public function getPluginName() {
+		return self::PLUGIN_NAME;
 	}
 
 
-	/**
-	 * @return string
-	 */
-	public function getRootPath() {
-		return substr(__FILE__, 0, strpos(__FILE__, 'classes/' . basename(__FILE__)));
+	protected function uninstallCustom() {
+		// TODO: Implement uninstallCustom() method.
 	}
 
 
-	/**
-	 * @return ilLiveVotingConfig
-	 */
-	public function getConfigObject() {
-		$conf = new ilLiveVotingConfig($this->getConfigTableName());
-
-		return $conf;
-	}
-
-
-	/**
-	 * @return string
-	 */
-	public function getConfigTableName() {
-		return 'rep_robj_xlvo_conf';
-	}
+	//	/**
+	//	 * @param $key
+	//	 * @return mixed|string
+	//	 * @throws \ilException
+	//	 */
+	//	public function txt($key) {
+	//		require_once('./Customizing/global/plugins/Libraries/PluginTranslator/class.sragPluginTranslator.php');
+	//
+	//		return sragPluginTranslator::getInstance($this)->active()->write()->txt($key);
+	//	}
 }
-
-?>

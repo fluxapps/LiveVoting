@@ -1,0 +1,133 @@
+<?php
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/Bar/class.xlvoBarGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/Bar/class.xlvoBarCollectionGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/Bar/class.xlvoBarPercentageGUI.php');
+require_once('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoInputResultsGUI.php');
+
+/**
+ * Class xlvoDisplayPlayerGUI
+ *
+ * @author  Daniel Aemmer <daniel.aemmer@phbern.ch>
+ * @author  Fabian Schmid <fs@studer-raimann.ch>
+ * @version 1.0.0
+ *
+ * The display is used in the view of a admin when presenting the livevoting, only the content of a voting
+ */
+class xlvoDisplayPlayerGUI {
+
+	/**
+	 * @var ilTemplate
+	 */
+	protected $tpl;
+	/**
+	 * @var xlvoVoting
+	 */
+	protected $voting;
+	/**
+	 * @var int
+	 */
+	protected $answer_count = 64;
+	/**
+	 * @var xlvoVotingManager
+	 */
+	protected $voting_manager;
+	/**
+	 * @var xlvoVotingManager2
+	 */
+	protected $manager;
+
+
+	/**
+	 * xlvoDisplayPlayerGUI constructor.
+	 * @param xlvoVotingManager2 $manager
+	 */
+	public function __construct(xlvoVotingManager2 $manager) {
+		$this->manager = $manager;
+		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Player/tpl.player.html', true, true);
+	}
+
+
+	protected function render() {
+		/**
+		 * @var xlvoVotingConfig $config
+		 */
+		$config = $this->manager->getVotingConfig();
+		/**
+		 * @var xlvoPlayer $player
+		 */
+		$player = $this->manager->getPlayer();
+
+		$xlvoInputResultGUI = xlvoInputResultsGUI::getInstance($this->manager);
+		if ($player->isShowResults()) {
+			$this->tpl->setVariable('OPTION_CONTENT', $xlvoInputResultGUI->getHTML());
+		}
+		$xlvoOptions = $this->manager->getVoting()->getVotingOptions();
+		if ($xlvoInputResultGUI->isShuffleResults()) {
+			shuffle($xlvoOptions);
+		}
+		foreach ($xlvoOptions as $item) {
+			$this->addOption($item);
+		}
+
+		$votings = xlvoVoting::where(array(
+			'obj_id' => $this->manager->getVoting()->getObjId(),
+			'voting_status' => xlvoVoting::STAT_ACTIVE
+		))->orderBy('position', 'ASC');
+
+		$votings_count = $votings->count();
+
+		$voting_position = 1;
+		foreach ($votings->getArray() as $key => $voting) {
+			if ($this->manager->getVoting()->getId() == $key) {
+				break;
+			}
+			$voting_position ++;
+		}
+
+		$this->tpl->setVariable('TITLE', $this->manager->getVoting()->getTitle());
+		$this->tpl->setVariable('QUESTION', $this->manager->getVoting()->getQuestion());
+		$this->tpl->setVariable('VOTING_ID', $this->manager->getVoting()->getId());
+		$this->tpl->setVariable('OBJ_ID', $this->manager->getVoting()->getObjId());
+		$this->tpl->setVariable('FROZEN', $player->isFrozen());
+		$this->tpl->setVariable('PIN', $config->getPin());
+		if ($this->manager->getVotingConfig()->isShowAttendees()) {
+			$this->tpl->setCurrentBlock('attendees');
+			$this->tpl->setVariable('ATTENDEES', xlvoVoter::count($this->manager->getPlayer()->getId()));
+			$this->tpl->setVariable('ONLINE', ilLiveVotingPlugin::getInstance()->txt('player_voters_online'));
+			$this->tpl->parseCurrentBlock();
+		}
+		$this->tpl->setVariable('COUNT', $votings_count);
+		$this->tpl->setVariable('POSITION', $voting_position);
+	}
+
+
+	/**
+	 * @param bool $inner
+	 * @return string
+	 */
+	public function getHTML($inner = false) {
+		$this->render();
+		$open = '<div id="xlvo-display-player" class="display-player panel panel-primary">';
+		$close = '</div>';
+		if ($inner) {
+			return $this->tpl->get();
+		} else {
+			return $open . $this->tpl->get() . $close;
+		}
+	}
+
+
+	/**
+	 * @param xlvoOption $option
+	 */
+	protected function addOption(xlvoOption $option) {
+		if ($option->getType() == xlvoQuestionTypes::TYPE_FREE_INPUT) {
+			return;
+		}
+		$this->answer_count ++;
+		$this->tpl->setCurrentBlock('option');
+		$this->tpl->setVariable('OPTION_LETTER', (chr($this->answer_count)));
+		$this->tpl->setVariable('OPTION_TEXT', $option->getText());
+		$this->tpl->parseCurrentBlock();
+	}
+}

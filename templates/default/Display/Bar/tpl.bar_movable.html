@@ -1,0 +1,15 @@
+<input type="hidden" name="vote_id" value="{VOTE_ID}">
+<!-- BEGIN voted -->
+<p>{YOUR_ORDER}</p>
+<!-- END voted -->
+<ul id="lvo_bar_movable" class="list-group">
+	<!-- BEGIN option -->
+	<li class="list-group-item list-group-item-heading">
+		<span class="label label-primary">{OPTION_LETTER} <span class="glyphicon glyphicon-move"></span></span> {OPTION}
+		<input class="lvo_bar_movable_item" type="hidden" name="id[]" value="{ID}">
+	</li>
+	<!-- END option -->
+</ul>
+<script>
+	xlvoCorrectOrder.run();
+</script>

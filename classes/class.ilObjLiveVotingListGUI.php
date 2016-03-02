@@ -22,6 +22,7 @@
 */
 
 include_once "./Services/Repository/classes/class.ilObjectPluginListGUI.php";
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoQuestionTypes.php');
 
 /**
  * ListGUI implementation for LiveVoting object plugin. This one
@@ -39,6 +40,7 @@ class ilObjLiveVotingListGUI extends ilObjectPluginListGUI {
 	 */
 	function initType() {
 		$this->setType("xlvo");
+		$this->copy_enabled = true;
 	}
 
 
@@ -57,16 +59,29 @@ class ilObjLiveVotingListGUI extends ilObjectPluginListGUI {
 		return array(
 			array(
 				"permission" => "read",
-				"cmd" => "showContent",
-				"default" => true
+				"cmd"        => "showContent",
+				"default"    => true,
 			),
 			array(
 				"permission" => "write",
-				"cmd" => "editProperties",
-				"txt" => $this->txt("edit"),
-				"default" => false
+				"cmd"        => "editProperties",
+				"txt"        => $this->txt("xlvo_edit"),
+				"default"    => false,
 			),
 		);
+	}
+
+
+	/**
+	 * @param string $a_cmd
+	 * @return string
+	 */
+	public function getCommandFrame($a_cmd) {
+		if (!$this->checkCommandAccess("write", $a_cmd, $this->ref_id, $this->type)) {
+			return '_blank';
+		}
+
+		return parent::getCommandFrame($a_cmd);
 	}
 
 
@@ -79,21 +94,17 @@ class ilObjLiveVotingListGUI extends ilObjectPluginListGUI {
 	 *                        "value" (string) => property value
 	 */
 	function getProperties() {
-		global $lng, $ilUser;
-
 		$props = array();
 
 		$this->plugin->includeClass("class.ilObjLiveVotingAccess.php");
 		if (!ilObjLiveVotingAccess::checkOnline($this->obj_id)) {
 			$props[] = array(
-				"alert" => true,
-				"property" => $this->txt("status"),
-				"value" => $this->txt("offline")
+				"alert"    => true,
+				"property" => $this->txt("obj_status"),
+				"value"    => $this->txt("obj_offline"),
 			);
 		}
 
 		return $props;
 	}
 }
-
-?>
