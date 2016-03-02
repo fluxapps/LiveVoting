@@ -53,6 +53,8 @@ voting_type_4_info#:#Terms must be sorted in the correct order.
 voting_type_5#:#Priorities
 voting_update#:#Update
 voting_type_5_info#:#Terms can be sorted after Priorities
+voting_export#:#Export
+voting_import#:#Import
 xlvo_add#:#Add
 xlvo_delete#:#Delete LiveVoting
 xlvo_edit#:#Edit

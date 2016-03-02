@@ -53,6 +53,8 @@ voting_type_4_info#:#Begriffe müssen in die richtige Reihenfolge gebracht werde
 voting_type_5#:#Prioritäten
 voting_update#:#Speichern
 voting_type_5_info#:#Begriffe können nach Priorität angeordnet werden
+voting_export#:#Export
+voting_import#:#Import
 xlvo_add#:#Hinzufügen
 xlvo_delete#:#LiveVoting löschen
 xlvo_edit#:#Bearbeiten

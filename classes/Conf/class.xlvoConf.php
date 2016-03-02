@@ -26,8 +26,8 @@ class xlvoConf extends ActiveRecord {
 	 * @return string
 	 */
 	public static function getShortLinkURL() {
-		if (self::get(self::F_ALLOW_SHORTLINK)) {
-			$url = self::get(self::F_ALLOW_SHORTLINK_LINK);
+		if (self::getConfig(self::F_ALLOW_SHORTLINK)) {
+			$url = self::getConfig(self::F_ALLOW_SHORTLINK_LINK);
 			$url = rtrim($url, "/") . "/";
 			$url = str_replace("http://", '', $url);
 			$url = str_replace("https://", '', $url);
@@ -49,8 +49,8 @@ class xlvoConf extends ActiveRecord {
 	 * @return string
 	 */
 	public static function getBaseURL() {
-		if (self::get(self::F_ALLOW_SHORTLINK)) {
-			$url = self::get(self::F_BASE_URL);
+		if (self::getConfig(self::F_ALLOW_SHORTLINK)) {
+			$url = self::getConfig(self::F_BASE_URL);
 			$url = rtrim($url, "/") . "/";
 		} else {
 			$str = strstr(ILIAS_HTTP_PATH, 'Customizing', true);
@@ -97,7 +97,7 @@ class xlvoConf extends ActiveRecord {
 	 * @return bool
 	 */
 	public static function isConfigUpToDate() {
-		return self::get(self::F_CONFIG_VERSION) == self::CONFIG_VERSION;
+		return self::getConfig(self::F_CONFIG_VERSION) == self::CONFIG_VERSION;
 	}
 
 
@@ -111,7 +111,7 @@ class xlvoConf extends ActiveRecord {
 	 *
 	 * @return mixed
 	 */
-	public static function get($name) {
+	public static function getConfig($name) {
 		if (!self::$cache_loaded[$name]) {
 			$obj = new self($name);
 			self::$cache[$name] = json_decode($obj->getValue());

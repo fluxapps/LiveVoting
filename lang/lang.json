@@ -16,13 +16,15 @@
                 "translations": {
                     "en": "Start LiveVoting",
                     "de": "LiveVoting starten"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "pin_input": {
                 "translations": {
                     "en": "PIN",
                     "de": "PIN zum LiveVoting"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "save": {
                 "translations": {
@@ -34,7 +36,8 @@
                 "translations": {
                     "en": "Send",
                     "de": "Abschicken"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "text": {
                 "translations": {
@@ -64,13 +67,15 @@
                 "translations": {
                     "de": "Bitte auf Start warten",
                     "en": "Please wait for presenter"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "header_stopped": {
                 "translations": {
                     "de": "Abstimmung gestoppt",
                     "en": "Voting stopped"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "info_frozen": {
                 "translations": {
@@ -82,13 +87,15 @@
                 "translations": {
                     "de": "Dieses LiveVoting wurde vom Pr\u00e4sentator nicht nicht gestartet, bitte warten...",
                     "en": "This LiveVoting has not yet been started by the presenter..."
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "info_stopped": {
                 "translations": {
                     "de": "Das LiveVoting wurde gestoppt.",
                     "en": "This LiveVoting has been stopped"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "msg_access_screen": {
                 "translations": {
@@ -124,7 +131,8 @@
                 "translations": {
                     "de": "Bitte Logen Sie sich ein, um dieses LiveVoting verwendet zu k\u00f6nnen",
                     "en": "Please log in to use this LiveVoting"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "msg_validation_error_pin_3": {
                 "translations": {
@@ -144,13 +152,15 @@
                 "translations": {
                     "en": "Actions",
                     "de": "Aktionen"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "add": {
                 "translations": {
                     "en": "Add Voting",
                     "de": "Abstimmung hinzuf\u00fcgen"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "cancel": {
                 "translations": {
@@ -187,7 +197,8 @@
                 "translations": {
                     "en": "Delete",
                     "de": "L\u00f6schen"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "delete_confirm": {
                 "translations": {
@@ -205,7 +216,8 @@
                 "translations": {
                     "en": "Edit",
                     "de": "Bearbeiten"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "msg_sorting_saved": {
                 "translations": {
@@ -217,25 +229,29 @@
                 "translations": {
                     "en": "Question",
                     "de": "Frage"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "reset": {
                 "translations": {
                     "en": "Reset",
                     "de": "Zur\u00fccksetzen"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "reset_all": {
                 "translations": {
                     "en": "Reset all Votings",
                     "de": "Alle Abstimmungen zur\u00fccksetzen"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "save_sorting": {
                 "translations": {
                     "en": "Save Order",
                     "de": "Reihenfolge speichern"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "select_type": {
                 "translations": {
@@ -248,31 +264,36 @@
                 "translations": {
                     "en": "Status",
                     "de": "Status"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "status_1": {
                 "translations": {
                     "en": "Inactive",
                     "de": "Inaktiv"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "status_2": {
                 "translations": {
                     "en": "Incomplete",
                     "de": "Unvollst\u00e4ndig"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "status_5": {
                 "translations": {
                     "en": "Active",
                     "de": "Aktiv"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "title": {
                 "translations": {
                     "en": "Title",
                     "de": "Titel"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "type": {
                 "translations": {
@@ -346,6 +367,20 @@
                 "translations": {
                     "en": "Terms can be sorted after Priorities",
                     "de": "Begriffe k\u00f6nnen nach Priorit\u00e4t angeordnet werden"
+                },
+                "last_used": "02.03.2016"
+            },
+            "export": {
+                "translations": {
+                    "en": "Export",
+                    "de": "Export"
+                },
+                "last_used": "02.03.2016"
+            },
+            "import": {
+                "translations": {
+                    "en": "Import",
+                    "de": "Import"
                 },
                 "last_used": "02.03.2016"
             }
@@ -490,97 +525,113 @@
                 "translations": {
                     "de": "Abstimmung ohne Login",
                     "en": "Vote without Login"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "description": {
                 "translations": {
                     "de": "Beschreibung",
                     "en": "Description"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "edit_properties": {
                 "translations": {
                     "de": "Einstellungen bearbeiten",
                     "en": "Edit Properties"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "info_anonymous": {
                 "translations": {
                     "de": "Das LiveVoting kann von den Abstimmenden ohne Login verwendet werden, auch wenn das Objekt in einem gesch\u00fctzten Bereich wie bspw. einem Kurs liegt.",
                     "en": "The LiveVoting can be used for the voters without authentication, even when the Object is in a secured Space like a Course"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "info_online": {
                 "translations": {
                     "de": "Nur wenn das LiveVoting online geschaltet ist, k\u00f6nnen Benutzer das LiveVoting sehen und benutzen.",
                     "en": "Object is online and available"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "info_reuse_status": {
                 "translations": {
                     "de": "Beim Wechseln zwischen Voting wird jeweils \u00fcbernommen, ob das n\u00e4chste Voting freigegeben werden soll, oder nicht.",
                     "en": "Re-use the state of the current Voting when switching to the next (frozen \/ not frozen)."
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "info_terminable": {
                 "translations": {
                     "de": "Das LiveVoting kann nur innerhalb der definierten Zeit zum Abstimmen genutzt werden",
                     "en": "The LiveVoting only can be used in the definied period of time"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "msg_properties_form_saved": {
                 "translations": {
                     "de": "Einstellungen gespeichert",
                     "en": "Settings saved"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "online": {
                 "translations": {
                     "de": "Online",
                     "en": "Online"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "reuse_status": {
                 "translations": {
                     "de": "Player-Status \u00fcbernehmen",
                     "en": "Re-use Player State"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "save": {
                 "translations": {
                     "de": "Save",
                     "en": "Save"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "terminable": {
                 "translations": {
                     "de": "Abstimmung zeitlich beschr\u00e4nken",
                     "en": "Limit voting time"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "terminable_select": {
                 "translations": {
                     "de": "Zeitraum",
                     "en": "Time range"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "terminable_select_end_time": {
                 "translations": {
                     "de": "Ende",
                     "en": "End"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "terminable_select_start_time": {
                 "translations": {
                     "de": "Start",
                     "en": "Start"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "title": {
                 "translations": {
                     "de": "Titel",
                     "en": "Title"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "xlvo": {
                 "translations": {
@@ -638,7 +689,8 @@
                 "translations": {
                     "de": "Das LiveVoting kann nicht gestartet werden, da noch keine Votings vorhanden sind.",
                     "en": "This LiveVoting can't be started since there are no Votings available yet."
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "msg_no_votings": {
                 "translations": {
@@ -668,13 +720,15 @@
                 "translations": {
                     "de": "LiveVoting beginnen",
                     "en": "Start LiveVoting"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "start_voting_and_unfreeze": {
                 "translations": {
                     "de": "LiveVoting beginnen und direkt freigeben",
                     "en": "Start LiveVoting and unfreeze directly"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "terminate": {
                 "translations": {
@@ -698,7 +752,8 @@
                 "translations": {
                     "de": "Votings",
                     "en": "Votings"
-                }
+                },
+                "last_used": "02.03.2016"
             }
         },
         "qtype": {
