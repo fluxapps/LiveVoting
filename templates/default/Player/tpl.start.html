@@ -1,0 +1,22 @@
+<div id="display-player" class="panel panel-primary">
+	<div class="panel-body">
+		<div class="col-md-4">
+			<div class="xlvo_pin well text-center"><span>{PIN}</span></div>
+		</div>
+		<div class="col-md-4">
+			<div class="xlvo_shortlink well text-center"><h3>{SHORTLINK}</h3></div>
+			<!-- BEGIN attendees -->
+			<div class="xlvo_shortlink well text-center"><h3 id="xlvo-attendees">0 Online</h3></div>
+			<!-- END attendees -->
+		</div>
+		<div class="col-md-4">
+			<div class="xlvo_pin well text-center">
+				<img src="{QR-CODE}">
+				<button type="button" class="btn xlvo_btn-qr-modal" data-toggle="modal" data-target="#QRModal">
+					<span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span> Zoom
+				</button>
+			</div>
+			{MODAL}
+		</div>
+	</div>
+</div>

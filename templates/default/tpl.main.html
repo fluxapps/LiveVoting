@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" dir="{LANGUAGE_DIRECTION}">
+<head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<title>{WINDOW_TITLE} {PAGETITLE}</title>
+	<!-- BEGIN mh_meta_item -->
+	<meta name="{MH_META_NAME}" lang="{MH_META_LANG}" content="{MH_META_CONTENT}"/>
+	<!-- END mh_meta_item -->    <!-- BEGIN HeadBaseTag -->    <!-- set to ilias root for pages delivered by scripts in sub folders (e.g. WebAcessChecker -->
+	<base href="{BASE}"/>
+	<!-- END HeadBaseTag -->    <!-- BEGIN generic_css -->
+	<link rel="stylesheet" type="text/css" href="{LOCATION_GENERIC_STYLESHEET}" media="{MEDIA_GENERIC_STYLESHEET}"/>
+	<!-- END generic_css -->    <!-- BEGIN css_file -->
+	<link rel="stylesheet" type="text/css" href="{CSS_FILE}" media="{CSS_MEDIA}"/>
+	<!-- END css_file -->    <!-- BEGIN js_file -->
+	<script type="text/javascript" src="{JS_FILE}"></script>
+	<!-- END js_file -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+	<!--320-->
+</head>
+<body class="{BODY_CLASS}"  {BODY_ATTRIBUTES}>
+<div id="drag_zmove"></div>
+<div id="ilAll">
+	<div class="navbar navbar-fixed-top navbar-inverse">
+		<div class="navbar-header pull-left">
+			<a class="navbar-brand" href="#">
+				<img style="margin-top:-8px;" src="./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/images/icon_xlvo.svg">&nbsp;&nbsp;LiveVoting
+			</a>
+		</div>
+		<div class="navbar-header pull-right">
+			<a class="btn btn-stable navbar-btn" href="./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php">PIN</a>
+		</div>
+	</div>
+	<!--<div class="row">-->
+		<!--<p>&nbsp;</p>-->
+		<!--<p>&nbsp;</p>-->
+	<!--</div>-->
+	<div class="lxvo-row">
+		<!--<div class="panel panel-primary">-->
+			<!--<div class="panel-body">-->
+				{MESSAGE}
+			<!--</div>-->
+		<!--</div>-->
+		{CONTENT}
+	</div>
+</div>
+<!-- BEGIN on_load_code -->
+<script type="text/javascript">
+	il.Util.addOnLoad(function () {
+		<!-- BEGIN on_load_code_inner -->
+		{OLCODE}
+		<!-- END on_load_code_inner -->
+	});
+</script>
+<!-- END on_load_code --></body>
+</html>

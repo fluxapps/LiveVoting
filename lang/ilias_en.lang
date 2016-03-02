@@ -1,114 +1,149 @@
-<!-- language file start -->
-obj_xlvo_duplicate#:#Copy
-obj_xlvo#:#Live Voting
-objs_xlvo#:#Live Votings
-objs_xlvo_duplicate#:#Copy Live Voting
-obj_xlvo_select#:#Select Live Voting
-xlvo_add#:#Add Live Voting
-xlvo_new#:#Add New Live Voting
-xlvo_read#:#Read access to Live Voting
-xlvo_write#:#Edit Live Voting
-xlvo_delete#:#Delete Live Voting
-xlvo_visible#:#Live Voting is visible
-xlvo_edit_permission#:#Change permission settings
-crs_create_xlvo#:#Create Live Voting
-grp_create_xlvo#:#Create Live Voting
-fold_create_xlvo#:#Create Live Voting
-root_create_xlvo#:#Create Live Voting
-cat_create_xlvo#:#Create Live Voting
-content#:#Content
-properties#:#Settings
-edit_properties#:#Edit Settings
-title#:#Title
-description#:#Description
-save#:#Save
-cancel#:#Cancel
-edit#:#Edit
-status#:#Status
-offline#:#Offline
-body_hide_text#:#Show/Hide Results
-reset_votes#:#Restart the voting
-total_votes_text#:#Total Votes:
-anonym#:#Anonymous Vote
-multiple_selection#:#Multiple Selection
-multiple_selection_info#:#Voters can vote for more than one option
-choices#:#Voting Options
-choices_info#:#Insert the available answers here.
-new_option_placeholder#:#Next Option
-lvo_confirm_reset_title#:#Are you sure you want to restart the voting?
-lvo_confirm_reset_text#:#Resetting the vote will delete all current votes irreversibly.
-reset#:#Reset the Vote
-vote#:#vote
-unvote#:#unvote
-patch#:#Patch .htaccess-File with Redirect
-configuration#:#Configuration
-terminated#:#Terminated vote
-terminated_select#:#From/to
-terminated_select_start_time#:#Start time
-terminated_select_end_time#:#End time
-question#:#Question
-is_not_active#:#This LiveVoting isn't active.
-is_not_online#:#This LiveVoting isn't online.
-body_fullscreen_text#:#Fullscreen-Mode for Presentation
-global_anonymous#:#Allow access for Anonymous
-file_patched#:#File patched
-file_depatched#:#File depatched
-allow_fullscreen#:#Allow Fullscreen
-allow_fullscreen_jquery#:#Use jQuery (experimental)
-reset_canceled#:#Reset canceled
-pinform_info#:#Please enter the PIN of your LiveVoting
-send_pin#:#Send PIN
-send_sms#:#Send
-to_nr#:#to
-aspsms#:#AspSMS-Support
-aspsms_number#:#Phone-Number
-aspsms_userkey#:#UserKey
-aspsms_password#:#Password
-aspsms_originator#:#Originator
-aspsms_flash#:#FlashSMS
-aspsms_sendsms_ok#:#Send SMS when Voting is ok
-aspsms_sendsms_error#:#Send SMS when Voting went wrong
-
-sms_err_notanonimous#:#This LiveVoting doesn't allow SMS
-sms_err_wrongpin#:#This LiveVoting-PIN doesn't exist
-sms_err_voteover#:#This LiveVoting is closed
-sms_err_nosuchvote#:#There's no such option for this LiveVoting
-sms_vote_ok#:#Thank's for voting with ILIAS LiveVoting
-use_smslog#:#Use a separate SMS-Log-File
-
-allow_freeze#:#Allow Freeze
-freeze#:#Freeze Voting
-voting_freezed#:#Voting freezed
-unfreeze#:#Unfreeze Voting
-voting_unfreezed#:#Voting unfreezed
-
-use_qr#:#Use QR-Codes
-qr_close#:#Close
-
-sragsms#:#SRAGsms-Support
-sragsms_number#:#Phone-Number
-sragsms_userkey#:#UserKey
-sragsms_password#:#Passwort
-sragsms_originator#:#Originator
-sragsms_keyword#:#Keyword
-sragsms_costs#:#Costs in Cents
-sragsms_sendsms_ok#:#Send SMS when Voting is ok
-sragsms_sendsms_error#:#Send SMS when Voting went wrong
-
-pin_doesnt_exists#:#Pin doesn't exist
-anonym_info#:#No login is required to commit a vote if this option is selected
-allow_shortlink#:#Activate Shortlink
-allow_shortlink_link#:#Shortlink
-
-use_three_step_view#:#Use Didactic Template 3-Step
-
-back_to_pin#:#Enter new PIN
-
-back_to_pin#:#New PIN
-edit_settings#:#Edit Settings
-htaccess#:#Redirects
-stress_test#:#Stresstests
-use_responsive#:#Allow Responsive-Design
-colorful#:#Multi-colored Bars
-
-conf_saved#:#Saved
+voter_msg_waiting_screen#:#Please wait
+voter_pin_form_title#:#Start LiveVoting
+voter_pin_input#:#PIN
+voter_save#:#Save
+voter_send#:#Send
+voter_text#:#Input
+voter_answer#:#Input
+voter_delete#:#Delete
+voter_header_frozen#:#Voting frozen
+voter_header_start#:#Please wait for presenter
+voter_header_stopped#:#Voting stopped
+voter_info_frozen#:#This Questions is not yet active, please wait...
+voter_info_start#:#This LiveVoting has not yet been started by the presenter...
+voter_info_stopped#:#This LiveVoting has been stopped
+voter_msg_access_screen#:#PIN-Access
+voter_msg_end_of_voting_screen#:#This LiveVoting has been terminated. Thanks for your participation.
+voter_msg_not_running_screen#:#This LiveVoting is currently not active.
+voter_msg_start_of_voting_screen#:#Please wait untill the Presenter starts the Voting
+voter_msg_validation_error_pin_1#:#This LiveVoting is not online
+voter_msg_validation_error_pin_2#:#Please log in to use this LiveVoting
+voter_msg_validation_error_pin_3#:#No LiveVoting with this PIN found
+voter_msg_validation_error_pin_4#:#This LiveVoting is not available at the Moment
+voting_actions#:#Actions
+voting_add#:#Add Voting
+voting_cancel#:#Cancel
+voting_confirm_number_of_votes#:#Amount of User-Inputs:
+voting_confirm_reset#:#Do you like to reset this Voting? All User-Inputs will be deleted.
+voting_confirm_reset_all#:#Do you like to reset all Voting? All User-Inputs will be deleted.
+voting_create#:#Create
+voting_delete#:#Delete
+voting_delete_confirm#:#Do you really want to delete the Voting?
+voting_description#:#Description
+voting_edit#:#Edit
+voting_msg_sorting_saved#:#Order saved
+voting_question#:#Question
+voting_reset#:#Reset
+voting_reset_all#:#Reset all Votings
+voting_save_sorting#:#Save Order
+voting_select_type#:#Select Type
+voting_status#:#Status
+voting_status_1#:#Inactive
+voting_status_2#:#Incomplete
+voting_status_5#:#Active
+voting_title#:#Title
+voting_type#:#Type
+voting_type_1#:#Single/Multiple Choice
+voting_type_1_info#:#A User can vote for different options
+voting_type_2#:#Free Input
+voting_type_2_info#:#User can hand in free text
+voting_type_3#:#Range
+voting_type_4#:#Correct Order
+voting_type_4_info#:#Terms must be sorted in the correct order.
+voting_type_5#:#Priorities
+voting_update#:#Update
+voting_type_5_info#:#Terms can be sorted after Priorities
+voting_export#:#Export
+voting_import#:#Import
+xlvo_add#:#Add
+xlvo_delete#:#Delete LiveVoting
+xlvo_edit#:#Edit
+xlvo_edit_permission#:#Edit Permissions
+xlvo_new#:#Add new LiveVoting
+xlvo_read#:#(Not used)
+xlvo_visible#:#LiveVotings visible
+xlvo_write#:#Present and edit LiveVoting
+common_back#:#Back
+common_actions#:#Actions
+config_allow_shortlink#:#Activate Short URL
+config_allow_shortlink_info#:#Use a Short URL like /vote by adding the following RewriteRule to your .htaccess:
+config_allow_shortlink_link#:#Short URL
+config_allow_shortlink_link_info#:#Full Short URL of your Installation , e.g. https://ilias.domain.com/vote
+config_base_url#:#Base URL
+config_base_url_info#:#URL of yout ILIAS-Installation incl. Subfolders, e.g. https://www.domain.com/ilias
+config_cancel#:#Cancel
+config_msg_success#:#Saved
+config_update#:#Update
+msg_success_voting_created#:#Voting has been created
+msg_success_voting_updated#:#Voting has been udpated
+obj_anonymous#:#Vote without Login
+obj_description#:#Description
+obj_edit_properties#:#Edit Properties
+obj_info_anonymous#:#The LiveVoting can be used for the voters without authentication, even when the Object is in a secured Space like a Course
+obj_info_online#:#Object is online and available
+obj_info_reuse_status#:#Re-use the state of the current Voting when switching to the next (frozen / not frozen).
+obj_info_terminable#:#The LiveVoting only can be used in the definied period of time
+obj_msg_properties_form_saved#:#Settings saved
+obj_online#:#Online
+obj_reuse_status#:#Re-use Player State
+obj_save#:#Save
+obj_terminable#:#Limit voting time
+obj_terminable_select#:#Time range
+obj_terminable_select_end_time#:#End
+obj_terminable_select_start_time#:#Start
+obj_title#:#Title
+obj_xlvo#:#LiveVoting
+obj_xlvo_duplicate#:#Clone existing LiveVoting
+obj_status#:#Status
+obj_offline#:#Offline
+objs_xlvo#:#LiveVotings
+objs_xlvo_duplicate#:#Clone existing LiveVoting
+player_close_modal#:#Close
+player_freeze#:#Freeze
+player_hide_results#:#Hide Results
+player_msg_no_start_1#:#This LiveVoting can't be started since it is offline.
+player_msg_no_start_2#:#This LiveVoting can't be started since there are no Votings available yet.
+player_msg_no_votings#:#There are no Questions, the LiveVoting can be started.
+player_msg_voting_not_available#:#The selected Voting is not available
+player_reset#:#Reset
+player_show_results#:#Show Results
+player_start_voting#:#Start LiveVoting
+player_start_voting_and_unfreeze#:#Start LiveVoting and unfreeze directly
+player_terminate#:#Terminate
+player_unfreeze#:#Unfreeze
+player_voters_online#:#Online
+player_voting_list#:#Votings
+qtype_1_colors#:#Different Colors
+qtype_1_multi_selection#:#Multiple Selection
+qtype_1_multi_selection_info#:#User can select more than one Option
+qtype_1_option_text#:#Option-Text
+qtype_1_options#:#Options
+qtype_1_total_votes#:#Total Votes
+qtype_1_unvote#:#Unvote
+qtype_1_vote#:#Vote
+qtype_2_answers#:#Inputs
+qtype_2_clear#:#Clear
+qtype_2_delete_all#:#Delete All
+qtype_2_input#:#Input
+qtype_2_multi_free_input#:#Multiple Inputs
+qtype_2_multi_free_input_info#:#A User can hand in multiple Texts
+qtype_2_send#:#Send
+qtype_2_your_input#:#Your saved input:
+qtype_4_clear#:#Clear
+qtype_4_id#:#ID
+qtype_4_option_correct_position#:#Correct Position
+qtype_4_option_position#:#Position
+qtype_4_option_text#:#Term
+qtype_4_options#:#Options
+qtype_4_save#:#Save
+qtype_4_your_order#:#Your Submission:
+qtype_5_option_text#:#Text
+qtype_5_option_weight#:#Weight
+qtype_5_options#:#Options
+qtype_form_header#:#Type-Settings
+qtype_multi_free_input#:#Multiple Inputs
+qtype_2_text#:#Text
+subtab_edit#:#Manage
+subtab_show#:#Show
+tab_content#:#Content
+tab_edit#:#Settings
