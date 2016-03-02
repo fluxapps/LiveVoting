@@ -100,8 +100,8 @@ class ilObjLiveVotingListGUI extends ilObjectPluginListGUI {
 		if (!ilObjLiveVotingAccess::checkOnline($this->obj_id)) {
 			$props[] = array(
 				"alert"    => true,
-				"property" => $this->txt("status"),
-				"value"    => $this->txt("offline"),
+				"property" => $this->txt("obj_status"),
+				"value"    => $this->txt("obj_offline"),
 			);
 		}
 

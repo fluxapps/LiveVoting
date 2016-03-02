@@ -61,7 +61,8 @@
                 "translations": {
                     "de": "Abstimmung noch nicht freigegeben",
                     "en": "Voting frozen"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "header_start": {
                 "translations": {
@@ -81,7 +82,8 @@
                 "translations": {
                     "de": "Diese Frage ist noch nicht aktiv, bitte warten...",
                     "en": "This Questions is not yet active, please wait..."
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "info_start": {
                 "translations": {
@@ -138,7 +140,8 @@
                 "translations": {
                     "de": "Zu diesem PIN wurde keine LiveVoting gefunden",
                     "en": "No LiveVoting with this PIN found"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "msg_validation_error_pin_4": {
                 "translations": {
@@ -179,7 +182,8 @@
                 "translations": {
                     "en": "Do you like to reset this Voting? All User-Inputs will be deleted.",
                     "de": "M\u00f6chten Sie die Abstimmung zur\u00fccksetzen? Alle Benutzer-Eingaben werden gel\u00f6scht."
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "confirm_reset_all": {
                 "translations": {
@@ -644,6 +648,20 @@
                     "de": "Bestehendes LiveVoting kopieren",
                     "en": "Clone existing LiveVoting"
                 }
+            },
+            "status": {
+                "translations": {
+                    "en": "Status",
+                    "de": "Status"
+                },
+                "last_used": "02.03.2016"
+            },
+            "offline": {
+                "translations": {
+                    "en": "Offline",
+                    "de": "Offline"
+                },
+                "last_used": "02.03.2016"
             }
         },
         "objs": {
@@ -671,19 +689,22 @@
                 "translations": {
                     "de": "Pausieren",
                     "en": "Freeze"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "hide_results": {
                 "translations": {
                     "de": "Resultate ausblenden",
                     "en": "Hide Results"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "msg_no_start_1": {
                 "translations": {
                     "de": "Sie k\u00f6nnen das LiveVoting nicht starten! Das LiveVoting ist offline.",
                     "en": "This LiveVoting can't be started since it is offline."
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "msg_no_start_2": {
                 "translations": {
@@ -708,13 +729,15 @@
                 "translations": {
                     "de": "Zur\u00fccksetzen",
                     "en": "Reset"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "show_results": {
                 "translations": {
                     "de": "Resultate einblenden",
                     "en": "Show Results"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "start_voting": {
                 "translations": {
@@ -734,19 +757,22 @@
                 "translations": {
                     "de": "Beenden",
                     "en": "Terminate"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "unfreeze": {
                 "translations": {
                     "de": "Abstimmen",
                     "en": "Unfreeze"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "voters_online": {
                 "translations": {
                     "de": "Online",
                     "en": "Online"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "voting_list": {
                 "translations": {
@@ -791,19 +817,22 @@
                 "translations": {
                     "de": "Anzahl Stimmen",
                     "en": "Total Votes"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "1_unvote": {
                 "translations": {
                     "de": "Unvote",
                     "en": "Unvote"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "1_vote": {
                 "translations": {
                     "de": "Vote",
                     "en": "Vote"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "2_answers": {
                 "translations": {

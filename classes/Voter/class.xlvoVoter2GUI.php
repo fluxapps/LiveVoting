@@ -32,13 +32,6 @@ class xlvoVoter2GUI extends xlvoGUI {
 	protected $manager;
 
 
-	public function __construct() {
-		parent::__construct();
-		$this->pin = xlvoInitialisation::getCookiePIN();
-		$this->manager = new xlvoVotingManager2($this->pin);
-	}
-
-
 	/**
 	 * @param $key
 	 * @return string
@@ -49,10 +42,20 @@ class xlvoVoter2GUI extends xlvoGUI {
 
 
 	public function executeCommand() {
+		global $ilUser;
+		$this->pin = xlvoInitialisation::getCookiePIN();
+		$this->manager = new xlvoVotingManager2($this->pin, true);
 		$nextClass = $this->ctrl->getNextClass();
 		switch ($nextClass) {
 			case '':
-				parent::executeCommand();
+				if (!$this->manager->getVotingConfig()->isAnonymous() && ($ilUser->getId() == 13 || $ilUser->getId() == 0)) {
+					$login_target = './login.php?cmd=force_login&target=xlvo_1_pin_' . $this->pin;
+					$this->tpl->setContent("<script>window.location.replace('$login_target');</script>");
+					$this->tpl->show();
+				} else {
+					parent::executeCommand();
+				}
+
 				break;
 			default:
 				// Question-types
@@ -93,6 +96,11 @@ class xlvoVoter2GUI extends xlvoGUI {
 	protected function checkPin() {
 		$redirect = true;
 		try {
+			var_dump($_POST[self::F_PIN_INPUT]); // FSX
+			var_dump($_POST[self::F_PIN_INPUT]); // FSX
+			var_dump($_POST[self::F_PIN_INPUT]); // FSX
+			var_dump($_POST[self::F_PIN_INPUT]); // FSX
+			var_dump($_POST[self::F_PIN_INPUT]); // FSX
 			xlvoPin::checkPin($_POST[self::F_PIN_INPUT]);
 		} catch (xlvoVoterException $e) {
 			xlvoInitialisation::resetCookiePIN();

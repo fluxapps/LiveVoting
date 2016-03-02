@@ -471,18 +471,20 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 	 */
 	public static function _goto($a_target) {
 		if (preg_match("/[\\d]*_pin_([\\w]*)/", $a_target[0], $matches)) {
+			require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voter/class.xlvoVoter2GUI.php');
+			xlvoInitialisation::saveContext(xlvoInitialisation::CONTEXT_ILIAS);
+			xlvoInitialisation::setCookiePIN($matches[1], true);
+
 			global $ilCtrl;
 			/**
 			 * @var ilCtrl $ilCtrl
 			 */
-			xlvoInitialisation::setCookiePIN($matches[1], true);
-			//			ilUtil::redirect('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?pin='.$matches[1]);
 			$ilCtrl->initBaseClass('ilUIPluginRouterGUI');
-			$ilCtrl->setTargetScript('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/xlvoILIAS.php');
+			$ilCtrl->setTargetScript(xlvoConf::getFullApiURL());
 			$ilCtrl->redirectByClass(array(
 				'ilUIPluginRouterGUI',
-				'xlvoVoterGUI',
-			));
+				'xlvoVoter2GUI',
+			), xlvoVoter2GUI::CMD_START_VOTER_PLAYER);
 		}
 
 		parent::_goto($a_target);

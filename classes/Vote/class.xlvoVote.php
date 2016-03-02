@@ -138,16 +138,16 @@ class xlvoVote extends ActiveRecord {
 
 		if (!$vote instanceof self) {
 			$vote = new self();
-			if ($xlvoUser->isILIASUser()) {
-				$vote->setUserIdType(self::USER_ILIAS);
-				$vote->setUserId($xlvoUser->getIdentifier());
-			} else {
-				$vote->setUserIdType(self::USER_ILIAS);
-				$vote->setUserIdentifier($xlvoUser->getIdentifier());
-			}
-			$vote->setOptionId($option_id);
-			$vote->setVotingId($voting_id);
 		}
+
+		$vote->setUserIdType($xlvoUser->getType());
+		if ($xlvoUser->isILIASUser()) {
+			$vote->setUserId($xlvoUser->getIdentifier());
+		} else {
+			$vote->setUserIdentifier($xlvoUser->getIdentifier());
+		}
+		$vote->setOptionId($option_id);
+		$vote->setVotingId($voting_id);
 
 		return $vote;
 	}

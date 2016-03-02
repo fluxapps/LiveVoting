@@ -34,14 +34,19 @@ class xlvoVotingManager2 {
 	 * @param $pin
 	 */
 	public function __construct($pin) {
-		$obj_id = 0;
-		try {
-			$obj_id = xlvoPin::checkPin($pin, false);
-		} catch (xlvoVoterException $e) {
-		}
+		$obj_id = xlvoPin::checkPin($pin, false);
 		$this->obj_id = $obj_id;
 		$this->player = xlvoPlayer::getInstanceForObjId($this->obj_id);
 		$this->voting = xlvoVoting::findOrGetInstance($this->getPlayer()->getActiveVoting());
+	}
+
+
+	/**
+	 * @param $pin
+	 * @throws \xlvoVoterException
+	 */
+	public function checkPIN($pin) {
+		xlvoPin::checkPin($pin, true);
 	}
 
 

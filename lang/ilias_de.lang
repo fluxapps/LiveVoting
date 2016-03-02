@@ -94,6 +94,8 @@ obj_terminable_select_start_time#:#Start
 obj_title#:#Titel
 obj_xlvo#:#LiveVoting
 obj_xlvo_duplicate#:#Bestehendes LiveVoting kopieren
+obj_status#:#Status
+obj_offline#:#Offline
 objs_xlvo#:#LiveVotings
 objs_xlvo_duplicate#:#Bestehendes LiveVoting kopieren
 player_close_modal#:#Schliessen

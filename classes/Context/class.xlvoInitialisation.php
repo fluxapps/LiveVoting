@@ -181,6 +181,7 @@ class xlvoInitialisation extends ilInitialisation {
 		self::initGlobal("tree", $tree);
 		unset($tree);
 		self::initGlobal("ilCtrl", "ilCtrl", "./Services/UICore/classes/class.ilCtrl.php");
+		$GLOBALS['COOKIE_PATH'] = '/';
 		self::setCookieParams();
 		self::initLog();
 	}
