@@ -12,6 +12,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoPlayerGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Context/class.xlvoInitialisation.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoQuestionTypes.php');
+
 /**
  * Class ilObjLiveVotingGUI
  *
@@ -313,6 +314,18 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 			$this->fillPropertiesForm();
 			$this->tpl->setContent($this->form->getHTML());
 		}
+	}
+
+
+	/**
+	 * @param string $a_new_type
+	 * @return \ilPropertyFormGUI
+	 */
+	public function initCreateForm($a_new_type) {
+		$form = parent::initCreateForm($a_new_type);
+		$form->setPreventDoubleSubmission(false);
+
+		return $form;
 	}
 
 
