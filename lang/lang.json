@@ -1,0 +1,913 @@
+{
+    "plugin_prefix": "rep_robj_xlvo",
+    "languages": [
+        "en",
+        "de"
+    ],
+    "entries": {
+        "voter": {
+            "msg_waiting_screen": {
+                "translations": {
+                    "en": "Please wait",
+                    "de": "Bitte warten"
+                }
+            },
+            "pin_form_title": {
+                "translations": {
+                    "en": "Start LiveVoting",
+                    "de": "LiveVoting starten"
+                }
+            },
+            "pin_input": {
+                "translations": {
+                    "en": "PIN",
+                    "de": "PIN zum LiveVoting"
+                }
+            },
+            "save": {
+                "translations": {
+                    "en": "Save",
+                    "de": "Speichern"
+                }
+            },
+            "send": {
+                "translations": {
+                    "en": "Send",
+                    "de": "Abschicken"
+                }
+            },
+            "text": {
+                "translations": {
+                    "en": "Input",
+                    "de": "Eingabe"
+                }
+            },
+            "answer": {
+                "translations": {
+                    "de": "Eingabe",
+                    "en": "Input"
+                }
+            },
+            "delete": {
+                "translations": {
+                    "de": "L\u00f6schen",
+                    "en": "Delete"
+                }
+            },
+            "header_frozen": {
+                "translations": {
+                    "de": "Abstimmung noch nicht freigegeben",
+                    "en": "Voting frozen"
+                }
+            },
+            "header_start": {
+                "translations": {
+                    "de": "Bitte auf Start warten",
+                    "en": "Please wait for presenter"
+                }
+            },
+            "header_stopped": {
+                "translations": {
+                    "de": "Abstimmung gestoppt",
+                    "en": "Voting stopped"
+                }
+            },
+            "info_frozen": {
+                "translations": {
+                    "de": "Diese Frage ist noch nicht aktiv, bitte warten...",
+                    "en": "This Questions is not yet active, please wait..."
+                }
+            },
+            "info_start": {
+                "translations": {
+                    "de": "Dieses LiveVoting wurde vom Pr\u00e4sentator nicht nicht gestartet, bitte warten...",
+                    "en": "This LiveVoting has not yet been started by the presenter..."
+                }
+            },
+            "info_stopped": {
+                "translations": {
+                    "de": "Das LiveVoting wurde gestoppt.",
+                    "en": "This LiveVoting has been stopped"
+                }
+            },
+            "msg_access_screen": {
+                "translations": {
+                    "de": "PIN-Eingabe",
+                    "en": "PIN-Access"
+                }
+            },
+            "msg_end_of_voting_screen": {
+                "translations": {
+                    "de": "Das LiveVoting wurde beendet, vielen Dank f\u00fcr Ihre Teilnahme",
+                    "en": "This LiveVoting has been terminated. Thanks for your participation."
+                }
+            },
+            "msg_not_running_screen": {
+                "translations": {
+                    "de": "Dieses LiveVoting ist zur Zeit nicht aktiv.",
+                    "en": "This LiveVoting is currently not active."
+                }
+            },
+            "msg_start_of_voting_screen": {
+                "translations": {
+                    "de": "Bitte warten, bis der Pr\u00e4sentator das Voting freigibt",
+                    "en": "Please wait untill the Presenter starts the Voting"
+                }
+            },
+            "msg_validation_error_pin_1": {
+                "translations": {
+                    "de": "Dieses LiveVoting ist zur Zeit nicht online",
+                    "en": "This LiveVoting is not online"
+                }
+            },
+            "msg_validation_error_pin_2": {
+                "translations": {
+                    "de": "Bitte Logen Sie sich ein, um dieses LiveVoting verwendet zu k\u00f6nnen",
+                    "en": "Please log in to use this LiveVoting"
+                }
+            },
+            "msg_validation_error_pin_3": {
+                "translations": {
+                    "de": "Zu diesem PIN wurde keine LiveVoting gefunden",
+                    "en": "No LiveVoting with this PIN found"
+                }
+            },
+            "msg_validation_error_pin_4": {
+                "translations": {
+                    "de": "Dieses LiveVoting ist zum aktuellen Zeitpunkt nicht verf\u00fcgbar",
+                    "en": "This LiveVoting is not available at the Moment"
+                }
+            }
+        },
+        "voting": {
+            "actions": {
+                "translations": {
+                    "en": "Actions",
+                    "de": "Aktionen"
+                }
+            },
+            "add": {
+                "translations": {
+                    "en": "Add Voting",
+                    "de": "Abstimmung hinzuf\u00fcgen"
+                }
+            },
+            "cancel": {
+                "translations": {
+                    "en": "Cancel",
+                    "de": "Abbrechen"
+                },
+                "last_used": "02.03.2016"
+            },
+            "confirm_number_of_votes": {
+                "translations": {
+                    "en": "Amount of User-Inputs:",
+                    "de": "Anzahl Benutzer-Eingaben:"
+                }
+            },
+            "confirm_reset": {
+                "translations": {
+                    "en": "Do you like to reset this Voting? All User-Inputs will be deleted.",
+                    "de": "M\u00f6chten Sie die Abstimmung zur\u00fccksetzen? Alle Benutzer-Eingaben werden gel\u00f6scht."
+                }
+            },
+            "confirm_reset_all": {
+                "translations": {
+                    "en": "Do you like to reset all Voting? All User-Inputs will be deleted.",
+                    "de": "M\u00f6chten Sie alle Abstimmungen zur\u00fccksetzen? Alle Benutzer-Eingaben werden gel\u00f6scht."
+                }
+            },
+            "create": {
+                "translations": {
+                    "en": "Create",
+                    "de": "Erstellen"
+                }
+            },
+            "delete": {
+                "translations": {
+                    "en": "Delete",
+                    "de": "L\u00f6schen"
+                }
+            },
+            "delete_confirm": {
+                "translations": {
+                    "en": "Do you really want to delete the Voting?",
+                    "de": "M\u00f6chsten Sie die Abstimmung wirklich l\u00f6schen?"
+                }
+            },
+            "description": {
+                "translations": {
+                    "en": "Description",
+                    "de": "Beschreibung"
+                }
+            },
+            "edit": {
+                "translations": {
+                    "en": "Edit",
+                    "de": "Bearbeiten"
+                }
+            },
+            "msg_sorting_saved": {
+                "translations": {
+                    "en": "Order saved",
+                    "de": "Reihenfolge gespeichert"
+                }
+            },
+            "question": {
+                "translations": {
+                    "en": "Question",
+                    "de": "Frage"
+                }
+            },
+            "reset": {
+                "translations": {
+                    "en": "Reset",
+                    "de": "Zur\u00fccksetzen"
+                }
+            },
+            "reset_all": {
+                "translations": {
+                    "en": "Reset all Votings",
+                    "de": "Alle Abstimmungen zur\u00fccksetzen"
+                }
+            },
+            "save_sorting": {
+                "translations": {
+                    "en": "Save Order",
+                    "de": "Reihenfolge speichern"
+                }
+            },
+            "select_type": {
+                "translations": {
+                    "en": "Select Type",
+                    "de": "Typ ausw\u00e4hlen"
+                },
+                "last_used": "02.03.2016"
+            },
+            "status": {
+                "translations": {
+                    "en": "Status",
+                    "de": "Status"
+                }
+            },
+            "status_1": {
+                "translations": {
+                    "en": "Inactive",
+                    "de": "Inaktiv"
+                }
+            },
+            "status_2": {
+                "translations": {
+                    "en": "Incomplete",
+                    "de": "Unvollst\u00e4ndig"
+                }
+            },
+            "status_5": {
+                "translations": {
+                    "en": "Active",
+                    "de": "Aktiv"
+                }
+            },
+            "title": {
+                "translations": {
+                    "en": "Title",
+                    "de": "Titel"
+                }
+            },
+            "type": {
+                "translations": {
+                    "en": "Type",
+                    "de": "Typ"
+                },
+                "last_used": "02.03.2016"
+            },
+            "type_1": {
+                "translations": {
+                    "en": "Single\/Multiple Choice",
+                    "de": "Single\/Multiple Choice"
+                },
+                "last_used": "02.03.2016"
+            },
+            "type_1_info": {
+                "translations": {
+                    "en": "A User can vote for different options",
+                    "de": "Ein Nutzer kann f\u00fcr mehrere Auswahlm\u00f6glichkeiten abstimmen"
+                },
+                "last_used": "02.03.2016"
+            },
+            "type_2": {
+                "translations": {
+                    "en": "Free Input",
+                    "de": "Freitext eingeben"
+                },
+                "last_used": "02.03.2016"
+            },
+            "type_2_info": {
+                "translations": {
+                    "en": "User can hand in free text",
+                    "de": "Benutzer k\u00f6nnen Stichwort selber eingeben"
+                },
+                "last_used": "02.03.2016"
+            },
+            "type_3": {
+                "translations": {
+                    "en": "Range",
+                    "de": "Bereich"
+                }
+            },
+            "type_4": {
+                "translations": {
+                    "en": "Correct Order",
+                    "de": "Korrekte Reihenfolge"
+                },
+                "last_used": "02.03.2016"
+            },
+            "type_4_info": {
+                "translations": {
+                    "en": "Terms must be sorted in the correct order.",
+                    "de": "Begriffe m\u00fcssen in die richtige Reihenfolge gebracht werden"
+                },
+                "last_used": "02.03.2016"
+            },
+            "type_5": {
+                "translations": {
+                    "en": "Priorities",
+                    "de": "Priorit\u00e4ten"
+                },
+                "last_used": "02.03.2016"
+            },
+            "update": {
+                "translations": {
+                    "en": "Update",
+                    "de": "Speichern"
+                }
+            },
+            "type_5_info": {
+                "translations": {
+                    "en": "Terms can be sorted after Priorities",
+                    "de": "Begriffe k\u00f6nnen nach Priorit\u00e4t angeordnet werden"
+                },
+                "last_used": "02.03.2016"
+            }
+        },
+        "xlvo": {
+            "add": {
+                "translations": {
+                    "en": "Add",
+                    "de": "Hinzuf\u00fcgen"
+                }
+            },
+            "delete": {
+                "translations": {
+                    "en": "Delete LiveVoting",
+                    "de": "LiveVoting l\u00f6schen"
+                }
+            },
+            "edit": {
+                "translations": {
+                    "en": "Edit",
+                    "de": "Bearbeiten"
+                },
+                "last_used": "02.03.2016"
+            },
+            "edit_permission": {
+                "translations": {
+                    "en": "Edit Permissions",
+                    "de": "Rechte bearbeiten"
+                }
+            },
+            "new": {
+                "translations": {
+                    "en": "Add new LiveVoting",
+                    "de": "Neues LiveVoting anlegen"
+                }
+            },
+            "read": {
+                "translations": {
+                    "en": "(Not used)",
+                    "de": "(keine Auswirkung)"
+                }
+            },
+            "visible": {
+                "translations": {
+                    "en": "LiveVotings visible",
+                    "de": "LiveVoting sichtbar"
+                }
+            },
+            "write": {
+                "translations": {
+                    "en": "Present and edit LiveVoting",
+                    "de": "LiveVoting pr\u00e4sentieren und bearbeiten"
+                }
+            }
+        },
+        "common": {
+            "back": {
+                "translations": {
+                    "de": "Zur\u00fcck",
+                    "en": "Back"
+                }
+            },
+            "actions": {
+                "translations": {
+                    "en": "Actions",
+                    "de": "Aktionen"
+                }
+            }
+        },
+        "config": {
+            "allow_shortlink": {
+                "translations": {
+                    "de": "Kurz-URL einschalten",
+                    "en": "Activate Short URL"
+                }
+            },
+            "allow_shortlink_info": {
+                "translations": {
+                    "de": "Eine Kurz-URL kann bspw. durch hinzuf\u00fcgen einer RewriteRule in der .htaccess erstellt werden, dadurch kann auf https:\/\/ilias.domain.com\/vote angestimmt werden:",
+                    "en": "Use a Short URL like \/vote by adding the following RewriteRule to your .htaccess:"
+                }
+            },
+            "allow_shortlink_link": {
+                "translations": {
+                    "de": "Kurz-URL",
+                    "en": "Short URL"
+                }
+            },
+            "allow_shortlink_link_info": {
+                "translations": {
+                    "de": "Ganze Kurz-URL ihrer Installation, bspw. https:\/\/ilias.domain.com\/vote",
+                    "en": "Full Short URL of your Installation , e.g. https:\/\/ilias.domain.com\/vote"
+                }
+            },
+            "base_url": {
+                "translations": {
+                    "de": "Basis-URL",
+                    "en": "Base URL"
+                }
+            },
+            "base_url_info": {
+                "translations": {
+                    "de": "URL Ihrer ILIAS-Installation inkl. Unterverzeichnis, bspw. https:\/\/www.domain.com\/ilias",
+                    "en": "URL of yout ILIAS-Installation incl. Subfolders, e.g. https:\/\/www.domain.com\/ilias"
+                }
+            },
+            "cancel": {
+                "translations": {
+                    "de": "Abbrechen",
+                    "en": "Cancel"
+                }
+            },
+            "msg_success": {
+                "translations": {
+                    "de": "Gespeichert",
+                    "en": "Saved"
+                }
+            },
+            "update": {
+                "translations": {
+                    "de": "Update",
+                    "en": "Update"
+                }
+            }
+        },
+        "msg": {
+            "success_voting_created": {
+                "translations": {
+                    "de": "Voting wurde erstellt",
+                    "en": "Voting has been created"
+                }
+            },
+            "success_voting_updated": {
+                "translations": {
+                    "de": "Voting wurde gespeichert",
+                    "en": "Voting has been udpated"
+                }
+            }
+        },
+        "obj": {
+            "anonymous": {
+                "translations": {
+                    "de": "Abstimmung ohne Login",
+                    "en": "Vote without Login"
+                }
+            },
+            "description": {
+                "translations": {
+                    "de": "Beschreibung",
+                    "en": "Description"
+                }
+            },
+            "edit_properties": {
+                "translations": {
+                    "de": "Einstellungen bearbeiten",
+                    "en": "Edit Properties"
+                }
+            },
+            "info_anonymous": {
+                "translations": {
+                    "de": "Das LiveVoting kann von den Abstimmenden ohne Login verwendet werden, auch wenn das Objekt in einem gesch\u00fctzten Bereich wie bspw. einem Kurs liegt.",
+                    "en": "The LiveVoting can be used for the voters without authentication, even when the Object is in a secured Space like a Course"
+                }
+            },
+            "info_online": {
+                "translations": {
+                    "de": "Nur wenn das LiveVoting online geschaltet ist, k\u00f6nnen Benutzer das LiveVoting sehen und benutzen.",
+                    "en": "Object is online and available"
+                }
+            },
+            "info_reuse_status": {
+                "translations": {
+                    "de": "Beim Wechseln zwischen Voting wird jeweils \u00fcbernommen, ob das n\u00e4chste Voting freigegeben werden soll, oder nicht.",
+                    "en": "Re-use the state of the current Voting when switching to the next (frozen \/ not frozen)."
+                }
+            },
+            "info_terminable": {
+                "translations": {
+                    "de": "Das LiveVoting kann nur innerhalb der definierten Zeit zum Abstimmen genutzt werden",
+                    "en": "The LiveVoting only can be used in the definied period of time"
+                }
+            },
+            "msg_properties_form_saved": {
+                "translations": {
+                    "de": "Einstellungen gespeichert",
+                    "en": "Settings saved"
+                }
+            },
+            "online": {
+                "translations": {
+                    "de": "Online",
+                    "en": "Online"
+                }
+            },
+            "reuse_status": {
+                "translations": {
+                    "de": "Player-Status \u00fcbernehmen",
+                    "en": "Re-use Player State"
+                }
+            },
+            "save": {
+                "translations": {
+                    "de": "Save",
+                    "en": "Save"
+                }
+            },
+            "terminable": {
+                "translations": {
+                    "de": "Abstimmung zeitlich beschr\u00e4nken",
+                    "en": "Limit voting time"
+                }
+            },
+            "terminable_select": {
+                "translations": {
+                    "de": "Zeitraum",
+                    "en": "Time range"
+                }
+            },
+            "terminable_select_end_time": {
+                "translations": {
+                    "de": "Ende",
+                    "en": "End"
+                }
+            },
+            "terminable_select_start_time": {
+                "translations": {
+                    "de": "Start",
+                    "en": "Start"
+                }
+            },
+            "title": {
+                "translations": {
+                    "de": "Titel",
+                    "en": "Title"
+                }
+            },
+            "xlvo": {
+                "translations": {
+                    "de": "LiveVoting",
+                    "en": "LiveVoting"
+                }
+            },
+            "xlvo_duplicate": {
+                "translations": {
+                    "de": "Bestehendes LiveVoting kopieren",
+                    "en": "Clone existing LiveVoting"
+                }
+            }
+        },
+        "objs": {
+            "xlvo": {
+                "translations": {
+                    "de": "LiveVotings",
+                    "en": "LiveVotings"
+                }
+            },
+            "xlvo_duplicate": {
+                "translations": {
+                    "de": "Bestehendes LiveVoting kopieren",
+                    "en": "Clone existing LiveVoting"
+                }
+            }
+        },
+        "player": {
+            "close_modal": {
+                "translations": {
+                    "de": "Schliessen",
+                    "en": "Close"
+                }
+            },
+            "freeze": {
+                "translations": {
+                    "de": "Pausieren",
+                    "en": "Freeze"
+                }
+            },
+            "hide_results": {
+                "translations": {
+                    "de": "Resultate ausblenden",
+                    "en": "Hide Results"
+                }
+            },
+            "msg_no_start_1": {
+                "translations": {
+                    "de": "Sie k\u00f6nnen das LiveVoting nicht starten! Das LiveVoting ist offline.",
+                    "en": "This LiveVoting can't be started since it is offline."
+                }
+            },
+            "msg_no_start_2": {
+                "translations": {
+                    "de": "Das LiveVoting kann nicht gestartet werden, da noch keine Votings vorhanden sind.",
+                    "en": "This LiveVoting can't be started since there are no Votings available yet."
+                }
+            },
+            "msg_no_votings": {
+                "translations": {
+                    "de": "Es sind keine Fragen vorhanden, das Voting kann nicht gestartet werden.",
+                    "en": "There are no Questions, the LiveVoting can be started."
+                }
+            },
+            "msg_voting_not_available": {
+                "translations": {
+                    "de": "Das ausgew\u00e4hlte Voting ist nicht vorhanden",
+                    "en": "The selected Voting is not available"
+                }
+            },
+            "reset": {
+                "translations": {
+                    "de": "Zur\u00fccksetzen",
+                    "en": "Reset"
+                }
+            },
+            "show_results": {
+                "translations": {
+                    "de": "Resultate einblenden",
+                    "en": "Show Results"
+                }
+            },
+            "start_voting": {
+                "translations": {
+                    "de": "LiveVoting beginnen",
+                    "en": "Start LiveVoting"
+                }
+            },
+            "start_voting_and_unfreeze": {
+                "translations": {
+                    "de": "LiveVoting beginnen und direkt freigeben",
+                    "en": "Start LiveVoting and unfreeze directly"
+                }
+            },
+            "terminate": {
+                "translations": {
+                    "de": "Beenden",
+                    "en": "Terminate"
+                }
+            },
+            "unfreeze": {
+                "translations": {
+                    "de": "Abstimmen",
+                    "en": "Unfreeze"
+                }
+            },
+            "voters_online": {
+                "translations": {
+                    "de": "Online",
+                    "en": "Online"
+                }
+            },
+            "voting_list": {
+                "translations": {
+                    "de": "Votings",
+                    "en": "Votings"
+                }
+            }
+        },
+        "qtype": {
+            "1_colors": {
+                "translations": {
+                    "de": "Unterschiedliche Farben",
+                    "en": "Different Colors"
+                }
+            },
+            "1_multi_selection": {
+                "translations": {
+                    "de": "Mehrfachauswahl",
+                    "en": "Multiple Selection"
+                }
+            },
+            "1_multi_selection_info": {
+                "translations": {
+                    "de": "Ein Nutzer kann mehr als einen Text eingeben",
+                    "en": "User can select more than one Option"
+                }
+            },
+            "1_option_text": {
+                "translations": {
+                    "de": "Options-Text",
+                    "en": "Option-Text"
+                }
+            },
+            "1_options": {
+                "translations": {
+                    "de": "M\u00f6gliche Antworten",
+                    "en": "Options"
+                }
+            },
+            "1_total_votes": {
+                "translations": {
+                    "de": "Anzahl Stimmen",
+                    "en": "Total Votes"
+                }
+            },
+            "1_unvote": {
+                "translations": {
+                    "de": "Unvote",
+                    "en": "Unvote"
+                }
+            },
+            "1_vote": {
+                "translations": {
+                    "de": "Vote",
+                    "en": "Vote"
+                }
+            },
+            "2_answers": {
+                "translations": {
+                    "de": "Eingaben",
+                    "en": "Inputs"
+                }
+            },
+            "2_clear": {
+                "translations": {
+                    "de": "Zur\u00fccksetzen",
+                    "en": "Clear"
+                }
+            },
+            "2_delete_all": {
+                "translations": {
+                    "de": "Alle l\u00f6schen",
+                    "en": "Delete All"
+                }
+            },
+            "2_input": {
+                "translations": {
+                    "de": "Eingabe",
+                    "en": "Input"
+                }
+            },
+            "2_multi_free_input": {
+                "translations": {
+                    "de": "Mehrfache Eingaben",
+                    "en": "Multiple Inputs"
+                }
+            },
+            "2_multi_free_input_info": {
+                "translations": {
+                    "de": "Ein Nutzer kann mehr als einen Text eingeben",
+                    "en": "A User can hand in multiple Texts"
+                }
+            },
+            "2_send": {
+                "translations": {
+                    "de": "Senden",
+                    "en": "Send"
+                }
+            },
+            "2_your_input": {
+                "translations": {
+                    "de": "Ihre gespeicherte Eingabe:",
+                    "en": "Your saved input:"
+                }
+            },
+            "4_clear": {
+                "translations": {
+                    "de": "Zur\u00fccksetzen",
+                    "en": "Clear"
+                }
+            },
+            "4_id": {
+                "translations": {
+                    "de": "ID",
+                    "en": "ID"
+                }
+            },
+            "4_option_correct_position": {
+                "translations": {
+                    "de": "Korrekte Position",
+                    "en": "Correct Position"
+                }
+            },
+            "4_option_position": {
+                "translations": {
+                    "de": "Position",
+                    "en": "Position"
+                }
+            },
+            "4_option_text": {
+                "translations": {
+                    "de": "Begriff",
+                    "en": "Term"
+                }
+            },
+            "4_options": {
+                "translations": {
+                    "de": "Optionen",
+                    "en": "Options"
+                }
+            },
+            "4_save": {
+                "translations": {
+                    "de": "Speichern",
+                    "en": "Save"
+                }
+            },
+            "4_your_order": {
+                "translations": {
+                    "de": "Ihre gespeicherte Eingabe:",
+                    "en": "Your Submission:"
+                }
+            },
+            "5_option_text": {
+                "translations": {
+                    "de": "Text",
+                    "en": "Text"
+                }
+            },
+            "5_option_weight": {
+                "translations": {
+                    "de": "Gewichtung",
+                    "en": "Weight"
+                }
+            },
+            "5_options": {
+                "translations": {
+                    "de": "Optionen",
+                    "en": "Options"
+                }
+            },
+            "form_header": {
+                "translations": {
+                    "de": "Typ-Einstellugnen",
+                    "en": "Type-Settings"
+                }
+            },
+            "multi_free_input": {
+                "translations": {
+                    "de": "Mehrfache Eingaben",
+                    "en": "Multiple Inputs"
+                }
+            }
+        },
+        "subtab": {
+            "edit": {
+                "translations": {
+                    "de": "Verwalten",
+                    "en": "Manage"
+                },
+                "last_used": "02.03.2016"
+            },
+            "show": {
+                "translations": {
+                    "de": "Zeigen",
+                    "en": "Show"
+                },
+                "last_used": "02.03.2016"
+            }
+        },
+        "tab": {
+            "content": {
+                "translations": {
+                    "de": "Inhalt",
+                    "en": "Content"
+                },
+                "last_used": "02.03.2016"
+            },
+            "edit": {
+                "translations": {
+                    "de": "Einstellungen",
+                    "en": "Settings"
+                },
+                "last_used": "02.03.2016"
+            }
+        }
+    }
+}

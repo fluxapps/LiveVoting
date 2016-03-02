@@ -1,6 +1,68 @@
-<!-- language file start -->
-common_actions#:#Aktionen
+voter_msg_waiting_screen#:#Bitte warten
+voter_pin_form_title#:#LiveVoting starten
+voter_pin_input#:#PIN zum LiveVoting
+voter_save#:#Speichern
+voter_send#:#Abschicken
+voter_text#:#Eingabe
+voter_answer#:#Eingabe
+voter_delete#:#Löschen
+voter_header_frozen#:#Abstimmung noch nicht freigegeben
+voter_header_start#:#Bitte auf Start warten
+voter_header_stopped#:#Abstimmung gestoppt
+voter_info_frozen#:#Diese Frage ist noch nicht aktiv, bitte warten...
+voter_info_start#:#Dieses LiveVoting wurde vom Präsentator nicht nicht gestartet, bitte warten...
+voter_info_stopped#:#Das LiveVoting wurde gestoppt.
+voter_msg_access_screen#:#PIN-Eingabe
+voter_msg_end_of_voting_screen#:#Das LiveVoting wurde beendet, vielen Dank für Ihre Teilnahme
+voter_msg_not_running_screen#:#Dieses LiveVoting ist zur Zeit nicht aktiv.
+voter_msg_start_of_voting_screen#:#Bitte warten, bis der Präsentator das Voting freigibt
+voter_msg_validation_error_pin_1#:#Dieses LiveVoting ist zur Zeit nicht online
+voter_msg_validation_error_pin_2#:#Bitte Logen Sie sich ein, um dieses LiveVoting verwendet zu können
+voter_msg_validation_error_pin_3#:#Zu diesem PIN wurde keine LiveVoting gefunden
+voter_msg_validation_error_pin_4#:#Dieses LiveVoting ist zum aktuellen Zeitpunkt nicht verfügbar
+voting_actions#:#Aktionen
+voting_add#:#Abstimmung hinzufügen
+voting_cancel#:#Abbrechen
+voting_confirm_number_of_votes#:#Anzahl Benutzer-Eingaben:
+voting_confirm_reset#:#Möchten Sie die Abstimmung zurücksetzen? Alle Benutzer-Eingaben werden gelöscht.
+voting_confirm_reset_all#:#Möchten Sie alle Abstimmungen zurücksetzen? Alle Benutzer-Eingaben werden gelöscht.
+voting_create#:#Erstellen
+voting_delete#:#Löschen
+voting_delete_confirm#:#Möchsten Sie die Abstimmung wirklich löschen?
+voting_description#:#Beschreibung
+voting_edit#:#Bearbeiten
+voting_msg_sorting_saved#:#Reihenfolge gespeichert
+voting_question#:#Frage
+voting_reset#:#Zurücksetzen
+voting_reset_all#:#Alle Abstimmungen zurücksetzen
+voting_save_sorting#:#Reihenfolge speichern
+voting_select_type#:#Typ auswählen
+voting_status#:#Status
+voting_status_1#:#Inaktiv
+voting_status_2#:#Unvollständig
+voting_status_5#:#Aktiv
+voting_title#:#Titel
+voting_type#:#Typ
+voting_type_1#:#Single/Multiple Choice
+voting_type_1_info#:#Ein Nutzer kann für mehrere Auswahlmöglichkeiten abstimmen
+voting_type_2#:#Freitext eingeben
+voting_type_2_info#:#Benutzer können Stichwort selber eingeben
+voting_type_3#:#Bereich
+voting_type_4#:#Korrekte Reihenfolge
+voting_type_4_info#:#Begriffe müssen in die richtige Reihenfolge gebracht werden
+voting_type_5#:#Prioritäten
+voting_update#:#Speichern
+voting_type_5_info#:#Begriffe können nach Priorität angeordnet werden
+xlvo_add#:#Hinzufügen
+xlvo_delete#:#LiveVoting löschen
+xlvo_edit#:#Bearbeiten
+xlvo_edit_permission#:#Rechte bearbeiten
+xlvo_new#:#Neues LiveVoting anlegen
+xlvo_read#:#(keine Auswirkung)
+xlvo_visible#:#LiveVoting sichtbar
+xlvo_write#:#LiveVoting präsentieren und bearbeiten
 common_back#:#Zurück
+common_actions#:#Aktionen
 config_allow_shortlink#:#Kurz-URL einschalten
 config_allow_shortlink_info#:#Eine Kurz-URL kann bspw. durch hinzufügen einer RewriteRule in der .htaccess erstellt werden, dadurch kann auf https://ilias.domain.com/vote angestimmt werden:
 config_allow_shortlink_link#:#Kurz-URL
@@ -22,8 +84,7 @@ obj_info_terminable#:#Das LiveVoting kann nur innerhalb der definierten Zeit zum
 obj_msg_properties_form_saved#:#Einstellungen gespeichert
 obj_online#:#Online
 obj_reuse_status#:#Player-Status übernehmen
-obj_save#:#Speichern
-obj_save:Speichern#:#Save
+obj_save#:#Save
 obj_terminable#:#Abstimmung zeitlich beschränken
 obj_terminable_select#:#Zeitraum
 obj_terminable_select_end_time#:#Ende
@@ -33,7 +94,6 @@ obj_xlvo#:#LiveVoting
 obj_xlvo_duplicate#:#Bestehendes LiveVoting kopieren
 objs_xlvo#:#LiveVotings
 objs_xlvo_duplicate#:#Bestehendes LiveVoting kopieren
-offline#:#Offline
 player_close_modal#:#Schliessen
 player_freeze#:#Pausieren
 player_hide_results#:#Resultate ausblenden
@@ -82,65 +142,3 @@ subtab_edit#:#Verwalten
 subtab_show#:#Zeigen
 tab_content#:#Inhalt
 tab_edit#:#Einstellungen
-voter_answer#:#Eingabe
-voter_delete#:#Löschen
-voter_header_frozen#:#Abstimmung noch nicht freigegeben
-voter_header_start#:#Bitte auf Start warten
-voter_header_stopped#:#Abstimmung gestoppt
-voter_info_frozen#:#Diese Frage ist noch nicht aktiv, bitte warten...
-voter_info_start#:#Dieses LiveVoting wurde vom Präsentator nicht nicht gestartet, bitte warten...
-voter_info_stopped#:#Das LiveVoting wurde gestoppt.
-voter_msg_access_screen#:#PIN-Eingabe
-voter_msg_end_of_voting_screen#:#Das LiveVoting wurde beendet, vielen Dank für Ihre Teilnahme
-voter_msg_not_running_screen#:#Dieses LiveVoting ist zur Zeit nicht aktiv.
-voter_msg_start_of_voting_screen#:#Bitte warten, bis der Präsentator das Voting freigibt
-voter_msg_validation_error_pin_1#:#Dieses LiveVoting ist zur Zeit nicht online
-voter_msg_validation_error_pin_2#:#Bitte Logen Sie sich ein, um dieses LiveVoting verwendet zu können
-voter_msg_validation_error_pin_3#:#Zu diesem PIN wurde keine LiveVoting gefunden
-voter_msg_validation_error_pin_4#:#Dieses LiveVoting ist zum aktuellen Zeitpunkt nicht verfügbar
-voter_msg_waiting_screen#:#Bitte warten
-voter_pin_form_title#:#LiveVoting starten
-voter_pin_input#:#PIN zum LiveVoting
-voter_save#:#Speichern
-voter_send#:#Abschicken
-voter_text#:#Eingabe
-voting_actions#:#Aktionen
-voting_add#:#Abstimmung hinzufügen
-voting_cancel#:#Abbrechen
-voting_confirm_number_of_votes#:#Anzahl Benutzer-Eingaben:
-voting_confirm_reset#:#Möchten Sie die Abstimmung zurücksetzen? Alle Benutzer-Eingaben werden gelöscht.
-voting_confirm_reset_all#:#Möchten Sie alle Abstimmungen zurücksetzen? Alle Benutzer-Eingaben werden gelöscht.
-voting_create#:#Erstellen
-voting_delete#:#Löschen
-voting_delete_confirm#:#Möchsten Sie die Abstimmung wirklich löschen?
-voting_description#:#Beschreibung
-voting_edit#:#Bearbeiten
-voting_msg_sorting_saved#:#Reihenfolge gespeichert
-voting_question#:#Frage
-voting_reset#:#Zurücksetzen
-voting_reset_all#:#Alle Abstimmungen zurücksetzen
-voting_save_sorting#:#Reihenfolge speichern
-voting_select_type#:#Typ auswählen
-voting_status#:#Status
-voting_status_1#:#Inaktiv
-voting_status_2#:#Unvollständig
-voting_status_5#:#Aktiv
-voting_title#:#Titel
-voting_type#:#Typ
-voting_type_1#:#Single/Multiple Choice
-voting_type_1_info#:#Ein Nutzer kann für mehrere Auswahlmöglichkeiten abstimmen
-voting_type_2#:#Freitext eingeben
-voting_type_2_info#:#Benutzer können Stichwort selber eingeben
-voting_type_3#:#Bereich
-voting_type_4#:#Korrekte Reihenfolge
-voting_type_4_info#:#Begriffe müssen in die richtige Reihenfolge gebracht werden
-voting_type_5#:#Prioritäten
-voting_update#:#Speichern
-xlvo_add#:#Hinzufügen
-xlvo_delete#:#LiveVoting löschen
-xlvo_edit#:#Bearbeiten
-xlvo_edit_permission#:#Rechte bearbeiten
-xlvo_new#:#Neues LiveVoting anlegen
-xlvo_read#:#(keine Auswirkung)
-xlvo_visible#:#LiveVoting sichtbar
-xlvo_write#:#LiveVoting präsentieren und bearbeiten

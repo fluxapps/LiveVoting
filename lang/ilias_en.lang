@@ -1,6 +1,68 @@
-<!-- language file start -->
-common_actions#:#Actions
+voter_msg_waiting_screen#:#Please wait
+voter_pin_form_title#:#Start LiveVoting
+voter_pin_input#:#PIN
+voter_save#:#Save
+voter_send#:#Send
+voter_text#:#Input
+voter_answer#:#Input
+voter_delete#:#Delete
+voter_header_frozen#:#Voting frozen
+voter_header_start#:#Please wait for presenter
+voter_header_stopped#:#Voting stopped
+voter_info_frozen#:#This Questions is not yet active, please wait...
+voter_info_start#:#This LiveVoting has not yet been started by the presenter...
+voter_info_stopped#:#This LiveVoting has been stopped
+voter_msg_access_screen#:#PIN-Access
+voter_msg_end_of_voting_screen#:#This LiveVoting has been terminated. Thanks for your participation.
+voter_msg_not_running_screen#:#This LiveVoting is currently not active.
+voter_msg_start_of_voting_screen#:#Please wait untill the Presenter starts the Voting
+voter_msg_validation_error_pin_1#:#This LiveVoting is not online
+voter_msg_validation_error_pin_2#:#Please log in to use this LiveVoting
+voter_msg_validation_error_pin_3#:#No LiveVoting with this PIN found
+voter_msg_validation_error_pin_4#:#This LiveVoting is not available at the Moment
+voting_actions#:#Actions
+voting_add#:#Add Voting
+voting_cancel#:#Cancel
+voting_confirm_number_of_votes#:#Amount of User-Inputs:
+voting_confirm_reset#:#Do you like to reset this Voting? All User-Inputs will be deleted.
+voting_confirm_reset_all#:#Do you like to reset all Voting? All User-Inputs will be deleted.
+voting_create#:#Create
+voting_delete#:#Delete
+voting_delete_confirm#:#Do you really want to delete the Voting?
+voting_description#:#Description
+voting_edit#:#Edit
+voting_msg_sorting_saved#:#Order saved
+voting_question#:#Question
+voting_reset#:#Reset
+voting_reset_all#:#Reset all Votings
+voting_save_sorting#:#Save Order
+voting_select_type#:#Select Type
+voting_status#:#Status
+voting_status_1#:#Inactive
+voting_status_2#:#Incomplete
+voting_status_5#:#Active
+voting_title#:#Title
+voting_type#:#Type
+voting_type_1#:#Single/Multiple Choice
+voting_type_1_info#:#A User can vote for different options
+voting_type_2#:#Free Input
+voting_type_2_info#:#User can hand in free text
+voting_type_3#:#Range
+voting_type_4#:#Correct Order
+voting_type_4_info#:#Terms must be sorted in the correct order.
+voting_type_5#:#Priorities
+voting_update#:#Update
+voting_type_5_info#:#Terms can be sorted after Priorities
+xlvo_add#:#Add
+xlvo_delete#:#Delete LiveVoting
+xlvo_edit#:#Edit
+xlvo_edit_permission#:#Edit Permissions
+xlvo_new#:#Add new LiveVoting
+xlvo_read#:#(Not used)
+xlvo_visible#:#LiveVotings visible
+xlvo_write#:#Present and edit LiveVoting
 common_back#:#Back
+common_actions#:#Actions
 config_allow_shortlink#:#Activate Short URL
 config_allow_shortlink_info#:#Use a Short URL like /vote by adding the following RewriteRule to your .htaccess:
 config_allow_shortlink_link#:#Short URL
@@ -32,7 +94,6 @@ obj_xlvo#:#LiveVoting
 obj_xlvo_duplicate#:#Clone existing LiveVoting
 objs_xlvo#:#LiveVotings
 objs_xlvo_duplicate#:#Clone existing LiveVoting
-offline#:#Offline
 player_close_modal#:#Close
 player_freeze#:#Freeze
 player_hide_results#:#Hide Results
@@ -81,65 +142,3 @@ subtab_edit#:#Manage
 subtab_show#:#Show
 tab_content#:#Content
 tab_edit#:#Settings
-voter_answer#:#Input
-voter_delete#:#Delete
-voter_header_frozen#:#Voting frozen
-voter_header_start#:#Please wait for presenter
-voter_header_stopped#:#Voting stopped
-voter_info_frozen#:#This Questions is not yet active, please wait...
-voter_info_start#:#This LiveVoting has not yet been started by the presenter...
-voter_info_stopped#:#This LiveVoting has been stopped
-voter_msg_access_screen#:#PIN-Access
-voter_msg_end_of_voting_screen#:#This LiveVoting has been terminated. Thanks for your participation.
-voter_msg_not_running_screen#:#This LiveVoting is currently not active.
-voter_msg_start_of_voting_screen#:#Please wait untill the Presenter starts the Voting
-voter_msg_validation_error_pin_1#:#This LiveVoting is not online
-voter_msg_validation_error_pin_2#:#Please log in to use this LiveVoting
-voter_msg_validation_error_pin_3#:#No LiveVoting with this PIN found
-voter_msg_validation_error_pin_4#:#This LiveVoting is not available at the Moment
-voter_msg_waiting_screen#:#Please wait
-voter_pin_form_title#:#Start LiveVoting
-voter_pin_input#:#PIN
-voter_save#:#Save
-voter_send#:#Send
-voter_text#:#Input
-voting_actions#:#Actions
-voting_add#:#Add Voting
-voting_cancel#:#Cancel
-voting_confirm_number_of_votes#:#Amount of User-Inputs:
-voting_confirm_reset#:#Do you like to reset this Voting? All User-Inputs will be deleted.
-voting_confirm_reset_all#:#Do you like to reset all Voting? All User-Inputs will be deleted.
-voting_create#:#Create
-voting_delete#:#Delete
-voting_delete_confirm#:#Do you really want to delete the Voting?
-voting_description#:#Description
-voting_edit#:#Edit
-voting_msg_sorting_saved#:#Order saved
-voting_question#:#Question
-voting_reset#:#Reset
-voting_reset_all#:#Reset all Votings
-voting_save_sorting#:#Save Order
-voting_select_type#:#Select Type
-voting_status#:#Status
-voting_status_1#:#Inactive
-voting_status_2#:#Incomplete
-voting_status_5#:#Active
-voting_title#:#Title
-voting_type#:#Type
-voting_type_1#:#Single/Multiple Choice
-voting_type_1_info#:#A User can vote for different options
-voting_type_2#:#Free Input
-voting_type_2_info#:#User can hand in free text
-voting_type_3#:#Range
-voting_type_4#:#Correct Order
-voting_type_4_info#:#Terms must be sorted in the correct order.
-voting_type_5#:#Priorities
-voting_update#:#Update
-xlvo_add#:#Add
-xlvo_delete#:#Delete LiveVoting
-xlvo_edit#:#Edit
-xlvo_edit_permission#:#Edit Permissions
-xlvo_new#:#Add new LiveVoting
-xlvo_read#:#(Not used)
-xlvo_visible#:#LiveVotings visible
-xlvo_write#:#Present and edit LiveVoting
