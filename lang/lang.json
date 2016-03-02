@@ -838,25 +838,29 @@
                 "translations": {
                     "de": "Eingaben",
                     "en": "Inputs"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "2_clear": {
                 "translations": {
                     "de": "Zur\u00fccksetzen",
                     "en": "Clear"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "2_delete_all": {
                 "translations": {
                     "de": "Alle l\u00f6schen",
                     "en": "Delete All"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "2_input": {
                 "translations": {
                     "de": "Eingabe",
                     "en": "Input"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "2_multi_free_input": {
                 "translations": {
@@ -874,19 +878,22 @@
                 "translations": {
                     "de": "Senden",
                     "en": "Send"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "2_your_input": {
                 "translations": {
                     "de": "Ihre gespeicherte Eingabe:",
                     "en": "Your saved input:"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "4_clear": {
                 "translations": {
                     "de": "Zur\u00fccksetzen",
                     "en": "Clear"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "4_id": {
                 "translations": {
@@ -922,13 +929,15 @@
                 "translations": {
                     "de": "Speichern",
                     "en": "Save"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "4_your_order": {
                 "translations": {
                     "de": "Ihre gespeicherte Eingabe:",
                     "en": "Your Submission:"
-                }
+                },
+                "last_used": "02.03.2016"
             },
             "5_option_text": {
                 "translations": {
@@ -959,6 +968,13 @@
                     "de": "Mehrfache Eingaben",
                     "en": "Multiple Inputs"
                 }
+            },
+            "2_text": {
+                "translations": {
+                    "en": "Text",
+                    "de": "Text"
+                },
+                "last_used": "02.03.2016"
             }
         },
         "subtab": {

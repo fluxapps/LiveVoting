@@ -142,6 +142,7 @@ qtype_5_option_weight#:#Weight
 qtype_5_options#:#Options
 qtype_form_header#:#Type-Settings
 qtype_multi_free_input#:#Multiple Inputs
+qtype_2_text#:#Text
 subtab_edit#:#Manage
 subtab_show#:#Show
 tab_content#:#Content

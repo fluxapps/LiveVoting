@@ -142,6 +142,7 @@ qtype_5_option_weight#:#Gewichtung
 qtype_5_options#:#Optionen
 qtype_form_header#:#Typ-Einstellugnen
 qtype_multi_free_input#:#Mehrfache Eingaben
+qtype_2_text#:#Text
 subtab_edit#:#Verwalten
 subtab_show#:#Zeigen
 tab_content#:#Inhalt
