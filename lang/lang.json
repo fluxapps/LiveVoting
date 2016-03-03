@@ -87,7 +87,7 @@
             },
             "info_start": {
                 "translations": {
-                    "de": "Dieses LiveVoting wurde vom Pr\u00e4sentator nicht nicht gestartet, bitte warten...",
+                    "de": "Dieses LiveVoting wurde vom Pr\u00e4sentator nicht gestartet, bitte warten...",
                     "en": "This LiveVoting has not yet been started by the presenter..."
                 },
                 "last_used": "02.03.2016"
@@ -156,14 +156,14 @@
                     "en": "Actions",
                     "de": "Aktionen"
                 },
-                "last_used": "02.03.2016"
+                "last_used": "03.03.2016"
             },
             "add": {
                 "translations": {
                     "en": "Add Voting",
                     "de": "Abstimmung hinzuf\u00fcgen"
                 },
-                "last_used": "02.03.2016"
+                "last_used": "03.03.2016"
             },
             "cancel": {
                 "translations": {
@@ -202,7 +202,7 @@
                     "en": "Delete",
                     "de": "L\u00f6schen"
                 },
-                "last_used": "02.03.2016"
+                "last_used": "03.03.2016"
             },
             "delete_confirm": {
                 "translations": {
@@ -221,7 +221,7 @@
                     "en": "Edit",
                     "de": "Bearbeiten"
                 },
-                "last_used": "02.03.2016"
+                "last_used": "03.03.2016"
             },
             "msg_sorting_saved": {
                 "translations": {
@@ -234,28 +234,28 @@
                     "en": "Question",
                     "de": "Frage"
                 },
-                "last_used": "02.03.2016"
+                "last_used": "03.03.2016"
             },
             "reset": {
                 "translations": {
                     "en": "Reset",
                     "de": "Zur\u00fccksetzen"
                 },
-                "last_used": "02.03.2016"
+                "last_used": "03.03.2016"
             },
             "reset_all": {
                 "translations": {
                     "en": "Reset all Votings",
                     "de": "Alle Abstimmungen zur\u00fccksetzen"
                 },
-                "last_used": "02.03.2016"
+                "last_used": "03.03.2016"
             },
             "save_sorting": {
                 "translations": {
                     "en": "Save Order",
                     "de": "Reihenfolge speichern"
                 },
-                "last_used": "02.03.2016"
+                "last_used": "03.03.2016"
             },
             "select_type": {
                 "translations": {
@@ -269,49 +269,49 @@
                     "en": "Status",
                     "de": "Status"
                 },
-                "last_used": "02.03.2016"
+                "last_used": "03.03.2016"
             },
             "status_1": {
                 "translations": {
                     "en": "Inactive",
                     "de": "Inaktiv"
                 },
-                "last_used": "02.03.2016"
+                "last_used": "03.03.2016"
             },
             "status_2": {
                 "translations": {
                     "en": "Incomplete",
                     "de": "Unvollst\u00e4ndig"
                 },
-                "last_used": "02.03.2016"
+                "last_used": "03.03.2016"
             },
             "status_5": {
                 "translations": {
                     "en": "Active",
                     "de": "Aktiv"
                 },
-                "last_used": "02.03.2016"
+                "last_used": "03.03.2016"
             },
             "title": {
                 "translations": {
                     "en": "Title",
                     "de": "Titel"
                 },
-                "last_used": "02.03.2016"
+                "last_used": "03.03.2016"
             },
             "type": {
                 "translations": {
                     "en": "Type",
                     "de": "Typ"
                 },
-                "last_used": "02.03.2016"
+                "last_used": "03.03.2016"
             },
             "type_1": {
                 "translations": {
                     "en": "Single\/Multiple Choice",
                     "de": "Single\/Multiple Choice"
                 },
-                "last_used": "02.03.2016"
+                "last_used": "03.03.2016"
             },
             "type_1_info": {
                 "translations": {
@@ -325,7 +325,7 @@
                     "en": "Free Input",
                     "de": "Freitext eingeben"
                 },
-                "last_used": "02.03.2016"
+                "last_used": "03.03.2016"
             },
             "type_2_info": {
                 "translations": {
@@ -345,7 +345,7 @@
                     "en": "Correct Order",
                     "de": "Korrekte Reihenfolge"
                 },
-                "last_used": "02.03.2016"
+                "last_used": "03.03.2016"
             },
             "type_4_info": {
                 "translations": {
@@ -359,7 +359,7 @@
                     "en": "Priorities",
                     "de": "Priorit\u00e4ten"
                 },
-                "last_used": "02.03.2016"
+                "last_used": "03.03.2016"
             },
             "update": {
                 "translations": {
@@ -407,7 +407,7 @@
                     "en": "Edit",
                     "de": "Bearbeiten"
                 },
-                "last_used": "02.03.2016"
+                "last_used": "03.03.2016"
             },
             "edit_permission": {
                 "translations": {
@@ -983,14 +983,14 @@
                     "de": "Verwalten",
                     "en": "Manage"
                 },
-                "last_used": "02.03.2016"
+                "last_used": "03.03.2016"
             },
             "show": {
                 "translations": {
                     "de": "Zeigen",
                     "en": "Show"
                 },
-                "last_used": "02.03.2016"
+                "last_used": "03.03.2016"
             }
         },
         "tab": {
@@ -999,14 +999,14 @@
                     "de": "Inhalt",
                     "en": "Content"
                 },
-                "last_used": "02.03.2016"
+                "last_used": "03.03.2016"
             },
             "edit": {
                 "translations": {
                     "de": "Einstellungen",
                     "en": "Settings"
                 },
-                "last_used": "02.03.2016"
+                "last_used": "03.03.2016"
             }
         }
     }
