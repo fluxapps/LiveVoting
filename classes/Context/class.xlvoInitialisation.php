@@ -34,15 +34,6 @@ class xlvoInitialisation extends ilInitialisation {
 			self::readFromCookie();
 		}
 		$this->run();
-		global $ilLog;
-		/**
-		 * @var $ilLog ilLog
-		 */
-		//		try {
-		//			throw new Exception();
-		//		} catch (Exception $e) {
-		//			$ilLog->write('LVO CONTEXT: ' . self::getContext());
-		//		}
 	}
 
 
