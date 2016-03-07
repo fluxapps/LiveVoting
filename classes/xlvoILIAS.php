@@ -9,7 +9,7 @@
  *         Depending on Context, an ILIAS environment or just the pin context is loaded
  */
 
-chdir(strstr($_SERVER['SCRIPT_FILENAME'], 'Customizing', true));
+require_once('dir.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Context/class.xlvoInitialisation.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Js/class.xlvoJs.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Conf/class.xlvoConf.php');
