@@ -1,5 +1,6 @@
 <?php
 require_once('./Services/Init/classes/class.ilInitialisation.php');
+
 /**
  * Class xlvoInitialisation
  *
@@ -49,7 +50,7 @@ class xlvoInitialisation extends ilInitialisation {
 				require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Context/class.xlvoContext.php");
 				require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Context/class.xlvoContextLiveVoting.php");
 				xlvoContext::init('xlvoContextLiveVoting');
-				self::initILIAS();
+				self::initILIAS2();
 				break;
 		}
 	}
@@ -100,13 +101,7 @@ class xlvoInitialisation extends ilInitialisation {
 	}
 
 
-	public static function initILIAS() {
-		if (self::$already_initialized) {
-			return;
-		}
-
-		self::$already_initialized = true;
-
+	public static function initILIAS2() {
 		global $tree;
 		self::initCore();
 		self::initClient();

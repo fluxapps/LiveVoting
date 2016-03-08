@@ -4,7 +4,7 @@
  *
  *         User starts here. Use a RewriteRule to access this page a bit simpler
  */
-require_once('classes/dir.php');
+require_once('dir.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Context/class.xlvoInitialisation.php');
 xlvoInitialisation::init(xlvoInitialisation::CONTEXT_PIN);
 xlvoInitialisation::resetCookiePIN();
