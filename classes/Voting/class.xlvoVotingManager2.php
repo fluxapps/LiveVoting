@@ -289,6 +289,9 @@ class xlvoVotingManager2 {
 		$xlvoVotingConfig = xlvoVotingConfig::find($this->obj_id);
 
 		if ($xlvoVotingConfig instanceof xlvoVotingConfig) {
+			$xlvoVotingConfig->setSelfVote((bool)$_GET['preview']);
+			$xlvoVotingConfig->setKeyboardActive((bool)$_GET['key']);
+
 			return $xlvoVotingConfig;
 		} else {
 			throw new xlvoVotingManagerException('Returned object is not an instance of xlvoVotingConfig.');
