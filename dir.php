@@ -1,13 +1,13 @@
 <?php
 // Determine Client
 if (is_file('client.txt')) {
-	$_GET['client_id'] = file_get_contents('client.txt');
+	$_GET['client_id'] = trim(file_get_contents('client.txt'));
 }
 
 // Try to determine ILIAS-root
 $directory = strstr($_SERVER['SCRIPT_FILENAME'], 'Customizing', true);
 if (is_file('path.txt')) {
-	$directory = file_get_contents('path.txt');
+	$directory = trim(file_get_contents('path.txt'));
 }
 
 chdir($directory);
