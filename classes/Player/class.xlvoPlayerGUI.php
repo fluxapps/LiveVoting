@@ -85,10 +85,12 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$template->setVariable('SHORTLINK', $short_link);
 		$template->setVariable('MODAL', xlvoQRModalGUI::getInstanceFromVotingConfig($xlvoVotingConfig)->getHTML());
 
+		$js = xlvoJs::getInstance()->ilias($this)->name('Player')->init();
 		if ($this->manager->getVotingConfig()->isShowAttendees()) {
-			xlvoJs::getInstance()->ilias($this)->name('Player')->init()->call('updateAttendees');
+			$js->call('updateAttendees');
 			$template->touchBlock('attendees');
 		}
+		$js->call('handleStartButton');
 
 		$this->tpl->setContent($template->get());
 	}
@@ -105,10 +107,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$this->manager->getPlayer()->unfreeze();
 		$modal = xlvoQRModalGUI::getInstanceFromVotingConfig($this->manager->getVotingConfig())->getHTML();
 		$this->tpl->setContent($modal . $this->getPlayerHTML());
-		if ($this->manager->getVotingConfig()->isSelfVote()) {
-			$url = xlvoConf::getShortLinkURL() . $this->manager->getVotingConfig()->getPin();
-			$this->tpl->setRightContent('<iframe class="xlvo-preview" src="' . $url . '"> </iframe>');
-		}
+		$this->handlePreview();
 	}
 
 
@@ -123,10 +122,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$this->initToolbarDuringVoting();
 		$modal = xlvoQRModalGUI::getInstanceFromVotingConfig($this->manager->getVotingConfig())->getHTML();
 		$this->tpl->setContent($modal . $this->getPlayerHTML());
-		if ($this->manager->getVotingConfig()->isSelfVote()) {
-			$url = xlvoConf::getShortLinkURL() . $this->manager->getVotingConfig()->getPin();
-			$this->tpl->setRightContent('<iframe class="xlvo-preview" src="' . $url . '"> </iframe>');
-		}
+		$this->handlePreview();
 	}
 
 
@@ -134,7 +130,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$this->manager->getPlayer()->attend();
 		$player = $this->manager->getPlayer()->getStdClassForPlayer();
 		$results = array(
-			'player' => $player,
+			'player'      => $player,
 			'player_html' => $this->getPlayerHTML(true),
 		);
 		xlvoJsResponse::getInstance($results)->send();
@@ -345,5 +341,14 @@ class xlvoPlayerGUI extends xlvoGUI {
 			'player_voters_online',
 			'voting_confirm_reset',
 		))->init()->call('run');
+	}
+
+
+	protected function handlePreview() {
+		if ($this->manager->getVotingConfig()->isSelfVote()) {
+			$preview = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Player/tpl.preview.html', true, false);
+			$preview->setVariable('URL', xlvoConf::getShortLinkURL() . $this->manager->getVotingConfig()->getPin());
+			$this->tpl->setRightContent($preview->get());
+		}
 	}
 }

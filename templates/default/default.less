@@ -145,8 +145,26 @@ iframe.xlvo-preview {
   width:   100%;
   margin:  0;
   padding: 0;
-  border:  none;
   height:  500px;
+  border:  none;
+}
+
+div.xlvo-preview-inner {
+  @phone-border-top: 50px black solid;
+  @phone-border-side: 10px black solid;
+  border:        @phone-border-side;
+  border-top:    @phone-border-top;
+  border-bottom: @phone-border-top;
+  border-radius: 20px;
+  margin:        0;
+  padding:       0;
+}
+
+div.xlvo-preview-outer {
+  border:        2px white solid;
+  border-radius: 22px;
+  margin:        0;
+  padding:       0;
 }
 
 .multi_line_input div.input {

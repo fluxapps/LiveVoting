@@ -9,16 +9,23 @@
  *         Depending on Context, an ILIAS environment or just the pin context is loaded
  */
 
-chdir(strstr($_SERVER['SCRIPT_FILENAME'], 'Customizing', true));
+require_once('dir.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Context/class.xlvoInitialisation.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Js/class.xlvoJs.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Conf/class.xlvoConf.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/User/class.xlvoUser.php');
 xlvoInitialisation::init();
-xlvoUser::getInstance()->setIdentifier(session_id())->setType(xlvoUser::TYPE_PIN);
+global $ilUser;
+if ($ilUser instanceof ilObjUser && $ilUser->getId()) {
+	xlvoUser::getInstance()->setIdentifier($ilUser->getId())->setType(xlvoUser::TYPE_ILIAS);
+} else {
+	xlvoUser::getInstance()->setIdentifier(session_id())->setType(xlvoUser::TYPE_PIN);
+}
+global $ilCtrl, $ilBench;
+/**
+ * @var ilCtrl $ilCtrl
+ */
 
-global $tpl;
-ilUtil::sendFailure($_SESSION["failure"]);
-ilSession::clear("referer");
-ilSession::clear("message");
-$tpl->show();
+$ilCtrl->setTargetScript(xlvoConf::getFullApiURL());
+$ilCtrl->callBaseClass();
+$ilBench->save();

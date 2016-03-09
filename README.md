@@ -1,7 +1,7 @@
 LiveVoting
 ==========
 ###Features
-- multiple/single choice vote
+- multiple/single/correct order/priorisation choice vote
 - anonymous voting
 - live updates
 - pin acces via http://iliasdomain.tdl/vote
@@ -9,7 +9,6 @@ LiveVoting
 - show/hide live results
 - Freeze Voting
 - Fullscreen
-- SMS Voting (needs a PhoneNumber and Account from studer + raimann ag)
 
 ###Installation
 Start at your ILIAS root directory  
@@ -21,10 +20,10 @@ git clone https://github.com/studer-raimann/LiveVoting.git
 As ILIAS administrator go to "Administration->Plugins" and install/activate the plugin.  
 
 ###Shortlink-Config
-- Config Rewrite Rule in .htaccess or Apache-Config:
+Config Rewrite Rule in .htaccess or Apache-Config:
 ```apacheconf
 <IfModule mod_rewrite.c>
-	RewriteRule ^vote([|/|/0-9]*)$ Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?pin=$1 [L]
+	RewriteRule ^vote(/[\w]*|) Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?pin=$1 [L]
 </IfModule>
 ```
 
@@ -35,6 +34,6 @@ Waldeggstrasse 72
 Switzerland  
 
 info@studer-raimann.ch  
-www.studer-raimann.ch
+www.studer-raimann.ch 
 
 

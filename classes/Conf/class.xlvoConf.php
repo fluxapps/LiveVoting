@@ -19,7 +19,7 @@ class xlvoConf extends ActiveRecord {
 	const F_ALLOW_GLOBAL_ANONYMOUS = 'global_anonymous';
 	const F_USE_QR = 'use_qr';
 	const REWRITE_RULE = "RewriteRule ^vote(/[\\w]*|) Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?pin=$1 [L]";
-	const API_URL = './Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/xlvoILIAS.php';
+	const API_URL = './Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/ilias.php';
 
 
 	/**

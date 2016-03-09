@@ -1,9 +1,4 @@
 <?php
-
-$directory = strstr($_SERVER['SCRIPT_FILENAME'], 'Customizing', true);
-if ($directory) {
-	chdir($directory);
-}
 require_once('./Services/Init/classes/class.ilInitialisation.php');
 
 /**
@@ -40,15 +35,6 @@ class xlvoInitialisation extends ilInitialisation {
 			self::readFromCookie();
 		}
 		$this->run();
-		global $ilLog;
-		/**
-		 * @var $ilLog ilLog
-		 */
-		//		try {
-		//			throw new Exception();
-		//		} catch (Exception $e) {
-		//			$ilLog->write('LVO CONTEXT: ' . self::getContext());
-		//		}
 	}
 
 
@@ -64,7 +50,7 @@ class xlvoInitialisation extends ilInitialisation {
 				require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Context/class.xlvoContext.php");
 				require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Context/class.xlvoContextLiveVoting.php");
 				xlvoContext::init('xlvoContextLiveVoting');
-				self::initILIAS();
+				self::initILIAS2();
 				break;
 		}
 	}
@@ -115,13 +101,7 @@ class xlvoInitialisation extends ilInitialisation {
 	}
 
 
-	public static function initILIAS() {
-		if (self::$already_initialized) {
-			return;
-		}
-
-		self::$already_initialized = true;
-
+	public static function initILIAS2() {
 		global $tree;
 		self::initCore();
 		self::initClient();

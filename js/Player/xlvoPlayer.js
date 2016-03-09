@@ -228,14 +228,21 @@ var xlvoPlayer = {
         this.callPlayer('open', false, false, id);
         return false;
     },
-    /**
-     * unused
-     */
     updateAttendees: function () {
         $.get(this.base_url, {cmd: "getAttendees"})
             .done(function (data) {
                 $('#xlvo-attendees').html(data + ' Online');
             });
         setTimeout(xlvoPlayer.updateAttendees, 1500);
+    },
+    handleStartButton: function () {
+        var btn = $('#btn-start-voting');
+        btn.click(function (evt) {
+            if (evt.altKey) {
+                window.location.href = btn.attr('href') + '&preview=1&key=1';
+                return false;
+            }
+            return true;
+        });
     }
 };
