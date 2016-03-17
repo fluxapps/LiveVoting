@@ -10,6 +10,9 @@ LiveVoting
 - Freeze Voting
 - Fullscreen
 
+###Documentation
+https://github.com/studer-raimann/LiveVoting/blob/master/doc/Documentation.pdf
+
 ###Installation
 Start at your ILIAS root directory  
 ```bash
