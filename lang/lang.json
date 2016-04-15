@@ -505,7 +505,7 @@
             },
             "update": {
                 "translations": {
-                    "de": "Update",
+                    "de": "Speichern",
                     "en": "Update"
                 }
             }
@@ -597,7 +597,7 @@
             },
             "save": {
                 "translations": {
-                    "de": "Save",
+                    "de": "Speichern",
                     "en": "Save"
                 },
                 "last_used": "02.03.2016"

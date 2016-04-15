@@ -73,7 +73,7 @@ config_base_url#:#Basis-URL
 config_base_url_info#:#URL Ihrer ILIAS-Installation inkl. Unterverzeichnis, bspw. https://www.domain.com/ilias
 config_cancel#:#Abbrechen
 config_msg_success#:#Gespeichert
-config_update#:#Update
+config_update#:#Speichern
 msg_success_voting_created#:#Voting wurde erstellt
 msg_success_voting_updated#:#Voting wurde gespeichert
 obj_anonymous#:#Abstimmung ohne Login
@@ -86,7 +86,7 @@ obj_info_terminable#:#Das LiveVoting kann nur innerhalb der definierten Zeit zum
 obj_msg_properties_form_saved#:#Einstellungen gespeichert
 obj_online#:#Online
 obj_reuse_status#:#Player-Status übernehmen
-obj_save#:#Save
+obj_save#:#Speichern
 obj_terminable#:#Abstimmung zeitlich beschränken
 obj_terminable_select#:#Zeitraum
 obj_terminable_select_end_time#:#Ende
@@ -147,3 +147,8 @@ subtab_edit#:#Verwalten
 subtab_show#:#Zeigen
 tab_content#:#Inhalt
 tab_edit#:#Einstellungen
+cat_create_xlvo#:#LiveVoting anlegen
+crs_create_xlvo#:#LiveVoting anlegen
+fikd_create_xlvo#:#LiveVoting anlegen
+grp_create_xlvo#:#LiveVoting anlegen
+root_create_xlvo#:#LiveVoting anlegen
