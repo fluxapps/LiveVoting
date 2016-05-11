@@ -43,7 +43,7 @@ class xlvoInitialisation extends ilInitialisation {
 		switch (self::getContext()) {
 			case self::CONTEXT_ILIAS:
 				require_once('./include/inc.header.php');
-				self::initHTML();
+				self::initHTML2();
 				//				self::initILIAS();
 				break;
 			case self::CONTEXT_PIN:
@@ -108,11 +108,11 @@ class xlvoInitialisation extends ilInitialisation {
 		self::initUser();
 		self::initLanguage();
 		$tree->initLangCode();
-		self::initHTML();
+		self::initHTML2();
 	}
 
 
-	static function initHTML() {
+	protected static function initHTML2() {
 		parent::initHTML();
 		if (self::USE_OWN_GLOBAL_TPL) {
 			$tpl = new ilTemplate("tpl.main.html", true, true, 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting');
