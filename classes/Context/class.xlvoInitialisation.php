@@ -112,7 +112,7 @@ class xlvoInitialisation extends ilInitialisation {
 	}
 
 
-	protected static function initHTML() {
+	static function initHTML() {
 		parent::initHTML();
 		if (self::USE_OWN_GLOBAL_TPL) {
 			$tpl = new ilTemplate("tpl.main.html", true, true, 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting');
