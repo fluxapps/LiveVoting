@@ -1,6 +1,6 @@
 <?php
 $id = 'xlvo';
-$version = '3.0.1';
+$version = '3.0.2';
 $ilias_min_version = '5.0.0';
 $ilias_max_version = '5.2.999';
 $responsible = 'studer + raimann ag';
