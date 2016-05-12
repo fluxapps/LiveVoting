@@ -221,7 +221,7 @@ class ilObjLiveVoting extends ilObjectPlugin {
 					$vote_clone = $vote->copy();
 					$vote_clone->setVotingId($voting_id_clone);
 					$vote_clone->setOptionId($option_id_clone);
-					$vote_clone->create();
+//					$vote_clone->create(); // CURRENTLY VOTES WILL NO BE CLONED
 				}
 			}
 		}
