@@ -229,9 +229,8 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 				}
 				break;
 		}
-		
-		if(!$this->getCreationMode())
-		{
+
+		if (!$this->getCreationMode()) {
 			$this->tpl->show();
 		}
 	}
@@ -318,6 +317,20 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 			$this->fillPropertiesForm();
 			$this->tpl->setContent($this->form->getHTML());
 		}
+	}
+
+
+	/**
+	 * @param string $a_new_type
+	 * @return array
+	 */
+	protected function initCreationForms($a_new_type) {
+		$forms = array(
+			self::CFORM_NEW => $this->initCreateForm($a_new_type),
+			//			self::CFORM_CLONE => $this->fillCloneTemplate(null, $a_new_type)
+		);
+
+		return $forms;
 	}
 
 
