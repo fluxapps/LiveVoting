@@ -40,7 +40,18 @@ class ilObjLiveVotingListGUI extends ilObjectPluginListGUI {
 	 */
 	function initType() {
 		$this->setType("xlvo");
-		$this->copy_enabled = true;
+		$this->copy_enabled = false;
+	}
+
+
+	/**
+	 * @param $a_status
+	 * @return bool
+	 */
+	public function enableCopy($a_status) {
+		$this->copy_enabled = false;
+
+		return false;
 	}
 
 
