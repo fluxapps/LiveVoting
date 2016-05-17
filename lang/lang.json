@@ -407,7 +407,7 @@
                     "en": "Edit",
                     "de": "Bearbeiten"
                 },
-                "last_used": "03.03.2016"
+                "last_used": "17.05.2016"
             },
             "edit_permission": {
                 "translations": {
@@ -423,8 +423,8 @@
             },
             "read": {
                 "translations": {
-                    "en": "(Not used)",
-                    "de": "(keine Auswirkung)"
+                    "en": "Read (used only in non-anonymous-mode)",
+                    "de": "Leserecht (nur im nicht-anonymen Modus verwendet"
                 }
             },
             "visible": {
@@ -744,14 +744,14 @@
                     "de": "LiveVoting beginnen",
                     "en": "Start LiveVoting"
                 },
-                "last_used": "02.03.2016"
+                "last_used": "17.05.2016"
             },
             "start_voting_and_unfreeze": {
                 "translations": {
                     "de": "LiveVoting beginnen und direkt freigeben",
                     "en": "Start LiveVoting and unfreeze directly"
                 },
-                "last_used": "02.03.2016"
+                "last_used": "17.05.2016"
             },
             "terminate": {
                 "translations": {
@@ -779,7 +779,7 @@
                     "de": "Votings",
                     "en": "Votings"
                 },
-                "last_used": "02.03.2016"
+                "last_used": "17.05.2016"
             }
         },
         "qtype": {
@@ -983,14 +983,14 @@
                     "de": "Verwalten",
                     "en": "Manage"
                 },
-                "last_used": "03.03.2016"
+                "last_used": "17.05.2016"
             },
             "show": {
                 "translations": {
                     "de": "Zeigen",
                     "en": "Show"
                 },
-                "last_used": "03.03.2016"
+                "last_used": "17.05.2016"
             }
         },
         "tab": {
@@ -999,14 +999,59 @@
                     "de": "Inhalt",
                     "en": "Content"
                 },
-                "last_used": "03.03.2016"
+                "last_used": "17.05.2016"
             },
             "edit": {
                 "translations": {
                     "de": "Einstellungen",
                     "en": "Settings"
                 },
-                "last_used": "03.03.2016"
+                "last_used": "17.05.2016"
+            }
+        },
+        "cat": {
+            "create_xlvo": {
+                "translations": {
+                    "de": "LiveVoting erstellen",
+                    "en": "Create LiveVoting"
+                },
+                "last_used": "17.05.2016"
+            }
+        },
+        "crs": {
+            "create_xlvo": {
+                "translations": {
+                    "de": "LiveVoting erstellen",
+                    "en": "Create LiveVoting"
+                },
+                "last_used": "17.05.2016"
+            }
+        },
+        "fikd": {
+            "create_xlvo": {
+                "translations": {
+                    "de": "LiveVoting erstellen",
+                    "en": "Create LiveVoting"
+                },
+                "last_used": "17.05.2016"
+            }
+        },
+        "grp": {
+            "create_xlvo": {
+                "translations": {
+                    "de": "LiveVoting erstellen",
+                    "en": "Create LiveVoting"
+                },
+                "last_used": "17.05.2016"
+            }
+        },
+        "root": {
+            "create_xlvo": {
+                "translations": {
+                    "de": "LiveVoting erstellen",
+                    "en": "Create LiveVoting"
+                },
+                "last_used": "17.05.2016"
             }
         }
     }

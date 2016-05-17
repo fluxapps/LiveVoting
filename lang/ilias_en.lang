@@ -60,7 +60,7 @@ xlvo_delete#:#Delete LiveVoting
 xlvo_edit#:#Edit
 xlvo_edit_permission#:#Edit Permissions
 xlvo_new#:#Add new LiveVoting
-xlvo_read#:#(Not used)
+xlvo_read#:#Read (used only in non-anonymous-mode)
 xlvo_visible#:#LiveVotings visible
 xlvo_write#:#Present and edit LiveVoting
 common_back#:#Back

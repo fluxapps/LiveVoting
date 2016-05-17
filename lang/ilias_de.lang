@@ -60,7 +60,7 @@ xlvo_delete#:#LiveVoting löschen
 xlvo_edit#:#Bearbeiten
 xlvo_edit_permission#:#Rechte bearbeiten
 xlvo_new#:#Neues LiveVoting anlegen
-xlvo_read#:#(keine Auswirkung)
+xlvo_read#:#Leserecht (nur im nicht-anonymen Modus verwendet
 xlvo_visible#:#LiveVoting sichtbar
 xlvo_write#:#LiveVoting präsentieren und bearbeiten
 common_back#:#Zurück
@@ -147,8 +147,8 @@ subtab_edit#:#Verwalten
 subtab_show#:#Zeigen
 tab_content#:#Inhalt
 tab_edit#:#Einstellungen
-cat_create_xlvo#:#LiveVoting anlegen
-crs_create_xlvo#:#LiveVoting anlegen
-fikd_create_xlvo#:#LiveVoting anlegen
-grp_create_xlvo#:#LiveVoting anlegen
-root_create_xlvo#:#LiveVoting anlegen
+cat_create_xlvo#:#LiveVoting erstellen
+crs_create_xlvo#:#LiveVoting erstellen
+fikd_create_xlvo#:#LiveVoting erstellen
+grp_create_xlvo#:#LiveVoting erstellen
+root_create_xlvo#:#LiveVoting erstellen
