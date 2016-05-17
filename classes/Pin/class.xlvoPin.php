@@ -33,6 +33,20 @@ class xlvoPin {
 
 
 	/**
+	 * @param $obj_id
+	 * @return int
+	 */
+	public static function lookupPin($obj_id) {
+		/**
+		 * @var $xlvoVotingConfig xlvoVotingConfig
+		 */
+		$xlvoVotingConfig = xlvoVotingConfig::findOrGetInstance($obj_id);
+
+		return $xlvoVotingConfig->getPin();
+	}
+
+
+	/**
 	 * @param $pin
 	 * @return int
 	 * @throws \xlvoVoterException

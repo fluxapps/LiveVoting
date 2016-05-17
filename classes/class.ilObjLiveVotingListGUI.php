@@ -21,8 +21,11 @@
 	+-----------------------------------------------------------------------------+
 */
 
-include_once "./Services/Repository/classes/class.ilObjectPluginListGUI.php";
+require_once('./Services/Repository/classes/class.ilObjectPluginListGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoQuestionTypes.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Pin/class.xlvoPin.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voter/class.xlvoVoter.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoPlayer.php');
 
 /**
  * ListGUI implementation for LiveVoting object plugin. This one
@@ -38,16 +41,27 @@ class ilObjLiveVotingListGUI extends ilObjectPluginListGUI {
 	/**
 	 * Init type
 	 */
-	function initType() {
+	public function initType() {
 		$this->setType("xlvo");
-		$this->copy_enabled = true;
+		$this->copy_enabled = false;
+	}
+
+
+	/**
+	 * @param $a_status
+	 * @return bool
+	 */
+	public function enableCopy($a_status) {
+		$this->copy_enabled = false;
+
+		return false;
 	}
 
 
 	/**
 	 * Get name of gui class handling the commands
 	 */
-	function getGuiClass() {
+	public function getGuiClass() {
 		return "ilObjLiveVotingGUI";
 	}
 
@@ -55,7 +69,7 @@ class ilObjLiveVotingListGUI extends ilObjectPluginListGUI {
 	/**
 	 * Get commands
 	 */
-	function initCommands() {
+	public function initCommands() {
 		return array(
 			array(
 				"permission" => "read",
@@ -93,10 +107,22 @@ class ilObjLiveVotingListGUI extends ilObjectPluginListGUI {
 	 *                        "property" (string) => property name
 	 *                        "value" (string) => property value
 	 */
-	function getProperties() {
+	public function getProperties() {
 		$props = array();
 
-		$this->plugin->includeClass("class.ilObjLiveVotingAccess.php");
+		//		$props[] = array(
+		//			"alert"    => false,
+		//			"property" => 'Online',
+		//			"value"    => xlvoVoter::count(xlvoPlayer::getInstanceForObjId($this->obj_id)),
+		//		);
+		//
+		//		$props[] = array(
+		//			"alert"    => false,
+		//			"property" => 'PIN',
+		//			"value"    => xlvoPin::lookupPin($this->obj_id),
+		//		);
+
+		require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilObjLiveVotingAccess.php');
 		if (!ilObjLiveVotingAccess::checkOnline($this->obj_id)) {
 			$props[] = array(
 				"alert"    => true,

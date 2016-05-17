@@ -191,6 +191,10 @@ var xlvoPlayer = {
             xlvoPlayer.counter++;
             if ((xlvoPlayer.counter > xlvoPlayer.forced_update_interval) || (data.player.last_update != xlvoPlayer.player.last_update) || (data.player.show_results != xlvoPlayer.player.show_results) || (data.player.status != xlvoPlayer.player.status) || (data.player.active_voting_id != xlvoPlayer.player.active_voting_id)) {
                 $('#xlvo-display-player').html(data.player_html);
+
+                // var player = document.getElementById('xlvo-display-player');
+                // player.innerHTML = (data.player_html);
+
                 xlvoPlayer.counter = 0;
             }
 
