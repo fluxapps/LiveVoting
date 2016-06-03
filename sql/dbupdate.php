@@ -157,9 +157,6 @@ $ilDB->addTableColumn('rep_robj_xlvo_data', 'is_freezed', array(
 ?>
 <#7>
 <?php
-
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilLiveVotingPlugin.php');
-$pl = new ilLiveVotingPlugin();
 if($ilDB->tableColumnExists('rep_robj_xlvo_conf', 'lvo_key')) {
 	$ilDB->renameTableColumn('rep_robj_xlvo_conf', 'lvo_key', 'config_key');
 }
