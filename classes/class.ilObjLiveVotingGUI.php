@@ -497,7 +497,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 			 * @var ilCtrl $ilCtrl
 			 */
 			$ilCtrl->initBaseClass('ilUIPluginRouterGUI');
-			$ilCtrl->setTargetScript(xlvoConf::getFullApiURL());
+			$ilCtrl->setTargetScript(ltrim(xlvoConf::getFullApiURL(),'./'));
 			$ilCtrl->redirectByClass(array(
 				'ilUIPluginRouterGUI',
 				'xlvoVoter2GUI',
