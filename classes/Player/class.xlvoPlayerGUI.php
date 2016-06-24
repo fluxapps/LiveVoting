@@ -325,6 +325,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$settings = array(
 			'status_running' => xlvoPlayer::STAT_RUNNING,
 			'identifier'     => self::IDENTIFIER,
+			'use_mathjax'     => true,
 		);
 		if ($this->manager->getVotingConfig()->isKeyboardActive()) {
 			$keyboard = new stdClass();

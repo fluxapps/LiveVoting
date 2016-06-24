@@ -317,12 +317,18 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 		foreach ($inputs as $key => $input) {
 			$input = clone $input;
 			$is_hidden = false;
+			$is_ta = false;
 			if (!method_exists($input, 'render')) {
-				if (!$input instanceof ilHiddenInputGUI) {
-					throw new ilException("Method " . get_class($input)
-					                      . "::render() does not exists! You cannot use this input-type in ilMultiLineInputGUI");
-				} else {
-					$is_hidden = true;
+				switch (true) {
+					case ($input instanceof ilHiddenInputGUI):
+						$is_hidden = true;
+						break;
+					case ($input instanceof ilTextAreaInputGUI):
+						$is_ta = true;
+						break;
+					default:
+						throw new ilException("Method " . get_class($input)
+						                      . "::render() does not exists! You cannot use this input-type in ilMultiLineInputGUI");
 				}
 			}
 
@@ -345,23 +351,39 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 			if ($before_render_hook !== false && !$clean_render) {
 				$input = $before_render_hook($this->getValue(), $key, $input);
 			}
-			if ($is_hidden) {
-				$tpl->setCurrentBlock('hidden');
-				$tpl->setVariable('NAME', $post_var);
-				$tpl->setVariable('VALUE', ilUtil::prepareFormOutput($input->getValue()));
-				$tpl->parseCurrentBlock();
-			} else {
-				if ($this->isShowLabel() || ($this->isShowLabelOnce() && $first_label)) {
-					$tpl->setCurrentBlock('input_label');
-					$tpl->setVariable('LABEL', $input->getTitle());
-					$tpl->setVariable('CONTENT', $input->render());
+			switch (true) {
+				case $is_hidden:
+					$tpl->setCurrentBlock('hidden');
+					$tpl->setVariable('NAME', $post_var);
+					$tpl->setVariable('VALUE', ilUtil::prepareFormOutput($input->getValue()));
 					$tpl->parseCurrentBlock();
-					$first_label = false;
-				} else {
-					$tpl->setCurrentBlock('input');
-					$tpl->setVariable('CONTENT', $input->render());
-					$tpl->parseCurrentBlock();
-				}
+					break;
+				case $is_ta:
+					if ($this->isShowLabel() || ($this->isShowLabelOnce() && $first_label)) {
+						$tpl->setCurrentBlock('input_label');
+						$tpl->setVariable('LABEL', $input->getTitle());
+						$tpl->setVariable('CONTENT', $input->getHTML());
+						$tpl->parseCurrentBlock();
+						$first_label = false;
+					} else {
+						$tpl->setCurrentBlock('input');
+						$tpl->setVariable('CONTENT', $input->getHTML());
+						$tpl->parseCurrentBlock();
+					}
+					break;
+				default:
+					if ($this->isShowLabel() || ($this->isShowLabelOnce() && $first_label)) {
+						$tpl->setCurrentBlock('input_label');
+						$tpl->setVariable('LABEL', $input->getTitle());
+						$tpl->setVariable('CONTENT', $input->render());
+						$tpl->parseCurrentBlock();
+						$first_label = false;
+					} else {
+						$tpl->setCurrentBlock('input');
+						$tpl->setVariable('CONTENT', $input->render());
+						$tpl->parseCurrentBlock();
+					}
+					break;
 			}
 		}
 		if ($this->getMulti() && !$this->getDisabled()) {

@@ -8,13 +8,13 @@ var xlvoPlayer = {
 
         var replacer = new RegExp('amp;', 'g');
         config.base_url = config.base_url.replace(replacer, '');
-        console.log(config);
         this.config = config;
         this.ready = true;
+        console.log(this.config);
     },
     delay: 1000,
     timeout: null,
-    forced_update_interval: 3,
+    forced_update_interval: 30,
     config: {
         base_url: '',
         voter_count_element_id: '',
@@ -23,6 +23,7 @@ var xlvoPlayer = {
             voting_confirm_reset: 'Reset?'
         },
         status_running: -1,
+        use_mathjax: false
     },
     player: {
         status: -1,
@@ -190,8 +191,11 @@ var xlvoPlayer = {
         $.get(xlvoPlayer.config.base_url, {cmd: 'getPlayerData'}).done(function (data) {
             xlvoPlayer.counter++;
             if ((xlvoPlayer.counter > xlvoPlayer.forced_update_interval) || (data.player.last_update != xlvoPlayer.player.last_update) || (data.player.show_results != xlvoPlayer.player.show_results) || (data.player.status != xlvoPlayer.player.status) || (data.player.active_voting_id != xlvoPlayer.player.active_voting_id)) {
-                $('#xlvo-display-player').html(data.player_html);
-
+                var playerHtml = data.player_html;
+                $('#xlvo-display-player').replaceWith('<div id="xlvo-display-player">' + playerHtml + '</div>');
+                if (xlvoPlayer.config.use_mathjax && !!MathJax) {
+                    MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+                }
                 // var player = document.getElementById('xlvo-display-player');
                 // player.innerHTML = (data.player_html);
 

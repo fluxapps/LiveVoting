@@ -137,7 +137,7 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 
 		$question = strip_tags($xlvoVoting->getQuestion());
 		$question = strlen($question) > self::LENGTH ? substr($question, 0, self::LENGTH) . "..." : $question;
-		$this->tpl->setVariable('QUESTION', $question);
+		$this->tpl->setVariable('QUESTION', ilUtil::prepareTextareaOutput($question, true));
 		$this->tpl->setVariable('TYPE', $this->txt('type_' . $xlvoVoting->getVotingType()));
 
 		$voting_status = $this->getVotingStatus($xlvoVoting->getVotingStatus());

@@ -1,4 +1,5 @@
 <?php
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoTextAreaInputGUI.php');
 
 /**
  * Class xlvoFreeInputSubFormGUI
@@ -23,14 +24,15 @@ abstract class xlvoSubFormGUI {
 			$class = xlvoQuestionTypes::getClassName($xlvoVoting->getVotingType());
 			/**
 			 * @var $class_name xlvoFreeInputSubFormGUI
-			 * @var $subform xlvoFreeInputSubFormGUI
+			 * @var $subform    xlvoFreeInputSubFormGUI
 			 */
 			$class_name = 'xlvo' . $class . 'SubFormGUI';
 			require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/' . $class . '/class.'
-				. $class_name . '.php');
+			             . $class_name . '.php');
 
 			self::$instance = new $class_name($xlvoVoting);
 		}
+
 		return self::$instance;
 	}
 
@@ -150,6 +152,7 @@ abstract class xlvoSubFormGUI {
 		foreach ($this->getFormElements() as $formElement) {
 			$existing[$formElement->getPostVar()] = $this->getFieldValue($formElement);
 		}
+
 		return $existing;
 	}
 

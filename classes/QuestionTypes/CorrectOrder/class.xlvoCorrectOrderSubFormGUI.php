@@ -33,7 +33,7 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI {
 		$position->setMaxLength(2);
 		$xlvoMultiLineInputGUI->addInput($position);
 
-		$te = new ilTextInputGUI($this->txt('option_text'), self::F_TEXT);
+		$te = new xlvoTextAreaInputGUI($this->txt('option_text'), self::F_TEXT);
 		$te->setInlineStyle('width: 350px;');
 		$xlvoMultiLineInputGUI->addInput($te);
 

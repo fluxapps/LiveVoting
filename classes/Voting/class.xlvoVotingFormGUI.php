@@ -82,6 +82,9 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 		//		$this->addItem($ta);
 
 		$te = new ilTextAreaInputGUI($this->parent_gui->txt('question'), 'question');
+		$te->addPlugin('latex');
+		$te->addButton('latex');
+		$te->addButton('pastelatex');
 		$te->setRequired(true);
 		$te->setUseRte(true);
 		$te->setRteTags(array(
@@ -91,6 +94,7 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 			'strong',
 			'b',
 			'i',
+			'span',
 		));
 		$te->usePurifier(true);
 		$te->disableButtons(array(

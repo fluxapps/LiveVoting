@@ -39,6 +39,7 @@ class xlvoDisplayPlayerGUI {
 
 	/**
 	 * xlvoDisplayPlayerGUI constructor.
+	 *
 	 * @param xlvoVotingManager2 $manager
 	 */
 	public function __construct(xlvoVotingManager2 $manager) {
@@ -70,8 +71,8 @@ class xlvoDisplayPlayerGUI {
 		}
 
 		$votings = xlvoVoting::where(array(
-			'obj_id' => $this->manager->getVoting()->getObjId(),
-			'voting_status' => xlvoVoting::STAT_ACTIVE
+			'obj_id'        => $this->manager->getVoting()->getObjId(),
+			'voting_status' => xlvoVoting::STAT_ACTIVE,
 		))->orderBy('position', 'ASC');
 
 		$votings_count = $votings->count();
@@ -85,7 +86,7 @@ class xlvoDisplayPlayerGUI {
 		}
 
 		$this->tpl->setVariable('TITLE', $this->manager->getVoting()->getTitle());
-		$this->tpl->setVariable('QUESTION', $this->manager->getVoting()->getQuestion());
+		$this->tpl->setVariable('QUESTION', ilUtil::prepareTextareaOutput($this->manager->getVoting()->getQuestion(), true));
 		$this->tpl->setVariable('VOTING_ID', $this->manager->getVoting()->getId());
 		$this->tpl->setVariable('OBJ_ID', $this->manager->getVoting()->getObjId());
 		$this->tpl->setVariable('FROZEN', $player->isFrozen());
@@ -127,7 +128,7 @@ class xlvoDisplayPlayerGUI {
 		$this->answer_count ++;
 		$this->tpl->setCurrentBlock('option');
 		$this->tpl->setVariable('OPTION_LETTER', (chr($this->answer_count)));
-		$this->tpl->setVariable('OPTION_TEXT', $option->getText());
+		$this->tpl->setVariable('OPTION_TEXT', ilUtil::prepareTextareaOutput($option->getText(), true));
 		$this->tpl->parseCurrentBlock();
 	}
 }
