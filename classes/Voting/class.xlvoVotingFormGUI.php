@@ -191,10 +191,10 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 
 	protected function initButtons() {
 		if ($this->is_new) {
-			$this->setTitle($this->parent_gui->txt('create'));
+			$this->setTitle($this->parent_gui->txt('form_title_create'));
 			$this->addCommandButton(xlvoVotingGUI::CMD_CREATE, $this->parent_gui->txt('create'));
 		} else {
-			$this->setTitle($this->parent_gui->txt('update'));
+			$this->setTitle($this->parent_gui->txt('form_title_update'));
 			$this->addCommandButton(xlvoVotingGUI::CMD_UPDATE, $this->parent_gui->txt('update'));
 		}
 

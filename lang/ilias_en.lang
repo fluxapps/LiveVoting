@@ -21,11 +21,11 @@ voter_msg_validation_error_pin_2#:#Please log in to use this LiveVoting
 voter_msg_validation_error_pin_3#:#No LiveVoting with this PIN found
 voter_msg_validation_error_pin_4#:#This LiveVoting is not available at the Moment
 voting_actions#:#Actions
-voting_add#:#Add Voting
+voting_add#:#Add Question
 voting_cancel#:#Cancel
 voting_confirm_number_of_votes#:#Amount of User-Inputs:
 voting_confirm_reset#:#Do you like to reset this Voting? All User-Inputs will be deleted.
-voting_confirm_reset_all#:#Do you like to reset all Voting? All User-Inputs will be deleted.
+voting_confirm_reset_all#:#Do you like to reset all results of this LiveVoting? All User-Inputs will be deleted.
 voting_create#:#Create
 voting_delete#:#Delete
 voting_delete_confirm#:#Do you really want to delete the Voting?
@@ -55,6 +55,7 @@ voting_update#:#Update
 voting_type_5_info#:#Terms can be sorted after Priorities
 voting_export#:#Export
 voting_import#:#Import
+voting_form_title_update#:#Frage
 xlvo_add#:#Add
 xlvo_delete#:#Delete LiveVoting
 xlvo_edit#:#Edit
@@ -112,7 +113,7 @@ player_start_voting_and_unfreeze#:#Start LiveVoting and unfreeze directly
 player_terminate#:#Terminate
 player_unfreeze#:#Unfreeze
 player_voters_online#:#Online
-player_voting_list#:#Votings
+player_voting_list#:#Questions
 qtype_1_colors#:#Different Colors
 qtype_1_multi_selection#:#Multiple Selection
 qtype_1_multi_selection_info#:#User can select more than one Option
@@ -140,7 +141,7 @@ qtype_4_your_order#:#Your Submission:
 qtype_5_option_text#:#Text
 qtype_5_option_weight#:#Weight
 qtype_5_options#:#Options
-qtype_form_header#:#Type-Settings
+qtype_form_header#:#Answers
 qtype_multi_free_input#:#Multiple Inputs
 qtype_2_text#:#Text
 subtab_edit#:#Manage

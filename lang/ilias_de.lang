@@ -21,11 +21,11 @@ voter_msg_validation_error_pin_2#:#Bitte Logen Sie sich ein, um dieses LiveVotin
 voter_msg_validation_error_pin_3#:#Zu diesem PIN wurde keine LiveVoting gefunden
 voter_msg_validation_error_pin_4#:#Dieses LiveVoting ist zum aktuellen Zeitpunkt nicht verfügbar
 voting_actions#:#Aktionen
-voting_add#:#Abstimmung hinzufügen
+voting_add#:#Frage hinzufügen
 voting_cancel#:#Abbrechen
 voting_confirm_number_of_votes#:#Anzahl Benutzer-Eingaben:
-voting_confirm_reset#:#Möchten Sie die Abstimmung zurücksetzen? Alle Benutzer-Eingaben werden gelöscht.
-voting_confirm_reset_all#:#Möchten Sie alle Abstimmungen zurücksetzen? Alle Benutzer-Eingaben werden gelöscht.
+voting_confirm_reset#:#Möchten Sie die Resultate dieser Frage zurücksetzen? Alle Benutzer-Eingaben werden gelöscht.
+voting_confirm_reset_all#:#Möchten Sie die Resultate aller Fragen zurücksetzen? Alle Benutzer-Eingaben werden gelöscht.
 voting_create#:#Erstellen
 voting_delete#:#Löschen
 voting_delete_confirm#:#Möchsten Sie die Abstimmung wirklich löschen?
@@ -34,7 +34,7 @@ voting_edit#:#Bearbeiten
 voting_msg_sorting_saved#:#Reihenfolge gespeichert
 voting_question#:#Frage
 voting_reset#:#Zurücksetzen
-voting_reset_all#:#Alle Abstimmungen zurücksetzen
+voting_reset_all#:#Alle Resultate zurücksetzen
 voting_save_sorting#:#Reihenfolge speichern
 voting_select_type#:#Typ auswählen
 voting_status#:#Status
@@ -44,17 +44,18 @@ voting_status_5#:#Aktiv
 voting_title#:#Titel
 voting_type#:#Typ
 voting_type_1#:#Single/Multiple Choice
-voting_type_1_info#:#Ein Nutzer kann für mehrere Auswahlmöglichkeiten abstimmen
+voting_type_1_info#:#User können eine resp. mehrere Auswahlmöglichkeit(en) auswählen
 voting_type_2#:#Freitext eingeben
-voting_type_2_info#:#Benutzer können Stichwort selber eingeben
+voting_type_2_info#:#User können Stichworte oder kurze Sätze eingeben
 voting_type_3#:#Bereich
 voting_type_4#:#Korrekte Reihenfolge
-voting_type_4_info#:#Begriffe müssen in die richtige Reihenfolge gebracht werden
+voting_type_4_info#:#User müssen Begriffe in die richtige Reihenfolge bringen
 voting_type_5#:#Prioritäten
 voting_update#:#Speichern
-voting_type_5_info#:#Begriffe können nach Priorität angeordnet werden
+voting_type_5_info#:#User können Begriffe nach Prioritäten anordnen
 voting_export#:#Export
 voting_import#:#Import
+voting_form_title_update#:#Question
 xlvo_add#:#Hinzufügen
 xlvo_delete#:#LiveVoting löschen
 xlvo_edit#:#Bearbeiten
@@ -112,7 +113,7 @@ player_start_voting_and_unfreeze#:#LiveVoting beginnen und direkt freigeben
 player_terminate#:#Beenden
 player_unfreeze#:#Abstimmen
 player_voters_online#:#Online
-player_voting_list#:#Votings
+player_voting_list#:#Fragen
 qtype_1_colors#:#Unterschiedliche Farben
 qtype_1_multi_selection#:#Mehrfachauswahl
 qtype_1_multi_selection_info#:#Ein Nutzer kann mehr als einen Text eingeben
@@ -140,7 +141,7 @@ qtype_4_your_order#:#Ihre gespeicherte Eingabe:
 qtype_5_option_text#:#Text
 qtype_5_option_weight#:#Gewichtung
 qtype_5_options#:#Optionen
-qtype_form_header#:#Typ-Einstellugnen
+qtype_form_header#:#Antworten
 qtype_multi_free_input#:#Mehrfache Eingaben
 qtype_2_text#:#Text
 subtab_edit#:#Verwalten
