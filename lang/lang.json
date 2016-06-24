@@ -62,7 +62,7 @@
                     "de": "Abstimmung noch nicht freigegeben",
                     "en": "Voting frozen"
                 },
-                "last_used": "02.03.2016"
+                "last_used": "24.06.2016"
             },
             "header_start": {
                 "translations": {
@@ -83,7 +83,7 @@
                     "de": "Diese Frage ist noch nicht aktiv, bitte warten...",
                     "en": "This Questions is not yet active, please wait..."
                 },
-                "last_used": "02.03.2016"
+                "last_used": "24.06.2016"
             },
             "info_start": {
                 "translations": {
@@ -1032,7 +1032,7 @@
                     "de": "Zur\u00fccksetzen",
                     "en": "Clear"
                 },
-                "last_used": "02.03.2016"
+                "last_used": "24.06.2016"
             },
             "4_id": {
                 "translations": {
@@ -1072,7 +1072,7 @@
                     "de": "Speichern",
                     "en": "Save"
                 },
-                "last_used": "02.03.2016"
+                "last_used": "24.06.2016"
             },
             "4_your_order": {
                 "translations": {
