@@ -339,3 +339,13 @@ xlvoPlayer::updateDB();
 xlvoVote::updateDB();
 xlvoOption::updateDB();
 ?>
+<#20>
+<?php
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingConfig.php');
+xlvoVotingConfig::updateDB();
+$xlvo_conf_table_name = xlvoVotingConfig::returnDbTableName();
+$frozen_behaviour = xlvoVotingConfig::B_FROZEN_ALWAY_OFF;
+$results_behaviour = xlvoVotingConfig::B_RESULTS_ALWAY_OFF;
+$q = "UPDATE {$xlvo_conf_table_name} SET frozen_behaviour={$frozen_behaviour}, results_behaviour={$results_behaviour}";
+$ilDB->manipulate($q);
+?>

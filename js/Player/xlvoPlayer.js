@@ -196,8 +196,6 @@ var xlvoPlayer = {
                 if (xlvoPlayer.config.use_mathjax && !!MathJax) {
                     MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
                 }
-                // var player = document.getElementById('xlvo-display-player');
-                // player.innerHTML = (data.player_html);
 
                 xlvoPlayer.counter = 0;
             }
@@ -241,7 +239,7 @@ var xlvoPlayer = {
             .done(function (data) {
                 $('#xlvo-attendees').html(data + ' Online');
             });
-        setTimeout(xlvoPlayer.updateAttendees, 1500);
+        setTimeout(xlvoPlayer.updateAttendees, 1000);
     },
     handleStartButton: function () {
         var btn = $('#btn-start-voting');

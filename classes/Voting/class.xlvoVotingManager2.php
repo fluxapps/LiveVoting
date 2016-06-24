@@ -199,17 +199,6 @@ class xlvoVotingManager2 {
 	}
 
 
-	public function previous() {
-		if ($this->getVoting()->isFirst()) {
-			return false;
-		}
-		$prev_id = $this->getVotingsList('DESC')->where(array( 'position' => $this->voting->getPosition() ), '<')->limit(0, 1)->getArray('id', 'id');
-		$prev_id = array_shift(array_values($prev_id));
-		$this->player->setActiveVoting($prev_id);
-		$this->player->update();
-	}
-
-
 	/**
 	 * @param $voting_id
 	 */
@@ -221,12 +210,26 @@ class xlvoVotingManager2 {
 	}
 
 
+	public function previous() {
+		if ($this->getVoting()->isFirst()) {
+			return false;
+		}
+		$prev_id = $this->getVotingsList('DESC')->where(array( 'position' => $this->voting->getPosition() ), '<')->limit(0, 1)->getArray('id', 'id');
+		$prev_id = array_shift(array_values($prev_id));
+		$this->handleQuestionSwitching();
+
+		$this->player->setActiveVoting($prev_id);
+		$this->player->update();
+	}
+
+
 	public function next() {
 		if ($this->getVoting()->isLast()) {
 			return false;
 		}
 		$next_id = $this->getVotingsList()->where(array( 'position' => $this->voting->getPosition() ), '>')->limit(0, 1)->getArray('id', 'id');
 		$next_id = array_shift(array_values($next_id));
+		$this->handleQuestionSwitching();
 		$this->player->setActiveVoting($next_id);
 		$this->player->update();
 	}
@@ -399,5 +402,32 @@ class xlvoVotingManager2 {
 			'obj_id'        => $this->getObjId(),
 			'voting_status' => xlvoVoting::STAT_ACTIVE,
 		))->orderBy('position', $order);
+	}
+
+
+	public function handleQuestionSwitching() {
+		switch ($this->getVotingConfig()->getResultsBehaviour()) {
+			case xlvoVotingConfig::B_RESULTS_ALWAY_ON:
+				$this->player->setShowResults(true);
+				break;
+			case xlvoVotingConfig::B_RESULTS_ALWAY_OFF:
+				$this->player->setShowResults(false);
+				break;
+			case xlvoVotingConfig::B_RESULTS_REUSE:
+				$this->player->setShowResults($this->player->isShowResults());
+				break;
+		}
+
+		switch ($this->getVotingConfig()->getFrozenBehaviour()) {
+			case xlvoVotingConfig::B_FROZEN_ALWAY_ON:
+				$this->player->setFrozen(false);
+				break;
+			case xlvoVotingConfig::B_FROZEN_ALWAY_OFF:
+				$this->player->setFrozen(true);
+				break;
+			case xlvoVotingConfig::B_FROZEN_REUSE:
+				$this->player->setFrozen($this->player->isFrozen());
+				break;
+		}
 	}
 }

@@ -98,6 +98,22 @@ obj_xlvo#:#LiveVoting
 obj_xlvo_duplicate#:#Bestehendes LiveVoting kopieren
 obj_status#:#Status
 obj_offline#:#Offline
+obj_formtitle_change_vote#:#Verhalten bei Wechsel der Frage
+obj_frozen_behaviour#:#Abstimmen
+obj_frozen_alway_on#:#nach Wechsel immer eingeschaltet
+obj_frozen_alway_off#:#nach Wechsel immer ausgeschaltet
+obj_frozen_alway_on_info#:#Benutzer können nach einem Wechsel der Frage sofort abstimmen.
+obj_frozen_alway_off_info#:#Benutzer können nach einem Wechsel erst nach Freigabe abstimmen.
+obj_results_behaviour#:#Resultate einblenden
+obj_results_alway_on#:#nach Wechsel immer eingeblendet
+obj_results_alway_on_info#:#Die Resultate werden nach einem Wechsel der Frage automatisch eingeblendet.
+obj_results_alway_off#:#nach Wechsel immer ausgeblendet
+obj_results_alway_off_info#:#Administratoren müssen das Einblenden der Resultate manuell starten.
+obj_frozen_reuse#:#Status beim Wechsel beibehalten
+obj_frozen_reuse_info#:#Der Status, ob abgestimmt werden kann, wird beim Wechseln der Fragen beibehalten.
+obj_results_reuse#:#Status beim Wechsel beibehalten
+obj_results_reuse_info#:#Der Status, ob die Resulate angezeigt werden, wird beim Wechseln der Fragen beibehalten.
+obj_crs#:#MISSING
 objs_xlvo#:#LiveVotings
 objs_xlvo_duplicate#:#Bestehendes LiveVoting kopieren
 player_close_modal#:#Schliessen

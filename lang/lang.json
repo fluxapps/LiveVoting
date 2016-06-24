@@ -411,7 +411,8 @@
                 "translations": {
                     "en": "Add",
                     "de": "Hinzuf\u00fcgen"
-                }
+                },
+                "last_used": "24.06.2016"
             },
             "delete": {
                 "translations": {
@@ -436,7 +437,8 @@
                 "translations": {
                     "en": "Add new LiveVoting",
                     "de": "Neues LiveVoting anlegen"
-                }
+                },
+                "last_used": "24.06.2016"
             },
             "read": {
                 "translations": {
@@ -598,7 +600,7 @@
                     "de": "Einstellungen gespeichert",
                     "en": "Settings saved"
                 },
-                "last_used": "02.03.2016"
+                "last_used": "24.06.2016"
             },
             "online": {
                 "translations": {
@@ -681,6 +683,117 @@
                     "de": "Offline"
                 },
                 "last_used": "02.03.2016"
+            },
+            "formtitle_change_vote": {
+                "translations": {
+                    "en": "Behaviour while navigating",
+                    "de": "Verhalten bei Wechsel der Frage"
+                },
+                "last_used": "24.06.2016"
+            },
+            "frozen_behaviour": {
+                "translations": {
+                    "en": "Frozen-State",
+                    "de": "Abstimmen"
+                },
+                "last_used": "24.06.2016"
+            },
+            "frozen_alway_on": {
+                "translations": {
+                    "en": "MISSING",
+                    "de": "nach Wechsel immer eingeschaltet"
+                },
+                "last_used": "24.06.2016"
+            },
+            "frozen_alway_off": {
+                "translations": {
+                    "en": "MISSING",
+                    "de": "nach Wechsel immer ausgeschaltet"
+                },
+                "last_used": "24.06.2016"
+            },
+            "frozen_alway_on_info": {
+                "translations": {
+                    "en": "MISSING",
+                    "de": "Benutzer k\u00f6nnen nach einem Wechsel der Frage sofort abstimmen."
+                },
+                "last_used": "24.06.2016"
+            },
+            "frozen_alway_off_info": {
+                "translations": {
+                    "en": "MISSING",
+                    "de": "Benutzer k\u00f6nnen nach einem Wechsel erst nach Freigabe abstimmen."
+                },
+                "last_used": "24.06.2016"
+            },
+            "results_behaviour": {
+                "translations": {
+                    "en": "Show Results",
+                    "de": "Resultate einblenden"
+                },
+                "last_used": "24.06.2016"
+            },
+            "results_alway_on": {
+                "translations": {
+                    "en": "MISSING",
+                    "de": "nach Wechsel immer eingeblendet"
+                },
+                "last_used": "24.06.2016"
+            },
+            "results_alway_on_info": {
+                "translations": {
+                    "en": "MISSING",
+                    "de": "Die Resultate werden nach einem Wechsel der Frage automatisch eingeblendet."
+                },
+                "last_used": "24.06.2016"
+            },
+            "results_alway_off": {
+                "translations": {
+                    "en": "MISSING",
+                    "de": "nach Wechsel immer ausgeblendet"
+                },
+                "last_used": "24.06.2016"
+            },
+            "results_alway_off_info": {
+                "translations": {
+                    "en": "MISSING",
+                    "de": "Administratoren m\u00fcssen das Einblenden der Resultate manuell starten."
+                },
+                "last_used": "24.06.2016"
+            },
+            "frozen_reuse": {
+                "translations": {
+                    "en": "MISSING",
+                    "de": "Status beim Wechsel beibehalten"
+                },
+                "last_used": "24.06.2016"
+            },
+            "frozen_reuse_info": {
+                "translations": {
+                    "en": "MISSING",
+                    "de": "Der Status, ob abgestimmt werden kann, wird beim Wechseln der Fragen beibehalten."
+                },
+                "last_used": "24.06.2016"
+            },
+            "results_reuse": {
+                "translations": {
+                    "en": "MISSING",
+                    "de": "Status beim Wechsel beibehalten"
+                },
+                "last_used": "24.06.2016"
+            },
+            "results_reuse_info": {
+                "translations": {
+                    "en": "MISSING",
+                    "de": "Der Status, ob die Resulate angezeigt werden, wird beim Wechseln der Fragen beibehalten."
+                },
+                "last_used": "24.06.2016"
+            },
+            "crs": {
+                "translations": {
+                    "en": "MISSING",
+                    "de": "MISSING"
+                }
             }
         },
         "objs": {
@@ -842,7 +955,7 @@
                     "de": "Anzahl Stimmen",
                     "en": "Total Votes"
                 },
-                "last_used": "02.03.2016"
+                "last_used": "24.06.2016"
             },
             "1_unvote": {
                 "translations": {

@@ -98,6 +98,22 @@ obj_xlvo#:#LiveVoting
 obj_xlvo_duplicate#:#Clone existing LiveVoting
 obj_status#:#Status
 obj_offline#:#Offline
+obj_formtitle_change_vote#:#Behaviour while navigating
+obj_frozen_behaviour#:#Frozen-State
+obj_frozen_alway_on#:#MISSING
+obj_frozen_alway_off#:#MISSING
+obj_frozen_alway_on_info#:#MISSING
+obj_frozen_alway_off_info#:#MISSING
+obj_results_behaviour#:#Show Results
+obj_results_alway_on#:#MISSING
+obj_results_alway_on_info#:#MISSING
+obj_results_alway_off#:#MISSING
+obj_results_alway_off_info#:#MISSING
+obj_frozen_reuse#:#MISSING
+obj_frozen_reuse_info#:#MISSING
+obj_results_reuse#:#MISSING
+obj_results_reuse_info#:#MISSING
+obj_crs#:#MISSING
 objs_xlvo#:#LiveVotings
 objs_xlvo_duplicate#:#Clone existing LiveVoting
 player_close_modal#:#Close
