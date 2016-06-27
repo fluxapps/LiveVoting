@@ -53,7 +53,7 @@
             },
             "delete": {
                 "translations": {
-                    "de": "L\u00f6schen",
+                    "de": "L\u00c3\u00b6schen",
                     "en": "Delete"
                 }
             },
@@ -87,7 +87,7 @@
             },
             "info_start": {
                 "translations": {
-                    "de": "Dieses LiveVoting wurde vom Pr\u00e4sentator nicht gestartet, bitte warten...",
+                    "de": "Dieses LiveVoting wurde vom Pr\u00c3\u00a4sentator nicht gestartet, bitte warten...",
                     "en": "This LiveVoting has not yet been started by the presenter..."
                 },
                 "last_used": "27.06.2016"
@@ -107,7 +107,7 @@
             },
             "msg_end_of_voting_screen": {
                 "translations": {
-                    "de": "Das LiveVoting wurde beendet, vielen Dank f\u00fcr Ihre Teilnahme",
+                    "de": "Das LiveVoting wurde beendet, vielen Dank f\u00c3\u00bcr Ihre Teilnahme",
                     "en": "This LiveVoting has been terminated. Thanks for your participation."
                 }
             },
@@ -119,7 +119,7 @@
             },
             "msg_start_of_voting_screen": {
                 "translations": {
-                    "de": "Bitte warten, bis der Pr\u00e4sentator das Voting freigibt",
+                    "de": "Bitte warten, bis der Pr\u00c3\u00a4sentator das Voting freigibt",
                     "en": "Please wait untill the Presenter starts the Voting"
                 }
             },
@@ -131,7 +131,7 @@
             },
             "msg_validation_error_pin_2": {
                 "translations": {
-                    "de": "Bitte Logen Sie sich ein, um dieses LiveVoting verwendet zu k\u00f6nnen",
+                    "de": "Bitte Logen Sie sich ein, um dieses LiveVoting verwendet zu k\u00c3\u00b6nnen",
                     "en": "Please log in to use this LiveVoting"
                 },
                 "last_used": "02.03.2016"
@@ -145,7 +145,7 @@
             },
             "msg_validation_error_pin_4": {
                 "translations": {
-                    "de": "Dieses LiveVoting ist zum aktuellen Zeitpunkt nicht verf\u00fcgbar",
+                    "de": "Dieses LiveVoting ist zum aktuellen Zeitpunkt nicht verf\u00c3\u00bcgbar",
                     "en": "This LiveVoting is not available at the Moment"
                 }
             }
@@ -161,7 +161,7 @@
             "add": {
                 "translations": {
                     "en": "Add Question",
-                    "de": "Frage hinzuf\u00fcgen"
+                    "de": "Frage hinzuf\u00c3\u00bcgen"
                 },
                 "last_used": "27.06.2016"
             },
@@ -181,14 +181,14 @@
             "confirm_reset": {
                 "translations": {
                     "en": "Do you like to reset this Voting? All User-Inputs will be deleted.",
-                    "de": "M\u00f6chten Sie die Resultate dieser Frage zur\u00fccksetzen? Alle Benutzer-Eingaben werden gel\u00f6scht."
+                    "de": "M\u00c3\u00b6chten Sie die Resultate dieser Frage zur\u00c3\u00bccksetzen? Alle Benutzer-Eingaben werden gel\u00c3\u00b6scht."
                 },
                 "last_used": "27.06.2016"
             },
             "confirm_reset_all": {
                 "translations": {
                     "en": "Do you like to reset all results of this LiveVoting? All User-Inputs will be deleted.",
-                    "de": "M\u00f6chten Sie die Resultate aller Fragen zur\u00fccksetzen? Alle Benutzer-Eingaben werden gel\u00f6scht."
+                    "de": "M\u00c3\u00b6chten Sie die Resultate aller Fragen zur\u00c3\u00bccksetzen? Alle Benutzer-Eingaben werden gel\u00c3\u00b6scht."
                 }
             },
             "create": {
@@ -201,14 +201,14 @@
             "delete": {
                 "translations": {
                     "en": "Delete",
-                    "de": "L\u00f6schen"
+                    "de": "L\u00c3\u00b6schen"
                 },
                 "last_used": "27.06.2016"
             },
             "delete_confirm": {
                 "translations": {
                     "en": "Do you really want to delete the Voting?",
-                    "de": "M\u00f6chsten Sie die Abstimmung wirklich l\u00f6schen?"
+                    "de": "M\u00c3\u00b6chsten Sie die Abstimmung wirklich l\u00c3\u00b6schen?"
                 }
             },
             "description": {
@@ -241,14 +241,14 @@
             "reset": {
                 "translations": {
                     "en": "Reset",
-                    "de": "Zur\u00fccksetzen"
+                    "de": "Zur\u00c3\u00bccksetzen"
                 },
                 "last_used": "27.06.2016"
             },
             "reset_all": {
                 "translations": {
                     "en": "Reset all Votings",
-                    "de": "Alle Resultate zur\u00fccksetzen"
+                    "de": "Alle Resultate zur\u00c3\u00bccksetzen"
                 },
                 "last_used": "27.06.2016"
             },
@@ -262,7 +262,7 @@
             "select_type": {
                 "translations": {
                     "en": "Select Type",
-                    "de": "Typ ausw\u00e4hlen"
+                    "de": "Typ ausw\u00c3\u00a4hlen"
                 },
                 "last_used": "24.06.2016"
             },
@@ -283,7 +283,7 @@
             "status_2": {
                 "translations": {
                     "en": "Incomplete",
-                    "de": "Unvollst\u00e4ndig"
+                    "de": "Unvollst\u00c3\u00a4ndig"
                 },
                 "last_used": "27.06.2016"
             },
@@ -318,7 +318,7 @@
             "type_1_info": {
                 "translations": {
                     "en": "A User can vote for different options",
-                    "de": "User k\u00f6nnen eine resp. mehrere Auswahlm\u00f6glichkeit(en) ausw\u00e4hlen"
+                    "de": "User k\u00c3\u00b6nnen eine resp. mehrere Auswahlm\u00c3\u00b6glichkeit(en) ausw\u00c3\u00a4hlen"
                 },
                 "last_used": "24.06.2016"
             },
@@ -332,7 +332,7 @@
             "type_2_info": {
                 "translations": {
                     "en": "User can hand in free text",
-                    "de": "User k\u00f6nnen Stichworte oder kurze S\u00e4tze eingeben"
+                    "de": "User k\u00c3\u00b6nnen Stichworte oder kurze S\u00c3\u00a4tze eingeben"
                 },
                 "last_used": "24.06.2016"
             },
@@ -352,14 +352,14 @@
             "type_4_info": {
                 "translations": {
                     "en": "Terms must be sorted in the correct order.",
-                    "de": "User m\u00fcssen Begriffe in die richtige Reihenfolge bringen"
+                    "de": "User m\u00c3\u00bcssen Begriffe in die richtige Reihenfolge bringen"
                 },
                 "last_used": "24.06.2016"
             },
             "type_5": {
                 "translations": {
                     "en": "Priorities",
-                    "de": "Priorit\u00e4ten"
+                    "de": "Priorit\u00c3\u00a4ten"
                 },
                 "last_used": "27.06.2016"
             },
@@ -373,7 +373,7 @@
             "type_5_info": {
                 "translations": {
                     "en": "Terms can be sorted after Priorities",
-                    "de": "User k\u00f6nnen Begriffe nach Priorit\u00e4ten anordnen"
+                    "de": "User k\u00c3\u00b6nnen Begriffe nach Priorit\u00c3\u00a4ten anordnen"
                 },
                 "last_used": "24.06.2016"
             },
@@ -408,7 +408,7 @@
             "columns": {
                 "translations": {
                     "en": "Colums for possible answers",
-                    "de": "Spalten f\u00fcr Antwortm\u00f6glichkeiten"
+                    "de": "Spalten f\u00c3\u00bcr Antwortm\u00c3\u00b6glichkeiten"
                 },
                 "last_used": "27.06.2016"
             }
@@ -417,14 +417,14 @@
             "add": {
                 "translations": {
                     "en": "Add",
-                    "de": "Hinzuf\u00fcgen"
+                    "de": "Hinzuf\u00c3\u00bcgen"
                 },
                 "last_used": "24.06.2016"
             },
             "delete": {
                 "translations": {
                     "en": "Delete LiveVoting",
-                    "de": "LiveVoting l\u00f6schen"
+                    "de": "LiveVoting l\u00c3\u00b6schen"
                 }
             },
             "edit": {
@@ -462,14 +462,19 @@
             "write": {
                 "translations": {
                     "en": "Present and edit LiveVoting",
-                    "de": "LiveVoting pr\u00e4sentieren und bearbeiten"
+                    "de": "LiveVoting pr\u00c3\u00a4sentieren und bearbeiten"
+                }
+            },
+            "eobj_results_reuse": {
+                "translations": {
+                    "en": "MISSING"
                 }
             }
         },
         "common": {
             "back": {
                 "translations": {
-                    "de": "Zur\u00fcck",
+                    "de": "Zur\u00c3\u00bcck",
                     "en": "Back"
                 }
             },
@@ -489,7 +494,7 @@
             },
             "allow_shortlink_info": {
                 "translations": {
-                    "de": "Eine Kurz-URL kann bspw. durch hinzuf\u00fcgen einer RewriteRule in der .htaccess erstellt werden, dadurch kann auf https:\/\/ilias.domain.com\/vote angestimmt werden:",
+                    "de": "Eine Kurz-URL kann bspw. durch hinzuf\u00c3\u00bcgen einer RewriteRule in der .htaccess erstellt werden, dadurch kann auf https:\/\/ilias.domain.com\/vote angestimmt werden:",
                     "en": "Use a Short URL like \/vote by adding the following RewriteRule to your .htaccess:"
                 }
             },
@@ -576,21 +581,21 @@
             },
             "info_anonymous": {
                 "translations": {
-                    "de": "Das LiveVoting kann von den Abstimmenden ohne Login verwendet werden, auch wenn das Objekt in einem gesch\u00fctzten Bereich wie bspw. einem Kurs liegt.",
+                    "de": "Das LiveVoting kann von den Abstimmenden ohne Login verwendet werden, auch wenn das Objekt in einem gesch\u00c3\u00bctzten Bereich wie bspw. einem Kurs liegt.",
                     "en": "The LiveVoting can be used for the voters without authentication, even when the Object is in a secured Space like a Course"
                 },
                 "last_used": "27.06.2016"
             },
             "info_online": {
                 "translations": {
-                    "de": "Nur wenn das LiveVoting online geschaltet ist, k\u00f6nnen Benutzer das LiveVoting sehen und benutzen.",
+                    "de": "Nur wenn das LiveVoting online geschaltet ist, k\u00c3\u00b6nnen Benutzer das LiveVoting sehen und benutzen.",
                     "en": "Object is online and available"
                 },
                 "last_used": "27.06.2016"
             },
             "info_reuse_status": {
                 "translations": {
-                    "de": "Beim Wechseln zwischen Voting wird jeweils \u00fcbernommen, ob das n\u00e4chste Voting freigegeben werden soll, oder nicht.",
+                    "de": "Beim Wechseln zwischen Voting wird jeweils \u00c3\u00bcbernommen, ob das n\u00c3\u00a4chste Voting freigegeben werden soll, oder nicht.",
                     "en": "Re-use the state of the current Voting when switching to the next (frozen \/ not frozen)."
                 },
                 "last_used": "24.06.2016"
@@ -618,7 +623,7 @@
             },
             "reuse_status": {
                 "translations": {
-                    "de": "Player-Status \u00fcbernehmen",
+                    "de": "Player-Status \u00c3\u00bcbernehmen",
                     "en": "Re-use Player State"
                 },
                 "last_used": "24.06.2016"
@@ -632,7 +637,7 @@
             },
             "terminable": {
                 "translations": {
-                    "de": "Abstimmung zeitlich beschr\u00e4nken",
+                    "de": "Abstimmung zeitlich beschr\u00c3\u00a4nken",
                     "en": "Limit voting time"
                 },
                 "last_used": "24.06.2016"
@@ -722,14 +727,14 @@
             "frozen_alway_on_info": {
                 "translations": {
                     "en": "MISSING",
-                    "de": "Benutzer k\u00f6nnen nach einem Wechsel der Frage sofort abstimmen."
+                    "de": "Benutzer k\u00c3\u00b6nnen nach einem Wechsel der Frage sofort abstimmen."
                 },
                 "last_used": "27.06.2016"
             },
             "frozen_alway_off_info": {
                 "translations": {
                     "en": "MISSING",
-                    "de": "Benutzer k\u00f6nnen nach einem Wechsel erst nach Freigabe abstimmen."
+                    "de": "Benutzer k\u00c3\u00b6nnen nach einem Wechsel erst nach Freigabe abstimmen."
                 },
                 "last_used": "27.06.2016"
             },
@@ -764,7 +769,7 @@
             "results_alway_off_info": {
                 "translations": {
                     "en": "MISSING",
-                    "de": "Administratoren m\u00fcssen das Einblenden der Resultate manuell starten."
+                    "de": "Administratoren m\u00c3\u00bcssen das Einblenden der Resultate manuell starten."
                 },
                 "last_used": "27.06.2016"
             },
@@ -800,6 +805,11 @@
                 "translations": {
                     "en": "MISSING",
                     "de": "MISSING"
+                }
+            },
+            "frozen_alway_ofxlvo_edit": {
+                "translations": {
+                    "de": "Bearbeiten"
                 }
             }
         },
@@ -840,7 +850,7 @@
             },
             "msg_no_start_1": {
                 "translations": {
-                    "de": "Sie k\u00f6nnen das LiveVoting nicht starten! Das LiveVoting ist offline.",
+                    "de": "Sie k\u00c3\u00b6nnen das LiveVoting nicht starten! Das LiveVoting ist offline.",
                     "en": "This LiveVoting can't be started since it is offline."
                 },
                 "last_used": "02.03.2016"
@@ -860,13 +870,13 @@
             },
             "msg_voting_not_available": {
                 "translations": {
-                    "de": "Das ausgew\u00e4hlte Voting ist nicht vorhanden",
+                    "de": "Das ausgew\u00c3\u00a4hlte Voting ist nicht vorhanden",
                     "en": "The selected Voting is not available"
                 }
             },
             "reset": {
                 "translations": {
-                    "de": "Zur\u00fccksetzen",
+                    "de": "Zur\u00c3\u00bccksetzen",
                     "en": "Reset"
                 },
                 "last_used": "27.06.2016"
@@ -952,7 +962,7 @@
             },
             "1_options": {
                 "translations": {
-                    "de": "M\u00f6gliche Antworten",
+                    "de": "M\u00c3\u00b6gliche Antworten",
                     "en": "Options"
                 },
                 "last_used": "27.06.2016"
@@ -987,14 +997,14 @@
             },
             "2_clear": {
                 "translations": {
-                    "de": "Zur\u00fccksetzen",
+                    "de": "Zur\u00c3\u00bccksetzen",
                     "en": "Clear"
                 },
                 "last_used": "02.03.2016"
             },
             "2_delete_all": {
                 "translations": {
-                    "de": "Alle l\u00f6schen",
+                    "de": "Alle l\u00c3\u00b6schen",
                     "en": "Delete All"
                 },
                 "last_used": "02.03.2016"
@@ -1036,7 +1046,7 @@
             },
             "4_clear": {
                 "translations": {
-                    "de": "Zur\u00fccksetzen",
+                    "de": "Zur\u00c3\u00bccksetzen",
                     "en": "Clear"
                 },
                 "last_used": "24.06.2016"
@@ -1158,10 +1168,32 @@
             },
             "4_correct_solution": {
                 "translations": {
-                    "en": "Correct Order: ",
-                    "de": "Korrekte Reihenfolge: "
+                    "en": "Correct Order:",
+                    "de": "Korrekte Reihenfolge:"
                 },
                 "last_used": "27.06.2016"
+            },
+            "1_total_obj_results_alway_on_info": {
+                "translations": {
+                    "de": "Die Resultate werden nach einem Wechsel der Frage automatisch eingeblendet."
+                }
+            },
+            "1_optmsg_success_voting_updated": {
+                "translations": {
+                    "de": "Voting wurde gespeichert"
+                }
+            },
+            "1_terminate": {
+                "translations": {
+                    "de": "MISSING",
+                    "en": "MISSING"
+                }
+            },
+            "4_display_std_order": {
+                "translations": {
+                    "de": "Show standard order",
+                    "en": "Standardreihenfolge anzeigen"
+                }
             }
         },
         "subtab": {
@@ -1203,6 +1235,11 @@
                     "en": "Create LiveVoting"
                 },
                 "last_used": "17.05.2016"
+            },
+            "create_xlobj_results_behaviour": {
+                "translations": {
+                    "en": "Show Results"
+                }
             }
         },
         "crs": {
@@ -1239,6 +1276,27 @@
                     "en": "Create LiveVoting"
                 },
                 "last_used": "17.05.2016"
+            }
+        },
+        "rminable": {
+            "select_start_time": {
+                "translations": {
+                    "en": "Start"
+                }
+            }
+        },
+        "vqtype": {
+            "1_options": {
+                "translations": {
+                    "en": "Options"
+                }
+            }
+        },
+        "playplayer": {
+            "msg_no_start_2": {
+                "translations": {
+                    "de": "Das LiveVoting kann nicht gestartet werden, da noch keine Votings vorhanden sind."
+                }
             }
         }
     }
