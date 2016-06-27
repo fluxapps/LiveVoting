@@ -4,7 +4,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 /**
  * Class xlvoSingleVoteGUI
  *
- * @author Fabian Schmid <fs@studer-raimann.ch>
+ * @author            Fabian Schmid <fs@studer-raimann.ch>
  *
  * @ilCtrl_IsCalledBy xlvoSingleVoteGUI: xlvoVoter2GUI
  */

@@ -38,6 +38,7 @@ class xlvoBarCollectionGUI {
 			$this->tpl->setVariable('TOTAL', ilLiveVotingPlugin::getInstance()->txt('qtype_1_total_votes') . ': ' . $this->getTotalVotes());
 			$this->tpl->parseCurrentBlock();
 		}
+
 		return $this->tpl->get();
 	}
 
@@ -48,6 +49,16 @@ class xlvoBarCollectionGUI {
 	public function addBar(xlvoBarGUI $bar_gui) {
 		$this->tpl->setCurrentBlock('bar');
 		$this->tpl->setVariable('BAR', $bar_gui->getHTML());
+		$this->tpl->parseCurrentBlock();
+	}
+
+
+	/**
+	 * @param $html
+	 */
+	public function addSolution($html) {
+		$this->tpl->setCurrentBlock('solution');
+		$this->tpl->setVariable('SOLUTION', $html);
 		$this->tpl->parseCurrentBlock();
 	}
 

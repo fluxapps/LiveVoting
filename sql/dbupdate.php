@@ -349,3 +349,8 @@ $results_behaviour = xlvoVotingConfig::B_RESULTS_ALWAY_OFF;
 $q = "UPDATE {$xlvo_conf_table_name} SET frozen_behaviour={$frozen_behaviour}, results_behaviour={$results_behaviour}";
 $ilDB->manipulate($q);
 ?>
+<#21>
+<?php
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoPlayer.php');
+xlvoPlayer::updateDB();
+?>

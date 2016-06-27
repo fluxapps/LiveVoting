@@ -27,12 +27,23 @@ abstract class xlvoInputResultsGUI {
 
 	/**
 	 * xlvoInputResultsGUI constructor.
+	 *
 	 * @param xlvoVotingManager2 $manager
 	 * @param xlvoVoting $voting
 	 */
 	public function __construct(xlvoVotingManager2 $manager, xlvoVoting $voting) {
 		$this->manager = $manager;
 		$this->voting = $voting;
+		$this->pl = ilLiveVotingPlugin::getInstance();
+	}
+
+
+	/**
+	 * @param $key
+	 * @return string
+	 */
+	protected function txt($key) {
+		return $this->pl->txt('qtype_' . $this->manager->getVoting()->getVotingType() . '_' . $key);
 	}
 
 
@@ -44,13 +55,14 @@ abstract class xlvoInputResultsGUI {
 		$class = xlvoQuestionTypes::getClassName($manager->getVoting()->getVotingType());
 		/**
 		 * @var $class_name xlvoFreeInputResultsGUI
-		 * @var $subform xlvoFreeInputResultsGUI
+		 * @var $subform    xlvoFreeInputResultsGUI
 		 */
 		$class_name = 'xlvo' . $class . 'ResultsGUI';
 		require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/' . $class . '/class.'
-			. $class_name . '.php');
+		             . $class_name . '.php');
 
 		$subform = new $class_name($manager, $manager->getVoting());
+
 		return $subform;
 	}
 

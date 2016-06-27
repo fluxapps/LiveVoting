@@ -6,6 +6,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoGlyphGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoDisplayPlayerGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/Modal/class.xlvoQRModalGUI.php');
+require_once('./Services/Administration/classes/class.ilSetting.php');
 
 /**
  * Class xlvoPlayerGUI
@@ -102,7 +103,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 
 	protected function startPlayerAnUnfreeze() {
-		$this->initJS();
+		$this->initJSandCss();
 		$this->initToolbarDuringVoting();
 		$this->manager->getPlayer()->unfreeze();
 		$modal = xlvoQRModalGUI::getInstanceFromVotingConfig($this->manager->getVotingConfig())->getHTML();
@@ -112,13 +113,10 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 
 	protected function startPlayer() {
-		$settings = array(
-			'status_running' => xlvoPlayer::STAT_RUNNING,
-		);
 		if ($_GET[self::IDENTIFIER]) {
 			$this->manager->open($_GET[self::IDENTIFIER]);
 		}
-		$this->initJS($settings);
+		$this->initJSandCss();
 		$this->initToolbarDuringVoting();
 		$modal = xlvoQRModalGUI::getInstanceFromVotingConfig($this->manager->getVotingConfig())->getHTML();
 		$this->tpl->setContent($modal . $this->getPlayerHTML());
@@ -128,10 +126,10 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 	protected function getPlayerData() {
 		$this->manager->getPlayer()->attend();
-		$player = $this->manager->getPlayer()->getStdClassForPlayer();
 		$results = array(
-			'player'      => $player,
-			'player_html' => $this->getPlayerHTML(true),
+			'player'       => $this->manager->getPlayer()->getStdClassForPlayer(),
+			'player_html'  => $this->getPlayerHTML(true),
+			'buttons_html' => $this->getButtonsHTML(),
 		);
 		xlvoJsResponse::getInstance($results)->send();
 	}
@@ -145,6 +143,29 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$xlvoDisplayPlayerGUI = new xlvoDisplayPlayerGUI($this->manager);
 
 		return $xlvoDisplayPlayerGUI->getHTML($inner);
+	}
+
+
+	/**
+	 * @return string
+	 */
+	protected function getButtonsHTML() {
+		// Buttons from Questions
+		require_once('class.xlvoToolbarGUI.php');
+		$xlvoQuestionTypesGUI = xlvoQuestionTypesGUI::getInstance($this->manager);
+		if ($xlvoQuestionTypesGUI->hasButtons()) {
+			$toolbar = new xlvoToolbarGUI();
+
+			foreach ($xlvoQuestionTypesGUI->getButtonInstances() as $buttonInstance) {
+				if ($buttonInstance instanceof ilButtonBase) {
+					$toolbar->addButtonInstance($buttonInstance);
+				}
+			}
+
+			return $toolbar->getHTML();
+		}
+
+		return '';
 	}
 
 
@@ -167,6 +188,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 
 	protected function apiCall() {
+		$return_value = true;
 		switch ($_POST['call']) {
 			case 'toggle_freeze':
 				$this->manager->getPlayer()->toggleFreeze();
@@ -186,8 +208,19 @@ class xlvoPlayerGUI extends xlvoGUI {
 			case 'open':
 				$this->manager->open($_POST[self::IDENTIFIER]);
 				break;
+			case 'button':
+				global $ilLog;
+				$ilLog->write('handle button call' . print_r($_POST, true));
+				/**
+				 * QuestionGUIs can add own button which have to call the player with 'call=button&button_id={cmd}&data=[some,data]
+				 */
+				$xlvoQuestionTypesGUI = xlvoQuestionTypesGUI::getInstance($this->manager);
+				$xlvoQuestionTypesGUI->handleButtonCall($_POST['button_id'], $_POST['button_data']);
+				$return_value = new stdClass();
+				$return_value->buttons_html = $this->getButtonsHTML();
+				break;
 		}
-		xlvoJsResponse::getInstance(true)->send();
+		xlvoJsResponse::getInstance($return_value)->send();
 	}
 
 
@@ -321,20 +354,23 @@ class xlvoPlayerGUI extends xlvoGUI {
 	}
 
 
-	protected function initJS() {
+	protected function initJSandCss() {
+		$mathJaxSetting = new ilSetting("MathJax");
 		$settings = array(
 			'status_running' => xlvoPlayer::STAT_RUNNING,
 			'identifier'     => self::IDENTIFIER,
-			'use_mathjax'     => true,
+			'use_mathjax'    => $mathJaxSetting->get("enable"),
+			'debug'          => false,
 		);
-		if ($this->manager->getVotingConfig()->isKeyboardActive()) {
-			$keyboard = new stdClass();
+		$keyboard = new stdClass();
+		$keyboard->active = $this->manager->getVotingConfig()->isKeyboardActive();
+		if ($keyboard->active) {
 			$keyboard->toggle_results = 9;
 			$keyboard->toggle_freeze = 32;
 			$keyboard->previous = 37;
 			$keyboard->next = 39;
-			$settings['keyboard'] = $keyboard;
 		}
+		$settings['keyboard'] = $keyboard;
 		iljQueryUtil::initjQuery();
 		xlvoJs::getInstance()->addLibToHeader('screenfull.min.js');
 		xlvoJs::getInstance()->addLibToHeader('screenfull.min.js');
@@ -342,6 +378,8 @@ class xlvoPlayerGUI extends xlvoGUI {
 			'player_voters_online',
 			'voting_confirm_reset',
 		))->init()->call('run');
+		global $tpl;
+		$tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Player/player.css');
 	}
 
 

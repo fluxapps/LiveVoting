@@ -59,6 +59,14 @@ class xlvoOption extends ActiveRecord {
 
 
 	/**
+	 * @return string
+	 */
+	public function getCipher() {
+		return chr($this->getPosition() + 64);
+	}
+
+
+	/**
 	 * @var int
 	 *
 	 * @db_has_field        true

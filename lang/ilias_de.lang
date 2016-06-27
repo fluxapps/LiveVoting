@@ -161,6 +161,11 @@ qtype_5_options#:#Optionen
 qtype_form_header#:#Antworten
 qtype_multi_free_input#:#Mehrfache Eingaben
 qtype_2_text#:#Text
+qtype_4_display_correct_order#:#Show correct order
+qtype_4_hide_correct_order#:#Hide correct order
+qtype_4_correct#:#Richtig
+qtype_4_wrong#:#Falsch
+qtype_4_correct_solution#:#Korrekte Reihenfolge: 
 subtab_edit#:#Verwalten
 subtab_show#:#Zeigen
 tab_content#:#Inhalt

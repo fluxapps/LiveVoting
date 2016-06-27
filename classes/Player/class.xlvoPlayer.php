@@ -20,6 +20,10 @@ class xlvoPlayer extends ActiveRecord {
 	const STAT_FROZEN = 4;
 	const SECONDS_ACTIVE = 4;
 	const SECONDS_TO_SLEEP = 30;
+	/**
+	 * @var array
+	 */
+	protected static $instance_cache = array();
 
 
 	/**
@@ -35,13 +39,17 @@ class xlvoPlayer extends ActiveRecord {
 	 * @return xlvoPlayer
 	 */
 	public static function getInstanceForObjId($obj_id) {
+		if (!empty(self::$instance_cache[$obj_id])) {
+			return self::$instance_cache[$obj_id];
+		}
 		$obj = self::where(array( 'obj_id' => $obj_id ))->first();
 		if (!$obj instanceof self) {
 			$obj = new self();
 			$obj->setObjId($obj_id);
 		}
+		self::$instance_cache[$obj_id] = $obj;
 
-		return $obj;
+		return self::$instance_cache[$obj_id];
 	}
 
 
@@ -100,6 +108,7 @@ class xlvoPlayer extends ActiveRecord {
 		$this->setStatus(xlvoPlayer::STAT_END_VOTING);
 		$this->setFrozen(true);
 		$this->setShowResults(false);
+		$this->setButtonStates(array());
 		$this->update();
 	}
 
@@ -272,6 +281,14 @@ class xlvoPlayer extends ActiveRecord {
 	 * @db_length           1
 	 */
 	protected $show_results = false;
+	/**
+	 * @var array
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        text
+	 * @db_length           1024
+	 */
+	protected $button_states = array();
 
 
 	/**
@@ -375,5 +392,60 @@ class xlvoPlayer extends ActiveRecord {
 	 */
 	public function setShowResults($show_results) {
 		$this->show_results = $show_results;
+	}
+
+
+	/**
+	 * @return array
+	 */
+	public function getButtonStates() {
+		return $this->button_states;
+	}
+
+
+	/**
+	 * @param array $button_states
+	 */
+	public function setButtonStates($button_states) {
+		$this->button_states = $button_states;
+	}
+
+
+	/**
+	 * @param $field_name
+	 * @return mixed|string
+	 */
+	public function sleep($field_name) {
+		switch ($field_name) {
+			case 'button_states':
+				$var = $this->{$field_name};
+				if (!is_array($var)) {
+					$var = array();
+				}
+
+				return json_encode($var);
+		}
+
+		return null;
+	}
+
+
+	/**
+	 * @param $field_name
+	 * @param $field_value
+	 * @return mixed|null
+	 */
+	public function wakeUp($field_name, $field_value) {
+		switch ($field_name) {
+			case 'button_states':
+				$var = json_decode($field_value, true);
+				if (!is_array($var)) {
+					$var = array();
+				}
+
+				return $var;
+		}
+
+		return null;
 	}
 }

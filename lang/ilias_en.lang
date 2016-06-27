@@ -100,8 +100,8 @@ obj_status#:#Status
 obj_offline#:#Offline
 obj_formtitle_change_vote#:#Behaviour while navigating
 obj_frozen_behaviour#:#Frozen-State
-obj_frozen_alway_on#:#MISSING
-obj_frozen_alway_off#:#MISSING
+obj_frozen_alway_on#:#Question is always active after changing
+obj_frozen_alway_off#:#Question is always inactive after changing
 obj_frozen_alway_on_info#:#MISSING
 obj_frozen_alway_off_info#:#MISSING
 obj_results_behaviour#:#Show Results
@@ -161,6 +161,11 @@ qtype_5_options#:#Options
 qtype_form_header#:#Answers
 qtype_multi_free_input#:#Multiple Inputs
 qtype_2_text#:#Text
+qtype_4_display_correct_order#:#Korrekte Reihenfolge anzeigen
+qtype_4_hide_correct_order#:#Korrekte Reihenfolge verbergen
+qtype_4_correct#:#Correct
+qtype_4_wrong#:#Wrong
+qtype_4_correct_solution#:#Correct Order: 
 subtab_edit#:#Manage
 subtab_show#:#Show
 tab_content#:#Content

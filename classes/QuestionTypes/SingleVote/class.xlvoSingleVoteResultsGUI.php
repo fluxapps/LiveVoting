@@ -32,4 +32,12 @@ class xlvoSingleVoteResultsGUI extends xlvoInputResultsGUI {
 
 		return $bars->getHTML();
 	}
+
+
+	/**
+	 * @return array
+	 */
+	protected function getButtonsStates() {
+		return $this->manager->getPlayer()->getButtonStates();
+	}
 }

@@ -127,7 +127,7 @@ class xlvoDisplayPlayerGUI {
 		}
 		$this->answer_count ++;
 		$this->tpl->setCurrentBlock('option');
-		$this->tpl->setVariable('OPTION_LETTER', (chr($this->answer_count)));
+		$this->tpl->setVariable('OPTION_LETTER', $option->getCipher());
 		$this->tpl->setVariable('OPTION_TEXT', ilUtil::prepareTextareaOutput($option->getText(), true));
 		$this->tpl->parseCurrentBlock();
 	}

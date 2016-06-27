@@ -11,6 +11,10 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
  */
 class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 
+	const BUTTON_DISPLAY_CORRECT_ORDER = 'display_correct_order';
+	const BUTTON_HIDE_CORRECT_ORDER = 'hide_correct_order';
+
+
 	/**
 	 * @return string
 	 */
@@ -62,5 +66,32 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 		$tpl->setVariable('CONTENT', $bars->getHTML());
 
 		return $tpl->get();
+	}
+
+
+	/**
+	 * @return array
+	 */
+	public function getButtonInstances() {
+		$states = $this->getButtonsStates();
+		$b = ilLinkButton::getInstance();
+		$b->setId(self::BUTTON_DISPLAY_CORRECT_ORDER);
+		if ($states[self::BUTTON_DISPLAY_CORRECT_ORDER]) {
+			$b->setCaption($this->txt(self::BUTTON_HIDE_CORRECT_ORDER), false);
+		} else {
+			$b->setCaption($this->txt(self::BUTTON_DISPLAY_CORRECT_ORDER), false);
+		}
+
+		return array( $b );
+	}
+
+
+	/**
+	 * @param $button_id
+	 * @param $data
+	 */
+	public function handleButtonCall($button_id, $data) {
+		$states = $this->getButtonsStates();
+		$this->saveButtonState($button_id, !$states[self::BUTTON_DISPLAY_CORRECT_ORDER]);
 	}
 }
