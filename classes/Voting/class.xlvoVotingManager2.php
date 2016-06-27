@@ -222,6 +222,7 @@ class xlvoVotingManager2 {
 		$this->player->setActiveVoting($prev_id);
 		$this->player->setButtonStates(array());
 		$this->player->update();
+		$this->getVoting()->renegerateOptionSorting();
 	}
 
 
@@ -235,6 +236,7 @@ class xlvoVotingManager2 {
 		$this->player->setActiveVoting($next_id);
 		$this->player->setButtonStates(array());
 		$this->player->update();
+		$this->getVoting()->renegerateOptionSorting();
 	}
 
 

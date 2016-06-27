@@ -1,42 +1,85 @@
+qtype_1_multi_selection#:#Multiple Selection
 voter_msg_waiting_screen#:#Please wait
+qtype_1_multi_selection_info#:#User can select more than one Option
 voter_pin_form_title#:#Start LiveVoting
+qtype_1_option_text#:#Option-Text
 voter_pin_input#:#PIN
+qtype_1_options#:#Options
 voter_save#:#Save
+qtype_1_total_votes#:#Total Votes
 voter_send#:#Send
+qtype_1_unvote#:#Unvote
 voter_text#:#Input
+qtype_1_vote#:#Vote
+qtype_2_answers#:#Inputs
 voter_answer#:#Input
 voter_delete#:#Delete
+qtype_2_clear#:#Clear
 voter_header_frozen#:#Voting frozen
+qtype_2_delete_all#:#Delete All
 voter_header_start#:#Please wait for presenter
+qtype_2_input#:#Input
 voter_header_stopped#:#Voting stopped
+qtype_2_multi_free_input#:#Multiple Inputs
 voter_info_frozen#:#This Questions is not yet active, please wait...
+qtype_2_multi_free_input_info#:#A User can hand in multiple Texts
 voter_info_start#:#This LiveVoting has not yet been started by the presenter...
+qtype_2_send#:#Send
+qtype_2_your_input#:#Your saved input:
 voter_info_stopped#:#This LiveVoting has been stopped
 voter_msg_access_screen#:#PIN-Access
+qtype_4_clear#:#Clear
 voter_msg_end_of_voting_screen#:#This LiveVoting has been terminated. Thanks for your participation.
+qtype_4_id#:#ID
+qtype_4_option_correct_position#:#Correct Position
 voter_msg_not_running_screen#:#This LiveVoting is currently not active.
+qtype_4_option_position#:#Position
 voter_msg_start_of_voting_screen#:#Please wait untill the Presenter starts the Voting
+qtype_4_option_text#:#Term
 voter_msg_validation_error_pin_1#:#This LiveVoting is not online
+qtype_4_options#:#Options
 voter_msg_validation_error_pin_2#:#Please log in to use this LiveVoting
 voter_msg_validation_error_pin_3#:#No LiveVoting with this PIN found
+qtype_4_save#:#Save
 voter_msg_validation_error_pin_4#:#This LiveVoting is not available at the Moment
 voting_actions#:#Actions
+qtype_4_your_order#:#Your Submission:
 voting_add#:#Add Question
+qtype_5_option_text#:#Text
 voting_cancel#:#Cancel
+qtype_5_option_weight#:#Weight
+qtype_5_options#:#Options
 voting_confirm_number_of_votes#:#Amount of User-Inputs:
+qtype_form_header#:#Answers
 voting_confirm_reset#:#Do you like to reset this Voting? All User-Inputs will be deleted.
+qtype_multi_free_input#:#Multiple Inputs
 voting_confirm_reset_all#:#Do you like to reset all results of this LiveVoting? All User-Inputs will be deleted.
+qtype_2_text#:#Text
 voting_create#:#Create
+qtype_4_display_correct_order#:#Korrekte Reihenfolge anzeigen
+qtype_4_hide_correct_order#:#Korrekte Reihenfolge verbergen
 voting_delete#:#Delete
+qtype_4_correct#:#Correct
+qtype_4_wrong#:#Wrong
+qtype_4_correct_solution#:#Correct Order: 
 voting_delete_confirm#:#Do you really want to delete the Voting?
+subtab_edit#:#Manage
 voting_description#:#Description
+subtab_show#:#Show
+tab_content#:#Content
 voting_edit#:#Edit
+tab_edit#:#Settings
+cat_create_xlvo#:#Create LiveVoting
 voting_msg_sorting_saved#:#Order saved
+crs_create_xlvo#:#Create LiveVoting
 voting_question#:#Question
+fikd_create_xlvo#:#Create LiveVoting
 voting_reset#:#Reset
 voting_reset_all#:#Reset all Votings
+grp_create_xlvo#:#Create LiveVoting
 voting_save_sorting#:#Save Order
 voting_select_type#:#Select Type
+root_create_xlvo#:#Create LiveVoting
 voting_status#:#Status
 voting_status_1#:#Inactive
 voting_status_2#:#Incomplete
@@ -57,6 +100,7 @@ voting_export#:#Export
 voting_import#:#Import
 voting_form_title_update#:#Frage
 voting_form_title_create#:#Frage
+voting_columns#:#Colums for possible answers
 xlvo_add#:#Add
 xlvo_delete#:#Delete LiveVoting
 xlvo_edit#:#Edit

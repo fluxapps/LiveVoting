@@ -354,3 +354,19 @@ $ilDB->manipulate($q);
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoPlayer.php');
 xlvoPlayer::updateDB();
 ?>
+<#22>
+<?php
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVoting.php');
+xlvoVoting::updateDB();
+$xlvo_voting_table_name = xlvoVoting::returnDbTableName();
+$q = "UPDATE {$xlvo_voting_table_name} SET columns=2";
+$ilDB->manipulate($q);
+/**
+ * @var $xlvoVoting xlvoVoting
+ */
+foreach (xlvoVoting::get() as $xlvoVoting) {
+	$xlvoVoting->renegerateOptionSorting();
+}
+
+?>
+

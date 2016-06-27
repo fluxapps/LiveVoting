@@ -128,6 +128,7 @@ class xlvoDisplayPlayerGUI {
 		$this->answer_count ++;
 		$this->tpl->setCurrentBlock('option');
 		$this->tpl->setVariable('OPTION_LETTER', $option->getCipher());
+		$this->tpl->setVariable('OPTION_COL', $this->manager->getVoting()->getComputedColums());
 		$this->tpl->setVariable('OPTION_TEXT', ilUtil::prepareTextareaOutput($option->getText(), true));
 		$this->tpl->parseCurrentBlock();
 	}

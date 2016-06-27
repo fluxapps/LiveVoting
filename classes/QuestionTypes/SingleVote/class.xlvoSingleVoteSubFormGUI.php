@@ -109,7 +109,7 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 
 	protected function handleOptions() {
 		$ids = array();
-		foreach ($this->options as $xlvoOption) {
+		foreach ($this->options as $i=> $xlvoOption) {
 			$xlvoOption->setVotingId($this->getXlvoVoting()->getId());
 			$xlvoOption->store();
 			$ids[] = $xlvoOption->getId();
@@ -120,5 +120,6 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 				$xlvoOption->delete();
 			}
 		}
+		$this->getXlvoVoting()->renegerateOptionSorting();
 	}
 }

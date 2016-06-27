@@ -14,6 +14,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
  */
 class xlvoVotingFormGUI extends ilPropertyFormGUI {
 
+	const F_COLUMNS = 'columns';
 	/**
 	 * @var  xlvoVoting
 	 */
@@ -111,24 +112,39 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 			'copy',
 			'paste',
 			'pastetext',
-			'formatselect'
+			'formatselect',
 		));
 
 		$te->setRows(5);
 		$this->addItem($te);
 
+		// Columns
+		$columns = new ilSelectInputGUI($this->txt(self::F_COLUMNS), self::F_COLUMNS);
+		$columns->setOptions(array( 1 => 1, 2 => 2, 3 => 3, 4 => 4 ));
+		$this->addItem($columns);
+
 		xlvoSubFormGUI::getInstance($this->getVoting())->appedElementsToForm($this);
+	}
+
+
+	/**
+	 * @param $key
+	 * @return string
+	 */
+	protected function txt($key) {
+		return $this->parent_gui->txt($key);
 	}
 
 
 	public function fillForm() {
 		$array = array(
-			'type' => $this->voting->getVotingType(),
-			'title' => $this->voting->getTitle(),
-			'description' => $this->voting->getDescription(),
-			'question' => $this->voting->getQuestion(),
-			'voting_type' => $this->voting->getVotingType(),
-			'voting_status' => ($this->voting->getVotingStatus() == xlvoVoting::STAT_ACTIVE)
+			'type'          => $this->voting->getVotingType(),
+			'title'         => $this->voting->getTitle(),
+			'description'   => $this->voting->getDescription(),
+			'question'      => $this->voting->getQuestion(),
+			'voting_type'   => $this->voting->getVotingType(),
+			'voting_status' => ($this->voting->getVotingStatus() == xlvoVoting::STAT_ACTIVE),
+			self::F_COLUMNS => $this->voting->getColumns(),
 		);
 
 		$array = xlvoSubFormGUI::getInstance($this->getVoting())->appendValues($array);
@@ -153,13 +169,14 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 		$this->voting->setDescription($this->getInput('description'));
 		$this->voting->setQuestion($this->getInput('question'));
 		$this->voting->setObjId($this->parent_gui->getObjId());
+		$this->voting->setColumns($this->getInput(self::F_COLUMNS));
 
 		xlvoSubFormGUI::getInstance($this->getVoting())->handleAfterSubmit($this);
 
 		if ($this->is_new) {
 			$lastVoting = xlvoVoting::where(array(
-				'obj_id' => $this->parent_gui->getObjId(),
-				'voting_status' => xlvoVoting::STAT_ACTIVE
+				'obj_id'        => $this->parent_gui->getObjId(),
+				'voting_status' => xlvoVoting::STAT_ACTIVE,
 			))->orderBy('position', 'ASC')->last();
 			if ($lastVoting instanceof xlvoVoting) {
 				$lastPosition = $lastVoting->getPosition();
