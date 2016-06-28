@@ -21,7 +21,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 	const CMD_CHECK_PIN = 'checkPin';
 	const F_PIN_INPUT = 'pin_input';
 	const CMD_START_VOTER_PLAYER = 'startVoterPlayer';
-	const CMD_GET_VOTING_DATA = 'getVotingData';
+	const CMD_GET_VOTING_DATA = 'loadVotingData';
 	/**
 	 * @var string
 	 */
@@ -116,7 +116,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 
 
 	protected function startVoterPlayer() {
-		$this->initJs();
+		$this->initJsAndCss();
 		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/default.css');
 		$tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voter/tpl.voter_player.html', true, false);
 		$this->tpl->setContent($tpl->get());
@@ -129,14 +129,11 @@ class xlvoVoter2GUI extends xlvoGUI {
 	}
 
 
-	protected function initJs() {
+	protected function initJsAndCss() {
+		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voter/voter.css');
 		iljQueryUtil::initjQueryUI();
-		$settings = array(
-			'player_id'       => '#xlvo_voter_player',
-			'obj_id'          => $this->manager->getObjId(),
-			'cmd_voting_data' => self::CMD_GET_VOTING_DATA,
-		);
-		xlvoJs::getInstance()->api($this, array( 'ilUIPluginRouterGUI' ))->name('Voter')->addSettings($settings)->init()->call('run');
+		$t = array( 'player_seconds'  );
+		xlvoJs::getInstance()->api($this, array( 'ilUIPluginRouterGUI' ))->name('Voter')->addTranslations($t)->init()->call('run');
 		foreach (xlvoQuestionTypes::getActiveTypes() as $type) {
 			xlvoQuestionTypesGUI::getInstance($this->manager, $type)->initJS();
 		}
@@ -166,7 +163,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 			case xlvoPlayer::STAT_START_VOTING:
 				$tpl->setVariable('TITLE', $this->txt('header_start'));
 				$tpl->setVariable('DESCRIPTION', $this->txt('info_start'));
-				$tpl->touchBlock('spinner');
+				//				$tpl->touchBlock('spinner');
 				break;
 			case xlvoPlayer::STAT_END_VOTING:
 				$tpl->setVariable('TITLE', $this->txt('header_end'));
@@ -175,7 +172,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 			case xlvoPlayer::STAT_FROZEN:
 				$tpl->setVariable('TITLE', $this->manager->getVoting()->getTitle() . ': ' . $this->txt('header_frozen'));
 				$tpl->setVariable('DESCRIPTION', $this->txt('info_frozen'));
-				$tpl->touchBlock('spinner');
+				//				$tpl->touchBlock('spinner');
 				break;
 		}
 		echo $tpl->get();

@@ -61,3 +61,19 @@
 	transform:         scale(1.0);
   }
 }
+
+@gray-dark: grey;
+@line-height-base: 14px;
+@import "../../../../../../../../../../Services/UICore/lib/bootstrap-3.2.0/less/mixins/labels.less";
+@import "../../../../../../../../../../templates/default/less/variables.less";
+.label-cd-danger {
+  .label-variant(#FF3A00)
+}
+
+.label-cd-warning {
+  .label-variant(@brand-warning)
+}
+
+.label-cd-running {
+  .label-variant(@mid-gray)
+}

@@ -101,7 +101,9 @@ class xlvoDisplayPlayerGUI {
 		}
 		if ($this->manager->getPlayer()->isCountDownRunning()) {
 			$this->tpl->setCurrentBlock('countdown');
-			$this->tpl->setVariable('COUNTDOWN', $this->manager->getPlayer()->getCountdown() . ' ' . $this->pl->txt('player_seconds'));
+			$cd = $this->manager->getPlayer()->getCountdown();
+			$this->tpl->setVariable('COUNTDOWN', $cd . ' ' . $this->pl->txt('player_seconds'));
+			$this->tpl->setVariable('COUNTDOWN_CSS', $this->manager->getPlayer()->getCountdownClassname());
 			$this->tpl->parseCurrentBlock();
 		}
 		$this->tpl->setVariable('COUNT', $votings_count);

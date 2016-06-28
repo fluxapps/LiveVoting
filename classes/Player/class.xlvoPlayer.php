@@ -128,10 +128,11 @@ class xlvoPlayer extends ActiveRecord {
 	 */
 	public function getStdClassForVoter() {
 		$obj = new stdClass();
-		$obj->id = (int)$this->getObjId();
-		$obj->obj_id = (int)$this->getObjId();
 		$obj->status = (int)$this->getStatus(true);
 		$obj->active_voting_id = (int)$this->getActiveVoting();
+		$obj->countdown = (int)$this->getCountdown();
+		$obj->has_countdown = (bool)$this->isCountDownRunning();
+		$obj->countdown_classname = $this->getCountdownClassname();
 
 		return $obj;
 	}
@@ -193,6 +194,16 @@ class xlvoPlayer extends ActiveRecord {
 	 */
 	public function isCountDownRunning() {
 		return ($this->getCountdown() > 0);
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getCountdownClassname() {
+		$cd = $this->getCountdown();
+
+		return $cd > 10 ? 'running' : ($cd > 5 ? 'warning' : 'danger');
 	}
 
 

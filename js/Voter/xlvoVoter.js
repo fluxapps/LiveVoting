@@ -2,12 +2,6 @@
  * Class xlvoVoter
  * @type {{}}
  */
-var xlvoVoterConfig = {
-    base_url: '',
-    obj_id: '',
-    player_id: '',
-    cmd_voting_data: ''
-};
 var xlvoVoter = {
     init: function (json) {
         var config = JSON.parse(json);
@@ -16,35 +10,77 @@ var xlvoVoter = {
         this.config = config;
         this.ready = true;
     },
-    config: xlvoVoterConfig,
+    config: {
+        base_url: '', // Base-URL for API-Calls
+        cmd_voting_data: '', // loadVotingData
+        lng: {
+            player_seconds: 's'
+        }
+    },
+    player: {
+        active_voting_id: 0,
+        status: -1,
+        countdown: 0,
+        has_countdown: false,
+        countdown_classname: ''
+    },
     status: -1,
-    debug: false,
+    debug: true,
+    delay: 1000,
+    counter: 0,
+    forced_update: 300,
+    countdown: 0,
+    timeout: null,
     active_voting_id: -1,
     run: function () {
-        this.getVotingData();
+        this.loadVotingData();
+        this.initElements();
     },
-    getVotingData: function () {
-        $.get(xlvoVoter.config.base_url, {cmd: xlvoVoter.config.cmd_voting_data})
+    initElements: function () {
+        this.countdown_element = $('#xlvo_countdown');
+        this.player_element = $('#xlvo_voter_player');
+    },
+    loadVotingData: function () {
+        $.get(xlvoVoter.config.base_url, {cmd: 'getVotingData'})
             .done(function (data) {
                 xlvoVoter.log(data);
-                var voting_has_changed = (xlvoVoter.active_voting_id != data.active_voting_id);
-                //xlvoVoter.log('voting: ' + voting_has_changed);
-                var status_has_changed = (xlvoVoter.status != data.status);
-                //xlvoVoter.log('status: ' + voting_has_changed);
-                if (status_has_changed || voting_has_changed) {
-                    xlvoVoter.replaceHTML();
+                var voting_has_changed = (xlvoVoter.player.active_voting_id != data.active_voting_id), // Voting has changed
+                    status_has_changed = (xlvoVoter.player.status != data.status), // Status of player has changed
+                    forced_update = (xlvoVoter.counter > xlvoVoter.forced_update); // forced update
+
+                xlvoVoter.player = data;
+                if (status_has_changed || voting_has_changed || forced_update) {
+                    xlvoVoter.replaceHTML(xlvoVoter.handleCountdown());
+                } else {
+                    xlvoVoter.handleCountdown();
                 }
-                xlvoVoter.active_voting_id = data.active_voting_id;
-                xlvoVoter.status = data.status;
-                setTimeout(xlvoVoter.getVotingData, 1000);
+                xlvoVoter.timeout = setTimeout(xlvoVoter.loadVotingData, xlvoVoter.delay);
+                xlvoVoter.counter++;
             }).fail(function () {
-            setTimeout(xlvoVoter.getVotingData, 1000);
+            xlvoVoter.timeout = setTimeout(xlvoVoter.loadVotingData, xlvoVoter.delay);
         });
     },
-    replaceHTML: function () {
+    handleCountdown: function () {
+        if (xlvoVoter.player.has_countdown) {
+            xlvoVoter.log('has countdown: ' + (xlvoVoter.player.has_countdown ? 'yes, ' + xlvoVoter.player.countdown : 'no'));
+            xlvoVoter.countdown_element.removeClass();
+            xlvoVoter.countdown_element.text(xlvoVoter.player.countdown.toString() + ' ' + xlvoVoter.config.lng.player_seconds);
+            xlvoVoter.countdown_element.show();
+            xlvoVoter.countdown_element.addClass('label label-cd-' + xlvoVoter.player.countdown_classname);
+        } else {
+            xlvoVoter.countdown_element.removeClass();
+            xlvoVoter.countdown_element.hide();
+        }
+    },
+    replaceHTML: function (success) {
         xlvoVoter.log('replace');
+        success = success ? success : function () {
+        };
         $.get(xlvoVoter.config.base_url, {cmd: 'getHTML'}).done(function (data) {
-            $(xlvoVoter.config.player_id).html(data);
+            xlvoVoter.player_element.replaceWith('<div id="xlvo_voter_player">' + data + '</div>');
+            // var new_dom = $('<div/>').html(data).contents();
+            xlvoVoter.countdown_element = $('#xlvo_countdown');
+            success();
         });
     },
     /**
@@ -52,6 +88,8 @@ var xlvoVoter = {
      */
     log: function (data) {
         if (xlvoVoter.debug) {
+            var err = new Error(), stack = err.stack;
+            // console.log(stack);
             console.log(data);
         }
     }

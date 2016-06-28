@@ -1,3 +1,9 @@
+#il_center_col {
+  padding: 0 !important;
+}
+div.lxvo-row {
+  margin-top: 40px;
+}
 #xlvo-display-player {
   background-color: #F9F9F9;
 }
