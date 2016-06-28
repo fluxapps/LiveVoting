@@ -496,6 +496,7 @@ class xlvoVotingGUI {
 			$xml_voting->appendChild(new DOMElement('multi_free_input'))->appendChild(new DOMCdataSection($xlvoVoting->isMultiFreeInput()));
 			$xml_voting->appendChild(new DOMElement('voting_status'))->appendChild(new DOMCdataSection($xlvoVoting->getVotingStatus()));
 			$xml_voting->appendChild(new DOMElement('position'))->appendChild(new DOMCdataSection($xlvoVoting->getPosition()));
+			$xml_voting->appendChild(new DOMElement('columns'))->appendChild(new DOMCdataSection($xlvoVoting->getColumns()));
 
 			$xml_options = $xml_voting->appendChild(new DOMElement('options'));
 			foreach ($xlvoVoting->getVotingOptions() as $xlvoOption) {
@@ -533,6 +534,7 @@ class xlvoVotingGUI {
 			$multi_free_input = $node->getElementsByTagName('multi_free_input')->item(0)->nodeValue;
 			$voting_status = $node->getElementsByTagName('voting_status')->item(0)->nodeValue;
 			$position = $node->getElementsByTagName('position')->item(0)->nodeValue;
+			$columns = $node->getElementsByTagName('columns')->item(0)->nodeValue;
 
 			$xlvoVoting = new xlvoVoting();
 			$xlvoVoting->setObjId($this->getObjId());
@@ -545,6 +547,7 @@ class xlvoVotingGUI {
 			$xlvoVoting->setMultiFreeInput($multi_free_input);
 			$xlvoVoting->setVotingStatus($voting_status);
 			$xlvoVoting->setPosition($position);
+			$xlvoVoting->setColumns($columns ? $columns : 2);
 			$xlvoVoting->create();
 
 			$options = $node->getElementsByTagName('option');
@@ -570,8 +573,8 @@ class xlvoVotingGUI {
 
 				$xlvoOptions[] = $xlvoOption;
 			}
-
 			$xlvoVoting->setVotingOptions($xlvoOptions);
+			$xlvoVoting->renegerateOptionSorting();
 		}
 		$this->cancel();
 	}

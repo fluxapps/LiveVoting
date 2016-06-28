@@ -105,6 +105,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 	protected function startPlayerAnUnfreeze() {
 		$this->initJSandCss();
 		$this->initToolbarDuringVoting();
+		$this->manager->prepare();
 		$this->manager->getPlayer()->unfreeze();
 		$modal = xlvoQRModalGUI::getInstanceFromVotingConfig($this->manager->getVotingConfig())->getHTML();
 		$this->tpl->setContent($modal . $this->getPlayerHTML());
@@ -117,6 +118,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 			$this->manager->open($_GET[self::IDENTIFIER]);
 		}
 		$this->initJSandCss();
+		$this->manager->prepare();
 		$this->initToolbarDuringVoting();
 		$modal = xlvoQRModalGUI::getInstanceFromVotingConfig($this->manager->getVotingConfig())->getHTML();
 		$this->tpl->setContent($modal . $this->getPlayerHTML());

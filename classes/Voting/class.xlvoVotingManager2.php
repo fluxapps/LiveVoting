@@ -84,6 +84,11 @@ class xlvoVotingManager2 {
 	}
 
 
+	public function prepare() {
+		$this->getVoting()->renegerateOptionSorting();
+	}
+
+
 	/**
 	 * @param $input
 	 * @param $vote_id
