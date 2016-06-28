@@ -71,20 +71,6 @@ class xlvoDisplayPlayerGUI {
 			$this->addOption($item);
 		}
 
-		$votings = xlvoVoting::where(array(
-			'obj_id'        => $this->manager->getVoting()->getObjId(),
-			'voting_status' => xlvoVoting::STAT_ACTIVE,
-		))->orderBy('position', 'ASC');
-
-		$votings_count = $votings->count();
-
-		$voting_position = 1;
-		foreach ($votings->getArray() as $key => $voting) {
-			if ($this->manager->getVoting()->getId() == $key) {
-				break;
-			}
-			$voting_position ++;
-		}
 
 		$this->tpl->setVariable('TITLE', $this->manager->getVoting()->getTitle());
 		$this->tpl->setVariable('QUESTION', ilUtil::prepareTextareaOutput($this->manager->getVoting()->getQuestion(), true));
@@ -101,13 +87,13 @@ class xlvoDisplayPlayerGUI {
 		}
 		if ($this->manager->getPlayer()->isCountDownRunning()) {
 			$this->tpl->setCurrentBlock('countdown');
-			$cd = $this->manager->getPlayer()->getCountdown();
+			$cd = $this->manager->getPlayer()->remainingCountDown();
 			$this->tpl->setVariable('COUNTDOWN', $cd . ' ' . $this->pl->txt('player_seconds'));
 			$this->tpl->setVariable('COUNTDOWN_CSS', $this->manager->getPlayer()->getCountdownClassname());
 			$this->tpl->parseCurrentBlock();
 		}
-		$this->tpl->setVariable('COUNT', $votings_count);
-		$this->tpl->setVariable('POSITION', $voting_position);
+		$this->tpl->setVariable('COUNT', $this->manager->countVotings());
+		$this->tpl->setVariable('POSITION', $this->manager->getVotingPosition());
 	}
 
 

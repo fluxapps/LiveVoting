@@ -132,7 +132,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 	protected function initJsAndCss() {
 		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voter/voter.css');
 		iljQueryUtil::initjQueryUI();
-		$t = array( 'player_seconds'  );
+		$t = array( 'player_seconds' );
 		xlvoJs::getInstance()->api($this, array( 'ilUIPluginRouterGUI' ))->name('Voter')->addTranslations($t)->init()->call('run');
 		foreach (xlvoQuestionTypes::getActiveTypes() as $type) {
 			xlvoQuestionTypesGUI::getInstance($this->manager, $type)->initJS();
@@ -145,11 +145,17 @@ class xlvoVoter2GUI extends xlvoGUI {
 		switch ($this->manager->getPlayer()->getStatus(true)) {
 			case xlvoPlayer::STAT_STOPPED:
 				$tpl->setVariable('TITLE', $this->txt('header_stopped'));
-				$tpl->setVariable('DESCRIPTION', $this->txt('info_stopped'));;
+				$tpl->setVariable('DESCRIPTION', $this->txt('info_stopped'));
+				$tpl->setVariable('COUNT', $this->manager->countVotings());
+				$tpl->setVariable('POSITION', $this->manager->getVotingPosition());
+				$tpl->setVariable('PIN', $this->manager->getVotingConfig()->getPin());
 				break;
 			case xlvoPlayer::STAT_RUNNING:
 				$tpl->setVariable('TITLE', $this->manager->getVoting()->getTitle());
 				$tpl->setVariable('DESCRIPTION', $this->manager->getVoting()->getDescription());
+				$tpl->setVariable('COUNT', $this->manager->countVotings());
+				$tpl->setVariable('POSITION', $this->manager->getVotingPosition());
+				$tpl->setVariable('PIN', $this->manager->getVotingConfig()->getPin());
 
 				$xlvoQuestionTypesGUI = xlvoQuestionTypesGUI::getInstance($this->manager);
 				if ($xlvoQuestionTypesGUI->isShowQuestion()) {
@@ -172,6 +178,9 @@ class xlvoVoter2GUI extends xlvoGUI {
 			case xlvoPlayer::STAT_FROZEN:
 				$tpl->setVariable('TITLE', $this->manager->getVoting()->getTitle() . ': ' . $this->txt('header_frozen'));
 				$tpl->setVariable('DESCRIPTION', $this->txt('info_frozen'));
+				$tpl->setVariable('COUNT', $this->manager->countVotings());
+				$tpl->setVariable('POSITION', $this->manager->getVotingPosition());
+				$tpl->setVariable('PIN', $this->manager->getVotingConfig()->getPin());
 				//				$tpl->touchBlock('spinner');
 				break;
 		}

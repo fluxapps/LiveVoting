@@ -96,9 +96,12 @@
   background-color: #ea6705;
 }
 .label-cd-running {
-  background-color: #434343;
+  background-color: #6ea03c;
 }
 .label-cd-running[href]:hover,
 .label-cd-running[href]:focus {
-  background-color: #2a2a2a;
+  background-color: #557b2e;
+}
+#xlvo-player-header h1.pull-right {
+  margin-left: 5px;
 }

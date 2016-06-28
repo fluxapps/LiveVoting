@@ -105,7 +105,7 @@ var xlvoPlayer = {
         this.btn_previous = $('#btn-previous');
         this.btn_next = $('#btn-next');
         this.btn_unfreeze = $('#btn-unfreeze');
-        this.btn_unfreeze.parent().hide();
+        this.btn_unfreeze.closest('.btn-group').hide();
         this.btn_reset = $('#btn-reset');
         this.btn_terminate = $('#btn-terminate');
         this.btn_terminate.parent().hide();
@@ -159,14 +159,14 @@ var xlvoPlayer = {
     initElements: function () {
         if (this.player.frozen) {
             this.btn_freeze.parent().hide();
-            this.btn_unfreeze.parent().show();
+            this.btn_unfreeze.closest('.btn-group').show();
             if (this.player.votes > 0) {
                 this.btn_reset.removeAttr('disabled');
             } else {
                 this.btn_reset.attr('disabled', 'disabled');
             }
         } else {
-            this.btn_unfreeze.parent().hide();
+            this.btn_unfreeze.closest('.btn-group').hide();
             this.btn_freeze.parent().show();
             this.btn_reset.attr('disabled', 'disabled');
 

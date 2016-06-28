@@ -7,6 +7,8 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoDisplayPlayerGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/Modal/class.xlvoQRModalGUI.php');
 require_once('./Services/Administration/classes/class.ilSetting.php');
+require_once('./Services/UIComponent/SplitButton/classes/class.ilButtonToSplitButtonMenuItemAdapter.php');
+require_once('./Services/UIComponent/SplitButton/classes/class.ilSplitButtonGUI.php');
 
 /**
  * Class xlvoPlayerGUI
@@ -247,12 +249,23 @@ class xlvoPlayerGUI extends xlvoGUI {
 		}
 
 		// Unfreeze
-		$b = ilLinkButton::getInstance();
-		$b->setPrimary(true);
-		$b->setCaption(xlvoGlyphGUI::get('play') . $this->txt('unfreeze'), false);
-		$b->setUrl('#');
-		$b->setId('btn-unfreeze');
-		$this->toolbar->addButtonInstance($b);
+		$unfreeze = ilLinkButton::getInstance();
+		$unfreeze->setPrimary(true);
+		$unfreeze->setCaption(xlvoGlyphGUI::get('play') . $this->txt('unfreeze'), false);
+		$unfreeze->setUrl('#');
+		$unfreeze->setId('btn-unfreeze');
+
+		$split = ilSplitButtonGUI::getInstance();
+		$split->setDefaultButton($unfreeze);
+		foreach (array( 10, 30, 90, 120, 180, 240, 300 ) as $seconds) {
+			$cd = ilLinkButton::getInstance();
+			$cd->setUrl('#');
+			$cd->setCaption($seconds . ' ' . $this->pl->txt('player_seconds'), false);
+			$cd->setOnClick("xlvoPlayer.countdown($seconds);");
+			$ilSplitButtonMenuItem = new ilButtonToSplitButtonMenuItemAdapter($cd);
+			$split->addMenuItem($ilSplitButtonMenuItem);
+		}
+		$this->toolbar->addButtonInstance($split);
 
 		// Hide
 		$b = ilLinkButton::getInstance();
@@ -296,20 +309,6 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$b->setUrl($this->ctrl->getLinkTarget($this, self::CMD_NEXT));
 		$b->setId('btn-next');
 		$this->toolbar->addButtonInstance($b);
-
-		// COUNT_DOWN
-		$countdown = new ilAdvancedSelectionListGUI();
-		$countdown->setListTitle($this->txt('voting_countdown'));
-		$countdown->setId('xlvo_countdown');
-		$countdown->setTriggerEvent('xlvo_countdown');
-		$countdown->setUseImages(false);
-		/**
-		 * @var xlvoVoting[] $votings
-		 */
-		foreach (array( 10, 30, 90, 120, 180, 240, 300 ) as $seconds) {
-			$countdown->addItem($seconds, $seconds, '#', '', '', '', '', false, 'xlvoPlayer.countdown(' . $seconds . ')');
-		}
-		$this->toolbar->addText($countdown->getHTML());
 
 		// Votings
 		$current_selection_list = $this->getVotingSelectionList();

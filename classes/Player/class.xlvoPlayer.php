@@ -68,6 +68,7 @@ class xlvoPlayer extends ActiveRecord {
 	public function freeze() {
 		$this->setFrozen(true);
 		$this->setStatus(self::STAT_RUNNING);
+		$this->resetCountDown(false);
 		$this->update();
 	}
 
@@ -75,14 +76,26 @@ class xlvoPlayer extends ActiveRecord {
 	public function unfreeze() {
 		$this->setFrozen(false);
 		$this->setStatus(self::STAT_RUNNING);
+		$this->resetCountDown(false);
 		$this->update();
 	}
 
 
 	public function toggleFreeze() {
 		$this->setFrozen(!$this->isFrozen());
+		if ($this->isFrozen()) {
+			$this->setCountdown(0);
+		}
 		$this->setStatus(self::STAT_RUNNING);
 		$this->update();
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function remainingCountDown() {
+		return $this->getCountdownStart() - time() + $this->getCountdown();
 	}
 
 
@@ -92,7 +105,20 @@ class xlvoPlayer extends ActiveRecord {
 	public function startCountDown($seconds) {
 		$this->setFrozen(false);
 		$this->setCountdown($seconds);
+		$this->setCountdownStart(time());
 		$this->update();
+	}
+
+
+	/**
+	 * @param bool $save
+	 */
+	public function resetCountDown($save = true) {
+		$this->setCountdown(0);
+		$this->setCountdownStart(0);
+		if ($save) {
+			$this->update();
+		}
 	}
 
 
@@ -117,6 +143,7 @@ class xlvoPlayer extends ActiveRecord {
 	public function terminate() {
 		$this->setStatus(xlvoPlayer::STAT_END_VOTING);
 		$this->setFrozen(true);
+		$this->resetCountDown();
 		$this->setShowResults(false);
 		$this->setButtonStates(array());
 		$this->update();
@@ -131,7 +158,7 @@ class xlvoPlayer extends ActiveRecord {
 		$obj->status = (int)$this->getStatus(true);
 		$obj->force_reload = false;
 		$obj->active_voting_id = (int)$this->getActiveVoting();
-		$obj->countdown = (int)$this->getCountdown();
+		$obj->countdown = (int)$this->remainingCountDown();
 		$obj->has_countdown = (bool)$this->isCountDownRunning();
 		$obj->countdown_classname = $this->getCountdownClassname();
 
@@ -163,7 +190,7 @@ class xlvoPlayer extends ActiveRecord {
 		$obj->last_update = (int)$last_update;
 		$obj->attendees = (int)xlvoVoter::count($this->getId());;
 		$obj->qtype = $this->getQuestionTypeClassName();
-		$obj->countdown = $this->getCountdown();
+		$obj->countdown = $this->remainingCountDown();
 		$obj->has_countdown = $this->isCountDownRunning();
 
 		return $obj;
@@ -194,7 +221,7 @@ class xlvoPlayer extends ActiveRecord {
 	 * @return bool
 	 */
 	public function isCountDownRunning() {
-		return ($this->getCountdown() > 0);
+		return ($this->remainingCountDown() > 0 || $this->getCountdownStart() > 0);
 	}
 
 
@@ -202,7 +229,7 @@ class xlvoPlayer extends ActiveRecord {
 	 * @return string
 	 */
 	public function getCountdownClassname() {
-		$cd = $this->getCountdown();
+		$cd = $this->remainingCountDown();
 
 		return $cd > 10 ? 'running' : ($cd > 5 ? 'warning' : 'danger');
 	}
@@ -213,6 +240,7 @@ class xlvoPlayer extends ActiveRecord {
 	 */
 	public function prepareStart($voting_id) {
 		$this->setStatus(self::STAT_START_VOTING);
+		$this->resetCountDown(false);
 		$this->setFrozen(true);
 		$this->setShowResults(false);
 		$this->setTimestampRefresh(time() + self::SECONDS_TO_SLEEP);
@@ -252,12 +280,9 @@ class xlvoPlayer extends ActiveRecord {
 	public function attend() {
 		$this->setStatus(self::STAT_RUNNING);
 		$this->setTimestampRefresh(time());
-		if ($this->getCountdown() > 0) {
-			$countdown = $this->getCountdown() - 1;
-			$this->setCountdown($countdown);
-			if ($countdown == 0) {
-				$this->setFrozen(true);
-			}
+		if ($this->remainingCountDown() <= 0 && $this->getCountdownStart() > 0) {
+			$this->resetCountDown(false);
+			$this->setFrozen(true);
 		}
 		$this->update();
 	}
@@ -345,6 +370,14 @@ class xlvoPlayer extends ActiveRecord {
 	 * @db_length           2
 	 */
 	protected $countdown = 0;
+	/**
+	 * @var int
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           8
+	 */
+	protected $countdown_start = 0;
 	/**
 	 * @var bool
 	 *
@@ -504,6 +537,22 @@ class xlvoPlayer extends ActiveRecord {
 	 */
 	public function setForceReload($force_reload) {
 		$this->force_reload = $force_reload;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getCountdownStart() {
+		return $this->countdown_start;
+	}
+
+
+	/**
+	 * @param int $countdown_start
+	 */
+	public function setCountdownStart($countdown_start) {
+		$this->countdown_start = $countdown_start;
 	}
 
 
