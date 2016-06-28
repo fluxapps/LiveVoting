@@ -37,12 +37,26 @@ class xlvoCorrectOrderResultsGUI extends xlvoSingleVoteResultsGUI {
 
 		$correct_option = new xlvoOption();
 		$correct_option->setText($this->txt('correct'));
+		$bar = new xlvoBarPercentageGUI();
+		$bar->setTotal($this->manager->countVotes());
+		$bar->setTitle($correct_option->getText());
+		$bar->setVotes($correct_votes);
+		$bar->setMax(max(array( $correct_votes, $wrong_votes )));
+		$bar->setShowAbsolute($this->isShowAbsolute());
+
+		$bars->addBar($bar);
 
 		$wrong_option = new xlvoOption();
 		$wrong_option->setText($this->txt('wrong'));
 
-		$bars->addBar(xlvoBarPercentageGUI::getInstanceFromOption($correct_option, $correct_votes, count($votes)));
-		$bars->addBar(xlvoBarPercentageGUI::getInstanceFromOption($wrong_option, $wrong_votes, count($votes)));
+		$bar = new xlvoBarPercentageGUI();
+		$bar->setTotal($this->manager->countVotes());
+		$bar->setTitle($wrong_option->getText());
+		$bar->setVotes($wrong_votes);
+		$bar->setMax(max(array( $correct_votes, $wrong_votes )));
+		$bar->setShowAbsolute($this->isShowAbsolute());
+
+		$bars->addBar($bar);
 
 		$bars->setShowTotalVotes(true);
 		$bars->setTotalVotes($this->manager->countVotes());
@@ -62,11 +76,21 @@ class xlvoCorrectOrderResultsGUI extends xlvoSingleVoteResultsGUI {
 
 
 	/**
-	 * @return mixed
+	 * @return bool
 	 */
 	protected function isShowCorrectOrder() {
 		$states = $this->getButtonsStates();
 
-		return ((bool)$states[xlvoCorrectOrderGUI::BUTTON_DISPLAY_CORRECT_ORDER] && $this->manager->getPlayer()->isShowResults());
+		return ((bool)$states[xlvoCorrectOrderGUI::BUTTON_TOTTLE_DISPLAY_CORRECT_ORDER] && $this->manager->getPlayer()->isShowResults());
+	}
+
+
+	/**
+	 * @return bool
+	 */
+	protected function isShowAbsolute() {
+		$states = $this->getButtonsStates();
+
+		return ($this->manager->getPlayer()->isShowResults() && (bool)$states[xlvoCorrectOrderGUI::BUTTON_TOGGLE_PERCENTAGE]);
 	}
 }

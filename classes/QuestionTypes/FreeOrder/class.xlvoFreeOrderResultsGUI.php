@@ -14,7 +14,7 @@ class xlvoFreeOrderResultsGUI extends xlvoCorrectOrderResultsGUI {
 	public function getHTML() {
 		$bars = new xlvoBarCollectionGUI();
 
-		$option_amount = count($this->manager->getOptions());
+		$option_amount = $this->manager->countOptions();
 		$option_weight = array();
 
 		foreach ($this->manager->getVotesOfVoting() as $xlvoVote) {
@@ -29,6 +29,7 @@ class xlvoFreeOrderResultsGUI extends xlvoCorrectOrderResultsGUI {
 		if ($this->isShowCorrectOrder() && $this->manager->hasVotes()) {
 			$unsorted_options = $this->manager->getOptions();
 			$options = array();
+			arsort($option_weight);
 			foreach ($option_weight as $option_id => $weight) {
 				$options[] = $unsorted_options[$option_id];
 			}
@@ -36,12 +37,23 @@ class xlvoFreeOrderResultsGUI extends xlvoCorrectOrderResultsGUI {
 			$options = $this->manager->getOptions();
 		}
 
+		$absolute = $this->isShowAbsolute();
+
 		foreach ($options as $xlvoOption) {
-			$bars->addBar(xlvoBarPercentageGUI::getInstanceFromOption($xlvoOption, $option_weight[$xlvoOption->getId()], $total));
+			$bar = new xlvoBarPercentageGUI();
+			$bar->setTotal($total);
+			$bar->setTitle($xlvoOption->getText());
+			$bar->setId($xlvoOption->getId());
+			$bar->setVotes($option_weight[$xlvoOption->getId()]);
+			$bar->setMax(max($option_weight));
+			$bar->setShowAbsolute($absolute);
+
+			$bars->addBar($bar);
 		}
 
 		$bars->setShowTotalVotes(true);
 		$bars->setTotalVotes($this->manager->countVotes());
+
 
 		return $bars->getHTML();
 	}

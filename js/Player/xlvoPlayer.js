@@ -13,11 +13,11 @@ var xlvoPlayer = {
     },
     buttons_handled: false,
     toolbar_loaded: false,
-    delay: 990,
+    delay: 1000,
     counter: 1,
     timeout: null,
     request_pending: false,
-    forced_update_interval: 3,
+    forced_update_interval: 10,
     countdown_running: false,
     config: {
         base_url: '',

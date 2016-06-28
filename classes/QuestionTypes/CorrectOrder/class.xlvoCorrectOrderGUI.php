@@ -11,8 +11,8 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
  */
 class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 
-	const BUTTON_DISPLAY_CORRECT_ORDER = 'display_correct_order';
-	const BUTTON_HIDE_CORRECT_ORDER = 'hide_correct_order';
+	const BUTTON_TOTTLE_DISPLAY_CORRECT_ORDER = 'display_correct_order';
+	const BUTTON_TOGGLE_PERCENTAGE = 'toggle_percentage';
 
 
 	/**
@@ -90,19 +90,27 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 	 * @return array
 	 */
 	public function getButtonInstances() {
-		if(!$this->manager->getPlayer()->isShowResults()) {
+		if (!$this->manager->getPlayer()->isShowResults()) {
 			return array();
 		}
 		$states = $this->getButtonsStates();
 		$b = ilLinkButton::getInstance();
-		$b->setId(self::BUTTON_DISPLAY_CORRECT_ORDER);
-		if ($states[self::BUTTON_DISPLAY_CORRECT_ORDER]) {
-			$b->setCaption($this->txt(self::BUTTON_HIDE_CORRECT_ORDER), false);
+		$b->setId(self::BUTTON_TOTTLE_DISPLAY_CORRECT_ORDER);
+		if ($states[self::BUTTON_TOTTLE_DISPLAY_CORRECT_ORDER]) {
+			$b->setCaption(xlvoGlyphGUI::get('eye-close'), false);
 		} else {
-			$b->setCaption($this->txt(self::BUTTON_DISPLAY_CORRECT_ORDER), false);
+			$b->setCaption(xlvoGlyphGUI::get('eye-open'), false);
 		}
 
-		return array( $b );
+		$t = ilLinkButton::getInstance();
+		$t->setId(self::BUTTON_TOGGLE_PERCENTAGE);
+		if ($states[self::BUTTON_TOGGLE_PERCENTAGE]) {
+			$t->setCaption('%', false);
+		} else {
+			$t->setCaption(xlvoGlyphGUI::get('user'), false);
+		}
+
+		return array( $b, $t );
 	}
 
 
@@ -112,7 +120,7 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 	protected function isShowCorrectOrder() {
 		$states = $this->getButtonsStates();
 
-		return ((bool)$states[xlvoCorrectOrderGUI::BUTTON_DISPLAY_CORRECT_ORDER] && $this->manager->getPlayer()->isShowResults());
+		return ((bool)$states[xlvoCorrectOrderGUI::BUTTON_TOTTLE_DISPLAY_CORRECT_ORDER] && $this->manager->getPlayer()->isShowResults());
 	}
 
 
@@ -122,6 +130,6 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 	 */
 	public function handleButtonCall($button_id, $data) {
 		$states = $this->getButtonsStates();
-		$this->saveButtonState($button_id, !$states[self::BUTTON_DISPLAY_CORRECT_ORDER]);
+		$this->saveButtonState($button_id, !$states[$button_id]);
 	}
 }

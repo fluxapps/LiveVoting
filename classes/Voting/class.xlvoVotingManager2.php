@@ -371,6 +371,14 @@ class xlvoVotingManager2 {
 
 
 	/**
+	 * @return int
+	 */
+	public function countOptions() {
+		return count($this->getOptions());
+	}
+
+
+	/**
 	 * @return xlvoOption[]
 	 */
 	public function getOptions() {
