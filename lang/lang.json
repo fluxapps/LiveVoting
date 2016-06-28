@@ -170,7 +170,7 @@
                     "en": "Cancel",
                     "de": "Abbrechen"
                 },
-                "last_used": "27.06.2016"
+                "last_used": "28.06.2016"
             },
             "confirm_number_of_votes": {
                 "translations": {
@@ -183,7 +183,7 @@
                     "en": "Do you like to reset this Voting? All User-Inputs will be deleted.",
                     "de": "M\u00c3\u00b6chten Sie die Resultate dieser Frage zur\u00c3\u00bccksetzen? Alle Benutzer-Eingaben werden gel\u00c3\u00b6scht."
                 },
-                "last_used": "27.06.2016"
+                "last_used": "28.06.2016"
             },
             "confirm_reset_all": {
                 "translations": {
@@ -216,7 +216,7 @@
                     "en": "Description",
                     "de": "Beschreibung"
                 },
-                "last_used": "27.06.2016"
+                "last_used": "28.06.2016"
             },
             "edit": {
                 "translations": {
@@ -368,7 +368,7 @@
                     "en": "Update",
                     "de": "Speichern"
                 },
-                "last_used": "27.06.2016"
+                "last_used": "28.06.2016"
             },
             "type_5_info": {
                 "translations": {
@@ -396,7 +396,7 @@
                     "en": "Frage",
                     "de": "Question"
                 },
-                "last_used": "27.06.2016"
+                "last_used": "28.06.2016"
             },
             "form_title_create": {
                 "translations": {
@@ -410,7 +410,7 @@
                     "en": "Colums for possible answers",
                     "de": "Spalten f\u00c3\u00bcr Antwortm\u00c3\u00b6glichkeiten"
                 },
-                "last_used": "27.06.2016"
+                "last_used": "28.06.2016"
             }
         },
         "xlvo": {
@@ -612,7 +612,7 @@
                     "de": "Einstellungen gespeichert",
                     "en": "Settings saved"
                 },
-                "last_used": "27.06.2016"
+                "last_used": "28.06.2016"
             },
             "online": {
                 "translations": {
@@ -840,14 +840,14 @@
                     "de": "Pausieren",
                     "en": "Freeze"
                 },
-                "last_used": "27.06.2016"
+                "last_used": "28.06.2016"
             },
             "hide_results": {
                 "translations": {
                     "de": "Resultate ausblenden",
                     "en": "Hide Results"
                 },
-                "last_used": "27.06.2016"
+                "last_used": "28.06.2016"
             },
             "msg_no_start_1": {
                 "translations": {
@@ -880,14 +880,14 @@
                     "de": "Zur\u00c3\u00bccksetzen",
                     "en": "Reset"
                 },
-                "last_used": "27.06.2016"
+                "last_used": "28.06.2016"
             },
             "show_results": {
                 "translations": {
                     "de": "Resultate einblenden",
                     "en": "Show Results"
                 },
-                "last_used": "27.06.2016"
+                "last_used": "28.06.2016"
             },
             "start_voting": {
                 "translations": {
@@ -908,21 +908,21 @@
                     "de": "Beenden",
                     "en": "Terminate"
                 },
-                "last_used": "27.06.2016"
+                "last_used": "28.06.2016"
             },
             "unfreeze": {
                 "translations": {
                     "de": "Abstimmen",
                     "en": "Unfreeze"
                 },
-                "last_used": "27.06.2016"
+                "last_used": "28.06.2016"
             },
             "voters_online": {
                 "translations": {
                     "de": "Online",
                     "en": "Online"
                 },
-                "last_used": "27.06.2016"
+                "last_used": "28.06.2016"
             },
             "voting_list": {
                 "translations": {
@@ -938,35 +938,35 @@
                     "de": "Unterschiedliche Farben",
                     "en": "Different Colors"
                 },
-                "last_used": "27.06.2016"
+                "last_used": "28.06.2016"
             },
             "1_multi_selection": {
                 "translations": {
                     "de": "Mehrfachauswahl",
                     "en": "Multiple Selection"
                 },
-                "last_used": "27.06.2016"
+                "last_used": "28.06.2016"
             },
             "1_multi_selection_info": {
                 "translations": {
                     "de": "Ein Nutzer kann mehr als einen Text eingeben",
                     "en": "User can select more than one Option"
                 },
-                "last_used": "27.06.2016"
+                "last_used": "28.06.2016"
             },
             "1_option_text": {
                 "translations": {
                     "de": "Options-Text",
                     "en": "Option-Text"
                 },
-                "last_used": "27.06.2016"
+                "last_used": "28.06.2016"
             },
             "1_options": {
                 "translations": {
                     "de": "M\u00c3\u00b6gliche Antworten",
                     "en": "Options"
                 },
-                "last_used": "27.06.2016"
+                "last_used": "28.06.2016"
             },
             "1_total_votes": {
                 "translations": {
@@ -1124,7 +1124,7 @@
                     "de": "Antworten",
                     "en": "Answers"
                 },
-                "last_used": "27.06.2016"
+                "last_used": "28.06.2016"
             },
             "multi_free_input": {
                 "translations": {
