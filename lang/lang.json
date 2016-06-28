@@ -69,14 +69,14 @@
                     "de": "Bitte auf Start warten",
                     "en": "Please wait for presenter"
                 },
-                "last_used": "27.06.2016"
+                "last_used": "28.06.2016"
             },
             "header_stopped": {
                 "translations": {
                     "de": "Abstimmung gestoppt",
                     "en": "Voting stopped"
                 },
-                "last_used": "02.03.2016"
+                "last_used": "28.06.2016"
             },
             "info_frozen": {
                 "translations": {
@@ -90,14 +90,14 @@
                     "de": "Dieses LiveVoting wurde vom Pr\u00c3\u00a4sentator nicht gestartet, bitte warten...",
                     "en": "This LiveVoting has not yet been started by the presenter..."
                 },
-                "last_used": "27.06.2016"
+                "last_used": "28.06.2016"
             },
             "info_stopped": {
                 "translations": {
                     "de": "Das LiveVoting wurde gestoppt.",
                     "en": "This LiveVoting has been stopped"
                 },
-                "last_used": "02.03.2016"
+                "last_used": "28.06.2016"
             },
             "msg_access_screen": {
                 "translations": {
@@ -463,11 +463,6 @@
                 "translations": {
                     "en": "Present and edit LiveVoting",
                     "de": "LiveVoting pr\u00c3\u00a4sentieren und bearbeiten"
-                }
-            },
-            "eobj_results_reuse": {
-                "translations": {
-                    "en": "MISSING"
                 }
             }
         },
@@ -987,21 +982,21 @@
                     "de": "Anzahl Stimmen",
                     "en": "Total Votes"
                 },
-                "last_used": "27.06.2016"
+                "last_used": "28.06.2016"
             },
             "1_unvote": {
                 "translations": {
                     "de": "Unvote",
                     "en": "Unvote"
                 },
-                "last_used": "27.06.2016"
+                "last_used": "28.06.2016"
             },
             "1_vote": {
                 "translations": {
                     "de": "Vote",
                     "en": "Vote"
                 },
-                "last_used": "27.06.2016"
+                "last_used": "28.06.2016"
             },
             "2_answers": {
                 "translations": {
@@ -1064,7 +1059,7 @@
                     "de": "Zur\u00c3\u00bccksetzen",
                     "en": "Clear"
                 },
-                "last_used": "24.06.2016"
+                "last_used": "28.06.2016"
             },
             "4_id": {
                 "translations": {
@@ -1104,14 +1099,14 @@
                     "de": "Speichern",
                     "en": "Save"
                 },
-                "last_used": "24.06.2016"
+                "last_used": "28.06.2016"
             },
             "4_your_order": {
                 "translations": {
                     "de": "Ihre gespeicherte Eingabe:",
                     "en": "Your Submission:"
                 },
-                "last_used": "02.03.2016"
+                "last_used": "28.06.2016"
             },
             "5_option_text": {
                 "translations": {
@@ -1198,16 +1193,28 @@
                     "de": "Voting wurde gespeichert"
                 }
             },
-            "1_terminate": {
-                "translations": {
-                    "de": "MISSING",
-                    "en": "MISSING"
-                }
-            },
             "4_display_std_order": {
                 "translations": {
                     "de": "Show standard order",
                     "en": "Standardreihenfolge anzeigen"
+                }
+            },
+            "5_display_correct_order": {
+                "translations": {
+                    "en": "Sort",
+                    "de": "Sortieren"
+                }
+            },
+            "5_hide_correct_order": {
+                "translations": {
+                    "en": "Revert Sorting",
+                    "de": "Sortieren aufheben"
+                }
+            },
+            "5_correct_solution": {
+                "translations": {
+                    "en": "MISSING",
+                    "de": "MISSING"
                 }
             }
         },

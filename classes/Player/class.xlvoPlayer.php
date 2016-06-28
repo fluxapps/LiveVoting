@@ -129,6 +129,7 @@ class xlvoPlayer extends ActiveRecord {
 	public function getStdClassForVoter() {
 		$obj = new stdClass();
 		$obj->status = (int)$this->getStatus(true);
+		$obj->force_reload = false;
 		$obj->active_voting_id = (int)$this->getActiveVoting();
 		$obj->countdown = (int)$this->getCountdown();
 		$obj->has_countdown = (bool)$this->isCountDownRunning();
@@ -344,6 +345,14 @@ class xlvoPlayer extends ActiveRecord {
 	 * @db_length           2
 	 */
 	protected $countdown = 0;
+	/**
+	 * @var bool
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           1
+	 */
+	protected $force_reload = false;
 
 
 	/**
@@ -479,6 +488,22 @@ class xlvoPlayer extends ActiveRecord {
 	 */
 	public function setCountdown($countdown) {
 		$this->countdown = $countdown;
+	}
+
+
+	/**
+	 * @return boolean
+	 */
+	public function isForceReload() {
+		return $this->force_reload;
+	}
+
+
+	/**
+	 * @param boolean $force_reload
+	 */
+	public function setForceReload($force_reload) {
+		$this->force_reload = $force_reload;
 	}
 
 

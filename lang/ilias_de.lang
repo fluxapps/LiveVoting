@@ -172,8 +172,10 @@ qtype_4_wrong#:#Falsch
 qtype_4_correct_solution#:#Korrekte Reihenfolge:
 qtype_1_total_obj_results_alway_on_info#:#Die Resultate werden nach einem Wechsel der Frage automatisch eingeblendet.
 qtype_1_optmsg_success_voting_updated#:#Voting wurde gespeichert
-qtype_1_terminate#:#MISSING
 qtype_4_display_std_order#:#Show standard order
+qtype_5_display_correct_order#:#Sortieren
+qtype_5_hide_correct_order#:#Sortieren aufheben
+qtype_5_correct_solution#:#MISSING
 subtab_edit#:#Verwalten
 subtab_show#:#Zeigen
 tab_content#:#Inhalt

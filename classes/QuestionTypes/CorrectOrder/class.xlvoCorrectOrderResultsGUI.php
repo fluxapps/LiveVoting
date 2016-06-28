@@ -67,6 +67,6 @@ class xlvoCorrectOrderResultsGUI extends xlvoSingleVoteResultsGUI {
 	protected function isShowCorrectOrder() {
 		$states = $this->getButtonsStates();
 
-		return (bool)$states[xlvoCorrectOrderGUI::BUTTON_DISPLAY_CORRECT_ORDER];
+		return ((bool)$states[xlvoCorrectOrderGUI::BUTTON_DISPLAY_CORRECT_ORDER] && $this->manager->getPlayer()->isShowResults());
 	}
 }

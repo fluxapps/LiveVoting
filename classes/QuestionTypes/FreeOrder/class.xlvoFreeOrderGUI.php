@@ -15,5 +15,12 @@ class xlvoFreeOrderGUI extends xlvoCorrectOrderGUI {
 	public function initJS() {
 		xlvoJs::getInstance()->api($this)->name('FreeOrder')->category('QuestionTypes')->addLibToHeader('jquery.ui.touch-punch.min.js')->init();
 	}
-	
+
+
+	/**
+	 * @return bool
+	 */
+	protected function isShowCorrectOrder() {
+		return false;
+	}
 }

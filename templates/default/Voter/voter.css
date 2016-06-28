@@ -4,6 +4,9 @@
 div.lxvo-row {
   margin-top: 40px;
 }
+#xlvo_countdown {
+  display: none;
+}
 #xlvo-display-player {
   background-color: #F9F9F9;
 }

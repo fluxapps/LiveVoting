@@ -274,6 +274,14 @@ class xlvoVotingManager2 {
 	}
 
 
+	/**
+	 * @return bool
+	 */
+	public function hasVotes() {
+		return ($this->countVotes() > 0);
+	}
+
+
 	public function reset() {
 		$this->player->setButtonStates(array());
 		$this->player->update();

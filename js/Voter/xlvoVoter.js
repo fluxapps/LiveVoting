@@ -60,6 +60,18 @@ var xlvoVoter = {
             xlvoVoter.timeout = setTimeout(xlvoVoter.loadVotingData, xlvoVoter.delay);
         });
     },
+    replaceHTML: function (success) {
+        xlvoVoter.log('replace');
+        success = success ? success : function () {
+        };
+        $.get(xlvoVoter.config.base_url, {cmd: 'getHTML'}).done(function (data) {
+            xlvoVoter.player_element.replaceWith('<div id="xlvo_voter_player">' + data + '</div>');
+            xlvoVoter.counter = 0;
+            xlvoVoter.player_element = $('#xlvo_voter_player');
+            xlvoVoter.countdown_element = $('#xlvo_countdown');
+            success();
+        });
+    },
     handleCountdown: function () {
         if (xlvoVoter.player.has_countdown) {
             xlvoVoter.log('has countdown: ' + (xlvoVoter.player.has_countdown ? 'yes, ' + xlvoVoter.player.countdown : 'no'));
@@ -72,17 +84,7 @@ var xlvoVoter = {
             xlvoVoter.countdown_element.hide();
         }
     },
-    replaceHTML: function (success) {
-        xlvoVoter.log('replace');
-        success = success ? success : function () {
-        };
-        $.get(xlvoVoter.config.base_url, {cmd: 'getHTML'}).done(function (data) {
-            xlvoVoter.player_element.replaceWith('<div id="xlvo_voter_player">' + data + '</div>');
-            // var new_dom = $('<div/>').html(data).contents();
-            xlvoVoter.countdown_element = $('#xlvo_countdown');
-            success();
-        });
-    },
+
     /**
      * @param data
      */
