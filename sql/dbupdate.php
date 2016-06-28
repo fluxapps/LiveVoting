@@ -369,4 +369,9 @@ foreach (xlvoVoting::get() as $xlvoVoting) {
 }
 
 ?>
+<#23>
+<?php
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoPlayer.php');
+xlvoPlayer::updateDB();
+?>
 

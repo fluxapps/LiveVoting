@@ -211,7 +211,6 @@ class xlvoPlayerGUI extends xlvoGUI {
 				$this->manager->open($_POST[self::IDENTIFIER]);
 				break;
 			case 'countdown':
-				xlvoPlayer::updateDB();
 				$this->manager->countdown($_POST['seconds']);
 				break;
 			case 'button':
