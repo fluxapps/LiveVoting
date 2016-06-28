@@ -86,6 +86,16 @@ class xlvoPlayer extends ActiveRecord {
 	}
 
 
+	/**
+	 * @param $seconds
+	 */
+	public function startCountDown($seconds) {
+		$this->setFrozen(false);
+		$this->setCountdown($seconds);
+		$this->update();
+	}
+
+
 	public function show() {
 		$this->setShowResults(true);
 		$this->update();
@@ -150,8 +160,19 @@ class xlvoPlayer extends ActiveRecord {
 		$last_update = array_shift(array_values($last_update));
 		$obj->last_update = (int)$last_update;
 		$obj->attendees = (int)xlvoVoter::count($this->getId());;
+		$obj->qtype = $this->getQuestionTypeClassName();
+		$obj->countdown = $this->getCountdown();
+		$obj->has_countdown = $this->isCountDownRunning();
 
 		return $obj;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getQuestionTypeClassName() {
+		return xlvoQuestionTypes::getClassName($this->getActiveVoting());
 	}
 
 
@@ -164,6 +185,14 @@ class xlvoPlayer extends ActiveRecord {
 		} else {
 			return false;
 		}
+	}
+
+
+	/**
+	 * @return bool
+	 */
+	public function isCountDownRunning() {
+		return ($this->getCountdown() > 0);
 	}
 
 
@@ -211,6 +240,13 @@ class xlvoPlayer extends ActiveRecord {
 	public function attend() {
 		$this->setStatus(self::STAT_RUNNING);
 		$this->setTimestampRefresh(time());
+		if ($this->getCountdown() > 0) {
+			$countdown = $this->getCountdown() - 1;
+			$this->setCountdown($countdown);
+			if ($countdown == 0) {
+				$this->setFrozen(true);
+			}
+		}
 		$this->update();
 	}
 
@@ -289,6 +325,14 @@ class xlvoPlayer extends ActiveRecord {
 	 * @db_length           1024
 	 */
 	protected $button_states = array();
+	/**
+	 * @var int
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           2
+	 */
+	protected $countdown = 0;
 
 
 	/**
@@ -408,6 +452,22 @@ class xlvoPlayer extends ActiveRecord {
 	 */
 	public function setButtonStates($button_states) {
 		$this->button_states = $button_states;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getCountdown() {
+		return $this->countdown;
+	}
+
+
+	/**
+	 * @param int $countdown
+	 */
+	public function setCountdown($countdown) {
+		$this->countdown = $countdown;
 	}
 
 

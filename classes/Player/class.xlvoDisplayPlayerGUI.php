@@ -45,6 +45,7 @@ class xlvoDisplayPlayerGUI {
 	public function __construct(xlvoVotingManager2 $manager) {
 		$this->manager = $manager;
 		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Player/tpl.player.html', true, true);
+		$this->pl = ilLiveVotingPlugin::getInstance();
 	}
 
 
@@ -94,7 +95,13 @@ class xlvoDisplayPlayerGUI {
 		if ($this->manager->getVotingConfig()->isShowAttendees()) {
 			$this->tpl->setCurrentBlock('attendees');
 			$this->tpl->setVariable('ATTENDEES', xlvoVoter::count($this->manager->getPlayer()->getId()));
-			$this->tpl->setVariable('ONLINE', ilLiveVotingPlugin::getInstance()->txt('player_voters_online'));
+
+			$this->tpl->setVariable('ONLINE', $this->pl->txt('player_voters_online'));
+			$this->tpl->parseCurrentBlock();
+		}
+		if ($this->manager->getPlayer()->isCountDownRunning()) {
+			$this->tpl->setCurrentBlock('countdown');
+			$this->tpl->setVariable('COUNTDOWN', $this->manager->getPlayer()->getCountdown() . ' ' . $this->pl->txt('player_seconds'));
 			$this->tpl->parseCurrentBlock();
 		}
 		$this->tpl->setVariable('COUNT', $votings_count);

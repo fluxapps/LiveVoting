@@ -1,5 +1,7 @@
+#xlvo-display-player {
+  background-color: #F9F9F9;
+}
 #xlvo_player_loading {
-  display: none;
   width: 100%;
   height: 42px;
   position: absolute;

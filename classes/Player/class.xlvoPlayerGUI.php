@@ -127,7 +127,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 
 	protected function getPlayerData() {
-		$this->manager->getPlayer()->attend();
+		$this->manager->attend();
 		$results = array(
 			'player'       => $this->manager->getPlayer()->getStdClassForPlayer(),
 			'player_html'  => $this->getPlayerHTML(true),
@@ -209,6 +209,10 @@ class xlvoPlayerGUI extends xlvoGUI {
 				break;
 			case 'open':
 				$this->manager->open($_POST[self::IDENTIFIER]);
+				break;
+			case 'countdown':
+				xlvoPlayer::updateDB();
+				$this->manager->countdown($_POST['seconds']);
 				break;
 			case 'button':
 				global $ilLog;
@@ -294,6 +298,20 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$b->setId('btn-next');
 		$this->toolbar->addButtonInstance($b);
 
+		// COUNT_DOWN
+		$countdown = new ilAdvancedSelectionListGUI();
+		$countdown->setListTitle($this->txt('voting_countdown'));
+		$countdown->setId('xlvo_countdown');
+		$countdown->setTriggerEvent('xlvo_countdown');
+		$countdown->setUseImages(false);
+		/**
+		 * @var xlvoVoting[] $votings
+		 */
+		foreach (array( 10, 30, 90, 120, 180, 240, 300 ) as $seconds) {
+			$countdown->addItem($seconds, $seconds, '#', '', '', '', '', false, 'xlvoPlayer.countdown(' . $seconds . ')');
+		}
+		$this->toolbar->addText($countdown->getHTML());
+
 		// Votings
 		$current_selection_list = $this->getVotingSelectionList();
 		$this->toolbar->addText($current_selection_list->getHTML());
@@ -342,13 +360,14 @@ class xlvoPlayerGUI extends xlvoGUI {
 		 * @var xlvoVoting[] $votings
 		 */
 		foreach ($this->manager->getAllVotings() as $voting) {
-			$this->ctrl->setParameter(new xlvoPlayerGUI(), self::IDENTIFIER, $voting->getId());
+			$id = $voting->getId();
+			$this->ctrl->setParameter(new xlvoPlayerGUI(), self::IDENTIFIER, $id);
+			$t = $voting->getTitle();
+			$target = $this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_START_PLAYER);
 			if ($async) {
-				$current_selection_list->addItem($voting->getTitle(), $voting->getId(), $this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_START_PLAYER), '', '', '', '', false, 'xlvoPlayer.open('
-				                                                                                                                                                                        . $voting->getId()
-				                                                                                                                                                                        . ')');
+				$current_selection_list->addItem($t, $id, $target, '', '', '', '', false, 'xlvoPlayer.open(' . $id . ')');
 			} else {
-				$current_selection_list->addItem($voting->getTitle(), $voting->getId(), $this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_START_PLAYER));
+				$current_selection_list->addItem($t, $id, $target);
 			}
 		}
 
@@ -362,7 +381,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 			'status_running' => xlvoPlayer::STAT_RUNNING,
 			'identifier'     => self::IDENTIFIER,
 			'use_mathjax'    => $mathJaxSetting->get("enable"),
-			'debug'          => false,
+			'debug'          => true,
 		);
 		$keyboard = new stdClass();
 		$keyboard->active = $this->manager->getVotingConfig()->isKeyboardActive();

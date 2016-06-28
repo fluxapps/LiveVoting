@@ -251,6 +251,19 @@ class xlvoVotingManager2 {
 
 
 	/**
+	 * @param $seconds
+	 */
+	public function countdown($seconds) {
+		$this->player->startCountDown($seconds);
+	}
+
+
+	public function attend() {
+		$this->getPlayer()->attend();
+	}
+
+
+	/**
 	 * @return int
 	 */
 	public function countVotes() {

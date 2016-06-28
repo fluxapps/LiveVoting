@@ -12,10 +12,8 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
  */
 class xlvoFreeOrderGUI extends xlvoCorrectOrderGUI {
 
-
-
-
 	public function initJS() {
 		xlvoJs::getInstance()->api($this)->name('FreeOrder')->category('QuestionTypes')->addLibToHeader('jquery.ui.touch-punch.min.js')->init();
 	}
+	
 }

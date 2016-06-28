@@ -62,7 +62,7 @@
                     "de": "Abstimmung noch nicht freigegeben",
                     "en": "Voting frozen"
                 },
-                "last_used": "27.06.2016"
+                "last_used": "28.06.2016"
             },
             "header_start": {
                 "translations": {
@@ -83,7 +83,7 @@
                     "de": "Diese Frage ist noch nicht aktiv, bitte warten...",
                     "en": "This Questions is not yet active, please wait..."
                 },
-                "last_used": "27.06.2016"
+                "last_used": "28.06.2016"
             },
             "info_start": {
                 "translations": {
@@ -928,6 +928,20 @@
                 "translations": {
                     "de": "Fragen",
                     "en": "Questions"
+                },
+                "last_used": "28.06.2016"
+            },
+            "voting_countdown": {
+                "translations": {
+                    "en": "Countdown",
+                    "de": "Countdown"
+                },
+                "last_used": "28.06.2016"
+            },
+            "seconds": {
+                "translations": {
+                    "en": "sec",
+                    "de": "s"
                 },
                 "last_used": "28.06.2016"
             }

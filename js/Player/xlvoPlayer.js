@@ -13,11 +13,12 @@ var xlvoPlayer = {
     },
     buttons_handled: false,
     toolbar_loaded: false,
-    delay: 1000,
+    delay: 990,
     counter: 1,
     timeout: null,
     request_pending: false,
     forced_update_interval: 3,
+    countdown_running: false,
     config: {
         base_url: '',
         voter_count_element_id: '',
@@ -30,16 +31,17 @@ var xlvoPlayer = {
         debug: false,
     },
     player: {
+        is_first: true,
+        is_last: false,
         status: -1,
         active_voting_id: -1,
         show_results: false,
         frozen: true,
+        votes: 0,
         last_update: 0,
-        counter: 0,
-        is_first: true,
-        is_last: false,
         attendees: 0,
-        votes: 0
+        countdown: 0,
+        has_countdown: false
     },
     run: function () {
         xlvoPlayer.log('running player');
@@ -105,6 +107,8 @@ var xlvoPlayer = {
         this.btn_unfreeze = $('#btn-unfreeze');
         this.btn_unfreeze.parent().hide();
         this.btn_reset = $('#btn-reset');
+        this.btn_terminate = $('#btn-terminate');
+        this.btn_terminate.parent().hide();
         this.btn_reset.parent().attr('disabled', true);
         this.btn_hide_results = $('#btn-hide-results');
         this.btn_show_results = $('#btn-show-results');
@@ -213,7 +217,14 @@ var xlvoPlayer = {
     }, getPlayerData: function () {
         $.get(xlvoPlayer.config.base_url, {cmd: 'getPlayerData'}).done(function (data) {
             xlvoPlayer.counter++;
-            if ((xlvoPlayer.counter > xlvoPlayer.forced_update_interval) || (data.player.last_update != xlvoPlayer.player.last_update) || (data.player.show_results != xlvoPlayer.player.show_results) || (data.player.status != xlvoPlayer.player.status) || (data.player.active_voting_id != xlvoPlayer.player.active_voting_id)) {
+            if ((xlvoPlayer.counter > xlvoPlayer.forced_update_interval) // Forced update of HTML
+                || (data.player.last_update != xlvoPlayer.player.last_update) // Player is out of sync
+                || (data.player.show_results != xlvoPlayer.player.show_results) // Show Rusults has changed
+                || (data.player.status != xlvoPlayer.player.status) // player status has changed
+                || (data.player.active_voting_id != xlvoPlayer.player.active_voting_id) //Voting has changed
+                || xlvoPlayer.player.has_countdown) // countdown is running
+            {
+
                 var playerHtml = data.player_html;
                 $('#xlvo-display-player').replaceWith('<div id="xlvo-display-player">' + playerHtml + '</div>');
                 if (xlvoPlayer.config.use_mathjax && !!MathJax) {
@@ -240,26 +251,27 @@ var xlvoPlayer = {
      * @param fail
      * @param voting_id
      */
-    callPlayer: function (cmd, success, fail, voting_id) {
+    callPlayer: function (cmd, input_data) {
         if (xlvoPlayer.isRequestPending()) {
             return;
         }
+
         xlvoPlayer.startRequest();
         xlvoPlayer.toolbar_loader.show();
         var success = success ? success : function () {
         }, fail = fail ? fail : function () {
         }, voting_id = voting_id ? voting_id : null;
 
-        $.post(xlvoPlayer.config.base_url + '&cmd=apiCall', {call: cmd, xvi: voting_id}).done(function (data) {
+        var input_data = input_data ? input_data : {};
+        var post_data = $.extend({call: cmd}, input_data);
+        $.post(xlvoPlayer.config.base_url + '&cmd=apiCall', post_data).done(function (data) {
             if (data) {
                 xlvoPlayer.clearTimeout();
                 xlvoPlayer.handleSwitch();
                 xlvoPlayer.getPlayerData();
                 xlvoPlayer.endRequest();
-                success();
             } else {
                 xlvoPlayer.endRequest();
-                fail();
             }
         });
     },
@@ -286,7 +298,7 @@ var xlvoPlayer = {
      * @param id
      */
     open: function (id) {
-        this.callPlayer('open', false, false, id);
+        this.callPlayer('open', {xvi: id});
         return false;
     },
     /**
@@ -364,6 +376,15 @@ var xlvoPlayer = {
 
         xlvoPlayer.toolbar_loader.hide();
         xlvoPlayer.buttons_handled = true;
+    },
+    /**
+     * Startes the counter
+     * @param seconds
+     */
+    countdown: function (seconds) {
+        xlvoPlayer.countdown_running = true;
+        xlvoPlayer.log('Countdown started: ' + seconds);
+        xlvoPlayer.callPlayer('countdown', {seconds: seconds});
     },
     /**
      * @param data

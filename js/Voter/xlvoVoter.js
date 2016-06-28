@@ -18,6 +18,7 @@ var xlvoVoter = {
     },
     config: xlvoVoterConfig,
     status: -1,
+    debug: false,
     active_voting_id: -1,
     run: function () {
         this.getVotingData();
@@ -25,11 +26,11 @@ var xlvoVoter = {
     getVotingData: function () {
         $.get(xlvoVoter.config.base_url, {cmd: xlvoVoter.config.cmd_voting_data})
             .done(function (data) {
-                console.log(data);
+                xlvoVoter.log(data);
                 var voting_has_changed = (xlvoVoter.active_voting_id != data.active_voting_id);
-                //console.log('voting: ' + voting_has_changed);
+                //xlvoVoter.log('voting: ' + voting_has_changed);
                 var status_has_changed = (xlvoVoter.status != data.status);
-                //console.log('status: ' + voting_has_changed);
+                //xlvoVoter.log('status: ' + voting_has_changed);
                 if (status_has_changed || voting_has_changed) {
                     xlvoVoter.replaceHTML();
                 }
@@ -40,12 +41,18 @@ var xlvoVoter = {
             setTimeout(xlvoVoter.getVotingData, 1000);
         });
     },
-    riddler: '+',
     replaceHTML: function () {
-        console.log('replace');
+        xlvoVoter.log('replace');
         $.get(xlvoVoter.config.base_url, {cmd: 'getHTML'}).done(function (data) {
-            $(xlvoVoter.config.player_id).html(data).parent();
+            $(xlvoVoter.config.player_id).html(data);
         });
+    },
+    /**
+     * @param data
+     */
+    log: function (data) {
+        if (xlvoVoter.debug) {
+            console.log(data);
+        }
     }
 };
-
