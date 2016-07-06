@@ -2,7 +2,7 @@
   padding: 0 !important;
 }
 div.lxvo-row {
-  margin-top: 40px;
+  margin-top: 50px;
 }
 #xlvo_countdown {
   display: none;
@@ -116,4 +116,7 @@ div.lxvo-row {
 }
 #xlvo-player-header h1.pull-right {
   margin-left: 5px;
+}
+.xlvo-vote-free-input .well-sm {
+  margin-bottom: 5px;
 }
