@@ -117,6 +117,7 @@ var xlvoPlayer = {
         this.btn_reset.parent().attr('disabled', true);
         this.btn_hide_results = $('#btn-hide-results');
         this.btn_show_results = $('#btn-show-results');
+        this.btn_toggle_pull = $('#btn-toggle-pull');
         this.btn_show_results.parent().hide();
         this.btn_start_fullscreen = $('#btn-start-fullscreen');
         this.btn_close_fullscreen = $('#btn-close-fullscreen');
@@ -159,6 +160,11 @@ var xlvoPlayer = {
             xlvoPlayer.callPlayer('previous');
             return false;
         });
+        if (this.btn_toggle_pull) {
+            this.btn_toggle_pull.click(function () {
+                xlvoPlayer.togglePull();
+            });
+        }
         this.handleFullScreen();
     },
     initElements: function () {
@@ -228,7 +234,8 @@ var xlvoPlayer = {
             xlvoPlayer.log('clear timeout');
             clearTimeout(xlvoPlayer.timeout);
         }
-    }, getPlayerData: function () {
+    },
+    getPlayerData: function () {
         $.get(xlvoPlayer.config.base_url, {cmd: 'getPlayerData'}).done(function (data) {
             xlvoPlayer.counter++;
             if ((xlvoPlayer.counter > xlvoPlayer.forced_update_interval) // Forced update of HTML
@@ -399,6 +406,15 @@ var xlvoPlayer = {
         xlvoPlayer.countdown_running = true;
         xlvoPlayer.log('Countdown started: ' + seconds);
         xlvoPlayer.callPlayer('countdown', {seconds: seconds});
+    },
+    togglePull: function () {
+        if (xlvoPlayer.timeout) {
+            alert('Pull stopped');
+            xlvoPlayer.clearTimeout()
+        } else {
+            alert('Pull started');
+            xlvoPlayer.getPlayerData();
+        }
     },
     /**
      * @param data

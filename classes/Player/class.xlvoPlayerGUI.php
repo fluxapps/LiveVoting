@@ -27,6 +27,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 	const CMD_END = 'end';
 	const CMD_GET_PLAYER_DATA = 'getPlayerData';
 	const CMD_API_CALL = 'apiCall';
+	const DEBUG = true;
 	/**
 	 * @var xlvoVotingManager2
 	 */
@@ -360,6 +361,13 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$b->setUrl($this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_TERMINATE));
 		$b->setId('btn-terminate');
 		$this->toolbar->addButtonInstance($b);
+
+		// PAUSE PULL
+		$b = ilLinkButton::getInstance();
+		$b->setCaption('Toogle Pulling', false);
+		$b->setUrl('#');
+		$b->setId('btn-toggle-pull');
+		$this->toolbar->addButtonInstance($b);
 	}
 
 
@@ -398,7 +406,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 			'status_running' => xlvoPlayer::STAT_RUNNING,
 			'identifier'     => self::IDENTIFIER,
 			'use_mathjax'    => $mathJaxSetting->get("enable"),
-			'debug'          => true,
+			'debug'          => self::DEBUG,
 			'ilias_51'       => version_compare(ILIAS_VERSION_NUMERIC, '5.1.00', '>'),
 		);
 		$keyboard = new stdClass();
