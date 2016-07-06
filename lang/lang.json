@@ -183,7 +183,7 @@
                     "en": "Do you like to reset this Voting? All User-Inputs will be deleted.",
                     "de": "M\u00c3\u00b6chten Sie die Resultate dieser Frage zur\u00c3\u00bccksetzen? Alle Benutzer-Eingaben werden gel\u00c3\u00b6scht."
                 },
-                "last_used": "28.06.2016"
+                "last_used": "06.07.2016"
             },
             "confirm_reset_all": {
                 "translations": {
@@ -432,7 +432,7 @@
                     "en": "Edit",
                     "de": "Bearbeiten"
                 },
-                "last_used": "28.06.2016"
+                "last_used": "06.07.2016"
             },
             "edit_permission": {
                 "translations": {
@@ -835,14 +835,14 @@
                     "de": "Pausieren",
                     "en": "Freeze"
                 },
-                "last_used": "28.06.2016"
+                "last_used": "06.07.2016"
             },
             "hide_results": {
                 "translations": {
                     "de": "Resultate ausblenden",
                     "en": "Hide Results"
                 },
-                "last_used": "28.06.2016"
+                "last_used": "06.07.2016"
             },
             "msg_no_start_1": {
                 "translations": {
@@ -875,14 +875,14 @@
                     "de": "Zur\u00c3\u00bccksetzen",
                     "en": "Reset"
                 },
-                "last_used": "28.06.2016"
+                "last_used": "06.07.2016"
             },
             "show_results": {
                 "translations": {
                     "de": "Resultate einblenden",
                     "en": "Show Results"
                 },
-                "last_used": "28.06.2016"
+                "last_used": "06.07.2016"
             },
             "start_voting": {
                 "translations": {
@@ -903,28 +903,28 @@
                     "de": "Beenden",
                     "en": "Terminate"
                 },
-                "last_used": "28.06.2016"
+                "last_used": "06.07.2016"
             },
             "unfreeze": {
                 "translations": {
                     "de": "Abstimmen",
                     "en": "Unfreeze"
                 },
-                "last_used": "28.06.2016"
+                "last_used": "06.07.2016"
             },
             "voters_online": {
                 "translations": {
                     "de": "Online",
                     "en": "Online"
                 },
-                "last_used": "28.06.2016"
+                "last_used": "06.07.2016"
             },
             "voting_list": {
                 "translations": {
                     "de": "Fragen",
                     "en": "Questions"
                 },
-                "last_used": "28.06.2016"
+                "last_used": "06.07.2016"
             },
             "voting_countdown": {
                 "translations": {
@@ -938,7 +938,14 @@
                     "en": "sec",
                     "de": "s"
                 },
-                "last_used": "28.06.2016"
+                "last_used": "06.07.2016"
+            },
+            "player_countdown": {
+                "translations": {
+                    "en": "Countdown",
+                    "de": "Countdown"
+                },
+                "last_used": "06.07.2016"
             }
         },
         "qtype": {
@@ -1224,14 +1231,14 @@
                     "de": "Verwalten",
                     "en": "Manage"
                 },
-                "last_used": "28.06.2016"
+                "last_used": "06.07.2016"
             },
             "show": {
                 "translations": {
                     "de": "Zeigen",
                     "en": "Show"
                 },
-                "last_used": "28.06.2016"
+                "last_used": "06.07.2016"
             }
         },
         "tab": {
@@ -1240,14 +1247,14 @@
                     "de": "Inhalt",
                     "en": "Content"
                 },
-                "last_used": "28.06.2016"
+                "last_used": "06.07.2016"
             },
             "edit": {
                 "translations": {
                     "de": "Einstellungen",
                     "en": "Settings"
                 },
-                "last_used": "28.06.2016"
+                "last_used": "06.07.2016"
             }
         },
         "cat": {

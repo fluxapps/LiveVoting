@@ -7,8 +7,6 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoDisplayPlayerGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/Modal/class.xlvoQRModalGUI.php');
 require_once('./Services/Administration/classes/class.ilSetting.php');
-require_once('./Services/UIComponent/SplitButton/classes/class.ilButtonToSplitButtonMenuItemAdapter.php');
-require_once('./Services/UIComponent/SplitButton/classes/class.ilSplitButtonGUI.php');
 
 /**
  * Class xlvoPlayerGUI
@@ -235,6 +233,12 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 * Set Toolbar Content and Buttons for the Player.
 	 */
 	protected function initToolbarDuringVoting() {
+		$ilias_51 = version_compare(ILIAS_VERSION_NUMERIC, '5.1.00', '>');
+		if ($ilias_51) {
+			require_once('./Services/UIComponent/SplitButton/classes/class.ilButtonToSplitButtonMenuItemAdapter.php');
+			require_once('./Services/UIComponent/SplitButton/classes/class.ilSplitButtonGUI.php');
+		}
+
 		// Freeze
 		$b = xlvoLinkButton::getInstance();
 		$b->clearClasses();
@@ -254,19 +258,34 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$unfreeze->setCaption(xlvoGlyphGUI::get('play') . $this->txt('unfreeze'), false);
 		$unfreeze->setUrl('#');
 		$unfreeze->setId('btn-unfreeze');
-
-		$split = ilSplitButtonGUI::getInstance();
-		$split->setDefaultButton($unfreeze);
-		foreach (array( 10, 30, 90, 120, 180, 240, 300 ) as $seconds) {
-			$cd = ilLinkButton::getInstance();
-			$cd->setUrl('#');
-			$cd->setCaption($seconds . ' ' . $this->pl->txt('player_seconds'), false);
-			$cd->setOnClick("xlvoPlayer.countdown($seconds);");
-			$ilSplitButtonMenuItem = new ilButtonToSplitButtonMenuItemAdapter($cd);
-			$split->addMenuItem($ilSplitButtonMenuItem);
+		if ($ilias_51) {
+			$split = ilSplitButtonGUI::getInstance();
+			$split->setDefaultButton($unfreeze);
+			foreach (array( 10, 30, 90, 120, 180, 240, 300 ) as $seconds) {
+				$cd = ilLinkButton::getInstance();
+				$cd->setUrl('#');
+				$cd->setCaption($seconds . ' ' . $this->pl->txt('player_seconds'), false);
+				$cd->setOnClick("xlvoPlayer.countdown($seconds);");
+				$ilSplitButtonMenuItem = new ilButtonToSplitButtonMenuItemAdapter($cd);
+				$split->addMenuItem($ilSplitButtonMenuItem);
+			}
+			$this->toolbar->addButtonInstance($split);
+		} else {
+			$current_selection_list = new ilAdvancedSelectionListGUI();
+			$current_selection_list->setListTitle($this->txt('player_countdown'));
+			$current_selection_list->setId('xlvo_cd');
+			$current_selection_list->setTriggerEvent('player_countdown');
+			$current_selection_list->setUseImages(false);
+			/**
+			 * @var xlvoVoting[] $votings
+			 */
+			foreach (array( 10, 30, 90, 120, 180, 240, 300 ) as $seconds) {
+				$str = $seconds . ' ' . $this->pl->txt('player_seconds');
+				$current_selection_list->addItem($str, $seconds, '#', '', '', '', '', false, 'xlvoPlayer.countdown(' . $seconds . ')');
+			}
+			$this->toolbar->addButtonInstance($unfreeze);
+			$this->toolbar->addText($current_selection_list->getHTML());
 		}
-		$this->toolbar->addButtonInstance($split);
-
 		// Hide
 		$b = ilLinkButton::getInstance();
 		$b->setCaption(xlvoGlyphGUI::get('eye-close') . $this->txt('hide_results'), false);
@@ -380,6 +399,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 			'identifier'     => self::IDENTIFIER,
 			'use_mathjax'    => $mathJaxSetting->get("enable"),
 			'debug'          => true,
+			'ilias_51'       => version_compare(ILIAS_VERSION_NUMERIC, '5.1.00', '>'),
 		);
 		$keyboard = new stdClass();
 		$keyboard->active = $this->manager->getVotingConfig()->isKeyboardActive();

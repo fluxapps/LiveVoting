@@ -134,6 +134,7 @@ player_voters_online#:#Online
 player_voting_list#:#Questions
 player_voting_countdown#:#Countdown
 player_seconds#:#sec
+player_player_countdown#:#Countdown
 qtype_1_colors#:#Different Colors
 qtype_1_multi_selection#:#Multiple Selection
 qtype_1_multi_selection_info#:#User can select more than one Option
