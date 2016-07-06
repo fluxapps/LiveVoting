@@ -31,6 +31,7 @@ class xlvoVotingGUI {
 	const CMD_CONFIRM_DELETE = 'confirmDelete';
 	const CMD_DELETE = 'delete';
 	const CMD_CONFIRM_RESET = 'confirmReset';
+	const CMD_DUPLICATE = 'duplicate';
 	const CMD_RESET = 'reset';
 	const CMD_CONFIRM_RESET_ALL = 'confirmResetAll';
 	const CMD_RESET_ALL = 'resetAll';
@@ -400,6 +401,15 @@ class xlvoVotingGUI {
 
 			$this->cancel();
 		}
+	}
+
+
+	protected function duplicate() {
+		$xlvoVoting = xlvoVoting::find($_GET[self::IDENTIFIER]);
+		$xlvoVotingDuplicate = $xlvoVoting->copy();
+		$xlvoVotingDuplicate->create();
+		ilUtil::sendSuccess($this->pl->txt('voting_msg_duplicated'), true);
+		$this->cancel();
 	}
 
 

@@ -32,6 +32,7 @@ voting_delete_confirm#:#MÃ¶chsten Sie die Abstimmung wirklich lÃ¶schen?
 voting_description#:#Beschreibung
 voting_edit#:#Bearbeiten
 voting_msg_sorting_saved#:#Reihenfolge gespeichert
+voting_msg_duplicated#:#Frage wurde dupliziert
 voting_question#:#Frage
 voting_reset#:#ZurÃ¼cksetzen
 voting_reset_all#:#Alle Resultate zurÃ¼cksetzen
@@ -58,6 +59,7 @@ voting_import#:#Import
 voting_form_title_update#:#Question
 voting_form_title_create#:#Question
 voting_columns#:#Spalten fÃ¼r AntwortmÃ¶glichkeiten
+voting_duplicate#:#Duplizieren
 xlvo_add#:#HinzufÃ¼gen
 xlvo_delete#:#LiveVoting lÃ¶schen
 xlvo_edit#:#Bearbeiten

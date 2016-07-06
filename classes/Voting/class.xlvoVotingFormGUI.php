@@ -173,19 +173,6 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 
 		xlvoSubFormGUI::getInstance($this->getVoting())->handleAfterSubmit($this);
 
-		if ($this->is_new) {
-			$lastVoting = xlvoVoting::where(array(
-				'obj_id'        => $this->parent_gui->getObjId(),
-				'voting_status' => xlvoVoting::STAT_ACTIVE,
-			))->orderBy('position', 'ASC')->last();
-			if ($lastVoting instanceof xlvoVoting) {
-				$lastPosition = $lastVoting->getPosition();
-			} else {
-				$lastPosition = 0;
-			}
-			$this->voting->setPosition($lastPosition + 1);
-		}
-
 		return true;
 	}
 
