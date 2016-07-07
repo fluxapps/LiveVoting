@@ -100,7 +100,7 @@ class xlvoJs {
 		$ilCtrl2->setTargetScript(self::API_URL);
 		$additional_classes[] = get_class($xlvoGUI);
 
-		$this->settings->addSetting(self::BASE_URL_SETTING, $ilCtrl->getLinkTargetByClass($additional_classes, $cmd));
+		$this->settings->addSetting(self::BASE_URL_SETTING, $ilCtrl->getLinkTargetByClass($additional_classes, $cmd, null, true));
 
 		return $this;
 	}
