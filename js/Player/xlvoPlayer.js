@@ -341,7 +341,7 @@ var xlvoPlayer = {
      * Handles some special functionality on startscreen
      */
     handleStartButton: function () {
-        var btn = $('#btn-start-voting');
+        var btn = $('.xlvo-preview');
         btn.click(function (evt) {
             xlvoPlayer.clearTimeout();
             if (evt.altKey) {
@@ -350,6 +350,8 @@ var xlvoPlayer = {
             }
             return true;
         });
+
+
     },
     /**
      * @param html
@@ -359,10 +361,11 @@ var xlvoPlayer = {
             this.log('buttons already handled for this question');
             return;
         }
+
         var custom_toolbar_dom = $('<div/>').html(html).contents(),
-            custom_toolbar_inner = custom_toolbar_dom.find('ul.ilToolbarItems'),
+            custom_toolbar_inner = custom_toolbar_dom.find('ul.nav'),
             costom_buttons_count = custom_toolbar_inner.find('.btn').length,
-            toolbar_inner = this.toolbar.find('ul.ilToolbarItems'),
+            toolbar_inner = this.toolbar.find('ul.nav'),
             dynamic_sep = toolbar_inner.find('li#dynamic_sep');
 
         if (costom_buttons_count < 1 || !html || html === '') {

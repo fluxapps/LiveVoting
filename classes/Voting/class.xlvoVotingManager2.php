@@ -129,6 +129,18 @@ class xlvoVotingManager2 {
 
 	/**
 	 * @param $option_id
+	 * @return int
+	 */
+	public function countVotesOfOption($option_id) {
+		return xlvoVote::where(array(
+			'option_id' => $option_id,
+			'status'    => xlvoVote::STAT_ACTIVE,
+		))->count();
+	}
+
+
+	/**
+	 * @param $option_id
 	 * @return xlvoVote[]
 	 */
 	public function getVotesOfOption($option_id) {
@@ -298,6 +310,21 @@ class xlvoVotingManager2 {
 			'voting_id' => $this->getVoting()->getId(),
 			'status'    => xlvoVote::STAT_ACTIVE,
 		))->count();
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getMaxCountOfVotes() {
+		$q = "SELECT MAX(counted) AS maxcount FROM
+				( SELECT COUNT(*) AS counted FROM rep_robj_xlvo_vote_n WHERE voting_id = %s AND status = %s GROUP BY option_id ) 
+				AS counts";
+		global $ilDB;
+		$res = $ilDB->queryF($q, array( 'integer', 'integer' ), array( $this->getVoting()->getId(), xlvoVote::STAT_ACTIVE ));
+		$data = $ilDB->fetchObject($res);
+
+		return $data->maxcount ? $data->maxcount : 0;
 	}
 
 

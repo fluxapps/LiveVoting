@@ -11,6 +11,8 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
  * @ilCtrl_IsCalledBy xlvoFreeOrderGUI: xlvoVoter2GUI
  */
 class xlvoFreeOrderGUI extends xlvoCorrectOrderGUI {
+	
+	
 
 	public function initJS() {
 		xlvoJs::getInstance()->api($this)->name('FreeOrder')->category('QuestionTypes')->addLibToHeader('jquery.ui.touch-punch.min.js')->init();
@@ -20,7 +22,7 @@ class xlvoFreeOrderGUI extends xlvoCorrectOrderGUI {
 	/**
 	 * @return array
 	 */
-	public function getButtonInstances() {
+	public function getButtonInstances() {  
 		if (!$this->manager->getPlayer()->isShowResults()) {
 			return array();
 		}

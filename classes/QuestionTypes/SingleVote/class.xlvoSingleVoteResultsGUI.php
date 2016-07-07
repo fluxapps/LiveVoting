@@ -1,5 +1,6 @@
 <?php
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoInputResultsGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/SingleVote/class.xlvoSingleVoteGUI.php');
 
 /**
  * Class xlvoSingleVoteResultsGUI
@@ -18,13 +19,23 @@ class xlvoSingleVoteResultsGUI extends xlvoInputResultsGUI {
 		$answer_count = 64;
 		$bars = new xlvoBarCollectionGUI();
 		$total = $this->manager->countVotes();
-		foreach ($this->voting->getVotingOptions() as $option) {
+		$max = $this->manager->getMaxCountOfVotes();
+		foreach ($this->voting->getVotingOptions() as $xlvoOption) {
 			$answer_count ++;
 			/**
 			 * @var xlvoVote $votes
 			 */
-			$votes = $this->manager->getVotesOfOption($option->getId());
-			$bars->addBar(xlvoBarPercentageGUI::getInstanceFromOption($option, count($votes), $total, chr($answer_count)));
+			$votes = $this->manager->countVotesOfOption($xlvoOption->getId());
+
+			$xlvoBarPercentageGUI = new xlvoBarPercentageGUI();
+			$xlvoBarPercentageGUI->setShowAbsolute($this->isShowAbsolute());
+			$xlvoBarPercentageGUI->setTitle($xlvoOption->getText());
+			$xlvoBarPercentageGUI->setId($xlvoOption->getId());
+			$xlvoBarPercentageGUI->setVotes($votes);
+			$xlvoBarPercentageGUI->setTotal($total);
+			$xlvoBarPercentageGUI->setMax($max);
+
+			$bars->addBar($xlvoBarPercentageGUI);
 		}
 
 		$bars->setShowTotalVotes(true);
@@ -39,5 +50,15 @@ class xlvoSingleVoteResultsGUI extends xlvoInputResultsGUI {
 	 */
 	protected function getButtonsStates() {
 		return $this->manager->getPlayer()->getButtonStates();
+	}
+
+
+	/**
+	 * @return bool
+	 */
+	protected function isShowAbsolute() {
+		$states = $this->getButtonsStates();
+
+		return ($this->manager->getPlayer()->isShowResults() && (bool)$states[xlvoSingleVoteGUI::BUTTON_TOGGLE_PERCENTAGE]);
 	}
 }

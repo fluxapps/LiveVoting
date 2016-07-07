@@ -10,6 +10,8 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
  */
 class xlvoSingleVoteGUI extends xlvoQuestionTypesGUI {
 
+	const BUTTON_TOGGLE_PERCENTAGE = 'toggle_percentage';
+
 	/**
 	 * @description add JS to the HEAD
 	 */
@@ -25,6 +27,36 @@ class xlvoSingleVoteGUI extends xlvoQuestionTypesGUI {
 		$this->manager->vote($_GET['option_id']);
 	}
 
+	/**
+	 * @return array
+	 */
+	public function getButtonInstances() {
+		if (!$this->manager->getPlayer()->isShowResults()) {
+			return array();
+		}
+		$states = $this->getButtonsStates();
+		$t = ilLinkButton::getInstance();
+		$t->setId(self::BUTTON_TOGGLE_PERCENTAGE);
+		if ($states[self::BUTTON_TOGGLE_PERCENTAGE]) {
+			$t->setCaption('%', false);
+		} else {
+			$t->setCaption(xlvoGlyphGUI::get('user'), false);
+		}
+
+		return array( $t );
+	}
+
+
+	/**
+	 * @param $button_id
+	 * @param $data
+	 */
+	public function handleButtonCall($button_id, $data) {
+		$states = $this->getButtonsStates();
+		$this->saveButtonState($button_id, !$states[$button_id]);
+	}
+
+	
 
 	/**
 	 * @return string
