@@ -61,6 +61,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 		$b = ilLinkButton::getInstance();
 		$b->setCaption($this->txt('start_voting'), false);
+		$b->addCSSClass('xlvo-preview');
 		$b->setUrl($this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_START_PLAYER));
 		$b->setId('btn-start-voting');
 		$b->setPrimary(true);
@@ -68,6 +69,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 		$b = ilLinkButton::getInstance();
 		$b->setCaption($this->txt('start_voting_and_unfreeze'), false);
+		$b->addCSSClass('xlvo-preview');
 		$b->setUrl($this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_START_PLAYER_AND_UNFREEZE));
 		$b->setId('btn-start-voting-unfreeze');
 		$this->toolbar->addButtonInstance($b);
@@ -361,13 +363,15 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$b->setUrl($this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_TERMINATE));
 		$b->setId('btn-terminate');
 		$this->toolbar->addButtonInstance($b);
+		if (self::DEBUG) {
 
-		// PAUSE PULL
-		$b = ilLinkButton::getInstance();
-		$b->setCaption('Toogle Pulling', false);
-		$b->setUrl('#');
-		$b->setId('btn-toggle-pull');
-		$this->toolbar->addButtonInstance($b);
+			// PAUSE PULL
+			$b = ilLinkButton::getInstance();
+			$b->setCaption('Toogle Pulling', false);
+			$b->setUrl('#');
+			$b->setId('btn-toggle-pull');
+			$this->toolbar->addButtonInstance($b);
+		}
 	}
 
 
@@ -377,6 +381,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 */
 	protected function getVotingSelectionList($async = true) {
 		$current_selection_list = new ilAdvancedSelectionListGUI();
+		$current_selection_list->setItemLinkClass('xlvo-preview');
 		$current_selection_list->setListTitle($this->txt('voting_list'));
 		$current_selection_list->setId('xlvo_select');
 		$current_selection_list->setTriggerEvent('xlvo_voting');
