@@ -49,7 +49,7 @@ class xlvoTextAreaInputGUI extends ilTextAreaInputGUI {
 	 * @return string
 	 */
 	public function render() {
-		$tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/tpl.text_area_helper.html');
+		$tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/tpl.text_area_helper.html', false, false);
 		$this->insert($tpl);
 		$tpl->setVariable('INLINE_STYLE', $this->getInlineStyle());
 
