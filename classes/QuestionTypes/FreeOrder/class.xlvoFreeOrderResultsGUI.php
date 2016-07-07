@@ -45,7 +45,9 @@ class xlvoFreeOrderResultsGUI extends xlvoCorrectOrderResultsGUI {
 			$bar->setTitle($xlvoOption->getText());
 			$bar->setId($xlvoOption->getId());
 			$bar->setVotes($option_weight[$xlvoOption->getId()]);
-			$bar->setMax(max($option_weight));
+			if ($option_weight) {
+				$bar->setMax(max($option_weight));
+			}
 			$bar->setShowAbsolute($absolute);
 
 			$bars->addBar($bar);
@@ -53,7 +55,6 @@ class xlvoFreeOrderResultsGUI extends xlvoCorrectOrderResultsGUI {
 
 		$bars->setShowTotalVotes(true);
 		$bars->setTotalVotes($this->manager->countVotes());
-
 
 		return $bars->getHTML();
 	}
