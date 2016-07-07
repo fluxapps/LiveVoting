@@ -151,6 +151,34 @@ class xlvoVoting extends ActiveRecord {
 	}
 
 
+	/**
+	 * @param int $new_id
+	 * @return \xlvoVoting
+	 * @throws \arException
+	 */
+	public function copy($new_id = 0) {
+		/**
+		 * @var $newObj          xlvoVoting
+		 * @var $votingOptionNew xlvoOption
+		 */
+		$newObj = parent::copy($new_id);
+		$count = 1;
+		while(xlvoVoting::where(array( 'title' => $this->getTitle().' ('.$count.')' ))->where(array( 'obj_id' => $this->getObjId() ))->count()) {
+			$count++;
+		}
+
+		$newObj->setTitle($this->getTitle() . ' (' . $count . ')');
+		$newObj->create();
+		foreach ($newObj->getVotingOptions() as $votingOption) {
+			$votingOptionNew = $votingOption->copy();
+			$votingOptionNew->setVotingId($newObj->getId());
+			$votingOptionNew->create();
+		}
+
+		return $newObj;
+	}
+
+
 	public function create() {
 		global $ilDB;
 		$res = $ilDB->query('SELECT MAX(position) as max FROM rep_robj_xlvo_voting_n WHERE obj_id = ' . $ilDB->quote($this->getObjId(), 'integer'));

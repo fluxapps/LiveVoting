@@ -405,9 +405,11 @@ class xlvoVotingGUI {
 
 
 	protected function duplicate() {
+		/**
+		 * @var $xlvoVoting xlvoVoting
+		 */
 		$xlvoVoting = xlvoVoting::find($_GET[self::IDENTIFIER]);
-		$xlvoVotingDuplicate = $xlvoVoting->copy();
-		$xlvoVotingDuplicate->create();
+		$xlvoVoting->copy();
 		ilUtil::sendSuccess($this->pl->txt('voting_msg_duplicated'), true);
 		$this->cancel();
 	}
