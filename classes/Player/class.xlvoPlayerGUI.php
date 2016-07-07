@@ -162,7 +162,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 			$toolbar = new xlvoToolbarGUI();
 
 			foreach ($xlvoQuestionTypesGUI->getButtonInstances() as $buttonInstance) {
-				if ($buttonInstance instanceof ilButtonBase) {
+				if ($buttonInstance instanceof ilButton || $buttonInstance instanceof ilButtonBase) {
 					$toolbar->addButtonInstance($buttonInstance);
 				}
 			}
