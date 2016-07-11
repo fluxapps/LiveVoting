@@ -365,7 +365,7 @@ var xlvoPlayer = {
         var custom_toolbar_dom = $('<div/>').html(html).contents(),
             custom_toolbar_inner = custom_toolbar_dom.find('ul.nav'),
             costom_buttons_count = custom_toolbar_inner.find('.btn').length,
-            toolbar_inner = this.toolbar.find('ul.nav'),
+            toolbar_inner = this.toolbar.find('ul.nav').last(),
             dynamic_sep = toolbar_inner.find('li#dynamic_sep');
 
         if (costom_buttons_count < 1 || !html || html === '') {
