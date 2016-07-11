@@ -3,6 +3,7 @@
 require_once('./Services/ActiveRecord/class.ActiveRecord.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voter/class.xlvoVoter.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Vote/class.xlvoVote.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoPlayerGUI.php');
 
 /**
  * Class xlvoPlayer
@@ -57,7 +58,7 @@ class xlvoPlayer extends ActiveRecord {
 	 * @return int
 	 */
 	public function getStatus($simulate_user = false) {
-		if ($simulate_user && $this->isFrozenOrUnattended()) {
+		if ($simulate_user && $this->isFrozenOrUnattended() && !xlvoPlayerGUI::DEBUG) {
 			return self::STAT_FROZEN;
 		}
 

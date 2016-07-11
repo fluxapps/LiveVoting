@@ -415,7 +415,7 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	public function initCSSandJS() {
 		global $tpl;
 		$tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/multi_line_input.css');
-		$tpl->addJavascript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/multi_line_input.js');
+		$tpl->addJavascript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/js/libs/multi_line_input.min.js');
 	}
 
 

@@ -62,8 +62,8 @@
                     return false;
                 });
 
+                // If element is added by plus button
                 if (!init) {
-                    console.log($line);
                     $line.find("textarea[name^='" + empty_id + "'], input[name^='" + empty_id + "'], select[name^='" + empty_id + "']").each(function () {
                         var name = $(this).attr('name');
                         var id = element.attr('id');
@@ -71,9 +71,11 @@
                         var regex = new RegExp('^' + empty_id + '\[[0-9]+\](.*)$', 'g');
                         var matches = regex.exec(name);
                         name = id + '[' + counter + ']' + matches[1];
-                        console.log(name);
-                        console.log(matches);
                         $(this).attr('name', name);
+                        // $(this).attr('data-name', 'fsx');
+                        // $(this).get(0).focus();
+                        // $(this).focus();
+                        $('input[name="' + name + '"]').focus();
                     });
                 }
                 counter++;
