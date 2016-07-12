@@ -28,6 +28,7 @@ class xlvoVotingGUI {
 	const CMD_CREATE = 'create';
 	const CMD_EDIT = 'edit';
 	const CMD_UPDATE = 'update';
+	const CMD_UPDATE_AND_STAY = 'updateAndStay';
 	const CMD_CONFIRM_DELETE = 'confirmDelete';
 	const CMD_DELETE = 'delete';
 	const CMD_CONFIRM_RESET = 'confirmReset';
@@ -212,14 +213,56 @@ class xlvoVotingGUI {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
-			$xlvoVotingFormGUI = new xlvoVotingFormGUI($this, xlvoVoting::find($_GET[self::IDENTIFIER]));
+			/**
+			 * @var $xlvoVoting xlvoVoting
+			 */
+			$xlvoVoting = xlvoVoting::find($_GET[self::IDENTIFIER]);
+			// PREV
+			$prev_id = xlvoVoting::where(array(
+				'obj_id'        => $xlvoVoting->getObjId(),
+				'voting_status' => xlvoVoting::STAT_ACTIVE,
+			))->orderBy('position', 'DESC')->where(array( 'position' => $xlvoVoting->getPosition() ), '<')->limit(0, 1)->getArray('id', 'id');
+			$prev_id = array_shift(array_values($prev_id));
+
+			if ($prev_id) {
+				$this->ctrl->setParameter($this, self::IDENTIFIER, $prev_id);
+				$prev = ilLinkButton::getInstance();
+				$prev->setUrl($this->ctrl->getLinkTarget($this, self::CMD_EDIT));
+				$prev->setCaption(xlvoGlyphGUI::get(xlvoGlyphGUI::PREVIOUS), false);
+				$this->toolbar->addButtonInstance($prev);
+			}
+
+			// NEXT
+			$next_id = xlvoVoting::where(array(
+				'obj_id'        => $xlvoVoting->getObjId(),
+				'voting_status' => xlvoVoting::STAT_ACTIVE,
+			))->orderBy('position', 'ASC')->where(array( 'position' => $xlvoVoting->getPosition() ), '>')->limit(0, 1)->getArray('id', 'id');
+			$next_id = array_shift(array_values($next_id));
+
+			if ($next_id) {
+				$this->ctrl->setParameter($this, self::IDENTIFIER, $next_id);
+				$next = ilLinkButton::getInstance();
+				$next->setUrl($this->ctrl->getLinkTarget($this, self::CMD_EDIT));
+				$next->setCaption(xlvoGlyphGUI::get(xlvoGlyphGUI::NEXT), false);
+				$this->toolbar->addButtonInstance($next);
+			}
+			$this->ctrl->setParameter($this, self::IDENTIFIER, $xlvoVoting->getId());
+			$xlvoVotingFormGUI = new xlvoVotingFormGUI($this, $xlvoVoting);
 			$xlvoVotingFormGUI->fillForm();
 			$this->tpl->setContent($xlvoVotingFormGUI->getHTML());
 		}
 	}
 
 
-	protected function update() {
+	public function updateAndStay() {
+		$this->update(self::CMD_EDIT);
+	}
+
+
+	/**
+	 * @param string $cmd
+	 */
+	protected function update($cmd = self::CMD_STANDARD) {
 		if (!$this->access->hasWriteAccess()) {
 			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
@@ -228,7 +271,7 @@ class xlvoVotingGUI {
 			$xlvoVotingFormGUI->setValuesByPost();
 			if ($xlvoVotingFormGUI->saveObject()) {
 				ilUtil::sendSuccess($this->pl->txt('msg_success_voting_updated'), true);
-				$this->ctrl->redirect($this, self::CMD_STANDARD);
+				$this->ctrl->redirect($this, $cmd);
 			}
 			$this->tpl->setContent($xlvoVotingFormGUI->getHTML());
 		}
@@ -409,7 +452,7 @@ class xlvoVotingGUI {
 		 * @var $xlvoVoting xlvoVoting
 		 */
 		$xlvoVoting = xlvoVoting::find($_GET[self::IDENTIFIER]);
-		$xlvoVoting->copy();
+		$xlvoVoting->fullClone(true, true);
 		ilUtil::sendSuccess($this->pl->txt('voting_msg_duplicated'), true);
 		$this->cancel();
 	}

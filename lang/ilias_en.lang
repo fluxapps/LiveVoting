@@ -60,6 +60,7 @@ voting_form_title_update#:#Frage
 voting_form_title_create#:#Frage
 voting_columns#:#Colums for possible answers
 voting_duplicate#:#Clone
+voting_update_and_stay#:#Update and Stay
 xlvo_add#:#Add
 xlvo_delete#:#Delete LiveVoting
 xlvo_edit#:#Edit

@@ -60,6 +60,7 @@ voting_form_title_update#:#Question
 voting_form_title_create#:#Question
 voting_columns#:#Spalten fÃ¼r AntwortmÃ¶glichkeiten
 voting_duplicate#:#Duplizieren
+voting_update_and_stay#:#Speichern und weiter bearbeiten
 xlvo_add#:#HinzufÃ¼gen
 xlvo_delete#:#LiveVoting lÃ¶schen
 xlvo_edit#:#Bearbeiten

@@ -156,21 +156,21 @@
                     "en": "Actions",
                     "de": "Aktionen"
                 },
-                "last_used": "06.07.2016"
+                "last_used": "12.07.2016"
             },
             "add": {
                 "translations": {
                     "en": "Add Question",
                     "de": "Frage hinzuf\u00c3\u00bcgen"
                 },
-                "last_used": "06.07.2016"
+                "last_used": "12.07.2016"
             },
             "cancel": {
                 "translations": {
                     "en": "Cancel",
                     "de": "Abbrechen"
                 },
-                "last_used": "06.07.2016"
+                "last_used": "12.07.2016"
             },
             "confirm_number_of_votes": {
                 "translations": {
@@ -203,7 +203,7 @@
                     "en": "Delete",
                     "de": "L\u00c3\u00b6schen"
                 },
-                "last_used": "06.07.2016"
+                "last_used": "12.07.2016"
             },
             "delete_confirm": {
                 "translations": {
@@ -217,14 +217,14 @@
                     "en": "Description",
                     "de": "Beschreibung"
                 },
-                "last_used": "28.06.2016"
+                "last_used": "12.07.2016"
             },
             "edit": {
                 "translations": {
                     "en": "Edit",
                     "de": "Bearbeiten"
                 },
-                "last_used": "06.07.2016"
+                "last_used": "12.07.2016"
             },
             "msg_sorting_saved": {
                 "translations": {
@@ -244,28 +244,28 @@
                     "en": "Question",
                     "de": "Frage"
                 },
-                "last_used": "06.07.2016"
+                "last_used": "12.07.2016"
             },
             "reset": {
                 "translations": {
                     "en": "Reset",
                     "de": "Zur\u00c3\u00bccksetzen"
                 },
-                "last_used": "06.07.2016"
+                "last_used": "12.07.2016"
             },
             "reset_all": {
                 "translations": {
                     "en": "Reset all Votings",
                     "de": "Alle Resultate zur\u00c3\u00bccksetzen"
                 },
-                "last_used": "06.07.2016"
+                "last_used": "12.07.2016"
             },
             "save_sorting": {
                 "translations": {
                     "en": "Save Order",
                     "de": "Reihenfolge speichern"
                 },
-                "last_used": "06.07.2016"
+                "last_used": "12.07.2016"
             },
             "select_type": {
                 "translations": {
@@ -279,49 +279,49 @@
                     "en": "Status",
                     "de": "Status"
                 },
-                "last_used": "06.07.2016"
+                "last_used": "12.07.2016"
             },
             "status_1": {
                 "translations": {
                     "en": "Inactive",
                     "de": "Inaktiv"
                 },
-                "last_used": "06.07.2016"
+                "last_used": "12.07.2016"
             },
             "status_2": {
                 "translations": {
                     "en": "Incomplete",
                     "de": "Unvollst\u00c3\u00a4ndig"
                 },
-                "last_used": "06.07.2016"
+                "last_used": "12.07.2016"
             },
             "status_5": {
                 "translations": {
                     "en": "Active",
                     "de": "Aktiv"
                 },
-                "last_used": "06.07.2016"
+                "last_used": "12.07.2016"
             },
             "title": {
                 "translations": {
                     "en": "Title",
                     "de": "Titel"
                 },
-                "last_used": "06.07.2016"
+                "last_used": "12.07.2016"
             },
             "type": {
                 "translations": {
                     "en": "Type",
                     "de": "Typ"
                 },
-                "last_used": "06.07.2016"
+                "last_used": "12.07.2016"
             },
             "type_1": {
                 "translations": {
                     "en": "Single\/Multiple Choice",
                     "de": "Single\/Multiple Choice"
                 },
-                "last_used": "06.07.2016"
+                "last_used": "12.07.2016"
             },
             "type_1_info": {
                 "translations": {
@@ -335,7 +335,7 @@
                     "en": "Free Input",
                     "de": "Freitext eingeben"
                 },
-                "last_used": "06.07.2016"
+                "last_used": "12.07.2016"
             },
             "type_2_info": {
                 "translations": {
@@ -355,7 +355,7 @@
                     "en": "Correct Order",
                     "de": "Korrekte Reihenfolge"
                 },
-                "last_used": "06.07.2016"
+                "last_used": "12.07.2016"
             },
             "type_4_info": {
                 "translations": {
@@ -369,14 +369,14 @@
                     "en": "Priorities",
                     "de": "Priorit\u00c3\u00a4ten"
                 },
-                "last_used": "06.07.2016"
+                "last_used": "12.07.2016"
             },
             "update": {
                 "translations": {
                     "en": "Update",
                     "de": "Speichern"
                 },
-                "last_used": "28.06.2016"
+                "last_used": "12.07.2016"
             },
             "type_5_info": {
                 "translations": {
@@ -404,7 +404,7 @@
                     "en": "Frage",
                     "de": "Question"
                 },
-                "last_used": "28.06.2016"
+                "last_used": "12.07.2016"
             },
             "form_title_create": {
                 "translations": {
@@ -418,14 +418,21 @@
                     "en": "Colums for possible answers",
                     "de": "Spalten f\u00c3\u00bcr Antwortm\u00c3\u00b6glichkeiten"
                 },
-                "last_used": "28.06.2016"
+                "last_used": "12.07.2016"
             },
             "duplicate": {
                 "translations": {
                     "en": "Clone",
                     "de": "Duplizieren"
                 },
-                "last_used": "06.07.2016"
+                "last_used": "12.07.2016"
+            },
+            "update_and_stay": {
+                "translations": {
+                    "en": "Update and Stay",
+                    "de": "Speichern und weiter bearbeiten"
+                },
+                "last_used": "12.07.2016"
             }
         },
         "xlvo": {
@@ -447,7 +454,7 @@
                     "en": "Edit",
                     "de": "Bearbeiten"
                 },
-                "last_used": "06.07.2016"
+                "last_used": "12.07.2016"
             },
             "edit_permission": {
                 "translations": {
@@ -969,35 +976,35 @@
                     "de": "Unterschiedliche Farben",
                     "en": "Different Colors"
                 },
-                "last_used": "28.06.2016"
+                "last_used": "12.07.2016"
             },
             "1_multi_selection": {
                 "translations": {
                     "de": "Mehrfachauswahl",
                     "en": "Multiple Selection"
                 },
-                "last_used": "28.06.2016"
+                "last_used": "12.07.2016"
             },
             "1_multi_selection_info": {
                 "translations": {
                     "de": "Ein Nutzer kann mehr als einen Text eingeben",
                     "en": "User can select more than one Option"
                 },
-                "last_used": "28.06.2016"
+                "last_used": "12.07.2016"
             },
             "1_option_text": {
                 "translations": {
                     "de": "Options-Text",
                     "en": "Option-Text"
                 },
-                "last_used": "28.06.2016"
+                "last_used": "12.07.2016"
             },
             "1_options": {
                 "translations": {
                     "de": "M\u00c3\u00b6gliche Antworten",
                     "en": "Options"
                 },
-                "last_used": "28.06.2016"
+                "last_used": "12.07.2016"
             },
             "1_total_votes": {
                 "translations": {
@@ -1155,7 +1162,7 @@
                     "de": "Antworten",
                     "en": "Answers"
                 },
-                "last_used": "28.06.2016"
+                "last_used": "12.07.2016"
             },
             "multi_free_input": {
                 "translations": {
@@ -1246,14 +1253,14 @@
                     "de": "Verwalten",
                     "en": "Manage"
                 },
-                "last_used": "06.07.2016"
+                "last_used": "12.07.2016"
             },
             "show": {
                 "translations": {
                     "de": "Zeigen",
                     "en": "Show"
                 },
-                "last_used": "06.07.2016"
+                "last_used": "12.07.2016"
             }
         },
         "tab": {
@@ -1262,14 +1269,14 @@
                     "de": "Inhalt",
                     "en": "Content"
                 },
-                "last_used": "06.07.2016"
+                "last_used": "12.07.2016"
             },
             "edit": {
                 "translations": {
                     "de": "Einstellungen",
                     "en": "Settings"
                 },
-                "last_used": "06.07.2016"
+                "last_used": "12.07.2016"
             }
         },
         "cat": {

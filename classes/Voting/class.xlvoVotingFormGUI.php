@@ -204,6 +204,7 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 		} else {
 			$this->setTitle($this->parent_gui->txt('form_title_update'));
 			$this->addCommandButton(xlvoVotingGUI::CMD_UPDATE, $this->parent_gui->txt('update'));
+			$this->addCommandButton(xlvoVotingGUI::CMD_UPDATE_AND_STAY, $this->parent_gui->txt('update_and_stay'));
 		}
 
 		$this->addCommandButton(xlvoVotingGUI::CMD_CANCEL, $this->parent_gui->txt('cancel'));

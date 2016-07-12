@@ -164,3 +164,11 @@ div.xlvo-preview-outer {
 span.xlvo-label-url {
   font-size: 3vw;
 }
+#ilAdvSelListTable_xlvo_select {
+  width: 220px !important;
+}
+#ilAdvSelListTable_xlvo_select li > a {
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}
