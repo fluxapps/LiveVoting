@@ -15,6 +15,9 @@ div.lxvo-row {
   color: #DEDEDE;
   text-align: center;
 }
+.navbar-inverse * {
+  color: white !important;
+}
 #xlvo-display-player {
   background-color: #F9F9F9;
 }
