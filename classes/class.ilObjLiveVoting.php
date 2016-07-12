@@ -145,6 +145,21 @@ class ilObjLiveVoting extends ilObjectPlugin {
 	}
 
 
+	public function renegerateVotingSorting() {
+		$i = 1;
+		/**
+		 * @var $votings xlvoVoting[]
+		 */
+		$votings = xlvoVoting::where(array( 'obj_id' => $this->getId() ))->orderBy('position', 'ASC')->get();
+
+		foreach ($votings as $voting) {
+			$voting->setPosition($i);
+			$voting->update();
+			$i ++;
+		}
+	}
+
+
 	/**
 	 * @param                 $a_target_id
 	 * @param                 $a_copy_id
@@ -226,5 +241,6 @@ class ilObjLiveVoting extends ilObjectPlugin {
 				}
 			}
 		}
+		$new_obj->renegerateVotingSorting();
 	}
 }

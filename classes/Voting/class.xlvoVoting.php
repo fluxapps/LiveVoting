@@ -180,6 +180,7 @@ class xlvoVoting extends ActiveRecord {
 				$votingOptionNew->setVotingId($newObj->getId());
 				$votingOptionNew->create();
 			}
+			$newObj->renegerateOptionSorting();
 		}
 
 		return $newObj;
