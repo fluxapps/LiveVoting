@@ -200,6 +200,7 @@ class ilObjLiveVoting extends ilObjectPlugin {
 		 * @var $votings xlvoVoting[]
 		 */
 		$votings = xlvoVoting::where(array( 'obj_id' => $this->getId() ))->get();
+		$media_object_ids = array();
 		foreach ($votings as $voting) {
 
 			/**
@@ -211,6 +212,11 @@ class ilObjLiveVoting extends ilObjectPlugin {
 
 			$voting_id = $voting->getId();
 			$voting_id_clone = $voting_clone->getId();
+			require_once('./Services/RTE/classes/class.ilRTE.php');
+			$media_objects = ilRTE::_getMediaObjects($voting_clone->getQuestion());
+			if (count($media_objects) > 0) {
+				$media_object_ids = array_merge($media_object_ids, array_values($media_objects));
+			}
 
 			/**
 			 * @var $options xlvoOption[]
@@ -242,5 +248,8 @@ class ilObjLiveVoting extends ilObjectPlugin {
 			}
 		}
 		$new_obj->renegerateVotingSorting();
+		foreach ($media_object_ids as $media_object_id) {
+			ilObjMediaObject::_saveUsage($media_object_id, 'dcl:html', $new_obj->getId());
+		}
 	}
 }
