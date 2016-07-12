@@ -43,6 +43,7 @@ class xlvoCorrectOrderResultsGUI extends xlvoSingleVoteResultsGUI {
 		$bar->setVotes($correct_votes);
 		$bar->setMax(max(array( $correct_votes, $wrong_votes )));
 		$bar->setShowAbsolute($this->isShowAbsolute());
+		
 
 		$bars->addBar($bar);
 

@@ -63,6 +63,7 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 		}
 
 		$bars = new xlvoBarMovableGUI($this->manager->getVoting()->getVotingOptions(), $order, $vote_id);
+		$bars->setShowOptionLetter(true);
 		$tpl->setVariable('CONTENT', $bars->getHTML());
 
 		if ($this->isShowCorrectOrder()) {

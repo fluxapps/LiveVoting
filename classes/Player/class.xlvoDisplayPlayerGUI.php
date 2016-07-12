@@ -62,15 +62,15 @@ class xlvoDisplayPlayerGUI {
 		$xlvoInputResultGUI = xlvoInputResultsGUI::getInstance($this->manager);
 		if ($player->isShowResults()) {
 			$this->tpl->setVariable('OPTION_CONTENT', $xlvoInputResultGUI->getHTML());
+		} else {
+			$xlvoOptions = $this->manager->getVoting()->getVotingOptions();
+			if ($xlvoInputResultGUI->isShuffleResults()) {
+				shuffle($xlvoOptions);
+			}
+			foreach ($xlvoOptions as $item) {
+				$this->addOption($item);
+			}
 		}
-		$xlvoOptions = $this->manager->getVoting()->getVotingOptions();
-		if ($xlvoInputResultGUI->isShuffleResults()) {
-			shuffle($xlvoOptions);
-		}
-		foreach ($xlvoOptions as $item) {
-			$this->addOption($item);
-		}
-
 
 		$this->tpl->setVariable('TITLE', $this->manager->getVoting()->getTitle());
 		$this->tpl->setVariable('QUESTION', ilUtil::prepareTextareaOutput($this->manager->getVoting()->getQuestion(), true));

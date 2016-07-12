@@ -433,5 +433,11 @@ var xlvoPlayer = {
         if (this.config.debug) {
             console.log(data);
         }
+    },
+    debug: function () {
+        this.config.debug = true;
+    },
+    stop: function () {
+        this.config.debug = false;
     }
 };

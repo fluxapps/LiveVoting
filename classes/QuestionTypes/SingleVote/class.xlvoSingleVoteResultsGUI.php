@@ -34,6 +34,7 @@ class xlvoSingleVoteResultsGUI extends xlvoInputResultsGUI {
 			$xlvoBarPercentageGUI->setVotes($votes);
 			$xlvoBarPercentageGUI->setTotal($total);
 			$xlvoBarPercentageGUI->setMax($max);
+			$xlvoBarPercentageGUI->setOptionLetter($xlvoOption->getCipher());
 
 			$bars->addBar($xlvoBarPercentageGUI);
 		}

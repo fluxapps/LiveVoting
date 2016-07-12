@@ -40,17 +40,18 @@ class xlvoFreeOrderResultsGUI extends xlvoCorrectOrderResultsGUI {
 		$absolute = $this->isShowAbsolute();
 
 		foreach ($options as $xlvoOption) {
-			$bar = new xlvoBarPercentageGUI();
-			$bar->setTotal($total);
-			$bar->setTitle($xlvoOption->getText());
-			$bar->setId($xlvoOption->getId());
-			$bar->setVotes($option_weight[$xlvoOption->getId()]);
+			$xlvoBarPercentageGUI = new xlvoBarPercentageGUI();
+			$xlvoBarPercentageGUI->setTotal($total);
+			$xlvoBarPercentageGUI->setTitle($xlvoOption->getText());
+			$xlvoBarPercentageGUI->setId($xlvoOption->getId());
+			$xlvoBarPercentageGUI->setVotes($option_weight[$xlvoOption->getId()]);
 			if ($option_weight) {
-				$bar->setMax(max($option_weight));
+				$xlvoBarPercentageGUI->setMax(max($option_weight));
 			}
-			$bar->setShowAbsolute($absolute);
+			$xlvoBarPercentageGUI->setShowAbsolute($absolute);
+			$xlvoBarPercentageGUI->setOptionLetter($xlvoOption->getCipher());
 
-			$bars->addBar($bar);
+			$bars->addBar($xlvoBarPercentageGUI);
 		}
 
 		$bars->setShowTotalVotes(true);
