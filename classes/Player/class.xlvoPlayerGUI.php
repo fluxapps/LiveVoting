@@ -27,7 +27,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 	const CMD_END = 'end';
 	const CMD_GET_PLAYER_DATA = 'getPlayerData';
 	const CMD_API_CALL = 'apiCall';
-	const DEBUG = true;
+	const DEBUG = false;
 	/**
 	 * @var xlvoVotingManager2
 	 */
@@ -217,8 +217,6 @@ class xlvoPlayerGUI extends xlvoGUI {
 				$this->manager->countdown($_POST['seconds']);
 				break;
 			case 'button':
-				global $ilLog;
-				$ilLog->write('handle button call' . print_r($_POST, true));
 				/**
 				 * QuestionGUIs can add own button which have to call the player with 'call=button&button_id={cmd}&data=[some,data]
 				 */

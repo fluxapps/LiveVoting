@@ -220,14 +220,13 @@ var xlvoPlayer = {
         attendees.innerHTML = (this.player.attendees + ' Online');
     },
     startRequest: function () {
-        xlvoPlayer.clearTimeout();
         xlvoPlayer.request_pending = true;
     },
     endRequest: function () {
         xlvoPlayer.request_pending = false;
     },
     isRequestPending: function () {
-        return false; // Currentlx not supported // return xlvoPlayer.request_pending;
+        return xlvoPlayer.request_pending;
     },
     clearTimeout: function () {
         if (xlvoPlayer.timeout) {
@@ -236,11 +235,16 @@ var xlvoPlayer = {
         }
     },
     getPlayerData: function () {
+        if (xlvoPlayer.isRequestPending()) {
+            xlvoPlayer.log('Pause getPlayerData due to running POST');
+            return;
+        }
+        xlvoPlayer.startRequest();
         $.get(xlvoPlayer.config.base_url, {cmd: 'getPlayerData'}).done(function (data) {
             xlvoPlayer.counter++;
             if ((xlvoPlayer.counter > xlvoPlayer.forced_update_interval) // Forced update of HTML
                 || (data.player.last_update != xlvoPlayer.player.last_update) // Player is out of sync
-                || (data.player.show_results != xlvoPlayer.player.show_results) // Show Rusults has changed
+                || (data.player.show_results != xlvoPlayer.player.show_results) // Show Results has changed
                 || (data.player.status != xlvoPlayer.player.status) // player status has changed
                 || (data.player.active_voting_id != xlvoPlayer.player.active_voting_id) //Voting has changed
                 || xlvoPlayer.player.has_countdown) // countdown is running
@@ -258,12 +262,14 @@ var xlvoPlayer = {
             xlvoPlayer.handleQuestionButtons(data.buttons_html);
             xlvoPlayer.initElements();
             xlvoPlayer.timeout = setTimeout(xlvoPlayer.getPlayerData, xlvoPlayer.delay);
+            xlvoPlayer.endRequest();
         });
     },
+
     handleSwitch: function () {
-        xlvoPlayer.toolbar_loader.show();
         xlvoPlayer.buttons_handled = false;
         xlvoPlayer.counter = 99;
+        xlvoPlayer.endRequest();
     },
 
     /**
@@ -274,7 +280,7 @@ var xlvoPlayer = {
      */
     callPlayer: function (cmd, input_data) {
         if (xlvoPlayer.isRequestPending()) {
-            return;
+            xlvoPlayer.log('There is already a request');
         }
 
         xlvoPlayer.startRequest();
@@ -286,14 +292,9 @@ var xlvoPlayer = {
         var input_data = input_data ? input_data : {};
         var post_data = $.extend({call: cmd}, input_data);
         $.post(xlvoPlayer.config.base_url + '&cmd=apiCall', post_data).done(function (data) {
-            if (data) {
-                xlvoPlayer.clearTimeout();
-                xlvoPlayer.handleSwitch();
-                xlvoPlayer.getPlayerData();
-                xlvoPlayer.endRequest();
-            } else {
-                xlvoPlayer.endRequest();
-            }
+            // xlvoPlayer.endRequest();
+            xlvoPlayer.handleSwitch();
+            xlvoPlayer.getPlayerData();
         });
     },
     /**
@@ -309,6 +310,10 @@ var xlvoPlayer = {
         xlvoPlayer.toolbar_loader.show();
         this.log('call Button: ' + button_id);
         $.post(xlvoPlayer.config.base_url + '&cmd=apiCall', {call: 'button', button_id: button_id, button_data: data}).done(function (data) {
+
+        }).fail(function () {
+
+        }).always(function () {
             xlvoPlayer.handleSwitch();
             xlvoPlayer.getPlayerData();
             xlvoPlayer.endRequest();
@@ -359,7 +364,8 @@ var xlvoPlayer = {
     handleQuestionButtons: function (html) {
         if (xlvoPlayer.buttons_handled) {
             this.log('buttons already handled for this question');
-            return;
+            if (!this.config.debug)
+                return;
         }
 
         var custom_toolbar_dom = $('<div/>').html(html).contents(),
@@ -374,6 +380,7 @@ var xlvoPlayer = {
                 dynamic_sep.remove();
             }
             xlvoPlayer.log('there are no custom buttons');
+            xlvoPlayer.log(html);
             xlvoPlayer.buttons_handled = true;
             xlvoPlayer.toolbar_loader.hide();
             return;
