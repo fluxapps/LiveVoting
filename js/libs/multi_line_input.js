@@ -1,14 +1,13 @@
 (function ($) {
-
     $.fn.extend({
         multi_line_input: function (element_config, options) {
-
             var settings = $.extend({
                 unique_values: false
             }, options);
 
             var element_config = element_config;
             var element = this;
+            var self = this;
             var counter = 0;
             var clone_line = $(this).find('.multi_input_line').first();
             var empty_id = "empty";
@@ -25,7 +24,6 @@
                     name = empty_id + '[' + counter + ']' + matches[1];
                     $(this).attr('name', name);
                 });
-                //counter++;
             };
 
             setup_clone_line(clone_line);
@@ -42,6 +40,7 @@
                     $(element).append(new_line);
                     $(element).change();
                     $(document).trigger('multi_line_add_button', [$line, new_line]);
+                    $(element).find("textarea, input[type='text']").last().focus();
                     return false;
                 });
 
@@ -72,10 +71,6 @@
                         var matches = regex.exec(name);
                         name = id + '[' + counter + ']' + matches[1];
                         $(this).attr('name', name);
-                        // $(this).attr('data-name', 'fsx');
-                        // $(this).get(0).focus();
-                        // $(this).focus();
-                        $('input[name="' + name + '"]').focus();
                     });
                 }
                 counter++;
