@@ -379,6 +379,14 @@ class xlvoVoting extends ActiveRecord {
 
 
 	/**
+	 * @return string
+	 */
+	public function getQuestionForPresentation() {
+		return ilUtil::prepareTextareaOutput($this->question, true);
+	}
+
+
+	/**
 	 * @param string $question
 	 */
 	public function setQuestion($question) {

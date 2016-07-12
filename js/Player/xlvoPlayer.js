@@ -10,6 +10,11 @@ var xlvoPlayer = {
         this.config = config;
         this.ready = true;
         xlvoPlayer.log(this.config);
+        if (xlvoPlayer.config.use_mathjax && !!MathJax) {
+            MathJax.Hub.Config({
+                "HTML-CSS": {scale: 80}
+            });
+        }
     },
     buttons_handled: false,
     toolbar_loaded: false,
@@ -253,8 +258,14 @@ var xlvoPlayer = {
                 var playerHtml = data.player_html;
                 $('#xlvo-display-player').replaceWith('<div id="xlvo-display-player">' + playerHtml + '</div>');
                 if (xlvoPlayer.config.use_mathjax && !!MathJax) {
-                    MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+                    MathJax.Hub.Config({
+                        "HTML-CSS": {scale: 80}
+                    });
+                    MathJax.Hub.Queue(
+                        ["Typeset", MathJax.Hub, 'xlvo-display-player']
+                    );
                 }
+
                 xlvoPlayer.counter = 0;
                 xlvoPlayer.buttons_handled = false;
             }

@@ -9,6 +9,11 @@ var xlvoVoter = {
         config.base_url = config.base_url.replace(replacer, '');
         this.config = config;
         this.ready = true;
+        if (xlvoVoter.config.use_mathjax && !!MathJax) {
+            MathJax.Hub.Config({
+                "HTML-CSS": {scale: 80}
+            });
+        }
     },
     config: {
         base_url: '', // Base-URL for API-Calls
@@ -66,6 +71,11 @@ var xlvoVoter = {
         };
         $.get(xlvoVoter.config.base_url, {cmd: 'getHTML'}).done(function (data) {
             xlvoVoter.player_element.replaceWith('<div id="xlvo_voter_player">' + data + '</div>');
+            if (xlvoVoter.config.use_mathjax && !!MathJax) {
+                MathJax.Hub.Queue(
+                    ["Typeset", MathJax.Hub, 'xlvo_voter_player']
+                );
+            }
             xlvoVoter.counter = 0;
             xlvoVoter.player_element = $('#xlvo_voter_player');
             xlvoVoter.countdown_element = $('#xlvo_countdown');

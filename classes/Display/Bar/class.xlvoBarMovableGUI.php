@@ -62,7 +62,7 @@ class xlvoBarMovableGUI implements xlvoBarGUI {
 				if ($this->getShowOptionLetter()) {
 					$this->tpl->setVariable('OPTION_LETTER', $xlvoOption->getCipher());
 				}
-				$this->tpl->setVariable('OPTION', $xlvoOption->getText());
+				$this->tpl->setVariable('OPTION', $xlvoOption->getTextForPresentation());
 				$this->tpl->parseCurrentBlock();
 				$i ++;
 			}
@@ -73,7 +73,7 @@ class xlvoBarMovableGUI implements xlvoBarGUI {
 				if ($this->getShowOptionLetter()) {
 					$this->tpl->setVariable('OPTION_LETTER', $xlvoOption->getCipher());
 				}
-				$this->tpl->setVariable('OPTION', $xlvoOption->getText());
+				$this->tpl->setVariable('OPTION', $xlvoOption->getTextForPresentation());
 				$this->tpl->parseCurrentBlock();
 				$i ++;
 			}

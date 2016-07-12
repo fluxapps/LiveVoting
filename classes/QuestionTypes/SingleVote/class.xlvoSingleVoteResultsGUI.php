@@ -29,7 +29,7 @@ class xlvoSingleVoteResultsGUI extends xlvoInputResultsGUI {
 
 			$xlvoBarPercentageGUI = new xlvoBarPercentageGUI();
 			$xlvoBarPercentageGUI->setShowAbsolute($this->isShowAbsolute());
-			$xlvoBarPercentageGUI->setTitle($xlvoOption->getText());
+			$xlvoBarPercentageGUI->setTitle($xlvoOption->getTextForPresentation());
 			$xlvoBarPercentageGUI->setId($xlvoOption->getId());
 			$xlvoBarPercentageGUI->setVotes($votes);
 			$xlvoBarPercentageGUI->setTotal($total);

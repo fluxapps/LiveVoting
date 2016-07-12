@@ -22,6 +22,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 	const F_PIN_INPUT = 'pin_input';
 	const CMD_START_VOTER_PLAYER = 'startVoterPlayer';
 	const CMD_GET_VOTING_DATA = 'loadVotingData';
+	const DEBUG = true;
 	/**
 	 * @var string
 	 */
@@ -127,8 +128,17 @@ class xlvoVoter2GUI extends xlvoGUI {
 	protected function initJsAndCss() {
 		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voter/voter.css');
 		iljQueryUtil::initjQueryUI();
+		ilUtil::includeMathjax();
 		$t = array( 'player_seconds' );
-		xlvoJs::getInstance()->api($this, array( 'ilUIPluginRouterGUI' ))->name('Voter')->addTranslations($t)->init()->call('run');
+
+		$mathJaxSetting = new ilSetting("MathJax");
+		$settings = array(
+			'use_mathjax'    => (bool)$mathJaxSetting->get("enable"),
+			'debug'          => self::DEBUG,
+			'ilias_51'       => version_compare(ILIAS_VERSION_NUMERIC, '5.1.00', '>'),
+		);
+
+		xlvoJs::getInstance()->api($this, array( 'ilUIPluginRouterGUI' ))->addSettings($settings)->name('Voter')->addTranslations($t)->init()->call('run');
 		foreach (xlvoQuestionTypes::getActiveTypes() as $type) {
 			xlvoQuestionTypesGUI::getInstance($this->manager, $type)->initJS();
 		}
@@ -155,7 +165,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 				$xlvoQuestionTypesGUI = xlvoQuestionTypesGUI::getInstance($this->manager);
 				if ($xlvoQuestionTypesGUI->isShowQuestion()) {
 					$tpl->setCurrentBlock('question_text');
-					$question_text = $this->manager->getVoting()->getQuestion();
+					$question_text = $this->manager->getVoting()->getQuestionForPresentation();
 					$media_objects = ilRTE::_getMediaObjects($question_text);
 					$has_mobs = count($media_objects) > 0;
 					if ($has_mobs) {

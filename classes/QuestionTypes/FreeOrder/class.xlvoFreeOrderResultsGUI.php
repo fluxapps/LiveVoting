@@ -42,7 +42,7 @@ class xlvoFreeOrderResultsGUI extends xlvoCorrectOrderResultsGUI {
 		foreach ($options as $xlvoOption) {
 			$xlvoBarPercentageGUI = new xlvoBarPercentageGUI();
 			$xlvoBarPercentageGUI->setTotal($total);
-			$xlvoBarPercentageGUI->setTitle($xlvoOption->getText());
+			$xlvoBarPercentageGUI->setTitle($xlvoOption->getTextForPresentation());
 			$xlvoBarPercentageGUI->setId($xlvoOption->getId());
 			$xlvoBarPercentageGUI->setVotes($option_weight[$xlvoOption->getId()]);
 			if ($option_weight) {

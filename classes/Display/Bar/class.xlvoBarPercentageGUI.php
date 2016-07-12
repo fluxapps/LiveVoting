@@ -52,25 +52,6 @@ class xlvoBarPercentageGUI implements xlvoBarGUI {
 	}
 
 
-	/**
-	 * @param \xlvoOption $xlvoOption
-	 * @param $votes
-	 * @param $total
-	 * @param int $max
-	 * @return \xlvoBarPercentageGUI
-	 */
-	public static function getInstanceFromOption(xlvoOption $xlvoOption, $votes, $total, $max = 0) {
-		$obj = new self();
-		$obj->setTitle($xlvoOption->getText());
-		$obj->setId($xlvoOption->getId());
-		$obj->setVotes($votes);
-		$obj->setTotal($total);
-		$obj->setMax($max);
-
-		return $obj;
-	}
-
-
 	protected function render() {
 		if ($this->isShowAbsolute()) {
 			$this->tpl->setVariable('PERCENT', $this->getVotes());

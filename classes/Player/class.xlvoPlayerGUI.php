@@ -404,11 +404,12 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 
 	protected function initJSandCss() {
+		ilUtil::includeMathjax();
 		$mathJaxSetting = new ilSetting("MathJax");
 		$settings = array(
 			'status_running' => xlvoPlayer::STAT_RUNNING,
 			'identifier'     => self::IDENTIFIER,
-			'use_mathjax'    => $mathJaxSetting->get("enable"),
+			'use_mathjax'    => (bool)$mathJaxSetting->get("enable"),
 			'debug'          => self::DEBUG,
 			'ilias_51'       => version_compare(ILIAS_VERSION_NUMERIC, '5.1.00', '>'),
 		);

@@ -68,7 +68,7 @@ class xlvoSingleVoteGUI extends xlvoQuestionTypesGUI {
 			$answer_count ++;
 			$this->ctrl->setParameter($this, 'option_id', $xlvoOption->getId());
 			$tpl->setCurrentBlock('option');
-			$tpl->setVariable('TITLE', $xlvoOption->getText());
+			$tpl->setVariable('TITLE', $xlvoOption->getTextForPresentation());
 			$tpl->setVariable('LINK', $this->ctrl->getLinkTarget($this, self::CMD_SUBMIT));
 			$tpl->setVariable('OPTION_LETTER', chr($answer_count));
 			if ($this->manager->hasUserVotedForOption($xlvoOption)) {
