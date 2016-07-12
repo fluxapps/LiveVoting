@@ -152,27 +152,34 @@ class xlvoVoting extends ActiveRecord {
 
 
 	/**
-	 * @param int $new_id
+	 * @param bool $change_name
 	 * @return \xlvoVoting
+	 * @throws \Exception
 	 * @throws \arException
 	 */
-	public function copy($new_id = 0) {
+	public function fullClone($change_name = true, $clone_options = true) {
 		/**
 		 * @var $newObj          xlvoVoting
 		 * @var $votingOptionNew xlvoOption
 		 */
-		$newObj = parent::copy($new_id);
-		$count = 1;
-		while(xlvoVoting::where(array( 'title' => $this->getTitle().' ('.$count.')' ))->where(array( 'obj_id' => $this->getObjId() ))->count()) {
-			$count++;
-		}
+		$newObj = $this->copy();
+		if ($change_name) {
 
-		$newObj->setTitle($this->getTitle() . ' (' . $count . ')');
+			$count = 1;
+			while (xlvoVoting::where(array( 'title' => $this->getTitle() . ' (' . $count . ')' ))->where(array( 'obj_id' => $this->getObjId() ))
+			                 ->count()) {
+				$count ++;
+			}
+
+			$newObj->setTitle($this->getTitle() . ' (' . $count . ')');
+		}
 		$newObj->create();
-		foreach ($newObj->getVotingOptions() as $votingOption) {
-			$votingOptionNew = $votingOption->copy();
-			$votingOptionNew->setVotingId($newObj->getId());
-			$votingOptionNew->create();
+		if ($clone_options) {
+			foreach ($newObj->getVotingOptions() as $votingOption) {
+				$votingOptionNew = $votingOption->copy();
+				$votingOptionNew->setVotingId($newObj->getId());
+				$votingOptionNew->create();
+			}
 		}
 
 		return $newObj;

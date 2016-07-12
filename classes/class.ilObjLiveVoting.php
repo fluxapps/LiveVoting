@@ -28,6 +28,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Option/class.xlvoOption.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Pin/class.xlvoPin.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoQuestionTypes.php');
+
 /**
  * Class ilObjLiveVoting
  *
@@ -189,12 +190,12 @@ class ilObjLiveVoting extends ilObjectPlugin {
 			/**
 			 * @var $voting_clone xlvoVoting
 			 */
-			$voting_clone = $voting->copy();
+			$voting_clone = $voting->fullClone(false, false);
 			$voting_clone->setObjId($new_obj->getId());
-			$voting_clone->create();
+			$voting_clone->update();
 
 			$voting_id = $voting->getId();
-			$voting_id_clone = xlvoVoting::where(array( 'obj_id' => $new_obj->getId() ))->last()->getId();
+			$voting_id_clone = $voting_clone->getId();
 
 			/**
 			 * @var $options xlvoOption[]
@@ -221,7 +222,7 @@ class ilObjLiveVoting extends ilObjectPlugin {
 					$vote_clone = $vote->copy();
 					$vote_clone->setVotingId($voting_id_clone);
 					$vote_clone->setOptionId($option_id_clone);
-//					$vote_clone->create(); // CURRENTLY VOTES WILL NO BE CLONED
+					//					$vote_clone->create(); // CURRENTLY VOTES WILL NO BE CLONED
 				}
 			}
 		}
