@@ -138,10 +138,6 @@ div.lxvo-row {
   height: 100% !important;
   z-index: 5000 !important;
   background-color: black !important;
-  zoom: 2 !important;
-  -moz-transform: scale(2) !important;
-  transform: scale(2, 2);
-  overflow-y: scroll;
 }
 .xlvo-fullscreen #xlvo-display-player {
   font-size: 200%;
