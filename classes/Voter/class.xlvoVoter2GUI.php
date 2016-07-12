@@ -75,7 +75,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 			$this->ctrl->redirect($this, self::CMD_START_VOTER_PLAYER);
 		}
 		$tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voter/tpl.pin.html', true, false);
-		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/default.css');
+		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voter/pin.css');
 		$pin_form = new ilPropertyFormGUI();
 		$pin_form->setFormAction($this->ctrl->getLinkTarget($this, self::CMD_CHECK_PIN));
 		$pin_form->addCommandButton(self::CMD_CHECK_PIN, $this->txt('send'));
@@ -96,11 +96,6 @@ class xlvoVoter2GUI extends xlvoGUI {
 	protected function checkPin() {
 		$redirect = true;
 		try {
-			var_dump($_POST[self::F_PIN_INPUT]); // FSX
-			var_dump($_POST[self::F_PIN_INPUT]); // FSX
-			var_dump($_POST[self::F_PIN_INPUT]); // FSX
-			var_dump($_POST[self::F_PIN_INPUT]); // FSX
-			var_dump($_POST[self::F_PIN_INPUT]); // FSX
 			xlvoPin::checkPin($_POST[self::F_PIN_INPUT]);
 		} catch (xlvoVoterException $e) {
 			xlvoInitialisation::resetCookiePIN();
@@ -184,19 +179,20 @@ class xlvoVoter2GUI extends xlvoGUI {
 			case xlvoPlayer::STAT_START_VOTING:
 				$tpl->setVariable('TITLE', $this->txt('header_start'));
 				$tpl->setVariable('DESCRIPTION', $this->txt('info_start'));
-				//				$tpl->touchBlock('spinner');
+				$tpl->setVariable('GLYPH', xlvoGlyphGUI::get('pause'));
 				break;
 			case xlvoPlayer::STAT_END_VOTING:
 				$tpl->setVariable('TITLE', $this->txt('header_end'));
 				$tpl->setVariable('DESCRIPTION', $this->txt('info_end'));;
+				$tpl->setVariable('GLYPH', xlvoGlyphGUI::get('stop'));
 				break;
 			case xlvoPlayer::STAT_FROZEN:
-				$tpl->setVariable('TITLE', $this->manager->getVoting()->getTitle() . ': ' . $this->txt('header_frozen'));
+				$tpl->setVariable('TITLE', $this->txt('header_frozen'));
 				$tpl->setVariable('DESCRIPTION', $this->txt('info_frozen'));
 				$tpl->setVariable('COUNT', $this->manager->countVotings());
 				$tpl->setVariable('POSITION', $this->manager->getVotingPosition());
 				$tpl->setVariable('PIN', $this->manager->getVotingConfig()->getPin());
-				//				$tpl->touchBlock('spinner');
+				$tpl->setVariable('GLYPH', xlvoGlyphGUI::get('pause'));
 				break;
 		}
 		echo $tpl->get();

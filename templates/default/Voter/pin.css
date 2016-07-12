@@ -143,3 +143,20 @@ div.lxvo-row {
 .xlvo-fullscreen #xlvo-display-player {
   font-size: 200%;
 }
+div#il_prop_cont_pin_input div.col-sm-9 {
+  width: 100%;
+  text-align: center;
+}
+div#il_prop_cont_pin_input input#pin_input {
+  font-size: 3em;
+  line-height: 2em;
+  height: 80px;
+  text-align: center;
+  width: 60%;
+  margin: auto;
+}
+div#il_prop_cont_pin_input label[for=pin_input] {
+  width: 100%;
+  clear: both;
+  text-align: center;
+}
