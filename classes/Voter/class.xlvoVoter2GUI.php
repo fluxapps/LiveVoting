@@ -160,7 +160,22 @@ class xlvoVoter2GUI extends xlvoGUI {
 				$xlvoQuestionTypesGUI = xlvoQuestionTypesGUI::getInstance($this->manager);
 				if ($xlvoQuestionTypesGUI->isShowQuestion()) {
 					$tpl->setCurrentBlock('question_text');
-					$tpl->setVariable('QUESTION_TEXT', $this->manager->getVoting()->getQuestion());
+					$question_text = $this->manager->getVoting()->getQuestion();
+					$media_objects = ilRTE::_getMediaObjects($question_text);
+					$has_mobs = count($media_objects) > 0;
+					if ($has_mobs) {
+						$wac_available = is_file('./Services/WebAccessChecker/classes/class.ilWACSignedPath.php');
+						if ($wac_available) {
+							require_once('./Services/WebAccessChecker/classes/class.ilWACSignedPath.php');
+							foreach ($media_objects as $media_object) {
+								ilWACSignedPath::setCookieMaxLifetimeInSeconds(300);
+								ilWACSignedPath::signFolderOfStartFile('./data/' . $_COOKIE['ilClientId'] . '/mobs/mm_' . $media_object
+								                                       . '/main.jpg');
+							}
+							$tpl->setVariable('QUESTION_TEXT', $question_text);
+						}
+					}
+					$tpl->setVariable('QUESTION_TEXT', $question_text);
 					$tpl->parseCurrentBlock();
 				}
 
