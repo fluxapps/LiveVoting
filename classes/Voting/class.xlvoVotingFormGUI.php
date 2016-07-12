@@ -87,6 +87,7 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 		$te->addButton('latex');
 		$te->addButton('pastelatex');
 		$te->setRequired(true);
+		$te->setRTESupport(ilObject::_lookupObjId($_GET['ref_id']), "dcl", "xlvo", null, false); // We have to prepend that this is a datacollection
 		$te->setUseRte(true);
 		$te->setRteTags(array(
 			'p',
@@ -96,6 +97,7 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 			'b',
 			'i',
 			'span',
+			'img'
 		));
 		$te->usePurifier(true);
 		$te->disableButtons(array(
