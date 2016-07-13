@@ -165,7 +165,7 @@ class ilObjLiveVoting extends ilObjectPlugin {
 	 * @param                 $a_copy_id
 	 * @param ilObjLiveVoting $new_obj
 	 */
-	public function doCloneObject(ilObjLiveVoting $new_obj, $a_target_id, $a_copy_id) {
+	public function doCloneObject($new_obj, $a_target_id, $a_copy_id = null ) {
 
 		/**
 		 * @var $config xlvoVotingConfig

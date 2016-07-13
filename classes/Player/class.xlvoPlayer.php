@@ -189,7 +189,7 @@ class xlvoPlayer extends ActiveRecord {
 		))->orderBy('last_update', 'DESC')->getArray('last_update', 'last_update');
 		$last_update = array_shift(array_values($last_update));
 		$obj->last_update = (int)$last_update;
-		$obj->attendees = (int)xlvoVoter::count($this->getId());;
+		$obj->attendees = (int)xlvoVoter::countVoters($this->getId());;
 		$obj->qtype = $this->getQuestionTypeClassName();
 		$obj->countdown = $this->remainingCountDown();
 		$obj->has_countdown = $this->isCountDownRunning();

@@ -101,7 +101,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 
 	protected function getAttendees() {
-		xlvoJsResponse::getInstance(xlvoVoter::count($this->manager->getPlayer()->getId()))->send();
+		xlvoJsResponse::getInstance(xlvoVoter::countVoters($this->manager->getPlayer()->getId()))->send();
 	}
 
 

@@ -80,7 +80,7 @@ class xlvoDisplayPlayerGUI {
 		$this->tpl->setVariable('PIN', $config->getPin());
 		if ($this->manager->getVotingConfig()->isShowAttendees()) {
 			$this->tpl->setCurrentBlock('attendees');
-			$this->tpl->setVariable('ATTENDEES', xlvoVoter::count($this->manager->getPlayer()->getId()));
+			$this->tpl->setVariable('ATTENDEES', xlvoVoter::countVoters($this->manager->getPlayer()->getId()));
 
 			$this->tpl->setVariable('ONLINE', $this->pl->txt('player_voters_online'));
 			$this->tpl->parseCurrentBlock();
