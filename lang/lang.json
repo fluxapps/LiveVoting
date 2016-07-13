@@ -53,7 +53,7 @@
             },
             "delete": {
                 "translations": {
-                    "de": "L\u00c3\u00b6schen",
+                    "de": "Löschen",
                     "en": "Delete"
                 }
             },
@@ -87,7 +87,7 @@
             },
             "info_start": {
                 "translations": {
-                    "de": "Dieses LiveVoting wurde vom Pr\u00c3\u00a4sentator nicht gestartet, bitte warten...",
+                    "de": "Dieses LiveVoting wurde vom Präsentator nicht gestartet, bitte warten...",
                     "en": "This LiveVoting has not yet been started by the presenter..."
                 },
                 "last_used": "06.07.2016"
@@ -107,7 +107,7 @@
             },
             "msg_end_of_voting_screen": {
                 "translations": {
-                    "de": "Das LiveVoting wurde beendet, vielen Dank f\u00c3\u00bcr Ihre Teilnahme",
+                    "de": "Das LiveVoting wurde beendet, vielen Dank für Ihre Teilnahme",
                     "en": "This LiveVoting has been terminated. Thanks for your participation."
                 }
             },
@@ -119,7 +119,7 @@
             },
             "msg_start_of_voting_screen": {
                 "translations": {
-                    "de": "Bitte warten, bis der Pr\u00c3\u00a4sentator das Voting freigibt",
+                    "de": "Bitte warten, bis der Präsentator das Voting freigibt",
                     "en": "Please wait untill the Presenter starts the Voting"
                 }
             },
@@ -131,7 +131,7 @@
             },
             "msg_validation_error_pin_2": {
                 "translations": {
-                    "de": "Bitte Logen Sie sich ein, um dieses LiveVoting verwendet zu k\u00c3\u00b6nnen",
+                    "de": "Bitte Logen Sie sich ein, um dieses LiveVoting verwendet zu können",
                     "en": "Please log in to use this LiveVoting"
                 },
                 "last_used": "02.03.2016"
@@ -145,7 +145,7 @@
             },
             "msg_validation_error_pin_4": {
                 "translations": {
-                    "de": "Dieses LiveVoting ist zum aktuellen Zeitpunkt nicht verf\u00c3\u00bcgbar",
+                    "de": "Dieses LiveVoting ist zum aktuellen Zeitpunkt nicht verfügbar",
                     "en": "This LiveVoting is not available at the Moment"
                 }
             }
@@ -156,14 +156,14 @@
                     "en": "Actions",
                     "de": "Aktionen"
                 },
-                "last_used": "12.07.2016"
+                "last_used": "13.07.2016"
             },
             "add": {
                 "translations": {
                     "en": "Add Question",
-                    "de": "Frage hinzuf\u00c3\u00bcgen"
+                    "de": "Frage hinzufügen"
                 },
-                "last_used": "12.07.2016"
+                "last_used": "13.07.2016"
             },
             "cancel": {
                 "translations": {
@@ -181,14 +181,14 @@
             "confirm_reset": {
                 "translations": {
                     "en": "Do you like to reset this Voting? All User-Inputs will be deleted.",
-                    "de": "M\u00c3\u00b6chten Sie die Resultate dieser Frage zur\u00c3\u00bccksetzen? Alle Benutzer-Eingaben werden gel\u00c3\u00b6scht."
+                    "de": "Möchten Sie die Resultate dieser Frage zurücksetzen? Alle Benutzer-Eingaben werden gelöscht."
                 },
                 "last_used": "06.07.2016"
             },
             "confirm_reset_all": {
                 "translations": {
                     "en": "Do you like to reset all results of this LiveVoting? All User-Inputs will be deleted.",
-                    "de": "M\u00c3\u00b6chten Sie die Resultate aller Fragen zur\u00c3\u00bccksetzen? Alle Benutzer-Eingaben werden gel\u00c3\u00b6scht."
+                    "de": "Möchten Sie die Resultate aller Fragen zurücksetzen? Alle Benutzer-Eingaben werden gelöscht."
                 }
             },
             "create": {
@@ -201,14 +201,14 @@
             "delete": {
                 "translations": {
                     "en": "Delete",
-                    "de": "L\u00c3\u00b6schen"
+                    "de": "Löschen"
                 },
-                "last_used": "12.07.2016"
+                "last_used": "13.07.2016"
             },
             "delete_confirm": {
                 "translations": {
                     "en": "Do you really want to delete the Voting?",
-                    "de": "M\u00c3\u00b6chsten Sie die Abstimmung wirklich l\u00c3\u00b6schen?"
+                    "de": "Möchsten Sie die Abstimmung wirklich löschen?"
                 },
                 "last_used": "06.07.2016"
             },
@@ -224,7 +224,7 @@
                     "en": "Edit",
                     "de": "Bearbeiten"
                 },
-                "last_used": "12.07.2016"
+                "last_used": "13.07.2016"
             },
             "msg_sorting_saved": {
                 "translations": {
@@ -244,33 +244,33 @@
                     "en": "Question",
                     "de": "Frage"
                 },
-                "last_used": "12.07.2016"
+                "last_used": "13.07.2016"
             },
             "reset": {
                 "translations": {
                     "en": "Reset",
-                    "de": "Zur\u00c3\u00bccksetzen"
+                    "de": "Zurücksetzen"
                 },
-                "last_used": "12.07.2016"
+                "last_used": "13.07.2016"
             },
             "reset_all": {
                 "translations": {
                     "en": "Reset all Votings",
-                    "de": "Alle Resultate zur\u00c3\u00bccksetzen"
+                    "de": "Alle Resultate zurücksetzen"
                 },
-                "last_used": "12.07.2016"
+                "last_used": "13.07.2016"
             },
             "save_sorting": {
                 "translations": {
                     "en": "Save Order",
                     "de": "Reihenfolge speichern"
                 },
-                "last_used": "12.07.2016"
+                "last_used": "13.07.2016"
             },
             "select_type": {
                 "translations": {
                     "en": "Select Type",
-                    "de": "Typ ausw\u00c3\u00a4hlen"
+                    "de": "Typ auswählen"
                 },
                 "last_used": "24.06.2016"
             },
@@ -279,54 +279,54 @@
                     "en": "Status",
                     "de": "Status"
                 },
-                "last_used": "12.07.2016"
+                "last_used": "13.07.2016"
             },
             "status_1": {
                 "translations": {
                     "en": "Inactive",
                     "de": "Inaktiv"
                 },
-                "last_used": "12.07.2016"
+                "last_used": "13.07.2016"
             },
             "status_2": {
                 "translations": {
                     "en": "Incomplete",
-                    "de": "Unvollst\u00c3\u00a4ndig"
+                    "de": "Unvollständig"
                 },
-                "last_used": "12.07.2016"
+                "last_used": "13.07.2016"
             },
             "status_5": {
                 "translations": {
                     "en": "Active",
                     "de": "Aktiv"
                 },
-                "last_used": "12.07.2016"
+                "last_used": "13.07.2016"
             },
             "title": {
                 "translations": {
                     "en": "Title",
                     "de": "Titel"
                 },
-                "last_used": "12.07.2016"
+                "last_used": "13.07.2016"
             },
             "type": {
                 "translations": {
                     "en": "Type",
                     "de": "Typ"
                 },
-                "last_used": "12.07.2016"
+                "last_used": "13.07.2016"
             },
             "type_1": {
                 "translations": {
-                    "en": "Single\/Multiple Choice",
-                    "de": "Single\/Multiple Choice"
+                    "en": "Single/Multiple Choice",
+                    "de": "Single/Multiple Choice"
                 },
-                "last_used": "12.07.2016"
+                "last_used": "13.07.2016"
             },
             "type_1_info": {
                 "translations": {
                     "en": "A User can vote for different options",
-                    "de": "User k\u00c3\u00b6nnen eine resp. mehrere Auswahlm\u00c3\u00b6glichkeit(en) ausw\u00c3\u00a4hlen"
+                    "de": "User können eine resp. mehrere Auswahlmöglichkeit(en) auswählen"
                 },
                 "last_used": "24.06.2016"
             },
@@ -335,12 +335,12 @@
                     "en": "Free Input",
                     "de": "Freitext eingeben"
                 },
-                "last_used": "12.07.2016"
+                "last_used": "13.07.2016"
             },
             "type_2_info": {
                 "translations": {
                     "en": "User can hand in free text",
-                    "de": "User k\u00c3\u00b6nnen Stichworte oder kurze S\u00c3\u00a4tze eingeben"
+                    "de": "User können Stichworte oder kurze Sätze eingeben"
                 },
                 "last_used": "24.06.2016"
             },
@@ -355,21 +355,21 @@
                     "en": "Correct Order",
                     "de": "Korrekte Reihenfolge"
                 },
-                "last_used": "12.07.2016"
+                "last_used": "13.07.2016"
             },
             "type_4_info": {
                 "translations": {
                     "en": "Terms must be sorted in the correct order.",
-                    "de": "User m\u00c3\u00bcssen Begriffe in die richtige Reihenfolge bringen"
+                    "de": "User müssen Begriffe in die richtige Reihenfolge bringen"
                 },
                 "last_used": "24.06.2016"
             },
             "type_5": {
                 "translations": {
                     "en": "Priorities",
-                    "de": "Priorit\u00c3\u00a4ten"
+                    "de": "Prioritäten"
                 },
-                "last_used": "12.07.2016"
+                "last_used": "13.07.2016"
             },
             "update": {
                 "translations": {
@@ -381,7 +381,7 @@
             "type_5_info": {
                 "translations": {
                     "en": "Terms can be sorted after Priorities",
-                    "de": "User k\u00c3\u00b6nnen Begriffe nach Priorit\u00c3\u00a4ten anordnen"
+                    "de": "User können Begriffe nach Prioritäten anordnen"
                 },
                 "last_used": "24.06.2016"
             },
@@ -416,7 +416,7 @@
             "columns": {
                 "translations": {
                     "en": "Colums for possible answers",
-                    "de": "Spalten f\u00c3\u00bcr Antwortm\u00c3\u00b6glichkeiten"
+                    "de": "Spalten für Antwortmöglichkeiten"
                 },
                 "last_used": "12.07.2016"
             },
@@ -425,7 +425,7 @@
                     "en": "Clone",
                     "de": "Duplizieren"
                 },
-                "last_used": "12.07.2016"
+                "last_used": "13.07.2016"
             },
             "update_and_stay": {
                 "translations": {
@@ -439,14 +439,14 @@
             "add": {
                 "translations": {
                     "en": "Add",
-                    "de": "Hinzuf\u00c3\u00bcgen"
+                    "de": "Hinzufügen"
                 },
                 "last_used": "28.06.2016"
             },
             "delete": {
                 "translations": {
                     "en": "Delete LiveVoting",
-                    "de": "LiveVoting l\u00c3\u00b6schen"
+                    "de": "LiveVoting löschen"
                 }
             },
             "edit": {
@@ -454,7 +454,7 @@
                     "en": "Edit",
                     "de": "Bearbeiten"
                 },
-                "last_used": "12.07.2016"
+                "last_used": "13.07.2016"
             },
             "edit_permission": {
                 "translations": {
@@ -484,14 +484,14 @@
             "write": {
                 "translations": {
                     "en": "Present and edit LiveVoting",
-                    "de": "LiveVoting pr\u00c3\u00a4sentieren und bearbeiten"
+                    "de": "LiveVoting präsentieren und bearbeiten"
                 }
             }
         },
         "common": {
             "back": {
                 "translations": {
-                    "de": "Zur\u00c3\u00bcck",
+                    "de": "Zurück",
                     "en": "Back"
                 }
             },
@@ -511,8 +511,8 @@
             },
             "allow_shortlink_info": {
                 "translations": {
-                    "de": "Eine Kurz-URL kann bspw. durch hinzuf\u00c3\u00bcgen einer RewriteRule in der .htaccess erstellt werden, dadurch kann auf https:\/\/ilias.domain.com\/vote angestimmt werden:",
-                    "en": "Use a Short URL like \/vote by adding the following RewriteRule to your .htaccess:"
+                    "de": "Eine Kurz-URL kann bspw. durch hinzufügen einer RewriteRule in der .htaccess erstellt werden, dadurch kann auf https://ilias.domain.com/vote angestimmt werden:",
+                    "en": "Use a Short URL like /vote by adding the following RewriteRule to your .htaccess:"
                 }
             },
             "allow_shortlink_link": {
@@ -523,8 +523,8 @@
             },
             "allow_shortlink_link_info": {
                 "translations": {
-                    "de": "Ganze Kurz-URL ihrer Installation, bspw. https:\/\/ilias.domain.com\/vote",
-                    "en": "Full Short URL of your Installation , e.g. https:\/\/ilias.domain.com\/vote"
+                    "de": "Ganze Kurz-URL ihrer Installation, bspw. https://ilias.domain.com/vote",
+                    "en": "Full Short URL of your Installation , e.g. https://ilias.domain.com/vote"
                 }
             },
             "base_url": {
@@ -535,8 +535,8 @@
             },
             "base_url_info": {
                 "translations": {
-                    "de": "URL Ihrer ILIAS-Installation inkl. Unterverzeichnis, bspw. https:\/\/www.domain.com\/ilias",
-                    "en": "URL of yout ILIAS-Installation incl. Subfolders, e.g. https:\/\/www.domain.com\/ilias"
+                    "de": "URL Ihrer ILIAS-Installation inkl. Unterverzeichnis, bspw. https://www.domain.com/ilias",
+                    "en": "URL of yout ILIAS-Installation incl. Subfolders, e.g. https://www.domain.com/ilias"
                 }
             },
             "cancel": {
@@ -598,22 +598,22 @@
             },
             "info_anonymous": {
                 "translations": {
-                    "de": "Das LiveVoting kann von den Abstimmenden ohne Login verwendet werden, auch wenn das Objekt in einem gesch\u00c3\u00bctzten Bereich wie bspw. einem Kurs liegt.",
+                    "de": "Das LiveVoting kann von den Abstimmenden ohne Login verwendet werden, auch wenn das Objekt in einem geschützten Bereich wie bspw. einem Kurs liegt.",
                     "en": "The LiveVoting can be used for the voters without authentication, even when the Object is in a secured Space like a Course"
                 },
                 "last_used": "28.06.2016"
             },
             "info_online": {
                 "translations": {
-                    "de": "Nur wenn das LiveVoting online geschaltet ist, k\u00c3\u00b6nnen Benutzer das LiveVoting sehen und benutzen.",
+                    "de": "Nur wenn das LiveVoting online geschaltet ist, können Benutzer das LiveVoting sehen und benutzen.",
                     "en": "Object is online and available"
                 },
                 "last_used": "28.06.2016"
             },
             "info_reuse_status": {
                 "translations": {
-                    "de": "Beim Wechseln zwischen Voting wird jeweils \u00c3\u00bcbernommen, ob das n\u00c3\u00a4chste Voting freigegeben werden soll, oder nicht.",
-                    "en": "Re-use the state of the current Voting when switching to the next (frozen \/ not frozen)."
+                    "de": "Beim Wechseln zwischen Voting wird jeweils übernommen, ob das nächste Voting freigegeben werden soll, oder nicht.",
+                    "en": "Re-use the state of the current Voting when switching to the next (frozen / not frozen)."
                 },
                 "last_used": "24.06.2016"
             },
@@ -640,7 +640,7 @@
             },
             "reuse_status": {
                 "translations": {
-                    "de": "Player-Status \u00c3\u00bcbernehmen",
+                    "de": "Player-Status übernehmen",
                     "en": "Re-use Player State"
                 },
                 "last_used": "24.06.2016"
@@ -654,7 +654,7 @@
             },
             "terminable": {
                 "translations": {
-                    "de": "Abstimmung zeitlich beschr\u00c3\u00a4nken",
+                    "de": "Abstimmung zeitlich beschränken",
                     "en": "Limit voting time"
                 },
                 "last_used": "24.06.2016"
@@ -744,14 +744,14 @@
             "frozen_alway_on_info": {
                 "translations": {
                     "en": "Users can vote directly after switching question.",
-                    "de": "Benutzer k\u00f6nnen nach einem Wechsel der Frage sofort abstimmen."
+                    "de": "Benutzer können nach einem Wechsel der Frage sofort abstimmen."
                 },
                 "last_used": "28.06.2016"
             },
             "frozen_alway_off_info": {
                 "translations": {
                     "en": "Users can vote after the presentator unfreezes the question.",
-                    "de": "Benutzer k\u00f6nnen erst abstimmen, wenn die Frage freigegeben wird."
+                    "de": "Benutzer können erst abstimmen, wenn die Frage freigegeben wird."
                 },
                 "last_used": "28.06.2016"
             },
@@ -786,7 +786,7 @@
             "results_alway_off_info": {
                 "translations": {
                     "en": "Resulats are always hidden after switching question.",
-                    "de": "Administratoren m\u00fcssen das Einblenden der Resultate manuell starten."
+                    "de": "Administratoren müssen das Einblenden der Resultate manuell starten."
                 },
                 "last_used": "28.06.2016"
             },
@@ -868,7 +868,7 @@
             },
             "msg_no_start_1": {
                 "translations": {
-                    "de": "Sie k\u00c3\u00b6nnen das LiveVoting nicht starten! Das LiveVoting ist offline.",
+                    "de": "Sie können das LiveVoting nicht starten! Das LiveVoting ist offline.",
                     "en": "This LiveVoting can't be started since it is offline."
                 },
                 "last_used": "02.03.2016"
@@ -888,13 +888,13 @@
             },
             "msg_voting_not_available": {
                 "translations": {
-                    "de": "Das ausgew\u00c3\u00a4hlte Voting ist nicht vorhanden",
+                    "de": "Das ausgewählte Voting ist nicht vorhanden",
                     "en": "The selected Voting is not available"
                 }
             },
             "reset": {
                 "translations": {
-                    "de": "Zur\u00c3\u00bccksetzen",
+                    "de": "Zurücksetzen",
                     "en": "Reset"
                 },
                 "last_used": "06.07.2016"
@@ -1001,7 +1001,7 @@
             },
             "1_options": {
                 "translations": {
-                    "de": "M\u00c3\u00b6gliche Antworten",
+                    "de": "Mögliche Antworten",
                     "en": "Options"
                 },
                 "last_used": "12.07.2016"
@@ -1036,14 +1036,14 @@
             },
             "2_clear": {
                 "translations": {
-                    "de": "Zur\u00c3\u00bccksetzen",
+                    "de": "Zurücksetzen",
                     "en": "Clear"
                 },
                 "last_used": "02.03.2016"
             },
             "2_delete_all": {
                 "translations": {
-                    "de": "Alle l\u00c3\u00b6schen",
+                    "de": "Alle löschen",
                     "en": "Delete All"
                 },
                 "last_used": "02.03.2016"
@@ -1085,7 +1085,7 @@
             },
             "4_clear": {
                 "translations": {
-                    "de": "Zur\u00c3\u00bccksetzen",
+                    "de": "Zurücksetzen",
                     "en": "Clear"
                 },
                 "last_used": "28.06.2016"
@@ -1253,14 +1253,14 @@
                     "de": "Verwalten",
                     "en": "Manage"
                 },
-                "last_used": "12.07.2016"
+                "last_used": "13.07.2016"
             },
             "show": {
                 "translations": {
                     "de": "Zeigen",
                     "en": "Show"
                 },
-                "last_used": "12.07.2016"
+                "last_used": "13.07.2016"
             }
         },
         "tab": {
@@ -1269,14 +1269,14 @@
                     "de": "Inhalt",
                     "en": "Content"
                 },
-                "last_used": "12.07.2016"
+                "last_used": "13.07.2016"
             },
             "edit": {
                 "translations": {
                     "de": "Einstellungen",
                     "en": "Settings"
                 },
-                "last_used": "12.07.2016"
+                "last_used": "13.07.2016"
             }
         },
         "cat": {
