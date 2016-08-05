@@ -97,7 +97,7 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 			'b',
 			'i',
 			'span',
-			'img'
+			'img',
 		));
 		$te->usePurifier(true);
 		$te->disableButtons(array(
@@ -115,6 +115,14 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 			'paste',
 			'pastetext',
 			'formatselect',
+			'bullist',
+			'hr',
+			'sub',
+			'sup',
+			'numlist',
+			'cite',
+			//			'indent',
+			//			'outdent',
 		));
 
 		$te->setRows(5);
