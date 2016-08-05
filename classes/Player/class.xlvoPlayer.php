@@ -158,7 +158,7 @@ class xlvoPlayer extends ActiveRecord {
 		$obj = new stdClass();
 		$obj->status = (int)$this->getStatus(true);
 		$obj->force_reload = false;
-		$obj->active_voting_id = (int)$this->getActiveVoting();
+		$obj->active_voting_id = (int)$this->getActiveVotingId();
 		$obj->countdown = (int)$this->remainingCountDown();
 		$obj->has_countdown = (bool)$this->isCountDownRunning();
 		$obj->countdown_classname = $this->getCountdownClassname();
@@ -175,7 +175,7 @@ class xlvoPlayer extends ActiveRecord {
 		$obj->is_first = (bool)$this->getCurrentVotingObject()->isFirst();
 		$obj->is_last = (bool)$this->getCurrentVotingObject()->isLast();
 		$obj->status = (int)$this->getStatus(true);
-		$obj->active_voting_id = (int)$this->getActiveVoting();
+		$obj->active_voting_id = (int)$this->getActiveVotingId();
 		$obj->show_results = (bool)$this->isShowResults();
 		$obj->frozen = (bool)$this->isFrozen();
 		$obj->votes = (int)xlvoVote::where(array(
@@ -184,7 +184,7 @@ class xlvoPlayer extends ActiveRecord {
 		))->count();
 
 		$last_update = xlvoVote::where(array(
-			'voting_id' => $this->getActiveVoting(),
+			'voting_id' => $this->getActiveVotingId(),
 			'status'    => xlvoVote::STAT_ACTIVE,
 		))->orderBy('last_update', 'DESC')->getArray('last_update', 'last_update');
 		$last_update = array_shift(array_values($last_update));
@@ -202,7 +202,7 @@ class xlvoPlayer extends ActiveRecord {
 	 * @return string
 	 */
 	public function getQuestionTypeClassName() {
-		return xlvoQuestionTypes::getClassName($this->getActiveVoting());
+		return xlvoQuestionTypes::getClassName($this->getActiveVotingId());
 	}
 
 
@@ -293,7 +293,7 @@ class xlvoPlayer extends ActiveRecord {
 	 * @return xlvoVoting
 	 */
 	protected function getCurrentVotingObject() {
-		return xlvoVoting::find($this->getActiveVoting());
+		return xlvoVoting::find($this->getActiveVotingId());
 	}
 
 
@@ -424,7 +424,7 @@ class xlvoPlayer extends ActiveRecord {
 	/**
 	 * @return int
 	 */
-	public function getActiveVoting() {
+	public function getActiveVotingId() {
 		return $this->active_voting;
 	}
 

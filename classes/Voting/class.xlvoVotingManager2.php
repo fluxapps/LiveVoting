@@ -37,7 +37,7 @@ class xlvoVotingManager2 {
 		$obj_id = xlvoPin::checkPin($pin, false);
 		$this->obj_id = $obj_id;
 		$this->player = xlvoPlayer::getInstanceForObjId($this->obj_id);
-		$this->voting = xlvoVoting::findOrGetInstance($this->getPlayer()->getActiveVoting());
+		$this->initVoting();
 	}
 
 
@@ -460,6 +460,10 @@ class xlvoVotingManager2 {
 	 * @return xlvoVoting
 	 */
 	public function getVoting() {
+		if ($this->voting->getId() != $this->getPlayer()->getActiveVotingId()) {
+			$this->initVoting();
+		}
+
 		return $this->voting;
 	}
 
@@ -524,5 +528,10 @@ class xlvoVotingManager2 {
 				$this->player->setFrozen($this->player->isFrozen());
 				break;
 		}
+	}
+
+
+	protected function initVoting() {
+		$this->voting = xlvoVoting::findOrGetInstance($this->getPlayer()->getActiveVotingId());
 	}
 }
