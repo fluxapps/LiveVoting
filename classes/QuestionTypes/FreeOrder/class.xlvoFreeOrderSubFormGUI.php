@@ -28,8 +28,7 @@ class xlvoFreeOrderSubFormGUI extends xlvoSubFormGUI {
 		$h = new ilHiddenInputGUI(self::F_ID);
 		$xlvoMultiLineInputGUI->addInput($h);
 
-		$te = new xlvoTextAreaInputGUI($this->txt('option_text'), self::F_TEXT);
-		$te->setInlineStyle('width: 350px;');
+		$te = new ilTextInputGUI($this->txt('option_text'), self::F_TEXT);
 
 		$xlvoMultiLineInputGUI->addInput($te);
 

@@ -10,6 +10,18 @@
             var self = this;
             var counter = 0;
             var clone_line = $(this).find('.multi_input_line').first();
+            var calc_width = function (clone_line) {
+                var calced_width = clone_line.find('.multi_icons_wrapper').last().width();
+                clone_line.find('.ml-input').each(function () {
+                    calced_width = calced_width + $(this).width();
+                });
+                calced_width = calced_width - clone_line.find('.ml-input').last().width();
+                clone_line.find('.ml-input').last().width(clone_line.width() - calced_width - 100);
+            };
+            $(this).find('.multi_input_line').each(function () {
+                calc_width($(this));
+            });
+
             var empty_id = "empty";
 
             var setup_clone_line = function (clone_line) {
@@ -27,10 +39,15 @@
             };
 
             setup_clone_line(clone_line);
-
+            /**
+             *
+             * @param line
+             * @param init
+             */
             var setup_line = function (line, init) {
                 var init = init || false;
                 var $line = line;
+
 
                 $(line).find('.add_button').on('click', function (e) {
                     var new_line = clone_line.clone();

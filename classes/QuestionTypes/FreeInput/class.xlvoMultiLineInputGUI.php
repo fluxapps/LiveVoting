@@ -61,6 +61,10 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	 * @var bool
 	 */
 	protected $position_movable = false;
+	/**
+	 * @var int
+	 */
+	protected $counter = 0;
 
 
 	/**
@@ -120,6 +124,7 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	public function addInput(ilFormPropertyGUI $input, $options = array()) {
 		$this->inputs[$input->getPostVar()] = $input;
 		$this->input_options[$input->getPostVar()] = $options;
+		$this->counter ++;
 	}
 
 
