@@ -33,7 +33,7 @@ voting_description#:#Beschreibung
 voting_edit#:#Bearbeiten
 voting_msg_sorting_saved#:#Reihenfolge gespeichert
 voting_msg_duplicated#:#Frage wurde dupliziert
-voting_question#:#Frage
+voting_question#:#Question
 voting_reset#:#Zurücksetzen
 voting_reset_all#:#Alle Resultate zurücksetzen
 voting_save_sorting#:#Reihenfolge speichern
