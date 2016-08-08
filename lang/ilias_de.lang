@@ -52,7 +52,7 @@ voting_type_3#:#Bereich
 voting_type_4#:#Korrekte Reihenfolge
 voting_type_4_info#:#User müssen Begriffe in die richtige Reihenfolge bringen
 voting_type_5#:#Prioritäten
-voting_update#:#Speichern
+voting_update#:#Speichern und zurückkehren
 voting_type_5_info#:#User können Begriffe nach Prioritäten anordnen
 voting_export#:#Export
 voting_import#:#Import
@@ -60,7 +60,7 @@ voting_form_title_update#:#Question
 voting_form_title_create#:#Question
 voting_columns#:#Spalten für Antwortmöglichkeiten
 voting_duplicate#:#Duplizieren
-voting_update_and_stay#:#Speichern und weiter bearbeiten
+voting_update_and_stay#:#Speichern
 xlvo_add#:#Hinzufügen
 xlvo_delete#:#LiveVoting löschen
 xlvo_edit#:#Bearbeiten

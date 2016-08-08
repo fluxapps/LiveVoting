@@ -373,10 +373,10 @@
             },
             "update": {
                 "translations": {
-                    "en": "Update",
-                    "de": "Speichern"
+                    "de": "Speichern und zurückkehren",
+                    "en": "Update and return"
                 },
-                "last_used": "12.07.2016"
+                "last_used": "05.08.2016"
             },
             "type_5_info": {
                 "translations": {
@@ -404,7 +404,7 @@
                     "en": "Frage",
                     "de": "Question"
                 },
-                "last_used": "12.07.2016"
+                "last_used": "05.08.2016"
             },
             "form_title_create": {
                 "translations": {
@@ -429,10 +429,10 @@
             },
             "update_and_stay": {
                 "translations": {
-                    "en": "Update and Stay",
-                    "de": "Speichern und weiter bearbeiten"
+                    "en": "Update",
+                    "de": "Speichern"
                 },
-                "last_used": "12.07.2016"
+                "last_used": "05.08.2016"
             }
         },
         "xlvo": {
