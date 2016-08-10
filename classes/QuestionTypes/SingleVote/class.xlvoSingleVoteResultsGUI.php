@@ -13,34 +13,22 @@ class xlvoSingleVoteResultsGUI extends xlvoInputResultsGUI {
 	 * @return string
 	 */
 	public function getHTML() {
-		/**
-		 * @var xlvoBarCollectionGUI
-		 */
-		$answer_count = 64;
 		$bars = new xlvoBarCollectionGUI();
-		$total = $this->manager->countVotes();
-		$max = $this->manager->getMaxCountOfVotes();
-		foreach ($this->voting->getVotingOptions() as $xlvoOption) {
-			$answer_count ++;
-			/**
-			 * @var xlvoVote $votes
-			 */
-			$votes = $this->manager->countVotesOfOption($xlvoOption->getId());
 
+		$bars->setShowTotalVoters(true);
+		$bars->setTotalVoters($this->manager->countVoters());
+
+		$max = $this->manager->countVoters();
+
+		foreach ($this->voting->getVotingOptions() as $xlvoOption) {
 			$xlvoBarPercentageGUI = new xlvoBarPercentageGUI();
-			$xlvoBarPercentageGUI->setShowAbsolute($this->isShowAbsolute());
-			$xlvoBarPercentageGUI->setTitle($xlvoOption->getTextForPresentation());
-			$xlvoBarPercentageGUI->setId($xlvoOption->getId());
-			$xlvoBarPercentageGUI->setVotes($votes);
-			$xlvoBarPercentageGUI->setTotal($total);
 			$xlvoBarPercentageGUI->setMax($max);
-			$xlvoBarPercentageGUI->setOptionLetter($xlvoOption->getCipher());
+			$xlvoBarPercentageGUI->setVotes($this->manager->countVotesOfOption($xlvoOption->getId()));
+			$xlvoBarPercentageGUI->setTotal($max);
+			$xlvoBarPercentageGUI->setShowAbsolute($this->isShowAbsolute());
 
 			$bars->addBar($xlvoBarPercentageGUI);
 		}
-
-		$bars->setShowTotalVotes(true);
-		$bars->setTotalVotes($this->manager->countVotes());
 
 		return $bars->getHTML();
 	}

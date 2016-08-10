@@ -22,6 +22,14 @@ class xlvoBarCollectionGUI {
 	 * @var bool
 	 */
 	protected $show_total_votes = false;
+	/**
+	 * @var int
+	 */
+	protected $total_voters = 0;
+	/**
+	 * @var bool
+	 */
+	protected $show_total_voters = false;
 
 
 	public function __construct() {
@@ -34,8 +42,13 @@ class xlvoBarCollectionGUI {
 	 */
 	public function getHTML() {
 		if ($this->isShowTotalVotes()) {
-			$this->tpl->setCurrentBlock('total');
-			$this->tpl->setVariable('TOTAL', ilLiveVotingPlugin::getInstance()->txt('qtype_1_total_votes') . ': ' . $this->getTotalVotes());
+			$this->tpl->setCurrentBlock('total_votes');
+			$this->tpl->setVariable('TOTAL_VOTES', ilLiveVotingPlugin::getInstance()->txt('qtype_1_total_votes') . ': ' . $this->getTotalVotes());
+			$this->tpl->parseCurrentBlock();
+		}
+		if ($this->isShowTotalVoters()) {
+			$this->tpl->setCurrentBlock('total_voters');
+			$this->tpl->setVariable('TOTAL_VOTERS', ilLiveVotingPlugin::getInstance()->txt('qtype_1_total_voters') . ': ' . $this->getTotalVoters());
 			$this->tpl->parseCurrentBlock();
 		}
 
@@ -92,5 +105,37 @@ class xlvoBarCollectionGUI {
 	 */
 	public function setShowTotalVotes($show_total_votes) {
 		$this->show_total_votes = $show_total_votes;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getTotalVoters() {
+		return $this->total_voters;
+	}
+
+
+	/**
+	 * @param int $total_voters
+	 */
+	public function setTotalVoters($total_voters) {
+		$this->total_voters = $total_voters;
+	}
+
+
+	/**
+	 * @return boolean
+	 */
+	public function isShowTotalVoters() {
+		return $this->show_total_voters;
+	}
+
+
+	/**
+	 * @param boolean $show_total_voters
+	 */
+	public function setShowTotalVoters($show_total_voters) {
+		$this->show_total_voters = $show_total_voters;
 	}
 }

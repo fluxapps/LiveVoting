@@ -316,6 +316,20 @@ class xlvoVotingManager2 {
 	/**
 	 * @return int
 	 */
+	public function countVoters() {
+		$q = "SELECT COUNT(DISTINCT user_identifier) AS maxcount FROM rep_robj_xlvo_vote_n WHERE voting_id = %s AND status = %s";
+
+		global $ilDB;
+		$res = $ilDB->queryF($q, array( 'integer', 'integer' ), array( $this->getVoting()->getId(), xlvoVote::STAT_ACTIVE ));
+		$data = $ilDB->fetchObject($res);
+
+		return $data->maxcount ? $data->maxcount : 0;
+	}
+
+
+	/**
+	 * @return int
+	 */
 	public function getMaxCountOfVotes() {
 		$q = "SELECT MAX(counted) AS maxcount FROM
 				( SELECT COUNT(*) AS counted FROM rep_robj_xlvo_vote_n WHERE voting_id = %s AND status = %s GROUP BY option_id ) 

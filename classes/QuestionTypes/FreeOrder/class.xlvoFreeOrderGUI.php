@@ -11,8 +11,6 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
  * @ilCtrl_IsCalledBy xlvoFreeOrderGUI: xlvoVoter2GUI
  */
 class xlvoFreeOrderGUI extends xlvoCorrectOrderGUI {
-	
-	
 
 	public function initJS() {
 		xlvoJs::getInstance()->api($this)->name('FreeOrder')->category('QuestionTypes')->addLibToHeader('jquery.ui.touch-punch.min.js')->init();
@@ -22,7 +20,7 @@ class xlvoFreeOrderGUI extends xlvoCorrectOrderGUI {
 	/**
 	 * @return array
 	 */
-	public function getButtonInstances() {  
+	public function getButtonInstances() {
 		if (!$this->manager->getPlayer()->isShowResults()) {
 			return array();
 		}
@@ -35,15 +33,15 @@ class xlvoFreeOrderGUI extends xlvoCorrectOrderGUI {
 			$b->setCaption(xlvoGlyphGUI::get('sort-by-attributes-alt'), false);
 		}
 
-		$t = ilLinkButton::getInstance();
-		$t->setId(self::BUTTON_TOGGLE_PERCENTAGE);
-		if ($states[self::BUTTON_TOGGLE_PERCENTAGE]) {
-			$t->setCaption('%', false);
-		} else {
-			$t->setCaption(xlvoGlyphGUI::get('user'), false);
-		}
+		//		$t = ilLinkButton::getInstance();
+		//		$t->setId(self::BUTTON_TOGGLE_PERCENTAGE);
+		//		if ($states[self::BUTTON_TOGGLE_PERCENTAGE]) {
+		//			$t->setCaption('%', false);
+		//		} else {
+		//			$t->setCaption(xlvoGlyphGUI::get('user'), false);
+		//		}
 
-		return array( $b, $t );
+		return array( $b );
 	}
 
 

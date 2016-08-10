@@ -39,6 +39,10 @@ class xlvoBarPercentageGUI implements xlvoBarGUI {
 	 */
 	protected $show_absolute = false;
 	/**
+	 * @var bool
+	 */
+	protected $override_bar_to_percentage = false;
+	/**
 	 * @var int
 	 */
 	protected $max = 100;
@@ -53,16 +57,21 @@ class xlvoBarPercentageGUI implements xlvoBarGUI {
 
 
 	protected function render() {
-		if ($this->isShowAbsolute()) {
-			$this->tpl->setVariable('PERCENT', $this->getVotes());
-			$this->tpl->setVariable('PERCENT_TEXT', $this->getVotes());
-			$this->tpl->setVariable('PERCENT_STYLE', $this->getAbsolutePercentage());
-		} else {
+		if (!$this->isShowAbsolute() || $this->isOverrideBarToPercentage()) {
 			$this->setMax(100);
 			$this->tpl->setVariable('PERCENT', $this->getPercentage());
 			$this->tpl->setVariable('PERCENT_TEXT', $this->getPercentage() . '%');
 			$this->tpl->setVariable('PERCENT_STYLE', $this->getPercentage());
+		} elseif ($this->isShowAbsolute()) {
+			$this->tpl->setVariable('PERCENT', $this->getVotes());
+			$this->tpl->setVariable('PERCENT_TEXT', $this->getVotes());
+			$this->tpl->setVariable('PERCENT_STYLE', $this->getAbsolutePercentage());
 		}
+
+		if ($this->isShowAbsolute()) {
+			$this->tpl->setVariable('PERCENT_TEXT', $this->getVotes());
+		}
+
 		$this->tpl->setVariable('ID', $this->getId());
 		$this->tpl->setVariable('MAX', $this->getMax());
 		$this->tpl->setVariable('TITLE', $this->getTitle());
@@ -239,5 +248,21 @@ class xlvoBarPercentageGUI implements xlvoBarGUI {
 	 */
 	public function setMax($max) {
 		$this->max = $max;
+	}
+
+
+	/**
+	 * @return boolean
+	 */
+	public function isOverrideBarToPercentage() {
+		return $this->override_bar_to_percentage;
+	}
+
+
+	/**
+	 * @param boolean $override_bar_to_percentage
+	 */
+	public function setOverrideBarToPercentage($override_bar_to_percentage) {
+		$this->override_bar_to_percentage = $override_bar_to_percentage;
 	}
 }
