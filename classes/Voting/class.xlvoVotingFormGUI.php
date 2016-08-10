@@ -129,9 +129,11 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 		$this->addItem($te);
 
 		// Columns
-		$columns = new ilSelectInputGUI($this->txt(self::F_COLUMNS), self::F_COLUMNS);
-		$columns->setOptions(array( 1 => 1, 2 => 2, 3 => 3, 4 => 4 ));
-		$this->addItem($columns);
+		if ($this->voting->getVotingType() != xlvoQuestionTypes::TYPE_FREE_INPUT) {
+			$columns = new ilSelectInputGUI($this->txt(self::F_COLUMNS), self::F_COLUMNS);
+			$columns->setOptions(array( 1 => 1, 2 => 2, 3 => 3, 4 => 4 ));
+			$this->addItem($columns);
+		}
 
 		xlvoSubFormGUI::getInstance($this->getVoting())->appedElementsToForm($this);
 	}
