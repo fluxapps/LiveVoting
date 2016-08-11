@@ -183,7 +183,7 @@
                     "en": "Do you like to reset this Voting? All User-Inputs will be deleted.",
                     "de": "Möchten Sie die Resultate dieser Frage zurücksetzen? Alle Benutzer-Eingaben werden gelöscht."
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "confirm_reset_all": {
                 "translations": {
@@ -858,14 +858,14 @@
                     "de": "Pausieren",
                     "en": "Freeze"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "hide_results": {
                 "translations": {
                     "de": "Resultate ausblenden",
                     "en": "Hide Results"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "msg_no_start_1": {
                 "translations": {
@@ -898,14 +898,14 @@
                     "de": "Zurücksetzen",
                     "en": "Reset"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "show_results": {
                 "translations": {
                     "de": "Resultate einblenden",
                     "en": "Show Results"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "start_voting": {
                 "translations": {
@@ -926,21 +926,21 @@
                     "de": "Beenden",
                     "en": "Terminate"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "unfreeze": {
                 "translations": {
                     "de": "Abstimmen",
                     "en": "Unfreeze"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "voters_online": {
                 "translations": {
                     "de": "Online",
                     "en": "Online"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "voting_list": {
                 "translations": {
@@ -961,7 +961,7 @@
                     "en": "sec",
                     "de": "s"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "player_countdown": {
                 "translations": {
