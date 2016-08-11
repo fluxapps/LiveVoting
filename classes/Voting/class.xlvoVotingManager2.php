@@ -76,7 +76,7 @@ class xlvoVotingManager2 {
 		if ($this->hasUserVotedForOption($xlvoOption)) {
 			$this->unvote($option);
 		} else {
-			$vote_id = xlvoVote::vote(xlvoUser::getInstance(), $this->getVoting()->getId(), $option);
+			$vote_id = xlvoVote::vote(xlvoUser::getInstance(), $this->getVoting()->getId(), $this->player->getRoundId(), $option);
 		}
 		if (!$this->getVoting()->isMultiSelection()) {
 			$this->unvoteAll($vote_id);

@@ -103,6 +103,7 @@ class xlvoInitialisation extends ilInitialisation {
 
 	public static function initILIAS2() {
 		global $tree;
+		self::initDependencyInjection();
 		self::initCore();
 		self::initClient();
 		self::initUser();
@@ -112,6 +113,13 @@ class xlvoInitialisation extends ilInitialisation {
 		require_once('class.xlvoObjectDefinition.php');
 		global $objDefinition;
 		$objDefinition = new xlvoObjectDefinition();
+	}
+
+	public static function initDependencyInjection() {
+		$GLOBALS["DIC"] = new \ILIAS\DI\Container();
+		$GLOBALS["DIC"]["ilLoggerFactory"] = function($c) {
+			return ilLoggerFactory::getInstance();
+		};
 	}
 
 

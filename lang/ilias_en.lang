@@ -190,3 +190,7 @@ grp_create_xlvo#:#Create LiveVoting
 root_create_xlvo#:#Create LiveVoting
 rminable_select_start_time#:#Start
 vqtype_1_options#:#Options
+new_round#:#New Round
+round#:#Round
+change#:#Change
+tab_results#:#Results

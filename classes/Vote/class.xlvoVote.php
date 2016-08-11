@@ -20,12 +20,14 @@ class xlvoVote extends ActiveRecord {
 	/**
 	 * @param xlvoUser $xlvoUser
 	 * @param $voting_id
+	 * @param $round_id
 	 * @param null $option_id
 	 * @return string
 	 */
-	public static function vote(xlvoUser $xlvoUser, $voting_id, $option_id = null) {
+	public static function vote(xlvoUser $xlvoUser, $voting_id, $round_id, $option_id = null) {
 		$obj = self::getUserInstance($xlvoUser, $voting_id, $option_id);
 		$obj->setStatus(self::STAT_ACTIVE);
+		$obj->setRoundId($round_id);
 		$obj->store();
 
 		return $obj->getId();
@@ -262,6 +264,23 @@ class xlvoVote extends ActiveRecord {
 	 */
 	protected $last_update;
 
+	/**
+	 * @var int
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           8
+	 */
+	protected $round_id = 0;
+
+	/**
+	 * @var bool
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           1
+	 */
+	protected $latest_entry = 0;
 
 	/**
 	 * @return string
@@ -404,5 +423,33 @@ class xlvoVote extends ActiveRecord {
 	 */
 	public function setLastUpdate($last_update) {
 		$this->last_update = $last_update;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getRoundId() {
+		return $this->round_id;
+	}
+
+	/**
+	 * @param int $round_id
+	 */
+	public function setRoundId($round_id) {
+		$this->round_id = $round_id;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function isLatestEntry() {
+		return $this->latest_entry;
+	}
+
+	/**
+	 * @param boolean $latest_entry
+	 */
+	public function setLatestEntry($latest_entry) {
+		$this->latest_entry = $latest_entry;
 	}
 }

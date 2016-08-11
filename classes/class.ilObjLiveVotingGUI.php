@@ -12,13 +12,14 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoPlayerGUI.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Context/class.xlvoInitialisation.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoQuestionTypes.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Results/class.xlvoResultsGUI.php');
 
 /**
  * Class ilObjLiveVotingGUI
  *
  * @ilCtrl_isCalledBy ilObjLiveVotingGUI: ilRepositoryGUI, ilObjPluginDispatchGUI, ilAdministrationGUI
  * @ilCtrl_Calls      ilObjLiveVotingGUI: ilPermissionGUI, ilInfoScreenGUI, ilObjectCopyGUI, ilCommonActionDispatcherGUI
- * @ilCtrl_Calls      ilObjLiveVotingGUI: xlvoVoterGUI, xlvoPlayerGUI, xlvoPlayer2GUI, xlvoVotingGUI
+ * @ilCtrl_Calls      ilObjLiveVotingGUI: xlvoVoterGUI, xlvoPlayerGUI, xlvoPlayer2GUI, xlvoVotingGUI, xlvoResultsGUI
  *
  * @author            Daniel Aemmer <daniel.aemmer@phbern.ch>
  * @author            Fabian Schmid <fs@studer-raimann.ch>
@@ -37,6 +38,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 	const SUBTAB_SHOW = 'subtab_show';
 	const SUBTAB_EDIT = 'subtab_edit';
 	const TAB_CONTENT = 'tab_content';
+	const TAB_RESULTS = 'tab_results';
 	const F_TITLE = 'title';
 	const F_DESCRIPTION = 'description';
 	/**
@@ -107,6 +109,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 		if (!$this->getCreationMode()) {
 			$this->tpl->setTitle($this->object->getTitle());
 			$this->tpl->setTitleIcon(ilObject::_getIcon($this->object->getId()));
+			$this->ctrl->saveParameter($this, 'round_id');
 
 			// set tabs
 			if (strtolower($_GET['baseClass']) != 'iladministrationgui') {
@@ -165,6 +168,12 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 				$xlvoVotingGUI = new xlvoVotingGUI();
 				$this->setSubTabs(self::TAB_CONTENT, self::SUBTAB_EDIT);
 				$this->ctrl->forwardCommand($xlvoVotingGUI);
+				break;
+
+			case 'xlvoresultsgui':
+				$xlvoResultsGUI = new xlvoResultsGUI($this->obj_id);
+				$this->tabs->setTabActive(self::TAB_RESULTS);
+				$this->ctrl->forwardCommand($xlvoResultsGUI);
 				break;
 
 			case 'xlvoplayergui':
@@ -268,6 +277,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 		$this->addInfoTab();
 		if ($this->access->hasWriteAccess()) {
 			$this->tabs->addTab(self::TAB_EDIT, $this->pl->txt(self::TAB_EDIT), $this->ctrl->getLinkTarget($this, self::CMD_EDIT));
+			$this->tabs->addTab(self::TAB_RESULTS, $this->pl->txt(self::TAB_RESULTS), $this->ctrl->getLinkTargetByClass('xlvoResultsGUI', xlvoResultsGUI::CMD_SHOW));
 		}
 		parent::setTabs();
 

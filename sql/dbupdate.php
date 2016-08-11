@@ -377,5 +377,18 @@ xlvoPlayer::updateDB();
 ?>
 <#24>
 <?php
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoPlayer.php');
+xlvoPlayer::updateDB();
+
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Vote/class.xlvoVote.php');
+xlvoVote::updateDB();
+?>
+<#25>
+<?php
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Round/class.xlvoRound.php');
+xlvoRound::installDB();
+?>
+<#26>
+<?php
 $ilDB->manipulate("UPDATE rep_robj_xlvo_config_n SET frozen_behaviour = 0, results_behaviour = 0");
 ?>

@@ -191,3 +191,8 @@ fikd_create_xlvo#:#LiveVoting erstellen
 grp_create_xlvo#:#LiveVoting erstellen
 root_create_xlvo#:#LiveVoting erstellen
 playplayer_msg_no_start_2#:#Das LiveVoting kann nicht gestartet werden, da noch keine Votings vorhanden sind.
+new_round#:#Neuer Durchgang
+round#:#Durchgang
+change#:#Wechseln
+tab_results#:#Resultate
+
