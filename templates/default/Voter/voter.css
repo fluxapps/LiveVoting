@@ -138,7 +138,13 @@ div.lxvo-row {
   height: 100% !important;
   z-index: 5000 !important;
   background-color: black !important;
+  overflow-y: scroll;
 }
 .xlvo-fullscreen #xlvo-display-player {
   font-size: 200%;
+}
+@media only screen and (max-width: 768px) {
+  img {
+    height: auto !important;
+  }
 }
