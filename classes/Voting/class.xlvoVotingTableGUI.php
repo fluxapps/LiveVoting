@@ -188,7 +188,8 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 		$this->determineOffsetAndOrder();
 		$this->determineLimit();
 
-		$collection = xlvoVoting::where(array( 'obj_id' => $this->voting_gui->getObjId() ))->orderBy('position', 'ASC');
+		$collection = xlvoVoting::where(array( 'obj_id' => $this->voting_gui->getObjId() ))
+		                        ->where(array( 'voting_type' => xlvoQuestionTypes::getActiveTypes() ))->orderBy('position', 'ASC');
 		$this->setMaxCount($collection->count());
 		$sorting_column = $this->getOrderField() ? $this->getOrderField() : 'position';
 		$offset = $this->getOffset() ? $this->getOffset() : 0;

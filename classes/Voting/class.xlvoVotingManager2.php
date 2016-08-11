@@ -527,7 +527,7 @@ class xlvoVotingManager2 {
 		return xlvoVoting::where(array(
 			'obj_id'        => $this->getObjId(),
 			'voting_status' => xlvoVoting::STAT_ACTIVE,
-		))->orderBy('position', $order);
+		))->where(array( 'voting_type' => xlvoQuestionTypes::getActiveTypes() ))->orderBy('position', $order);
 	}
 
 

@@ -197,13 +197,22 @@ class xlvoVoting extends ActiveRecord {
 
 
 	/**
+	 * @return ActiveRecordList
+	 */
+	protected function getFirstLastList($order) {
+		return self::where(array( 'obj_id' => $this->getObjId() ))->orderBy('position', $order)
+		           ->where(array( 'voting_type' => xlvoQuestionTypes::getActiveTypes() ));
+	}
+
+
+	/**
 	 * @return bool
 	 */
 	public function isFirst() {
 		/**
 		 * @var $first xlvoVoting
 		 */
-		$first = self::where(array( 'obj_id' => $this->getObjId() ))->orderBy('position', 'ASC')->first();
+		$first = $this->getFirstLastList('ASC')->first();
 		if (!$first instanceof self) {
 			$first = new self();
 		}
@@ -219,7 +228,7 @@ class xlvoVoting extends ActiveRecord {
 		/**
 		 * @var $first xlvoVoting
 		 */
-		$first = self::where(array( 'obj_id' => $this->getObjId() ))->orderBy('position', 'DESC')->first();
+		$first = $this->getFirstLastList('DESC')->first();
 
 		if (!$first instanceof self) {
 			$first = new self();
