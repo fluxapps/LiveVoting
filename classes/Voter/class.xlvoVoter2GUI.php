@@ -133,12 +133,13 @@ class xlvoVoter2GUI extends xlvoGUI {
 
 		$mathJaxSetting = new ilSetting("MathJax");
 		$settings = array(
-			'use_mathjax'    => (bool)$mathJaxSetting->get("enable"),
-			'debug'          => self::DEBUG,
-			'ilias_51'       => version_compare(ILIAS_VERSION_NUMERIC, '5.1.00', '>'),
+			'use_mathjax' => (bool)$mathJaxSetting->get("enable"),
+			'debug'       => self::DEBUG,
+			'ilias_51'    => version_compare(ILIAS_VERSION_NUMERIC, '5.1.00', '>'),
 		);
 
-		xlvoJs::getInstance()->api($this, array( 'ilUIPluginRouterGUI' ))->addSettings($settings)->name('Voter')->addTranslations($t)->init()->call('run');
+		xlvoJs::getInstance()->api($this, array( 'ilUIPluginRouterGUI' ))->addSettings($settings)->name('Voter')->addTranslations($t)->init()
+		      ->call('run');
 		foreach (xlvoQuestionTypes::getActiveTypes() as $type) {
 			xlvoQuestionTypesGUI::getInstance($this->manager, $type)->initJS();
 		}

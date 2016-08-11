@@ -188,6 +188,18 @@ class xlvoVotingManager2 {
 
 
 	/**
+	 * @param bool $incl_inactive
+	 * @return xlvoVote
+	 */
+	public function getFirstVoteOfUser($incl_inactive = false) {
+		$xlvoVotes = $this->getVotesOfUser($incl_inactive);
+		$xlvoVote = array_shift(array_values($xlvoVotes));
+
+		return ($xlvoVote instanceof xlvoVote) ? $xlvoVote : new xlvoVote();
+	}
+
+
+	/**
 	 * @param xlvoOption $xlvoOption
 	 * @return bool
 	 */

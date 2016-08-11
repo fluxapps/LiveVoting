@@ -163,6 +163,7 @@ class xlvoPlayer extends ActiveRecord {
 		$obj->countdown = (int)$this->remainingCountDown();
 		$obj->has_countdown = (bool)$this->isCountDownRunning();
 		$obj->countdown_classname = $this->getCountdownClassname();
+		$obj->frozen = (bool)$this->isFrozen();
 
 		return $obj;
 	}

@@ -24,7 +24,7 @@ var xlvoVoter = {
         debug: false
     },
     player: {
-        frozen: 1,
+        frozen: true,
         active_voting_id: 0,
         status: -1,
         countdown: 0,
@@ -49,10 +49,11 @@ var xlvoVoter = {
                 xlvoVoter.log(data);
                 var voting_has_changed = (xlvoVoter.player.active_voting_id != data.active_voting_id), // Voting has changed
                     status_has_changed = (xlvoVoter.player.status != data.status), // Status of player has changed
-                    forced_update = (xlvoVoter.counter > xlvoVoter.forced_update); // forced update
+                    forced_update = (xlvoVoter.counter > xlvoVoter.forced_update), // forced update
+                    frozen_changed = (xlvoVoter.player.frozen != data.frozen); // frozen status has changed
 
                 xlvoVoter.player = data;
-                if (status_has_changed || voting_has_changed || forced_update || xlvoVoter.player.frozen) {
+                if (status_has_changed || voting_has_changed || forced_update || frozen_changed) {
                     xlvoVoter.replaceHTML(xlvoVoter.handleCountdown());
                 } else {
                     xlvoVoter.handleCountdown();
