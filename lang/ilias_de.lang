@@ -145,6 +145,7 @@ qtype_1_multi_selection_info#:#Ein Nutzer kann mehr als einen Text eingeben
 qtype_1_option_text#:#Options-Text
 qtype_1_options#:#Mögliche Antworten
 qtype_1_total_votes#:#Anzahl Stimmen
+qtype_1_total_voters#:#Anzahl Abstimmende
 qtype_1_unvote#:#Unvote
 qtype_1_vote#:#Vote
 qtype_2_answers#:#Eingaben

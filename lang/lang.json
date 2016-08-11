@@ -1014,6 +1014,13 @@
                 },
                 "last_used": "28.06.2016"
             },
+            "1_total_voters": {
+                "translations": {
+                    "de": "Anzahl Abstimmende",
+                    "en": "Total Voters"
+                },
+                "last_used": "28.06.2016"
+            },
             "1_unvote": {
                 "translations": {
                     "de": "Unvote",
