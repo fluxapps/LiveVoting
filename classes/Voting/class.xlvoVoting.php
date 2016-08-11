@@ -15,6 +15,7 @@ class xlvoVoting extends ActiveRecord {
 	const STAT_ACTIVE = 5;
 	const STAT_INACTIVE = 1;
 	const STAT_INCOMPLETE = 2;
+	const ROWS_DEFAULT = 2;
 	/**
 	 * @var int
 	 *
@@ -112,7 +113,7 @@ class xlvoVoting extends ActiveRecord {
 	 * @db_fieldtype        integer
 	 * @db_length           2
 	 */
-	protected $columns = 4;
+	protected $columns = self::ROWS_DEFAULT;
 	/**
 	 * @var xlvoOption[]
 	 */
@@ -137,7 +138,7 @@ class xlvoVoting extends ActiveRecord {
 	 * @return int
 	 */
 	public function getComputedColums() {
-		return (12 / (in_array($this->getColumns(), array( 1, 2, 3, 4 )) ? $this->getColumns() : 4));
+		return (12 / (in_array($this->getColumns(), array( 1, 2, 3, 4 )) ? $this->getColumns() : self::ROWS_DEFAULT));
 	}
 
 
