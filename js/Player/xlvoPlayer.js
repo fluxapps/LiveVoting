@@ -358,16 +358,15 @@ var xlvoPlayer = {
      */
     handleStartButton: function () {
         var btn = $('.xlvo-preview');
+        btn.disableSelection();
         btn.click(function (evt) {
             xlvoPlayer.clearTimeout();
-            if (evt.altKey) {
+            if (evt.shiftKey) {
                 window.location.href = btn.attr('href') + '&preview=1&key=1';
                 return false;
             }
             return true;
         });
-
-
     },
     /**
      * @param html
