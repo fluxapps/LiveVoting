@@ -86,6 +86,7 @@ class xlvoVotingManager2 {
 
 	public function prepare() {
 		$this->getVoting()->renegerateOptionSorting();
+		$this->getPlayer()->freeze();
 	}
 
 

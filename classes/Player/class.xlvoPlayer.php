@@ -55,10 +55,11 @@ class xlvoPlayer extends ActiveRecord {
 
 
 	/**
+	 * @param bool $simulate_user
 	 * @return int
 	 */
 	public function getStatus($simulate_user = false) {
-		if ($simulate_user && $this->isFrozenOrUnattended() && !xlvoPlayerGUI::DEBUG) {
+		if ($simulate_user && $this->isFrozenOrUnattended()) {
 			return self::STAT_FROZEN;
 		}
 

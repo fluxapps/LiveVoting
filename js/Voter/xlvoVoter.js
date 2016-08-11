@@ -20,23 +20,21 @@ var xlvoVoter = {
         cmd_voting_data: '', // loadVotingData
         lng: {
             player_seconds: 's'
-        }
+        },
+        debug: false
     },
     player: {
+        frozen: 1,
         active_voting_id: 0,
         status: -1,
         countdown: 0,
         has_countdown: false,
         countdown_classname: ''
     },
-    status: -1,
-    debug: false,
     delay: 1000,
     counter: 0,
     forced_update: 300,
-    countdown: 0,
     timeout: null,
-    active_voting_id: -1,
     run: function () {
         this.loadVotingData();
         this.initElements();
@@ -54,7 +52,7 @@ var xlvoVoter = {
                     forced_update = (xlvoVoter.counter > xlvoVoter.forced_update); // forced update
 
                 xlvoVoter.player = data;
-                if (status_has_changed || voting_has_changed || forced_update) {
+                if (status_has_changed || voting_has_changed || forced_update || xlvoVoter.player.frozen) {
                     xlvoVoter.replaceHTML(xlvoVoter.handleCountdown());
                 } else {
                     xlvoVoter.handleCountdown();
@@ -99,7 +97,7 @@ var xlvoVoter = {
      * @param data
      */
     log: function (data) {
-        if (xlvoVoter.debug) {
+        if (xlvoVoter.config.debug) {
             var err = new Error(), stack = err.stack;
             // console.log(stack);
             console.log(data);
