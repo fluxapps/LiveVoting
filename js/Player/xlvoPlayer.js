@@ -375,8 +375,7 @@ var xlvoPlayer = {
     handleQuestionButtons: function (html) {
         if (xlvoPlayer.buttons_handled) {
             this.log('buttons already handled for this question');
-            if (!this.config.debug)
-                return;
+            return;
         }
 
         var custom_toolbar_dom = $('<div/>').html(html).contents(),
@@ -431,7 +430,8 @@ var xlvoPlayer = {
     togglePull: function () {
         if (xlvoPlayer.timeout) {
             alert('Pull stopped');
-            xlvoPlayer.clearTimeout()
+            xlvoPlayer.clearTimeout();
+            xlvoPlayer.timeout = false;
         } else {
             alert('Pull started');
             xlvoPlayer.getPlayerData();
