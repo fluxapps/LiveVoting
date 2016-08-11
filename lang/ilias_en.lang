@@ -33,7 +33,7 @@ voting_description#:#Description
 voting_edit#:#Edit
 voting_msg_sorting_saved#:#Order saved
 voting_msg_duplicated#:#Question has been duplicated
-voting_question#:#Frage
+voting_question#:#Question
 voting_reset#:#Reset
 voting_reset_all#:#Reset all Votings
 voting_save_sorting#:#Save Order
@@ -56,8 +56,8 @@ voting_update#:#Update and return
 voting_type_5_info#:#Terms can be sorted after Priorities
 voting_export#:#Export
 voting_import#:#Import
-voting_form_title_update#:#Frage
-voting_form_title_create#:#Frage
+voting_form_title_update#:#Question
+voting_form_title_create#:#Question
 voting_columns#:#Colums for possible answers
 voting_duplicate#:#Clone
 voting_update_and_stay#:#Update

@@ -241,8 +241,8 @@
             },
             "question": {
                 "translations": {
-                    "en": "Frage",
-                    "de": "Question"
+                    "en": "Question",
+                    "de": "Frage"
                 },
                 "last_used": "11.08.2016"
             },
@@ -401,15 +401,15 @@
             },
             "form_title_update": {
                 "translations": {
-                    "en": "Frage",
-                    "de": "Question"
+                    "en": "Question",
+                    "de": "Frage"
                 },
                 "last_used": "05.08.2016"
             },
             "form_title_create": {
                 "translations": {
-                    "en": "Frage",
-                    "de": "Question"
+                    "en": "Question",
+                    "de": "Frage"
                 },
                 "last_used": "05.08.2016"
             },
