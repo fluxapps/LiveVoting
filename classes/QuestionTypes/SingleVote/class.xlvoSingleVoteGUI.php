@@ -72,9 +72,10 @@ class xlvoSingleVoteGUI extends xlvoQuestionTypesGUI {
 			$tpl->setVariable('LINK', $this->ctrl->getLinkTarget($this, self::CMD_SUBMIT));
 			$tpl->setVariable('OPTION_LETTER', chr($answer_count));
 			if ($this->manager->hasUserVotedForOption($xlvoOption)) {
-				$tpl->setVariable('ACTIVE', 'active');
+				$tpl->setVariable('BUTTON_STATE', 'btn-primary');
 				$tpl->setVariable('ACTION', $this->txt('unvote'));
 			} else {
+				$tpl->setVariable('BUTTON_STATE', 'btn-default');
 				$tpl->setVariable('ACTION', $this->txt('vote'));
 			}
 			$tpl->parseCurrentBlock();
