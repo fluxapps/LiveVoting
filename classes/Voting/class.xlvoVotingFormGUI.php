@@ -153,7 +153,7 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 			'type'          => $this->voting->getVotingType(),
 			'title'         => $this->voting->getTitle(),
 			'description'   => $this->voting->getDescription(),
-			'question'      => $this->voting->getQuestion(),
+			'question'      => $this->voting->getQuestionForPresentation(),
 			'voting_type'   => $this->voting->getVotingType(),
 			'voting_status' => ($this->voting->getVotingStatus() == xlvoVoting::STAT_ACTIVE),
 			self::F_COLUMNS => $this->voting->getColumns(),
@@ -179,7 +179,7 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 		$this->voting->setVotingType($this->getInput('type'));
 		$this->voting->setTitle($this->getInput('title'));
 		$this->voting->setDescription($this->getInput('description'));
-		$this->voting->setQuestion($this->getInput('question'));
+		$this->voting->setQuestion(ilRTE::_replaceMediaObjectImageSrc($this->getInput('question'), 0));
 		$this->voting->setObjId($this->parent_gui->getObjId());
 		$this->voting->setColumns($this->getInput(self::F_COLUMNS));
 

@@ -391,7 +391,7 @@ class xlvoVoting extends ActiveRecord {
 	 * @return string
 	 */
 	public function getQuestionForPresentation() {
-		return ilUtil::prepareTextareaOutput($this->question, true);
+		return ilRTE::_replaceMediaObjectImageSrc($this->question, 1);
 	}
 
 
