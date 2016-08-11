@@ -119,7 +119,7 @@ class xlvoVotingConfig extends ActiveRecord {
 	 * @db_fieldtype        integer
 	 * @db_length           1
 	 */
-	protected $results_behaviour = self::B_RESULTS_ALWAY_ON;
+	protected $results_behaviour = self::B_RESULTS_ALWAY_OFF;
 	/**
 	 * @var bool
 	 */

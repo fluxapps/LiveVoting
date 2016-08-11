@@ -359,7 +359,7 @@ xlvoPlayer::updateDB();
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVoting.php');
 xlvoVoting::updateDB();
 $xlvo_voting_table_name = xlvoVoting::returnDbTableName();
-$q = "UPDATE {$xlvo_voting_table_name} SET columns=2";
+$q = "UPDATE {$xlvo_voting_table_name} SET columns=2, frozen_";
 $ilDB->manipulate($q);
 /**
  * @var $xlvoVoting xlvoVoting
@@ -374,4 +374,7 @@ foreach (xlvoVoting::get() as $xlvoVoting) {
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoPlayer.php');
 xlvoPlayer::updateDB();
 ?>
-
+<#24>
+<?php
+$ilDB->manipulate("UPDATE rep_robj_xlvo_config_n SET frozen_behaviour = 0, results_behaviour = 0");
+?>

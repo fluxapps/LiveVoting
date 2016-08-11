@@ -109,10 +109,10 @@ obj_frozen_alway_off#:#Question is always inactive after changing
 obj_frozen_alway_on_info#:#Users can vote directly after switching question.
 obj_frozen_alway_off_info#:#Users can vote after the presentator unfreezes the question.
 obj_results_behaviour#:#Show Results
-obj_results_alway_on#:#Resulats are always visible
-obj_results_alway_on_info#:#Resulats are always visible after switching question.
-obj_results_alway_off#:#Results are alays hidden
-obj_results_alway_off_info#:#Resulats are always hidden after switching question.
+obj_results_alway_on#:#Results are always visible
+obj_results_alway_on_info#:#Results are always visible after switching question.
+obj_results_alway_off#:#Results are always hidden
+obj_results_alway_off_info#:#Results are always hidden after switching question.
 obj_frozen_reuse#:#Reuse Status
 obj_frozen_reuse_info#:#Frozen-State is consistent after switching question.
 obj_results_reuse#:#Reuse state

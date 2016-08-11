@@ -156,14 +156,14 @@
                     "en": "Actions",
                     "de": "Aktionen"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "add": {
                 "translations": {
                     "en": "Add Question",
                     "de": "Frage hinzufügen"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "cancel": {
                 "translations": {
@@ -244,7 +244,7 @@
                     "en": "Frage",
                     "de": "Question"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "reset": {
                 "translations": {
@@ -258,14 +258,14 @@
                     "en": "Reset all Votings",
                     "de": "Alle Resultate zurücksetzen"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "save_sorting": {
                 "translations": {
                     "en": "Save Order",
                     "de": "Reihenfolge speichern"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "select_type": {
                 "translations": {
@@ -279,49 +279,49 @@
                     "en": "Status",
                     "de": "Status"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "status_1": {
                 "translations": {
                     "en": "Inactive",
                     "de": "Inaktiv"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "status_2": {
                 "translations": {
                     "en": "Incomplete",
                     "de": "Unvollständig"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "status_5": {
                 "translations": {
                     "en": "Active",
                     "de": "Aktiv"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "title": {
                 "translations": {
                     "en": "Title",
                     "de": "Titel"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "type": {
                 "translations": {
                     "en": "Type",
                     "de": "Typ"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "type_1": {
                 "translations": {
                     "en": "Single/Multiple Choice",
                     "de": "Single/Multiple Choice"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "type_1_info": {
                 "translations": {
@@ -335,7 +335,7 @@
                     "en": "Free Input",
                     "de": "Freitext eingeben"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "type_2_info": {
                 "translations": {
@@ -355,7 +355,7 @@
                     "en": "Correct Order",
                     "de": "Korrekte Reihenfolge"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "type_4_info": {
                 "translations": {
@@ -369,7 +369,7 @@
                     "en": "Priorities",
                     "de": "Prioritäten"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "update": {
                 "translations": {
@@ -441,7 +441,7 @@
                     "en": "Add",
                     "de": "Hinzufügen"
                 },
-                "last_used": "28.06.2016"
+                "last_used": "11.08.2016"
             },
             "delete": {
                 "translations": {
@@ -454,7 +454,7 @@
                     "en": "Edit",
                     "de": "Bearbeiten"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "edit_permission": {
                 "translations": {
@@ -467,7 +467,7 @@
                     "en": "Add new LiveVoting",
                     "de": "Neues LiveVoting anlegen"
                 },
-                "last_used": "28.06.2016"
+                "last_used": "11.08.2016"
             },
             "read": {
                 "translations": {
@@ -580,35 +580,35 @@
                     "de": "Abstimmung ohne Login",
                     "en": "Vote without Login"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "description": {
                 "translations": {
                     "de": "Beschreibung",
                     "en": "Description"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "edit_properties": {
                 "translations": {
                     "de": "Einstellungen bearbeiten",
                     "en": "Edit Properties"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "info_anonymous": {
                 "translations": {
                     "de": "Das LiveVoting kann von den Abstimmenden ohne Login verwendet werden, auch wenn das Objekt in einem geschützten Bereich wie bspw. einem Kurs liegt.",
                     "en": "The LiveVoting can be used for the voters without authentication, even when the Object is in a secured Space like a Course"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "info_online": {
                 "translations": {
                     "de": "Nur wenn das LiveVoting online geschaltet ist, können Benutzer das LiveVoting sehen und benutzen.",
                     "en": "Object is online and available"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "info_reuse_status": {
                 "translations": {
@@ -636,7 +636,7 @@
                     "de": "Online",
                     "en": "Online"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "reuse_status": {
                 "translations": {
@@ -650,7 +650,7 @@
                     "de": "Speichern",
                     "en": "Save"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "terminable": {
                 "translations": {
@@ -685,7 +685,7 @@
                     "de": "Titel",
                     "en": "Title"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "xlvo": {
                 "translations": {
@@ -718,112 +718,112 @@
                     "en": "Behaviour while navigating",
                     "de": "Verhalten bei Wechsel der Frage"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "frozen_behaviour": {
                 "translations": {
                     "en": "Frozen-State",
                     "de": "Abstimmen"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "frozen_alway_on": {
                 "translations": {
                     "en": "Question is always active after changing",
                     "de": "nach Wechsel immer eingeschaltet"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "frozen_alway_off": {
                 "translations": {
                     "en": "Question is always inactive after changing",
                     "de": "nach Wechsel immer ausgeschaltet"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "frozen_alway_on_info": {
                 "translations": {
                     "en": "Users can vote directly after switching question.",
                     "de": "Benutzer können nach einem Wechsel der Frage sofort abstimmen."
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "frozen_alway_off_info": {
                 "translations": {
                     "en": "Users can vote after the presentator unfreezes the question.",
                     "de": "Benutzer können erst abstimmen, wenn die Frage freigegeben wird."
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "results_behaviour": {
                 "translations": {
                     "en": "Show Results",
                     "de": "Resultate einblenden"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "results_alway_on": {
                 "translations": {
-                    "en": "Resulats are always visible",
+                    "en": "Results are always visible",
                     "de": "nach Wechsel immer eingeblendet"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "results_alway_on_info": {
                 "translations": {
-                    "en": "Resulats are always visible after switching question.",
-                    "de": "Nach dem Wechsen der Frage sind die Resulate immer sichtbar."
+                    "en": "Results are always visible after switching question.",
+                    "de": "Nach dem Wechsen der Frage sind die Resultate immer sichtbar."
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "results_alway_off": {
                 "translations": {
-                    "en": "Results are alays hidden",
+                    "en": "Results are always hidden",
                     "de": "nach Wechsel immer ausgeblendet"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "results_alway_off_info": {
                 "translations": {
-                    "en": "Resulats are always hidden after switching question.",
+                    "en": "Results are always hidden after switching question.",
                     "de": "Administratoren müssen das Einblenden der Resultate manuell starten."
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "frozen_reuse": {
                 "translations": {
                     "en": "Reuse Status",
                     "de": "Status beibehalten"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "frozen_reuse_info": {
                 "translations": {
                     "en": "Frozen-State is consistent after switching question.",
                     "de": "Der Status wird beim Wechseln beibehalten."
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "results_reuse": {
                 "translations": {
                     "en": "Reuse state",
                     "de": "Status beibehalten"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "results_reuse_info": {
                 "translations": {
                     "en": "The State is consistent after switching question.",
                     "de": "Der Status wird beim Wechsel der Frage beibehalten."
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "crs": {
                 "translations": {
                     "en": "Course",
                     "de": "Kurs"
                 },
-                "last_used": "28.06.2016"
+                "last_used": "11.08.2016"
             },
             "frozen_alway_ofxlvo_edit": {
                 "translations": {
@@ -842,7 +842,8 @@
                 "translations": {
                     "de": "Bestehendes LiveVoting kopieren",
                     "en": "Clone existing LiveVoting"
-                }
+                },
+                "last_used": "11.08.2016"
             }
         },
         "player": {
@@ -911,14 +912,14 @@
                     "de": "LiveVoting beginnen",
                     "en": "Start LiveVoting"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "start_voting_and_unfreeze": {
                 "translations": {
                     "de": "LiveVoting beginnen und direkt freigeben",
                     "en": "Start LiveVoting and unfreeze directly"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "terminate": {
                 "translations": {
@@ -946,7 +947,7 @@
                     "de": "Fragen",
                     "en": "Questions"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "voting_countdown": {
                 "translations": {
@@ -1253,14 +1254,14 @@
                     "de": "Verwalten",
                     "en": "Manage"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "show": {
                 "translations": {
                     "de": "Zeigen",
                     "en": "Show"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             }
         },
         "tab": {
@@ -1269,14 +1270,14 @@
                     "de": "Inhalt",
                     "en": "Content"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             },
             "edit": {
                 "translations": {
                     "de": "Einstellungen",
                     "en": "Settings"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "11.08.2016"
             }
         },
         "cat": {
