@@ -85,7 +85,7 @@ msg_success_voting_updated#:#Voting has been udpated
 obj_anonymous#:#Vote without Login
 obj_description#:#Description
 obj_edit_properties#:#Edit Properties
-obj_info_anonymous#:#The LiveVoting can be used for the voters without authentication, even when the Object is in a secured Space like a Course
+obj_info_anonymous#:#The LiveVoting can be used for the voters without authentication, even when the Object is in a secured Space like a Course. Voters access the LiveVoting with a PIN
 obj_info_online#:#Object is online and available
 obj_info_reuse_status#:#Re-use the state of the current Voting when switching to the next (frozen / not frozen).
 obj_info_terminable#:#The LiveVoting only can be used in the definied period of time

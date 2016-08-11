@@ -598,8 +598,8 @@
             },
             "info_anonymous": {
                 "translations": {
-                    "de": "Das LiveVoting kann von den Abstimmenden ohne Login verwendet werden, auch wenn das Objekt in einem geschützten Bereich wie bspw. einem Kurs liegt.",
-                    "en": "The LiveVoting can be used for the voters without authentication, even when the Object is in a secured Space like a Course"
+                    "de": "Die Teilnahme am LiveVoting ohne Login erfordert kein ILIAS Benutzerkonto. Alle Personen im Besitz des entsprechenden PINs können am LiveVoting teilnehmen.",
+                    "en": "The LiveVoting can be used for the voters without authentication, even when the Object is in a secured Space like a Course. Voters access the LiveVoting with a PIN"
                 },
                 "last_used": "11.08.2016"
             },
