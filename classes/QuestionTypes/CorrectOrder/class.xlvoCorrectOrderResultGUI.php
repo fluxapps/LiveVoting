@@ -20,7 +20,7 @@ class xlvoCorrectOrderResultGUI extends xlvoResultGUI{
 		};
 		ksort($correct_order_ids);
 		$correct_order_json = json_encode(array_values($correct_order_ids));
-		$return = ($correct_order_json == $vote->getFreeInput())?$this->pl->txt("correct_order"):$this->pl->txt("incorrect_order");
+		$return = ($correct_order_json == $vote->getFreeInput())?$this->pl->txt("common_correct_order"):$this->pl->txt("common_incorrect_order");
 		$return .= ": ";
 		foreach (json_decode($vote->getFreeInput()) as $option_id) {
 			$strings[] = $this->options[$option_id]->getTextForPresentation();

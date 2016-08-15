@@ -32,7 +32,7 @@ class xlvoParticipants {
 		global $ilDB;
 
 		if($filter){
-			$query = "SELECT DISTINCT user_identifier, user_id FROM rep_robj_xlvo_vote_n WHERE round_id = %s AND (user_identifier = %s OR user_id = %s)";
+			$query = "SELECT DISTINCT user_identifier, user_id FROM rep_robj_xlvo_vote_n WHERE round_id = %s AND (user_identifier LIKE %s OR user_id = %s)";
 			$result = $ilDB->queryF($query,
 				array("integer", "string", "integer"),
 				array($round_id, $filter, $filter)
@@ -46,15 +46,17 @@ class xlvoParticipants {
 		}
 
 		$rows = array();
-		$i = 1;
+		$i = 0;
 		while($row = $ilDB->fetchAssoc($result)) {
+			$i++;
+			if($filter && $row['user_id'] != $filter && $row['user_identifier'] != $filter)
+				continue;
 			$user = new xlvoParticipant();
 			$user->setNumber($i);
 			$user->setUserId($row['user_id']);
 			$user->setUserIdentifier($row['user_identifier']);
 			$user->setUserIdType($row['user_id']?xlvoUser::TYPE_ILIAS:xlvoUser::TYPE_PIN);
 			$rows[] = $user;
-			$i++;
 		}
 		return $rows;
 	}

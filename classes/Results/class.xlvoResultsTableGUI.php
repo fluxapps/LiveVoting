@@ -32,8 +32,12 @@ class xlvoResultsTableGUI extends ilTable2GUI {
 	 */
 	protected $filter;
 
+	/**
+	 * @var bool
+	 */
+	protected $showHistory = false;
 
-	public function __construct($a_parent_obj, $a_parent_cmd) {
+	public function __construct($a_parent_obj, $a_parent_cmd, $showHistory = false) {
 		global $ilCtrl, $ilTabs, $ilToolbar;
 		/**
 		 * @var $tpl       ilTemplate
@@ -45,20 +49,24 @@ class xlvoResultsTableGUI extends ilTable2GUI {
 		$this->ctrl = $ilCtrl;
 		$this->tabs = $ilTabs;
 
-		$this->setId('mm_entry_list');
+		$this->setId('xlvo_results');
 		parent::__construct($a_parent_obj, $a_parent_cmd);
 		$this->setRowTemplate('tpl.results_list.html', $this->pl->getDirectory());
 		$this->setTitle($this->pl->txt('results_title'));
+		$this->showHistory = $showHistory;
 		//
 		// Columns
 		$this->buildColumns();
 	}
 
 	protected function buildColumns() {
-		$this->addColumn($this->pl->txt('position'), 'position', '5%');
-		$this->addColumn($this->pl->txt('user'), 'user', '10%');
-		$this->addColumn($this->pl->txt('question'), 'question', '35%');
-		$this->addColumn($this->pl->txt('answer'), 'answer', '50%');
+		$this->addColumn($this->pl->txt('common_position'), 'position', '5%');
+		$this->addColumn($this->pl->txt('common_user'), 'user', '10%');
+		$this->addColumn($this->pl->txt('common_question'), 'question', '35%');
+		$this->addColumn($this->pl->txt('common_answer'), 'answer', '50%');
+		if ($this->isShowHistory()) {
+			$this->addColumn($this->pl->txt('common_history'), "", auto);
+		}
 	}
 
 	/**
@@ -83,25 +91,17 @@ class xlvoResultsTableGUI extends ilTable2GUI {
 				))->get();
 				$data[] = array(
 					"position" => $voting->getPosition(),
-					"participant" => $this->getParticipantName($participant),
+					"participant" => $this->parent_obj->getParticipantName($participant),
+					"user_id" => $participant->getUserId(),
+					"user_identifier" => $participant->getUserIdentifier(),
 					"question" => $voting->getQuestion(),
-					"answer" => $this->concatVotes($voting, $votes)
+					"answer" => $this->concatVotes($voting, $votes),
+					"voting_id" => $voting->getId(),
+					"round_id" => $round_id,
 				);
 			}
 		}
 		$this->setData($data);
-	}
-
-	/**
-	 * @param $participant xlvoParticipant
-	 * @return string
-	 */
-	public function getParticipantName($participant) {
-		if($participant->getUserIdType() == xlvoUser::TYPE_ILIAS && $participant->getUserId()) {
-			$name = ilObjUser::_lookupName($participant->getUserId());
-			return $name['firstname']." ".$name['lastname'];
-		}
-		return $this->pl->txt("participant")." ".$participant->getNumber();
 	}
 
 	public function fillRow($record) {
@@ -109,6 +109,15 @@ class xlvoResultsTableGUI extends ilTable2GUI {
 		$this->tpl->setVariable("USER", $record['participant']);
 		$this->tpl->setVariable("QUESTION", $record['question']);
 		$this->tpl->setVariable("ANSWER", $record['answer']);
+		if($this->isShowHistory()) {
+			$this->tpl->setVariable("ACTION", $this->pl->txt("common_show_history"));
+			$this->ctrl->setParameter($this->parent_obj, 'round_id', $record['round_id']);
+			$this->ctrl->setParameter($this->parent_obj, 'user_id', $record['user_id']);
+			$this->ctrl->setParameter($this->parent_obj, 'user_identifier', $record['user_identifier']);
+			$this->ctrl->setParameter($this->parent_obj, 'voting_id', $record['voting_id']);
+			$this->tpl->setVariable("ACTION_URL", $this->ctrl->getLinkTarget($this->parent_obj, 'showHistory'));
+		}
+
 	}
 
 	/**
@@ -125,5 +134,19 @@ class xlvoResultsTableGUI extends ilTable2GUI {
 	public function initFilter() {
 		$this->filter['participant'] = $this->getFilterItemByPostVar('participant')->getValue();
 		$this->filter['voting'] = $this->getFilterItemByPostVar('voting')->getValue();
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function isShowHistory() {
+		return $this->showHistory;
+	}
+
+	/**
+	 * @param boolean $showHistory
+	 */
+	public function setShowHistory($showHistory) {
+		$this->showHistory = $showHistory;
 	}
 }

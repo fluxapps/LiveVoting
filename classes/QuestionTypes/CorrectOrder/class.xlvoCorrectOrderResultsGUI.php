@@ -36,7 +36,7 @@ class xlvoCorrectOrderResultsGUI extends xlvoSingleVoteResultsGUI {
 		}
 
 		$correct_option = new xlvoOption();
-		$correct_option->setText($this->txt('correct'));
+		$correct_option->setText($this->txt('common_correct'));
 		$bar = new xlvoBarPercentageGUI();
 		$bar->setTotal($this->manager->countVotes());
 		$bar->setTitle($correct_option->getTextForPresentation());

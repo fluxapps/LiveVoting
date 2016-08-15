@@ -115,7 +115,7 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 			$form->addCommandButton(self::CMD_CLEAR, $this->txt('delete_all'));
 		}
 
-		$mli = new xlvoMultiLineInputGUI($this->txt('answers'), self::F_VOTE_MULTI_LINE_INPUT);
+		$mli = new xlvoMultiLineInputGUI($this->txt('common_answers'), self::F_VOTE_MULTI_LINE_INPUT);
 		$te = new ilTextInputGUI($this->txt('text'), self::F_FREE_INPUT);
 		$te->setMaxLength(45);
 

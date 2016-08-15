@@ -179,11 +179,17 @@ class xlvoVote extends ActiveRecord {
 		$historyObject->setRoundId($round_id);
 		$historyObject->setTimestamp(time());
 		$gui = xlvoResultGUI::getInstance(xlvoVoting::find($voting_id));
+
 		$votes = xlvoVote::where(array(
 			'voting_id' => $voting_id,
 			'status'    => xlvoOption::STAT_ACTIVE,
 			'round_id'    => $round_id,
-		))->get();
+		));
+		if($xlvoUser->isILIASUser())
+			$votes->where(array("user_id" => $xlvoUser->getIdentifier()));
+		else
+			$votes->where(array("user_identifier" => $xlvoUser->getIdentifier()));
+		$votes = $votes->get();
 		$historyObject->setAnswer($gui->getTextRepresentation($votes));
 
 		$historyObject->create();
