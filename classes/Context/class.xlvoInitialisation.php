@@ -103,7 +103,10 @@ class xlvoInitialisation extends ilInitialisation {
 
 	public static function initILIAS2() {
 		global $tree;
-		self::initDependencyInjection();
+		require_once("./include/inc.ilias_version.php");
+		if(version_compare(ILIAS_VERSION_NUMERIC, '5.2.00', '>=')) {
+			self::initDependencyInjection();
+		}
 		self::initCore();
 		self::initClient();
 		self::initUser();
