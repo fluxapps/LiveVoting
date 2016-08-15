@@ -52,4 +52,12 @@ class xlvoSingleVoteResultsGUI extends xlvoInputResultsGUI {
 
 		return ($this->manager->getPlayer()->isShowResults() && (bool)$states[xlvoSingleVoteGUI::BUTTON_TOGGLE_PERCENTAGE]);
 	}
+
+	/**
+	 * @param $votes xlvoVote[]
+	 * @return string
+	 */
+	public function getTextRepresentationForVotes($votes) {
+		return "TODO"; //TODO: implement me.
+	}
 }

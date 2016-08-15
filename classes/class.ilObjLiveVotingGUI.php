@@ -109,7 +109,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 		if (!$this->getCreationMode()) {
 			$this->tpl->setTitle($this->object->getTitle());
 			$this->tpl->setTitleIcon(ilObject::_getIcon($this->object->getId()));
-			$this->ctrl->saveParameter($this, 'round_id');
+			$this->ctrl->saveParameterByClass('xlvoresultsgui', 'round_id');
 
 			// set tabs
 			if (strtolower($_GET['baseClass']) != 'iladministrationgui') {
@@ -372,29 +372,9 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 			$cb->setInfo($this->pl->txt('obj_info_anonymous'));
 			$this->form->addItem($cb);
 
-			//			$cb = new ilCheckboxInputGUI($this->pl->txt('obj_terminable'), xlvoVotingConfig::F_TERMINABLE);
-			//			$cb->setInfo($this->pl->txt('obj_info_terminable'));
-			//			$this->form->addItem($cb);
-
-			//			$te = new ilDateDurationInputGUI($this->pl->txt("obj_terminable_select"), xlvoVotingConfig::F_TERMINABLE_SELECT);
-			//			$te->setShowTime(true);
-			//			$te->setStartText($this->pl->txt('obj_terminable_select_start_time'));
-			//			$te->setEndText($this->pl->txt('obj_terminable_select_end_time'));
-			//			$te->setMinuteStepSize(1);
-			//			/**
-			//			 * @var xlvoVotingConfig $config
-			//			 */
-			//			$config = xlvoVotingConfig::find($this->obj_id);
-			//			if ($config->isTerminable()) {
-			//				if (!$config->getStartDate() == null) {
-			//					$te->setStart(new ilDateTime($config->getStartDate(), IL_CAL_DATETIME, $this->usr->getTimeZone()));
-			//					$te->setEnd(new ilDateTime($config->getEndDate(), IL_CAL_DATETIME, $this->usr->getTimeZone()));
-			//				} else {
-			//					$te->setStart(new ilDateTime(date('Y-m-d H:i:s'), IL_CAL_DATETIME, $this->usr->getTimeZone()));
-			//					$te->setEnd(new ilDateTime(date('Y-m-d H:i:s'), IL_CAL_DATETIME, $this->usr->getTimeZone()));
-			//				}
-			//			}
-			//			$cb->addSubItem($te);
+			$cb = new ilCheckboxInputGUI($this->pl->txt("voting_history"), xlvoVotingConfig::F_VOTING_HISTORY);
+			$cb->setInfo($this->pl->txt('voting_history_info'));
+			$this->form->addItem($cb);
 
 			// Voting Settings
 			$h = new ilFormSectionHeaderGUI();
@@ -452,6 +432,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 		$values[xlvoVotingConfig::F_REUSE_STATUS] = $config->isReuseStatus();
 		$values[xlvoVotingConfig::F_FROZEN_BEHAVIOUR] = $config->getFrozenBehaviour();
 		$values[xlvoVotingConfig::F_RESULTS_BEHAVIOUR] = $config->getResultsBehaviour();
+		$values[xlvoVotingConfig::F_VOTING_HISTORY] = $config->getVotingHistory();
 
 		$this->form->setValuesByArray($values);
 	}
@@ -488,6 +469,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 				}
 				$config->setFrozenBehaviour($this->form->getInput(xlvoVotingConfig::F_FROZEN_BEHAVIOUR));
 				$config->setResultsBehaviour($this->form->getInput(xlvoVotingConfig::F_RESULTS_BEHAVIOUR));
+				$config->setVotingHistory($this->form->getInput(xlvoVotingConfig::F_VOTING_HISTORY));
 
 				$config->update();
 				ilUtil::sendSuccess($this->pl->txt('obj_msg_properties_form_saved'), true);

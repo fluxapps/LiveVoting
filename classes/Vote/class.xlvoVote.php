@@ -1,12 +1,14 @@
 <?php
 
 require_once('./Services/ActiveRecord/class.ActiveRecord.php');
+require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class xlvoResultGUI.php");
 
 /**
  * Class xlvoVote
  *
  * @author  Daniel Aemmer <daniel.aemmer@phbern.ch>
  * @author  Fabian Schmid <fs@studer-raimann.ch>
+ * @author 	Oskar Truffer <ot@studer-raimann.ch>
  * @version 1.0.0
  */
 class xlvoVote extends ActiveRecord {
@@ -98,10 +100,11 @@ class xlvoVote extends ActiveRecord {
 	 * @param $voting_id
 	 * @return xlvoVote[]
 	 */
-	public static function getVotesOfUser(xlvoUser $xlvoUser, $voting_id, $incl_inactive = false) {
+	public static function getVotesOfUser(xlvoUser $xlvoUser, $voting_id, $round_id, $incl_inactive = false) {
 		$where = array(
 			'voting_id' => $voting_id,
 			'status'    => self::STAT_ACTIVE,
+			'round_id'	=> $round_id,
 		);
 		if ($incl_inactive) {
 			$where['status'] = array(
@@ -152,6 +155,38 @@ class xlvoVote extends ActiveRecord {
 		$vote->setVotingId($voting_id);
 
 		return $vote;
+	}
+
+	/**
+	 * @param $xlvoUser xlvoUser
+	 * @param $voting_id int
+	 * @param $round_id int
+	 */
+	public static function createHistoryObject($xlvoUser, $voting_id, $round_id) {
+		$historyObject = new xlvoVoteHistoryObject();
+
+		if ($xlvoUser->isILIASUser()) {
+			$historyObject->setUserIdType(xlvoVote::USER_ILIAS);
+			$historyObject->setUserId($xlvoUser->getIdentifier());
+			$historyObject->setUserIdentifier(null);
+		} else {
+			$historyObject->setUserIdType(xlvoVote::USER_ANONYMOUS);
+			$historyObject->setUserId(null);
+			$historyObject->setUserIdentifier($xlvoUser->getIdentifier());
+		}
+
+		$historyObject->setVotingId($voting_id);
+		$historyObject->setRoundId($round_id);
+		$historyObject->setTimestamp(time());
+		$gui = xlvoResultGUI::getInstance(xlvoVoting::find($voting_id));
+		$votes = xlvoVote::where(array(
+			'voting_id' => $voting_id,
+			'status'    => xlvoOption::STAT_ACTIVE,
+			'round_id'    => $round_id,
+		))->get();
+		$historyObject->setAnswer($gui->getTextRepresentation($votes));
+
+		$historyObject->create();
 	}
 
 
@@ -272,15 +307,6 @@ class xlvoVote extends ActiveRecord {
 	 * @db_length           8
 	 */
 	protected $round_id = 0;
-
-	/**
-	 * @var bool
-	 *
-	 * @db_has_field        true
-	 * @db_fieldtype        integer
-	 * @db_length           1
-	 */
-	protected $latest_entry = 0;
 
 	/**
 	 * @return string
@@ -437,19 +463,5 @@ class xlvoVote extends ActiveRecord {
 	 */
 	public function setRoundId($round_id) {
 		$this->round_id = $round_id;
-	}
-
-	/**
-	 * @return boolean
-	 */
-	public function isLatestEntry() {
-		return $this->latest_entry;
-	}
-
-	/**
-	 * @param boolean $latest_entry
-	 */
-	public function setLatestEntry($latest_entry) {
-		$this->latest_entry = $latest_entry;
 	}
 }

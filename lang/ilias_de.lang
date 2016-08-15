@@ -195,4 +195,16 @@ new_round#:#Neuer Durchgang
 round#:#Durchgang
 change#:#Wechseln
 tab_results#:#Resultate
+user#:#Benutzer
+participant#:#Teilnehmer
+question#:#Frage
+answer#:#Antwort
+correct_order#:#Korrekte Reihenfolge
+incorrect_order#:#Falsche Reihenfolge
+position#:#Position
+results_title#:#Resultate
+voting_history#:#Antworten Historisieren
+voting_history_info#:#Alle Antworten werden gespeichert, auch wenn sie später geändert werden. Dadurch kann das Antwortverhalten beobachtet werden.
+all#:#Alle
+
 

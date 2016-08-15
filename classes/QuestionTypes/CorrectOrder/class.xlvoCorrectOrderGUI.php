@@ -29,7 +29,10 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 
 
 	protected function submit() {
-		$this->manager->input(json_encode($_POST['id']), $_POST['vote_id']);
+		$this->manager->inputOne(array(
+			"input" => json_encode($_POST['id']),
+			"vote_id" => $_POST['vote_id']
+		));
 	}
 
 
@@ -67,15 +70,9 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 		$tpl->setVariable('CONTENT', $bars->getHTML());
 
 		if ($this->isShowCorrectOrder()) {
-			$correct_order = array();
-			foreach ($this->manager->getVoting()->getVotingOptions() as $xlvoOption) {
-				$correct_order[(int)$xlvoOption->getCorrectPosition()] = $xlvoOption;
-			};
-			ksort($correct_order);
+			$correct_order = $this->getCorrectOrder();
 			$solution_html = $this->txt('correct_solution');
-			/**
-			 * @var $item xlvoOption
-			 */
+
 			foreach ($correct_order as $item) {
 				$solution_html .= ' <span class="label label-primary">' . $item->getCipher() . '</span>';
 			}
@@ -132,5 +129,17 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 	public function handleButtonCall($button_id, $data) {
 		$states = $this->getButtonsStates();
 		$this->saveButtonState($button_id, !$states[$button_id]);
+	}
+
+	/**
+	 * @return xlvoOption[]
+	 */
+	protected function getCorrectOrder() {
+		$correct_order = array();
+		foreach ($this->manager->getVoting()->getVotingOptions() as $xlvoOption) {
+			$correct_order[(int)$xlvoOption->getCorrectPosition()] = $xlvoOption;
+		};
+		ksort($correct_order);
+		return $correct_order;
 	}
 }

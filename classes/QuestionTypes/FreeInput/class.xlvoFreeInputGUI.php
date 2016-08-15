@@ -35,21 +35,24 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 	protected function submit() {
 		if ($this->manager->getVoting()->isMultiFreeInput()) {
 			$this->manager->unvoteAll();
+			$array = array();
 			foreach ($_POST[self::F_VOTE_MULTI_LINE_INPUT] as $item) {
-				$this->manager->input($item[self::F_FREE_INPUT], $item[self::F_VOTE_ID]);
+				$array[] = array(
+					"input" => $item[self::F_FREE_INPUT],
+					"vote_id" => $item[self::F_VOTE_ID]
+				);
+				$this->manager->inputAll($array);
 			}
 		} else {
-			$this->manager->input($_POST[self::F_FREE_INPUT], $_POST[self::F_VOTE_ID]);
+			$this->manager->inputOne(array(
+				"input" => $_POST[self::F_FREE_INPUT],
+				"vote_id" => $_POST[self::F_VOTE_ID]));
 		}
 	}
 
 
 	protected function clear() {
-		if ($this->manager->getVoting()->isMultiFreeInput()) {
-			$this->manager->unvoteAll();
-		} else {
-			$this->manager->unvoteAll();
-		}
+		$this->manager->clear();
 		$this->afterSubmit();
 	}
 
@@ -144,4 +147,6 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 
 		$this->tpl->setVariable('FREE_INPUT_FORM', $form);
 	}
+
+
 }

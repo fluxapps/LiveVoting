@@ -194,3 +194,15 @@ new_round#:#New Round
 round#:#Round
 change#:#Change
 tab_results#:#Results
+user#:#User
+participant#:#Participant
+question#:#Question
+answer#:#Answer
+correct_order#:#Correct Order
+incorrect_order#:#Incorrect Order
+position#:#Position
+results_title#:#Resultate
+voting_history#:#Voting History
+voting_history_info#:#All answers the participants give are saved even if they change their opinion later. You can analyze the voting behaviour of your users.
+all#:#All
+

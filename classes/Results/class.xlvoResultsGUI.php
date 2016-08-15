@@ -12,6 +12,8 @@ class xlvoResultsGUI {
 	const CMD_SHOW = 'showResults';
 	const CMD_NEW_ROUND = 'newRound';
 	const CMD_CHANGE_ROUND = 'changeRound';
+	const CMD_APPLY_FILTER = "applyFilter";
+	const CMD_RESET_FILTER = 'resetFilter';
 
 	/**
 	 * @var xlvoRound
@@ -53,6 +55,9 @@ class xlvoResultsGUI {
 		switch($cmd) {
 			case self::CMD_SHOW:
 			case self::CMD_CHANGE_ROUND:
+			case self::CMD_NEW_ROUND:
+			case self::CMD_APPLY_FILTER:
+			case self::CMD_RESET_FILTER:
 				$this->{$cmd}();
 				break;
 		}
@@ -62,13 +67,17 @@ class xlvoResultsGUI {
 		global $tpl;
 
 		$this->buildToolbar();
-		$table = $this->buildTable();
+
+		$table = new xlvoResultsTableGUI($this, 'showResults');
+		$this->buildFilters($table);
+		$table->initFilter();
+		$table->buildData($this->obj_id, $this->round->getId());
 
 		$tpl->setContent($table->getHTML());
 	}
 
 	private function buildRound() {
-		if($_GET['results_id']) {
+		if($_GET['round_id']) {
 			$this->round = xlvoRound::find($_GET['round_id']);
 		} else {
 			$this->round = xlvoRound::getLatestRound($this->obj_id);
@@ -100,6 +109,46 @@ class xlvoResultsGUI {
 		$this->ctrl->redirect($this, "showResults");
 	}
 
+	protected function applyFilter() {
+		$table = new xlvoResultsTableGUI($this, 'showResults');
+		$this->buildFilters($table);
+		$table->initFilter();
+		$table->writeFilterToSession();
+		$this->ctrl->redirect($this, 'showResults');
+	}
+
+	protected function resetFilter() {
+		$table = new xlvoResultsTableGUI($this, 'showResults');
+		$this->buildFilters($table);
+		$table->initFilter();
+		$table->resetFilter();
+		$this->ctrl->redirect($this, 'showResults');
+	}
+
+	/**
+	 * @param $table xlvoResultsTableGUI
+	 */
+	protected function buildFilters(&$table) {
+		$filter = new ilSelectInputGUI($this->pl->txt("participant"), "participant");
+		$participants = xlvoParticipants::getInstance($this->obj_id)->getParticipantsForRound($this->round->getId());
+		$options = array(0 => $this->pl->txt("all"));
+		foreach ($participants as $participant) {
+			$options[($participant->getUserIdentifier()!= null)?$participant->getUserIdentifier():$participant->getUserId()] = $table->getParticipantName($participant);
+		}
+		$filter->setOptions($options);
+		$table->addFilterItem($filter);
+		$filter->readFromSession();
+
+		$filter = new ilSelectInputGUI($this->pl->txt("question"), "voting");
+		$votings = array();
+		$votings[0] = $this->pl->txt("all");
+		$votings = array_merge($votings, xlvoVoting::where(array("obj_id" => $this->obj_id))->getArray("id", "question"));
+		$filter->setOptions($votings);
+		$table->addFilterItem($filter);
+		$filter->readFromSession();
+		$table->setFormAction($this->ctrl->getFormAction($this, self::CMD_APPLY_FILTER));
+	}
+
 	/**
 	 *
 	 */
@@ -127,13 +176,4 @@ class xlvoResultsGUI {
 		$ilToolbar->addButtonInstance($button);
 	}
 
-	/**
-	 * @return xlvoResultsTableGUI
-	 */
-	protected function buildTable() {
-		$table = new xlvoResultsTableGUI($this, 'showResults');
-		$table->buildData($this->obj_id, $this->round->getId());
-
-		return $table;
-	}
 }

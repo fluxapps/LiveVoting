@@ -390,5 +390,15 @@ xlvoRound::installDB();
 ?>
 <#26>
 <?php
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Vote/class.xlvoVoteHistoryObject.php');
+xlvoVoteHistoryObject::installDB();
+?>
+<#27>
+<?php
+require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingConfig.php");
+xlvoVotingConfig::updateDB();
+?>
+<#28>
+<?php
 $ilDB->manipulate("UPDATE rep_robj_xlvo_config_n SET frozen_behaviour = 0, results_behaviour = 0");
 ?>
