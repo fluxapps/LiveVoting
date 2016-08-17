@@ -61,12 +61,13 @@ class xlvoCorrectOrderResultsGUI extends xlvoSingleVoteResultsGUI {
 		$bars->setShowTotalVotes(true);
 		$bars->setTotalVotes($this->manager->countVotes());
 		if ($this->isShowCorrectOrder()) {
-			$solution_html = $this->txt('correct_solution');
+			$solution_html = $this->txt('correct_solution') . '<br>';
 			/**
 			 * @var $item xlvoOption
 			 */
 			foreach ($correct_order as $item) {
-				$solution_html .= ' <h1 class="xlvo-option"><span class="label label-primary xlvo-option">' . $item->getCipher() . '</span></h1>';
+				$solution_html .= ' <p><h1 class="xlvo-option"><span class="label label-primary xlvo-option">' . $item->getCipher() . '</span> '
+				                  . $item->getText() . '</h1></p>';
 			}
 			$bars->addSolution($solution_html);
 		}

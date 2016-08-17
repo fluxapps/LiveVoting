@@ -156,21 +156,21 @@
                     "en": "Actions",
                     "de": "Aktionen"
                 },
-                "last_used": "11.08.2016"
+                "last_used": "17.08.2016"
             },
             "add": {
                 "translations": {
                     "en": "Add Question",
                     "de": "Frage hinzufügen"
                 },
-                "last_used": "11.08.2016"
+                "last_used": "17.08.2016"
             },
             "cancel": {
                 "translations": {
                     "en": "Cancel",
                     "de": "Abbrechen"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "17.08.2016"
             },
             "confirm_number_of_votes": {
                 "translations": {
@@ -183,7 +183,7 @@
                     "en": "Do you like to reset this Voting? All User-Inputs will be deleted.",
                     "de": "Möchten Sie die Resultate dieser Frage zurücksetzen? Alle Benutzer-Eingaben werden gelöscht."
                 },
-                "last_used": "11.08.2016"
+                "last_used": "17.08.2016"
             },
             "confirm_reset_all": {
                 "translations": {
@@ -196,14 +196,14 @@
                     "en": "Create",
                     "de": "Erstellen"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "17.08.2016"
             },
             "delete": {
                 "translations": {
                     "en": "Delete",
                     "de": "Löschen"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "17.08.2016"
             },
             "delete_confirm": {
                 "translations": {
@@ -217,14 +217,14 @@
                     "en": "Description",
                     "de": "Beschreibung"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "17.08.2016"
             },
             "edit": {
                 "translations": {
                     "en": "Edit",
                     "de": "Bearbeiten"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "17.08.2016"
             },
             "msg_sorting_saved": {
                 "translations": {
@@ -244,105 +244,105 @@
                     "en": "Question",
                     "de": "Frage"
                 },
-                "last_used": "11.08.2016"
+                "last_used": "17.08.2016"
             },
             "reset": {
                 "translations": {
                     "en": "Reset",
                     "de": "Zurücksetzen"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "17.08.2016"
             },
             "reset_all": {
                 "translations": {
                     "en": "Reset all Votings",
                     "de": "Alle Resultate zurücksetzen"
                 },
-                "last_used": "11.08.2016"
+                "last_used": "17.08.2016"
             },
             "save_sorting": {
                 "translations": {
                     "en": "Save Order",
                     "de": "Reihenfolge speichern"
                 },
-                "last_used": "11.08.2016"
+                "last_used": "17.08.2016"
             },
             "select_type": {
                 "translations": {
                     "en": "Select Type",
                     "de": "Typ auswählen"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "17.08.2016"
             },
             "status": {
                 "translations": {
                     "en": "Status",
                     "de": "Status"
                 },
-                "last_used": "11.08.2016"
+                "last_used": "17.08.2016"
             },
             "status_1": {
                 "translations": {
                     "en": "Inactive",
                     "de": "Inaktiv"
                 },
-                "last_used": "11.08.2016"
+                "last_used": "17.08.2016"
             },
             "status_2": {
                 "translations": {
                     "en": "Incomplete",
                     "de": "Unvollständig"
                 },
-                "last_used": "11.08.2016"
+                "last_used": "17.08.2016"
             },
             "status_5": {
                 "translations": {
                     "en": "Active",
                     "de": "Aktiv"
                 },
-                "last_used": "11.08.2016"
+                "last_used": "17.08.2016"
             },
             "title": {
                 "translations": {
                     "en": "Title",
                     "de": "Titel"
                 },
-                "last_used": "11.08.2016"
+                "last_used": "17.08.2016"
             },
             "type": {
                 "translations": {
                     "en": "Type",
                     "de": "Typ"
                 },
-                "last_used": "11.08.2016"
+                "last_used": "17.08.2016"
             },
             "type_1": {
                 "translations": {
                     "en": "Single/Multiple Choice",
                     "de": "Single/Multiple Choice"
                 },
-                "last_used": "11.08.2016"
+                "last_used": "17.08.2016"
             },
             "type_1_info": {
                 "translations": {
                     "en": "A User can vote for different options",
                     "de": "User können eine resp. mehrere Auswahlmöglichkeit(en) auswählen"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "17.08.2016"
             },
             "type_2": {
                 "translations": {
                     "en": "Free Input",
                     "de": "Freitext eingeben"
                 },
-                "last_used": "11.08.2016"
+                "last_used": "17.08.2016"
             },
             "type_2_info": {
                 "translations": {
                     "en": "User can hand in free text",
                     "de": "User können Stichworte oder kurze Sätze eingeben"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "17.08.2016"
             },
             "type_3": {
                 "translations": {
@@ -355,21 +355,21 @@
                     "en": "Correct Order",
                     "de": "Korrekte Reihenfolge"
                 },
-                "last_used": "11.08.2016"
+                "last_used": "17.08.2016"
             },
             "type_4_info": {
                 "translations": {
                     "en": "Terms must be sorted in the correct order.",
                     "de": "User müssen Begriffe in die richtige Reihenfolge bringen"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "17.08.2016"
             },
             "type_5": {
                 "translations": {
                     "en": "Priorities",
                     "de": "Prioritäten"
                 },
-                "last_used": "11.08.2016"
+                "last_used": "17.08.2016"
             },
             "update": {
                 "translations": {
@@ -383,7 +383,7 @@
                     "en": "Terms can be sorted after Priorities",
                     "de": "User können Begriffe nach Prioritäten anordnen"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "17.08.2016"
             },
             "export": {
                 "translations": {
@@ -411,21 +411,21 @@
                     "en": "Question",
                     "de": "Frage"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "17.08.2016"
             },
             "columns": {
                 "translations": {
                     "en": "Colums for possible answers",
                     "de": "Spalten für Antwortmöglichkeiten"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "17.08.2016"
             },
             "duplicate": {
                 "translations": {
                     "en": "Clone",
                     "de": "Duplizieren"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "17.08.2016"
             },
             "update_and_stay": {
                 "translations": {
@@ -454,7 +454,7 @@
                     "en": "Edit",
                     "de": "Bearbeiten"
                 },
-                "last_used": "11.08.2016"
+                "last_used": "17.08.2016"
             },
             "edit_permission": {
                 "translations": {
@@ -858,14 +858,14 @@
                     "de": "Pausieren",
                     "en": "Freeze"
                 },
-                "last_used": "11.08.2016"
+                "last_used": "17.08.2016"
             },
             "hide_results": {
                 "translations": {
                     "de": "Resultate ausblenden",
                     "en": "Hide Results"
                 },
-                "last_used": "11.08.2016"
+                "last_used": "17.08.2016"
             },
             "msg_no_start_1": {
                 "translations": {
@@ -898,56 +898,56 @@
                     "de": "Zurücksetzen",
                     "en": "Reset"
                 },
-                "last_used": "11.08.2016"
+                "last_used": "17.08.2016"
             },
             "show_results": {
                 "translations": {
                     "de": "Resultate einblenden",
                     "en": "Show Results"
                 },
-                "last_used": "11.08.2016"
+                "last_used": "17.08.2016"
             },
             "start_voting": {
                 "translations": {
                     "de": "LiveVoting beginnen",
                     "en": "Start LiveVoting"
                 },
-                "last_used": "11.08.2016"
+                "last_used": "17.08.2016"
             },
             "start_voting_and_unfreeze": {
                 "translations": {
                     "de": "LiveVoting beginnen und direkt freigeben",
                     "en": "Start LiveVoting and unfreeze directly"
                 },
-                "last_used": "11.08.2016"
+                "last_used": "17.08.2016"
             },
             "terminate": {
                 "translations": {
                     "de": "Beenden",
                     "en": "Terminate"
                 },
-                "last_used": "11.08.2016"
+                "last_used": "17.08.2016"
             },
             "unfreeze": {
                 "translations": {
                     "de": "Abstimmen",
                     "en": "Unfreeze"
                 },
-                "last_used": "11.08.2016"
+                "last_used": "17.08.2016"
             },
             "voters_online": {
                 "translations": {
                     "de": "Online",
                     "en": "Online"
                 },
-                "last_used": "11.08.2016"
+                "last_used": "17.08.2016"
             },
             "voting_list": {
                 "translations": {
                     "de": "Fragen",
                     "en": "Questions"
                 },
-                "last_used": "11.08.2016"
+                "last_used": "17.08.2016"
             },
             "voting_countdown": {
                 "translations": {
@@ -961,7 +961,7 @@
                     "en": "sec",
                     "de": "s"
                 },
-                "last_used": "11.08.2016"
+                "last_used": "17.08.2016"
             },
             "player_countdown": {
                 "translations": {
@@ -977,35 +977,35 @@
                     "de": "Unterschiedliche Farben",
                     "en": "Different Colors"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "17.08.2016"
             },
             "1_multi_selection": {
                 "translations": {
                     "de": "Mehrfachauswahl",
                     "en": "Multiple Selection"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "17.08.2016"
             },
             "1_multi_selection_info": {
                 "translations": {
                     "de": "Ein Nutzer kann mehr als einen Text eingeben",
                     "en": "User can select more than one Option"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "17.08.2016"
             },
             "1_option_text": {
                 "translations": {
                     "de": "Options-Text",
                     "en": "Option-Text"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "17.08.2016"
             },
             "1_options": {
                 "translations": {
                     "de": "Mögliche Antworten",
                     "en": "Options"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "17.08.2016"
             },
             "1_total_votes": {
                 "translations": {
@@ -1170,7 +1170,7 @@
                     "de": "Antworten",
                     "en": "Answers"
                 },
-                "last_used": "05.08.2016"
+                "last_used": "17.08.2016"
             },
             "multi_free_input": {
                 "translations": {
@@ -1261,14 +1261,14 @@
                     "de": "Verwalten",
                     "en": "Manage"
                 },
-                "last_used": "11.08.2016"
+                "last_used": "17.08.2016"
             },
             "show": {
                 "translations": {
                     "de": "Zeigen",
                     "en": "Show"
                 },
-                "last_used": "11.08.2016"
+                "last_used": "17.08.2016"
             }
         },
         "tab": {
@@ -1277,14 +1277,14 @@
                     "de": "Inhalt",
                     "en": "Content"
                 },
-                "last_used": "11.08.2016"
+                "last_used": "17.08.2016"
             },
             "edit": {
                 "translations": {
                     "de": "Einstellungen",
                     "en": "Settings"
                 },
-                "last_used": "11.08.2016"
+                "last_used": "17.08.2016"
             }
         },
         "cat": {
