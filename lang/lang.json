@@ -433,6 +433,18 @@
                     "de": "Speichern"
                 },
                 "last_used": "05.08.2016"
+            },
+            "history": {
+                "translations": {
+                    "de": "Antworten Historisieren",
+                    "en": "Voting History"
+                }
+            },
+            "history_info": {
+                "translations": {
+                    "de": "Alle Antworten werden gespeichert, auch wenn sie später geändert werden. Dadurch kann das Antwortverhalten beobachtet werden.",
+                    "en": "All answers the participants give are saved even if they change their opinion later. You can analyze the voting behaviour of your users."
+                }
             }
         },
         "xlvo": {
@@ -499,6 +511,122 @@
                 "translations": {
                     "en": "Actions",
                     "de": "Aktionen"
+                }
+            },
+            "confirm_new_round": {
+                "translations": {
+                    "en": "If you create a new round the current round is finished and can't be continued. Are you sure you want to start a new round?",
+                    "de": "Wenn Sie den Durchgang beenden können die Antworten auf dem alten Durchgang nicht mehr geändert werden. Sind Sie sicher, dass Sie einen neuen Durchgang starten wollen?"
+                },
+                "last_used": "17.08.2016"
+            },
+            "new_round": {
+                "translations": {
+                    "en": "New Round",
+                    "de": "Neuer Durchgang"
+                },
+                "last_used": "17.08.2016"
+            },
+            "cancel": {
+                "translations": {
+                    "en": "Cancel",
+                    "de": "Abbrechen"
+                },
+                "last_used": "17.08.2016"
+            },
+            "all": {
+                "translations": {
+                    "en": "All",
+                    "de": "Alle"
+                }
+            },
+            "all2": {
+                "translations": {
+                    "de": "MISSING",
+                    "en": "MISSING"
+                }
+            },
+            "answer": {
+                "translations": {
+                    "de": "Antwort",
+                    "en": "Answer"
+                }
+            },
+            "change": {
+                "translations": {
+                    "de": "Wechseln",
+                    "en": "Change"
+                }
+            },
+            "common_new_round_created": {
+                "translations": {
+                    "de": "Neuer Durchgang wurde erfolgreich gestartet.",
+                    "en": "New round has been initialised successfully."
+                }
+            },
+            "correct_order": {
+                "translations": {
+                    "de": "Richtige Reihenfolge",
+                    "en": "Correct order"
+                }
+            },
+            "history": {
+                "translations": {
+                    "de": "Verlauf",
+                    "en": "History"
+                }
+            },
+            "incorrect_order": {
+                "translations": {
+                    "de": "Falsche Reihenfolge"
+                }
+            },
+            "new_round_created": {
+                "translations": {
+                    "de": "Neuer Durchgang wurde erfolgreich gestartet.",
+                    "en": "New round has been initialised successfully."
+                }
+            },
+            "participant": {
+                "translations": {
+                    "de": "Teilnehmer",
+                    "en": "Participant"
+                }
+            },
+            "position": {
+                "translations": {
+                    "de": "Position",
+                    "en": "Position"
+                }
+            },
+            "question": {
+                "translations": {
+                    "de": "Frage",
+                    "en": "Question"
+                }
+            },
+            "round": {
+                "translations": {
+                    "de": "Durchgang",
+                    "en": "Round"
+                }
+            },
+            "show_history": {
+                "translations": {
+                    "de": "Verlauf",
+                    "en": "History"
+                }
+            },
+            "time": {
+                "translations": {
+                    "de": "Zeitpunkt",
+                    "en": "Timestamp"
+                }
+            },
+            "user": {
+                "translations": {
+                    "de": "Benutzer",
+                    "en": "User"
                 }
             }
         },
@@ -1284,7 +1412,14 @@
                     "de": "Einstellungen",
                     "en": "Settings"
                 },
-                "last_used": "29.08.2016"
+                "last_used": "17.08.2016"
+            },
+            "results": {
+                "translations": {
+                    "en": "Results",
+                    "de": "Resultate"
+                },
+                "last_used": "17.08.2016"
             }
         },
         "cat": {
@@ -1355,6 +1490,38 @@
             "msg_no_start_2": {
                 "translations": {
                     "de": "Das LiveVoting kann nicht gestartet werden, da noch keine Votings vorhanden sind."
+                }
+            }
+        },
+        "correct": {
+            "order": {
+                "translations": {
+                    "de": "Korrekte Reihenfolge",
+                    "en": "Correct Order"
+                }
+            }
+        },
+        "incorrect": {
+            "order": {
+                "translations": {
+                    "de": "Falsche Reihenfolge",
+                    "en": "Incorrect Order"
+                }
+            }
+        },
+        "new": {
+            "round": {
+                "translations": {
+                    "de": "Neuer Durchgang",
+                    "en": "New Round"
+                }
+            }
+        },
+        "results": {
+            "title": {
+                "translations": {
+                    "de": "Resultate",
+                    "en": "Results"
                 }
             }
         }
