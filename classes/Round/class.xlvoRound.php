@@ -19,11 +19,14 @@ class xlvoRound extends ActiveRecord {
 	 * @return xlvoRound
 	 */
 	public static function getLatestRound($obj_id) {
-		$latestRound = xlvoRound::where(array("obj_id" => $obj_id))->orderBy("number")->last();
-		if(!$latestRound)
+		$latestRound = xlvoRound::where(array( "obj_id" => $obj_id ))->orderBy("round_number")->last();
+		if (!$latestRound instanceof xlvoRound) {
 			$latestRound = self::createFirstRound($obj_id);
+		}
+
 		return $latestRound;
 	}
+
 
 	/**
 	 * @param $obj_id int
@@ -31,11 +34,13 @@ class xlvoRound extends ActiveRecord {
 	 */
 	public static function createFirstRound($obj_id) {
 		$round = new xlvoRound();
-		$round->setNumber(1);
+		$round->setRoundNumber(1);
 		$round->setObjId($obj_id);
 		$round->create();
+
 		return $round;
 	}
+
 
 	/**
 	 * @return string
@@ -43,6 +48,7 @@ class xlvoRound extends ActiveRecord {
 	public static function returnDbTableName() {
 		return 'rep_robj_xlvo_round_n';
 	}
+
 
 	/**
 	 * @var int
@@ -54,7 +60,6 @@ class xlvoRound extends ActiveRecord {
 	 * @con_sequence        true
 	 */
 	protected $id;
-
 	/**
 	 * @var int
 	 *
@@ -63,7 +68,6 @@ class xlvoRound extends ActiveRecord {
 	 * @db_length           8
 	 */
 	protected $obj_id;
-
 	/**
 	 * @var int
 	 *
@@ -71,8 +75,7 @@ class xlvoRound extends ActiveRecord {
 	 * @db_fieldtype        integer
 	 * @db_length           8
 	 */
-	protected $number;
-
+	protected $round_number;
 	/**
 	 * @var string
 	 *
@@ -82,12 +85,14 @@ class xlvoRound extends ActiveRecord {
 	 */
 	protected $title;
 
+
 	/**
 	 * @return int
 	 */
 	public function getId() {
 		return $this->id;
 	}
+
 
 	/**
 	 * @param int $id
@@ -96,12 +101,14 @@ class xlvoRound extends ActiveRecord {
 		$this->id = $id;
 	}
 
+
 	/**
 	 * @return int
 	 */
 	public function getObjId() {
 		return $this->obj_id;
 	}
+
 
 	/**
 	 * @param int $obj_id
@@ -110,19 +117,22 @@ class xlvoRound extends ActiveRecord {
 		$this->obj_id = $obj_id;
 	}
 
+
 	/**
 	 * @return int
 	 */
-	public function getNumber() {
-		return $this->number;
+	public function getRoundNumber() {
+		return $this->round_number;
 	}
 
+
 	/**
-	 * @param int $number
+	 * @param int $round_number
 	 */
-	public function setNumber($number) {
-		$this->number = $number;
+	public function setRoundNumber($round_number) {
+		$this->round_number = $round_number;
 	}
+
 
 	/**
 	 * @return string
@@ -130,6 +140,7 @@ class xlvoRound extends ActiveRecord {
 	public function getTitle() {
 		return $this->title;
 	}
+
 
 	/**
 	 * @param string $title

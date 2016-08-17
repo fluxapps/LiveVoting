@@ -251,7 +251,7 @@ class xlvoPlayer extends ActiveRecord {
 		$this->setShowResults(false);
 		$this->setTimestampRefresh(time() + self::SECONDS_TO_SLEEP);
 		$this->setActiveVoting($voting_id);
-		$this->setRoundId(xlvoRound::getLatestRound($this->getObjId()));
+		$this->setRoundId(xlvoRound::getLatestRound($this->getObjId())->getId());
 		$this->store();
 	}
 
