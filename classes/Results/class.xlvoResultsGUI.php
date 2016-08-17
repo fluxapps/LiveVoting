@@ -190,8 +190,7 @@ class xlvoResultsGUI {
 
 
 	public function confirmNewRound() {
-		global $DIC;
-		$tpl = $DIC['tpl'];
+		global $tpl;
 
 		$conf = new ilConfirmationGUI();
 		$conf->setFormAction($this->ctrl->getFormAction($this));
