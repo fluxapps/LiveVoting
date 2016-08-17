@@ -377,28 +377,28 @@ xlvoPlayer::updateDB();
 ?>
 <#24>
 <?php
+$ilDB->manipulate("UPDATE rep_robj_xlvo_config_n SET frozen_behaviour = 0, results_behaviour = 0");
+?>
+<#25>
+<?php
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoPlayer.php');
 xlvoPlayer::updateDB();
 
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Vote/class.xlvoVote.php');
 xlvoVote::updateDB();
 ?>
-<#25>
+<#26>
 <?php
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Round/class.xlvoRound.php');
 xlvoRound::installDB();
 ?>
-<#26>
+<#27>
 <?php
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Vote/class.xlvoVoteHistoryObject.php');
 xlvoVoteHistoryObject::installDB();
 ?>
-<#27>
+<#28>
 <?php
 require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingConfig.php");
 xlvoVotingConfig::updateDB();
-?>
-<#28>
-<?php
-$ilDB->manipulate("UPDATE rep_robj_xlvo_config_n SET frozen_behaviour = 0, results_behaviour = 0");
 ?>
