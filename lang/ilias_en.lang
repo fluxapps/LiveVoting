@@ -83,6 +83,7 @@ common_change#:#Change
 common_common_new_round_created#:#New round has been initialised successfully.
 common_correct_order#:#Correct order
 common_history#:#History
+common_incorrect_order#:#Wrong Order
 common_new_round_created#:#New round has been initialised successfully.
 common_participant#:#Participant
 common_position#:#Position

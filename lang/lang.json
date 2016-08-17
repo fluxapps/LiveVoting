@@ -538,7 +538,8 @@
                 "translations": {
                     "en": "All",
                     "de": "Alle"
-                }
+                },
+                "last_used": "17.08.2016"
             },
             "all2": {
                 "translations": {
@@ -550,13 +551,15 @@
                 "translations": {
                     "de": "Antwort",
                     "en": "Answer"
-                }
+                },
+                "last_used": "17.08.2016"
             },
             "change": {
                 "translations": {
                     "de": "Wechseln",
                     "en": "Change"
-                }
+                },
+                "last_used": "17.08.2016"
             },
             "common_new_round_created": {
                 "translations": {
@@ -578,8 +581,10 @@
             },
             "incorrect_order": {
                 "translations": {
-                    "de": "Falsche Reihenfolge"
-                }
+                    "de": "Falsche Reihenfolge",
+                    "en": "Wrong Order"
+                },
+                "last_used": "17.08.2016"
             },
             "new_round_created": {
                 "translations": {
@@ -591,25 +596,29 @@
                 "translations": {
                     "de": "Teilnehmer",
                     "en": "Participant"
-                }
+                },
+                "last_used": "17.08.2016"
             },
             "position": {
                 "translations": {
                     "de": "Position",
                     "en": "Position"
-                }
+                },
+                "last_used": "17.08.2016"
             },
             "question": {
                 "translations": {
                     "de": "Frage",
                     "en": "Question"
-                }
+                },
+                "last_used": "17.08.2016"
             },
             "round": {
                 "translations": {
                     "de": "Durchgang",
                     "en": "Round"
-                }
+                },
+                "last_used": "17.08.2016"
             },
             "show_history": {
                 "translations": {
@@ -627,7 +636,8 @@
                 "translations": {
                     "de": "Benutzer",
                     "en": "User"
-                }
+                },
+                "last_used": "17.08.2016"
             }
         },
         "config": {
@@ -1514,7 +1524,8 @@
                 "translations": {
                     "de": "Neuer Durchgang",
                     "en": "New Round"
-                }
+                },
+                "last_used": "17.08.2016"
             }
         },
         "results": {
@@ -1522,7 +1533,8 @@
                 "translations": {
                     "de": "Resultate",
                     "en": "Results"
-                }
+                },
+                "last_used": "17.08.2016"
             }
         }
     }
