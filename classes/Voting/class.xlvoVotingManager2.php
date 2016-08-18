@@ -97,7 +97,7 @@ class xlvoVotingManager2 {
 	/**
 	 * @param array $array ... => (input, vote_id)
 	 */
-	public function inputAll(Array $array) {
+	public function inputAll(array $array) {
 		foreach ($array as $item) {
 			$this->input($item['input'], $item['vote_id']);
 		}
@@ -339,6 +339,7 @@ class xlvoVotingManager2 {
 	public function countVotes() {
 		return xlvoVote::where(array(
 			'voting_id' => $this->getVoting()->getId(),
+			'round_id' => $this->getPlayer()->getRoundId(),
 			'status'    => xlvoVote::STAT_ACTIVE,
 		))->count();
 	}
@@ -348,10 +349,14 @@ class xlvoVotingManager2 {
 	 * @return int
 	 */
 	public function countVoters() {
-		$q = "SELECT COUNT(DISTINCT user_identifier) AS maxcount FROM rep_robj_xlvo_vote_n WHERE voting_id = %s AND status = %s";
+		$q = "SELECT COUNT(DISTINCT user_identifier) AS maxcount FROM rep_robj_xlvo_vote_n WHERE voting_id = %s AND status = %s AND round_id = %s";
 
 		global $ilDB;
-		$res = $ilDB->queryF($q, array( 'integer', 'integer' ), array( $this->getVoting()->getId(), xlvoVote::STAT_ACTIVE ));
+		$res = $ilDB->queryF($q, array( 'integer', 'integer', 'integer' ), array(
+			$this->getVoting()->getId(),
+			xlvoVote::STAT_ACTIVE,
+			$this->player->getRoundId(),
+		));
 		$data = $ilDB->fetchObject($res);
 
 		return $data->maxcount ? $data->maxcount : 0;
@@ -552,7 +557,7 @@ class xlvoVotingManager2 {
 	 */
 	protected function getVotingsList($order = 'ASC') {
 		return xlvoVoting::where(array(
-			'obj_id'        => $this->getObjId(),
+			'obj_id' => $this->getObjId(),
 			'voting_status' => xlvoVoting::STAT_ACTIVE,
 		))->where(array( 'voting_type' => xlvoQuestionTypes::getActiveTypes() ))->orderBy('position', $order);
 	}

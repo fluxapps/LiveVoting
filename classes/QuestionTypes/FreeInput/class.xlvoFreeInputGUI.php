@@ -38,15 +38,16 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 			$array = array();
 			foreach ($_POST[self::F_VOTE_MULTI_LINE_INPUT] as $item) {
 				$array[] = array(
-					"input" => $item[self::F_FREE_INPUT],
-					"vote_id" => $item[self::F_VOTE_ID]
+					"input"   => $item[self::F_FREE_INPUT],
+					"vote_id" => $item[self::F_VOTE_ID],
 				);
-				$this->manager->inputAll($array);
 			}
+			$this->manager->inputAll($array);
 		} else {
 			$this->manager->inputOne(array(
-				"input" => $_POST[self::F_FREE_INPUT],
-				"vote_id" => $_POST[self::F_VOTE_ID]));
+				"input"   => $_POST[self::F_FREE_INPUT],
+				"vote_id" => $_POST[self::F_VOTE_ID],
+			));
 		}
 	}
 
@@ -115,7 +116,7 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 			$form->addCommandButton(self::CMD_CLEAR, $this->txt('delete_all'));
 		}
 
-		$mli = new xlvoMultiLineInputGUI($this->txt('common_answers'), self::F_VOTE_MULTI_LINE_INPUT);
+		$mli = new xlvoMultiLineInputGUI($this->txt('answers'), self::F_VOTE_MULTI_LINE_INPUT);
 		$te = new ilTextInputGUI($this->txt('text'), self::F_FREE_INPUT);
 		$te->setMaxLength(45);
 
@@ -147,6 +148,4 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 
 		$this->tpl->setVariable('FREE_INPUT_FORM', $form);
 	}
-
-
 }

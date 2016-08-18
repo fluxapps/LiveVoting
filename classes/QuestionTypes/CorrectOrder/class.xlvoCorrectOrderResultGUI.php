@@ -7,6 +7,10 @@
  */
 class xlvoCorrectOrderResultGUI extends xlvoResultGUI{
 
+	/**
+	 * @param \xlvoVote[] $votes
+	 * @return string
+	 */
 	public function getTextRepresentation($votes) {
 		$strings = array();
 		if(!count($votes))
