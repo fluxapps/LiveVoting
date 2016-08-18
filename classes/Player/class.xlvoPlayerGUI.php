@@ -289,14 +289,14 @@ class xlvoPlayerGUI extends xlvoGUI {
 		}
 		// Hide
 		$b = ilLinkButton::getInstance();
-		$b->setCaption(xlvoGlyphGUI::get('eye-close') . $this->txt('hide_results'), false);
+		$b->setCaption($this->txt('hide_results'), false);
 		$b->setUrl('#');
 		$b->setId('btn-hide-results');
 		$this->toolbar->addButtonInstance($b);
 
 		// Show
 		$b = ilLinkButton::getInstance();
-		$b->setCaption(xlvoGlyphGUI::get('eye-open') . $this->txt('show_results'), false);
+		$b->setCaption($this->txt('show_results'), false);
 		$b->setUrl('#');
 		$b->setId('btn-show-results');
 		$this->toolbar->addButtonInstance($b);
