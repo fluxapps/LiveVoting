@@ -104,6 +104,7 @@ class xlvoVotingManager2 {
 		$this->createHistoryObject();
 	}
 
+
 	/**
 	 * @param $input
 	 * @param $vote_id
@@ -151,7 +152,7 @@ class xlvoVotingManager2 {
 		return xlvoVote::where(array(
 			'option_id' => $option_id,
 			'status'    => xlvoVote::STAT_ACTIVE,
-			'round_id'		=> $this->player->getRoundId()
+			'round_id'  => $this->player->getRoundId(),
 		))->count();
 	}
 
@@ -167,7 +168,7 @@ class xlvoVotingManager2 {
 		return xlvoVote::where(array(
 			'option_id' => $option_id,
 			'status'    => xlvoVote::STAT_ACTIVE,
-			'round_id'    => $this->player->getRoundId(),
+			'round_id'  => $this->player->getRoundId(),
 		))->get();
 	}
 
@@ -365,7 +366,11 @@ class xlvoVotingManager2 {
 				( SELECT COUNT(*) AS counted FROM rep_robj_xlvo_vote_n WHERE voting_id = %s AND status = %s AND round_id = %s GROUP BY option_id )
 				AS counts";
 		global $ilDB;
-		$res = $ilDB->queryF($q, array( 'integer', 'integer', 'integer' ), array( $this->getVoting()->getId(), xlvoVote::STAT_ACTIVE , $this->player->getRoundId()));
+		$res = $ilDB->queryF($q, array( 'integer', 'integer', 'integer' ), array(
+			$this->getVoting()->getId(),
+			xlvoVote::STAT_ACTIVE,
+			$this->player->getRoundId(),
+		));
 		$data = $ilDB->fetchObject($res);
 
 		return $data->maxcount ? $data->maxcount : 0;
@@ -383,7 +388,11 @@ class xlvoVotingManager2 {
 	public function reset() {
 		$this->player->setButtonStates(array());
 		$this->player->update();
-		foreach (xlvoVote::where(array( 'voting_id' => $this->getVoting()->getId() ))->get() as $xlvoVote) {
+		/**
+		 * @var $xlvoVote xlvoVote
+		 */
+		foreach (xlvoVote::where(array( 'voting_id' => $this->getVoting()->getId(), 'round_id' => $this->getPlayer()->getRoundId() ))
+		                 ->get() as $xlvoVote) {
 			$xlvoVote->delete();
 		}
 	}
@@ -443,7 +452,7 @@ class xlvoVotingManager2 {
 		return xlvoVote::where(array(
 			'voting_id' => $this->getVoting()->getId(),
 			'status'    => xlvoOption::STAT_ACTIVE,
-			'round_id'    => $this->player->getRoundId(),
+			'round_id'  => $this->player->getRoundId(),
 		))->get();
 	}
 
@@ -580,17 +589,24 @@ class xlvoVotingManager2 {
 		$this->voting = xlvoVoting::findOrGetInstance($this->getPlayer()->getActiveVotingId());
 	}
 
+
+	/**
+	 * @param $array
+	 */
 	public function inputOne($array) {
-		$this->inputAll(array($array));
+		$this->inputAll(array( $array ));
 	}
+
 
 	public function clear() {
 		$this->unvoteAll();
 		$this->createHistoryObject();
 	}
 
+
 	protected function createHistoryObject() {
-		if($this->getVotingConfig()->getVotingHistory())
+		if ($this->getVotingConfig()->getVotingHistory()) {
 			xlvoVote::createHistoryObject(xlvoUser::getInstance(), $this->getVoting()->getId(), $this->player->getRoundId());
+		}
 	}
 }
