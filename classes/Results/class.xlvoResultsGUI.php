@@ -160,17 +160,21 @@ class xlvoResultsGUI {
 		/** @var xlvoParticipant $participant */
 		$participant = array_shift($participants);
 
-		$headerTpl = $this->pl->getTemplate("default/tpl.history_header.html");
-		$headerTpl->setVariable("QUESTION_LABEL", $this->pl->txt("common_question"));
-		$headerTpl->setVariable("QUESTION", xlvoVoting::find($_GET['voting_id'])->getQuestion());
-		$headerTpl->setVariable("PARTICIPANT_LABEL", $this->pl->txt("common_participant"));
-		$headerTpl->setVariable("PARTICIPANT", $this->getParticipantName($participant));
-		$headerTpl->setVariable("ROUND_LABEL", $this->pl->txt("common_round"));
-		$headerTpl->setVariable("ROUND", $this->getRoundTitle($this->round));
+		$q = new ilNonEditableValueGUI($this->pl->txt("common_question"));
+		$q->setValue(strip_tags(xlvoVoting::find($_GET['voting_id'])->getQuestion()));
+
+		$p = new ilNonEditableValueGUI($this->pl->txt("common_participant"));
+		$p->setValue($this->getParticipantName($participant));
+
+		$d = new ilNonEditableValueGUI($this->pl->txt("common_round"));
+		$d->setValue( $this->getRoundTitle($this->round));
+
+		$form = new ilPropertyFormGUI();
+		$form->setItems(array($q, $p, $d));
 
 		$table = new xlvoVoteHistoryTableGUI($this, 'showHistory');
 		$table->parseData($_GET['user_id'], $_GET['user_identifier'], $_GET['voting_id'], $this->round->getId());
-		$tpl->setContent($headerTpl->get() . $table->getHTML());
+		$tpl->setContent($form->getHTML() . $table->getHTML());
 	}
 
 
