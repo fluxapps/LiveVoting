@@ -21,20 +21,21 @@ voter_msg_validation_error_pin_2#:#Bitte Logen Sie sich ein, um dieses LiveVotin
 voter_msg_validation_error_pin_3#:#Zu diesem PIN wurde keine LiveVoting gefunden
 voter_msg_validation_error_pin_4#:#Dieses LiveVoting ist zum aktuellen Zeitpunkt nicht verfügbar
 voting_actions#:#Aktionen
-voting_add#:#Abstimmung hinzufügen
+voting_add#:#Frage hinzufügen
 voting_cancel#:#Abbrechen
 voting_confirm_number_of_votes#:#Anzahl Benutzer-Eingaben:
-voting_confirm_reset#:#Möchten Sie die Abstimmung zurücksetzen? Alle Benutzer-Eingaben werden gelöscht.
-voting_confirm_reset_all#:#Möchten Sie alle Abstimmungen zurücksetzen? Alle Benutzer-Eingaben werden gelöscht.
+voting_confirm_reset#:#Möchten Sie die Resultate dieser Frage zurücksetzen? Alle Benutzer-Eingaben werden gelöscht.
+voting_confirm_reset_all#:#Möchten Sie die Resultate aller Fragen zurücksetzen? Alle Benutzer-Eingaben werden gelöscht.
 voting_create#:#Erstellen
 voting_delete#:#Löschen
 voting_delete_confirm#:#Möchsten Sie die Abstimmung wirklich löschen?
 voting_description#:#Beschreibung
 voting_edit#:#Bearbeiten
 voting_msg_sorting_saved#:#Reihenfolge gespeichert
+voting_msg_duplicated#:#Frage wurde dupliziert
 voting_question#:#Frage
 voting_reset#:#Zurücksetzen
-voting_reset_all#:#Alle Abstimmungen zurücksetzen
+voting_reset_all#:#Alle Resultate zurücksetzen
 voting_save_sorting#:#Reihenfolge speichern
 voting_select_type#:#Typ auswählen
 voting_status#:#Status
@@ -44,17 +45,22 @@ voting_status_5#:#Aktiv
 voting_title#:#Titel
 voting_type#:#Typ
 voting_type_1#:#Single/Multiple Choice
-voting_type_1_info#:#Ein Nutzer kann für mehrere Auswahlmöglichkeiten abstimmen
+voting_type_1_info#:#User können eine resp. mehrere Auswahlmöglichkeit(en) auswählen
 voting_type_2#:#Freitext eingeben
-voting_type_2_info#:#Benutzer können Stichwort selber eingeben
+voting_type_2_info#:#User können Stichworte oder kurze Sätze eingeben
 voting_type_3#:#Bereich
 voting_type_4#:#Korrekte Reihenfolge
-voting_type_4_info#:#Begriffe müssen in die richtige Reihenfolge gebracht werden
+voting_type_4_info#:#User müssen Begriffe in die richtige Reihenfolge bringen
 voting_type_5#:#Prioritäten
-voting_update#:#Speichern
-voting_type_5_info#:#Begriffe können nach Priorität angeordnet werden
+voting_update#:#Speichern und zurückkehren
+voting_type_5_info#:#User können Begriffe nach Prioritäten anordnen
 voting_export#:#Export
 voting_import#:#Import
+voting_form_title_update#:#Frage
+voting_form_title_create#:#Frage
+voting_columns#:#Spalten für Antwortmöglichkeiten
+voting_duplicate#:#Duplizieren
+voting_update_and_stay#:#Speichern
 xlvo_add#:#Hinzufügen
 xlvo_delete#:#LiveVoting löschen
 xlvo_edit#:#Bearbeiten
@@ -79,7 +85,7 @@ msg_success_voting_updated#:#Voting wurde gespeichert
 obj_anonymous#:#Abstimmung ohne Login
 obj_description#:#Beschreibung
 obj_edit_properties#:#Einstellungen bearbeiten
-obj_info_anonymous#:#Das LiveVoting kann von den Abstimmenden ohne Login verwendet werden, auch wenn das Objekt in einem geschützten Bereich wie bspw. einem Kurs liegt.
+obj_info_anonymous#:#Die Teilnahme am LiveVoting ohne Login erfordert kein ILIAS Benutzerkonto. Alle Personen im Besitz des entsprechenden PINs können am LiveVoting teilnehmen.
 obj_info_online#:#Nur wenn das LiveVoting online geschaltet ist, können Benutzer das LiveVoting sehen und benutzen.
 obj_info_reuse_status#:#Beim Wechseln zwischen Voting wird jeweils übernommen, ob das nächste Voting freigegeben werden soll, oder nicht.
 obj_info_terminable#:#Das LiveVoting kann nur innerhalb der definierten Zeit zum Abstimmen genutzt werden
@@ -96,6 +102,23 @@ obj_xlvo#:#LiveVoting
 obj_xlvo_duplicate#:#Bestehendes LiveVoting kopieren
 obj_status#:#Status
 obj_offline#:#Offline
+obj_formtitle_change_vote#:#Verhalten bei Wechsel der Frage
+obj_frozen_behaviour#:#Abstimmen
+obj_frozen_alway_on#:#nach Wechsel immer eingeschaltet
+obj_frozen_alway_off#:#nach Wechsel immer ausgeschaltet
+obj_frozen_alway_on_info#:#Benutzer können nach einem Wechsel der Frage sofort abstimmen.
+obj_frozen_alway_off_info#:#Benutzer können erst abstimmen, wenn die Frage freigegeben wird.
+obj_results_behaviour#:#Resultate einblenden
+obj_results_alway_on#:#nach Wechsel immer eingeblendet
+obj_results_alway_on_info#:#Nach dem Wechsen der Frage sind die Resultate immer sichtbar.
+obj_results_alway_off#:#nach Wechsel immer ausgeblendet
+obj_results_alway_off_info#:#Administratoren müssen das Einblenden der Resultate manuell starten.
+obj_frozen_reuse#:#Status beibehalten
+obj_frozen_reuse_info#:#Der Status wird beim Wechseln beibehalten.
+obj_results_reuse#:#Status beibehalten
+obj_results_reuse_info#:#Der Status wird beim Wechsel der Frage beibehalten.
+obj_crs#:#Kurs
+obj_frozen_alway_ofxlvo_edit#:#Bearbeiten
 objs_xlvo#:#LiveVotings
 objs_xlvo_duplicate#:#Bestehendes LiveVoting kopieren
 player_close_modal#:#Schliessen
@@ -112,13 +135,17 @@ player_start_voting_and_unfreeze#:#LiveVoting beginnen und direkt freigeben
 player_terminate#:#Beenden
 player_unfreeze#:#Abstimmen
 player_voters_online#:#Online
-player_voting_list#:#Votings
+player_voting_list#:#Fragen
+player_voting_countdown#:#Countdown
+player_seconds#:#s
+player_player_countdown#:#Countdown
 qtype_1_colors#:#Unterschiedliche Farben
 qtype_1_multi_selection#:#Mehrfachauswahl
 qtype_1_multi_selection_info#:#Ein Nutzer kann mehr als einen Text eingeben
 qtype_1_option_text#:#Options-Text
 qtype_1_options#:#Mögliche Antworten
 qtype_1_total_votes#:#Anzahl Stimmen
+qtype_1_total_voters#:#Anzahl Abstimmende
 qtype_1_unvote#:#Unvote
 qtype_1_vote#:#Vote
 qtype_2_answers#:#Eingaben
@@ -140,9 +167,20 @@ qtype_4_your_order#:#Ihre gespeicherte Eingabe:
 qtype_5_option_text#:#Text
 qtype_5_option_weight#:#Gewichtung
 qtype_5_options#:#Optionen
-qtype_form_header#:#Typ-Einstellugnen
+qtype_form_header#:#Antworten
 qtype_multi_free_input#:#Mehrfache Eingaben
 qtype_2_text#:#Text
+qtype_4_display_correct_order#:#Show correct order
+qtype_4_hide_correct_order#:#Hide correct order
+qtype_4_correct#:#Richtig
+qtype_4_wrong#:#Falsch
+qtype_4_correct_solution#:#Korrekte Reihenfolge:
+qtype_1_total_obj_results_alway_on_info#:#Die Resultate werden nach einem Wechsel der Frage automatisch eingeblendet.
+qtype_1_optmsg_success_voting_updated#:#Voting wurde gespeichert
+qtype_4_display_std_order#:#Show standard order
+qtype_5_display_correct_order#:#Sortieren
+qtype_5_hide_correct_order#:#Sortieren aufheben
+qtype_5_correct_solution#:#MISSING
 subtab_edit#:#Verwalten
 subtab_show#:#Zeigen
 tab_content#:#Inhalt
@@ -152,3 +190,4 @@ crs_create_xlvo#:#LiveVoting erstellen
 fikd_create_xlvo#:#LiveVoting erstellen
 grp_create_xlvo#:#LiveVoting erstellen
 root_create_xlvo#:#LiveVoting erstellen
+playplayer_msg_no_start_2#:#Das LiveVoting kann nicht gestartet werden, da noch keine Votings vorhanden sind.

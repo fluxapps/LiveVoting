@@ -30,6 +30,9 @@ Config Rewrite Rule in .htaccess or Apache-Config:
 </IfModule>
 ```
 
+###Browser-Support
+LiveVoting is currently not fully supported by Google Chrome.
+
 ###Contact
 studer + raimann ag  
 Waldeggstrasse 72  

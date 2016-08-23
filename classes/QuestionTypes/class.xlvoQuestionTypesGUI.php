@@ -18,6 +18,10 @@ abstract class xlvoQuestionTypesGUI extends xlvoGUI {
 	 * @var bool
 	 */
 	protected $show_question = true;
+	/**
+	 * @var bool
+	 */
+	protected $has_solution = false;
 
 
 	/**
@@ -87,6 +91,22 @@ abstract class xlvoQuestionTypesGUI extends xlvoGUI {
 
 
 	/**
+	 * @return boolean
+	 */
+	public function isShowQuestion() {
+		return $this->show_question;
+	}
+
+
+	/**
+	 * @param boolean $show_question
+	 */
+	public function setShowQuestion($show_question) {
+		$this->show_question = $show_question;
+	}
+
+
+	/**
 	 * @description add JS to the HEAD
 	 */
 	abstract public function initJS();
@@ -104,23 +124,59 @@ abstract class xlvoQuestionTypesGUI extends xlvoGUI {
 
 
 	/**
-	 * @return boolean
-	 */
-	public function isShowQuestion() {
-		return $this->show_question;
-	}
-
-
-	/**
-	 * @param boolean $show_question
-	 */
-	public function setShowQuestion($show_question) {
-		$this->show_question = $show_question;
-	}
-
-
-	/**
 	 * @return string
 	 */
 	abstract public function getMobileHTML();
+
+
+	//
+	// Custom Buttons
+	//
+
+	/**
+	 * @param $button_id
+	 * @param $data
+	 */
+	public function handleButtonCall($button_id, $data) {
+		$this->saveButtonState($button_id, $data);
+	}
+
+
+	/**
+	 * @return array
+	 */
+	protected function getButtonsStates() {
+		$xlvoPlayer = $this->getManager()->getPlayer();
+
+		return $xlvoPlayer->getButtonStates();
+	}
+
+
+	/**
+	 * @return ilButtonBase[]
+	 */
+	public function getButtonInstances() {
+		return array();
+	}
+
+
+	/**
+	 * @return bool
+	 */
+	public function hasButtons() {
+		return (count($this->getButtonInstances()) > 0);
+	}
+
+
+	/**
+	 * @param $button_id
+	 * @param $state
+	 */
+	protected function saveButtonState($button_id, $state) {
+		$xlvoPlayer = $this->getManager()->getPlayer();
+		$states = $xlvoPlayer->getButtonStates();
+		$states[$button_id] = $state;
+		$xlvoPlayer->setButtonStates($states);
+		$xlvoPlayer->update();
+	}
 }

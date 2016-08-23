@@ -109,6 +109,9 @@ class xlvoInitialisation extends ilInitialisation {
 		self::initLanguage();
 		$tree->initLangCode();
 		self::initHTML2();
+		require_once('class.xlvoObjectDefinition.php');
+		global $objDefinition;
+		$objDefinition = new xlvoObjectDefinition();
 	}
 
 

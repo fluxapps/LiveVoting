@@ -39,6 +39,16 @@ class xlvoOption extends ActiveRecord {
 	public function getText() {
 		return $this->text;
 	}
+	
+	
+
+
+	/**
+	 * @return string
+	 */
+	public function getTextForPresentation() {
+		return ilUtil::prepareTextareaOutput($this->text, true);
+	}
 
 
 	/**
@@ -55,6 +65,14 @@ class xlvoOption extends ActiveRecord {
 		} else {
 			$this->create();
 		}
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getCipher() {
+		return chr($this->getPosition() + 64);
 	}
 
 

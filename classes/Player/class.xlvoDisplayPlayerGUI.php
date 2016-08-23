@@ -39,11 +39,13 @@ class xlvoDisplayPlayerGUI {
 
 	/**
 	 * xlvoDisplayPlayerGUI constructor.
+	 *
 	 * @param xlvoVotingManager2 $manager
 	 */
 	public function __construct(xlvoVotingManager2 $manager) {
 		$this->manager = $manager;
 		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Player/tpl.player.html', true, true);
+		$this->pl = ilLiveVotingPlugin::getInstance();
 	}
 
 
@@ -60,44 +62,38 @@ class xlvoDisplayPlayerGUI {
 		$xlvoInputResultGUI = xlvoInputResultsGUI::getInstance($this->manager);
 		if ($player->isShowResults()) {
 			$this->tpl->setVariable('OPTION_CONTENT', $xlvoInputResultGUI->getHTML());
-		}
-		$xlvoOptions = $this->manager->getVoting()->getVotingOptions();
-		if ($xlvoInputResultGUI->isShuffleResults()) {
-			shuffle($xlvoOptions);
-		}
-		foreach ($xlvoOptions as $item) {
-			$this->addOption($item);
-		}
-
-		$votings = xlvoVoting::where(array(
-			'obj_id' => $this->manager->getVoting()->getObjId(),
-			'voting_status' => xlvoVoting::STAT_ACTIVE
-		))->orderBy('position', 'ASC');
-
-		$votings_count = $votings->count();
-
-		$voting_position = 1;
-		foreach ($votings->getArray() as $key => $voting) {
-			if ($this->manager->getVoting()->getId() == $key) {
-				break;
+		} else {
+			$xlvoOptions = $this->manager->getVoting()->getVotingOptions();
+			if ($xlvoInputResultGUI->isShuffleResults()) {
+				shuffle($xlvoOptions);
 			}
-			$voting_position ++;
+			foreach ($xlvoOptions as $item) {
+				$this->addOption($item);
+			}
 		}
 
 		$this->tpl->setVariable('TITLE', $this->manager->getVoting()->getTitle());
-		$this->tpl->setVariable('QUESTION', $this->manager->getVoting()->getQuestion());
+		$this->tpl->setVariable('QUESTION', $this->manager->getVoting()->getQuestionForPresentation());
 		$this->tpl->setVariable('VOTING_ID', $this->manager->getVoting()->getId());
 		$this->tpl->setVariable('OBJ_ID', $this->manager->getVoting()->getObjId());
 		$this->tpl->setVariable('FROZEN', $player->isFrozen());
 		$this->tpl->setVariable('PIN', $config->getPin());
 		if ($this->manager->getVotingConfig()->isShowAttendees()) {
 			$this->tpl->setCurrentBlock('attendees');
-			$this->tpl->setVariable('ATTENDEES', xlvoVoter::count($this->manager->getPlayer()->getId()));
-			$this->tpl->setVariable('ONLINE', ilLiveVotingPlugin::getInstance()->txt('player_voters_online'));
+			$this->tpl->setVariable('ATTENDEES', xlvoVoter::countVoters($this->manager->getPlayer()->getId()));
+
+			$this->tpl->setVariable('ONLINE', $this->pl->txt('player_voters_online'));
 			$this->tpl->parseCurrentBlock();
 		}
-		$this->tpl->setVariable('COUNT', $votings_count);
-		$this->tpl->setVariable('POSITION', $voting_position);
+		if ($this->manager->getPlayer()->isCountDownRunning()) {
+			$this->tpl->setCurrentBlock('countdown');
+			$cd = $this->manager->getPlayer()->remainingCountDown();
+			$this->tpl->setVariable('COUNTDOWN', $cd . ' ' . $this->pl->txt('player_seconds'));
+			$this->tpl->setVariable('COUNTDOWN_CSS', $this->manager->getPlayer()->getCountdownClassname());
+			$this->tpl->parseCurrentBlock();
+		}
+		$this->tpl->setVariable('COUNT', $this->manager->countVotings());
+		$this->tpl->setVariable('POSITION', $this->manager->getVotingPosition());
 	}
 
 
@@ -126,8 +122,9 @@ class xlvoDisplayPlayerGUI {
 		}
 		$this->answer_count ++;
 		$this->tpl->setCurrentBlock('option');
-		$this->tpl->setVariable('OPTION_LETTER', (chr($this->answer_count)));
-		$this->tpl->setVariable('OPTION_TEXT', $option->getText());
+		$this->tpl->setVariable('OPTION_LETTER', $option->getCipher());
+		$this->tpl->setVariable('OPTION_COL', $this->manager->getVoting()->getComputedColums());
+		$this->tpl->setVariable('OPTION_TEXT', $option->getTextForPresentation());
 		$this->tpl->parseCurrentBlock();
 	}
 }

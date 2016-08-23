@@ -11,6 +11,10 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
  */
 class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 
+	const BUTTON_TOTTLE_DISPLAY_CORRECT_ORDER = 'display_correct_order';
+	const BUTTON_TOGGLE_PERCENTAGE = 'toggle_percentage';
+
+
 	/**
 	 * @return string
 	 */
@@ -59,8 +63,74 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 		}
 
 		$bars = new xlvoBarMovableGUI($this->manager->getVoting()->getVotingOptions(), $order, $vote_id);
+		$bars->setShowOptionLetter(true);
 		$tpl->setVariable('CONTENT', $bars->getHTML());
 
+		if ($this->isShowCorrectOrder()) {
+			$correct_order = array();
+			foreach ($this->manager->getVoting()->getVotingOptions() as $xlvoOption) {
+				$correct_order[(int)$xlvoOption->getCorrectPosition()] = $xlvoOption;
+			};
+			ksort($correct_order);
+			$solution_html = $this->txt('correct_solution');
+			/**
+			 * @var $item xlvoOption
+			 */
+			foreach ($correct_order as $item) {
+				$solution_html .= ' <span class="label label-primary">' . $item->getCipher() . '</span>';
+			}
+
+			$tpl->setVariable('YOUR_SOLUTION', $solution_html);
+		}
+
 		return $tpl->get();
+	}
+
+
+	/**
+	 * @return array
+	 */
+	public function getButtonInstances() {
+		if (!$this->manager->getPlayer()->isShowResults()) {
+			return array();
+		}
+		$states = $this->getButtonsStates();
+		$b = ilLinkButton::getInstance();
+		$b->setId(self::BUTTON_TOTTLE_DISPLAY_CORRECT_ORDER);
+		if ($states[self::BUTTON_TOTTLE_DISPLAY_CORRECT_ORDER]) {
+			$b->setCaption(xlvoGlyphGUI::get('eye-close'), false);
+		} else {
+			$b->setCaption(xlvoGlyphGUI::get('eye-open'), false);
+		}
+
+		$t = ilLinkButton::getInstance();
+		$t->setId(self::BUTTON_TOGGLE_PERCENTAGE);
+		if ($states[self::BUTTON_TOGGLE_PERCENTAGE]) {
+			$t->setCaption('%', false);
+		} else {
+			$t->setCaption(xlvoGlyphGUI::get('user'), false);
+		}
+
+		return array( $b, $t );
+	}
+
+
+	/**
+	 * @return mixed
+	 */
+	protected function isShowCorrectOrder() {
+		$states = $this->getButtonsStates();
+
+		return ((bool)$states[xlvoCorrectOrderGUI::BUTTON_TOTTLE_DISPLAY_CORRECT_ORDER] && $this->manager->getPlayer()->isShowResults());
+	}
+
+
+	/**
+	 * @param $button_id
+	 * @param $data
+	 */
+	public function handleButtonCall($button_id, $data) {
+		$states = $this->getButtonsStates();
+		$this->saveButtonState($button_id, !$states[$button_id]);
 	}
 }

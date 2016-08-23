@@ -1,0 +1,134 @@
+#xlvo-display-player {
+  background-color: #F9F9F9;
+}
+
+#xlvo_player_loading {
+  width:            100%;
+  height:           42px;
+  position:         absolute;
+  z-index:          999;
+  text-align:       center;
+  line-height:      42px;
+  background-color: #F9F9F9;
+  -ms-filter:       "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  filter:           alpha(opacity=80);
+  -moz-opacity:     0.8;
+  -khtml-opacity:   0.8;
+  opacity:          0.8;
+}
+
+#xlvo_player_loading > div {
+  width:             8px;
+  height:            8px;
+  margin-top:        0;
+  margin-bottom:     0;
+  margin-left:       2px;
+  margin-right:      2px;
+  background-color:  #B2B2B2;
+
+  border-radius:     100%;
+  display:           inline-block;
+  -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+  animation:         sk-bouncedelay 1.4s infinite ease-in-out both;
+}
+
+#xlvo_player_loading .bounce1 {
+  -webkit-animation-delay: -0.32s;
+  animation-delay:         -0.32s;
+}
+
+#xlvo_player_loading .bounce2 {
+  -webkit-animation-delay: -0.16s;
+  animation-delay:         -0.16s;
+}
+
+@-webkit-keyframes sk-bouncedelay {
+  0%, 80%, 100% {
+	-webkit-transform: scale(0)
+  }
+  40% {
+	-webkit-transform: scale(1.0)
+  }
+}
+
+@keyframes sk-bouncedelay {
+  0%, 80%, 100% {
+	-webkit-transform: scale(0);
+	transform:         scale(0);
+  }
+  40% {
+	-webkit-transform: scale(1.0);
+	transform:         scale(1.0);
+  }
+}
+
+@gray-dark: grey;
+@line-height-base: 14px;
+@import "../../../../../../../../../../Services/UICore/lib/bootstrap-3.2.0/less/mixins/labels.less";
+@import "../../../../../../../../../../templates/default/less/variables.less";
+.label-cd-danger {
+  .label-variant(#FF3A00)
+}
+
+.label-cd-warning {
+  .label-variant(@brand-warning)
+}
+
+.label-cd-running {
+  .label-variant(@brand-success)
+}
+
+#xlvo-player-header {
+  h1.pull-right {
+	margin-left: 5px;
+  }
+}
+
+.xlvo-vote-free-input {
+  &.col-md-4 {
+	//padding-left:  5px;
+	//padding-right: 5px;
+  }
+
+  .well-sm {
+	margin-bottom: 5px;
+  }
+}
+
+.xlvo-fullscreen {
+  position:         absolute !important;
+  top:              0 !important;
+  left:             0 !important;
+  right:            0 !important;
+  bottom:           0 !important;
+  width:            100% !important;
+  height:           100% !important;
+  z-index:          5000 !important;
+  background-color: black !important;
+  //zoom:             2 !important;
+  //-moz-transform:   scale(2) !important;
+  //transform:        scale(2, 2);
+  overflow-y:       scroll;
+
+  #xlvo-display-player {
+	font-size: 150%;
+	#xlvo-player-header * {
+	  //font-size: 24px !important;
+	  //line-height: 24px !important;
+	}
+  }
+  //nav.ilToolbar {
+  //-ms-filter:     "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+  //filter:         alpha(opacity=30);
+  //-moz-opacity:   0.3;
+  //-khtml-opacity: 0.3;
+  //opacity:        0.3;
+  //&:hover {
+  //  -ms-filter:     "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  //  filter:         alpha(opacity=100);
+  //  -moz-opacity:   1;
+  //  -khtml-opacity: 1;
+  //  opacity:        1;
+  //}
+  //}
+}

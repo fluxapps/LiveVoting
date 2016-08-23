@@ -1,5 +1,5 @@
 <?php
-
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoQuestionTypes.php');
 require_once('./Services/ActiveRecord/class.ActiveRecord.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Option/class.xlvoOption.php');
 
@@ -15,6 +15,7 @@ class xlvoVoting extends ActiveRecord {
 	const STAT_ACTIVE = 5;
 	const STAT_INACTIVE = 1;
 	const STAT_INCOMPLETE = 2;
+	const ROWS_DEFAULT = 1;
 	/**
 	 * @var int
 	 *
@@ -106,6 +107,14 @@ class xlvoVoting extends ActiveRecord {
 	 */
 	protected $position = 99;
 	/**
+	 * @var int
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           2
+	 */
+	protected $columns = self::ROWS_DEFAULT;
+	/**
 	 * @var xlvoOption[]
 	 */
 	protected $voting_options = array();
@@ -126,13 +135,85 @@ class xlvoVoting extends ActiveRecord {
 
 
 	/**
+	 * @return int
+	 */
+	public function getComputedColums() {
+		return (12 / (in_array($this->getColumns(), array( 1, 2, 3, 4 )) ? $this->getColumns() : self::ROWS_DEFAULT));
+	}
+
+
+	public function renegerateOptionSorting() {
+		$i = 1;
+		foreach ($this->getVotingOptions() as $votingOption) {
+			$votingOption->setPosition($i);
+			$votingOption->update();
+			$i ++;
+		}
+	}
+
+
+	/**
+	 * @param bool $change_name
+	 * @return \xlvoVoting
+	 * @throws \Exception
+	 * @throws \arException
+	 */
+	public function fullClone($change_name = true, $clone_options = true) {
+		/**
+		 * @var $newObj          xlvoVoting
+		 * @var $votingOptionNew xlvoOption
+		 */
+		$newObj = $this->copy();
+		if ($change_name) {
+
+			$count = 1;
+			while (xlvoVoting::where(array( 'title' => $this->getTitle() . ' (' . $count . ')' ))->where(array( 'obj_id' => $this->getObjId() ))
+			                 ->count()) {
+				$count ++;
+			}
+
+			$newObj->setTitle($this->getTitle() . ' (' . $count . ')');
+		}
+		$newObj->create();
+		if ($clone_options) {
+			foreach ($newObj->getVotingOptions() as $votingOption) {
+				$votingOptionNew = $votingOption->copy();
+				$votingOptionNew->setVotingId($newObj->getId());
+				$votingOptionNew->create();
+			}
+			$newObj->renegerateOptionSorting();
+		}
+
+		return $newObj;
+	}
+
+
+	public function create() {
+		global $ilDB;
+		$res = $ilDB->query('SELECT MAX(position) as max FROM rep_robj_xlvo_voting_n WHERE obj_id = ' . $ilDB->quote($this->getObjId(), 'integer'));
+		$data = $ilDB->fetchObject($res);
+		$this->setPosition($data->max + 1);
+		parent::create();
+	}
+
+
+	/**
+	 * @return ActiveRecordList
+	 */
+	protected function getFirstLastList($order) {
+		return self::where(array( 'obj_id' => $this->getObjId() ))->orderBy('position', $order)
+		           ->where(array( 'voting_type' => xlvoQuestionTypes::getActiveTypes() ));
+	}
+
+
+	/**
 	 * @return bool
 	 */
 	public function isFirst() {
 		/**
 		 * @var $first xlvoVoting
 		 */
-		$first = self::where(array( 'obj_id' => $this->getObjId() ))->orderBy('position', 'ASC')->first();
+		$first = $this->getFirstLastList('ASC')->first();
 		if (!$first instanceof self) {
 			$first = new self();
 		}
@@ -148,7 +229,7 @@ class xlvoVoting extends ActiveRecord {
 		/**
 		 * @var $first xlvoVoting
 		 */
-		$first = self::where(array( 'obj_id' => $this->getObjId() ))->orderBy('position', 'DESC')->first();
+		$first = $this->getFirstLastList('DESC')->first();
 
 		if (!$first instanceof self) {
 			$first = new self();
@@ -308,6 +389,14 @@ class xlvoVoting extends ActiveRecord {
 
 
 	/**
+	 * @return string
+	 */
+	public function getQuestionForPresentation() {
+		return ilRTE::_replaceMediaObjectImageSrc($this->question, 1);
+	}
+
+
+	/**
 	 * @param string $question
 	 */
 	public function setQuestion($question) {
@@ -392,5 +481,21 @@ class xlvoVoting extends ActiveRecord {
 	 */
 	public function setFirstVotingOption($first_voting_option) {
 		$this->first_voting_option = $first_voting_option;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getColumns() {
+		return $this->columns;
+	}
+
+
+	/**
+	 * @param int $columns
+	 */
+	public function setColumns($columns) {
+		$this->columns = $columns;
 	}
 }

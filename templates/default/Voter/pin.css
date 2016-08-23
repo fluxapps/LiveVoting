@@ -1,0 +1,161 @@
+#il_center_col {
+  padding: 0 !important;
+}
+div.lxvo-row {
+  margin-top: 50px;
+}
+#xlvo_countdown {
+  display: none;
+}
+#xlvo-voter-header h1.pull-right {
+  margin-left: 5px;
+}
+.xlvo-voter-glyph {
+  font-size: 100px;
+  color: #DEDEDE;
+  text-align: center;
+}
+.navbar-inverse * {
+  color: white !important;
+}
+#xlvo-display-player {
+  background-color: #F9F9F9;
+}
+#xlvo_player_loading {
+  width: 100%;
+  height: 42px;
+  position: absolute;
+  z-index: 999;
+  text-align: center;
+  line-height: 42px;
+  background-color: #F9F9F9;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  filter: alpha(opacity=80);
+  -moz-opacity: 0.8;
+  -khtml-opacity: 0.8;
+  opacity: 0.8;
+}
+#xlvo_player_loading > div {
+  width: 8px;
+  height: 8px;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 2px;
+  margin-right: 2px;
+  background-color: #B2B2B2;
+  border-radius: 100%;
+  display: inline-block;
+  -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+  animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+}
+#xlvo_player_loading .bounce1 {
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+#xlvo_player_loading .bounce2 {
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+@-webkit-keyframes sk-bouncedelay {
+  0%,
+  80%,
+  100% {
+    -webkit-transform: scale(0);
+  }
+  40% {
+    -webkit-transform: scale(1);
+  }
+}
+@keyframes sk-bouncedelay {
+  0%,
+  80%,
+  100% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  40% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+/*		Color scheme
+		Dark BLue: #0f2152;
+		Mid Blue: #4c6586;
+		Green: #6ea03c;
+		Light Brown: #dcb496;
+		Dark Brown: #523228;
+		Orange: #fa8228;
+		External Blue: #21c5d8;
+		ILIAS 4 MainMenu Color: #c8e6ff;
+*/
+/** if left unchanged, you have to copy all the background images to your skin/images folder.
+* To use the delos background images in your skin,
+* please change this value (in custom less data or in variables.less of your custom skin) to "../../../../templates/default/images/"
+*/
+/** if left unchanged, you have to copy delos fonts folder to your skin folder.
+* To use the delos fonts in your skin,
+* please change this value (in custom less data or variables.less of your custom skin) to "../../../../templates/default/fonts/"
+*/
+/* @il-highlight-bg: saturate(lighten(@brand-warning, 34%), 80%); */
+/* @il-highlight-bg: lighten(@brand-secondary, 44%); */
+/* @il-highlight-bg: lighten(#21c5d8, 40%); */
+/* @nav-tabs-link-hover-border-color: @brand-primary; */
+/* ILIAS variables candidates */
+.label-cd-danger {
+  background-color: #ff3a00;
+}
+.label-cd-danger[href]:hover,
+.label-cd-danger[href]:focus {
+  background-color: #cc2e00;
+}
+.label-cd-warning {
+  background-color: #fa8228;
+}
+.label-cd-warning[href]:hover,
+.label-cd-warning[href]:focus {
+  background-color: #ea6705;
+}
+.label-cd-running {
+  background-color: #6ea03c;
+}
+.label-cd-running[href]:hover,
+.label-cd-running[href]:focus {
+  background-color: #557b2e;
+}
+#xlvo-player-header h1.pull-right {
+  margin-left: 5px;
+}
+.xlvo-vote-free-input .well-sm {
+  margin-bottom: 5px;
+}
+.xlvo-fullscreen {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 5000 !important;
+  background-color: black !important;
+}
+.xlvo-fullscreen #xlvo-display-player {
+  font-size: 200%;
+}
+div#il_prop_cont_pin_input div.col-sm-9 {
+  width: 100%;
+  text-align: center;
+}
+div#il_prop_cont_pin_input input#pin_input {
+  font-size: 3em;
+  line-height: 2em;
+  height: 80px;
+  text-align: center;
+  width: 60%;
+  margin: auto;
+}
+div#il_prop_cont_pin_input label[for=pin_input] {
+  width: 100%;
+  clear: both;
+  text-align: center;
+}

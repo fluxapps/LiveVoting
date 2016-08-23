@@ -10,6 +10,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
  */
 class xlvoJs {
 
+	const DEVELOP = false;
 	const API_URL = xlvoConf::API_URL;
 	const BASE_URL_SETTING = 'base_url';
 	const BASE_PATH = './Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/js/';
@@ -64,6 +65,7 @@ class xlvoJs {
 		foreach ($settings as $k => $v) {
 			$this->settings->addSetting($k, $v);
 		}
+
 		return $this;
 	}
 
@@ -76,6 +78,7 @@ class xlvoJs {
 		foreach ($translations as $translation) {
 			$this->settings->addTranslation($translation);
 		}
+
 		return $this;
 	}
 
@@ -97,7 +100,7 @@ class xlvoJs {
 		$ilCtrl2->setTargetScript(self::API_URL);
 		$additional_classes[] = get_class($xlvoGUI);
 
-		$this->settings->addSetting(self::BASE_URL_SETTING, $ilCtrl->getLinkTargetByClass($additional_classes, $cmd));
+		$this->settings->addSetting(self::BASE_URL_SETTING, $ilCtrl->getLinkTargetByClass($additional_classes, $cmd, null, true));
 
 		return $this;
 	}
@@ -109,6 +112,7 @@ class xlvoJs {
 	 */
 	public function name($name) {
 		$this->name = $name;
+
 		return $this;
 	}
 
@@ -119,6 +123,7 @@ class xlvoJs {
 	 */
 	public function category($category) {
 		$this->category = $category;
+
 		return $this;
 	}
 
@@ -133,7 +138,7 @@ class xlvoJs {
 		/**
 		 * @var $ilCtrl ilCtrl
 		 */
-		$this->settings->addSetting(self::BASE_URL_SETTING, $ilCtrl->getLinkTarget($xlvoGUI, $cmd));
+		$this->settings->addSetting(self::BASE_URL_SETTING, $ilCtrl->getLinkTarget($xlvoGUI, $cmd, '', true));
 
 		return $this;
 	}
@@ -146,7 +151,7 @@ class xlvoJs {
 		$file_name_min = 'xlvo' . $this->name . '.min.js';
 		$full_path_min = $base_path . $category . $file_name_min;
 		$full_path = $base_path . $category . $file_name;
-		if (is_file($full_path_min)) {
+		if (is_file($full_path_min) && !self::DEVELOP) {
 			$this->lib = $full_path_min;
 		} else {
 			$this->lib = $full_path;
@@ -159,6 +164,7 @@ class xlvoJs {
 	 */
 	public function getLibraryURL() {
 		$this->resolveLib();
+
 		return $this->lib;
 	}
 
@@ -199,6 +205,7 @@ class xlvoJs {
 		}
 		global $tpl;
 		$tpl->addOnLoadCode($this->getCallCode($method, $params));
+
 		return $this;
 	}
 

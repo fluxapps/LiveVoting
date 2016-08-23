@@ -21,6 +21,13 @@ var xlvoCorrectOrder = {
             placeholder: "list-group-item list-group-item-default xlvolist-group-fix"
         });
         $("#lvo_bar_movable").disableSelection();
+    },
+    /**
+     * @param button_id
+     * @param button_data
+     */
+    handleButtonPress: function (button_id, button_data) {
+
     }
 };
 

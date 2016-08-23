@@ -157,7 +157,7 @@ class ilObjLiveVotingAccess extends ilObjectPluginAccess {
 	 *
 	 * @return bool
 	 */
-	protected function hasAccess($permission, $ref_id = NULL, $user_id = NULL) {
+	protected static function hasAccess($permission, $ref_id = NULL, $user_id = NULL) {
 		global $ilUser, $ilAccess, $ilLog;
 		/**
 		 * @var $ilAccess ilAccessHandler

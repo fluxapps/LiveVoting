@@ -34,7 +34,6 @@ class xlvoBarFreeInputsGUI implements xlvoBarGUI {
 
 
 	protected function render() {
-		//		$this->tpl->setVariable('ID', $this->vote->getId());
 		$this->tpl->setVariable('FREE_INPUT', $this->vote->getFreeInput());
 	}
 

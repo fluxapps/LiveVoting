@@ -39,11 +39,6 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 	const TAB_CONTENT = 'tab_content';
 	const F_TITLE = 'title';
 	const F_DESCRIPTION = 'description';
-	const F_ONLINE = 'online';
-	const F_ANONYMOUS = 'anonymous';
-	const F_REUSE_STATUS = 'reuse_status';
-	const F_TERMINABLE = 'terminable';
-	const F_TERMINABLE_SELECT = "terminable_select";
 	/**
 	 * @var ilTemplate
 	 */
@@ -143,6 +138,8 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 	 */
 	public function executeCommand() {
 		$this->initHeaderAndLocator();
+
+		$this->tpl->setPermanentLink('xlvo', $_GET['ref_id']);
 
 		$next_class = $this->ctrl->getNextClass($this);
 		$cmd = $this->ctrl->getCmd();
@@ -327,7 +324,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 	protected function initCreationForms($a_new_type) {
 		$forms = array(
 			self::CFORM_NEW => $this->initCreateForm($a_new_type),
-			//			self::CFORM_CLONE => $this->fillCloneTemplate(null, $a_new_type)
+			self::CFORM_CLONE => $this->fillCloneTemplate(null, $a_new_type)
 		);
 
 		return $forms;
@@ -358,40 +355,71 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 			$this->form->addItem($ti);
 			$ta = new ilTextAreaInputGUI($this->pl->txt('obj_description'), self::F_DESCRIPTION);
 			$this->form->addItem($ta);
-			$cb = new ilCheckboxInputGUI($this->pl->txt('obj_online'), self::F_ONLINE);
+			$cb = new ilCheckboxInputGUI($this->pl->txt('obj_online'), xlvoVotingConfig::F_ONLINE);
 			$cb->setInfo($this->pl->txt('obj_info_online'));
 			$this->form->addItem($cb);
-			$cb = new ilCheckboxInputGUI($this->pl->txt('obj_anonymous'), self::F_ANONYMOUS);
+			$cb = new ilCheckboxInputGUI($this->pl->txt('obj_anonymous'), xlvoVotingConfig::F_ANONYMOUS);
 			$cb->setInfo($this->pl->txt('obj_info_anonymous'));
 			$this->form->addItem($cb);
 
-			$cb = new ilCheckboxInputGUI($this->pl->txt('obj_reuse_status'), self::F_REUSE_STATUS);
-			$cb->setInfo($this->pl->txt('obj_info_reuse_status'));
+			//			$cb = new ilCheckboxInputGUI($this->pl->txt('obj_terminable'), xlvoVotingConfig::F_TERMINABLE);
+			//			$cb->setInfo($this->pl->txt('obj_info_terminable'));
 			//			$this->form->addItem($cb);
 
-			$cb = new ilCheckboxInputGUI($this->pl->txt('obj_terminable'), self::F_TERMINABLE);
-			$cb->setInfo($this->pl->txt('obj_info_terminable'));
-			//			$this->form->addItem($cb);
+			//			$te = new ilDateDurationInputGUI($this->pl->txt("obj_terminable_select"), xlvoVotingConfig::F_TERMINABLE_SELECT);
+			//			$te->setShowTime(true);
+			//			$te->setStartText($this->pl->txt('obj_terminable_select_start_time'));
+			//			$te->setEndText($this->pl->txt('obj_terminable_select_end_time'));
+			//			$te->setMinuteStepSize(1);
+			//			/**
+			//			 * @var xlvoVotingConfig $config
+			//			 */
+			//			$config = xlvoVotingConfig::find($this->obj_id);
+			//			if ($config->isTerminable()) {
+			//				if (!$config->getStartDate() == null) {
+			//					$te->setStart(new ilDateTime($config->getStartDate(), IL_CAL_DATETIME, $this->usr->getTimeZone()));
+			//					$te->setEnd(new ilDateTime($config->getEndDate(), IL_CAL_DATETIME, $this->usr->getTimeZone()));
+			//				} else {
+			//					$te->setStart(new ilDateTime(date('Y-m-d H:i:s'), IL_CAL_DATETIME, $this->usr->getTimeZone()));
+			//					$te->setEnd(new ilDateTime(date('Y-m-d H:i:s'), IL_CAL_DATETIME, $this->usr->getTimeZone()));
+			//				}
+			//			}
+			//			$cb->addSubItem($te);
 
-			$te = new ilDateDurationInputGUI($this->pl->txt("obj_terminable_select"), self::F_TERMINABLE_SELECT);
-			$te->setShowTime(true);
-			$te->setStartText($this->pl->txt('obj_terminable_select_start_time'));
-			$te->setEndText($this->pl->txt('obj_terminable_select_end_time'));
-			$te->setMinuteStepSize(1);
-			/**
-			 * @var xlvoVotingConfig $config
-			 */
-			$config = xlvoVotingConfig::find($this->obj_id);
-			if ($config->isTerminable()) {
-				if (!$config->getStartDate() == null) {
-					$te->setStart(new ilDateTime($config->getStartDate(), IL_CAL_DATETIME, $this->usr->getTimeZone()));
-					$te->setEnd(new ilDateTime($config->getEndDate(), IL_CAL_DATETIME, $this->usr->getTimeZone()));
-				} else {
-					$te->setStart(new ilDateTime(date('Y-m-d H:i:s'), IL_CAL_DATETIME, $this->usr->getTimeZone()));
-					$te->setEnd(new ilDateTime(date('Y-m-d H:i:s'), IL_CAL_DATETIME, $this->usr->getTimeZone()));
-				}
-			}
-			$cb->addSubItem($te);
+			// Voting Settings
+			$h = new ilFormSectionHeaderGUI();
+			$h->setTitle($this->pl->txt('obj_formtitle_change_vote'));
+			$this->form->addItem($h);
+
+			$frozen = new ilRadioGroupInputGUI($this->pl->txt('obj_frozen_behaviour'), xlvoVotingConfig::F_FROZEN_BEHAVIOUR);
+			$frozen_always_on = new ilRadioOption($this->pl->txt('obj_frozen_alway_on'), xlvoVotingConfig::B_FROZEN_ALWAY_ON);
+			$frozen_always_on->setInfo($this->pl->txt('obj_frozen_alway_on_info'));
+			$frozen->addOption($frozen_always_on);
+
+			$frozen_always_off = new ilRadioOption($this->pl->txt('obj_frozen_alway_off'), xlvoVotingConfig::B_FROZEN_ALWAY_OFF);
+			$frozen_always_off->setInfo($this->pl->txt('obj_frozen_alway_off_info'));
+			$frozen->addOption($frozen_always_off);
+
+			$frozen_reuse = new ilRadioOption($this->pl->txt('obj_frozen_reuse'), xlvoVotingConfig::B_FROZEN_REUSE);
+			$frozen_reuse->setInfo($this->pl->txt('obj_frozen_reuse_info'));
+			$frozen->addOption($frozen_reuse);
+
+			$this->form->addItem($frozen);
+
+			$results = new ilRadioGroupInputGUI($this->pl->txt('obj_results_behaviour'), xlvoVotingConfig::F_RESULTS_BEHAVIOUR);
+			$results_always_on = new ilRadioOption($this->pl->txt('obj_results_alway_on'), xlvoVotingConfig::B_RESULTS_ALWAY_ON);
+			$results_always_on->setInfo($this->pl->txt('obj_results_alway_on_info'));
+			$results->addOption($results_always_on);
+
+			$results_always_off = new ilRadioOption($this->pl->txt('obj_results_alway_off'), xlvoVotingConfig::B_RESULTS_ALWAY_OFF);
+			$results_always_off->setInfo($this->pl->txt('obj_results_alway_off_info'));
+			$results->addOption($results_always_off);
+
+			$results_reuse = new ilRadioOption($this->pl->txt('obj_results_reuse'), xlvoVotingConfig::B_RESULTS_REUSE);
+			$results_reuse->setInfo($this->pl->txt('obj_results_reuse_info'));
+			$results->addOption($results_reuse);
+
+			$this->form->addItem($results);
 
 			$this->form->addCommandButton('updateProperties', $this->pl->txt('obj_save'));
 			$this->form->setFormAction($this->ctrl->getFormAction($this));
@@ -408,10 +436,12 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 
 		$values[self::F_TITLE] = $this->object->getTitle();
 		$values[self::F_DESCRIPTION] = $this->object->getDescription();
-		$values[self::F_ONLINE] = $config->isObjOnline();
-		$values[self::F_ANONYMOUS] = $config->isAnonymous();
-		$values[self::F_TERMINABLE] = $config->isTerminable();
-		$values[self::F_REUSE_STATUS] = $config->isReuseStatus();
+		$values[xlvoVotingConfig::F_ONLINE] = $config->isObjOnline();
+		$values[xlvoVotingConfig::F_ANONYMOUS] = $config->isAnonymous();
+		$values[xlvoVotingConfig::F_TERMINABLE] = $config->isTerminable();
+		$values[xlvoVotingConfig::F_REUSE_STATUS] = $config->isReuseStatus();
+		$values[xlvoVotingConfig::F_FROZEN_BEHAVIOUR] = $config->getFrozenBehaviour();
+		$values[xlvoVotingConfig::F_RESULTS_BEHAVIOUR] = $config->getResultsBehaviour();
 
 		$this->form->setValuesByArray($values);
 	}
@@ -433,12 +463,12 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 				 * @var xlvoVotingConfig $config
 				 */
 				$config = xlvoVotingConfig::find($this->obj_id);
-				$config->setObjOnline($this->form->getInput(self::F_ONLINE));
-				$config->setAnonymous($this->form->getInput(self::F_ANONYMOUS));
-				$config->setReuseStatus($this->form->getInput(self::F_REUSE_STATUS));
-				$terminable = $this->form->getInput(self::F_TERMINABLE);
+				$config->setObjOnline($this->form->getInput(xlvoVotingConfig::F_ONLINE));
+				$config->setAnonymous($this->form->getInput(xlvoVotingConfig::F_ANONYMOUS));
+				$config->setReuseStatus($this->form->getInput(xlvoVotingConfig::F_REUSE_STATUS));
+				$terminable = $this->form->getInput(xlvoVotingConfig::F_TERMINABLE);
 				$config->setTerminable($terminable);
-				$terminable_select = $this->form->getInput(self::F_TERMINABLE_SELECT);
+				$terminable_select = $this->form->getInput(xlvoVotingConfig::F_TERMINABLE_SELECT);
 				if ($terminable) {
 					$config->setStartDate($this->getDateTimeFromArray($terminable_select['start']));
 					$config->setEndDate($this->getDateTimeFromArray($terminable_select['end']));
@@ -446,6 +476,8 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 					$config->setStartDate(null);
 					$config->setEndDate(null);
 				}
+				$config->setFrozenBehaviour($this->form->getInput(xlvoVotingConfig::F_FROZEN_BEHAVIOUR));
+				$config->setResultsBehaviour($this->form->getInput(xlvoVotingConfig::F_RESULTS_BEHAVIOUR));
 
 				$config->update();
 				ilUtil::sendSuccess($this->pl->txt('obj_msg_properties_form_saved'), true);
@@ -497,7 +529,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI {
 			 * @var ilCtrl $ilCtrl
 			 */
 			$ilCtrl->initBaseClass('ilUIPluginRouterGUI');
-			$ilCtrl->setTargetScript(xlvoConf::getFullApiURL());
+			$ilCtrl->setTargetScript(ltrim(xlvoConf::getFullApiURL(), './'));
 			$ilCtrl->redirectByClass(array(
 				'ilUIPluginRouterGUI',
 				'xlvoVoter2GUI',

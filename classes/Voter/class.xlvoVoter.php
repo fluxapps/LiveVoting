@@ -42,7 +42,7 @@ class xlvoVoter extends ActiveRecord {
 	 * @param $player_id
 	 * @return int
 	 */
-	public static function count($player_id) {
+	public static function countVoters($player_id) {
 		return self::where(array( 'player_id' => $player_id ))->where(array( 'last_access' => date(DATE_ATOM, time() - 3) ), '>')->count();
 	}
 

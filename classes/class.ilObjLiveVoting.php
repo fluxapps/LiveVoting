@@ -28,6 +28,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Option/class.xlvoOption.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Pin/class.xlvoPin.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoQuestionTypes.php');
+
 /**
  * Class ilObjLiveVoting
  *
@@ -144,12 +145,27 @@ class ilObjLiveVoting extends ilObjectPlugin {
 	}
 
 
+	public function renegerateVotingSorting() {
+		$i = 1;
+		/**
+		 * @var $votings xlvoVoting[]
+		 */
+		$votings = xlvoVoting::where(array( 'obj_id' => $this->getId() ))->orderBy('position', 'ASC')->get();
+
+		foreach ($votings as $voting) {
+			$voting->setPosition($i);
+			$voting->update();
+			$i ++;
+		}
+	}
+
+
 	/**
 	 * @param                 $a_target_id
 	 * @param                 $a_copy_id
 	 * @param ilObjLiveVoting $new_obj
 	 */
-	public function doCloneObject(ilObjLiveVoting $new_obj, $a_target_id, $a_copy_id) {
+	public function doCloneObject($new_obj, $a_target_id, $a_copy_id = null ) {
 
 		/**
 		 * @var $config xlvoVotingConfig
@@ -184,17 +200,23 @@ class ilObjLiveVoting extends ilObjectPlugin {
 		 * @var $votings xlvoVoting[]
 		 */
 		$votings = xlvoVoting::where(array( 'obj_id' => $this->getId() ))->get();
+		$media_object_ids = array();
 		foreach ($votings as $voting) {
 
 			/**
 			 * @var $voting_clone xlvoVoting
 			 */
-			$voting_clone = $voting->copy();
+			$voting_clone = $voting->fullClone(false, false);
 			$voting_clone->setObjId($new_obj->getId());
-			$voting_clone->create();
+			$voting_clone->update();
 
 			$voting_id = $voting->getId();
-			$voting_id_clone = xlvoVoting::where(array( 'obj_id' => $new_obj->getId() ))->last()->getId();
+			$voting_id_clone = $voting_clone->getId();
+			require_once('./Services/RTE/classes/class.ilRTE.php');
+			$media_objects = ilRTE::_getMediaObjects($voting_clone->getQuestion());
+			if (count($media_objects) > 0) {
+				$media_object_ids = array_merge($media_object_ids, array_values($media_objects));
+			}
 
 			/**
 			 * @var $options xlvoOption[]
@@ -221,9 +243,13 @@ class ilObjLiveVoting extends ilObjectPlugin {
 					$vote_clone = $vote->copy();
 					$vote_clone->setVotingId($voting_id_clone);
 					$vote_clone->setOptionId($option_id_clone);
-//					$vote_clone->create(); // CURRENTLY VOTES WILL NO BE CLONED
+					//					$vote_clone->create(); // CURRENTLY VOTES WILL NO BE CLONED
 				}
 			}
+		}
+		$new_obj->renegerateVotingSorting();
+		foreach ($media_object_ids as $media_object_id) {
+			ilObjMediaObject::_saveUsage($media_object_id, 'dcl:html', $new_obj->getId());
 		}
 	}
 }

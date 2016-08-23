@@ -157,9 +157,6 @@ $ilDB->addTableColumn('rep_robj_xlvo_data', 'is_freezed', array(
 ?>
 <#7>
 <?php
-
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilLiveVotingPlugin.php');
-$pl = new ilLiveVotingPlugin();
 if($ilDB->tableColumnExists('rep_robj_xlvo_conf', 'lvo_key')) {
 	$ilDB->renameTableColumn('rep_robj_xlvo_conf', 'lvo_key', 'config_key');
 }
@@ -341,4 +338,44 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 xlvoPlayer::updateDB();
 xlvoVote::updateDB();
 xlvoOption::updateDB();
+?>
+<#20>
+<?php
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingConfig.php');
+xlvoVotingConfig::updateDB();
+$xlvo_conf_table_name = xlvoVotingConfig::returnDbTableName();
+$frozen_behaviour = xlvoVotingConfig::B_FROZEN_ALWAY_OFF;
+$results_behaviour = xlvoVotingConfig::B_RESULTS_ALWAY_OFF;
+$q = "UPDATE {$xlvo_conf_table_name} SET frozen_behaviour={$frozen_behaviour}, results_behaviour={$results_behaviour}";
+$ilDB->manipulate($q);
+?>
+<#21>
+<?php
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoPlayer.php');
+xlvoPlayer::updateDB();
+?>
+<#22>
+<?php
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVoting.php');
+xlvoVoting::updateDB();
+$xlvo_voting_table_name = xlvoVoting::returnDbTableName();
+$default = xlvoVoting::ROWS_DEFAULT;
+$q = "UPDATE {$xlvo_voting_table_name} SET columns = {$default}";
+$ilDB->manipulate($q);
+/**
+ * @var $xlvoVoting xlvoVoting
+ */
+foreach (xlvoVoting::get() as $xlvoVoting) {
+	$xlvoVoting->renegerateOptionSorting();
+}
+
+?>
+<#23>
+<?php
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoPlayer.php');
+xlvoPlayer::updateDB();
+?>
+<#24>
+<?php
+$ilDB->manipulate("UPDATE rep_robj_xlvo_config_n SET frozen_behaviour = 0, results_behaviour = 0");
 ?>

@@ -39,22 +39,16 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 class ilObjLiveVotingListGUI extends ilObjectPluginListGUI {
 
 	/**
+	 * @var array
+	 */
+	protected $commands = array();
+
+
+	/**
 	 * Init type
 	 */
 	public function initType() {
 		$this->setType("xlvo");
-		$this->copy_enabled = false;
-	}
-
-
-	/**
-	 * @param $a_status
-	 * @return bool
-	 */
-	public function enableCopy($a_status) {
-		$this->copy_enabled = false;
-
-		return false;
 	}
 
 
@@ -70,7 +64,20 @@ class ilObjLiveVotingListGUI extends ilObjectPluginListGUI {
 	 * Get commands
 	 */
 	public function initCommands() {
-		return array(
+		$this->static_link_enabled = true;
+		$this->delete_enabled = true;
+		$this->cut_enabled = true;
+		$this->copy_enabled = true;
+		$this->subscribe_enabled = false;
+		$this->link_enabled = true;
+		$this->payment_enabled = false;
+		$this->info_screen_enabled = true;
+		$this->timings_enabled = false;
+
+		$this->gui_class_name = "ilobjlivevotinggui";
+
+		// general commands array
+		$this->commands = array(
 			array(
 				"permission" => "read",
 				"cmd"        => "showContent",
@@ -83,6 +90,8 @@ class ilObjLiveVotingListGUI extends ilObjectPluginListGUI {
 				"default"    => false,
 			),
 		);
+
+		return $this->commands;
 	}
 
 

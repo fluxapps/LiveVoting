@@ -37,7 +37,7 @@ class xlvoVotingManager2 {
 		$obj_id = xlvoPin::checkPin($pin, false);
 		$this->obj_id = $obj_id;
 		$this->player = xlvoPlayer::getInstanceForObjId($this->obj_id);
-		$this->voting = xlvoVoting::findOrGetInstance($this->getPlayer()->getActiveVoting());
+		$this->initVoting();
 	}
 
 
@@ -84,6 +84,12 @@ class xlvoVotingManager2 {
 	}
 
 
+	public function prepare() {
+		$this->getVoting()->renegerateOptionSorting();
+		$this->getPlayer()->freeze();
+	}
+
+
 	/**
 	 * @param $input
 	 * @param $vote_id
@@ -119,6 +125,18 @@ class xlvoVotingManager2 {
 		if (!$this->getVoting()->isMultiFreeInput()) {
 			$this->unvoteAll($xlvoVote->getId());
 		}
+	}
+
+
+	/**
+	 * @param $option_id
+	 * @return int
+	 */
+	public function countVotesOfOption($option_id) {
+		return xlvoVote::where(array(
+			'option_id' => $option_id,
+			'status'    => xlvoVote::STAT_ACTIVE,
+		))->count();
 	}
 
 
@@ -170,6 +188,18 @@ class xlvoVotingManager2 {
 
 
 	/**
+	 * @param bool $incl_inactive
+	 * @return xlvoVote
+	 */
+	public function getFirstVoteOfUser($incl_inactive = false) {
+		$xlvoVotes = $this->getVotesOfUser($incl_inactive);
+		$xlvoVote = array_shift(array_values($xlvoVotes));
+
+		return ($xlvoVote instanceof xlvoVote) ? $xlvoVote : new xlvoVote();
+	}
+
+
+	/**
 	 * @param xlvoOption $xlvoOption
 	 * @return bool
 	 */
@@ -199,25 +229,32 @@ class xlvoVotingManager2 {
 	}
 
 
-	public function previous() {
-		if ($this->getVoting()->isFirst()) {
-			return false;
-		}
-		$prev_id = $this->getVotingsList('DESC')->where(array( 'position' => $this->voting->getPosition() ), '<')->limit(0, 1)->getArray('id', 'id');
-		$prev_id = array_shift(array_values($prev_id));
-		$this->player->setActiveVoting($prev_id);
-		$this->player->update();
-	}
-
-
 	/**
 	 * @param $voting_id
 	 */
 	public function open($voting_id) {
 		if ($this->getVotingsList()->where(array( 'id' => $voting_id ))->hasSets()) {
 			$this->player->setActiveVoting($voting_id);
+			$this->player->setButtonStates(array());
+			$this->player->resetCountDown(false);
 			$this->player->update();
 		}
+	}
+
+
+	public function previous() {
+		if ($this->getVoting()->isFirst()) {
+			return false;
+		}
+		$prev_id = $this->getVotingsList('DESC')->where(array( 'position' => $this->voting->getPosition() ), '<')->limit(0, 1)->getArray('id', 'id');
+		$prev_id = array_shift(array_values($prev_id));
+		$this->handleQuestionSwitching();
+
+		$this->player->setActiveVoting($prev_id);
+		$this->player->setButtonStates(array());
+		$this->player->resetCountDown(false);
+		$this->player->update();
+		$this->getVoting()->renegerateOptionSorting();
 	}
 
 
@@ -227,13 +264,54 @@ class xlvoVotingManager2 {
 		}
 		$next_id = $this->getVotingsList()->where(array( 'position' => $this->voting->getPosition() ), '>')->limit(0, 1)->getArray('id', 'id');
 		$next_id = array_shift(array_values($next_id));
+		$this->handleQuestionSwitching();
 		$this->player->setActiveVoting($next_id);
+		$this->player->setButtonStates(array());
+		$this->player->resetCountDown(false);
 		$this->player->update();
+		$this->getVoting()->renegerateOptionSorting();
 	}
 
 
 	public function terminate() {
 		$this->player->terminate();
+	}
+
+
+	/**
+	 * @param $seconds
+	 */
+	public function countdown($seconds) {
+		$this->player->startCountDown($seconds);
+	}
+
+
+	public function attend() {
+		$this->getPlayer()->attend();
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function countVotings() {
+		return $this->getVotingsList('ASC')->count();
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getVotingPosition() {
+		$voting_position = 1;
+		foreach ($this->getVotingsList('ASC')->getArray() as $key => $voting) {
+			if ($this->getVoting()->getId() == $key) {
+				break;
+			}
+			$voting_position ++;
+		}
+
+		return $voting_position;
 	}
 
 
@@ -248,7 +326,46 @@ class xlvoVotingManager2 {
 	}
 
 
+	/**
+	 * @return int
+	 */
+	public function countVoters() {
+		$q = "SELECT COUNT(DISTINCT user_identifier) AS maxcount FROM rep_robj_xlvo_vote_n WHERE voting_id = %s AND status = %s";
+
+		global $ilDB;
+		$res = $ilDB->queryF($q, array( 'integer', 'integer' ), array( $this->getVoting()->getId(), xlvoVote::STAT_ACTIVE ));
+		$data = $ilDB->fetchObject($res);
+
+		return $data->maxcount ? $data->maxcount : 0;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getMaxCountOfVotes() {
+		$q = "SELECT MAX(counted) AS maxcount FROM
+				( SELECT COUNT(*) AS counted FROM rep_robj_xlvo_vote_n WHERE voting_id = %s AND status = %s GROUP BY option_id ) 
+				AS counts";
+		global $ilDB;
+		$res = $ilDB->queryF($q, array( 'integer', 'integer' ), array( $this->getVoting()->getId(), xlvoVote::STAT_ACTIVE ));
+		$data = $ilDB->fetchObject($res);
+
+		return $data->maxcount ? $data->maxcount : 0;
+	}
+
+
+	/**
+	 * @return bool
+	 */
+	public function hasVotes() {
+		return ($this->countVotes() > 0);
+	}
+
+
 	public function reset() {
+		$this->player->setButtonStates(array());
+		$this->player->update();
 		foreach (xlvoVote::where(array( 'voting_id' => $this->getVoting()->getId() ))->get() as $xlvoVote) {
 			$xlvoVote->delete();
 		}
@@ -335,6 +452,14 @@ class xlvoVotingManager2 {
 
 
 	/**
+	 * @return int
+	 */
+	public function countOptions() {
+		return count($this->getOptions());
+	}
+
+
+	/**
 	 * @return xlvoOption[]
 	 */
 	public function getOptions() {
@@ -362,6 +487,10 @@ class xlvoVotingManager2 {
 	 * @return xlvoVoting
 	 */
 	public function getVoting() {
+		if ($this->voting->getId() != $this->getPlayer()->getActiveVotingId()) {
+			$this->initVoting();
+		}
+
 		return $this->voting;
 	}
 
@@ -398,6 +527,38 @@ class xlvoVotingManager2 {
 		return xlvoVoting::where(array(
 			'obj_id'        => $this->getObjId(),
 			'voting_status' => xlvoVoting::STAT_ACTIVE,
-		))->orderBy('position', $order);
+		))->where(array( 'voting_type' => xlvoQuestionTypes::getActiveTypes() ))->orderBy('position', $order);
+	}
+
+
+	public function handleQuestionSwitching() {
+		switch ($this->getVotingConfig()->getResultsBehaviour()) {
+			case xlvoVotingConfig::B_RESULTS_ALWAY_ON:
+				$this->player->setShowResults(true);
+				break;
+			case xlvoVotingConfig::B_RESULTS_ALWAY_OFF:
+				$this->player->setShowResults(false);
+				break;
+			case xlvoVotingConfig::B_RESULTS_REUSE:
+				$this->player->setShowResults($this->player->isShowResults());
+				break;
+		}
+
+		switch ($this->getVotingConfig()->getFrozenBehaviour()) {
+			case xlvoVotingConfig::B_FROZEN_ALWAY_ON:
+				$this->player->setFrozen(false);
+				break;
+			case xlvoVotingConfig::B_FROZEN_ALWAY_OFF:
+				$this->player->setFrozen(true);
+				break;
+			case xlvoVotingConfig::B_FROZEN_REUSE:
+				$this->player->setFrozen($this->player->isFrozen());
+				break;
+		}
+	}
+
+
+	protected function initVoting() {
+		$this->voting = xlvoVoting::findOrGetInstance($this->getPlayer()->getActiveVotingId());
 	}
 }

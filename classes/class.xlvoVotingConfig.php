@@ -11,6 +11,21 @@ require_once('./Services/ActiveRecord/class.ActiveRecord.php');
  */
 class xlvoVotingConfig extends ActiveRecord {
 
+	const B_FROZEN_ALWAY_OFF = 0;
+	const B_FROZEN_ALWAY_ON = 1;
+	const B_FROZEN_REUSE = 2;
+	const B_RESULTS_ALWAY_OFF = 0;
+	const B_RESULTS_ALWAY_ON = 1;
+	const B_RESULTS_REUSE = 2;
+	const F_ANONYMOUS = 'anonymous';
+	const F_FROZEN_BEHAVIOUR = 'frozen_behaviour';
+	const F_RESULTS_BEHAVIOUR = 'results_behaviour';
+	const F_ONLINE = 'online';
+	const F_REUSE_STATUS = 'reuse_status';
+	const F_TERMINABLE = 'terminable';
+	const F_TERMINABLE_SELECT = "terminable_select";
+
+
 	/**
 	 * @return string
 	 */
@@ -89,6 +104,22 @@ class xlvoVotingConfig extends ActiveRecord {
 	 * @db_fieldtype        timestamp
 	 */
 	protected $last_access = '';
+	/**
+	 * @var int
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           1
+	 */
+	protected $frozen_behaviour = self::B_FROZEN_ALWAY_OFF;
+	/**
+	 * @var int
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           1
+	 */
+	protected $results_behaviour = self::B_RESULTS_ALWAY_OFF;
 	/**
 	 * @var bool
 	 */
@@ -336,5 +367,37 @@ class xlvoVotingConfig extends ActiveRecord {
 	 */
 	public function setKeyboardActive($keyboard_active) {
 		$this->keyboard_active = $keyboard_active;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getFrozenBehaviour() {
+		return $this->frozen_behaviour;
+	}
+
+
+	/**
+	 * @param boolean $frozen_behaviour
+	 */
+	public function setFrozenBehaviour($frozen_behaviour) {
+		$this->frozen_behaviour = $frozen_behaviour;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getResultsBehaviour() {
+		return $this->results_behaviour;
+	}
+
+
+	/**
+	 * @param int $results_behaviour
+	 */
+	public function setResultsBehaviour($results_behaviour) {
+		$this->results_behaviour = $results_behaviour;
 	}
 }

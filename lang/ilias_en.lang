@@ -21,17 +21,18 @@ voter_msg_validation_error_pin_2#:#Please log in to use this LiveVoting
 voter_msg_validation_error_pin_3#:#No LiveVoting with this PIN found
 voter_msg_validation_error_pin_4#:#This LiveVoting is not available at the Moment
 voting_actions#:#Actions
-voting_add#:#Add Voting
+voting_add#:#Add Question
 voting_cancel#:#Cancel
 voting_confirm_number_of_votes#:#Amount of User-Inputs:
 voting_confirm_reset#:#Do you like to reset this Voting? All User-Inputs will be deleted.
-voting_confirm_reset_all#:#Do you like to reset all Voting? All User-Inputs will be deleted.
+voting_confirm_reset_all#:#Do you like to reset all results of this LiveVoting? All User-Inputs will be deleted.
 voting_create#:#Create
 voting_delete#:#Delete
 voting_delete_confirm#:#Do you really want to delete the Voting?
 voting_description#:#Description
 voting_edit#:#Edit
 voting_msg_sorting_saved#:#Order saved
+voting_msg_duplicated#:#Question has been duplicated
 voting_question#:#Question
 voting_reset#:#Reset
 voting_reset_all#:#Reset all Votings
@@ -51,10 +52,15 @@ voting_type_3#:#Range
 voting_type_4#:#Correct Order
 voting_type_4_info#:#Terms must be sorted in the correct order.
 voting_type_5#:#Priorities
-voting_update#:#Update
+voting_update#:#Update and return
 voting_type_5_info#:#Terms can be sorted after Priorities
 voting_export#:#Export
 voting_import#:#Import
+voting_form_title_update#:#Question
+voting_form_title_create#:#Question
+voting_columns#:#Colums for possible answers
+voting_duplicate#:#Clone
+voting_update_and_stay#:#Update
 xlvo_add#:#Add
 xlvo_delete#:#Delete LiveVoting
 xlvo_edit#:#Edit
@@ -79,7 +85,7 @@ msg_success_voting_updated#:#Voting has been udpated
 obj_anonymous#:#Vote without Login
 obj_description#:#Description
 obj_edit_properties#:#Edit Properties
-obj_info_anonymous#:#The LiveVoting can be used for the voters without authentication, even when the Object is in a secured Space like a Course
+obj_info_anonymous#:#The LiveVoting can be used for the voters without authentication, even when the Object is in a secured Space like a Course. Voters access the LiveVoting with a PIN
 obj_info_online#:#Object is online and available
 obj_info_reuse_status#:#Re-use the state of the current Voting when switching to the next (frozen / not frozen).
 obj_info_terminable#:#The LiveVoting only can be used in the definied period of time
@@ -96,6 +102,22 @@ obj_xlvo#:#LiveVoting
 obj_xlvo_duplicate#:#Clone existing LiveVoting
 obj_status#:#Status
 obj_offline#:#Offline
+obj_formtitle_change_vote#:#Behaviour while navigating
+obj_frozen_behaviour#:#Frozen-State
+obj_frozen_alway_on#:#Question is always active after changing
+obj_frozen_alway_off#:#Question is always inactive after changing
+obj_frozen_alway_on_info#:#Users can vote directly after switching question.
+obj_frozen_alway_off_info#:#Users can vote after the presentator unfreezes the question.
+obj_results_behaviour#:#Show Results
+obj_results_alway_on#:#Results are always visible
+obj_results_alway_on_info#:#Results are always visible after switching question.
+obj_results_alway_off#:#Results are always hidden
+obj_results_alway_off_info#:#Results are always hidden after switching question.
+obj_frozen_reuse#:#Reuse Status
+obj_frozen_reuse_info#:#Frozen-State is consistent after switching question.
+obj_results_reuse#:#Reuse state
+obj_results_reuse_info#:#The State is consistent after switching question.
+obj_crs#:#Course
 objs_xlvo#:#LiveVotings
 objs_xlvo_duplicate#:#Clone existing LiveVoting
 player_close_modal#:#Close
@@ -112,13 +134,17 @@ player_start_voting_and_unfreeze#:#Start LiveVoting and unfreeze directly
 player_terminate#:#Terminate
 player_unfreeze#:#Unfreeze
 player_voters_online#:#Online
-player_voting_list#:#Votings
+player_voting_list#:#Questions
+player_voting_countdown#:#Countdown
+player_seconds#:#sec
+player_player_countdown#:#Countdown
 qtype_1_colors#:#Different Colors
 qtype_1_multi_selection#:#Multiple Selection
 qtype_1_multi_selection_info#:#User can select more than one Option
 qtype_1_option_text#:#Option-Text
 qtype_1_options#:#Options
 qtype_1_total_votes#:#Total Votes
+qtype_1_total_voters#:#Total Voters
 qtype_1_unvote#:#Unvote
 qtype_1_vote#:#Vote
 qtype_2_answers#:#Inputs
@@ -140,15 +166,27 @@ qtype_4_your_order#:#Your Submission:
 qtype_5_option_text#:#Text
 qtype_5_option_weight#:#Weight
 qtype_5_options#:#Options
-qtype_form_header#:#Type-Settings
+qtype_form_header#:#Answers
 qtype_multi_free_input#:#Multiple Inputs
 qtype_2_text#:#Text
+qtype_4_display_correct_order#:#Korrekte Reihenfolge anzeigen
+qtype_4_hide_correct_order#:#Korrekte Reihenfolge verbergen
+qtype_4_correct#:#Correct
+qtype_4_wrong#:#Wrong
+qtype_4_correct_solution#:#Correct Order:
+qtype_4_display_std_order#:#Standardreihenfolge anzeigen
+qtype_5_display_correct_order#:#Sort
+qtype_5_hide_correct_order#:#Revert Sorting
+qtype_5_correct_solution#:#MISSING
 subtab_edit#:#Manage
 subtab_show#:#Show
 tab_content#:#Content
 tab_edit#:#Settings
 cat_create_xlvo#:#Create LiveVoting
+cat_create_xlobj_results_behaviour#:#Show Results
 crs_create_xlvo#:#Create LiveVoting
 fikd_create_xlvo#:#Create LiveVoting
 grp_create_xlvo#:#Create LiveVoting
 root_create_xlvo#:#Create LiveVoting
+rminable_select_start_time#:#Start
+vqtype_1_options#:#Options

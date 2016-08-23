@@ -1,5 +1,6 @@
 <?php
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoInputResultsGUI.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/SingleVote/class.xlvoSingleVoteGUI.php');
 
 /**
  * Class xlvoSingleVoteResultsGUI
@@ -12,24 +13,43 @@ class xlvoSingleVoteResultsGUI extends xlvoInputResultsGUI {
 	 * @return string
 	 */
 	public function getHTML() {
-		/**
-		 * @var xlvoBarCollectionGUI
-		 */
-		$answer_count = 64;
 		$bars = new xlvoBarCollectionGUI();
-		$total = $this->manager->countVotes();
-		foreach ($this->voting->getVotingOptions() as $option) {
-			$answer_count ++;
-			/**
-			 * @var xlvoVote $votes
-			 */
-			$votes = $this->manager->getVotesOfOption($option->getId());
-			$bars->addBar(xlvoBarPercentageGUI::getInstanceFromOption($option, count($votes), $total, chr($answer_count)));
+
+		$bars->setShowTotalVoters(true);
+		$bars->setTotalVoters($this->manager->countVoters());
+
+		$max = $this->manager->countVoters();
+
+		foreach ($this->voting->getVotingOptions() as $xlvoOption) {
+			$xlvoBarPercentageGUI = new xlvoBarPercentageGUI();
+			$xlvoBarPercentageGUI->setMax($max);
+			$xlvoBarPercentageGUI->setOptionLetter($xlvoOption->getCipher());
+			$xlvoBarPercentageGUI->setTitle($xlvoOption->getText());
+			$xlvoBarPercentageGUI->setVotes($this->manager->countVotesOfOption($xlvoOption->getId()));
+			$xlvoBarPercentageGUI->setTotal($max);
+			$xlvoBarPercentageGUI->setShowAbsolute($this->isShowAbsolute());
+
+			$bars->addBar($xlvoBarPercentageGUI);
 		}
 
-		$bars->setShowTotalVotes(true);
-		$bars->setTotalVotes($this->manager->countVotes());
-
 		return $bars->getHTML();
+	}
+
+
+	/**
+	 * @return array
+	 */
+	protected function getButtonsStates() {
+		return $this->manager->getPlayer()->getButtonStates();
+	}
+
+
+	/**
+	 * @return bool
+	 */
+	protected function isShowAbsolute() {
+		$states = $this->getButtonsStates();
+
+		return ($this->manager->getPlayer()->isShowResults() && (bool)$states[xlvoSingleVoteGUI::BUTTON_TOGGLE_PERCENTAGE]);
 	}
 }

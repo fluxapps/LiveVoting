@@ -5,7 +5,7 @@ require_once('class.xlvoMultiLineInputGUI.php');
 /**
  * Class xlvoFreeInputGUI
  *
- * @author Fabian Schmid <fs@studer-raimann.ch>
+ * @author            Fabian Schmid <fs@studer-raimann.ch>
  *
  * @ilCtrl_IsCalledBy xlvoFreeInputGUI: xlvoVoter2GUI
  */
@@ -125,7 +125,7 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 		foreach ($xlvoVotes as $xlvoVote) {
 			$array[] = array(
 				self::F_FREE_INPUT => $xlvoVote->getFreeInput(),
-				self::F_VOTE_ID => $xlvoVote->getId()
+				self::F_VOTE_ID    => $xlvoVote->getId(),
 			);
 		}
 
@@ -136,15 +136,10 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 
 
 	protected function render() {
-		/**
-		 * @var xlvoOption $option
-		 */
-		$option = $this->manager->getVoting()->getFirstVotingOption();
-		$votes = $this->manager->getVotesOfUser();
 		if ($this->manager->getVoting()->isMultiFreeInput()) {
-			$form = $this->renderMultiForm($votes, $option);
+			$form = $this->renderMultiForm();
 		} else {
-			$form = $this->renderForm($votes);
+			$form = $this->renderForm();
 		}
 
 		$this->tpl->setVariable('FREE_INPUT_FORM', $form);

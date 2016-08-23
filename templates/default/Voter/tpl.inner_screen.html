@@ -1,15 +1,20 @@
-<div class="display-voter panel panel-primary">
-	<div class="panel-heading">
-		<h3>{TITLE}</h3>
+<div class="display-voter panel panel-primary" id="xlvo-voter-header">
+	<div class="panel-heading clearfix">
+		<h3 class="panel-title pull-left">{TITLE}</h3>
+		<!--<h1 class="panel-title pull-right"><span class="label label-primary">{PIN}</span></h1>&nbsp;-->
+		<!--<h1 class="panel-title pull-right"><span class="label label-primary">{POSITION}/{COUNT}</span></h1>&nbsp;-->
+		<h1 class="panel-title pull-right"><span id="xlvo_countdown" class="label label-cd-warning">0 sec</span></h1>&nbsp;
 		<p>{DESCRIPTION}</p>
 	</div>
 	<div class="panel-body">
+
 		<div class="col-md-12">
 			<!-- BEGIN spinner -->
 			<div class="row">
 				<img class="xlvo_loader" src="./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/images/rings.svg">
 			</div>
 			<!-- END spinner -->
+			<div class="xlvo-voter-glyph">{GLYPH}</div>
 			<!-- BEGIN question_text -->
 			<div class="row">
 				<div class="well">{QUESTION_TEXT}</div>

@@ -3,6 +3,7 @@
 require_once('./Services/ActiveRecord/class.ActiveRecord.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voter/class.xlvoVoter.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Vote/class.xlvoVote.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoPlayerGUI.php');
 
 /**
  * Class xlvoPlayer
@@ -20,6 +21,10 @@ class xlvoPlayer extends ActiveRecord {
 	const STAT_FROZEN = 4;
 	const SECONDS_ACTIVE = 4;
 	const SECONDS_TO_SLEEP = 30;
+	/**
+	 * @var array
+	 */
+	protected static $instance_cache = array();
 
 
 	/**
@@ -35,17 +40,22 @@ class xlvoPlayer extends ActiveRecord {
 	 * @return xlvoPlayer
 	 */
 	public static function getInstanceForObjId($obj_id) {
+		if (!empty(self::$instance_cache[$obj_id])) {
+			return self::$instance_cache[$obj_id];
+		}
 		$obj = self::where(array( 'obj_id' => $obj_id ))->first();
 		if (!$obj instanceof self) {
 			$obj = new self();
 			$obj->setObjId($obj_id);
 		}
+		self::$instance_cache[$obj_id] = $obj;
 
-		return $obj;
+		return self::$instance_cache[$obj_id];
 	}
 
 
 	/**
+	 * @param bool $simulate_user
 	 * @return int
 	 */
 	public function getStatus($simulate_user = false) {
@@ -60,6 +70,7 @@ class xlvoPlayer extends ActiveRecord {
 	public function freeze() {
 		$this->setFrozen(true);
 		$this->setStatus(self::STAT_RUNNING);
+		$this->resetCountDown(false);
 		$this->update();
 	}
 
@@ -67,14 +78,49 @@ class xlvoPlayer extends ActiveRecord {
 	public function unfreeze() {
 		$this->setFrozen(false);
 		$this->setStatus(self::STAT_RUNNING);
+		$this->resetCountDown(false);
 		$this->update();
 	}
 
 
 	public function toggleFreeze() {
 		$this->setFrozen(!$this->isFrozen());
+		if ($this->isFrozen()) {
+			$this->setCountdown(0);
+		}
 		$this->setStatus(self::STAT_RUNNING);
 		$this->update();
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function remainingCountDown() {
+		return $this->getCountdownStart() - time() + $this->getCountdown();
+	}
+
+
+	/**
+	 * @param $seconds
+	 */
+	public function startCountDown($seconds) {
+		$this->setFrozen(false);
+		$this->setCountdown($seconds);
+		$this->setCountdownStart(time());
+		$this->update();
+	}
+
+
+	/**
+	 * @param bool $save
+	 */
+	public function resetCountDown($save = true) {
+		$this->setCountdown(0);
+		$this->setCountdownStart(0);
+		if ($save) {
+			$this->update();
+		}
 	}
 
 
@@ -99,7 +145,9 @@ class xlvoPlayer extends ActiveRecord {
 	public function terminate() {
 		$this->setStatus(xlvoPlayer::STAT_END_VOTING);
 		$this->setFrozen(true);
+		$this->resetCountDown();
 		$this->setShowResults(false);
+		$this->setButtonStates(array());
 		$this->update();
 	}
 
@@ -109,10 +157,13 @@ class xlvoPlayer extends ActiveRecord {
 	 */
 	public function getStdClassForVoter() {
 		$obj = new stdClass();
-		$obj->id = (int)$this->getObjId();
-		$obj->obj_id = (int)$this->getObjId();
 		$obj->status = (int)$this->getStatus(true);
-		$obj->active_voting_id = (int)$this->getActiveVoting();
+		$obj->force_reload = false;
+		$obj->active_voting_id = (int)$this->getActiveVotingId();
+		$obj->countdown = (int)$this->remainingCountDown();
+		$obj->has_countdown = (bool)$this->isCountDownRunning();
+		$obj->countdown_classname = $this->getCountdownClassname();
+		$obj->frozen = (bool)$this->isFrozen();
 
 		return $obj;
 	}
@@ -126,7 +177,7 @@ class xlvoPlayer extends ActiveRecord {
 		$obj->is_first = (bool)$this->getCurrentVotingObject()->isFirst();
 		$obj->is_last = (bool)$this->getCurrentVotingObject()->isLast();
 		$obj->status = (int)$this->getStatus(true);
-		$obj->active_voting_id = (int)$this->getActiveVoting();
+		$obj->active_voting_id = (int)$this->getActiveVotingId();
 		$obj->show_results = (bool)$this->isShowResults();
 		$obj->frozen = (bool)$this->isFrozen();
 		$obj->votes = (int)xlvoVote::where(array(
@@ -135,14 +186,25 @@ class xlvoPlayer extends ActiveRecord {
 		))->count();
 
 		$last_update = xlvoVote::where(array(
-			'voting_id' => $this->getActiveVoting(),
+			'voting_id' => $this->getActiveVotingId(),
 			'status'    => xlvoVote::STAT_ACTIVE,
 		))->orderBy('last_update', 'DESC')->getArray('last_update', 'last_update');
 		$last_update = array_shift(array_values($last_update));
 		$obj->last_update = (int)$last_update;
-		$obj->attendees = (int)xlvoVoter::count($this->getId());;
+		$obj->attendees = (int)xlvoVoter::countVoters($this->getId());;
+		$obj->qtype = $this->getQuestionTypeClassName();
+		$obj->countdown = $this->remainingCountDown();
+		$obj->has_countdown = $this->isCountDownRunning();
 
 		return $obj;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getQuestionTypeClassName() {
+		return xlvoQuestionTypes::getClassName($this->getActiveVotingId());
 	}
 
 
@@ -159,10 +221,29 @@ class xlvoPlayer extends ActiveRecord {
 
 
 	/**
+	 * @return bool
+	 */
+	public function isCountDownRunning() {
+		return ($this->remainingCountDown() > 0 || $this->getCountdownStart() > 0);
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getCountdownClassname() {
+		$cd = $this->remainingCountDown();
+
+		return $cd > 10 ? 'running' : ($cd > 5 ? 'warning' : 'danger');
+	}
+
+
+	/**
 	 * @param $voting_id
 	 */
 	public function prepareStart($voting_id) {
 		$this->setStatus(self::STAT_START_VOTING);
+		$this->resetCountDown(false);
 		$this->setFrozen(true);
 		$this->setShowResults(false);
 		$this->setTimestampRefresh(time() + self::SECONDS_TO_SLEEP);
@@ -202,6 +283,10 @@ class xlvoPlayer extends ActiveRecord {
 	public function attend() {
 		$this->setStatus(self::STAT_RUNNING);
 		$this->setTimestampRefresh(time());
+		if ($this->remainingCountDown() <= 0 && $this->getCountdownStart() > 0) {
+			$this->resetCountDown(false);
+			$this->setFrozen(true);
+		}
 		$this->update();
 	}
 
@@ -210,7 +295,7 @@ class xlvoPlayer extends ActiveRecord {
 	 * @return xlvoVoting
 	 */
 	protected function getCurrentVotingObject() {
-		return xlvoVoting::find($this->getActiveVoting());
+		return xlvoVoting::find($this->getActiveVotingId());
 	}
 
 
@@ -272,6 +357,38 @@ class xlvoPlayer extends ActiveRecord {
 	 * @db_length           1
 	 */
 	protected $show_results = false;
+	/**
+	 * @var array
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        text
+	 * @db_length           1024
+	 */
+	protected $button_states = array();
+	/**
+	 * @var int
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           2
+	 */
+	protected $countdown = 0;
+	/**
+	 * @var int
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           8
+	 */
+	protected $countdown_start = 0;
+	/**
+	 * @var bool
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           1
+	 */
+	protected $force_reload = false;
 
 
 	/**
@@ -309,7 +426,7 @@ class xlvoPlayer extends ActiveRecord {
 	/**
 	 * @return int
 	 */
-	public function getActiveVoting() {
+	public function getActiveVotingId() {
 		return $this->active_voting;
 	}
 
@@ -375,5 +492,108 @@ class xlvoPlayer extends ActiveRecord {
 	 */
 	public function setShowResults($show_results) {
 		$this->show_results = $show_results;
+	}
+
+
+	/**
+	 * @return array
+	 */
+	public function getButtonStates() {
+		return $this->button_states;
+	}
+
+
+	/**
+	 * @param array $button_states
+	 */
+	public function setButtonStates($button_states) {
+		$this->button_states = $button_states;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getCountdown() {
+		return $this->countdown;
+	}
+
+
+	/**
+	 * @param int $countdown
+	 */
+	public function setCountdown($countdown) {
+		$this->countdown = $countdown;
+	}
+
+
+	/**
+	 * @return boolean
+	 */
+	public function isForceReload() {
+		return $this->force_reload;
+	}
+
+
+	/**
+	 * @param boolean $force_reload
+	 */
+	public function setForceReload($force_reload) {
+		$this->force_reload = $force_reload;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getCountdownStart() {
+		return $this->countdown_start;
+	}
+
+
+	/**
+	 * @param int $countdown_start
+	 */
+	public function setCountdownStart($countdown_start) {
+		$this->countdown_start = $countdown_start;
+	}
+
+
+	/**
+	 * @param $field_name
+	 * @return mixed|string
+	 */
+	public function sleep($field_name) {
+		switch ($field_name) {
+			case 'button_states':
+				$var = $this->{$field_name};
+				if (!is_array($var)) {
+					$var = array();
+				}
+
+				return json_encode($var);
+		}
+
+		return null;
+	}
+
+
+	/**
+	 * @param $field_name
+	 * @param $field_value
+	 * @return mixed|null
+	 */
+	public function wakeUp($field_name, $field_value) {
+		switch ($field_name) {
+			case 'button_states':
+				$var = json_decode($field_value, true);
+				if (!is_array($var)) {
+					$var = array();
+				}
+
+				return $var;
+		}
+
+		return null;
 	}
 }

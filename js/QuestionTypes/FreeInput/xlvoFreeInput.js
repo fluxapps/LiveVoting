@@ -13,5 +13,12 @@ var xlvoFreeInput = {
     config: {},
     base_url: '',
     run: function () {
+    },
+    /**
+     * @param button_id
+     * @param button_data
+     */
+    handleButtonPress: function (button_id, button_data) {
+
     }
 };

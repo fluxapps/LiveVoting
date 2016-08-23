@@ -88,10 +88,10 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 
 		$status = new ilSelectInputGUI($this->txt('status'), 'voting_status');
 		$status_options = array(
-			- 1 => '',
-			xlvoVoting::STAT_INACTIVE => $this->txt('status_' . xlvoVoting::STAT_INACTIVE),
-			xlvoVoting::STAT_ACTIVE => $this->txt('status_' . xlvoVoting::STAT_ACTIVE),
-			xlvoVoting::STAT_INCOMPLETE => $this->txt('status_' . xlvoVoting::STAT_INCOMPLETE)
+			- 1                         => '',
+			xlvoVoting::STAT_INACTIVE   => $this->txt('status_' . xlvoVoting::STAT_INACTIVE),
+			xlvoVoting::STAT_ACTIVE     => $this->txt('status_' . xlvoVoting::STAT_ACTIVE),
+			xlvoVoting::STAT_INCOMPLETE => $this->txt('status_' . xlvoVoting::STAT_INCOMPLETE),
 		);
 		$status->setOptions($status_options);
 		//		$this->addAndReadFilterItem($status); deativated at the moment
@@ -137,7 +137,7 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 
 		$question = strip_tags($xlvoVoting->getQuestion());
 		$question = strlen($question) > self::LENGTH ? substr($question, 0, self::LENGTH) . "..." : $question;
-		$this->tpl->setVariable('QUESTION', $question);
+		$this->tpl->setVariable('QUESTION', ilUtil::prepareTextareaOutput($question, true));
 		$this->tpl->setVariable('TYPE', $this->txt('type_' . $xlvoVoting->getVotingType()));
 
 		$voting_status = $this->getVotingStatus($xlvoVoting->getVotingStatus());
@@ -175,6 +175,7 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 		if ($access->hasWriteAccess()) {
 			$current_selection_list->addItem($this->txt('edit'), xlvoVotingGUI::CMD_EDIT, $this->ctrl->getLinkTarget($this->voting_gui, xlvoVotingGUI::CMD_EDIT));
 			$current_selection_list->addItem($this->txt('reset'), xlvoVotingGUI::CMD_CONFIRM_RESET, $this->ctrl->getLinkTarget($this->voting_gui, xlvoVotingGUI::CMD_CONFIRM_RESET));
+			$current_selection_list->addItem($this->txt(xlvoVotingGUI::CMD_DUPLICATE), xlvoVotingGUI::CMD_DUPLICATE, $this->ctrl->getLinkTarget($this->voting_gui, xlvoVotingGUI::CMD_DUPLICATE));
 			$current_selection_list->addItem($this->txt('delete'), xlvoVotingGUI::CMD_CONFIRM_DELETE, $this->ctrl->getLinkTarget($this->voting_gui, xlvoVotingGUI::CMD_CONFIRM_DELETE));
 		}
 		$current_selection_list->getHTML();
@@ -187,7 +188,8 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 		$this->determineOffsetAndOrder();
 		$this->determineLimit();
 
-		$collection = xlvoVoting::where(array( 'obj_id' => $this->voting_gui->getObjId() ))->orderBy('position', 'ASC');
+		$collection = xlvoVoting::where(array( 'obj_id' => $this->voting_gui->getObjId() ))
+		                        ->where(array( 'voting_type' => xlvoQuestionTypes::getActiveTypes() ))->orderBy('position', 'ASC');
 		$this->setMaxCount($collection->count());
 		$sorting_column = $this->getOrderField() ? $this->getOrderField() : 'position';
 		$offset = $this->getOffset() ? $this->getOffset() : 0;
@@ -202,7 +204,7 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 			switch ($filter_key) {
 				case 'title':
 				case 'question':
-					if($filter_value) {
+					if ($filter_value) {
 						$collection = $collection->where(array( $filter_key => '%' . $filter_value . '%' ), 'LIKE');
 					}
 					break;

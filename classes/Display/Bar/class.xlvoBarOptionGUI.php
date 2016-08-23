@@ -50,7 +50,7 @@ class xlvoBarOptionGUI implements xlvoBarGUI {
 	protected function render() {
 		$this->tpl->setVariable('OPTION_LETTER', $this->option_letter);
 		$this->tpl->setVariable('OPTION_ID', $this->option->getId());
-		$this->tpl->setVariable('TITLE', $this->option->getText());
+		$this->tpl->setVariable('TITLE', $this->option->getTextForPresentation());
 		$this->tpl->setVariable('OPTION_ACTIVE', $this->getActiveBar());
 		$this->tpl->setVariable('VOTE_ID', $this->getVoteId());
 	}

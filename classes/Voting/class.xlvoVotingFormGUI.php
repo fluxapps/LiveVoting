@@ -14,6 +14,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
  */
 class xlvoVotingFormGUI extends ilPropertyFormGUI {
 
+	const F_COLUMNS = 'columns';
 	/**
 	 * @var  xlvoVoting
 	 */
@@ -82,7 +83,11 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 		//		$this->addItem($ta);
 
 		$te = new ilTextAreaInputGUI($this->parent_gui->txt('question'), 'question');
+		$te->addPlugin('latex');
+		$te->addButton('latex');
+		$te->addButton('pastelatex');
 		$te->setRequired(true);
+		$te->setRTESupport(ilObject::_lookupObjId($_GET['ref_id']), "dcl", "xlvo", null, false); // We have to prepend that this is a datacollection
 		$te->setUseRte(true);
 		$te->setRteTags(array(
 			'p',
@@ -91,6 +96,8 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 			'strong',
 			'b',
 			'i',
+			'span',
+			'img',
 		));
 		$te->usePurifier(true);
 		$te->disableButtons(array(
@@ -107,24 +114,49 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 			'copy',
 			'paste',
 			'pastetext',
-			'formatselect'
+			'formatselect',
+			'bullist',
+			'hr',
+			'sub',
+			'sup',
+			'numlist',
+			'cite',
+			//			'indent',
+			//			'outdent',
 		));
 
 		$te->setRows(5);
 		$this->addItem($te);
 
+		// Columns
+		if ($this->voting->getVotingType() != xlvoQuestionTypes::TYPE_FREE_INPUT) {
+			$columns = new ilSelectInputGUI($this->txt(self::F_COLUMNS), self::F_COLUMNS);
+			$columns->setOptions(array( 1 => 1, 2 => 2, 3 => 3, 4 => 4 ));
+			$this->addItem($columns);
+		}
+
 		xlvoSubFormGUI::getInstance($this->getVoting())->appedElementsToForm($this);
+	}
+
+
+	/**
+	 * @param $key
+	 * @return string
+	 */
+	protected function txt($key) {
+		return $this->parent_gui->txt($key);
 	}
 
 
 	public function fillForm() {
 		$array = array(
-			'type' => $this->voting->getVotingType(),
-			'title' => $this->voting->getTitle(),
-			'description' => $this->voting->getDescription(),
-			'question' => $this->voting->getQuestion(),
-			'voting_type' => $this->voting->getVotingType(),
-			'voting_status' => ($this->voting->getVotingStatus() == xlvoVoting::STAT_ACTIVE)
+			'type'          => $this->voting->getVotingType(),
+			'title'         => $this->voting->getTitle(),
+			'description'   => $this->voting->getDescription(),
+			'question'      => $this->voting->getQuestionForPresentation(),
+			'voting_type'   => $this->voting->getVotingType(),
+			'voting_status' => ($this->voting->getVotingStatus() == xlvoVoting::STAT_ACTIVE),
+			self::F_COLUMNS => $this->voting->getColumns(),
 		);
 
 		$array = xlvoSubFormGUI::getInstance($this->getVoting())->appendValues($array);
@@ -147,23 +179,11 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 		$this->voting->setVotingType($this->getInput('type'));
 		$this->voting->setTitle($this->getInput('title'));
 		$this->voting->setDescription($this->getInput('description'));
-		$this->voting->setQuestion($this->getInput('question'));
+		$this->voting->setQuestion(ilRTE::_replaceMediaObjectImageSrc($this->getInput('question'), 0));
 		$this->voting->setObjId($this->parent_gui->getObjId());
+		$this->voting->setColumns($this->getInput(self::F_COLUMNS));
 
 		xlvoSubFormGUI::getInstance($this->getVoting())->handleAfterSubmit($this);
-
-		if ($this->is_new) {
-			$lastVoting = xlvoVoting::where(array(
-				'obj_id' => $this->parent_gui->getObjId(),
-				'voting_status' => xlvoVoting::STAT_ACTIVE
-			))->orderBy('position', 'ASC')->last();
-			if ($lastVoting instanceof xlvoVoting) {
-				$lastPosition = $lastVoting->getPosition();
-			} else {
-				$lastPosition = 0;
-			}
-			$this->voting->setPosition($lastPosition + 1);
-		}
 
 		return true;
 	}
@@ -191,11 +211,12 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 
 	protected function initButtons() {
 		if ($this->is_new) {
-			$this->setTitle($this->parent_gui->txt('create'));
+			$this->setTitle($this->parent_gui->txt('form_title_create'));
 			$this->addCommandButton(xlvoVotingGUI::CMD_CREATE, $this->parent_gui->txt('create'));
 		} else {
-			$this->setTitle($this->parent_gui->txt('update'));
+			$this->setTitle($this->parent_gui->txt('form_title_update'));
 			$this->addCommandButton(xlvoVotingGUI::CMD_UPDATE, $this->parent_gui->txt('update'));
+			$this->addCommandButton(xlvoVotingGUI::CMD_UPDATE_AND_STAY, $this->parent_gui->txt('update_and_stay'));
 		}
 
 		$this->addCommandButton(xlvoVotingGUI::CMD_CANCEL, $this->parent_gui->txt('cancel'));

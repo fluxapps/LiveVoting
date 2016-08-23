@@ -24,6 +24,10 @@ class xlvoBarMovableGUI implements xlvoBarGUI {
 	 * @var int
 	 */
 	protected $vote_id = null;
+	/**
+	 * @var bool
+	 */
+	protected $show_option_letter = false;
 
 
 	/**
@@ -55,8 +59,10 @@ class xlvoBarMovableGUI implements xlvoBarGUI {
 				}
 				$this->tpl->setCurrentBlock('option');
 				$this->tpl->setVariable('ID', $xlvoOption->getId());
-				//				$this->tpl->setVariable('OPTION_LETTER', chr(64 + $i));
-				$this->tpl->setVariable('OPTION', $xlvoOption->getText());
+				if ($this->getShowOptionLetter()) {
+					$this->tpl->setVariable('OPTION_LETTER', $xlvoOption->getCipher());
+				}
+				$this->tpl->setVariable('OPTION', $xlvoOption->getTextForPresentation());
 				$this->tpl->parseCurrentBlock();
 				$i ++;
 			}
@@ -64,13 +70,31 @@ class xlvoBarMovableGUI implements xlvoBarGUI {
 			foreach ($this->options as $xlvoOption) {
 				$this->tpl->setCurrentBlock('option');
 				$this->tpl->setVariable('ID', $xlvoOption->getId());
-				//				$this->tpl->setVariable('OPTION_LETTER', chr(64 + $i));
-				$this->tpl->setVariable('OPTION', $xlvoOption->getText());
+				if ($this->getShowOptionLetter()) {
+					$this->tpl->setVariable('OPTION_LETTER', $xlvoOption->getCipher());
+				}
+				$this->tpl->setVariable('OPTION', $xlvoOption->getTextForPresentation());
 				$this->tpl->parseCurrentBlock();
 				$i ++;
 			}
 		}
 
 		return $this->tpl->get();
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getShowOptionLetter() {
+		return $this->show_option_letter;
+	}
+
+
+	/**
+	 * @param string $show_option_letter
+	 */
+	public function setShowOptionLetter($show_option_letter) {
+		$this->show_option_letter = $show_option_letter;
 	}
 }

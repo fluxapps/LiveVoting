@@ -30,11 +30,10 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 		//		$this->addFormElement($cb);
 
 		$xlvoMultiLineInputGUI = new xlvoMultiLineInputGUI($this->txt(self::F_OPTIONS), self::F_OPTIONS);
-		$xlvoMultiLineInputGUI->setShowLabel(true);
+		$xlvoMultiLineInputGUI->setShowLabel(false);
 		$xlvoMultiLineInputGUI->setPositionMovable(true);
 
 		$te = new ilTextInputGUI($this->txt('option_text'), self::F_TEXT);
-		$te->setInlineStyle('width: 350px;');
 		$xlvoMultiLineInputGUI->addInput($te);
 
 		$h = new ilHiddenInputGUI(self::F_ID);
@@ -109,7 +108,7 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 
 	protected function handleOptions() {
 		$ids = array();
-		foreach ($this->options as $xlvoOption) {
+		foreach ($this->options as $i=> $xlvoOption) {
 			$xlvoOption->setVotingId($this->getXlvoVoting()->getId());
 			$xlvoOption->store();
 			$ids[] = $xlvoOption->getId();
@@ -120,5 +119,6 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 				$xlvoOption->delete();
 			}
 		}
+		$this->getXlvoVoting()->renegerateOptionSorting();
 	}
 }
