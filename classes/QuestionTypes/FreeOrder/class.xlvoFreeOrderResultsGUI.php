@@ -52,6 +52,7 @@ class xlvoFreeOrderResultsGUI extends xlvoCorrectOrderResultsGUI
 		foreach ($options as $xlvoOption)
 		{
 			$xlvoBarPercentageGUI = new xlvoBarPercentageGUI();
+			$xlvoBarPercentageGUI->setRound(true);
 			$xlvoBarPercentageGUI->setShowAbsolute(true);
 			$xlvoBarPercentageGUI->setTotal($possible_max);
 			$xlvoBarPercentageGUI->setMax($possible_max);
