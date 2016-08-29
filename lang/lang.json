@@ -183,7 +183,7 @@
                     "en": "Do you like to reset this Voting? All User-Inputs will be deleted.",
                     "de": "Möchten Sie die Resultate dieser Frage zurücksetzen? Alle Benutzer-Eingaben werden gelöscht."
                 },
-                "last_used": "17.08.2016"
+                "last_used": "29.08.2016"
             },
             "confirm_reset_all": {
                 "translations": {
@@ -454,7 +454,7 @@
                     "en": "Edit",
                     "de": "Bearbeiten"
                 },
-                "last_used": "17.08.2016"
+                "last_used": "29.08.2016"
             },
             "edit_permission": {
                 "translations": {
@@ -750,7 +750,7 @@
             },
             "frozen_alway_off_info": {
                 "translations": {
-                    "en": "Users can vote after the presentator unfreezes the question.",
+                    "en": "Users can vote after the presentator presses the Vote-Button the question.",
                     "de": "Benutzer können erst abstimmen, wenn die Frage freigegeben wird."
                 },
                 "last_used": "11.08.2016"
@@ -856,16 +856,16 @@
             "freeze": {
                 "translations": {
                     "de": "Pausieren",
-                    "en": "Freeze"
+                    "en": "Pause"
                 },
-                "last_used": "17.08.2016"
+                "last_used": "29.08.2016"
             },
             "hide_results": {
                 "translations": {
                     "de": "Resultate ausblenden",
                     "en": "Hide Results"
                 },
-                "last_used": "17.08.2016"
+                "last_used": "29.08.2016"
             },
             "msg_no_start_1": {
                 "translations": {
@@ -898,56 +898,56 @@
                     "de": "Zurücksetzen",
                     "en": "Reset"
                 },
-                "last_used": "17.08.2016"
+                "last_used": "29.08.2016"
             },
             "show_results": {
                 "translations": {
                     "de": "Resultate einblenden",
                     "en": "Show Results"
                 },
-                "last_used": "17.08.2016"
+                "last_used": "29.08.2016"
             },
             "start_voting": {
                 "translations": {
                     "de": "LiveVoting beginnen",
                     "en": "Start LiveVoting"
                 },
-                "last_used": "17.08.2016"
+                "last_used": "29.08.2016"
             },
             "start_voting_and_unfreeze": {
                 "translations": {
                     "de": "LiveVoting beginnen und direkt freigeben",
-                    "en": "Start LiveVoting and unfreeze directly"
+                    "en": "Start LiveVoting and start voting directly"
                 },
-                "last_used": "17.08.2016"
+                "last_used": "29.08.2016"
             },
             "terminate": {
                 "translations": {
                     "de": "Beenden",
                     "en": "Terminate"
                 },
-                "last_used": "17.08.2016"
+                "last_used": "29.08.2016"
             },
             "unfreeze": {
                 "translations": {
                     "de": "Abstimmen",
-                    "en": "Unfreeze"
+                    "en": "Vote"
                 },
-                "last_used": "17.08.2016"
+                "last_used": "29.08.2016"
             },
             "voters_online": {
                 "translations": {
                     "de": "Online",
                     "en": "Online"
                 },
-                "last_used": "17.08.2016"
+                "last_used": "29.08.2016"
             },
             "voting_list": {
                 "translations": {
                     "de": "Fragen",
                     "en": "Questions"
                 },
-                "last_used": "17.08.2016"
+                "last_used": "29.08.2016"
             },
             "voting_countdown": {
                 "translations": {
@@ -961,7 +961,7 @@
                     "en": "sec",
                     "de": "s"
                 },
-                "last_used": "17.08.2016"
+                "last_used": "29.08.2016"
             },
             "player_countdown": {
                 "translations": {
@@ -1261,14 +1261,14 @@
                     "de": "Verwalten",
                     "en": "Manage"
                 },
-                "last_used": "17.08.2016"
+                "last_used": "29.08.2016"
             },
             "show": {
                 "translations": {
                     "de": "Zeigen",
                     "en": "Show"
                 },
-                "last_used": "17.08.2016"
+                "last_used": "29.08.2016"
             }
         },
         "tab": {
@@ -1277,14 +1277,14 @@
                     "de": "Inhalt",
                     "en": "Content"
                 },
-                "last_used": "17.08.2016"
+                "last_used": "29.08.2016"
             },
             "edit": {
                 "translations": {
                     "de": "Einstellungen",
                     "en": "Settings"
                 },
-                "last_used": "17.08.2016"
+                "last_used": "29.08.2016"
             }
         },
         "cat": {

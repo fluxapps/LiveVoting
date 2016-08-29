@@ -107,7 +107,7 @@ obj_frozen_behaviour#:#Frozen-State
 obj_frozen_alway_on#:#Question is always active after changing
 obj_frozen_alway_off#:#Question is always inactive after changing
 obj_frozen_alway_on_info#:#Users can vote directly after switching question.
-obj_frozen_alway_off_info#:#Users can vote after the presentator unfreezes the question.
+obj_frozen_alway_off_info#:#Users can vote after the presentator presses the Vote-Button the question.
 obj_results_behaviour#:#Show Results
 obj_results_alway_on#:#Results are always visible
 obj_results_alway_on_info#:#Results are always visible after switching question.
@@ -121,7 +121,7 @@ obj_crs#:#Course
 objs_xlvo#:#LiveVotings
 objs_xlvo_duplicate#:#Clone existing LiveVoting
 player_close_modal#:#Close
-player_freeze#:#Freeze
+player_freeze#:#Pause
 player_hide_results#:#Hide Results
 player_msg_no_start_1#:#This LiveVoting can't be started since it is offline.
 player_msg_no_start_2#:#This LiveVoting can't be started since there are no Votings available yet.
@@ -130,9 +130,9 @@ player_msg_voting_not_available#:#The selected Voting is not available
 player_reset#:#Reset
 player_show_results#:#Show Results
 player_start_voting#:#Start LiveVoting
-player_start_voting_and_unfreeze#:#Start LiveVoting and unfreeze directly
+player_start_voting_and_unfreeze#:#Start LiveVoting and start voting directly
 player_terminate#:#Terminate
-player_unfreeze#:#Unfreeze
+player_unfreeze#:#Vote
 player_voters_online#:#Online
 player_voting_list#:#Questions
 player_voting_countdown#:#Countdown
