@@ -8,8 +8,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version 1.0.0
  */
-class xlvoBarPercentageGUI implements xlvoBarGUI
-{
+class xlvoBarPercentageGUI implements xlvoBarGUI {
 
 	/**
 	 * @var int
@@ -60,41 +59,32 @@ class xlvoBarPercentageGUI implements xlvoBarGUI
 	/**
 	 * xlvoBarPercentageGUI constructor.
 	 */
-	public function __construct()
-	{
+	public function __construct() {
 		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Display/Bar/tpl.bar_percentage.html', true, true);
 	}
 
 
-	protected function render()
-	{
-		if (!$this->isShowAbsolute() || $this->isOverrideBarToPercentage())
-		{
+	protected function render() {
+		if (!$this->isShowAbsolute() || $this->isOverrideBarToPercentage()) {
 			$this->setMax(100);
 			$this->tpl->setVariable('PERCENT', $this->getPercentage());
 			$this->tpl->setVariable('PERCENT_TEXT', $this->getPercentage() . '%');
 			$this->tpl->setVariable('PERCENT_STYLE', $this->getPercentage());
-		} elseif ($this->isShowAbsolute())
-		{
+		} elseif ($this->isShowAbsolute()) {
 			$this->tpl->setVariable('PERCENT', $this->getVotes(), $this->getRoundPositions());
-			if ($this->isRound())
-			{
+			if ($this->isRound()) {
 				$this->tpl->setVariable('PERCENT_TEXT', round($this->getVotes(), $this->getRoundPositions()));
-			} else
-			{
+			} else {
 				$this->tpl->setVariable('PERCENT_TEXT', $this->getVotes());
 			}
 
 			$this->tpl->setVariable('PERCENT_STYLE', $this->getAbsolutePercentage());
 		}
 
-		if ($this->isShowAbsolute())
-		{
-			if ($this->isRound())
-			{
+		if ($this->isShowAbsolute()) {
+			if ($this->isRound()) {
 				$this->tpl->setVariable('PERCENT_TEXT', round($this->getVotes(), $this->getRoundPositions()));
-			} else
-			{
+			} else {
 				$this->tpl->setVariable('PERCENT_TEXT', $this->getVotes());
 			}
 		}
@@ -102,8 +92,7 @@ class xlvoBarPercentageGUI implements xlvoBarGUI
 		$this->tpl->setVariable('ID', $this->getId());
 		$this->tpl->setVariable('MAX', $this->getMax());
 		$this->tpl->setVariable('TITLE', $this->getTitle());
-		if ($this->getOptionLetter())
-		{
+		if ($this->getOptionLetter()) {
 			$this->tpl->setCurrentBlock('option_letter');
 			$this->tpl->setVariable('OPTION_LETTER', $this->getOptionLetter());
 			$this->tpl->parseCurrentBlock();
@@ -114,8 +103,7 @@ class xlvoBarPercentageGUI implements xlvoBarGUI
 	/**
 	 * @return string
 	 */
-	public function getHTML()
-	{
+	public function getHTML() {
 		$this->render();
 
 		return $this->tpl->get();
@@ -125,28 +113,26 @@ class xlvoBarPercentageGUI implements xlvoBarGUI
 	/**
 	 * @return float|int
 	 */
-	protected function getPercentage()
-	{
+	protected function getPercentage() {
 		$total_votes = $this->getTotal();
-		if ($this->getTotal() === 0)
-		{
+		if ($this->getTotal() === 0) {
 			return 0;
 		}
 		$option_votes = $this->getVotes();
 		$percentage = ($option_votes / $total_votes) * 100;
 
-		return round($percentage, 1);
+		$round = str_replace(',', '0', round($percentage, 1));
+
+		return $round;
 	}
 
 
 	/**
 	 * @return float|int
 	 */
-	protected function getAbsolutePercentage()
-	{
+	protected function getAbsolutePercentage() {
 		$total_votes = $this->getMax();
-		if ($this->getMax() === 0)
-		{
+		if ($this->getMax() === 0) {
 			return 0;
 		}
 		$option_votes = $this->getVotes();
@@ -159,8 +145,7 @@ class xlvoBarPercentageGUI implements xlvoBarGUI
 	/**
 	 * @return int
 	 */
-	public function getVotes()
-	{
+	public function getVotes() {
 		return $this->votes;
 	}
 
@@ -168,8 +153,7 @@ class xlvoBarPercentageGUI implements xlvoBarGUI
 	/**
 	 * @param int $votes
 	 */
-	public function setVotes($votes)
-	{
+	public function setVotes($votes) {
 		$this->votes = $votes;
 	}
 
@@ -177,8 +161,7 @@ class xlvoBarPercentageGUI implements xlvoBarGUI
 	/**
 	 * @return int
 	 */
-	public function getTotal()
-	{
+	public function getTotal() {
 		return $this->total;
 	}
 
@@ -186,8 +169,7 @@ class xlvoBarPercentageGUI implements xlvoBarGUI
 	/**
 	 * @param int $total
 	 */
-	public function setTotal($total)
-	{
+	public function setTotal($total) {
 		$this->total = $total;
 	}
 
@@ -195,8 +177,7 @@ class xlvoBarPercentageGUI implements xlvoBarGUI
 	/**
 	 * @return string
 	 */
-	public function getOptionLetter()
-	{
+	public function getOptionLetter() {
 		return $this->option_letter;
 	}
 
@@ -204,8 +185,7 @@ class xlvoBarPercentageGUI implements xlvoBarGUI
 	/**
 	 * @param string $option_letter
 	 */
-	public function setOptionLetter($option_letter)
-	{
+	public function setOptionLetter($option_letter) {
 		$this->option_letter = $option_letter;
 	}
 
@@ -213,8 +193,7 @@ class xlvoBarPercentageGUI implements xlvoBarGUI
 	/**
 	 * @return ilTemplate
 	 */
-	public function getTpl()
-	{
+	public function getTpl() {
 		return $this->tpl;
 	}
 
@@ -222,8 +201,7 @@ class xlvoBarPercentageGUI implements xlvoBarGUI
 	/**
 	 * @param ilTemplate $tpl
 	 */
-	public function setTpl($tpl)
-	{
+	public function setTpl($tpl) {
 		$this->tpl = $tpl;
 	}
 
@@ -231,8 +209,7 @@ class xlvoBarPercentageGUI implements xlvoBarGUI
 	/**
 	 * @return string
 	 */
-	public function getTitle()
-	{
+	public function getTitle() {
 		return $this->title;
 	}
 
@@ -240,8 +217,7 @@ class xlvoBarPercentageGUI implements xlvoBarGUI
 	/**
 	 * @param string $title
 	 */
-	public function setTitle($title)
-	{
+	public function setTitle($title) {
 		$this->title = $title;
 	}
 
@@ -249,8 +225,7 @@ class xlvoBarPercentageGUI implements xlvoBarGUI
 	/**
 	 * @return string
 	 */
-	public function getId()
-	{
+	public function getId() {
 		return $this->id;
 	}
 
@@ -258,8 +233,7 @@ class xlvoBarPercentageGUI implements xlvoBarGUI
 	/**
 	 * @param string $id
 	 */
-	public function setId($id)
-	{
+	public function setId($id) {
 		$this->id = $id;
 	}
 
@@ -267,8 +241,7 @@ class xlvoBarPercentageGUI implements xlvoBarGUI
 	/**
 	 * @return boolean
 	 */
-	public function isShowAbsolute()
-	{
+	public function isShowAbsolute() {
 		return $this->show_absolute;
 	}
 
@@ -276,8 +249,7 @@ class xlvoBarPercentageGUI implements xlvoBarGUI
 	/**
 	 * @param boolean $show_absolute
 	 */
-	public function setShowAbsolute($show_absolute)
-	{
+	public function setShowAbsolute($show_absolute) {
 		$this->show_absolute = $show_absolute;
 	}
 
@@ -285,8 +257,7 @@ class xlvoBarPercentageGUI implements xlvoBarGUI
 	/**
 	 * @return int
 	 */
-	public function getMax()
-	{
+	public function getMax() {
 		return $this->max;
 	}
 
@@ -294,8 +265,7 @@ class xlvoBarPercentageGUI implements xlvoBarGUI
 	/**
 	 * @param int $max
 	 */
-	public function setMax($max)
-	{
+	public function setMax($max) {
 		$this->max = $max;
 	}
 
@@ -303,8 +273,7 @@ class xlvoBarPercentageGUI implements xlvoBarGUI
 	/**
 	 * @return boolean
 	 */
-	public function isOverrideBarToPercentage()
-	{
+	public function isOverrideBarToPercentage() {
 		return $this->override_bar_to_percentage;
 	}
 
@@ -312,8 +281,7 @@ class xlvoBarPercentageGUI implements xlvoBarGUI
 	/**
 	 * @param boolean $override_bar_to_percentage
 	 */
-	public function setOverrideBarToPercentage($override_bar_to_percentage)
-	{
+	public function setOverrideBarToPercentage($override_bar_to_percentage) {
 		$this->override_bar_to_percentage = $override_bar_to_percentage;
 	}
 
@@ -321,8 +289,7 @@ class xlvoBarPercentageGUI implements xlvoBarGUI
 	/**
 	 * @return int
 	 */
-	public function getRoundPositions()
-	{
+	public function getRoundPositions() {
 		return $this->round_positions;
 	}
 
@@ -330,8 +297,7 @@ class xlvoBarPercentageGUI implements xlvoBarGUI
 	/**
 	 * @param int $round_positions
 	 */
-	public function setRoundPositions($round_positions)
-	{
+	public function setRoundPositions($round_positions) {
 		$this->round_positions = $round_positions;
 	}
 
@@ -339,8 +305,7 @@ class xlvoBarPercentageGUI implements xlvoBarGUI
 	/**
 	 * @return boolean
 	 */
-	public function isRound()
-	{
+	public function isRound() {
 		return $this->round;
 	}
 
@@ -348,8 +313,7 @@ class xlvoBarPercentageGUI implements xlvoBarGUI
 	/**
 	 * @param boolean $round
 	 */
-	public function setRound($round)
-	{
+	public function setRound($round) {
 		$this->round = $round;
 	}
 }
