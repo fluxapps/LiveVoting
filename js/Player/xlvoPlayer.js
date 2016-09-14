@@ -11,10 +11,11 @@ var xlvoPlayer = {
         this.ready = true;
         xlvoPlayer.log(this.config);
         if (xlvoPlayer.config.use_mathjax && !!MathJax) {
-            MathJax.Hub.Config({
-                "HTML-CSS": {scale: 80}
-            });
+            MathJax.Hub.Config(xlvoPlayer.mathjax_config);
         }
+    },
+    mathjax_config: {
+        "HTML-CSS": {scale: 80}
     },
     buttons_handled: false,
     toolbar_loaded: false,
@@ -258,9 +259,8 @@ var xlvoPlayer = {
                 var playerHtml = data.player_html;
                 $('#xlvo-display-player').replaceWith('<div id="xlvo-display-player">' + playerHtml + '</div>');
                 if (xlvoPlayer.config.use_mathjax && !!MathJax) {
-                    MathJax.Hub.Config({
-                        "HTML-CSS": {scale: 80}
-                    });
+                    xlvoPlayer.log('kick mathjax');
+                    MathJax.Hub.Config(xlvoPlayer.mathjax_config);
                     MathJax.Hub.Queue(
                         ["Typeset", MathJax.Hub, 'xlvo-display-player']
                     );

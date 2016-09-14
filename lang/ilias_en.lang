@@ -199,6 +199,7 @@ qtype_4_display_std_order#:#Standardreihenfolge anzeigen
 qtype_5_display_correct_order#:#Sort
 qtype_5_hide_correct_order#:#Revert Sorting
 qtype_5_correct_solution#:#MISSING
+qtype_1_info_latex#:#LaTeX can be surrounded with [tex] ... [/tex]
 subtab_edit#:#Manage
 subtab_show#:#Show
 tab_content#:#Content

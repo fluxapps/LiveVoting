@@ -33,7 +33,7 @@ class xlvoResultsTableGUI extends ilTable2GUI {
 	 */
 	protected $showHistory = false;
 	/**
-	 * @var
+	 * @var xlvoResultsGUI
 	 */
 	protected $parent_obj;
 
@@ -80,14 +80,18 @@ class xlvoResultsTableGUI extends ilTable2GUI {
 
 
 	/**
-	 * @param $obj_id int
+	 * @param $obj_id
+	 * @param $round_id
 	 */
 	public function buildData($obj_id, $round_id) {
 		$votingRecords = xlvoVoting::where(array( "obj_id" => $obj_id ));
 		if ($this->filter['voting']) {
 			$votingRecords->where(array( "id" => $this->filter['voting'] ));
 		}
-		/** @var xlvoVoting $votings */
+		/**
+		 * @var $votings      xlvoVoting[]
+		 * @var $participants xlvoParticipant[]
+		 */
 		$votings = $votingRecords->get();
 		$participants = xlvoParticipants::getInstance($obj_id)->getParticipantsForRound($round_id, $this->filter['participant']);
 		$data = array();
@@ -105,7 +109,7 @@ class xlvoResultsTableGUI extends ilTable2GUI {
 					"participant"     => $this->parent_obj->getParticipantName($participant),
 					"user_id"         => $participant->getUserId(),
 					"user_identifier" => $participant->getUserIdentifier(),
-					"question"        => $voting->getQuestion(),
+					"question"        => $voting->getQuestionForPresentation(),
 					"answer"          => $this->concatVotes($voting, $votes),
 					"voting_id"       => $voting->getId(),
 					"round_id"        => $round_id,
@@ -116,6 +120,9 @@ class xlvoResultsTableGUI extends ilTable2GUI {
 	}
 
 
+	/**
+	 * @param array $record
+	 */
 	public function fillRow($record) {
 		$this->tpl->setVariable("POSITION", $record['position']);
 		$this->tpl->setVariable("USER", $record['participant']);

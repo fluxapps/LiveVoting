@@ -202,6 +202,7 @@ qtype_4_display_std_order#:#Show standard order
 qtype_5_display_correct_order#:#Sortieren
 qtype_5_hide_correct_order#:#Sortieren aufheben
 qtype_5_correct_solution#:#MISSING
+qtype_1_info_latex#:#LaTeX kann mit [tex] ... [/tex] formatiert werden.
 subtab_edit#:#Verwalten
 subtab_show#:#Zeigen
 tab_content#:#Inhalt
