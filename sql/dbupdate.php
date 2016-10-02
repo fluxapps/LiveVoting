@@ -401,6 +401,7 @@ xlvoVoteHistoryObject::installDB();
 <?php
 require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingConfig.php");
 xlvoVotingConfig::updateDB();
+
 ?>
 <#29>
 <?php
