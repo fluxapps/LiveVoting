@@ -38,7 +38,7 @@ class xlvoVotingManager2 {
 		$obj_id = xlvoPin::checkPin($pin, false);
 		$this->obj_id = $obj_id;
 		$this->player = xlvoPlayer::getInstanceForObjId($this->obj_id);
-		$this->player->setRoundId(xlvoRound::getLatestRound($this->obj_id)->getId());
+		$this->player->setRoundId(xlvoRound::getLatestRoundId($this->obj_id));
 		$this->initVoting();
 	}
 
@@ -136,7 +136,7 @@ class xlvoVotingManager2 {
 		$xlvoVote->setType(xlvoQuestionTypes::TYPE_FREE_INPUT);
 		$xlvoVote->setStatus(xlvoVote::STAT_ACTIVE);
 		$xlvoVote->setFreeInput($input);
-		$xlvoVote->setRoundId(xlvoRound::getLatestRound($this->obj_id)->getId());
+		$xlvoVote->setRoundId(xlvoRound::getLatestRoundId($this->obj_id));
 		$xlvoVote->store();
 		if (!$this->getVoting()->isMultiFreeInput()) {
 			$this->unvoteAll($xlvoVote->getId());
