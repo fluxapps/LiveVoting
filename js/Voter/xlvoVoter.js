@@ -21,7 +21,8 @@ var xlvoVoter = {
         lng: {
             player_seconds: 's'
         },
-        debug: false
+        debug: false,
+        delay:1000
     },
     player: {
         frozen: true,
@@ -58,10 +59,10 @@ var xlvoVoter = {
                 } else {
                     xlvoVoter.handleCountdown();
                 }
-                xlvoVoter.timeout = setTimeout(xlvoVoter.loadVotingData, xlvoVoter.delay);
+                xlvoVoter.timeout = setTimeout(xlvoVoter.loadVotingData, xlvoVoter.config.delay);
                 xlvoVoter.counter++;
             }).fail(function () {
-            xlvoVoter.timeout = setTimeout(xlvoVoter.loadVotingData, xlvoVoter.delay);
+            xlvoVoter.timeout = setTimeout(xlvoVoter.loadVotingData, xlvoVoter.config.delay);
         });
     },
     replaceHTML: function (success) {

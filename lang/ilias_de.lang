@@ -101,6 +101,8 @@ config_base_url_info#:#URL Ihrer ILIAS-Installation inkl. Unterverzeichnis, bspw
 config_cancel#:#Abbrechen
 config_msg_success#:#Gespeichert
 config_update#:#Speichern
+config_request_frequency#:#Klienten aktualisierungs Frequenz
+config_request_frequency_info#:#Die aktualisierungs Frequenz der LiveVoting Klienten, angegeben in sekunden.
 msg_success_voting_created#:#Voting wurde erstellt
 msg_success_voting_updated#:#Voting wurde gespeichert
 obj_anonymous#:#Abstimmung ohne Login

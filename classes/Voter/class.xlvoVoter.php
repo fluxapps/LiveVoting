@@ -22,7 +22,7 @@ class xlvoVoter extends ActiveRecord {
 	 * @param $player_id
 	 */
 	public static function register($player_id) {
-		$obj = self::where(array(
+		$obj = xlvoVoter::where(array(
 			'user_identifier' => xlvoUser::getInstance()->getIdentifier(),
 			'player_id' => $player_id
 		))->first();

@@ -101,6 +101,8 @@ config_base_url_info#:#URL of yout ILIAS-Installation incl. Subfolders, e.g. htt
 config_cancel#:#Cancel
 config_msg_success#:#Saved
 config_update#:#Update
+config_request_frequency#:#Client update frequency
+config_request_frequency_info#:#The client side live voting data update frequency measured in seconds.
 msg_success_voting_created#:#Voting has been created
 msg_success_voting_updated#:#Voting has been udpated
 obj_anonymous#:#Vote without Login

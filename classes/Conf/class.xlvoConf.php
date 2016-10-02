@@ -9,7 +9,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
  */
 class xlvoConf extends ActiveRecord {
 
-	const CONFIG_VERSION = 1;
+	const CONFIG_VERSION = 2;
 	const F_CONFIG_VERSION = 'config_version';
 	const F_ALLOW_FREEZE = 'allow_freeze';
 	const F_ALLOW_FULLSCREEN = 'allow_fullscreen';
@@ -20,7 +20,19 @@ class xlvoConf extends ActiveRecord {
 	const F_USE_QR = 'use_qr';
 	const REWRITE_RULE = "RewriteRule ^vote(/[\\w]*|) Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?pin=$1 [L]";
 	const API_URL = './Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/ilias.php';
+    const REQUEST_FREQUENCY = 'request_frequency';
 
+
+    /**
+     * Min client update frequency in seconds.
+     * This value should never be set bellow 1 second.
+     */
+    const MIN_CLIENT_UPDATE_FREQUENCY = 1;
+
+    /**
+     * Max client update frequency in seconds.
+     */
+    const MAX_CLIENT_UPDATE_FREQUENCY = 60;
 
 	/**
 	 * @return string

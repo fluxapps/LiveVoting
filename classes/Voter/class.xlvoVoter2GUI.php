@@ -24,6 +24,10 @@ class xlvoVoter2GUI extends xlvoGUI {
 	const CMD_GET_VOTING_DATA = 'loadVotingData';
 	const DEBUG = false;
 	/**
+	 * Default client update delay in seconds
+	 */
+	const DEFAULT_CLIENT_UPDATE_DELAY = 1;
+	/**
 	 * @var string
 	 */
 	protected $pin = '';
@@ -132,10 +136,24 @@ class xlvoVoter2GUI extends xlvoGUI {
 		$t = array( 'player_seconds' );
 
 		$mathJaxSetting = new ilSetting("MathJax");
+
+		/**
+		 * @var $delay string
+		 */
+		$delay = xlvoConf::getConfig('request_frequency');
+
+		//check if we get some valid settings otherwise fall back to default value.
+		if (is_numeric($delay)) {
+			$delay = ((float)$delay) * 1000;
+		} else {
+			$delay = self::DEFAULT_CLIENT_UPDATE_DELAY * 1000;
+		}
+
 		$settings = array(
 			'use_mathjax' => (bool)$mathJaxSetting->get("enable"),
 			'debug'       => self::DEBUG,
 			'ilias_51'    => version_compare(ILIAS_VERSION_NUMERIC, '5.1.00', '>'),
+			'delay'       => $delay,
 		);
 
 		xlvoJs::getInstance()->api($this, array( 'ilUIPluginRouterGUI' ))->addSettings($settings)->name('Voter')->addTranslations($t)->init()
