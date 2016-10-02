@@ -58,7 +58,14 @@ class xlvoConfFormGUI extends ilPropertyFormGUI {
 		$base_url->setInfo($this->parent_gui->txt(xlvoConf::F_BASE_URL . '_info'));
 		$use_shortlink->addSubItem($base_url);
 
+		$request_frequency = new ilNumberInputGUI($this->parent_gui->txt(xlvoConf::REQUEST_FREQUENCY), xlvoConf::REQUEST_FREQUENCY);
+		$request_frequency->setInfo($this->parent_gui->txt(xlvoConf::REQUEST_FREQUENCY . '_info'));
+		$request_frequency->allowDecimals(true);
+		$request_frequency->setMinValue(xlvoConf::MIN_CLIENT_UPDATE_FREQUENCY, false);
+		$request_frequency->setMaxValue(xlvoConf::MAX_CLIENT_UPDATE_FREQUENCY, false);
+
 		$this->addItem($use_shortlink);
+		$this->addItem($request_frequency);
 	}
 
 
