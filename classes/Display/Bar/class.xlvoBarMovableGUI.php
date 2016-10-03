@@ -1,5 +1,7 @@
 <?php
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/Bar/class.xlvoBarGUI.php');
+
+use LiveVoting\Display\Bar\xlvoBarGUI;
+use LiveVoting\Option\xlvoOption;
 
 /**
  * Class xlvoMovableBarGUI
@@ -9,7 +11,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 class xlvoBarMovableGUI implements xlvoBarGUI {
 
 	/**
-	 * @var ilTemplate
+	 * @var \ilTemplate
 	 */
 	protected $tpl;
 	/**
@@ -40,7 +42,7 @@ class xlvoBarMovableGUI implements xlvoBarGUI {
 		$this->options = $options;
 		$this->order = $order;
 		$this->vote_id = $vote_id;
-		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Display/Bar/tpl.bar_movable.html', false, true);
+		$this->tpl = new \ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Display/Bar/tpl.bar_movable.html', false, true);
 	}
 
 

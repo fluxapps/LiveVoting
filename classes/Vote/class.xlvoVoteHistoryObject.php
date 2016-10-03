@@ -1,5 +1,7 @@
 <?php
 
+namespace LiveVoting\User;
+
 require_once("./Services/ActiveRecord/class.ActiveRecord.php");
 
 /**
@@ -7,7 +9,7 @@ require_once("./Services/ActiveRecord/class.ActiveRecord.php");
  *
  * @author Oskar Truffer <ot@studer-raimann.ch>
  */
-class xlvoVoteHistoryObject extends ActiveRecord{
+class xlvoVoteHistoryObject extends \ActiveRecord{
 
 	/**
 	 * @var string

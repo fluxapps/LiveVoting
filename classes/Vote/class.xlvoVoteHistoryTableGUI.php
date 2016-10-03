@@ -1,5 +1,7 @@
 <?php
 
+namespace LiveVoting\User;
+
 require_once("./Services/Table/classes/class.ilTable2GUI.php");
 
 /**
@@ -7,28 +9,28 @@ require_once("./Services/Table/classes/class.ilTable2GUI.php");
  *
  * @author Oskar Truffer <ot@studer-raimann.ch>
  */
-class xlvoVoteHistoryTableGUI extends ilTable2GUI {
+class xlvoVoteHistoryTableGUI extends \ilTable2GUI {
 
 	/**
 	 * @var ilLiveVotingPlugin
 	 */
 	protected $pl;
 	/**
-	 * @var ilCtrl
+	 * @var \ilCtrl
 	 */
 	protected $ctrl;
 	/**
-	 * @var ilTabsGUI
+	 * @var \ilTabsGUI
 	 */
 	protected $tabs;
 
 	public function __construct($a_parent_obj, $a_parent_cmd) {
 		global $ilCtrl, $ilTabs;
 		/**
-		 * @var $tpl       ilTemplate
-		 * @var $ilCtrl    ilCtrl
-		 * @var $ilTabs    ilTabsGUI
-		 * @var $ilToolbar ilToolbarGUI
+		 * @var $tpl       \ilTemplate
+		 * @var $ilCtrl    \ilCtrl
+		 * @var $ilTabs    \ilTabsGUI
+		 * @var $ilToolbar \ilToolbarGUI
 		 */
 		$this->pl = ilLiveVotingPlugin::getInstance();
 		$this->ctrl = $ilCtrl;
@@ -60,7 +62,7 @@ class xlvoVoteHistoryTableGUI extends ilTable2GUI {
 
 	public function fillRow($set) {
 		$this->tpl->setVariable("ANSWER", $set['answer']);
-		$date = new ilDateTime($set['timestamp'], IL_CAL_UNIX);
+		$date = new \ilDateTime($set['timestamp'], IL_CAL_UNIX);
 		$this->tpl->setVariable("TIMESTAMP", $date->get(IL_CAL_DATETIME));
 	}
 }

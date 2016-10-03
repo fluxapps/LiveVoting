@@ -1,4 +1,5 @@
 <?php
+
 /*
 	+-----------------------------------------------------------------------------+
 	| ILIAS open source                                                           |
@@ -20,14 +21,14 @@
 	| Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. |
 	+-----------------------------------------------------------------------------+
 */
+use LiveVoting\Option\xlvoOption;
+use LiveVoting\Pin\xlvoPin;
+use LiveVoting\Player\xlvoPlayer;
+use LiveVoting\Vote\xlvoVote;
+use LiveVoting\Voting\xlvoVoting;
+
+require_once __DIR__ . '/../vendor/autoload.php';
 require_once('./Services/Repository/classes/class.ilObjectPlugin.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingConfig.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoPlayer.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVoting.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Vote/class.xlvoVote.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Option/class.xlvoOption.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Pin/class.xlvoPin.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoQuestionTypes.php');
 
 /**
  * Class ilObjLiveVoting
@@ -38,10 +39,10 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
  *
  * @version $Id$
  */
-class ilObjLiveVoting extends ilObjectPlugin {
+class ilObjLiveVoting extends \ilObjectPlugin {
 
 	/**
-	 * @var ilDB
+	 * @var \ilDB
 	 */
 	protected $db;
 
@@ -58,7 +59,7 @@ class ilObjLiveVoting extends ilObjectPlugin {
 		}
 		global $ilDB;
 		/**
-		 * @var $ilDB   ilDB
+		 * @var $ilDB   \ilDB
 		 * @var $by_oid int
 		 */
 		$this->db = $ilDB;
@@ -213,7 +214,7 @@ class ilObjLiveVoting extends ilObjectPlugin {
 			$voting_id = $voting->getId();
 			$voting_id_clone = $voting_clone->getId();
 			require_once('./Services/RTE/classes/class.ilRTE.php');
-			$media_objects = ilRTE::_getMediaObjects($voting_clone->getQuestion());
+			$media_objects = \ilRTE::_getMediaObjects($voting_clone->getQuestion());
 			if (count($media_objects) > 0) {
 				$media_object_ids = array_merge($media_object_ids, array_values($media_objects));
 			}
@@ -243,13 +244,13 @@ class ilObjLiveVoting extends ilObjectPlugin {
 					$vote_clone = $vote->copy();
 					$vote_clone->setVotingId($voting_id_clone);
 					$vote_clone->setOptionId($option_id_clone);
-					//					$vote_clone->create(); // CURRENTLY VOTES WILL NO BE CLONED
+					//					$vote_clone->create(); // CURRENTLY VOTES WILL NOT BE CLONED
 				}
 			}
 		}
 		$new_obj->renegerateVotingSorting();
 		foreach ($media_object_ids as $media_object_id) {
-			ilObjMediaObject::_saveUsage($media_object_id, 'dcl:html', $new_obj->getId());
+			\ilObjMediaObject::_saveUsage($media_object_id, 'dcl:html', $new_obj->getId());
 		}
 	}
 }

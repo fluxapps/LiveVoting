@@ -1,10 +1,13 @@
 <?php
 
+namespace LiveVoting\Player;
+
+use LiveVoting\QuestionTypes\xlvoQuestionTypes;
+use LiveVoting\Round\xlvoRound;
+use LiveVoting\Vote\xlvoVote;
+use LiveVoting\Voting\xlvoVoting;
+
 require_once('./Services/ActiveRecord/class.ActiveRecord.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voter/class.xlvoVoter.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Vote/class.xlvoVote.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoPlayerGUI.php');
-require_once('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Round/class.xlvoRound.php');
 
 /**
  * Class xlvoPlayer
@@ -13,7 +16,7 @@ require_once('Customizing/global/plugins/Services/Repository/RepositoryObject/Li
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version 1.0.0
  */
-class xlvoPlayer extends ActiveRecord {
+class xlvoPlayer extends \ActiveRecord {
 
 	const STAT_STOPPED = 0;
 	const STAT_RUNNING = 1;
@@ -154,10 +157,10 @@ class xlvoPlayer extends ActiveRecord {
 
 
 	/**
-	 * @return stdClass
+	 * @return \stdClass
 	 */
 	public function getStdClassForVoter() {
-		$obj = new stdClass();
+		$obj = new \stdClass();
 		$obj->status = (int)$this->getStatus(true);
 		$obj->force_reload = false;
 		$obj->active_voting_id = (int)$this->getActiveVotingId();
@@ -171,10 +174,10 @@ class xlvoPlayer extends ActiveRecord {
 
 
 	/**
-	 * @return stdClass
+	 * @return \stdClass
 	 */
 	public function getStdClassForPlayer() {
-		$obj = new stdClass();
+		$obj = new \stdClass();
 		$obj->is_first = (bool)$this->getCurrentVotingObject()->isFirst();
 		$obj->is_last = (bool)$this->getCurrentVotingObject()->isLast();
 		$obj->status = (int)$this->getStatus(true);
@@ -194,7 +197,7 @@ class xlvoPlayer extends ActiveRecord {
 		))->orderBy('last_update', 'DESC')->getArray('last_update', 'last_update');
 		$last_update = array_shift(array_values($last_update));
 		$obj->last_update = (int)$last_update;
-		$obj->attendees = (int)xlvoVoter::countVoters($this->getId());;
+		//$obj->attendees = (int)xlvoVoter::countVoters($this->getId());
 		$obj->qtype = $this->getQuestionTypeClassName();
 		$obj->countdown = $this->remainingCountDown();
 		$obj->has_countdown = $this->isCountDownRunning();

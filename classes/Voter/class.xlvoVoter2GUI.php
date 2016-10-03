@@ -1,13 +1,18 @@
 <?php
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoGUI.php');
+
+use LiveVoting\Conf\xlvoConf;
+use LiveVoting\Context\xlvoInitialisation;
+use LiveVoting\Js\xlvoJs;
+use LiveVoting\Js\xlvoJsResponse;
+use LiveVoting\Pin\xlvoPin;
+use LiveVoting\Player\xlvoPlayer;
+use LiveVoting\QuestionTypes\xlvoQuestionTypes;
+use LiveVoting\Voter\xlvoVoter;
+use LiveVoting\Voter\xlvoVoterException;
+use LiveVoting\Voting\xlvoVotingManager2;
+
 require_once('./Services/Form/classes/class.ilPropertyFormGUI.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Pin/class.xlvoPin.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoPlayer.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVoting.php');
 require_once('./Services/jQuery/classes/class.iljQueryUtil.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoQuestionTypes.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVotingManager2.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voter/ex.xlvoVoterException.php');
 
 /**
  * Class xlvoVoter2GUI
@@ -79,15 +84,15 @@ class xlvoVoter2GUI extends xlvoGUI {
 		if ($this->manager->getObjId() > 0) {
 			$this->ctrl->redirect($this, self::CMD_START_VOTER_PLAYER);
 		}
-		$tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voter/tpl.pin.html', true, false);
+		$tpl = new \ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voter/tpl.pin.html', true, false);
 		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voter/pin.css');
-		$pin_form = new ilPropertyFormGUI();
+		$pin_form = new \ilPropertyFormGUI();
 		$pin_form->setFormAction($this->ctrl->getLinkTarget($this, self::CMD_CHECK_PIN));
 		$pin_form->addCommandButton(self::CMD_CHECK_PIN, $this->txt('send'));
 
 		$xlvoPin = new xlvoPin();
 
-		$te = new ilTextInputGUI($this->txt(self::F_PIN_INPUT), self::F_PIN_INPUT);
+		$te = new \ilTextInputGUI($this->txt(self::F_PIN_INPUT), self::F_PIN_INPUT);
 		$te->setMaxLength($xlvoPin->getPinLength());
 		$pin_form->addItem($te);
 
@@ -104,7 +109,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 			xlvoPin::checkPin($_POST[self::F_PIN_INPUT]);
 		} catch (xlvoVoterException $e) {
 			xlvoInitialisation::resetCookiePIN();
-			ilUtil::sendFailure($this->txt('msg_validation_error_pin_' . $e->getCode()));
+			\ilUtil::sendFailure($this->txt('msg_validation_error_pin_' . $e->getCode()));
 			$this->index();
 			$redirect = false;
 		}
@@ -118,21 +123,27 @@ class xlvoVoter2GUI extends xlvoGUI {
 	protected function startVoterPlayer() {
 		$this->initJsAndCss();
 		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/default.css');
-		$tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voter/tpl.voter_player.html', true, false);
+		$tpl = new \ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voter/tpl.voter_player.html', true, false);
 		$this->tpl->setContent($tpl->get());
 	}
 
 
 	protected function getVotingData() {
-		xlvoVoter::register($this->manager->getPlayer()->getId());
+        /**
+         * @var $showAttendees xlvoVotingConfig
+         */
+	    $showAttendees = xlvoVotingConfig::find($this->manager->getVoting()->getObjId());
+	    if($showAttendees->isShowAttendees())
+		    xlvoVoter::register($this->manager->getPlayer()->getId());
+
 		xlvoJsResponse::getInstance($this->manager->getPlayer()->getStdClassForVoter())->send();
 	}
 
 
 	protected function initJsAndCss() {
 		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voter/voter.css');
-		iljQueryUtil::initjQueryUI();
-		ilUtil::includeMathjax();
+		\iljQueryUtil::initjQueryUI();
+		\ilUtil::includeMathjax();
 		$t = array( 'player_seconds' );
 
 		$mathJaxSetting = new ilSetting("MathJax");
@@ -165,7 +176,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 
 
 	protected function getHTML() {
-		$tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voter/tpl.inner_screen.html', true, true);
+		$tpl = new \ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voter/tpl.inner_screen.html', true, true);
 		switch ($this->manager->getPlayer()->getStatus(true)) {
 			case xlvoPlayer::STAT_STOPPED:
 				$tpl->setVariable('TITLE', $this->txt('header_stopped'));

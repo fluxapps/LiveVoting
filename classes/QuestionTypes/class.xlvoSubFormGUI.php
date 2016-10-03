@@ -1,5 +1,8 @@
 <?php
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoTextAreaInputGUI.php');
+
+use LiveVoting\Option\xlvoOption;
+use LiveVoting\QuestionTypes\xlvoQuestionTypes;
+use LiveVoting\Voting\xlvoVoting;
 
 /**
  * Class xlvoFreeInputSubFormGUI
@@ -17,6 +20,7 @@ abstract class xlvoSubFormGUI {
 	/**
 	 * @param xlvoVoting $xlvoVoting
 	 * @return xlvoSubFormGUI
+     * @throws \ilException                 Throws an \ilException if no sub form gui class was found.
 	 */
 	public static function getInstance(xlvoVoting $xlvoVoting) {
 		if (!self::$instance instanceof self) {
@@ -27,10 +31,25 @@ abstract class xlvoSubFormGUI {
 			 * @var $subform    xlvoFreeInputSubFormGUI
 			 */
 			$class_name = 'xlvo' . $class . 'SubFormGUI';
-			require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/' . $class . '/class.'
-			             . $class_name . '.php');
+            $gui = null;
+            switch ($class) {
+                case "CorrectOrder":
+                    $gui = new xlvoCorrectOrderSubFormGUI($xlvoVoting);
+                    break;
+                case "FreeInput":
+                    $gui = new xlvoFreeInputSubFormGUI($xlvoVoting);
+                    break;
+                case "FreeOrder":
+                    $gui = new xlvoFreeOrderSubFormGUI($xlvoVoting);
+                    break;
+                case "SingleVote":
+                    $gui = new xlvoSingleVoteSubFormGUI($xlvoVoting);
+                    break;
+                default:
+                    throw new \ilException("Could not find the sub form gui for the given voting.");
+            }
 
-			self::$instance = new $class_name($xlvoVoting);
+			self::$instance = $gui;
 		}
 
 		return self::$instance;
@@ -86,7 +105,7 @@ abstract class xlvoSubFormGUI {
 
 
 	/**
-	 * @return ilTextInputGUI[]
+	 * @return \ilTextInputGUI[]
 	 */
 	public function getFormElements() {
 		return $this->form_elements;
@@ -94,7 +113,7 @@ abstract class xlvoSubFormGUI {
 
 
 	/**
-	 * @param ilTextInputGUI[] $form_elements
+	 * @param \ilTextInputGUI[] $form_elements
 	 */
 	public function setFormElements($form_elements) {
 		$this->form_elements = $form_elements;
@@ -102,19 +121,19 @@ abstract class xlvoSubFormGUI {
 
 
 	/**
-	 * @param ilFormPropertyGUI $element
+	 * @param \ilFormPropertyGUI $element
 	 */
-	public function addFormElement(ilFormPropertyGUI $element) {
+	public function addFormElement(\ilFormPropertyGUI $element) {
 		$this->form_elements[] = $element;
 	}
 
 
 	/**
-	 * @param ilPropertyFormGUI $ilPropertyFormGUI
+	 * @param \ilPropertyFormGUI $ilPropertyFormGUI
 	 */
-	public function appedElementsToForm(ilPropertyFormGUI $ilPropertyFormGUI) {
+	public function appedElementsToForm(\ilPropertyFormGUI $ilPropertyFormGUI) {
 		if (count($this->getFormElements()) > 0) {
-			$h = new ilFormSectionHeaderGUI();
+			$h = new \ilFormSectionHeaderGUI();
 			$h->setTitle($this->pl->txt('qtype_form_header'));
 			$ilPropertyFormGUI->addItem($h);
 		}
@@ -125,9 +144,9 @@ abstract class xlvoSubFormGUI {
 
 
 	/**
-	 * @param ilPropertyFormGUI $ilPropertyFormGUI
+	 * @param \ilPropertyFormGUI $ilPropertyFormGUI
 	 */
-	public function handleAfterSubmit(ilPropertyFormGUI $ilPropertyFormGUI) {
+	public function handleAfterSubmit(\ilPropertyFormGUI $ilPropertyFormGUI) {
 		foreach ($this->getFormElements() as $formElement) {
 			$value = $ilPropertyFormGUI->getInput($formElement->getPostVar());
 			$this->handleField($formElement, $value);
@@ -171,16 +190,16 @@ abstract class xlvoSubFormGUI {
 
 
 	/**
-	 * @param ilFormPropertyGUI $element
+	 * @param \ilFormPropertyGUI $element
 	 * @param $value
 	 * @return mixed
 	 */
-	abstract protected function handleField(ilFormPropertyGUI $element, $value);
+	abstract protected function handleField(\ilFormPropertyGUI $element, $value);
 
 
 	/**
-	 * @param ilFormPropertyGUI $element
+	 * @param \ilFormPropertyGUI $element
 	 * @return mixed
 	 */
-	abstract protected function getFieldValue(ilFormPropertyGUI $element);
+	abstract protected function getFieldValue(\ilFormPropertyGUI $element);
 }

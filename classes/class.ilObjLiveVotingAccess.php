@@ -1,4 +1,5 @@
 <?php
+
 /*
 	+-----------------------------------------------------------------------------+
 	| ILIAS open source                                                           |
@@ -21,10 +22,10 @@
 	+-----------------------------------------------------------------------------+
 */
 
+require_once __DIR__ . '/../vendor/autoload.php';
 require_once('./Services/Repository/classes/class.ilObjectPluginAccess.php');
 require_once('./Services/Object/classes/class.ilObject2.php');
 require_once('./Services/ActiveRecord/class.ActiveRecord.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingConfig.php');
 
 /**
  *
@@ -40,7 +41,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
  *
  * @version $Id$
  */
-class ilObjLiveVotingAccess extends ilObjectPluginAccess {
+class ilObjLiveVotingAccess extends \ilObjectPluginAccess {
 
 	/**
 	 * Checks wether a user may invoke a command or not
@@ -107,7 +108,7 @@ class ilObjLiveVotingAccess extends ilObjectPluginAccess {
 	 * @return bool
 	 */
 	public static function hasReadAccessForObject($obj_id, $user_id) {
-		$refs = ilObject2::_getAllReferences($obj_id);
+		$refs = \ilObject2::_getAllReferences($obj_id);
 		foreach ($refs as $ref_id) {
 			if (self::hasReadAccess($ref_id, $user_id)) {
 				return true;
@@ -126,7 +127,7 @@ class ilObjLiveVotingAccess extends ilObjectPluginAccess {
 	 * @return bool
 	 */
 	public static function hasWriteAccessForObject($obj_id, $user_id) {
-		$refs = ilObject2::_getAllReferences($obj_id);
+		$refs = \ilObject2::_getAllReferences($obj_id);
 
 		foreach ($refs as $ref_id) {
 			if (self::hasWriteAccess($ref_id, $user_id)) {
@@ -160,7 +161,7 @@ class ilObjLiveVotingAccess extends ilObjectPluginAccess {
 	protected static function hasAccess($permission, $ref_id = NULL, $user_id = NULL) {
 		global $ilUser, $ilAccess, $ilLog;
 		/**
-		 * @var $ilAccess ilAccessHandler
+		 * @var $ilAccess \ilAccessHandler
 		 */
 		$ref_id = $ref_id ? $ref_id : $_GET['ref_id'];
 		$user_id = $user_id ? $user_id : $ilUser->getId();
@@ -189,7 +190,7 @@ class ilObjLiveVotingAccess extends ilObjectPluginAccess {
 		/**
 		 * @var $config xlvoVotingConfig
 		 */
-		$obj_id = $a_id ? $a_id : ilObject2::_lookupObjId($_GET['ref_id']);
+		$obj_id = $a_id ? $a_id : \ilObject2::_lookupObjId($_GET['ref_id']);
 		$config = xlvoVotingConfig::find($obj_id);
 		if ($config instanceof xlvoVotingConfig) {
 			return $config->isObjOnline();

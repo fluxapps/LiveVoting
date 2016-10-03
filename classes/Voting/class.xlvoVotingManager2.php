@@ -1,8 +1,17 @@
 <?php
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/ex.xlvoPlayerException.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Vote/class.xlvoVote.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Pin/class.xlvoPin.php');
-require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Vote/class.xlvoVoteHistoryObject.php");
+
+namespace LiveVoting\Voting;
+use LiveVoting\Exceptions\xlvoVotingManagerException;
+use LiveVoting\Option\xlvoOption;
+use LiveVoting\Pin\xlvoPin;
+use LiveVoting\Player\xlvoPlayer;
+use LiveVoting\Player\xlvoPlayerException;
+use LiveVoting\QuestionTypes\xlvoQuestionTypes;
+use LiveVoting\Round\xlvoRound;
+use LiveVoting\User\xlvoUser;
+use LiveVoting\Vote\xlvoVote;
+use LiveVoting\Voter\xlvoVoterException;
+use xlvoVotingConfig;
 
 /**
  * Class xlvoVotingManager2
@@ -45,7 +54,7 @@ class xlvoVotingManager2 {
 
 	/**
 	 * @param $pin
-	 * @throws \xlvoVoterException
+	 * @throws xlvoVoterException
 	 */
 	public function checkPIN($pin) {
 		xlvoPin::checkPin($pin, true);
@@ -414,7 +423,7 @@ class xlvoVotingManager2 {
 
 	/**
 	 * @return bool
-	 * @throws \xlvoPlayerException
+	 * @throws xlvoPlayerException
 	 */
 	public function prepareStart() {
 		if (!$this->getVotingConfig()->isObjOnline()) {
@@ -554,7 +563,7 @@ class xlvoVotingManager2 {
 
 	/**
 	 * @param string $order
-	 * @return ActiveRecordList
+	 * @return \ActiveRecordList
 	 */
 	protected function getVotingsList($order = 'ASC') {
 		return xlvoVoting::where(array(

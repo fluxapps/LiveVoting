@@ -1,5 +1,8 @@
 <?php
 
+use LiveVoting\Option\xlvoOption;
+use LiveVoting\Vote\xlvoVote;
+
 /**
  * Class xlvoSingleVoteResultGUI
  *

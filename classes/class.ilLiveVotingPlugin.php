@@ -1,5 +1,7 @@
 <?php
 
+
+require_once __DIR__ . '/../vendor/autoload.php';
 include_once('./Services/Repository/classes/class.ilRepositoryObjectPlugin.php');
 
 /**
@@ -9,7 +11,7 @@ include_once('./Services/Repository/classes/class.ilRepositoryObjectPlugin.php')
  * @version $Id$
  *
  */
-class ilLiveVotingPlugin extends ilRepositoryObjectPlugin {
+class ilLiveVotingPlugin extends \ilRepositoryObjectPlugin {
 
 	const PLUGIN_NAME = 'LiveVoting';
 	/**

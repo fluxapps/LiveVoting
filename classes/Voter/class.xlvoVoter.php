@@ -1,4 +1,9 @@
 <?php
+
+namespace LiveVoting\Voter;
+
+use LiveVoting\User\xlvoUser;
+
 require_once('./Services/ActiveRecord/class.ActiveRecord.php');
 
 /**
@@ -6,7 +11,7 @@ require_once('./Services/ActiveRecord/class.ActiveRecord.php');
  *
  * @author Fabian Schmid <fs@studer-raimann.ch>
  */
-class xlvoVoter extends ActiveRecord {
+class xlvoVoter extends \ActiveRecord {
 
 	/**
 	 * @return string
@@ -33,7 +38,7 @@ class xlvoVoter extends ActiveRecord {
 			$obj->setPlayerId($player_id);
 			$obj->create();
 		}
-		$obj->setLastAccess(new DateTime());
+		$obj->setLastAccess(new \DateTime());
 		$obj->update();
 	}
 
@@ -54,10 +59,10 @@ class xlvoVoter extends ActiveRecord {
 	 */
 	public function sleep($field_name) {
 		if ($field_name == 'last_access') {
-			if (!$this->last_access instanceof DateTime) {
-				$this->last_access = new DateTime();
+			if (!$this->last_access instanceof \DateTime) {
+				$this->last_access = new \DateTime();
 			}
-			return $this->last_access->format(DateTime::ATOM);
+			return $this->last_access->format(\DateTime::ATOM);
 		}
 		return null;
 	}
@@ -71,7 +76,7 @@ class xlvoVoter extends ActiveRecord {
 	 */
 	public function wakeUp($field_name, $field_value) {
 		if ($field_name == 'last_access') {
-			return new DateTime($field_value);
+			return new \DateTime($field_value);
 		}
 		return null;
 	}
@@ -105,7 +110,7 @@ class xlvoVoter extends ActiveRecord {
 	 */
 	protected $user_identifier;
 	/**
-	 * @var DateTime
+	 * @var \DateTime
 	 *
 	 * @con_has_field  true
 	 * @con_fieldtype  timestamp
@@ -162,7 +167,7 @@ class xlvoVoter extends ActiveRecord {
 
 
 	/**
-	 * @return DateTime
+	 * @return \DateTime
 	 */
 	public function getLastAccess() {
 		return $this->last_access;
@@ -170,7 +175,7 @@ class xlvoVoter extends ActiveRecord {
 
 
 	/**
-	 * @param DateTime $last_access
+	 * @param \DateTime $last_access
 	 */
 	public function setLastAccess($last_access) {
 		$this->last_access = $last_access;

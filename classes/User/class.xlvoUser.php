@@ -1,5 +1,7 @@
 <?php
 
+namespace LiveVoting\User;
+
 /**
  * Class xlvoUser
  *

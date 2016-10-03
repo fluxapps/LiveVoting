@@ -1,7 +1,11 @@
 <?php
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoQuestionTypes.php');
+
+namespace LiveVoting\Voting;
+
+use LiveVoting\Option\xlvoOption;
+use LiveVoting\QuestionTypes\xlvoQuestionTypes;
+
 require_once('./Services/ActiveRecord/class.ActiveRecord.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Option/class.xlvoOption.php');
 
 /**
  * Class xlvoVoting
@@ -10,7 +14,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version 1.0.0
  */
-class xlvoVoting extends ActiveRecord {
+class xlvoVoting extends \ActiveRecord {
 
 	const STAT_ACTIVE = 5;
 	const STAT_INACTIVE = 1;
@@ -154,7 +158,7 @@ class xlvoVoting extends ActiveRecord {
 
 	/**
 	 * @param bool $change_name
-	 * @return \xlvoVoting
+	 * @return xlvoVoting
 	 * @throws \Exception
 	 * @throws \arException
 	 */
@@ -198,7 +202,7 @@ class xlvoVoting extends ActiveRecord {
 
 
 	/**
-	 * @return ActiveRecordList
+	 * @return \ActiveRecordList
 	 */
 	protected function getFirstLastList($order) {
 		return self::where(array( 'obj_id' => $this->getObjId() ))->orderBy('position', $order)
@@ -392,7 +396,7 @@ class xlvoVoting extends ActiveRecord {
 	 * @return string
 	 */
 	public function getQuestionForPresentation() {
-		return ilUtil::prepareTextareaOutput($this->getQuestionForEditor(), true);
+		return \ilUtil::prepareTextareaOutput($this->getQuestionForEditor(), true);
 	}
 
 
@@ -400,7 +404,7 @@ class xlvoVoting extends ActiveRecord {
 	 * @return string
 	 */
 	public function getQuestionForEditor() {
-		return ilRTE::_replaceMediaObjectImageSrc($this->question, 1);
+		return \ilRTE::_replaceMediaObjectImageSrc($this->question, 1);
 	}
 
 

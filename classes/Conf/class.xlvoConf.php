@@ -1,13 +1,15 @@
 <?php
+
+namespace LiveVoting\Conf;
+
 require_once('./Services/ActiveRecord/class.ActiveRecord.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Js/class.xlvoJs.php');
 
 /**
  * Class xlvoConf
  *
  * @author Fabian Schmid <fs@studer-raimann.ch>
  */
-class xlvoConf extends ActiveRecord {
+class xlvoConf extends \ActiveRecord {
 
 	const CONFIG_VERSION = 2;
 	const F_CONFIG_VERSION = 'config_version';
@@ -44,7 +46,7 @@ class xlvoConf extends ActiveRecord {
 			$url = str_replace("http://", '', $url);
 			$url = str_replace("https://", '', $url);
 
-			if (ilHTTPS::getInstance()->isDetected()) {
+			if (\ilHTTPS::getInstance()->isDetected()) {
 				$url = 'https://' . $url;
 			} else {
 				$url = 'http://' . $url;
@@ -62,7 +64,7 @@ class xlvoConf extends ActiveRecord {
 	 */
 	public static function isLatexEnabled() {
 		include_once "./Services/Administration/classes/class.ilSetting.php";
-		$mathJaxSetting = new ilSetting("MathJax");
+		$mathJaxSetting = new \ilSetting("MathJax");
 
 		return (bool)$mathJaxSetting->get("enable");
 	}

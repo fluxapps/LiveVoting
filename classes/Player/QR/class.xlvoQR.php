@@ -1,6 +1,6 @@
 <?php
 
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/lib/QrCode-master/src/QrCode.php');
+namespace LiveVoting\Player\QR;
 use Endroid\QrCode\QrCode;
 
 /**

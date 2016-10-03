@@ -1,4 +1,5 @@
 <?php
+
 /*
 	+-----------------------------------------------------------------------------+
 	| ILIAS open source                                                           |
@@ -21,11 +22,8 @@
 	+-----------------------------------------------------------------------------+
 */
 
+require_once __DIR__ . '/../vendor/autoload.php';
 require_once('./Services/Repository/classes/class.ilObjectPluginListGUI.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoQuestionTypes.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Pin/class.xlvoPin.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voter/class.xlvoVoter.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoPlayer.php');
 
 /**
  * ListGUI implementation for LiveVoting object plugin. This one
@@ -36,7 +34,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
  * ...Access class to get DB data and keep it small.
  *
  */
-class ilObjLiveVotingListGUI extends ilObjectPluginListGUI {
+class ilObjLiveVotingListGUI extends \ilObjectPluginListGUI {
 
 	/**
 	 * @var array

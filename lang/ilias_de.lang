@@ -144,6 +144,8 @@ obj_crs#:#Kurs
 obj_frozen_alway_ofxlvo_edit#:#Bearbeiten
 objs_xlvo#:#LiveVotings
 objs_xlvo_duplicate#:#Bestehendes LiveVoting kopieren
+show_attendees#:#Teilnehmer Anzahl
+show_attendees_info#:#Teilnehmer Anzahl anzeigen. Diese Funktion hat einen Einfluss auf die performance und sollte nur bei kleinen LiveVoting verwendet werden.
 player_close_modal#:#Schliessen
 player_freeze#:#Pausieren
 player_hide_results#:#Resultate ausblenden

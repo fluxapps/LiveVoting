@@ -9,7 +9,7 @@ require_once('./Services/ActiveRecord/class.ActiveRecord.php');
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version 1.0.0
  */
-class xlvoVotingConfig extends ActiveRecord {
+class xlvoVotingConfig extends \ActiveRecord {
 
 	const B_FROZEN_ALWAY_OFF = 0;
 	const B_FROZEN_ALWAY_ON = 1;
@@ -25,6 +25,7 @@ class xlvoVotingConfig extends ActiveRecord {
 	const F_TERMINABLE = 'terminable';
 	const F_TERMINABLE_SELECT = "terminable_select";
 	const F_VOTING_HISTORY = "voting_history";
+    const F_SHOW_ATTENDEES = "show_attendees";
 
 
 	/**
@@ -137,6 +138,10 @@ class xlvoVotingConfig extends ActiveRecord {
 	protected $full_screen = true;
 	/**
 	 * @var bool
+     *
+     * @db_has_field        true
+     * @db_fieldtype        integer
+     * @db_length           1
 	 */
 	protected $show_attendees = true;
 	/**
@@ -159,10 +164,10 @@ class xlvoVotingConfig extends ActiveRecord {
 		$available = true;
 		require_once('./Services/Object/classes/class.ilObject2.php');
 		require_once('./Services/Object/classes/class.ilObjectActivation.php');
-		$ref_ids = ilObject2::_getAllReferences($this->getObjId());
+		$ref_ids = \ilObject2::_getAllReferences($this->getObjId());
 		foreach ($ref_ids as $ref_id) {
-			$item_data = ilObjectActivation::getItem($ref_id);
-			if ($item_data['timing_type'] == ilObjectActivation::TIMINGS_ACTIVATION) {
+			$item_data = \ilObjectActivation::getItem($ref_id);
+			if ($item_data['timing_type'] == \ilObjectActivation::TIMINGS_ACTIVATION) {
 				if ($item_data['timing_start'] > time() || $item_data['timing_end'] < time()) {
 					$available = false;
 				}

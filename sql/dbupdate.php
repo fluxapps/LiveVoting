@@ -401,7 +401,6 @@ xlvoVoteHistoryObject::installDB();
 <?php
 require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingConfig.php");
 xlvoVotingConfig::updateDB();
-
 ?>
 <#29>
 <?php
@@ -426,3 +425,20 @@ foreach (xlvoVoting::where(array( 'obj_id' => 0 ), '>')->get() as $xlvoVoting) {
 	}
 }
 ?>
+<#30>
+<?php
+require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingConfig.php");
+xlvoVotingConfig::updateDB();
+
+$configs = $xlvoVotingConfig::get();
+
+/**
+ * @var $config xlvoVotingConfig
+ */
+foreach($configs as $config)
+{
+    $config->setShowAttendees(false);
+    $config->update();
+}
+?>
+

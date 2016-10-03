@@ -1,5 +1,8 @@
 <?php
 
+namespace LiveVoting\Voting;
+use LiveVoting\Vote\xlvoVote;
+
 /**
  * Interface xlvoVotingInterface
  *

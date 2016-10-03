@@ -1,7 +1,9 @@
 <?php
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingConfig.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/User/class.xlvoUser.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voter/ex.xlvoVoterException.php');
+
+namespace LiveVoting\Pin;
+use LiveVoting\User\xlvoUser;
+use LiveVoting\Voter\xlvoVoterException;
+use xlvoVotingConfig;
 
 /**
  * Class xlvoPin
@@ -49,7 +51,7 @@ class xlvoPin {
 	/**
 	 * @param $pin
 	 * @return int
-	 * @throws \xlvoVoterException
+	 * @throws xlvoVoterException
 	 */
 	public static function checkPin($pin, $safe_mode = true) {
 		$xlvoVotingConfig = xlvoVotingConfig::where(array( 'pin' => $pin ))->first();

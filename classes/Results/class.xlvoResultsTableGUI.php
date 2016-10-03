@@ -1,9 +1,12 @@
 <?php
+
+use LiveVoting\User\xlvoParticipant;
+use LiveVoting\User\xlvoParticipants;
+use LiveVoting\Vote\xlvoVote;
+use LiveVoting\Voting\xlvoVoting;
+
 require_once("./Services/Table/classes/class.ilTable2GUI.php");
 require_once("./Services/Form/classes/class.ilSelectInputGUI.php");
-require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/User/class.xlvoParticipants.php");
-require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/User/class.xlvoParticipant.php");
-require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoResultGUI.php");
 
 /**
  * Class xlvoResultsTableGUI
@@ -18,11 +21,11 @@ class xlvoResultsTableGUI extends ilTable2GUI {
 	 */
 	protected $pl;
 	/**
-	 * @var ilCtrl
+	 * @var \ilCtrl
 	 */
 	protected $ctrl;
 	/**
-	 * @var ilTabsGUI
+	 * @var \ilTabsGUI
 	 */
 	protected $tabs;
 	/**
@@ -49,9 +52,9 @@ class xlvoResultsTableGUI extends ilTable2GUI {
 	public function __construct(xlvoResultsGUI $a_parent_obj, $a_parent_cmd, $show_history = false) {
 		global $ilCtrl, $ilTabs;
 		/**
-		 * @var $tpl       ilTemplate
-		 * @var $ilCtrl    ilCtrl
-		 * @var $ilTabs    ilTabsGUI
+		 * @var $tpl       \ilTemplate
+		 * @var $ilCtrl    \ilCtrl
+		 * @var $ilTabs    \ilTabsGUI
 		 */
 		$this->pl = ilLiveVotingPlugin::getInstance();
 		$this->ctrl = $ilCtrl;

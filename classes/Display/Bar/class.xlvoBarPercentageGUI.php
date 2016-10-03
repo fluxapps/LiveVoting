@@ -1,5 +1,5 @@
 <?php
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/Bar/class.xlvoBarGUI.php');
+use LiveVoting\Display\Bar\xlvoBarGUI;
 
 /**
  * Class xlvoBarPercentageGUI
@@ -23,6 +23,10 @@ class xlvoBarPercentageGUI implements xlvoBarGUI {
 	 */
 	protected $option_letter = '';
 	/**
+	 * @var \ilTemplate
+	 */
+	protected $tpl;
+	/**
 	 * @var string
 	 */
 	protected $title = '';
@@ -33,6 +37,7 @@ class xlvoBarPercentageGUI implements xlvoBarGUI {
 	/**
 	 * @var int
 	 */
+
 	protected $round = 2;
 
 
@@ -110,6 +115,22 @@ class xlvoBarPercentageGUI implements xlvoBarGUI {
 	 */
 	public function setOptionLetter($option_letter) {
 		$this->option_letter = $option_letter;
+	}
+
+
+	/**
+	 * @return \ilTemplate
+	 */
+	public function getTpl() {
+		return $this->tpl;
+	}
+
+
+	/**
+	 * @param \ilTemplate $tpl
+	 */
+	public function setTpl($tpl) {
+		$this->tpl = $tpl;
 	}
 
 

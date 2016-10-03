@@ -1,4 +1,8 @@
 <?php
+use LiveVoting\Option\xlvoOption;
+use LiveVoting\QuestionTypes\xlvoQuestionTypes;
+use LiveVoting\Vote\xlvoVote;
+use LiveVoting\Voting\xlvoVoting;
 
 /**
  * Class xlvoResultGUI
@@ -41,21 +45,26 @@ abstract class xlvoResultGUI {
 
 
 	/**
-	 * @param $voting xlvoVoting
-	 * @return xlvoResultGUI
+	 * Creates an instance of the result gui.
+	 *
+	 * @param $voting xlvoVoting    Finished or ongoing voting.
+	 * @return xlvoResultGUI        Result GUI to display the voting results.
+	 * @throws \ilException         Throws an \ilException if no result gui class was found for the given voting type.
 	 */
 	public static function getInstance($voting) {
 		$class = xlvoQuestionTypes::getClassName($voting->getVotingType());
-		/**
-		 * @var $class_name xlvoFreeInputResultsGUI
-		 * @var $subform    xlvoFreeInputResultsGUI
-		 */
-		$class_name = 'xlvo' . $class . 'ResultGUI';
-		require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/' . $class . '/class.'
-		             . $class_name . '.php');
 
-		$subform = new $class_name($voting);
-
-		return $subform;
+		switch ($class) {
+			case "CorrectOrder":
+				return new xlvoCorrectOrderResultGUI($voting);
+			case "FreeInput":
+				return new xlvoFreeInputResultGUI($voting);
+			case "FreeOrder":
+				return new xlvoFreeOrderResultGUI($voting);
+			case "SingleVote":
+				return new xlvoSingleVoteResultGUI($voting);
+			default:
+				throw new \ilException("Could not find the result gui for the given voting.");
+		}
 	}
 }

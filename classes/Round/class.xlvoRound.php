@@ -1,5 +1,7 @@
 <?php
 
+namespace LiveVoting\Round;
+
 require_once "Services/ActiveRecord/class.ActiveRecord.php";
 
 /**
@@ -10,7 +12,7 @@ require_once "Services/ActiveRecord/class.ActiveRecord.php";
  * A voting can go for several rounds. This active Record tracks these rounds
  *
  */
-class xlvoRound extends ActiveRecord {
+class xlvoRound extends \ActiveRecord {
 
     /**
      * @param $obj_id
