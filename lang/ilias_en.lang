@@ -144,7 +144,7 @@ obj_crs#:#Course
 objs_xlvo#:#LiveVotings
 objs_xlvo_duplicate#:#Clone existing LiveVoting
 show_attendees#:#Show Attendees
-show_attendees_info#:#Show the count of attendees this has an miore impact on performance and should only be activated for a small live voting.
+show_attendees_info#:#Show the count of attendees, this has an impact on performance and should only be activated for a small live voting.
 player_close_modal#:#Close
 player_freeze#:#Pause
 player_hide_results#:#Hide Results

@@ -222,8 +222,12 @@ var xlvoPlayer = {
             this.btn_next.attr('disabled', 'disabled');
             this.btn_previous.attr('disabled', 'disabled');
         }
-        var attendees = document.getElementById('xlvo-attendees');
-        attendees.innerHTML = (this.player.attendees + ' Online');
+        if (this.player.attendees > 0) {
+            var attendees = document.getElementById('xlvo-attendees');
+            attendees.innerHTML = (this.player.attendees + ' Online');
+        }
+
+
     },
     startRequest: function () {
         xlvoPlayer.request_pending = true;
@@ -320,7 +324,11 @@ var xlvoPlayer = {
         xlvoPlayer.startRequest();
         xlvoPlayer.toolbar_loader.show();
         this.log('call Button: ' + button_id);
-        $.post(xlvoPlayer.config.base_url + '&cmd=apiCall', {call: 'button', button_id: button_id, button_data: data}).done(function (data) {
+        $.post(xlvoPlayer.config.base_url + '&cmd=apiCall', {
+            call: 'button',
+            button_id: button_id,
+            button_data: data
+        }).done(function (data) {
 
         }).fail(function () {
 

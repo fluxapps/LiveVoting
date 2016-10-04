@@ -5,6 +5,7 @@ namespace LiveVoting\Player;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\Round\xlvoRound;
 use LiveVoting\Vote\xlvoVote;
+use LiveVoting\Voter\xlvoVoter;
 use LiveVoting\Voting\xlvoVoting;
 
 require_once('./Services/ActiveRecord/class.ActiveRecord.php');
@@ -197,7 +198,7 @@ class xlvoPlayer extends \ActiveRecord {
 		))->orderBy('last_update', 'DESC')->getArray('last_update', 'last_update');
 		$last_update = array_shift(array_values($last_update));
 		$obj->last_update = (int)$last_update;
-		//$obj->attendees = (int)xlvoVoter::countVoters($this->getId());
+		$obj->attendees = (int)xlvoVoter::countVoters($this->getId());
 		$obj->qtype = $this->getQuestionTypeClassName();
 		$obj->countdown = $this->remainingCountDown();
 		$obj->has_countdown = $this->isCountDownRunning();
@@ -218,7 +219,7 @@ class xlvoPlayer extends \ActiveRecord {
 	 * @return bool
 	 */
 	public function isFrozenOrUnattended() {
-		if ($this->getStatus() == self::STAT_RUNNING) {
+		if ($this->getStatus(false) == self::STAT_RUNNING) {
 			return (bool)($this->isFrozen() || $this->isUnattended());
 		} else {
 			return false;

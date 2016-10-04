@@ -27,6 +27,7 @@ global $ilCtrl, $ilBench;
 /**
  * @var ilCtrl $ilCtrl
  */
+xlvoConf::load();
 
 $ilCtrl->setTargetScript(xlvoConf::getFullApiURL());
 $ilCtrl->callBaseClass();
