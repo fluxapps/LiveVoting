@@ -76,6 +76,11 @@ class xlvoVotingGUI {
 	 */
 	protected $voting_manager;
 
+	/**
+	 * @var xlvoRound
+	 */
+	protected $round;
+
 
 	public function __construct() {
 		global $tpl, $ilCtrl, $ilTabs, $ilUser, $ilToolbar;
@@ -95,6 +100,7 @@ class xlvoVotingGUI {
 		$this->access = new ilObjLiveVotingAccess();
 		$this->pl = ilLiveVotingPlugin::getInstance();
 		$this->obj_id = ilObject2::_lookupObjId($_GET['ref_id']);
+		$this->round = xlvoRound::getLatestRound($this->obj_id);
 	}
 
 
@@ -123,7 +129,7 @@ class xlvoVotingGUI {
 				$voting_ids = xlvoVoting::where(array( 'obj_id' => $this->obj_id ))->getArray(null, 'id');
 				$has_votes = false;
 				if (count($voting_ids) > 0) {
-					$has_votes = xlvoVote::where(array( 'voting_id' => $voting_ids ))->hasSets();
+					$has_votes = xlvoVote::where(array( 'voting_id' => $voting_ids, 'round_id' => $this->round->getId()))->hasSets();
 				}
 
 				$b = ilLinkButton::getInstance();
@@ -328,7 +334,7 @@ class xlvoVotingGUI {
 				/**
 				 * @var $votes xlvoVote[]
 				 */
-				$votes = xlvoVote::where(array( 'voting_id' => $xlvoVoting->getId() ))->get();
+				$votes = xlvoVote::where(array( 'voting_id' => $xlvoVoting->getId()))->get();
 				foreach ($votes as $vote) {
 					$vote->delete();
 				}

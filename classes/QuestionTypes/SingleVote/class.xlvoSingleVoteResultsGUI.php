@@ -24,7 +24,7 @@ class xlvoSingleVoteResultsGUI extends xlvoInputResultsGUI {
 			$xlvoBarPercentageGUI = new xlvoBarPercentageGUI();
 			$xlvoBarPercentageGUI->setMax($max);
 			$xlvoBarPercentageGUI->setOptionLetter($xlvoOption->getCipher());
-			$xlvoBarPercentageGUI->setTitle($xlvoOption->getText());
+			$xlvoBarPercentageGUI->setTitle($xlvoOption->getTextForPresentation());
 			$xlvoBarPercentageGUI->setVotes($this->manager->countVotesOfOption($xlvoOption->getId()));
 			$xlvoBarPercentageGUI->setTotal($max);
 			$xlvoBarPercentageGUI->setShowAbsolute($this->isShowAbsolute());
@@ -51,5 +51,13 @@ class xlvoSingleVoteResultsGUI extends xlvoInputResultsGUI {
 		$states = $this->getButtonsStates();
 
 		return ($this->manager->getPlayer()->isShowResults() && (bool)$states[xlvoSingleVoteGUI::BUTTON_TOGGLE_PERCENTAGE]);
+	}
+
+	/**
+	 * @param $votes xlvoVote[]
+	 * @return string
+	 */
+	public function getTextRepresentationForVotes($votes) {
+		return "TODO"; //TODO: implement me.
 	}
 }

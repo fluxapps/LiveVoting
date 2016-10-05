@@ -4,6 +4,7 @@ require_once('./Services/ActiveRecord/class.ActiveRecord.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voter/class.xlvoVoter.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Vote/class.xlvoVote.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoPlayerGUI.php');
+require_once('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Round/class.xlvoRound.php');
 
 /**
  * Class xlvoPlayer
@@ -183,11 +184,13 @@ class xlvoPlayer extends ActiveRecord {
 		$obj->votes = (int)xlvoVote::where(array(
 			'voting_id' => $this->getCurrentVotingObject()->getId(),
 			'status'    => xlvoVote::STAT_ACTIVE,
+			'round_id'	=> $this->getRoundId()
 		))->count();
 
 		$last_update = xlvoVote::where(array(
 			'voting_id' => $this->getActiveVotingId(),
 			'status'    => xlvoVote::STAT_ACTIVE,
+			'round_id'	=> $this->getRoundId()
 		))->orderBy('last_update', 'DESC')->getArray('last_update', 'last_update');
 		$last_update = array_shift(array_values($last_update));
 		$obj->last_update = (int)$last_update;
@@ -248,6 +251,7 @@ class xlvoPlayer extends ActiveRecord {
 		$this->setShowResults(false);
 		$this->setTimestampRefresh(time() + self::SECONDS_TO_SLEEP);
 		$this->setActiveVoting($voting_id);
+		$this->setRoundId(xlvoRound::getLatestRound($this->getObjId())->getId());
 		$this->store();
 	}
 
@@ -390,6 +394,14 @@ class xlvoPlayer extends ActiveRecord {
 	 */
 	protected $force_reload = false;
 
+	/**
+	 * @var int
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           8
+	 */
+	protected $round_id = 0;
 
 	/**
 	 * @return int
@@ -558,6 +570,19 @@ class xlvoPlayer extends ActiveRecord {
 		$this->countdown_start = $countdown_start;
 	}
 
+	/**
+	 * @return int
+	 */
+	public function getRoundId() {
+		return $this->round_id;
+	}
+
+	/**
+	 * @param int $round_id
+	 */
+	public function setRoundId($round_id) {
+		$this->round_id = $round_id;
+	}
 
 	/**
 	 * @param $field_name

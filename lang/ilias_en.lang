@@ -61,6 +61,8 @@ voting_form_title_create#:#Question
 voting_columns#:#Colums for possible answers
 voting_duplicate#:#Clone
 voting_update_and_stay#:#Update
+voting_history#:#Voting History
+voting_history_info#:#All answers the participants give are saved even if they change their opinion later. You can analyze the voting behaviour of your users.
 xlvo_add#:#Add
 xlvo_delete#:#Delete LiveVoting
 xlvo_edit#:#Edit
@@ -71,6 +73,25 @@ xlvo_visible#:#LiveVotings visible
 xlvo_write#:#Present and edit LiveVoting
 common_back#:#Back
 common_actions#:#Actions
+common_confirm_new_round#:#If you create a new round the current round is finished and can't be continued. Are you sure you want to start a new round?
+common_new_round#:#New Round
+common_cancel#:#Cancel
+common_all#:#All
+common_all2#:#MISSING
+common_answer#:#Answer
+common_change#:#Change
+common_common_new_round_created#:#New round has been initialised successfully.
+common_correct_order#:#Correct order
+common_history#:#History
+common_incorrect_order#:#Wrong Order
+common_new_round_created#:#New round has been initialised successfully.
+common_participant#:#Participant
+common_position#:#Position
+common_question#:#Question
+common_round#:#Round
+common_show_history#:#History
+common_time#:#Timestamp
+common_user#:#User
 config_allow_shortlink#:#Activate Short URL
 config_allow_shortlink_info#:#Use a Short URL like /vote by adding the following RewriteRule to your .htaccess:
 config_allow_shortlink_link#:#Short URL
@@ -178,10 +199,12 @@ qtype_4_display_std_order#:#Standardreihenfolge anzeigen
 qtype_5_display_correct_order#:#Sort
 qtype_5_hide_correct_order#:#Revert Sorting
 qtype_5_correct_solution#:#MISSING
+qtype_1_info_latex#:#LaTeX can be surrounded with [tex] ... [/tex]
 subtab_edit#:#Manage
 subtab_show#:#Show
 tab_content#:#Content
 tab_edit#:#Settings
+tab_results#:#Results
 cat_create_xlvo#:#Create LiveVoting
 cat_create_xlobj_results_behaviour#:#Show Results
 crs_create_xlvo#:#Create LiveVoting
@@ -190,3 +213,7 @@ grp_create_xlvo#:#Create LiveVoting
 root_create_xlvo#:#Create LiveVoting
 rminable_select_start_time#:#Start
 vqtype_1_options#:#Options
+correct_order#:#Correct Order
+incorrect_order#:#Incorrect Order
+new_round#:#New Round
+results_title#:#Results

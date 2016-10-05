@@ -83,7 +83,7 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI {
 				foreach ($options as $option) {
 					$array[] = array(
 						self::F_ID               => $option->getId(),
-						self::F_TEXT             => $option->getText(),
+						self::F_TEXT             => $option->getTextForEditor(),
 						self::F_POSITION         => $option->getPosition(),
 						self::F_CORRECT_POSITION => $option->getCorrectPosition(),
 					);

@@ -190,7 +190,7 @@ class xlvoVoting extends ActiveRecord {
 
 	public function create() {
 		global $ilDB;
-		$res = $ilDB->query('SELECT MAX(position) as max FROM rep_robj_xlvo_voting_n WHERE obj_id = ' . $ilDB->quote($this->getObjId(), 'integer'));
+		$res = $ilDB->query('SELECT MAX(position) AS max FROM rep_robj_xlvo_voting_n WHERE obj_id = ' . $ilDB->quote($this->getObjId(), 'integer'));
 		$data = $ilDB->fetchObject($res);
 		$this->setPosition($data->max + 1);
 		parent::create();
@@ -392,6 +392,14 @@ class xlvoVoting extends ActiveRecord {
 	 * @return string
 	 */
 	public function getQuestionForPresentation() {
+		return ilUtil::prepareTextareaOutput($this->getQuestionForEditor(), true);
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getQuestionForEditor() {
 		return ilRTE::_replaceMediaObjectImageSrc($this->question, 1);
 	}
 

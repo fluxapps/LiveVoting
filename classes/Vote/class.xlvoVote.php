@@ -1,12 +1,14 @@
 <?php
 
 require_once('./Services/ActiveRecord/class.ActiveRecord.php');
+require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class xlvoResultGUI.php");
 
 /**
  * Class xlvoVote
  *
  * @author  Daniel Aemmer <daniel.aemmer@phbern.ch>
  * @author  Fabian Schmid <fs@studer-raimann.ch>
+ * @author 	Oskar Truffer <ot@studer-raimann.ch>
  * @version 1.0.0
  */
 class xlvoVote extends ActiveRecord {
@@ -20,12 +22,14 @@ class xlvoVote extends ActiveRecord {
 	/**
 	 * @param xlvoUser $xlvoUser
 	 * @param $voting_id
+	 * @param $round_id
 	 * @param null $option_id
 	 * @return string
 	 */
-	public static function vote(xlvoUser $xlvoUser, $voting_id, $option_id = null) {
+	public static function vote(xlvoUser $xlvoUser, $voting_id, $round_id, $option_id = null) {
 		$obj = self::getUserInstance($xlvoUser, $voting_id, $option_id);
 		$obj->setStatus(self::STAT_ACTIVE);
+		$obj->setRoundId($round_id);
 		$obj->store();
 
 		return $obj->getId();
@@ -96,10 +100,11 @@ class xlvoVote extends ActiveRecord {
 	 * @param $voting_id
 	 * @return xlvoVote[]
 	 */
-	public static function getVotesOfUser(xlvoUser $xlvoUser, $voting_id, $incl_inactive = false) {
+	public static function getVotesOfUser(xlvoUser $xlvoUser, $voting_id, $round_id, $incl_inactive = false) {
 		$where = array(
 			'voting_id' => $voting_id,
 			'status'    => self::STAT_ACTIVE,
+			'round_id'	=> $round_id,
 		);
 		if ($incl_inactive) {
 			$where['status'] = array(
@@ -150,6 +155,44 @@ class xlvoVote extends ActiveRecord {
 		$vote->setVotingId($voting_id);
 
 		return $vote;
+	}
+
+	/**
+	 * @param $xlvoUser xlvoUser
+	 * @param $voting_id int
+	 * @param $round_id int
+	 */
+	public static function createHistoryObject($xlvoUser, $voting_id, $round_id) {
+		$historyObject = new xlvoVoteHistoryObject();
+
+		if ($xlvoUser->isILIASUser()) {
+			$historyObject->setUserIdType(xlvoVote::USER_ILIAS);
+			$historyObject->setUserId($xlvoUser->getIdentifier());
+			$historyObject->setUserIdentifier(null);
+		} else {
+			$historyObject->setUserIdType(xlvoVote::USER_ANONYMOUS);
+			$historyObject->setUserId(null);
+			$historyObject->setUserIdentifier($xlvoUser->getIdentifier());
+		}
+
+		$historyObject->setVotingId($voting_id);
+		$historyObject->setRoundId($round_id);
+		$historyObject->setTimestamp(time());
+		$gui = xlvoResultGUI::getInstance(xlvoVoting::find($voting_id));
+
+		$votes = xlvoVote::where(array(
+			'voting_id' => $voting_id,
+			'status'    => xlvoOption::STAT_ACTIVE,
+			'round_id'    => $round_id,
+		));
+		if($xlvoUser->isILIASUser())
+			$votes->where(array("user_id" => $xlvoUser->getIdentifier()));
+		else
+			$votes->where(array("user_identifier" => $xlvoUser->getIdentifier()));
+		$votes = $votes->get();
+		$historyObject->setAnswer($gui->getTextRepresentation($votes));
+
+		$historyObject->create();
 	}
 
 
@@ -262,6 +305,14 @@ class xlvoVote extends ActiveRecord {
 	 */
 	protected $last_update;
 
+	/**
+	 * @var int
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           8
+	 */
+	protected $round_id = 0;
 
 	/**
 	 * @return string
@@ -404,5 +455,19 @@ class xlvoVote extends ActiveRecord {
 	 */
 	public function setLastUpdate($last_update) {
 		$this->last_update = $last_update;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getRoundId() {
+		return $this->round_id;
+	}
+
+	/**
+	 * @param int $round_id
+	 */
+	public function setRoundId($round_id) {
+		$this->round_id = $round_id;
 	}
 }
