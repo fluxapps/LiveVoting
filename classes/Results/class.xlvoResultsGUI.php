@@ -8,7 +8,7 @@ require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/
  *
  * @author Oskar Truffer <ot@studer-raimann.ch>
  */
-class xlvoResultsGUI {
+class xlvoResultsGUI extends xlvoGUI {
 
 	const CMD_SHOW = 'showResults';
 	const CMD_NEW_ROUND = 'newRound';
@@ -40,11 +40,8 @@ class xlvoResultsGUI {
 
 
 	public function __construct($obj_id) {
-		global $ilCtrl;
+		parent::__construct();
 		$this->obj_id = $obj_id;
-		$this->pl = ilLiveVotingPlugin::getInstance();
-		$this->ctrl = $ilCtrl;
-		$obj_id = ilObject2::_lookupObjId($_GET['ref_id']);
 		$this->config = xlvoVotingConfig::find($obj_id);
 		$this->buildRound();
 	}
@@ -154,6 +151,7 @@ class xlvoResultsGUI {
 
 	protected function showHistory() {
 		global $tpl;
+		$this->tabs->setBackTarget($this->pl->txt('common_back'), $this->ctrl->getLinkTarget($this, self::CMD_SHOW));
 
 		$user_id = $_GET['user_id'] ? $_GET['user_id'] : $_GET['user_identifier'];
 		$participants = xlvoParticipants::getInstance($this->obj_id)->getParticipantsForRound($this->round->getId(), $user_id);
@@ -167,10 +165,10 @@ class xlvoResultsGUI {
 		$p->setValue($this->getParticipantName($participant));
 
 		$d = new ilNonEditableValueGUI($this->pl->txt("common_round"));
-		$d->setValue( $this->getRoundTitle($this->round));
+		$d->setValue($this->getRoundTitle($this->round));
 
 		$form = new ilPropertyFormGUI();
-		$form->setItems(array($q, $p, $d));
+		$form->setItems(array( $q, $p, $d ));
 
 		$table = new xlvoVoteHistoryTableGUI($this, 'showHistory');
 		$table->parseData($_GET['user_id'], $_GET['user_identifier'], $_GET['voting_id'], $this->round->getId());
@@ -209,6 +207,7 @@ class xlvoResultsGUI {
 	 * @param $table xlvoResultsTableGUI
 	 */
 	protected function buildFilters(&$table) {
+		// Participant
 		$filter = new ilSelectInputGUI($this->pl->txt("common_participant"), "participant");
 		$participants = xlvoParticipants::getInstance($this->obj_id)->getParticipantsForRound($this->round->getId());
 		$options = array( 0 => $this->pl->txt("common_all") );
@@ -220,6 +219,16 @@ class xlvoResultsGUI {
 		$table->addFilterItem($filter);
 		$filter->readFromSession();
 
+		// Title
+		$filter = new ilSelectInputGUI($this->pl->txt("voting_title"), "voting_title");
+		$titles = array();
+		$titles[0] = $this->pl->txt("common_all");
+		$titles = array_merge($titles, xlvoVoting::where(array( "obj_id" => $this->obj_id ))->getArray("id", "title"));
+		$filter->setOptions($titles);
+		$table->addFilterItem($filter);
+		$filter->readFromSession();
+
+		// Question
 		$filter = new ilSelectInputGUI($this->pl->txt("common_question"), "voting");
 		$votings = array();
 		$votings[0] = $this->pl->txt("common_all");
@@ -227,6 +236,8 @@ class xlvoResultsGUI {
 		$filter->setOptions($votings);
 		$table->addFilterItem($filter);
 		$filter->readFromSession();
+
+		// Read values
 		$table->setFormAction($this->ctrl->getFormAction($this, self::CMD_APPLY_FILTER));
 	}
 

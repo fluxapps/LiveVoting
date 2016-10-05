@@ -71,8 +71,9 @@ class xlvoResultsTableGUI extends ilTable2GUI {
 	protected function buildColumns() {
 		$this->addColumn($this->pl->txt('common_position'), 'position', '5%');
 		$this->addColumn($this->pl->txt('common_user'), 'user', '10%');
+		$this->addColumn($this->pl->txt('voting_title'), 'title', '10%');
 		$this->addColumn($this->pl->txt('common_question'), 'question', '35%');
-		$this->addColumn($this->pl->txt('common_answer'), 'answer', '50%');
+		$this->addColumn($this->pl->txt('common_answer'), 'answer', '40%');
 		if ($this->isShowHistory()) {
 			$this->addColumn($this->pl->txt('common_history'), "", 'auto');
 		}
@@ -87,6 +88,9 @@ class xlvoResultsTableGUI extends ilTable2GUI {
 		$votingRecords = xlvoVoting::where(array( "obj_id" => $obj_id ));
 		if ($this->filter['voting']) {
 			$votingRecords->where(array( "id" => $this->filter['voting'] ));
+		}
+		if ($this->filter['voting_title']) {
+			$votingRecords->where(array( "id" => $this->filter['voting_title'] ));
 		}
 		/**
 		 * @var $votings      xlvoVoting[]
@@ -109,7 +113,8 @@ class xlvoResultsTableGUI extends ilTable2GUI {
 					"participant"     => $this->parent_obj->getParticipantName($participant),
 					"user_id"         => $participant->getUserId(),
 					"user_identifier" => $participant->getUserIdentifier(),
-					"question"        => $voting->getQuestionForPresentation(),
+					"title"           => $voting->getTitle(),
+					"question"        => strip_tags($voting->getQuestionForPresentation()),
 					"answer"          => $this->concatVotes($voting, $votes),
 					"voting_id"       => $voting->getId(),
 					"round_id"        => $round_id,
@@ -127,6 +132,7 @@ class xlvoResultsTableGUI extends ilTable2GUI {
 		$this->tpl->setVariable("POSITION", $record['position']);
 		$this->tpl->setVariable("USER", $record['participant']);
 		$this->tpl->setVariable("QUESTION", $record['question']);
+		$this->tpl->setVariable("TITLE", $record['title']);
 		$this->tpl->setVariable("ANSWER", $record['answer']);
 		if ($this->isShowHistory()) {
 			$this->tpl->setVariable("ACTION", $this->pl->txt("common_show_history"));
@@ -154,6 +160,7 @@ class xlvoResultsTableGUI extends ilTable2GUI {
 	public function initFilter() {
 		$this->filter['participant'] = $this->getFilterItemByPostVar('participant')->getValue();
 		$this->filter['voting'] = $this->getFilterItemByPostVar('voting')->getValue();
+		$this->filter['voting_title'] = $this->getFilterItemByPostVar('voting_title')->getValue();
 	}
 
 
@@ -186,7 +193,7 @@ class xlvoResultsTableGUI extends ilTable2GUI {
 	 * @return array
 	 */
 	protected function getCSVCols() {
-		return array( 'participant' => 'participant', 'question' => 'question', 'answer' => 'answer' );
+		return array( 'participant' => 'participant', 'title' => 'title', 'question' => 'question', 'answer' => 'answer' );
 	}
 
 
