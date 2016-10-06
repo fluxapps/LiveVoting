@@ -2,6 +2,8 @@
 
 namespace LiveVoting\User;
 
+use ilLiveVotingPlugin;
+
 require_once("./Services/Table/classes/class.ilTable2GUI.php");
 
 /**

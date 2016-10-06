@@ -2,10 +2,10 @@
 
 namespace LiveVoting\Voting;
 
+use LiveVoting\Cache\arConnectorCache;
+use LiveVoting\Cache\CachingActiveRecord;
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
-
-require_once('./Services/ActiveRecord/class.ActiveRecord.php');
 
 /**
  * Class xlvoVoting
@@ -14,7 +14,7 @@ require_once('./Services/ActiveRecord/class.ActiveRecord.php');
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version 1.0.0
  */
-class xlvoVoting extends \ActiveRecord {
+class xlvoVoting extends CachingActiveRecord  {
 
 	const STAT_ACTIVE = 5;
 	const STAT_INACTIVE = 1;
@@ -126,7 +126,6 @@ class xlvoVoting extends \ActiveRecord {
 	 * @var xlvoOption
 	 */
 	protected $first_voting_option = null;
-
 
 	/**
 	 * @param       $primary_key

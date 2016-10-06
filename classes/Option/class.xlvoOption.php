@@ -2,6 +2,8 @@
 
 namespace LiveVoting\Option;
 
+use LiveVoting\Cache\CachingActiveRecord;
+
 require_once('./Services/ActiveRecord/class.ActiveRecord.php');
 
 /**
@@ -11,7 +13,7 @@ require_once('./Services/ActiveRecord/class.ActiveRecord.php');
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version 1.0.0
  */
-class xlvoOption extends \ActiveRecord {
+class xlvoOption extends CachingActiveRecord  {
 
 	const STAT_INACTIVE = 0;
 	const STAT_ACTIVE = 1;

@@ -6,6 +6,7 @@ use LiveVoting\Js\xlvoJsResponse;
 use LiveVoting\Player\QR\xlvoQR;
 use LiveVoting\Player\xlvoPlayer;
 use LiveVoting\Player\xlvoPlayerException;
+use LiveVoting\Voter\xlvoVoter;
 use LiveVoting\Voting\xlvoVoting;
 use LiveVoting\Voting\xlvoVotingManager2;
 use LiveVoting\xlvoLinkButton;
@@ -32,7 +33,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 	const CMD_END = 'end';
 	const CMD_GET_PLAYER_DATA = 'getPlayerData';
 	const CMD_API_CALL = 'apiCall';
-	const DEBUG = false;
+	const DEBUG = true;
 	/**
 	 * @var xlvoVotingManager2
 	 */
@@ -107,6 +108,9 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$this->tpl->setContent($template->get());
 	}
 
+    protected function getAttendees() {
+        xlvoJsResponse::getInstance(xlvoVoter::countVoters($this->manager->getPlayer()->getId()))->send();
+    }
 
 	protected function startPlayerAnUnfreeze() {
 		$this->initJSandCss();
@@ -407,7 +411,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 
 	protected function initJSandCss() {
-		ilUtil::includeMathjax();
+		\ilUtil::includeMathjax();
 		$mathJaxSetting = new ilSetting("MathJax");
 		$settings = array(
 			'status_running' => xlvoPlayer::STAT_RUNNING,

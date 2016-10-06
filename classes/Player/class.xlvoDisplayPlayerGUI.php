@@ -1,6 +1,7 @@
 <?php
 
 use LiveVoting\Option\xlvoOption;
+use LiveVoting\Player\xlvoPlayer;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\Voter\xlvoVoter;
 use LiveVoting\Voting\xlvoVoting;

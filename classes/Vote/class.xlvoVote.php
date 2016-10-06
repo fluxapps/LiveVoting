@@ -2,13 +2,12 @@
 
 namespace LiveVoting\Vote;
 
+use LiveVoting\Cache\CachingActiveRecord;
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\User\xlvoUser;
 use LiveVoting\User\xlvoVoteHistoryObject;
 use LiveVoting\Voting\xlvoVoting;
 
-require_once('./Services/ActiveRecord/class.ActiveRecord.php');
-require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoResultGUI.php");
 
 /**
  * Class xlvoVote
@@ -18,13 +17,12 @@ require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/
  * @author    Oskar Truffer <ot@studer-raimann.ch>
  * @version   1.0.0
  */
-class xlvoVote extends \ActiveRecord {
+class xlvoVote extends CachingActiveRecord  {
 
 	const STAT_INACTIVE = 0;
 	const STAT_ACTIVE = 1;
 	const USER_ILIAS = 0;
 	const USER_ANONYMOUS = 1;
-
 
 	/**
 	 * @param xlvoUser $xlvoUser

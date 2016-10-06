@@ -1,6 +1,6 @@
 <?php
 
-require_once('./Services/ActiveRecord/class.ActiveRecord.php');
+use LiveVoting\Cache\CachingActiveRecord;
 
 /**
  * Class xlvoVotingConfig
@@ -9,7 +9,7 @@ require_once('./Services/ActiveRecord/class.ActiveRecord.php');
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version 1.0.0
  */
-class xlvoVotingConfig extends \ActiveRecord {
+class xlvoVotingConfig extends CachingActiveRecord  {
 
 	const B_FROZEN_ALWAY_OFF = 0;
 	const B_FROZEN_ALWAY_ON = 1;
@@ -143,7 +143,7 @@ class xlvoVotingConfig extends \ActiveRecord {
      * @db_fieldtype        integer
      * @db_length           1
 	 */
-	protected $show_attendees = true;
+	protected $show_attendees = false;
 	/**
 	 * @var bool
 	 */

@@ -2,13 +2,13 @@
 
 namespace LiveVoting\Player;
 
+use LiveVoting\Cache\CachingActiveRecord;
+use LiveVoting\Cache\xlvoCache;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\Round\xlvoRound;
 use LiveVoting\Vote\xlvoVote;
 use LiveVoting\Voter\xlvoVoter;
 use LiveVoting\Voting\xlvoVoting;
-
-require_once('./Services/ActiveRecord/class.ActiveRecord.php');
 
 /**
  * Class xlvoPlayer
@@ -17,7 +17,7 @@ require_once('./Services/ActiveRecord/class.ActiveRecord.php');
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version 1.0.0
  */
-class xlvoPlayer extends \ActiveRecord {
+class xlvoPlayer extends CachingActiveRecord  {
 
 	const STAT_STOPPED = 0;
 	const STAT_RUNNING = 1;
@@ -26,6 +26,7 @@ class xlvoPlayer extends \ActiveRecord {
 	const STAT_FROZEN = 4;
 	const SECONDS_ACTIVE = 4;
 	const SECONDS_TO_SLEEP = 30;
+    const CACHE_TTL_SECONDS = 1800;
 	/**
 	 * @var array
 	 */
@@ -45,21 +46,67 @@ class xlvoPlayer extends \ActiveRecord {
 	 * @return xlvoPlayer
 	 */
 	public static function getInstanceForObjId($obj_id) {
-		if (!empty(self::$instance_cache[$obj_id])) {
+
+	    //use in memory instance if possible
+	    if (!empty(self::$instance_cache[$obj_id])) {
 			return self::$instance_cache[$obj_id];
 		}
-		$obj = self::where(array( 'obj_id' => $obj_id ))->first();
-		if (!$obj instanceof self) {
-			$obj = new self();
-			$obj->setObjId($obj_id);
-		}
-		self::$instance_cache[$obj_id] = $obj;
 
-		return self::$instance_cache[$obj_id];
+
+		//if possible use cache
+		$cache = xlvoCache::getInstance();
+        if($cache->isActive())
+            return self::getInstanceForObjectIdWithCache($obj_id);
+        else
+            return self::getInstanceForObjectIdWithoutCache($obj_id);
+
 	}
 
+	private static function getInstanceForObjectIdWithCache($obj_id)
+    {
 
-	/**
+        $key = self::returnDbTableName() . '_obj_id_' . $obj_id;
+        $cache = xlvoCache::getInstance();
+        $instance = $cache->get($key);
+
+        if($instance instanceof \stdClass)
+        {
+            $player = self::find($instance->id); //relay on the ar connector cache
+
+            self::$instance_cache[$obj_id] = $player;
+            return self::$instance_cache[$obj_id];
+        }
+
+        $obj = self::where(array( 'obj_id' => $obj_id ))->first();
+        if (!$obj instanceof self) {
+            $obj = new self();
+            $obj->setObjId($obj_id);
+        }
+        else
+        {
+            $player = new \stdClass();
+            $player->id = $obj->getPrimaryFieldValue();
+            $cache->set($key, $player, self::CACHE_TTL_SECONDS);
+        }
+
+        self::$instance_cache[$obj_id] = $obj;
+
+        return self::$instance_cache[$obj_id];
+    }
+
+    private static function getInstanceForObjectIdWithoutCache($obj_id)
+    {
+        $obj = self::where(array( 'obj_id' => $obj_id ))->first();
+        if (!$obj instanceof self) {
+            $obj = new self();
+            $obj->setObjId($obj_id);
+        }
+        self::$instance_cache[$obj_id] = $obj;
+
+        return self::$instance_cache[$obj_id];
+    }
+
+    /**
 	 * @param bool $simulate_user
 	 * @return int
 	 */
@@ -260,6 +307,7 @@ class xlvoPlayer extends \ActiveRecord {
 	}
 
 
+    //TODO: check if change is correct
 	public function store() {
 		if (self::where(array( 'id' => $this->getId() ))->hasSets()) {
 			$this->update();
@@ -267,7 +315,6 @@ class xlvoPlayer extends \ActiveRecord {
 			$this->create();
 		}
 	}
-
 
 	/**
 	 * @return bool

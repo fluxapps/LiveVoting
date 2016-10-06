@@ -2,7 +2,8 @@
 
 namespace LiveVoting\Round;
 
-require_once "Services/ActiveRecord/class.ActiveRecord.php";
+use LiveVoting\Cache\CachingActiveRecord;
+use LiveVoting\Cache\xlvoCache;
 
 /**
  * Class xlvoRound
@@ -12,7 +13,7 @@ require_once "Services/ActiveRecord/class.ActiveRecord.php";
  * A voting can go for several rounds. This active Record tracks these rounds
  *
  */
-class xlvoRound extends \ActiveRecord {
+class xlvoRound extends CachingActiveRecord  {
 
     /**
      * @param $obj_id
@@ -20,12 +21,27 @@ class xlvoRound extends \ActiveRecord {
      */
     public static function getLatestRoundId($obj_id)
     {
+        $cache = xlvoCache::getInstance();
+        if($cache->isActive())
+            return self::getLastRoundIdWithCache($obj_id);
+        else
+            return self::getLastRoundIdWithoutCache($obj_id);
+    }
+
+    private static function getLastRoundIdWithCache($obj_id)
+    {
+        //TODO: cache the last round number some how
+        return self::getLastRoundIdWithoutCache($obj_id);
+    }
+
+    private static function getLastRoundIdWithoutCache($obj_id)
+    {
         global $ilDB;
         /**
-         * @var $ilDB ilDB
+         * @var $ilDB \ilDB
          */
-        // $q = "SELECT MAX(id) FROM rep_robj_xlvo_round_n WHERE obj_id = %s";
         $q = "SELECT result.id FROM (SELECT id FROM rep_robj_xlvo_round_n WHERE rep_robj_xlvo_round_n.obj_id = %s) AS result ORDER BY result.id DESC LIMIT 1";
+        //$q = "SELECT MAX(id) FROM rep_robj_xlvo_round_n WHERE obj_id = %s";
         $result = $ilDB->queryF($q, array('integer'), array($obj_id));
         $data = $ilDB->fetchObject($result);
 

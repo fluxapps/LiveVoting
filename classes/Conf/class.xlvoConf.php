@@ -2,14 +2,14 @@
 
 namespace LiveVoting\Conf;
 
-require_once('./Services/ActiveRecord/class.ActiveRecord.php');
+use LiveVoting\Cache\CachingActiveRecord;
 
 /**
  * Class xlvoConf
  *
  * @author Fabian Schmid <fs@studer-raimann.ch>
  */
-class xlvoConf extends \ActiveRecord {
+class xlvoConf extends CachingActiveRecord  {
 
 	const CONFIG_VERSION = 2;
 	const F_CONFIG_VERSION = 'config_version';
@@ -36,7 +36,7 @@ class xlvoConf extends \ActiveRecord {
      */
     const MAX_CLIENT_UPDATE_FREQUENCY = 60;
 
-	/**
+    /**
 	 * @return string
 	 */
 	public static function getShortLinkURL() {
@@ -161,6 +161,8 @@ class xlvoConf extends \ActiveRecord {
 			$obj->create();
 		}
 	}
+
+
 
 
 	/**

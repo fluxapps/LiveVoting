@@ -2,16 +2,15 @@
 
 namespace LiveVoting\Voter;
 
+use LiveVoting\Cache\CachingActiveRecord;
 use LiveVoting\User\xlvoUser;
-
-require_once('./Services/ActiveRecord/class.ActiveRecord.php');
 
 /**
  * Class xlvoVoter
  *
  * @author Fabian Schmid <fs@studer-raimann.ch>
  */
-class xlvoVoter extends \ActiveRecord {
+class xlvoVoter extends CachingActiveRecord  {
 
 	/**
 	 * @return string
