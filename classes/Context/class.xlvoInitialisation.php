@@ -53,8 +53,6 @@ class xlvoInitialisation extends \ilInitialisation {
 				//				self::initILIAS();
 				break;
 			case self::CONTEXT_PIN:
-				//require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Context/class.xlvoContext.php");
-				//require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Context/class.xlvoContextLiveVoting.php");
 				xlvoContext::init('xlvoContextLiveVoting');
 				self::initILIAS2();
 				break;

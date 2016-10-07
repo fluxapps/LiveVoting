@@ -13,22 +13,33 @@ require_once __DIR__ . '/vendor/autoload.php';
 require_once('dir.php');
 
 use LiveVoting\Conf\xlvoConf;
+use LiveVoting\Context\cookie\CookieManager;
+use LiveVoting\Context\xlvoBasicInitialisation;
+use LiveVoting\Context\xlvoContext;
 use LiveVoting\Context\xlvoInitialisation;
 use LiveVoting\User\xlvoUser;
 
-xlvoInitialisation::init();
-global $ilUser;
-if ($ilUser instanceof ilObjUser && $ilUser->getId()) {
-	xlvoUser::getInstance()->setIdentifier($ilUser->getId())->setType(xlvoUser::TYPE_ILIAS);
-} else {
-	xlvoUser::getInstance()->setIdentifier(session_id())->setType(xlvoUser::TYPE_PIN);
+$context = CookieManager::getContext();
+switch ($context) {
+    case xlvoContext::CONTEXT_PIN:
+        xlvoBasicInitialisation::init();
+        xlvoUser::getInstance()->setIdentifier(session_id())->setType(xlvoUser::TYPE_PIN);
+        break;
+
+    case xlvoContext::CONTEXT_ILIAS:
+        xlvoInitialisation::init();
+        global $ilUser;
+        xlvoUser::getInstance()->setIdentifier($ilUser->getId())->setType(xlvoUser::TYPE_ILIAS);
+        break;
 }
+
+xlvoConf::load();
+
 global $ilCtrl, $ilBench;
+
 /**
  * @var ilCtrl $ilCtrl
  */
-xlvoConf::load();
-
 $ilCtrl->setTargetScript(xlvoConf::getFullApiURL());
 $ilCtrl->callBaseClass();
 $ilBench->save();

@@ -6,15 +6,21 @@
  */
 
 use LiveVoting\Conf\xlvoConf;
+use LiveVoting\Context\cookie\CookieManager;
+use LiveVoting\Context\xlvoBasicInitialisation;
+use LiveVoting\Context\xlvoContext;
 use LiveVoting\Context\xlvoInitialisation;
 
 require_once __DIR__ . '/vendor/autoload.php';
 require_once('dir.php');
-xlvoInitialisation::init(xlvoInitialisation::CONTEXT_PIN);
-xlvoInitialisation::resetCookiePIN();
+
+xlvoBasicInitialisation::init();
+CookieManager::setContext(xlvoContext::CONTEXT_PIN);
+CookieManager::resetCookiePIN();
+
 $existing_pin = trim($_REQUEST['pin'], '/');
 if ($existing_pin) {
-	xlvoInitialisation::setCookiePIN(trim($_REQUEST['pin'], '/'));
+	CookieManager::setCookiePIN(trim($_REQUEST['pin'], '/'));
 }
 global $ilCtrl;
 /**

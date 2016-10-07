@@ -11,6 +11,10 @@ include_once "Services/Context/classes/class.ilContext.php";
  */
 class xlvoContext extends \ilContext {
 
+    const XLVO_CONTEXT = 'xlvo_context';
+    const CONTEXT_PIN = 1;
+    const CONTEXT_ILIAS = 2;
+
 	public function __construct() {
 		self::init('xlvoContextLiveVoting');
 	}
