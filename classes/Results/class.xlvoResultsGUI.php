@@ -200,6 +200,8 @@ class xlvoResultsGUI extends xlvoGUI {
 	public function confirmNewRound() {
 		global $tpl;
 
+        require_once "./Services/Utilities/classes/class.ilConfirmationGUI.php";
+
 		$conf = new \ilConfirmationGUI();
 		$conf->setFormAction($this->ctrl->getFormAction($this));
 		$conf->setHeaderText($this->pl->txt('common_confirm_new_round'));
