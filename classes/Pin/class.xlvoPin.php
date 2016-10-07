@@ -88,15 +88,10 @@ class xlvoPin {
             $config = new \stdClass();
 
             //if the object is not gone
-            if($xlvoVotingConfig)
+            if($xlvoVotingConfig instanceof xlvoVotingConfig)
             {
                 $config->id = $xlvoVotingConfig->getPrimaryFieldValue();
                 $cache->set($key, $config, self::CACHE_TTL_SECONDS);
-            }
-            else
-            {
-                //The object got deleted
-                throw new xlvoVoterException("Can't fetch voting from cache.", xlvoVoterException::VOTING_UNAVAILABLE);
             }
         }
 
