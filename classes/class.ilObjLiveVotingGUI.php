@@ -2,6 +2,8 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 use LiveVoting\Conf\xlvoConf;
+use LiveVoting\Context\cookie\CookieManager;
+use LiveVoting\Context\xlvoContext;
 use LiveVoting\Context\xlvoInitialisation;
 use LiveVoting\Voting\xlvoVotingManager2;
 
@@ -152,6 +154,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI {
 			 * @var \ilCtrl $ilCtrl
 			 */
 			xlvoInitialisation::setCookiePIN($xlvoVotingManager2->getVotingConfig()->getPin(), true);
+            CookieManager::setContext(xlvoContext::CONTEXT_ILIAS);
 
 			$ilCtrl->initBaseClass('ilUIPluginRouterGUI');
 			$ilCtrl->setTargetScript(xlvoConf::getFullApiURL());
