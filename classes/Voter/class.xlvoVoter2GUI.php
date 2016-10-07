@@ -1,6 +1,8 @@
 <?php
 
 use LiveVoting\Conf\xlvoConf;
+use LiveVoting\Context\cookie\CookieManager;
+use LiveVoting\Context\xlvoContext;
 use LiveVoting\Context\xlvoInitialisation;
 use LiveVoting\Js\xlvoJs;
 use LiveVoting\Js\xlvoJsResponse;
@@ -58,10 +60,18 @@ class xlvoVoter2GUI extends xlvoGUI {
 		$nextClass = $this->ctrl->getNextClass();
 		switch ($nextClass) {
 			case '':
-				if (!$this->manager->getVotingConfig()->isAnonymous() && ($ilUser->getId() == 13 || $ilUser->getId() == 0)) {
-					$login_target = './login.php?cmd=force_login&target=xlvo_1_pin_' . $this->pin;
-					$this->tpl->setContent("<script>window.location.replace('$login_target');</script>");
-				} else {
+				if(!$this->manager->getVotingConfig()->isAnonymous() && (is_null($ilUser) || $ilUser->getId() == 13 || $ilUser->getId() == 0))
+                {
+                    //remove plugin path to get "real" web root otherwise we break installations with context paths -> http://demo.ilias.ch/test/goto.php
+                    $plugin_path = "Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting";
+                    $ilias_base_path = str_replace($plugin_path, '', ILIAS_HTTP_PATH);
+                    $login_target = "{$ilias_base_path}goto.php?target=xlvo_1_pin_" . $this->pin;
+
+                    //redirect
+                    $this->tpl->setContent("<script>window.location.replace('$login_target');</script>");
+                    $this->tpl->show("content");
+                }
+				else {
 					parent::executeCommand();
 				}
 
