@@ -14,6 +14,7 @@ require_once('dir.php');
 
 use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Context\cookie\CookieManager;
+use LiveVoting\Context\InitialisationManager;
 use LiveVoting\Context\xlvoBasicInitialisation;
 use LiveVoting\Context\xlvoContext;
 use LiveVoting\Context\xlvoInitialisation;
@@ -22,14 +23,12 @@ use LiveVoting\User\xlvoUser;
 $context = CookieManager::getContext();
 switch ($context) {
     case xlvoContext::CONTEXT_PIN:
-        xlvoBasicInitialisation::init();
-        xlvoUser::getInstance()->setIdentifier(session_id())->setType(xlvoUser::TYPE_PIN);
+        InitialisationManager::startMinimal();
         break;
 
     case xlvoContext::CONTEXT_ILIAS:
-        xlvoInitialisation::init();
-        global $ilUser;
-        xlvoUser::getInstance()->setIdentifier($ilUser->getId())->setType(xlvoUser::TYPE_ILIAS);
+        InitialisationManager::startLight();
+        //TODO: catch error if user used the go to link but has no ilias authentication. Atm the error handling page is shown.
         break;
 }
 

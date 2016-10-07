@@ -13,22 +13,17 @@ require_once __DIR__ . '/vendor/autoload.php';
 require_once('dir.php');
 
 use LiveVoting\Context\cookie\CookieManager;
-use LiveVoting\Context\xlvoBasicInitialisation;
+use LiveVoting\Context\InitialisationManager;
 use LiveVoting\Context\xlvoContext;
-use LiveVoting\Context\xlvoInitialisation;
-use LiveVoting\User\xlvoUser;
 
 $context = CookieManager::getContext();
 switch ($context) {
     case xlvoContext::CONTEXT_PIN:
-        xlvoBasicInitialisation::init();
-        xlvoUser::getInstance()->setIdentifier(session_id())->setType(xlvoUser::TYPE_PIN);
+        InitialisationManager::startMinimal();
         break;
 
     case xlvoContext::CONTEXT_ILIAS:
-        xlvoInitialisation::init();
-        global $ilUser;
-        xlvoUser::getInstance()->setIdentifier($ilUser->getId())->setType(xlvoUser::TYPE_ILIAS);
+        InitialisationManager::startLight();
         break;
 }
 
