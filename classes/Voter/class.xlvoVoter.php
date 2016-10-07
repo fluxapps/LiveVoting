@@ -3,6 +3,7 @@
 namespace LiveVoting\Voter;
 
 use LiveVoting\Cache\CachingActiveRecord;
+use LiveVoting\Conf\xlvoConf;
 use LiveVoting\User\xlvoUser;
 
 /**
@@ -12,6 +13,11 @@ use LiveVoting\User\xlvoUser;
  */
 class xlvoVoter extends CachingActiveRecord  {
 
+    /**
+     * Default client update delay in seconds
+     */
+    const DEFAULT_CLIENT_UPDATE_DELAY = 1;
+
 	/**
 	 * @return string
 	 * @description Return the Name of your Database Table
@@ -20,7 +26,6 @@ class xlvoVoter extends CachingActiveRecord  {
 	static function returnDbTableName() {
 		return 'xlvo_voter';
 	}
-
 
 	/**
 	 * @param $player_id
@@ -47,7 +52,21 @@ class xlvoVoter extends CachingActiveRecord  {
 	 * @return int
 	 */
 	public static function countVoters($player_id) {
-		return self::where(array( 'player_id' => $player_id ))->where(array( 'last_access' => date(DATE_ATOM, time() - 3) ), '>')->count();
+        /**
+         * @var $delay float
+         */
+        $delay = xlvoConf::getConfig(xlvoConf::REQUEST_FREQUENCY);
+
+        //check if we get some valid settings otherwise fall back to default value.
+        if(is_numeric($delay))
+        {
+            $delay = ((float)$delay);
+        }
+        else
+        {
+            $delay = self::DEFAULT_CLIENT_UPDATE_DELAY;
+        }
+		return self::where(array( 'player_id' => $player_id ))->where(array( 'last_access' => date(DATE_ATOM, time() - ($delay + $delay * 0.5)) ), '>')->count();
 	}
 
 

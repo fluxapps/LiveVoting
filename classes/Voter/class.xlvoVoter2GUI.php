@@ -61,7 +61,6 @@ class xlvoVoter2GUI extends xlvoGUI {
 				if (!$this->manager->getVotingConfig()->isAnonymous() && ($ilUser->getId() == 13 || $ilUser->getId() == 0)) {
 					$login_target = './login.php?cmd=force_login&target=xlvo_1_pin_' . $this->pin;
 					$this->tpl->setContent("<script>window.location.replace('$login_target');</script>");
-					$this->tpl->show();
 				} else {
 					parent::executeCommand();
 				}
@@ -129,12 +128,13 @@ class xlvoVoter2GUI extends xlvoGUI {
 
 
 	protected function getVotingData() {
-        /**
-         * @var $showAttendees xlvoVotingConfig
-         */
-	    $showAttendees = xlvoVotingConfig::find($this->manager->getVoting()->getObjId());
-	    if($showAttendees->isShowAttendees())
-		    xlvoVoter::register($this->manager->getPlayer()->getId());
+		/**
+		 * @var $showAttendees xlvoVotingConfig
+		 */
+		$showAttendees = xlvoVotingConfig::find($this->manager->getVoting()->getObjId());
+		if ($showAttendees->isShowAttendees()) {
+			xlvoVoter::register($this->manager->getPlayer()->getId());
+		}
 
 		xlvoJsResponse::getInstance($this->manager->getPlayer()->getStdClassForVoter())->send();
 	}
@@ -151,7 +151,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 		/**
 		 * @var $delay string
 		 */
-		$delay = xlvoConf::getConfig('request_frequency');
+		$delay = xlvoConf::getConfig(xlvoConf::REQUEST_FREQUENCY);
 
 		//check if we get some valid settings otherwise fall back to default value.
 		if (is_numeric($delay)) {
@@ -160,7 +160,15 @@ class xlvoVoter2GUI extends xlvoGUI {
 			$delay = self::DEFAULT_CLIENT_UPDATE_DELAY * 1000;
 		}
 
+		//check if we get some valid settings otherwise fall back to default value.
+		if (is_numeric($delay)) {
+			$delay = ((float)$delay) * 1000;
+		} else {
+			$delay = xlvoVoter::DEFAULT_CLIENT_UPDATE_DELAY * 1000;
+		}
+
 		$settings = array(
+
 			'use_mathjax' => (bool)$mathJaxSetting->get("enable"),
 			'debug'       => self::DEBUG,
 			'ilias_51'    => version_compare(ILIAS_VERSION_NUMERIC, '5.1.00', '>'),
