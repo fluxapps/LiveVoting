@@ -52,7 +52,6 @@ class xlvoBasicInitialisation {
         $this->loadClientIniFile();
         $this->initDatabase();
         // $this->initLog();
-        $this->initPluginAdmin();
         $this->initSessionHandler();
         $this->initSettings();  //required
         $this->buildHTTPPath();
@@ -62,7 +61,8 @@ class xlvoBasicInitialisation {
         $this->initObjectDefinition();
         $this->initTemplate();
         $this->initControllFlow();
-        $this->setCookieParams();
+        $this->initPluginAdmin();
+        //$this->setCookieParams();
     }
 
     /**
@@ -502,6 +502,7 @@ class xlvoBasicInitialisation {
     {
         require_once "./Services/Component/classes/class.ilPluginAdmin.php";
         $this->makeGlobal("ilPluginAdmin", new \ilPluginAdmin());
+
     }
 
     /**
