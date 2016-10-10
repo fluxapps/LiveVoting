@@ -447,4 +447,7 @@ foreach($configs as $config)
     $config->update();
 }
 ?>
-
+<#31>
+<?php
+$ilDB->addIndex('xlvo_voter', array('player_id', 'user_identifier'));
+?>
