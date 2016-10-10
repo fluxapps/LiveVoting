@@ -59,9 +59,9 @@ class xlvoBasicInitialisation {
         $this->initLanguage();
         $this->initDataCache();
         $this->initObjectDefinition();
-        $this->initTemplate();
         $this->initControllFlow();
         $this->initPluginAdmin();
+        $this->initTemplate();
         //$this->setCookieParams();
     }
 
