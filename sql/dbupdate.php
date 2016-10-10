@@ -436,7 +436,7 @@ foreach (xlvoVoting::where(array( 'obj_id' => 0 ), '>')->get() as $xlvoVoting) {
 
 require_once __DIR__ . '/../vendor/autoload.php';
 xlvoVotingConfig::updateDB();
-$configs = $xlvoVotingConfig::get();
+$configs = xlvoVotingConfig::get();
 
 /**
  * @var $config xlvoVotingConfig
