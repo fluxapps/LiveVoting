@@ -181,31 +181,31 @@ $ilDB->addTableColumn('rep_robj_xlvo_data', 'is_colorful', array(
 ?>
 <#9>
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
 \LiveVoting\Option\xlvoOption::installDB();
 ?>
 <#10>
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
 \LiveVoting\Vote\xlvoVote::installDB();
 ?>
 <#11>
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
 \LiveVoting\Voting\xlvoVoting::installDB();
 ?>
 <#12>
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
 xlvoVotingConfig::installDB();
 ?>
 <#13>
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
 \LiveVoting\Player\xlvoPlayer::installDB();
 ?>
@@ -224,7 +224,7 @@ $ilDB->addTableColumn('rep_robj_xlvo_data', 'end_time', array(
 /**
  * @var $ilDB ilDB
  */
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 require_once('./Services/Object/classes/class.ilObject2.php');
 
 $query = "SELECT * FROM rep_robj_xlvo_data";
@@ -312,7 +312,7 @@ while ($resData = $ilDB->fetchAssoc($setData)) {
 ?>
 <#16>
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
 \LiveVoting\Conf\xlvoConf::installDB();
 $a_set = $ilDB->query('SELECT * FROM rep_robj_xlvo_conf');
@@ -322,19 +322,19 @@ while ($data = $ilDB->fetchObject($a_set)) {
 ?>
 <#17>
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
 xlvoVotingConfig::updateDB();
 ?>
 <#18>
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
 \LiveVoting\Voter\xlvoVoter::installDB();
 ?>
 <#19>
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
 \LiveVoting\Player\xlvoPlayer::updateDB();
 \LiveVoting\Vote\xlvoVote::updateDB();
@@ -342,7 +342,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 ?>
 <#20>
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
 xlvoVotingConfig::updateDB();
 $xlvo_conf_table_name = xlvoVotingConfig::returnDbTableName();
@@ -353,13 +353,13 @@ $ilDB->manipulate($q);
 ?>
 <#21>
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
 \LiveVoting\Player\xlvoPlayer::updateDB();
 ?>
 <#22>
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
 \LiveVoting\Voting\xlvoVoting::updateDB();
 $xlvo_voting_table_name = \LiveVoting\Voting\xlvoVoting::returnDbTableName();
@@ -376,7 +376,7 @@ foreach (\LiveVoting\Voting\xlvoVoting::get() as $xlvoVoting) {
 ?>
 <#23>
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 \LiveVoting\Player\xlvoPlayer::updateDB();
 ?>
 <#24>
@@ -385,45 +385,45 @@ $ilDB->manipulate("UPDATE rep_robj_xlvo_config_n SET frozen_behaviour = 0, resul
 ?>
 <#25>
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
 \LiveVoting\Player\xlvoPlayer::updateDB();
 \LiveVoting\Vote\xlvoVote::updateDB();
 ?>
 <#26>
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
 \LiveVoting\Round\xlvoRound::installDB();
 ?>
 <#27>
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
 \LiveVoting\User\xlvoVoteHistoryObject::installDB();
 ?>
 <#28>
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
 xlvoVotingConfig::updateDB();
 ?>
 <#29>
 <?php
+
 /**
  * @var $xlvoVoting xlvoVoting
  * @var $xlvoVote   xlvoVote
  */
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVoting.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Vote/class.xlvoVote.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Round/class.xlvoRound.php');
-foreach (xlvoVoting::where(array( 'obj_id' => 0 ), '>')->get() as $xlvoVoting) {
-	$list = xlvoVote::where(array(
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
+
+foreach (\LiveVoting\Voting\xlvoVoting::where(array( 'obj_id' => 0 ), '>')->get() as $xlvoVoting) {
+	$list = \LiveVoting\Vote\xlvoVote::where(array(
 		"round_id"  => null,
 		"voting_id" => $xlvoVoting->getId(),
 	));
 	if ($list->hasSets()) {
-		$latestRound = xlvoRound::getLatestRound($xlvoVoting->getObjId());
+		$latestRound = \LiveVoting\Round\xlvoRound::getLatestRound($xlvoVoting->getObjId());
 		foreach ($list->get() as $xlvoVote) {
 			$xlvoVote->setRoundId($latestRound->getId());
 			$xlvoVote->update();
@@ -433,8 +433,8 @@ foreach (xlvoVoting::where(array( 'obj_id' => 0 ), '>')->get() as $xlvoVoting) {
 ?>
 <#30>
 <?php
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
-require_once __DIR__ . '/../vendor/autoload.php';
 xlvoVotingConfig::updateDB();
 $configs = xlvoVotingConfig::get();
 
