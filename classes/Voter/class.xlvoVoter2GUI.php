@@ -14,7 +14,7 @@ use LiveVoting\Voter\xlvoVoterException;
 use LiveVoting\Voting\xlvoVotingManager2;
 
 require_once('./Services/Form/classes/class.ilPropertyFormGUI.php');
-require_once('./Services/jQuery/classes/class.iljQueryUtil.php');
+
 
 /**
  * Class xlvoVoter2GUI
@@ -93,6 +93,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 		if ($this->manager->getObjId() > 0) {
 			$this->ctrl->redirect($this, self::CMD_START_VOTER_PLAYER);
 		}
+
 		$tpl = new \ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voter/tpl.pin.html', true, false);
 		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voter/pin.css');
 		$pin_form = new \ilPropertyFormGUI();
@@ -151,6 +152,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 
 
 	protected function initJsAndCss() {
+        require_once('./Services/jQuery/classes/class.iljQueryUtil.php');
 		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voter/voter.css');
 		\iljQueryUtil::initjQueryUI();
 		\ilUtil::includeMathjax();
