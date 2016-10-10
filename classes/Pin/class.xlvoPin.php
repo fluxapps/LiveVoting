@@ -80,7 +80,7 @@ class xlvoPin {
         $xlvoVotingConfig = null;
 
 
-        if(!$key instanceof \stdClass)
+        if(!$config instanceof \stdClass)
         {
             //save obj id for a later cache fetch
             //if we store the object a second time we would have some consistency problems because we don't know when the data are updated.
