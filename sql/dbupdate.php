@@ -182,19 +182,19 @@ $ilDB->addTableColumn('rep_robj_xlvo_data', 'is_colorful', array(
 <#9>
 <?php
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Option/class.xlvoOption.php');
-xlvoOption::installDB();
+\LiveVoting\Option\xlvoOption::installDB();
 ?>
 <#10>
 <?php
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoQuestionTypes.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Vote/class.xlvoVote.php');
-xlvoVote::installDB();
+\LiveVoting\Vote\xlvoVote::installDB();
 ?>
 <#11>
 <?php
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoQuestionTypes.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVoting.php');
-xlvoVoting::installDB();
+\LiveVoting\Voting\xlvoVoting::installDB();
 ?>
 <#12>
 <?php
@@ -204,7 +204,7 @@ xlvoVotingConfig::installDB();
 <#13>
 <?php
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoPlayer.php');
-xlvoPlayer::installDB();
+\LiveVoting\Player\xlvoPlayer::installDB();
 ?>
 <#14>
 <?php
@@ -251,12 +251,12 @@ while ($resData = $ilDB->fetchAssoc($setData)) {
 	}
 
 	/**
-	 * @var $xlvoVoting xlvoVoting
+	 * @var $xlvoVoting \LiveVoting\Voting\xlvoVoting
 	 */
-	if (xlvoVoting::where(array( 'obj_id' => $xlvoVotingConfig->getObjId() ))->hasSets()) {
-		$xlvoVoting = xlvoVoting::where(array( 'obj_id' => $xlvoVotingConfig->getObjId() ))->last();
+	if (\LiveVoting\Voting\xlvoVoting::where(array( 'obj_id' => $xlvoVotingConfig->getObjId() ))->hasSets()) {
+		$xlvoVoting = \LiveVoting\Voting\xlvoVoting::where(array( 'obj_id' => $xlvoVotingConfig->getObjId() ))->last();
 	} else {
-		$xlvoVoting = new xlvoVoting();
+		$xlvoVoting = new \LiveVoting\Voting\xlvoVoting();
 	}
 
 	$xlvoVoting->setObjId($xlvoVotingConfig->getObjId());
@@ -264,8 +264,8 @@ while ($resData = $ilDB->fetchAssoc($setData)) {
 	$xlvoVoting->setColors($resData['is_colorful']);
 	$xlvoVoting->setTitle(ilObject2::_lookupTitle($xlvoVotingConfig->getObjId()));
 	$xlvoVoting->setMultiSelection(($resData['options_type'] == 1));
-	$xlvoVoting->setVotingType(xlvoQuestionTypes::TYPE_SINGLE_VOTE);
-	$xlvoVoting->setVotingStatus(xlvoVoting::STAT_ACTIVE);
+	$xlvoVoting->setVotingType(\LiveVoting\QuestionTypes\xlvoQuestionTypes::TYPE_SINGLE_VOTE);
+	$xlvoVoting->setVotingStatus(\LiveVoting\Voting\xlvoVoting::STAT_ACTIVE);
 	$xlvoVoting->setPosition(1);
 	if ($xlvoVoting->getId()) {
 		$xlvoVoting->update();
@@ -278,33 +278,33 @@ while ($resData = $ilDB->fetchAssoc($setData)) {
 	$setOption = $ilDB->query($query);
 	while ($resOption = $ilDB->fetchAssoc($setOption)) {
 		/**
-		 * @var $xlvoOption xlvoOption
+		 * @var $xlvoOption \LiveVoting\Option\xlvoOption
 		 */
-		$xlvoOption = new xlvoOption();
+		$xlvoOption = new \LiveVoting\Option\xlvoOption();
 		$xlvoOption->setText($resOption['title']);
 		$xlvoOption->setVotingId($xlvoVoting->getId());
-		$xlvoOption->setType(xlvoQuestionTypes::TYPE_SINGLE_VOTE);
-		$xlvoOption->setStatus(xlvoOption::STAT_ACTIVE);
+		$xlvoOption->setType(\LiveVoting\QuestionTypes\xlvoQuestionTypes::TYPE_SINGLE_VOTE);
+		$xlvoOption->setStatus(\LiveVoting\Option\xlvoOption::STAT_ACTIVE);
 		$xlvoOption->create();
 
 		// rep_robj_xlvo_vote
 		$setVote = $ilDB->query("SELECT * FROM rep_robj_xlvo_vote " . " WHERE option_id = " . $ilDB->quote($resOption['id'], "integer"));
 		while ($resVote = $ilDB->fetchAssoc($setVote)) {
 			/**
-			 * @var $xlvoVote xlvoVote
+			 * @var $xlvoVote \LiveVoting\Vote\xlvoVote
 			 */
-			$xlvoVote = new xlvoVote();
+			$xlvoVote = new \LiveVoting\Vote\xlvoVote();
 			$xlvoVote->setOptionId($resVote['option_id']);
 			if (isset($resVote['usr_id'])) {
-				$xlvoVote->setUserIdType(xlvoVote::USER_ILIAS);
+				$xlvoVote->setUserIdType(\LiveVoting\Vote\xlvoVote::USER_ILIAS);
 				$xlvoVote->setUserId($resVote['usr_id']);
 			} else {
-				$xlvoVote->setUserIdType(xlvoVote::USER_ANONYMOUS);
+				$xlvoVote->setUserIdType(\LiveVoting\Vote\xlvoVote::USER_ANONYMOUS);
 				$xlvoVote->setUserIdentifier($resVote['usr_session']);
 			}
 
-			$xlvoVote->setType(xlvoQuestionTypes::TYPE_SINGLE_VOTE);
-			$xlvoVote->setStatus(xlvoVote::STAT_ACTIVE);
+			$xlvoVote->setType(\LiveVoting\QuestionTypes\xlvoQuestionTypes::TYPE_SINGLE_VOTE);
+			$xlvoVote->setStatus(\LiveVoting\Vote\xlvoVote::STAT_ACTIVE);
 			$xlvoVote->setOptionId($xlvoOption->getId());
 			$xlvoVote->setVotingId($xlvoVoting->getId());
 		}
@@ -314,10 +314,10 @@ while ($resData = $ilDB->fetchAssoc($setData)) {
 <#16>
 <?php
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Conf/class.xlvoConf.php');
-xlvoConf::installDB();
+\LiveVoting\Conf\xlvoConf::installDB();
 $a_set = $ilDB->query('SELECT * FROM rep_robj_xlvo_conf');
 while ($data = $ilDB->fetchObject($a_set)) {
-	xlvoConf::set($data->config_key, $data->config_value);
+    \LiveVoting\Conf\xlvoConf::set($data->config_key, $data->config_value);
 }
 ?>
 <#17>
@@ -328,16 +328,16 @@ xlvoVotingConfig::updateDB();
 <#18>
 <?php
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voter/class.xlvoVoter.php');
-xlvoVoter::installDB();
+\LiveVoting\Voter\xlvoVoter::installDB();
 ?>
 <#19>
 <?php
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoPlayer.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Vote/class.xlvoVote.php');
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Option/class.xlvoOption.php');
-xlvoPlayer::updateDB();
-xlvoVote::updateDB();
-xlvoOption::updateDB();
+\LiveVoting\Player\xlvoPlayer::updateDB();
+\LiveVoting\Vote\xlvoVote::updateDB();
+\LiveVoting\Option\xlvoOption::updateDB();
 ?>
 <#20>
 <?php
@@ -352,20 +352,20 @@ $ilDB->manipulate($q);
 <#21>
 <?php
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoPlayer.php');
-xlvoPlayer::updateDB();
+\LiveVoting\Player\xlvoPlayer::updateDB();
 ?>
 <#22>
 <?php
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVoting.php');
-xlvoVoting::updateDB();
-$xlvo_voting_table_name = xlvoVoting::returnDbTableName();
-$default = xlvoVoting::ROWS_DEFAULT;
+\LiveVoting\Voting\xlvoVoting::updateDB();
+$xlvo_voting_table_name = \LiveVoting\Voting\xlvoVoting::returnDbTableName();
+$default = \LiveVoting\Voting\xlvoVoting::ROWS_DEFAULT;
 $q = "UPDATE {$xlvo_voting_table_name} SET columns = {$default}";
 $ilDB->manipulate($q);
 /**
- * @var $xlvoVoting xlvoVoting
+ * @var $xlvoVoting \LiveVoting\Voting\xlvoVoting
  */
-foreach (xlvoVoting::get() as $xlvoVoting) {
+foreach (\LiveVoting\Voting\xlvoVoting::get() as $xlvoVoting) {
 	$xlvoVoting->renegerateOptionSorting();
 }
 
@@ -373,7 +373,7 @@ foreach (xlvoVoting::get() as $xlvoVoting) {
 <#23>
 <?php
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoPlayer.php');
-xlvoPlayer::updateDB();
+\LiveVoting\Player\xlvoPlayer::updateDB();
 ?>
 <#24>
 <?php
@@ -382,20 +382,20 @@ $ilDB->manipulate("UPDATE rep_robj_xlvo_config_n SET frozen_behaviour = 0, resul
 <#25>
 <?php
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoPlayer.php');
-xlvoPlayer::updateDB();
+\LiveVoting\Player\xlvoPlayer::updateDB();
 
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Vote/class.xlvoVote.php');
-xlvoVote::updateDB();
+\LiveVoting\Vote\xlvoVote::updateDB();
 ?>
 <#26>
 <?php
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Round/class.xlvoRound.php');
-xlvoRound::installDB();
+\LiveVoting\Round\xlvoRound::installDB();
 ?>
 <#27>
 <?php
 require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Vote/class.xlvoVoteHistoryObject.php');
-xlvoVoteHistoryObject::installDB();
+\LiveVoting\User\xlvoVoteHistoryObject::installDB();
 ?>
 <#28>
 <?php
