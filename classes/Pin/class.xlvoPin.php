@@ -224,20 +224,34 @@ class xlvoPin {
 	private function getLastAccessWithCache()
     {
         $key = xlvoVotingConfig::returnDbTableName() . '_pin_' . $this->getPin();
+        /**
+         * @var $xlvoVotingConfig \stdClass
+         */
         $xlvoVotingConfig = $this->cache->get($key);
 
         if(!($xlvoVotingConfig instanceof \stdClass))
         {
             $xlvoVotingConfig = xlvoVotingConfig::where(array( 'pin' => $this->getPin() ))->first();
+            $config = new \stdClass();
+
+            //if the object is not gone
+            if($xlvoVotingConfig instanceof xlvoVotingConfig)
+            {
+                $config->id = $xlvoVotingConfig->getPrimaryFieldValue();
+                $this->cache->set($key, $config, self::CACHE_TTL_SECONDS);
+                return $xlvoVotingConfig->getLastAccess();
+            }
+
             if (!($xlvoVotingConfig instanceof xlvoVotingConfig)) {
                 return false;
             }
-
-            $xlvoVotingConfig = $xlvoVotingConfig->__asStdClass();
-            $this->cache->set($key, $xlvoVotingConfig, self::CACHE_TTL_SECONDS);
         }
 
-        return $xlvoVotingConfig->last_access;
+        /**
+         * @var xlvoVotingConfig $xlvoVotingConfigObject
+         */
+        $xlvoVotingConfigObject = xlvoVotingConfig::find($xlvoVotingConfig->id);
+        return $xlvoVotingConfigObject->getLastAccess();
     }
     private function getLastAccessWithoutCache()
     {
