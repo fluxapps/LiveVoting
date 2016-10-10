@@ -4,8 +4,6 @@ namespace LiveVoting\Option;
 
 use LiveVoting\Cache\CachingActiveRecord;
 
-require_once('./Services/ActiveRecord/class.ActiveRecord.php');
-
 /**
  * Class xlvoOption
  *
