@@ -273,11 +273,11 @@ var xlvoPlayer = {
                 //get list of old childs
                 var oldNode = $('#xlvo-display-player').children();
 
-                //set height because some browser ignore the height of the absolute content of the player
-                $('#xlvo-display-player').css('height', oldNode.css('height'));
-
                 //append new child
                 $('#xlvo-display-player').append(node);
+
+                //set height because some browser ignore the height of the absolute content of the player
+                $('#xlvo-display-player').css('height', node.css('height'));
 
                 //fade out old child and remove child afterwards
                 oldNode.fadeOut(200, function () {
@@ -330,6 +330,7 @@ var xlvoPlayer = {
         var input_data = input_data ? input_data : {};
         var post_data = $.extend({call: cmd}, input_data);
         $.post(xlvoPlayer.config.base_url + '&cmd=apiCall', post_data).done(function (data) {
+
             // xlvoPlayer.endRequest();
             xlvoPlayer.handleSwitch();
             xlvoPlayer.getPlayerData();
