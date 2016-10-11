@@ -61,6 +61,7 @@ var xlvoPlayer = {
         this.getPlayerData();
     },
     handleFullScreen: function () {
+
         this.btn_close_fullscreen.parent().hide();
         var jq_target = $('div.ilTabsContentOuter');
         var target = jq_target[0];
@@ -87,8 +88,14 @@ var xlvoPlayer = {
                     self.btn_start_fullscreen.parent().hide();
                     self.btn_close_fullscreen.parent().show();
                 }
+
+                //set the height for safari
+                var node = $('#xlvo-display-player').children();
+                $('#xlvo-display-player').css('height', node.css('height'));
+
             });
         }
+
     }, registerElements: function () {
         $(document).keydown(function (e) {
             switch (e.which) {
