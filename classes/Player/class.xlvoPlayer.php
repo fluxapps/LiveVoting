@@ -307,7 +307,6 @@ class xlvoPlayer extends CachingActiveRecord  {
 	}
 
 
-    //TODO: check if change is correct
 	public function store() {
 		if (self::where(array( 'id' => $this->getId() ))->hasSets()) {
 			$this->update();
