@@ -11,12 +11,17 @@
 
 namespace LiveVoting\Context;
 
+require_once("./include/inc.ilias_version.php");
 
 use LiveVoting\Context\cookie\CookieManager;
 use LiveVoting\User\xlvoUser;
 
 final class InitialisationManager
 {
+    const ILIAS_VERSION_5_0 = 0;
+    const ILIAS_VERSION_5_1 = 1;
+    const ILIAS_VERSION_5_2 = 2;
+
     /**
      * Starts ILIAS without user and rbag management.
      * Languages, templates, error handling and database are fully loaded.
@@ -26,7 +31,20 @@ final class InitialisationManager
     public static final function startMinimal()
     {
         CookieManager::setContext(xlvoContext::CONTEXT_PIN);
-        xlvoBasicInitialisation::init();
+        $subversion = (int)explode('.', ILIAS_VERSION_NUMERIC)[1];
+        switch ($subversion) {
+            case self::ILIAS_VERSION_5_0:
+                Initialisation\Version\v50\xlvoBasicInitialisation::init();
+                break;
+            case self::ILIAS_VERSION_5_1:
+                Initialisation\Version\v51\xlvoBasicInitialisation::init();
+                break;
+            case self::ILIAS_VERSION_5_2:
+                Initialisation\Version\v52\xlvoBasicInitialisation::init();
+                break;
+            default:
+                throw new \Exception("Can't find bootstrap code for the given ILIAS version.");
+        }
         xlvoUser::getInstance()->setIdentifier(session_id())->setType(xlvoUser::TYPE_PIN);
     }
 

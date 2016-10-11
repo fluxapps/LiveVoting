@@ -1,6 +1,6 @@
 <?php
 
-namespace LiveVoting\Context;
+namespace LiveVoting\Context\Initialisation\Version\v52;
 
 require_once("./include/inc.ilias_version.php");
 
@@ -10,7 +10,7 @@ use LiveVoting\Context\cookie\PinCookieManager;
 use LiveVoting\xlvoSessionHandler;
 
 /**
- * Class xlvoBasicInitialisation
+ * Class xlvoBasicInitialisation for ILIAS 5.2
  *
  * @author      Nicolas Schaefli <ns@studer-raimann.ch>
  *
