@@ -2,6 +2,8 @@
 
 namespace LiveVoting\Context;
 
+require_once("./include/inc.ilias_version.php");
+
 use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Context\cookie\CookieManager;
 use LiveVoting\Context\cookie\PinCookieManager;
@@ -44,6 +46,7 @@ class xlvoBasicInitialisation {
         xlvoContext::init(xlvoContext::CONTEXT_PIN);
 
         //bootstrap ILIAS
+        $this->initDependencyInjection();
         $this->removeUnsafeCharacters();
         $this->loadIniFile();
         $this->requireCommonIncludes();
@@ -289,6 +292,19 @@ class xlvoBasicInitialisation {
 
         session_start();
         require_once('./Services/Authentication/classes/class.ilSession.php');
+    }
+
+    /**
+     * Init the ioc container. (DI)
+     */
+    private function initDependencyInjection()
+    {
+        if(version_compare(ILIAS_VERSION_NUMERIC, '5.2.00', '>=')) {
+            $GLOBALS["DIC"] = new \ILIAS\DI\Container();
+            $GLOBALS["DIC"]["ilLoggerFactory"] = function($c) {
+                return ilLoggerFactory::getInstance();
+            };
+        }
     }
 
     /**
