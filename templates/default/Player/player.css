@@ -1,5 +1,6 @@
 #xlvo-display-player {
   background-color: #F9F9F9;
+  position: relative;
 }
 #xlvo_player_loading {
   width: 100%;
@@ -122,4 +123,9 @@
 }
 .xlvo-fullscreen #xlvo-display-player {
   font-size: 150%;
+}
+
+.xlvo-display-player-content {
+  position: absolute;
+  width: 100%;
 }

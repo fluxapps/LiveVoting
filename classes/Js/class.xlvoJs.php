@@ -11,7 +11,7 @@ use xlvoGUI;
  */
 class xlvoJs {
 
-	const DEVELOP = true;
+	const DEVELOP = false;
 	const API_URL = xlvoConf::API_URL;
 	const BASE_URL_SETTING = 'base_url';
 	const BASE_PATH = './Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/js/';

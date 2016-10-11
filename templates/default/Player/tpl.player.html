@@ -1,27 +1,29 @@
-<div class="panel-heading clearfix" id="xlvo-player-header">
-	<h1 class="panel-title pull-left">{TITLE}</h1>
-	<!-- BEGIN attendees -->
-	<h1 class="panel-title pull-right"><span id="xlvo-attendees" class="label label-default">{ATTENDEES} {ONLINE}</span></h1>
-	<!-- END attendees -->
-	<h1 class="panel-title pull-right">
-		<strong class="label label-default" data-toggle="modal" data-target="#QRModal"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span> {PIN}</strong>
-	</h1>
-	<h1 class="panel-title pull-right"><span class="label label-default">{POSITION}/{COUNT}</span></h1>
-	<!-- BEGIN countdown -->
-	<h1 class="panel-title pull-right"><span id="xlvo-countdown" class="label label-cd-{COUNTDOWN_CSS}">{COUNTDOWN}</span></h1>
-	<!-- END countdown -->
-</div>
-<div class="panel-body">
-	<div class="well xlvo-question">{QUESTION}</div>
-	<div class="row">
-		<!-- BEGIN option -->
-		<div class="col-md-{OPTION_COL}">
-			<h1 class="xlvo-option"><span class="label label-primary xlvo-option">{OPTION_LETTER}</span> {OPTION_TEXT}</h1>
-			<hr>
-		</div>
-		<!-- END option -->
+<div class="xlvo-display-player-content">
+	<div class="panel-heading clearfix" id="xlvo-player-header">
+		<h1 class="panel-title pull-left">{TITLE}</h1>
+		<!-- BEGIN attendees -->
+		<h1 class="panel-title pull-right"><span id="xlvo-attendees" class="label label-default">{ATTENDEES} {ONLINE}</span></h1>
+		<!-- END attendees -->
+		<h1 class="panel-title pull-right">
+			<strong class="label label-default" data-toggle="modal" data-target="#QRModal"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span> {PIN}</strong>
+		</h1>
+		<h1 class="panel-title pull-right"><span class="label label-default">{POSITION}/{COUNT}</span></h1>
+		<!-- BEGIN countdown -->
+		<h1 class="panel-title pull-right"><span id="xlvo-countdown" class="label label-cd-{COUNTDOWN_CSS}">{COUNTDOWN}</span></h1>
+		<!-- END countdown -->
 	</div>
-	<div class="row" id="xlvo-display-results">
-		{OPTION_CONTENT}
+	<div class="panel-body">
+		<div class="well xlvo-question">{QUESTION}</div>
+		<div class="row">
+			<!-- BEGIN option -->
+			<div class="col-md-{OPTION_COL}">
+				<h1 class="xlvo-option"><span class="label label-primary xlvo-option">{OPTION_LETTER}</span> {OPTION_TEXT}</h1>
+				<hr>
+			</div>
+			<!-- END option -->
+		</div>
+		<div class="row" id="xlvo-display-results">
+			{OPTION_CONTENT}
+		</div>
 	</div>
 </div>

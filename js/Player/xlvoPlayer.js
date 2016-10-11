@@ -10,6 +10,11 @@ var xlvoPlayer = {
         this.config = config;
         this.ready = true;
         xlvoPlayer.log(this.config);
+
+        //set the height for safari
+        var node = $('#xlvo-display-player').children();
+        $('#xlvo-display-player').css('height', node.css('height'));
+
         if (xlvoPlayer.config.use_mathjax && !!MathJax) {
             MathJax.Hub.Config(xlvoPlayer.mathjax_config);
         }
@@ -261,7 +266,25 @@ var xlvoPlayer = {
             {
 
                 var playerHtml = data.player_html;
-                $('#xlvo-display-player').replaceWith('<div id="xlvo-display-player">' + playerHtml + '</div>');
+
+                //create new jquery node
+                var node = $(playerHtml);
+
+                //get list of old childs
+                var oldNode = $('#xlvo-display-player').children();
+
+                //set height because some browser ignore the height of the absolute content of the player
+                $('#xlvo-display-player').css('height', oldNode.css('height'));
+
+                //append new child
+                $('#xlvo-display-player').append(node);
+
+                //fade out old child and remove child afterwards
+                oldNode.fadeOut(200, function () {
+                    oldNode.remove();
+                }.bind(oldNode));
+
+
                 if (xlvoPlayer.config.use_mathjax && !!MathJax) {
                     xlvoPlayer.log('kick mathjax');
                     MathJax.Hub.Config(xlvoPlayer.mathjax_config);
