@@ -163,7 +163,6 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 */
 	protected function getButtonsHTML() {
 		// Buttons from Questions
-		require_once('class.xlvoToolbarGUI.php');
 		$xlvoQuestionTypesGUI = xlvoQuestionTypesGUI::getInstance($this->manager);
 		if ($xlvoQuestionTypesGUI->hasButtons()) {
 			$toolbar = new xlvoToolbarGUI();
