@@ -2,6 +2,10 @@
   background-color: #F9F9F9;
   position: relative;
 }
+#xlvo-display-player .xlvo-display-player-content {
+  position: absolute;
+  width: 100%;
+}
 #xlvo_player_loading {
   width: 100%;
   height: 42px;
@@ -83,7 +87,7 @@
 /* @nav-tabs-link-hover-border-color: @brand-primary; */
 /* ILIAS variables candidates */
 .label-cd-danger {
-  background-color: #ff3a00;
+  background-color: #FF3A00;
 }
 .label-cd-danger[href]:hover,
 .label-cd-danger[href]:focus {
@@ -123,9 +127,4 @@
 }
 .xlvo-fullscreen #xlvo-display-player {
   font-size: 150%;
-}
-
-.xlvo-display-player-content {
-  position: absolute;
-  width: 100%;
 }
