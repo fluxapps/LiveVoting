@@ -12,7 +12,7 @@ use LiveVoting\Context\xlvoObjectDefinition;
 use LiveVoting\xlvoSessionHandler;
 
 /**
- * Class xlvoBasicInitialisation for ILIAS 5.2
+ * Class xlvoBasicInitialisation for ILIAS 5.2 (Experimental)
  *
  * @author      Nicolas Schaefli <ns@studer-raimann.ch>
  *
