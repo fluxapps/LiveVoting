@@ -411,8 +411,32 @@ class xlvoBasicInitialisation {
      */
     private function initLanguage()
     {
-        require_once 'Services/Language/classes/class.ilLanguage.php';
-        $this->makeGlobal('lng', \ilLanguage::getGlobalInstance());
+        global $ilSetting;
+
+        $lang = (isset($_GET['lang']) && $_GET['lang']) ? $_GET['lang'] : \ilSession::get('lang');
+
+        \ilSession::set('lang', $lang);
+
+        // check whether lang selection is valid
+        require_once "./Services/Language/classes/class.ilLanguage.php";
+        $langs = \ilLanguage::getInstalledLanguages();
+        if (!in_array($lang, $langs))
+        {
+            if (is_object($ilSetting) && $ilSetting->get('language') != '')
+            {
+                \ilSession::set('lang', $ilSetting->get('language'));
+            }
+            else
+            {
+                \ilSession::set('lang', $langs[0]);
+            }
+        }
+
+        $lang = \ilSession::get('lang');
+        $_GET['lang'] = $lang;
+
+        $lng = new \ilLanguage($lang);
+        $this->makeGlobal('lng', $lng);
     }
 
     /**
