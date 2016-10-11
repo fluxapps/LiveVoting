@@ -279,6 +279,9 @@ class xlvoResultsGUI extends xlvoGUI {
 		$ilToolbar->setFormAction($this->ctrl->getFormAction($this, self::CMD_CHANGE_ROUND));
 		$ilToolbar->addText($this->pl->txt("common_round"));
 		$ilToolbar->addInputItem($table_selection);
+
+        require_once 'Services/UIComponent/Button/classes/class.ilSubmitButton.php';
+
 		$button = \ilSubmitButton::getInstance();
 		$button->setCaption($this->pl->txt('common_change'), false);
 		$button->setCommand(self::CMD_CHANGE_ROUND);
