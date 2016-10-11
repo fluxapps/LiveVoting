@@ -6,7 +6,9 @@ require_once("./include/inc.ilias_version.php");
 
 use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Context\cookie\CookieManager;
-use LiveVoting\Context\cookie\PinCookieManager;
+use LiveVoting\Context\xlvoContext;
+use LiveVoting\Context\xlvoILIAS;
+use LiveVoting\Context\xlvoObjectDefinition;
 use LiveVoting\xlvoSessionHandler;
 
 /**
