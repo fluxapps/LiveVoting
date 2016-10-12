@@ -47,7 +47,14 @@ class xlvoVotingManager2 {
 		$obj_id = xlvoPin::checkPin($pin, false);
 		$this->obj_id = $obj_id;
 		$this->player = xlvoPlayer::getInstanceForObjId($this->obj_id);
+        $round_id = $this->player->getRoundId();
 		$this->player->setRoundId(xlvoRound::getLatestRoundId($this->obj_id));
+
+        if($round_id !== $this->player->getRoundId())
+        {
+            $this->player->store();
+        }
+
 		$this->initVoting();
 	}
 
