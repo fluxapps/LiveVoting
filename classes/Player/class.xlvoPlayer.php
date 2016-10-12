@@ -662,9 +662,17 @@ class xlvoPlayer extends CachingActiveRecord  {
 		switch ($field_name) {
 			case 'button_states':
 				$var = json_decode($field_value, true);
+
+                //check if we got the database entry
 				if (!is_array($var)) {
 					$var = array();
 				}
+
+				//check if we got a cache entry
+				if(is_array($field_value))
+                {
+                    $var = $field_value;
+                }
 
 				return $var;
 		}
