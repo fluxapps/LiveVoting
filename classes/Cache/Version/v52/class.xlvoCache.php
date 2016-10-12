@@ -39,7 +39,6 @@ class xlvoCache extends \ilGlobalCache implements xlvoCacheService {
      * @return xlvoCache
      */
     public static function getInstance() {
-        require_once('./include/inc.ilias_version.php');
 
         $service_type = self::getSettings()->getService();
         $xlvoCache = new self($service_type);
