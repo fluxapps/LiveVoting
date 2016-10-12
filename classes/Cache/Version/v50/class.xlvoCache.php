@@ -39,12 +39,8 @@ class xlvoCache extends \ilGlobalCache implements xlvoCacheService {
      * @return xlvoCache
      */
     public static function getInstance() {
-        require_once('./include/inc.ilias_version.php');
 
-        $xlvoCache = new self(self::getComponentType());
-        if (!$xlvoCache->getComponent()) {
-            $xlvoCache->setComponent('LiveVoting');
-        }
+        $xlvoCache = new self(self::getComponentType(), 'LiveVoting');
 
         $xlvoCache->setActive(true);
         self::setOverrideActive(true);
