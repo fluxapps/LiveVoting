@@ -3,7 +3,7 @@
 namespace LiveVoting\Player;
 
 use LiveVoting\Cache\CachingActiveRecord;
-use LiveVoting\Cache\xlvoCache;
+use LiveVoting\Cache\xlvoCacheFactory;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\Round\xlvoRound;
 use LiveVoting\Vote\xlvoVote;
@@ -54,7 +54,7 @@ class xlvoPlayer extends CachingActiveRecord  {
 
 
 		//if possible use cache
-		$cache = xlvoCache::getInstance();
+		$cache = xlvoCacheFactory::getInstance();
         if($cache->isActive())
             return self::getInstanceForObjectIdWithCache($obj_id);
         else
@@ -66,7 +66,7 @@ class xlvoPlayer extends CachingActiveRecord  {
     {
 
         $key = self::returnDbTableName() . '_obj_id_' . $obj_id;
-        $cache = xlvoCache::getInstance();
+        $cache = xlvoCacheFactory::getInstance();
         $instance = $cache->get($key);
 
         if($instance instanceof \stdClass)

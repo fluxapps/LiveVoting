@@ -23,7 +23,7 @@ class arConnectorCache extends \arConnector
     public function __construct(\arConnector $arConnectorDB)
     {
         $this->arConnectorDB = $arConnectorDB;
-        $this->cache = xlvoCache::getInstance();
+        $this->cache = xlvoCacheFactory::getInstance();
     }
 
     /**

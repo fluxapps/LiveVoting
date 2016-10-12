@@ -1,7 +1,8 @@
 <?php
 
 namespace LiveVoting\Pin;
-use LiveVoting\Cache\xlvoCache;
+use LiveVoting\Cache\xlvoCacheFactory;
+use LiveVoting\Cache\xlvoCacheService;
 use LiveVoting\User\xlvoUser;
 use LiveVoting\Voter\xlvoVoterException;
 use xlvoVotingConfig;
@@ -35,7 +36,7 @@ class xlvoPin {
 	protected $pin_length = 4;
 
     /**
-     * @var $cache xlvoCache
+     * @var $cache xlvoCacheService
      */
     private $cache;
 
@@ -62,7 +63,7 @@ class xlvoPin {
 	 * @throws xlvoVoterException
 	 */
 	public static function checkPin($pin, $safe_mode = true) {
-        $cache = xlvoCache::getInstance();
+        $cache = xlvoCacheFactory::getInstance();
 
         if($cache->isActive())
             return self::checkPinWithCache($pin, $safe_mode);
@@ -74,7 +75,7 @@ class xlvoPin {
     {
         //use cache to speed up pin fetch operation
         $key = xlvoVotingConfig::returnDbTableName() . '_pin_' . $pin;
-        $cache = xlvoCache::getInstance();
+        $cache = xlvoCacheFactory::getInstance();
 
         $config = $cache->get($key);
         $xlvoVotingConfig = null;
@@ -166,7 +167,7 @@ class xlvoPin {
 			$this->setPin($pin);
 		}
 
-        $this->cache = xlvoCache::getInstance();
+        $this->cache = xlvoCacheFactory::getInstance();
 	}
 
 

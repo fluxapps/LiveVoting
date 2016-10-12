@@ -6,9 +6,10 @@
  * Time: 5:11 PM
  */
 
-namespace LiveVoting\Cache;
+namespace LiveVoting\Cache\Version\v52;
 
 
+use LiveVoting\Cache\xlvoCacheService;
 use RuntimeException;
 
 require_once('./Services/GlobalCache/classes/class.ilGlobalCache.php');
@@ -19,7 +20,7 @@ require_once('./Services/GlobalCache/classes/class.ilGlobalCache.php');
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version 1.0.0
  */
-class xlvoCache extends \ilGlobalCache {
+class xlvoCache extends \ilGlobalCache implements xlvoCacheService {
 
     const COMP_PREFIX = 'xlvo';
     /**
@@ -40,11 +41,9 @@ class xlvoCache extends \ilGlobalCache {
     public static function getInstance() {
         require_once('./include/inc.ilias_version.php');
 
-        $xlvoCache = new self(self::TYPE_APC);
-
-        if (str_replace('.', '', ILIAS_VERSION_NUMERIC) >= 510) {
-            $xlvoCache->initCachingService();
-        }
+        $service_type = self::getSettings()->getService();
+        $xlvoCache = new self($service_type);
+        $xlvoCache->initCachingService();
 
         $xlvoCache->setActive(true);
         self::setOverrideActive(true);
@@ -58,7 +57,7 @@ class xlvoCache extends \ilGlobalCache {
          * @var $ilGlobalCacheService \ilGlobalCacheService
          */
         if (!$this->getComponent()) {
-            $this->setComponent('default');
+            $this->setComponent('LiveVoting');
         }
         $serviceName = self::lookupServiceClassName($this->getServiceType());
         $ilGlobalCacheService = new $serviceName(self::$unique_service_id, $this->getComponent());

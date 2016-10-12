@@ -3,7 +3,7 @@
 namespace LiveVoting\Round;
 
 use LiveVoting\Cache\CachingActiveRecord;
-use LiveVoting\Cache\xlvoCache;
+use LiveVoting\Cache\xlvoCacheFactory;
 
 /**
  * Class xlvoRound
@@ -21,7 +21,7 @@ class xlvoRound extends CachingActiveRecord  {
      */
     public static function getLatestRoundId($obj_id)
     {
-        $cache = xlvoCache::getInstance();
+        $cache = xlvoCacheFactory::getInstance();
         if($cache->isActive())
             return self::getLastRoundIdWithCache($obj_id);
         else

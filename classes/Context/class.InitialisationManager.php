@@ -18,28 +18,25 @@ use LiveVoting\User\xlvoUser;
 
 final class InitialisationManager
 {
-    const ILIAS_VERSION_5_0 = 0;
-    const ILIAS_VERSION_5_1 = 1;
-    const ILIAS_VERSION_5_2 = 2;
-
     /**
      * Starts ILIAS without user and rbag management.
      * Languages, templates, error handling and database are fully loaded.
      *
      * @return void
+     * @throws \Exception   Thrown if no compatible ILIAS version could be found.
      */
     public static final function startMinimal()
     {
         CookieManager::setContext(xlvoContext::CONTEXT_PIN);
         $subversion = (int)explode('.', ILIAS_VERSION_NUMERIC)[1];
         switch ($subversion) {
-            case self::ILIAS_VERSION_5_0:
+            case ILIASVersionEnum::ILIAS_VERSION_5_0:
                 Initialisation\Version\v50\xlvoBasicInitialisation::init();
                 break;
-            case self::ILIAS_VERSION_5_1:
+            case ILIASVersionEnum::ILIAS_VERSION_5_1:
                 Initialisation\Version\v51\xlvoBasicInitialisation::init();
                 break;
-            case self::ILIAS_VERSION_5_2:
+            case ILIASVersionEnum::ILIAS_VERSION_5_2:
                 Initialisation\Version\v52\xlvoBasicInitialisation::init();
                 break;
             default:
