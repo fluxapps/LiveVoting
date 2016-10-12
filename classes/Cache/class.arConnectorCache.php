@@ -141,19 +141,25 @@ class arConnectorCache extends \arConnector
      */
     public function read(\ActiveRecord $ar)
     {
-        $key = $ar->getConnectorContainerName() . "_" . $ar->getPrimaryFieldValue();
-        $cached_value = $this->cache->get($key);
-        if (is_array($cached_value))
-            return $cached_value;
+        if($this->cache->isActive())
+        {
+            $key = $ar->getConnectorContainerName() . "_" . $ar->getPrimaryFieldValue();
+            $cached_value = $this->cache->get($key);
+            if (is_array($cached_value))
+                return $cached_value;
 
-        if ($cached_value instanceof \stdClass)
-            return [$cached_value];
+            if ($cached_value instanceof \stdClass)
+                return [$cached_value];
+        }
 
         $results = $this->arConnectorDB->read($ar);
 
-        $key = $ar->getConnectorContainerName() . "_" . $ar->getPrimaryFieldValue();
+        if($this->cache->isActive())
+        {
+            $key = $ar->getConnectorContainerName() . "_" . $ar->getPrimaryFieldValue();
 
-        $this->cache->set($key, $results, self::CACHE_TTL_SECONDS);
+            $this->cache->set($key, $results, self::CACHE_TTL_SECONDS);
+        }
 
         return $results;
     }
@@ -175,8 +181,12 @@ class arConnectorCache extends \arConnector
     public function delete(\ActiveRecord $ar)
     {
         $this->arConnectorDB->delete($ar);
-        $key = $ar->getConnectorContainerName() . "_" . $ar->getPrimaryFieldValue();
-        $this->cache->delete($key);
+
+        if($this->cache->isActive())
+        {
+            $key = $ar->getConnectorContainerName() . "_" . $ar->getPrimaryFieldValue();
+            $this->cache->delete($key);
+        }
     }
 
     /**
@@ -223,9 +233,12 @@ class arConnectorCache extends \arConnector
      */
     private function storeActiveRecordInCache(\ActiveRecord $ar)
     {
-        $key = $ar->getConnectorContainerName() . "_" . $ar->getPrimaryFieldValue();
-        $value = $ar->__asStdClass();
+        if($this->cache->isActive())
+        {
+            $key = $ar->getConnectorContainerName() . "_" . $ar->getPrimaryFieldValue();
+            $value = $ar->__asStdClass();
 
-        $this->cache->set($key, $value, self::CACHE_TTL_SECONDS);
+            $this->cache->set($key, $value, self::CACHE_TTL_SECONDS);
+        }
     }
 }
