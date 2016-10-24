@@ -64,6 +64,7 @@ class xlvoBasicInitialisation {
         $this->initControllFlow();
         $this->initPluginAdmin();
         $this->initTemplate();
+	    $this->initUser();
         //$this->setCookieParams();
     }
 
@@ -631,4 +632,12 @@ class xlvoBasicInitialisation {
     {
         $GLOBALS[$name] = $value;
     }
+
+
+	private function initUser() {
+		require_once('./Services/Init/classes/class.ilias.php');
+		$this->makeGlobal('ilias', new \ILIAS());
+		require_once('./Services/User/classes/class.ilObjUser.php');
+		$this->makeGlobal('ilUser', new \ilObjUser(13));
+	}
 }
