@@ -33,7 +33,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 	const CMD_END = 'end';
 	const CMD_GET_PLAYER_DATA = 'getPlayerData';
 	const CMD_API_CALL = 'apiCall';
-	const DEBUG = true;
+	const DEBUG = false;
 	/**
 	 * @var xlvoVotingManager2
 	 */
