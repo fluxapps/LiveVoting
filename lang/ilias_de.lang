@@ -131,7 +131,7 @@ obj_frozen_alway_on_info#:#Benutzer können nach einem Wechsel der Frage sofort 
 obj_frozen_alway_off_info#:#Benutzer können erst abstimmen, wenn die Frage freigegeben wird.
 obj_results_behaviour#:#Resultate einblenden
 obj_results_alway_on#:#nach Wechsel immer eingeblendet
-obj_results_alway_on_info#:#Nach dem Wechsen der Frage sind die Resultate immer sichtbar.
+obj_results_alway_on_info#:#Nach einem Wechsel der Frage sind die Resultate immer sichtbar.
 obj_results_alway_off#:#nach Wechsel immer ausgeblendet
 obj_results_alway_off_info#:#Administratoren müssen das Einblenden der Resultate manuell starten.
 obj_frozen_reuse#:#Status beibehalten
