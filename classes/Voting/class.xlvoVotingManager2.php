@@ -339,7 +339,7 @@ class xlvoVotingManager2 {
 	public function countVotes() {
 		return xlvoVote::where(array(
 			'voting_id' => $this->getVoting()->getId(),
-			'round_id' => $this->getPlayer()->getRoundId(),
+			'round_id'  => $this->getPlayer()->getRoundId(),
 			'status'    => xlvoVote::STAT_ACTIVE,
 		))->count();
 	}
@@ -349,7 +349,11 @@ class xlvoVotingManager2 {
 	 * @return int
 	 */
 	public function countVoters() {
-		$q = "SELECT COUNT(DISTINCT user_identifier) AS maxcount FROM rep_robj_xlvo_vote_n WHERE voting_id = %s AND status = %s AND round_id = %s";
+		if ($this->getVoting()->isMultiSelection()) {
+			$q = "SELECT COUNT(user_identifier) AS maxcount FROM rep_robj_xlvo_vote_n WHERE voting_id = %s AND status = %s";
+		} else {
+			$q = "SELECT COUNT(DISTINCT user_identifier) AS maxcount FROM rep_robj_xlvo_vote_n WHERE voting_id = %s AND status = %s";
+		}
 
 		global $ilDB;
 		$res = $ilDB->queryF($q, array( 'integer', 'integer', 'integer' ), array(
@@ -557,7 +561,7 @@ class xlvoVotingManager2 {
 	 */
 	protected function getVotingsList($order = 'ASC') {
 		return xlvoVoting::where(array(
-			'obj_id' => $this->getObjId(),
+			'obj_id'        => $this->getObjId(),
 			'voting_status' => xlvoVoting::STAT_ACTIVE,
 		))->where(array( 'voting_type' => xlvoQuestionTypes::getActiveTypes() ))->orderBy('position', $order);
 	}
