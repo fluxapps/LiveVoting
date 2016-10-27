@@ -349,11 +349,8 @@ class xlvoVotingManager2 {
 	 * @return int
 	 */
 	public function countVoters() {
-		if ($this->getVoting()->isMultiSelection()) {
-			$q = "SELECT COUNT(user_identifier) AS maxcount FROM rep_robj_xlvo_vote_n WHERE voting_id = %s AND status = %s";
-		} else {
-			$q = "SELECT COUNT(DISTINCT user_identifier) AS maxcount FROM rep_robj_xlvo_vote_n WHERE voting_id = %s AND status = %s";
-		}
+		$q = "SELECT COUNT(DISTINCT user_identifier) AS maxcount FROM rep_robj_xlvo_vote_n WHERE voting_id = %s AND status = %s AND round_id = %s";
+
 
 		global $ilDB;
 		$res = $ilDB->queryF($q, array( 'integer', 'integer', 'integer' ), array(
