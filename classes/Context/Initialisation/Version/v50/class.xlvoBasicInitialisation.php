@@ -5,6 +5,7 @@ namespace LiveVoting\Context\Initialisation\Version\v50;
 use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Context\cookie\CookieManager;
 use LiveVoting\Context\xlvoContext;
+use LiveVoting\Context\xlvoDummyUser;
 use LiveVoting\Context\xlvoILIAS;
 use LiveVoting\Context\xlvoObjectDefinition;
 use LiveVoting\xlvoSessionHandler;
@@ -633,11 +634,10 @@ class xlvoBasicInitialisation {
         $GLOBALS[$name] = $value;
     }
 
-
+    /**
+     * Initialise a fake user service to satisfy the help system module.
+     */
 	private function initUser() {
-		require_once('./Services/Init/classes/class.ilias.php');
-		$this->makeGlobal('ilias', new \ILIAS());
-		require_once('./Services/User/classes/class.ilObjUser.php');
-		$this->makeGlobal('ilUser', new \ilObjUser(13));
+        $this->makeGlobal('ilUser', new xlvoDummyUser());
 	}
 }
