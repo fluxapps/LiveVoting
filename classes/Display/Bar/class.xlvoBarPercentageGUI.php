@@ -71,7 +71,7 @@ class xlvoBarPercentageGUI implements xlvoBarGUI {
 			$this->tpl->setVariable('PERCENT_TEXT', $this->getPercentage() . '%');
 			$this->tpl->setVariable('PERCENT_STYLE', $this->getPercentage());
 		} elseif ($this->isShowAbsolute()) {
-			$this->tpl->setVariable('PERCENT', $this->getVotes(), $this->getRoundPositions());
+			$this->tpl->setVariable('PERCENT', $this->getVotes());
 			if ($this->isRound()) {
 				$this->tpl->setVariable('PERCENT_TEXT', round($this->getVotes(), $this->getRoundPositions()));
 			} else {
