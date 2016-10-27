@@ -54,6 +54,7 @@ class ComposerStaticInit50828317cca5f7a8531843b9c8af0526
         'LiveVoting\\Context\\cookie\\CookieManager' => __DIR__ . '/../..' . '/classes/Context/cookie/CookieManager.php',
         'LiveVoting\\Context\\xlvoContext' => __DIR__ . '/../..' . '/classes/Context/class.xlvoContext.php',
         'LiveVoting\\Context\\xlvoContextLiveVoting' => __DIR__ . '/../..' . '/classes/Context/class.xlvoContextLiveVoting.php',
+        'LiveVoting\\Context\\xlvoDummyUser' => __DIR__ . '/../..' . '/classes/Context/class.xlvoDummyUser.php',
         'LiveVoting\\Context\\xlvoILIAS' => __DIR__ . '/../..' . '/classes/Context/class.xlvoILIAS.php',
         'LiveVoting\\Context\\xlvoInitialisation' => __DIR__ . '/../..' . '/classes/Context/class.xlvoInitialisation.php',
         'LiveVoting\\Context\\xlvoObjectDefinition' => __DIR__ . '/../..' . '/classes/Context/class.xlvoObjectDefinition.php',

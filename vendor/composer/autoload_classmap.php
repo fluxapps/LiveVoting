@@ -31,6 +31,7 @@ return array(
     'LiveVoting\\Context\\cookie\\CookieManager' => $baseDir . '/classes/Context/cookie/CookieManager.php',
     'LiveVoting\\Context\\xlvoContext' => $baseDir . '/classes/Context/class.xlvoContext.php',
     'LiveVoting\\Context\\xlvoContextLiveVoting' => $baseDir . '/classes/Context/class.xlvoContextLiveVoting.php',
+    'LiveVoting\\Context\\xlvoDummyUser' => $baseDir . '/classes/Context/class.xlvoDummyUser.php',
     'LiveVoting\\Context\\xlvoILIAS' => $baseDir . '/classes/Context/class.xlvoILIAS.php',
     'LiveVoting\\Context\\xlvoInitialisation' => $baseDir . '/classes/Context/class.xlvoInitialisation.php',
     'LiveVoting\\Context\\xlvoObjectDefinition' => $baseDir . '/classes/Context/class.xlvoObjectDefinition.php',
