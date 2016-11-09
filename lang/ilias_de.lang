@@ -61,6 +61,8 @@ voting_form_title_create#:#Frage
 voting_columns#:#Spalten für Antwortmöglichkeiten
 voting_duplicate#:#Duplizieren
 voting_update_and_stay#:#Speichern
+voting_history#:#Antworten Historisieren
+voting_history_info#:#Alle Antworten werden gespeichert, auch wenn sie später geändert werden. Dadurch kann das Antwortverhalten beobachtet werden.
 xlvo_add#:#Hinzufügen
 xlvo_delete#:#LiveVoting löschen
 xlvo_edit#:#Bearbeiten
@@ -71,6 +73,25 @@ xlvo_visible#:#LiveVoting sichtbar
 xlvo_write#:#LiveVoting präsentieren und bearbeiten
 common_back#:#Zurück
 common_actions#:#Aktionen
+common_confirm_new_round#:#Wenn Sie den Durchgang beenden können die Antworten auf dem alten Durchgang nicht mehr geändert werden. Sind Sie sicher, dass Sie einen neuen Durchgang starten wollen?
+common_new_round#:#Neuer Durchgang
+common_cancel#:#Abbrechen
+common_all#:#Alle
+common_all2#:#MISSING
+common_answer#:#Antwort
+common_change#:#Wechseln
+common_common_new_round_created#:#Neuer Durchgang wurde erfolgreich gestartet.
+common_correct_order#:#Richtige Reihenfolge
+common_history#:#Verlauf
+common_incorrect_order#:#Falsche Reihenfolge
+common_new_round_created#:#Neuer Durchgang wurde erfolgreich gestartet.
+common_participant#:#Teilnehmer
+common_position#:#Position
+common_question#:#Frage
+common_round#:#Durchgang
+common_show_history#:#Verlauf
+common_time#:#Zeitpunkt
+common_user#:#Benutzer
 config_allow_shortlink#:#Kurz-URL einschalten
 config_allow_shortlink_info#:#Eine Kurz-URL kann bspw. durch hinzufügen einer RewriteRule in der .htaccess erstellt werden, dadurch kann auf https://ilias.domain.com/vote angestimmt werden:
 config_allow_shortlink_link#:#Kurz-URL
@@ -110,7 +131,7 @@ obj_frozen_alway_on_info#:#Benutzer können nach einem Wechsel der Frage sofort 
 obj_frozen_alway_off_info#:#Benutzer können erst abstimmen, wenn die Frage freigegeben wird.
 obj_results_behaviour#:#Resultate einblenden
 obj_results_alway_on#:#nach Wechsel immer eingeblendet
-obj_results_alway_on_info#:#Nach dem Wechsen der Frage sind die Resultate immer sichtbar.
+obj_results_alway_on_info#:#Nach einem Wechsel der Frage sind die Resultate immer sichtbar.
 obj_results_alway_off#:#nach Wechsel immer ausgeblendet
 obj_results_alway_off_info#:#Administratoren müssen das Einblenden der Resultate manuell starten.
 obj_frozen_reuse#:#Status beibehalten
@@ -181,13 +202,19 @@ qtype_4_display_std_order#:#Show standard order
 qtype_5_display_correct_order#:#Sortieren
 qtype_5_hide_correct_order#:#Sortieren aufheben
 qtype_5_correct_solution#:#MISSING
+qtype_1_info_latex#:#LaTeX kann mit [tex] ... [/tex] formatiert werden.
 subtab_edit#:#Verwalten
 subtab_show#:#Zeigen
 tab_content#:#Inhalt
 tab_edit#:#Einstellungen
+tab_results#:#Resultate
 cat_create_xlvo#:#LiveVoting erstellen
 crs_create_xlvo#:#LiveVoting erstellen
 fikd_create_xlvo#:#LiveVoting erstellen
 grp_create_xlvo#:#LiveVoting erstellen
 root_create_xlvo#:#LiveVoting erstellen
 playplayer_msg_no_start_2#:#Das LiveVoting kann nicht gestartet werden, da noch keine Votings vorhanden sind.
+correct_order#:#Korrekte Reihenfolge
+incorrect_order#:#Falsche Reihenfolge
+new_round#:#Neuer Durchgang
+results_title#:#Resultate

@@ -24,6 +24,7 @@ class xlvoVotingConfig extends ActiveRecord {
 	const F_REUSE_STATUS = 'reuse_status';
 	const F_TERMINABLE = 'terminable';
 	const F_TERMINABLE_SELECT = "terminable_select";
+	const F_VOTING_HISTORY = "voting_history";
 
 
 	/**
@@ -120,6 +121,16 @@ class xlvoVotingConfig extends ActiveRecord {
 	 * @db_length           1
 	 */
 	protected $results_behaviour = self::B_RESULTS_ALWAY_OFF;
+
+	/**
+	 * @var int
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           1
+	 */
+	protected $voting_history = false;
+
 	/**
 	 * @var bool
 	 */
@@ -400,4 +411,20 @@ class xlvoVotingConfig extends ActiveRecord {
 	public function setResultsBehaviour($results_behaviour) {
 		$this->results_behaviour = $results_behaviour;
 	}
+
+	/**
+	 * @return int
+	 */
+	public function getVotingHistory() {
+		return $this->voting_history;
+	}
+
+	/**
+	 * @param int $voting_history
+	 */
+	public function setVotingHistory($voting_history) {
+		$this->voting_history = $voting_history;
+	}
+
+
 }

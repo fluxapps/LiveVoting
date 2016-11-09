@@ -65,6 +65,10 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	 * @var int
 	 */
 	protected $counter = 0;
+	/**
+	 * @var bool
+	 */
+	protected $show_info = false;
 
 
 	/**
@@ -361,7 +365,6 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 					$tpl->setCurrentBlock('hidden');
 					$tpl->setVariable('NAME', $post_var);
 					$tpl->setVariable('VALUE', ilUtil::prepareFormOutput($input->getValue()));
-					$tpl->parseCurrentBlock();
 					break;
 				case $is_ta:
 					if ($this->isShowLabel() || ($this->isShowLabelOnce() && $first_label)) {
@@ -373,7 +376,6 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 					} else {
 						$tpl->setCurrentBlock('input');
 						$tpl->setVariable('CONTENT', $input->getHTML());
-						$tpl->parseCurrentBlock();
 					}
 					break;
 				default:
@@ -381,15 +383,25 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 						$tpl->setCurrentBlock('input_label');
 						$tpl->setVariable('LABEL', $input->getTitle());
 						$tpl->setVariable('CONTENT', $input->render());
-						$tpl->parseCurrentBlock();
 						$first_label = false;
 					} else {
 						$tpl->setCurrentBlock('input');
 						$tpl->setVariable('CONTENT', $input->render());
-						$tpl->parseCurrentBlock();
 					}
 					break;
 			}
+			if ($this->isShowInfo()) {
+				if ($this->isShowLabel()) {
+					$tpl->setCurrentBlock('input_info_label');
+					$tpl->setVariable('INFO_LABEL', $input->getInfo());
+					$tpl->parseCurrentBlock();
+				} else {
+					$tpl->setCurrentBlock('input_info');
+					$tpl->setVariable('INFO', $input->getInfo());
+					$tpl->parseCurrentBlock();
+				}
+			}
+			$tpl->parseCurrentBlock();
 		}
 		if ($this->getMulti() && !$this->getDisabled()) {
 			require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoGlyphGUI.php');
@@ -503,5 +515,21 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	public function setShowLabelOnce($show_label_once) {
 		$this->setShowLabel(false);
 		$this->show_label_once = $show_label_once;
+	}
+
+
+	/**
+	 * @return boolean
+	 */
+	public function isShowInfo() {
+		return $this->show_info;
+	}
+
+
+	/**
+	 * @param boolean $show_info
+	 */
+	public function setShowInfo($show_info) {
+		$this->show_info = $show_info;
 	}
 }

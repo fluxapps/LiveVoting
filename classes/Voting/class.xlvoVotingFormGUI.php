@@ -153,7 +153,7 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 			'type'          => $this->voting->getVotingType(),
 			'title'         => $this->voting->getTitle(),
 			'description'   => $this->voting->getDescription(),
-			'question'      => $this->voting->getQuestionForPresentation(),
+			'question'      => $this->voting->getQuestionForEditor(),
 			'voting_type'   => $this->voting->getVotingType(),
 			'voting_status' => ($this->voting->getVotingStatus() == xlvoVoting::STAT_ACTIVE),
 			self::F_COLUMNS => $this->voting->getColumns(),

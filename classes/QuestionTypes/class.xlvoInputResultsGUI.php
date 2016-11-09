@@ -74,7 +74,6 @@ abstract class xlvoInputResultsGUI {
 		return $this->shuffle_results;
 	}
 
-
 	/**
 	 * @param boolean $shuffle_results
 	 */
@@ -84,4 +83,11 @@ abstract class xlvoInputResultsGUI {
 
 
 	abstract public function getHTML();
+
+
+	/**
+	 * @param $votes xlvoVote[]
+	 * @return string
+	 */
+	abstract public function getTextRepresentationForVotes($votes);
 }

@@ -39,15 +39,21 @@ class xlvoOption extends ActiveRecord {
 	public function getText() {
 		return $this->text;
 	}
-	
-	
 
 
 	/**
 	 * @return string
 	 */
 	public function getTextForPresentation() {
-		return ilUtil::prepareTextareaOutput($this->text, true);
+		return ilUtil::prepareTextareaOutput($this->getTextForEditor(), true);
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getTextForEditor() {
+		return ilRTE::_replaceMediaObjectImageSrc($this->text, 1);
 	}
 
 

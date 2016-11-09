@@ -46,6 +46,17 @@ class xlvoConf extends ActiveRecord {
 
 
 	/**
+	 * @return bool
+	 */
+	public static function isLatexEnabled() {
+		include_once "./Services/Administration/classes/class.ilSetting.php";
+		$mathJaxSetting = new ilSetting("MathJax");
+
+		return (bool)$mathJaxSetting->get("enable");
+	}
+
+
+	/**
 	 * @return string
 	 */
 	public static function getBaseURL() {
