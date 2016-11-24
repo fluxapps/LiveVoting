@@ -402,3 +402,26 @@ xlvoVoteHistoryObject::installDB();
 require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoVotingConfig.php");
 xlvoVotingConfig::updateDB();
 ?>
+<#29>
+<?php
+/**
+ * @var $xlvoVoting xlvoVoting
+ * @var $xlvoVote   xlvoVote
+ */
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVoting.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Vote/class.xlvoVote.php');
+require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Round/class.xlvoRound.php');
+foreach (xlvoVoting::where(array( 'obj_id' => 0 ), '>')->get() as $xlvoVoting) {
+	$list = xlvoVote::where(array(
+		"round_id"  => null,
+		"voting_id" => $xlvoVoting->getId(),
+	));
+	if ($list->hasSets()) {
+		$latestRound = xlvoRound::getLatestRound($xlvoVoting->getObjId());
+		foreach ($list->get() as $xlvoVote) {
+			$xlvoVote->setRoundId($latestRound->getId());
+			$xlvoVote->update();
+		}
+	}
+}
+?>
