@@ -21,7 +21,7 @@ class xlvoPin {
 	/**
 	 * @var bool
 	 */
-	protected $use_uppercase = false;
+	protected $use_uppercase = true;
 	/**
 	 * @var bool
 	 */
