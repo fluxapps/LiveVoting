@@ -3,7 +3,7 @@ require_once("./Services/Table/classes/class.ilTable2GUI.php");
 require_once("./Services/Form/classes/class.ilSelectInputGUI.php");
 require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/User/class.xlvoParticipants.php");
 require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/User/class.xlvoParticipant.php");
-require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class xlvoResultGUI.php");
+require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoResultGUI.php");
 
 /**
  * Class xlvoResultsTableGUI
