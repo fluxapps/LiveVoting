@@ -73,7 +73,7 @@ xlvo_visible#:#LiveVoting sichtbar
 xlvo_write#:#LiveVoting präsentieren und bearbeiten
 common_back#:#Zurück
 common_actions#:#Aktionen
-common_confirm_new_round#:#Wenn Sie den Durchgang beenden können die Antworten auf dem alten Durchgang nicht mehr geändert werden. Sind Sie sicher, dass Sie einen neuen Durchgang starten wollen?
+common_confirm_new_round#:#Wenn Sie den Durchgang beenden, können die Antworten der bisherigen Durchgänge nicht mehr geändert werden. Sind Sie sicher, dass Sie einen neuen Durchgang starten wollen?
 common_new_round#:#Neuer Durchgang
 common_cancel#:#Abbrechen
 common_all#:#Alle

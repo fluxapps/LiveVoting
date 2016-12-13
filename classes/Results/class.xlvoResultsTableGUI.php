@@ -12,6 +12,7 @@ require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/
  */
 class xlvoResultsTableGUI extends ilTable2GUI {
 
+	const LENGTH = 100;
 	/**
 	 * @var ilLiveVotingPlugin
 	 */
@@ -131,9 +132,9 @@ class xlvoResultsTableGUI extends ilTable2GUI {
 	public function fillRow($record) {
 		$this->tpl->setVariable("POSITION", $record['position']);
 		$this->tpl->setVariable("USER", $record['participant']);
-		$this->tpl->setVariable("QUESTION", $record['question']);
-		$this->tpl->setVariable("TITLE", $record['title']);
-		$this->tpl->setVariable("ANSWER", $record['answer']);
+		$this->tpl->setVariable("QUESTION", $this->shorten($record['question']));
+		$this->tpl->setVariable("TITLE", $this->shorten($record['title']));
+		$this->tpl->setVariable("ANSWER", $this->shorten($record['answer']));
 		if ($this->isShowHistory()) {
 			$this->tpl->setVariable("ACTION", $this->pl->txt("common_show_history"));
 			$this->ctrl->setParameter($this->parent_obj, 'round_id', $record['round_id']);
@@ -204,5 +205,14 @@ class xlvoResultsTableGUI extends ilTable2GUI {
 	protected function fillRowCSV($a_csv, $a_set) {
 		$a_set = array_intersect_key($a_set, $this->getCSVCols());
 		parent::fillRowCSV($a_csv, $a_set);
+	}
+
+
+	/**
+	 * @param string $question
+	 * @return string
+	 */
+	protected function shorten($question) {
+		return strlen($question) > self::LENGTH ? substr($question, 0, self::LENGTH) . "..." : $question;
 	}
 }
