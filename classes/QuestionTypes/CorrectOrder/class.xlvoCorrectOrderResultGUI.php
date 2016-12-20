@@ -1,5 +1,7 @@
 <?php
 
+use LiveVoting\Vote\xlvoVote;
+
 /**
  * Class xlvoCorrectOrderResultGUI
  *
@@ -8,7 +10,7 @@
 class xlvoCorrectOrderResultGUI extends xlvoResultGUI{
 
 	/**
-	 * @param \xlvoVote[] $votes
+	 * @param xlvoVote[] $votes
 	 * @return string
 	 */
 	public function getTextRepresentation($votes) {

@@ -1,5 +1,7 @@
 <?php
 
+namespace LiveVoting\Display\Bar;
+
 /**
  * Interface xlvoBarGUI
  *

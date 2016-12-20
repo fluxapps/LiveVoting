@@ -1,5 +1,7 @@
 <?php
 
+namespace LiveVoting\Js;
+
 /**
  * Class xlvoJsResponse
  *

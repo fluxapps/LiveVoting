@@ -1,9 +1,10 @@
 <?php
 
+use LiveVoting\QuestionTypes\xlvoQuestionTypes;
+use LiveVoting\Voting\xlvoVoting;
+
 require_once('./Services/Form/classes/class.ilPropertyFormGUI.php');
 require_once('./Services/Form/classes/class.ilAdvSelectInputGUI.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoQuestionTypes.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoSubFormGUI.php');
 
 /**
  * Class xlvoVotingFormGUI
@@ -12,7 +13,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version 1.0.0
  */
-class xlvoVotingFormGUI extends ilPropertyFormGUI {
+class xlvoVotingFormGUI extends \ilPropertyFormGUI {
 
 	const F_COLUMNS = 'columns';
 	/**
@@ -24,7 +25,7 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 	 */
 	protected $parent_gui;
 	/**
-	 * @var  ilCtrl
+	 * @var  \ilCtrl
 	 */
 	protected $ctrl;
 	/**
@@ -52,7 +53,7 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 	public function __construct(xlvoVotingGUI $parent_gui, xlvoVoting $xlvoVoting) {
 		global $ilCtrl;
 		/**
-		 * @var $ilCtrl ilCtrl
+		 * @var $ilCtrl \ilCtrl
 		 */
 		$this->voting = $xlvoVoting;
 		$this->parent_gui = $parent_gui;
@@ -66,28 +67,28 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 
 
 	protected function initForm() {
-		$h = new ilHiddenInputGUI('type');
+		$h = new \ilHiddenInputGUI('type');
 		$this->addItem($h);
 
 		$this->setTarget('_top');
 		$this->setFormAction($this->ctrl->getFormAction($this->parent_gui));
 		$this->initButtons();
 
-		$te = new ilTextInputGUI($this->parent_gui->txt('title'), 'title');
+		$te = new \ilTextInputGUI($this->parent_gui->txt('title'), 'title');
 		//		$te->setInfo($this->parent_gui->txt('info_voting_title'));
 		$te->setRequired(true);
 		$this->addItem($te);
 
-		$ta = new ilTextAreaInputGUI($this->parent_gui->txt('description'), 'description');
+		$ta = new \ilTextAreaInputGUI($this->parent_gui->txt('description'), 'description');
 		//		$ta->setInfo($this->parent_gui->txt('info_voting_description'));
 		//		$this->addItem($ta);
 
-		$te = new ilTextAreaInputGUI($this->parent_gui->txt('question'), 'question');
+		$te = new \ilTextAreaInputGUI($this->parent_gui->txt('question'), 'question');
 		$te->addPlugin('latex');
 		$te->addButton('latex');
 		$te->addButton('pastelatex');
 		$te->setRequired(true);
-		$te->setRTESupport(ilObject::_lookupObjId($_GET['ref_id']), "dcl", "xlvo", null, false); // We have to prepend that this is a datacollection
+		$te->setRTESupport(\ilObject::_lookupObjId($_GET['ref_id']), "dcl", "xlvo", null, false); // We have to prepend that this is a datacollection
 		$te->setUseRte(true);
 		$te->setRteTags(array(
 			'p',
@@ -121,16 +122,19 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 			'sup',
 			'numlist',
 			'cite',
-			//			'indent',
-			//			'outdent',
 		));
+
+        //disable image upload for ILIAS 5.0 and below because the web access check would break the images
+        if(version_compare(ILIAS_VERSION_NUMERIC, '5.1.00', '<')) {
+            $te->removePlugin('ilimgupload');
+        }
 
 		$te->setRows(5);
 		$this->addItem($te);
 
 		// Columns
 		if ($this->voting->getVotingType() != xlvoQuestionTypes::TYPE_FREE_INPUT) {
-			$columns = new ilSelectInputGUI($this->txt(self::F_COLUMNS), self::F_COLUMNS);
+			$columns = new \ilSelectInputGUI($this->txt(self::F_COLUMNS), self::F_COLUMNS);
 			$columns->setOptions(array( 1 => 1, 2 => 2, 3 => 3, 4 => 4 ));
 			$this->addItem($columns);
 		}
@@ -163,7 +167,7 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 
 		$this->setValuesByArray($array);
 		if ($this->voting->getVotingStatus() == xlvoVoting::STAT_INCOMPLETE) {
-			ilUtil::sendInfo($this->parent_gui->txt('msg_voting_not_complete'), false);
+			\ilUtil::sendInfo($this->parent_gui->txt('msg_voting_not_complete'), false);
 		}
 	}
 
@@ -201,7 +205,7 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 			$this->voting->store();
 			xlvoSubFormGUI::getInstance($this->getVoting())->handleAfterCreation($this->voting);
 		} else {
-			ilUtil::sendFailure($this->parent_gui->txt('permission_denied_object'), true);
+			\ilUtil::sendFailure($this->parent_gui->txt('permission_denied_object'), true);
 			$this->ctrl->redirect($this->parent_gui, xlvoVotingGUI::CMD_STANDARD);
 		}
 

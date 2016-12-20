@@ -1,6 +1,4 @@
 <?php
-require_once('class.xlvoGUI.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Conf/class.xlvoConfGUI.php');
 
 /**
  * Class xlvoMainGUI
@@ -19,12 +17,14 @@ class xlvoMainGUI extends xlvoGUI {
 
 
 	public function __construct() {
+		parent::__construct();
+
 		global $tpl, $ilCtrl, $ilTabs, $ilToolbar;
 		/**
-		 * @var $ilCtrl    ilCtrl
-		 * @var $ilTabs    ilTabsGUI
-		 * @var $tpl       ilTemplate
-		 * @var $ilToolbar ilToolbarGUI
+		 * @var $ilCtrl    \ilCtrl
+		 * @var $ilTabs    \ilTabsGUI
+		 * @var $tpl       \ilTemplate
+		 * @var $ilToolbar \ilToolbarGUI
 		 */
 		$this->tpl = $tpl;
 		$this->tabs = $ilTabs;
@@ -35,7 +35,7 @@ class xlvoMainGUI extends xlvoGUI {
 
 
 	/**
-	 * @return bool
+	 * @return void
 	 */
 	public function executeCommand() {
 		$nextClass = $this->ctrl->getNextClass();
@@ -47,5 +47,3 @@ class xlvoMainGUI extends xlvoGUI {
 		}
 	}
 }
-
-?>

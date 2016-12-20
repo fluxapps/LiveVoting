@@ -21,7 +21,8 @@ var xlvoVoter = {
         lng: {
             player_seconds: 's'
         },
-        debug: false
+        debug: false,
+        delay:1000
     },
     player: {
         frozen: true,
@@ -47,6 +48,14 @@ var xlvoVoter = {
         $.get(xlvoVoter.config.base_url, {cmd: 'getVotingData'})
             .done(function (data) {
                 xlvoVoter.log(data);
+
+                //kill timer if running
+                if(xlvoVoter.interval)
+                {
+                    clearInterval(xlvoVoter.interval);
+                    xlvoVoter.interval = null;
+                }
+
                 var voting_has_changed = (xlvoVoter.player.active_voting_id != data.active_voting_id), // Voting has changed
                     status_has_changed = (xlvoVoter.player.status != data.status), // Status of player has changed
                     forced_update = (xlvoVoter.counter > xlvoVoter.forced_update), // forced update
@@ -54,14 +63,15 @@ var xlvoVoter = {
 
                 xlvoVoter.player = data;
                 if (status_has_changed || voting_has_changed || forced_update || frozen_changed) {
-                    xlvoVoter.replaceHTML(xlvoVoter.handleCountdown());
+                    xlvoVoter.replaceHTML(xlvoVoter.handleCountdown);
                 } else {
                     xlvoVoter.handleCountdown();
                 }
-                xlvoVoter.timeout = setTimeout(xlvoVoter.loadVotingData, xlvoVoter.delay);
+                xlvoVoter.timeout = setTimeout(xlvoVoter.loadVotingData, xlvoVoter.config.delay);
                 xlvoVoter.counter++;
             }).fail(function () {
-            xlvoVoter.timeout = setTimeout(xlvoVoter.loadVotingData, xlvoVoter.delay);
+            xlvoVoter.timeout = setTimeout(xlvoVoter.loadVotingData, xlvoVoter.config.delay);
+
         });
     },
     replaceHTML: function (success) {
@@ -88,9 +98,20 @@ var xlvoVoter = {
             xlvoVoter.countdown_element.text(xlvoVoter.player.countdown.toString() + ' ' + xlvoVoter.config.lng.player_seconds);
             xlvoVoter.countdown_element.show();
             xlvoVoter.countdown_element.addClass('label label-cd-' + xlvoVoter.player.countdown_classname);
+            xlvoVoter.interval = setInterval(xlvoVoter.countDown, 1000);
+
         } else {
             xlvoVoter.countdown_element.removeClass();
             xlvoVoter.countdown_element.hide();
+        }
+    },
+    countDown: function () {
+        if (xlvoVoter.player.has_countdown) {
+            xlvoVoter.player.countdown--;
+            if(xlvoVoter.player.countdown > 0)
+            {
+                xlvoVoter.countdown_element.text((xlvoVoter.player.countdown).toString() + ' ' + xlvoVoter.config.lng.player_seconds);
+            }
         }
     },
 

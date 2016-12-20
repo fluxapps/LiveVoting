@@ -1,6 +1,10 @@
 <?php
 
-require_once "Services/ActiveRecord/class.ActiveRecord.php";
+namespace LiveVoting\Round;
+
+use LiveVoting\Cache\CachingActiveRecord;
+use LiveVoting\Cache\xlvoCacheFactory;
+use LiveVoting\Player\xlvoPlayer;
 
 /**
  * Class xlvoRound
@@ -10,7 +14,31 @@ require_once "Services/ActiveRecord/class.ActiveRecord.php";
  * A voting can go for several rounds. This active Record tracks these rounds
  *
  */
-class xlvoRound extends ActiveRecord {
+class xlvoRound extends CachingActiveRecord  {
+
+    /**
+     * @param $obj_id
+     * @return int
+     */
+    public static function getLatestRoundId($obj_id)
+    {
+        global $ilDB;
+        /**
+         * @var $ilDB \ilDB
+         */
+        $q = "SELECT result.id FROM (SELECT id FROM rep_robj_xlvo_round_n WHERE rep_robj_xlvo_round_n.obj_id = %s) AS result ORDER BY result.id DESC LIMIT 1";
+        //$q = "SELECT MAX(id) FROM rep_robj_xlvo_round_n WHERE obj_id = %s";
+        $result = $ilDB->queryF($q, array('integer'), array($obj_id));
+        $data = $ilDB->fetchObject($result);
+
+        if (!isset($data->id)) {
+            $round = self::createFirstRound($obj_id);
+
+            return $round->getId();
+        }
+
+        return $data->id;
+    }
 
 	/**
 	 * Gets you the latest round for this object. creates the first one if there is no round yet.
@@ -19,12 +47,7 @@ class xlvoRound extends ActiveRecord {
 	 * @return xlvoRound
 	 */
 	public static function getLatestRound($obj_id) {
-		$latestRound = xlvoRound::where(array( "obj_id" => $obj_id ))->orderBy("round_number")->last();
-		if (!$latestRound instanceof xlvoRound) {
-			$latestRound = self::createFirstRound($obj_id);
-		}
-
-		return $latestRound;
+        return xlvoRound::find(self::getLatestRoundId($obj_id));
 	}
 
 

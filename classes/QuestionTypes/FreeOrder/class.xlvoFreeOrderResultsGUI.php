@@ -1,5 +1,4 @@
 <?php
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/CorrectOrder/class.xlvoCorrectOrderResultsGUI.php');
 
 /**
  * Class xlvoFreeOrderResultsGUI

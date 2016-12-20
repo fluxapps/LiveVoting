@@ -1,7 +1,7 @@
 <?php
 
+require_once __DIR__ . '/../vendor/autoload.php';
 require_once('./Services/Component/classes/class.ilPluginConfigGUI.php');
-require_once('class.xlvoMainGUI.php');
 
 /**
  * ilLiveVotingConfigGUI
@@ -10,12 +10,12 @@ require_once('class.xlvoMainGUI.php');
  *
  * @ilCtrl_IsCalledBy  ilLiveVotingConfigGUI: ilObjComponentSettingsGUIs
  */
-class ilLiveVotingConfigGUI extends ilPluginConfigGUI {
+class ilLiveVotingConfigGUI extends \ilPluginConfigGUI {
 
 	public function executeCommand() {
 		global $ilCtrl, $ilTabs, $lng, $tpl;
 		/**
-		 * @var $ilCtrl ilCtrl
+		 * @var $ilCtrl \ilCtrl
 		 */
 		$ilCtrl->setParameterByClass("ilobjcomponentsettingsgui", "ctype", $_GET["ctype"]);
 		$ilCtrl->setParameterByClass("ilobjcomponentsettingsgui", "cname", $_GET["cname"]);
@@ -51,5 +51,3 @@ class ilLiveVotingConfigGUI extends ilPluginConfigGUI {
 	public function performCommand($cmd) {
 	}
 }
-
-?>

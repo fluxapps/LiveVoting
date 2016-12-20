@@ -1,6 +1,6 @@
 <?php
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/SingleVote/class.xlvoSingleVoteResultsGUI.php');
-require_once('class.xlvoCorrectOrderGUI.php');
+
+use LiveVoting\Option\xlvoOption;
 
 /**
  * Class xlvoCorrectOrderResultsGUI

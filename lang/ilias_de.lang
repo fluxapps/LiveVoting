@@ -101,6 +101,8 @@ config_base_url_info#:#URL Ihrer ILIAS-Installation inkl. Unterverzeichnis, bspw
 config_cancel#:#Abbrechen
 config_msg_success#:#Gespeichert
 config_update#:#Speichern
+config_request_frequency#:#Klienten aktualisierungs Frequenz
+config_request_frequency_info#:#Die aktualisierungs Frequenz der LiveVoting Klienten, angegeben in sekunden.
 msg_success_voting_created#:#Voting wurde erstellt
 msg_success_voting_updated#:#Voting wurde gespeichert
 obj_anonymous#:#Abstimmung ohne Login
@@ -142,6 +144,8 @@ obj_crs#:#Kurs
 obj_frozen_alway_ofxlvo_edit#:#Bearbeiten
 objs_xlvo#:#LiveVotings
 objs_xlvo_duplicate#:#Bestehendes LiveVoting kopieren
+show_attendees#:#Teilnehmer Anzahl
+show_attendees_info#:#Teilnehmer Anzahl anzeigen. Diese Funktion hat einen Einfluss auf die performance und sollte nur bei kleinen LiveVoting verwendet werden.
 player_close_modal#:#Schliessen
 player_freeze#:#Pausieren
 player_hide_results#:#Resultate ausblenden

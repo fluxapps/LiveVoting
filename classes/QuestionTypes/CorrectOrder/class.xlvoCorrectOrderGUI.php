@@ -1,6 +1,8 @@
 <?php
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoQuestionTypesGUI.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/Bar/class.xlvoBarMovableGUI.php');
+
+use LiveVoting\Js\xlvoJs;
+use LiveVoting\Option\xlvoOption;
+use LiveVoting\Vote\xlvoVote;
 
 /**
  * Class xlvoCorrectOrderGUI
@@ -48,7 +50,7 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 	protected function getFormContent() {
 		$pl = ilLiveVotingPlugin::getInstance();
 
-		$tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/QuestionTypes/FreeOrder/tpl.free_order.html', true, false);
+		$tpl = new \ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/QuestionTypes/FreeOrder/tpl.free_order.html', true, false);
 		$tpl->setVariable('ACTION', $this->ctrl->getFormAction($this));
 		$tpl->setVariable('ID', 'xlvo_sortable');
 		$tpl->setVariable('BTN_RESET', $pl->txt('qtype_4_clear'));
@@ -92,7 +94,7 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 			return array();
 		}
 		$states = $this->getButtonsStates();
-		$b = ilLinkButton::getInstance();
+		$b = \ilLinkButton::getInstance();
 		$b->setId(self::BUTTON_TOTTLE_DISPLAY_CORRECT_ORDER);
 		if ($states[self::BUTTON_TOTTLE_DISPLAY_CORRECT_ORDER]) {
 			$b->setCaption(xlvoGlyphGUI::get('eye-close'), false);
@@ -100,7 +102,7 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 			$b->setCaption(xlvoGlyphGUI::get('eye-open'), false);
 		}
 
-		$t = ilLinkButton::getInstance();
+		$t = \ilLinkButton::getInstance();
 		$t->setId(self::BUTTON_TOGGLE_PERCENTAGE);
 		if ($states[self::BUTTON_TOGGLE_PERCENTAGE]) {
 			$t->setCaption('%', false);

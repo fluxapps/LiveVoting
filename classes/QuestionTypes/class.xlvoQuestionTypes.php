@@ -1,6 +1,7 @@
 <?php
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoQuestionTypesGUI.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoInputResultsGUI.php');
+
+namespace LiveVoting\QuestionTypes;
+use LiveVoting\Exceptions\xlvoVotingManagerException;
 
 /**
  * Class xlvoQuestionTypes
@@ -40,7 +41,7 @@ class xlvoQuestionTypes {
 	 * @return array
 	 */
 	public static function getActiveTypes() {
-		$f = new ReflectionClass('xlvoQuestionTypes');
+		$f = new \ReflectionClass('LiveVoting\QuestionTypes\xlvoQuestionTypes');
 		$types = array();
 		foreach ($f->getConstants() as $constant_name => $constant) {
 			if (strpos($constant_name, 'TYPE_') === 0 && in_array($constant, self::$active_types)) {

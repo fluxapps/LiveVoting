@@ -1,5 +1,7 @@
 <?php
 
+namespace LiveVoting;
+
 /**
  * Class xlvoSessionHandler
  *
