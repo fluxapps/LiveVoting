@@ -13,6 +13,45 @@ class xlvoSingleVoteResultsGUI extends xlvoInputResultsGUI {
 	 * @return string
 	 */
 	public function getHTML() {
+		if ($this->voting->isMultiSelection()) {
+			return $this->getHTMLMulti();
+		} else {
+			return $this->getHTMLSingle();
+		}
+	}
+
+
+	/**
+	 * @return string
+	 */
+	protected function getHTMLSingle() {
+		$total_votes = $this->manager->countVotes();
+		$voters = $this->manager->countVoters();
+
+		$bars = new xlvoBarCollectionGUI();
+		$bars->setShowTotalVoters(true);
+		$bars->setTotalVoters($voters);
+		$bars->setShowTotalVotes($this->voting->isMultiSelection());
+		$bars->setTotalVotes($voters);
+
+		foreach ($this->voting->getVotingOptions() as $xlvoOption) {
+			$xlvoBarPercentageGUI = new xlvoBarPercentageGUI();
+			$xlvoBarPercentageGUI->setOptionLetter($xlvoOption->getCipher());
+			$xlvoBarPercentageGUI->setTitle($xlvoOption->getTextForPresentation());
+			$xlvoBarPercentageGUI->setVotes($this->manager->countVotesOfOption($xlvoOption->getId()));
+			$xlvoBarPercentageGUI->setMaxVotes($total_votes);
+			$xlvoBarPercentageGUI->setShowInPercent(!$this->isShowAbsolute());
+			$bars->addBar($xlvoBarPercentageGUI);
+		}
+
+		return $bars->getHTML();
+	}
+
+
+	/**
+	 * @return string
+	 */
+	protected function getHTMLMulti() {
 		$total_votes = $this->manager->countVotes();
 		$voters = $this->manager->countVoters();
 
@@ -24,13 +63,11 @@ class xlvoSingleVoteResultsGUI extends xlvoInputResultsGUI {
 
 		foreach ($this->voting->getVotingOptions() as $xlvoOption) {
 			$xlvoBarPercentageGUI = new xlvoBarPercentageGUI();
-			$xlvoBarPercentageGUI->setMax($total_votes);
 			$xlvoBarPercentageGUI->setOptionLetter($xlvoOption->getCipher());
 			$xlvoBarPercentageGUI->setTitle($xlvoOption->getTextForPresentation());
 			$xlvoBarPercentageGUI->setVotes($this->manager->countVotesOfOption($xlvoOption->getId()));
-			$xlvoBarPercentageGUI->setTotal($total_votes);
-			$xlvoBarPercentageGUI->setShowAbsolute($this->isShowAbsolute());
-
+			$xlvoBarPercentageGUI->setMaxVotes($voters);
+			$xlvoBarPercentageGUI->setShowInPercent(!$this->isShowAbsolute());
 			$bars->addBar($xlvoBarPercentageGUI);
 		}
 

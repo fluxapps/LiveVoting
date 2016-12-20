@@ -10,6 +10,7 @@ require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/
  */
 class xlvoResultsGUI extends xlvoGUI {
 
+	const LENGTH = 40;
 	const CMD_SHOW = 'showResults';
 	const CMD_NEW_ROUND = 'newRound';
 	const CMD_CHANGE_ROUND = 'changeRound';
@@ -224,6 +225,10 @@ class xlvoResultsGUI extends xlvoGUI {
 		$titles = array();
 		$titles[0] = $this->pl->txt("common_all");
 		$titles = array_merge($titles, xlvoVoting::where(array( "obj_id" => $this->obj_id ))->getArray("id", "title"));
+		$shortener = function (&$value) {
+			$value = strlen($value) > self::LENGTH ? substr($value, 0, self::LENGTH) . "..." : $value;
+		};
+		array_walk($titles, $shortener);
 		$filter->setOptions($titles);
 		$table->addFilterItem($filter);
 		$filter->readFromSession();
@@ -233,6 +238,7 @@ class xlvoResultsGUI extends xlvoGUI {
 		$votings = array();
 		$votings[0] = $this->pl->txt("common_all");
 		$votings = array_merge($votings, xlvoVoting::where(array( "obj_id" => $this->obj_id ))->getArray("id", "question"));
+		array_walk($votings, $shortener);
 		$filter->setOptions($votings);
 		$table->addFilterItem($filter);
 		$filter->readFromSession();
@@ -270,5 +276,14 @@ class xlvoResultsGUI extends xlvoGUI {
 		$button->setCaption($this->pl->txt('common_change'), false);
 		$button->setCommand(self::CMD_CHANGE_ROUND);
 		$ilToolbar->addButtonInstance($button);
+	}
+
+
+	/**
+	 * @param string $question
+	 * @return string
+	 */
+	protected function shorten($question) {
+		return strlen($question) > self::LENGTH ? substr($question, 0, self::LENGTH) . "..." : $question;
 	}
 }

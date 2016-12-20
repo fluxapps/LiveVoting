@@ -1,24 +1,29 @@
 <?php
 
+/**
+ * Class xlvoResultGUI
+ *
+ * @author Fabian Schmid <fs@studer-raimann.ch>
+ */
 abstract class xlvoResultGUI {
 
 	/**
 	 * @var xlvoVoting
 	 */
 	protected $voting;
-
 	/**
 	 * @var xlvoOption[]
 	 */
 	protected $options;
-
 	/**
 	 * @var ilLiveVotingPlugin
 	 */
 	protected $pl;
 
+
 	/**
 	 * xlvoResultGUI constructor.
+	 *
 	 * @param $voting xlvoVoting
 	 */
 	public function __construct($voting) {
@@ -27,11 +32,13 @@ abstract class xlvoResultGUI {
 		$this->pl = ilLiveVotingPlugin::getInstance();
 	}
 
+
 	/**
 	 * @param $votes xlvoVote[]
 	 * @return string
 	 */
 	public abstract function getTextRepresentation($votes);
+
 
 	/**
 	 * @param $voting xlvoVoting
@@ -45,7 +52,7 @@ abstract class xlvoResultGUI {
 		 */
 		$class_name = 'xlvo' . $class . 'ResultGUI';
 		require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/' . $class . '/class.'
-			. $class_name . '.php');
+		             . $class_name . '.php');
 
 		$subform = new $class_name($voting);
 

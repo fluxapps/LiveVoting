@@ -17,128 +17,51 @@ class xlvoBarPercentageGUI implements xlvoBarGUI {
 	/**
 	 * @var int
 	 */
-	protected $total = 0;
+	protected $max_votes = 100;
 	/**
 	 * @var string
 	 */
-	protected $option_letter;
-	/**
-	 * @var ilTemplate
-	 */
-	protected $tpl;
+	protected $option_letter = '';
 	/**
 	 * @var string
 	 */
 	protected $title = '';
 	/**
-	 * @var string
-	 */
-	protected $id = '';
-	/**
 	 * @var bool
 	 */
-	protected $show_absolute = false;
-	/**
-	 * @var bool
-	 */
-	protected $override_bar_to_percentage = false;
+	protected $show_in_percent = false;
 	/**
 	 * @var int
 	 */
-	protected $max = 100;
-	/**
-	 * @var int
-	 */
-	protected $round_positions = 2;
-	/**
-	 * @var bool
-	 */
-	protected $round = false;
+	protected $round = 2;
 
 
-	/**
-	 * xlvoBarPercentageGUI constructor.
-	 */
-	public function __construct() {
-		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Display/Bar/tpl.bar_percentage.html', true, true);
-	}
-
-
-	protected function render() {
-		if (!$this->isShowAbsolute() || $this->isOverrideBarToPercentage()) {
-			$this->setMax(100);
-			$this->tpl->setVariable('PERCENT', $this->getPercentage());
-			$this->tpl->setVariable('PERCENT_TEXT', $this->getPercentage() . '%');
-			$this->tpl->setVariable('PERCENT_STYLE', $this->getPercentage());
-		} elseif ($this->isShowAbsolute()) {
-			$this->tpl->setVariable('PERCENT', $this->getVotes());
-			if ($this->isRound()) {
-				$this->tpl->setVariable('PERCENT_TEXT', round($this->getVotes(), $this->getRoundPositions()));
-			} else {
-				$this->tpl->setVariable('PERCENT_TEXT', $this->getVotes());
-			}
-
-			$this->tpl->setVariable('PERCENT_STYLE', $this->getAbsolutePercentage());
-		}
-
-		if ($this->isShowAbsolute()) {
-			if ($this->isRound()) {
-				$this->tpl->setVariable('PERCENT_TEXT', round($this->getVotes(), $this->getRoundPositions()));
-			} else {
-				$this->tpl->setVariable('PERCENT_TEXT', $this->getVotes());
-			}
-		}
-
-		$this->tpl->setVariable('ID', $this->getId());
-		$this->tpl->setVariable('MAX', $this->getMax());
-		$this->tpl->setVariable('TITLE', $this->getTitle());
-		if ($this->getOptionLetter()) {
-			$this->tpl->setCurrentBlock('option_letter');
-			$this->tpl->setVariable('OPTION_LETTER', $this->getOptionLetter());
-			$this->tpl->parseCurrentBlock();
-		}
-	}
-
-
-	/**
-	 * @return string
-	 */
 	public function getHTML() {
-		$this->render();
+		$tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Display/Bar/tpl.bar_percentage.html', true, true);
 
-		return $this->tpl->get();
-	}
+		$tpl->setVariable('TITLE', $this->getTitle());
 
+		$tpl->setVariable('ID', uniqid());
+		$tpl->setVariable('TITLE', $this->getTitle());
 
-	/**
-	 * @return float|int
-	 */
-	protected function getPercentage() {
-		$total_votes = $this->getTotal();
-		if ($this->getTotal() === 0) {
-			return 0;
+		if ($this->getOptionLetter()) {
+			$tpl->setCurrentBlock('option_letter');
+			$tpl->setVariable('OPTION_LETTER', $this->getOptionLetter());
+			$tpl->parseCurrentBlock();
 		}
-		$option_votes = $this->getVotes();
-		$percentage = ($option_votes / $total_votes) * 100;
 
-		$round = str_replace(',', '0', round($percentage, 1));
+		$calculated_percentage = $this->getVotes() / $this->getMaxVotes() * 100;
 
-		return $round;
-	}
-
-
-	/**
-	 * @return float|int
-	 */
-	protected function getAbsolutePercentage() {
-		$total_votes = $this->getMax();
-		if ($this->getMax() === 0) {
-			return 0;
+		$tpl->setVariable('MAX', $this->getMaxVotes());
+		$tpl->setVariable('PERCENT', $this->getVotes());
+		$tpl->setVariable('PERCENT_STYLE', str_replace(',', '.', round($calculated_percentage, 1)));
+		if ($this->isShowInPercent()) {
+			$tpl->setVariable('PERCENT_TEXT', round($calculated_percentage, $this->getRound()) . '%');
+		} else {
+			$tpl->setVariable('PERCENT_TEXT', round($this->getVotes(), $this->getRound()));
 		}
-		$option_votes = $this->getVotes();
-		$percentage = ($option_votes / $total_votes) * 100;
 
-		return round($percentage, 1);
+		return $tpl->get();
 	}
 
 
@@ -161,16 +84,16 @@ class xlvoBarPercentageGUI implements xlvoBarGUI {
 	/**
 	 * @return int
 	 */
-	public function getTotal() {
-		return $this->total;
+	public function getMaxVotes() {
+		return $this->max_votes;
 	}
 
 
 	/**
-	 * @param int $total
+	 * @param int $max_votes
 	 */
-	public function setTotal($total) {
-		$this->total = $total;
+	public function setMaxVotes($max_votes) {
+		$this->max_votes = $max_votes;
 	}
 
 
@@ -191,22 +114,6 @@ class xlvoBarPercentageGUI implements xlvoBarGUI {
 
 
 	/**
-	 * @return ilTemplate
-	 */
-	public function getTpl() {
-		return $this->tpl;
-	}
-
-
-	/**
-	 * @param ilTemplate $tpl
-	 */
-	public function setTpl($tpl) {
-		$this->tpl = $tpl;
-	}
-
-
-	/**
 	 * @return string
 	 */
 	public function getTitle() {
@@ -223,95 +130,31 @@ class xlvoBarPercentageGUI implements xlvoBarGUI {
 
 
 	/**
-	 * @return string
-	 */
-	public function getId() {
-		return $this->id;
-	}
-
-
-	/**
-	 * @param string $id
-	 */
-	public function setId($id) {
-		$this->id = $id;
-	}
-
-
-	/**
 	 * @return boolean
 	 */
-	public function isShowAbsolute() {
-		return $this->show_absolute;
+	public function isShowInPercent() {
+		return $this->show_in_percent;
 	}
 
 
 	/**
-	 * @param boolean $show_absolute
+	 * @param boolean $show_in_percent
 	 */
-	public function setShowAbsolute($show_absolute) {
-		$this->show_absolute = $show_absolute;
+	public function setShowInPercent($show_in_percent) {
+		$this->show_in_percent = $show_in_percent;
 	}
 
 
 	/**
 	 * @return int
 	 */
-	public function getMax() {
-		return $this->max;
-	}
-
-
-	/**
-	 * @param int $max
-	 */
-	public function setMax($max) {
-		$this->max = $max;
-	}
-
-
-	/**
-	 * @return boolean
-	 */
-	public function isOverrideBarToPercentage() {
-		return $this->override_bar_to_percentage;
-	}
-
-
-	/**
-	 * @param boolean $override_bar_to_percentage
-	 */
-	public function setOverrideBarToPercentage($override_bar_to_percentage) {
-		$this->override_bar_to_percentage = $override_bar_to_percentage;
-	}
-
-
-	/**
-	 * @return int
-	 */
-	public function getRoundPositions() {
-		return $this->round_positions;
-	}
-
-
-	/**
-	 * @param int $round_positions
-	 */
-	public function setRoundPositions($round_positions) {
-		$this->round_positions = $round_positions;
-	}
-
-
-	/**
-	 * @return boolean
-	 */
-	public function isRound() {
+	public function getRound() {
 		return $this->round;
 	}
 
 
 	/**
-	 * @param boolean $round
+	 * @param int $round
 	 */
 	public function setRound($round) {
 		$this->round = $round;

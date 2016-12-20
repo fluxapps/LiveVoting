@@ -132,11 +132,11 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 		 * @var xlvoVoting $xlvoVoting
 		 */
 		$xlvoVoting = xlvoVoting::find($a_set['id']);
-		$this->tpl->setVariable('TITLE', $xlvoVoting->getTitle());
-		$this->tpl->setVariable('DESCRIPTION', $xlvoVoting->getDescription());
+		$this->tpl->setVariable('TITLE', $this->shorten($xlvoVoting->getTitle()));
+		$this->tpl->setVariable('DESCRIPTION', $this->shorten($xlvoVoting->getDescription()));
 
 		$question = strip_tags($xlvoVoting->getQuestion());
-		$question = strlen($question) > self::LENGTH ? substr($question, 0, self::LENGTH) . "..." : $question;
+		$question = $this->shorten($question);
 		$this->tpl->setVariable('QUESTION', ilUtil::prepareTextareaOutput($question, true));
 		$this->tpl->setVariable('TYPE', $this->txt('type_' . $xlvoVoting->getVotingType()));
 
@@ -228,5 +228,14 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 	 */
 	protected function getVotingStatus($voting_status) {
 		return $this->txt('status_' . $voting_status);
+	}
+
+
+	/**
+	 * @param string $question
+	 * @return string
+	 */
+	protected function shorten($question) {
+		return strlen($question) > self::LENGTH ? substr($question, 0, self::LENGTH) . "..." : $question;
 	}
 }

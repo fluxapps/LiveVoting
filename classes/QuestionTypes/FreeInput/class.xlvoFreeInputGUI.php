@@ -82,7 +82,7 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 		$votes = $this->manager->getVotesOfUser(true);
 		$vote = array_shift(array_values($votes));
 		$an = new ilTextInputGUI($this->txt('input'), self::F_FREE_INPUT);
-		$an->setMaxLength(45);
+		$an->setMaxLength(200);
 		$hi2 = new ilHiddenInputGUI(self::F_VOTE_ID);
 
 		if ($vote instanceof xlvoVote) {

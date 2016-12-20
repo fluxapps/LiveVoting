@@ -22,7 +22,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 	const F_PIN_INPUT = 'pin_input';
 	const CMD_START_VOTER_PLAYER = 'startVoterPlayer';
 	const CMD_GET_VOTING_DATA = 'loadVotingData';
-	const DEBUG = true;
+	const DEBUG = false;
 	/**
 	 * @var string
 	 */
