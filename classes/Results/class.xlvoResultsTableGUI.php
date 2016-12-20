@@ -204,6 +204,12 @@ class xlvoResultsTableGUI extends ilTable2GUI {
 	 */
 	protected function fillRowCSV($a_csv, $a_set) {
 		$a_set = array_intersect_key($a_set, $this->getCSVCols());
+		array_walk($a_set, function (&$value) {
+			//			$value = mb_convert_encoding($value, 'ISO-8859-1');
+			//			$value = mb_convert_encoding($value, "UTF-8", "UTF-8");
+			//			$value = utf8_encode($value);
+			//			$value = iconv('UTF-8', 'macintosh', $value);
+		});
 		parent::fillRowCSV($a_csv, $a_set);
 	}
 
