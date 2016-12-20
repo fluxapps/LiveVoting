@@ -1,7 +1,7 @@
 <?php
 
 require_once('./Services/ActiveRecord/class.ActiveRecord.php');
-require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class xlvoResultGUI.php");
+require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoResultGUI.php");
 
 /**
  * Class xlvoVote
