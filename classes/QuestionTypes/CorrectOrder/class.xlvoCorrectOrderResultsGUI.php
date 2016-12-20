@@ -38,11 +38,10 @@ class xlvoCorrectOrderResultsGUI extends xlvoSingleVoteResultsGUI {
 		$correct_option = new xlvoOption();
 		$correct_option->setText($this->txt('correct'));
 		$bar = new xlvoBarPercentageGUI();
-		$bar->setTotal($this->manager->countVotes());
 		$bar->setTitle($correct_option->getTextForPresentation());
 		$bar->setVotes($correct_votes);
-		$bar->setMax($this->manager->countVoters());
-		$bar->setShowAbsolute($this->isShowAbsolute());
+		$bar->setMaxVotes($this->manager->countVoters());
+		$bar->setShowInPercent(!$this->isShowAbsolute());
 
 		$bars->addBar($bar);
 
@@ -50,11 +49,10 @@ class xlvoCorrectOrderResultsGUI extends xlvoSingleVoteResultsGUI {
 		$wrong_option->setText($this->txt('wrong'));
 
 		$bar = new xlvoBarPercentageGUI();
-		$bar->setTotal($this->manager->countVotes());
+		$bar->setMaxVotes($this->manager->countVotes());
 		$bar->setTitle($wrong_option->getTextForPresentation());
 		$bar->setVotes($wrong_votes);
-		$bar->setMax($this->manager->countVoters());
-		$bar->setShowAbsolute($this->isShowAbsolute());
+		$bar->setShowInPercent(!$this->isShowAbsolute());
 
 		$bars->addBar($bar);
 
@@ -74,6 +72,7 @@ class xlvoCorrectOrderResultsGUI extends xlvoSingleVoteResultsGUI {
 
 		return $bars->getHTML();
 	}
+
 
 
 	/**
