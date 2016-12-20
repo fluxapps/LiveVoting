@@ -449,7 +449,7 @@ foreach($configs as $config)
 ?>
 <#31>
 <?php
-$ilDB->addIndex('xlvo_voter', array('player_id', 'user_identifier'));
-$ilDB->addIndex('rep_robj_xlvo_round_n', array('obj_id'));
-$ilDB->addIndex('rep_robj_xlvo_option_n', array('voting_id'));
+$ilDB->addIndex('xlvo_voter', array('player_id', 'user_identifier'), 'in1');
+$ilDB->addIndex('rep_robj_xlvo_round_n', array('obj_id'), 'in1');
+$ilDB->addIndex('rep_robj_xlvo_option_n', array('voting_id'), 'in1');
 ?>
