@@ -121,7 +121,7 @@ class xlvoBarPercentageGUI implements xlvoBarGUI {
 		$option_votes = $this->getVotes();
 		$percentage = ($option_votes / $total_votes) * 100;
 
-		$round = str_replace(',', '0', round($percentage, 1));
+		$round = str_replace(',', '.', round($percentage, 1));
 
 		return $round;
 	}
