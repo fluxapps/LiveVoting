@@ -107,7 +107,7 @@ class xlvoInitialisation extends \ilInitialisation {
 	public static function initILIAS2() {
 		global $tree;
 		require_once("./include/inc.ilias_version.php");
-		if(version_compare(ILIAS_VERSION_NUMERIC, '5.2.00', '>=')) {
+		if (version_compare(ILIAS_VERSION_NUMERIC, '5.2.00', '>=')) {
 			self::initDependencyInjection();
 		}
 		self::initCore();
@@ -120,9 +120,10 @@ class xlvoInitialisation extends \ilInitialisation {
 		$objDefinition = new xlvoObjectDefinition();
 	}
 
+
 	public static function initDependencyInjection() {
 		$GLOBALS["DIC"] = new \ILIAS\DI\Container();
-		$GLOBALS["DIC"]["ilLoggerFactory"] = function($c) {
+		$GLOBALS["DIC"]["ilLoggerFactory"] = function ($c) {
 			return ilLoggerFactory::getInstance();
 		};
 	}
