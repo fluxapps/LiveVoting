@@ -96,6 +96,9 @@ class xlvoBasicInitialisation {
 
 
 	private function initTemplate() {
+		$styleDefinition = new xlvoStyleDefinition();
+		$this->makeGlobal('styleDefinition', $styleDefinition);
+
 		$ilias = new xlvoILIAS();
 		$this->makeGlobal("ilias", $ilias);
 
@@ -299,6 +302,8 @@ class xlvoBasicInitialisation {
 	 */
 	private function initDependencyInjection() {
 		if (version_compare(ILIAS_VERSION_NUMERIC, '5.2.00', '>=')) {
+			require_once("libs/composer/vendor/autoload.php");
+//			require_once('./src/DI/Container.php');
 			$GLOBALS["DIC"] = new \ILIAS\DI\Container();
 			$GLOBALS["DIC"]["ilLoggerFactory"] = function ($c) {
 				return ilLoggerFactory::getInstance();
@@ -344,22 +349,14 @@ class xlvoBasicInitialisation {
 	private function requireCommonIncludes() {
 		require_once "Services/Component/classes/class.ilComponent.php";
 
-		// pear
-		require_once("include/inc.get_pear.php");
-		require_once("include/inc.check_pear.php");
-		require_once "PEAR.php";
-
 		// ilTemplate
 		if (\ilContext::usesTemplate()) {
-			// HTML_Template_IT support
-			require_once "HTML/Template/ITX.php";
-			require_once "./Services/UICore/classes/class.ilTemplateHTMLITX.php";
 			require_once "./Services/UICore/classes/class.ilTemplate.php";
 		}
 
 		// really always required?
 		require_once "./Services/Utilities/classes/class.ilUtil.php";
-		require_once "./Services/Utilities/classes/class.ilFormat.php";
+//		require_once "./Services/Utilities/classes/class.ilFormat.php";
 		require_once "./Services/Calendar/classes/class.ilDatePresentation.php";
 		require_once "include/inc.ilias_version.php";
 
@@ -591,6 +588,9 @@ class xlvoBasicInitialisation {
 	 */
 	private function makeGlobal($name, $value) {
 		$GLOBALS[$name] = $value;
+		$GLOBALS["DIC"][$name] = function($c) use ($name) {
+			return $GLOBALS[$name];
+		};
 	}
 
 
