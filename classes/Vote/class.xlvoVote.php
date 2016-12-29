@@ -184,7 +184,8 @@ class xlvoVote extends CachingActiveRecord  {
 		$historyObject->setVotingId($voting_id);
 		$historyObject->setRoundId($round_id);
 		$historyObject->setTimestamp(time());
-		$gui = xlvoResultGUI::getInstance(xlvoVoting::find($voting_id));
+		require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoResultGUI.php');
+		$gui = \xlvoResultGUI::getInstance(xlvoVoting::find($voting_id));
 
 		$votes = xlvoVote::where(array(
 			'voting_id' => $voting_id,

@@ -26,6 +26,14 @@ class xlvoDummyUser {
 
 
 	/**
+	 * @return int
+	 */
+	public function getId() {
+		return 13;
+	}
+
+
+	/**
 	 * This dummy method returns statically false.
 	 *
 	 * @param string $preference Preference name which will be ignored by this dummy function.

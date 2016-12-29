@@ -157,5 +157,3 @@ class xlvoConfFormGUI extends \ilPropertyFormGUI {
 		return !$item instanceof \ilFormSectionHeaderGUI;
 	}
 }
-
-?>
