@@ -97,6 +97,7 @@ class xlvoVotingFormGUI extends \ilPropertyFormGUI {
 			'strong',
 			'b',
 			'i',
+			'em',
 			'span',
 			'img',
 		));
