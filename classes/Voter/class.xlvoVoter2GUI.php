@@ -15,7 +15,6 @@ use LiveVoting\Voting\xlvoVotingManager2;
 
 require_once('./Services/Form/classes/class.ilPropertyFormGUI.php');
 
-
 /**
  * Class xlvoVoter2GUI
  *
@@ -30,10 +29,6 @@ class xlvoVoter2GUI extends xlvoGUI {
 	const CMD_START_VOTER_PLAYER = 'startVoterPlayer';
 	const CMD_GET_VOTING_DATA = 'loadVotingData';
 	const DEBUG = false;
-	/**
-	 * Default client update delay in seconds
-	 */
-	const DEFAULT_CLIENT_UPDATE_DELAY = 1;
 	/**
 	 * @var string
 	 */
@@ -60,18 +55,16 @@ class xlvoVoter2GUI extends xlvoGUI {
 		$nextClass = $this->ctrl->getNextClass();
 		switch ($nextClass) {
 			case '':
-				if(!$this->manager->getVotingConfig()->isAnonymous() && (is_null($ilUser) || $ilUser->getId() == 13 || $ilUser->getId() == 0))
-                {
-                    //remove plugin path to get "real" web root otherwise we break installations with context paths -> http://demo.ilias.ch/test/goto.php
-                    $plugin_path = "Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting";
-                    $ilias_base_path = str_replace($plugin_path, '', ILIAS_HTTP_PATH);
-                    $login_target = "{$ilias_base_path}goto.php?target=xlvo_1_pin_" . $this->pin;
+				if (!$this->manager->getVotingConfig()->isAnonymous() && (is_null($ilUser) || $ilUser->getId() == 13 || $ilUser->getId() == 0)) {
+					//remove plugin path to get "real" web root otherwise we break installations with context paths -> http://demo.ilias.ch/test/goto.php
+					$plugin_path = "Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting";
+					$ilias_base_path = str_replace($plugin_path, '', ILIAS_HTTP_PATH);
+					$login_target = "{$ilias_base_path}goto.php?target=xlvo_1_pin_" . $this->pin;
 
-                    //redirect
-                    $this->tpl->setContent("<script>window.location.replace('$login_target');</script>");
-                    $this->tpl->show("content");
-                }
-				else {
+					//redirect
+					$this->tpl->setContent("<script>window.location.replace('$login_target');</script>");
+					$this->tpl->show("content");
+				} else {
 					parent::executeCommand();
 				}
 
@@ -152,7 +145,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 
 
 	protected function initJsAndCss() {
-        require_once('./Services/jQuery/classes/class.iljQueryUtil.php');
+		require_once('./Services/jQuery/classes/class.iljQueryUtil.php');
 		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voter/voter.css');
 		\iljQueryUtil::initjQueryUI();
 		\ilUtil::includeMathjax();
@@ -169,18 +162,10 @@ class xlvoVoter2GUI extends xlvoGUI {
 		if (is_numeric($delay)) {
 			$delay = ((float)$delay) * 1000;
 		} else {
-			$delay = self::DEFAULT_CLIENT_UPDATE_DELAY * 1000;
-		}
-
-		//check if we get some valid settings otherwise fall back to default value.
-		if (is_numeric($delay)) {
-			$delay = ((float)$delay) * 1000;
-		} else {
 			$delay = xlvoVoter::DEFAULT_CLIENT_UPDATE_DELAY * 1000;
 		}
 
 		$settings = array(
-
 			'use_mathjax' => (bool)$mathJaxSetting->get("enable"),
 			'debug'       => self::DEBUG,
 			'ilias_51'    => version_compare(ILIAS_VERSION_NUMERIC, '5.1.00', '>'),
