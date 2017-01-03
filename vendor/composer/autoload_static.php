@@ -29,6 +29,11 @@ class ComposerStaticInit50828317cca5f7a8531843b9c8af0526
     );
 
     public static $classMap = array (
+        'Endroid\\QrCode\\Bundle\\Controller\\QrCodeController' => __DIR__ . '/..' . '/endroid/qrcode/src/Bundle/Controller/QrCodeController.php',
+        'Endroid\\QrCode\\Bundle\\DependencyInjection\\Configuration' => __DIR__ . '/..' . '/endroid/qrcode/src/Bundle/DependencyInjection/Configuration.php',
+        'Endroid\\QrCode\\Bundle\\DependencyInjection\\EndroidQrCodeExtension' => __DIR__ . '/..' . '/endroid/qrcode/src/Bundle/DependencyInjection/EndroidQrCodeExtension.php',
+        'Endroid\\QrCode\\Bundle\\EndroidQrCodeBundle' => __DIR__ . '/..' . '/endroid/qrcode/src/Bundle/EndroidQrCodeBundle.php',
+        'Endroid\\QrCode\\Bundle\\Twig\\Extension\\QrCodeExtension' => __DIR__ . '/..' . '/endroid/qrcode/src/Bundle/Twig/Extension/QrCodeExtension.php',
         'Endroid\\QrCode\\Exceptions\\DataDoesntExistsException' => __DIR__ . '/..' . '/endroid/qrcode/src/Exceptions/DataDoesntExistsException.php',
         'Endroid\\QrCode\\Exceptions\\FreeTypeLibraryMissingException' => __DIR__ . '/..' . '/endroid/qrcode/src/Exceptions/FreeTypeLibraryMissingException.php',
         'Endroid\\QrCode\\Exceptions\\ImageFunctionFailedException' => __DIR__ . '/..' . '/endroid/qrcode/src/Exceptions/ImageFunctionFailedException.php',
@@ -51,6 +56,7 @@ class ComposerStaticInit50828317cca5f7a8531843b9c8af0526
         'LiveVoting\\Context\\Initialisation\\Version\\v50\\xlvoBasicInitialisation' => __DIR__ . '/../..' . '/classes/Context/Initialisation/Version/v50/class.xlvoBasicInitialisation.php',
         'LiveVoting\\Context\\Initialisation\\Version\\v51\\xlvoBasicInitialisation' => __DIR__ . '/../..' . '/classes/Context/Initialisation/Version/v51/class.xlvoBasicInitialisation.php',
         'LiveVoting\\Context\\Initialisation\\Version\\v52\\xlvoBasicInitialisation' => __DIR__ . '/../..' . '/classes/Context/Initialisation/Version/v52/class.xlvoBasicInitialisation.php',
+        'LiveVoting\\Context\\Initialisation\\Version\\v52\\xlvoSkin' => __DIR__ . '/../..' . '/classes/Context/Initialisation/Version/v52/class.xlvoStyleDefinition.php',
         'LiveVoting\\Context\\Initialisation\\Version\\v52\\xlvoStyleDefinition' => __DIR__ . '/../..' . '/classes/Context/Initialisation/Version/v52/class.xlvoStyleDefinition.php',
         'LiveVoting\\Context\\cookie\\CookieManager' => __DIR__ . '/../..' . '/classes/Context/cookie/CookieManager.php',
         'LiveVoting\\Context\\xlvoContext' => __DIR__ . '/../..' . '/classes/Context/class.xlvoContext.php',

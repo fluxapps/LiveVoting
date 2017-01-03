@@ -70,6 +70,7 @@ class xlvoBasicInitialisation {
 		$this->initPluginAdmin();
 		$this->initTemplate();
 		$this->initUser();
+		$this->initAccessHandling();
 		//$this->setCookieParams();
 	}
 
@@ -599,5 +600,28 @@ class xlvoBasicInitialisation {
 	 */
 	private function initUser() {
 		$this->makeGlobal('ilUser', new xlvoDummyUser());
+	}
+
+	/**
+	 * Starting from ILIAS 5.2 basic initialisation also needs rbac stuff.
+	 * You may ask why? well: deep down ilias wants to initialize the footer. Event hough we don't want the footer.
+	 * This may not seem too bad... but the footer wants to translate something
+	 * and the translation somehow needs rbac. god...
+	 *
+	 * We can remove this when this gets fixed: Services/UICore/classes/class.ilTemplate.php:479
+	 */
+	private function initAccessHandling() {
+		// Rbac Review needs the logger... but doesn't include it itself so we do it for him.
+		require_once("./Services/Logging/classes/public/class.ilLoggerFactory.php");
+
+		// we don't really need rbacreview... but it's a dependency of rbacsystem. Something's upside down here....
+		require_once("./Services/AccessControl/classes/class.ilRbacReview.php");
+		$rbacreview = new \ilRbacReview();
+		$this->makeGlobal("rbacreview", $rbacreview);
+
+		// Finally our initialization needs the rbacsystem. Overhead much....
+		require_once "./Services/AccessControl/classes/class.ilRbacSystem.php";
+		$rbacsystem = \ilRbacSystem::getInstance();
+		$this->makeGlobal("rbacsystem", $rbacsystem);
 	}
 }

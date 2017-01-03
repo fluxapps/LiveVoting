@@ -1,80 +1,27 @@
 [
     {
-        "name": "endroid/qrcode",
-        "version": "1.7.4",
-        "version_normalized": "1.7.4.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/endroid/QrCode.git",
-            "reference": "ba35ed8f0686bc4ec82874752778ccb427261a41"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/endroid/QrCode/zipball/ba35ed8f0686bc4ec82874752778ccb427261a41",
-            "reference": "ba35ed8f0686bc4ec82874752778ccb427261a41",
-            "shasum": ""
-        },
-        "require": {
-            "ext-gd": "*",
-            "php": ">=5.3.0",
-            "symfony/options-resolver": "^2.3|^3.0"
-        },
-        "time": "2016-07-26 09:39:07",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Endroid\\QrCode\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Jeroen van den Enden",
-                "email": "info@endroid.nl",
-                "homepage": "http://endroid.nl/"
-            }
-        ],
-        "description": "Endroid QR Code",
-        "homepage": "https://github.com/endroid/QrCode",
-        "keywords": [
-            "code",
-            "endroid",
-            "qr",
-            "qrcode"
-        ]
-    },
-    {
         "name": "symfony/options-resolver",
-        "version": "v3.1.6",
-        "version_normalized": "3.1.6.0",
+        "version": "v3.2.1",
+        "version_normalized": "3.2.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/options-resolver.git",
-            "reference": "30605874d99af0cde6c41fd39e18546330c38100"
+            "reference": "45940bcad6388b3b6058107eca67ced738d205bb"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/options-resolver/zipball/30605874d99af0cde6c41fd39e18546330c38100",
-            "reference": "30605874d99af0cde6c41fd39e18546330c38100",
+            "url": "https://api.github.com/repos/symfony/options-resolver/zipball/45940bcad6388b3b6058107eca67ced738d205bb",
+            "reference": "45940bcad6388b3b6058107eca67ced738d205bb",
             "shasum": ""
         },
         "require": {
             "php": ">=5.5.9"
         },
-        "time": "2016-05-12 15:59:27",
+        "time": "2016-05-13T18:13:23+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "3.1-dev"
+                "dev-master": "3.2-dev"
             }
         },
         "installation-source": "dist",
@@ -106,6 +53,68 @@
             "config",
             "configuration",
             "options"
+        ]
+    },
+    {
+        "name": "endroid/qrcode",
+        "version": "1.9.1",
+        "version_normalized": "1.9.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/endroid/QrCode.git",
+            "reference": "ab09b42778ad67cfe850f9c23165f8d08b756680"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/endroid/QrCode/zipball/ab09b42778ad67cfe850f9c23165f8d08b756680",
+            "reference": "ab09b42778ad67cfe850f9c23165f8d08b756680",
+            "shasum": ""
+        },
+        "require": {
+            "ext-gd": "*",
+            "php": ">=5.4",
+            "symfony/options-resolver": "^2.3|^3.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "^4.0|^5.0",
+            "sensio/framework-extra-bundle": "^3.0",
+            "symfony/browser-kit": "^2.3|^3.0",
+            "symfony/framework-bundle": "^2.3|^3.0",
+            "symfony/http-kernel": "^2.3|^3.0"
+        },
+        "time": "2017-01-03T11:02:14+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Endroid\\QrCode\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Jeroen van den Enden",
+                "email": "info@endroid.nl",
+                "homepage": "http://endroid.nl/"
+            }
+        ],
+        "description": "Endroid QR Code",
+        "homepage": "https://github.com/endroid/QrCode",
+        "keywords": [
+            "bundle",
+            "code",
+            "endroid",
+            "qr",
+            "qrcode",
+            "symfony"
         ]
     }
 ]

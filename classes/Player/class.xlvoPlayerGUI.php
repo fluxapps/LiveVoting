@@ -410,7 +410,8 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 
 	protected function initJSandCss() {
-		\ilUtil::includeMathjax();
+		include_once './Services/MathJax/classes/class.ilMathJax.php';
+		ilMathJax::getInstance()->includeMathJax();
 		$mathJaxSetting = new ilSetting("MathJax");
 		$settings = array(
 			'status_running' => xlvoPlayer::STAT_RUNNING,

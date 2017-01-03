@@ -6,6 +6,11 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Endroid\\QrCode\\Bundle\\Controller\\QrCodeController' => $vendorDir . '/endroid/qrcode/src/Bundle/Controller/QrCodeController.php',
+    'Endroid\\QrCode\\Bundle\\DependencyInjection\\Configuration' => $vendorDir . '/endroid/qrcode/src/Bundle/DependencyInjection/Configuration.php',
+    'Endroid\\QrCode\\Bundle\\DependencyInjection\\EndroidQrCodeExtension' => $vendorDir . '/endroid/qrcode/src/Bundle/DependencyInjection/EndroidQrCodeExtension.php',
+    'Endroid\\QrCode\\Bundle\\EndroidQrCodeBundle' => $vendorDir . '/endroid/qrcode/src/Bundle/EndroidQrCodeBundle.php',
+    'Endroid\\QrCode\\Bundle\\Twig\\Extension\\QrCodeExtension' => $vendorDir . '/endroid/qrcode/src/Bundle/Twig/Extension/QrCodeExtension.php',
     'Endroid\\QrCode\\Exceptions\\DataDoesntExistsException' => $vendorDir . '/endroid/qrcode/src/Exceptions/DataDoesntExistsException.php',
     'Endroid\\QrCode\\Exceptions\\FreeTypeLibraryMissingException' => $vendorDir . '/endroid/qrcode/src/Exceptions/FreeTypeLibraryMissingException.php',
     'Endroid\\QrCode\\Exceptions\\ImageFunctionFailedException' => $vendorDir . '/endroid/qrcode/src/Exceptions/ImageFunctionFailedException.php',
@@ -28,6 +33,7 @@ return array(
     'LiveVoting\\Context\\Initialisation\\Version\\v50\\xlvoBasicInitialisation' => $baseDir . '/classes/Context/Initialisation/Version/v50/class.xlvoBasicInitialisation.php',
     'LiveVoting\\Context\\Initialisation\\Version\\v51\\xlvoBasicInitialisation' => $baseDir . '/classes/Context/Initialisation/Version/v51/class.xlvoBasicInitialisation.php',
     'LiveVoting\\Context\\Initialisation\\Version\\v52\\xlvoBasicInitialisation' => $baseDir . '/classes/Context/Initialisation/Version/v52/class.xlvoBasicInitialisation.php',
+    'LiveVoting\\Context\\Initialisation\\Version\\v52\\xlvoSkin' => $baseDir . '/classes/Context/Initialisation/Version/v52/class.xlvoStyleDefinition.php',
     'LiveVoting\\Context\\Initialisation\\Version\\v52\\xlvoStyleDefinition' => $baseDir . '/classes/Context/Initialisation/Version/v52/class.xlvoStyleDefinition.php',
     'LiveVoting\\Context\\cookie\\CookieManager' => $baseDir . '/classes/Context/cookie/CookieManager.php',
     'LiveVoting\\Context\\xlvoContext' => $baseDir . '/classes/Context/class.xlvoContext.php',
