@@ -230,7 +230,7 @@ class xlvoResultsGUI extends xlvoGUI {
 		$filter = new ilSelectInputGUI($this->pl->txt("voting_title"), "voting_title");
 		$titles = array();
 		$titles[0] = $this->pl->txt("common_all");
-		$titles = array_merge($titles, xlvoVoting::where(array( "obj_id" => $this->obj_id ))->getArray("id", "title"));
+		$titles = array_replace($titles, xlvoVoting::where(array( "obj_id" => $this->obj_id ))->getArray("id", "title")); //dont use array_merge: it kills the keys.
 		$shortener = function (&$value) {
 			$value = strlen($value) > self::LENGTH ? substr($value, 0, self::LENGTH) . "..." : $value;
 		};
@@ -244,7 +244,7 @@ class xlvoResultsGUI extends xlvoGUI {
 
 		$votings = array();
 		$votings[0] = $this->pl->txt("common_all");
-		$votings = array_merge($votings, xlvoVoting::where(array( "obj_id" => $this->obj_id ))->getArray("id", "question"));
+		$votings = array_replace($votings, xlvoVoting::where(array( "obj_id" => $this->obj_id ))->getArray("id", "question")); //dont use array_merge: it kills the keys.
 		array_walk($votings, $shortener);
 		$filter->setOptions($votings);
 		$table->addFilterItem($filter);
