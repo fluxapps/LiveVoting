@@ -102,7 +102,7 @@ config_cancel#:#Abbrechen
 config_msg_success#:#Gespeichert
 config_update#:#Speichern
 config_request_frequency#:#Klienten aktualisierungs Frequenz
-config_request_frequency_info#:#Die aktualisierungs Frequenz der LiveVoting Klienten, angegeben in sekunden.
+config_request_frequency_info#:#Die aktualisierungs Frequenz der LiveVoting Klienten, angegeben in Sekunden. Umso kleiner die Zahl ist umso schneller reagieren die Clients (z.B. Smartphones der Benutzer) während eines LiveVotings, allerdings erhöht sich die Last auf den Server merklich. Richtwert 2-5 Sekunden.
 msg_success_voting_created#:#Voting wurde erstellt
 msg_success_voting_updated#:#Voting wurde gespeichert
 obj_anonymous#:#Abstimmung ohne Login
