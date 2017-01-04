@@ -416,17 +416,17 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 		switch ($subversion) {
 			case \LiveVoting\Context\ILIASVersionEnum::ILIAS_VERSION_5_0:
-				ilMathJax::includeMathJax();
+				\ilUtil::includeMathjax();
 				break;
 			case \LiveVoting\Context\ILIASVersionEnum::ILIAS_VERSION_5_1:
-				ilMathJax::includeMathJax();
+				\ilUtil::includeMathjax();
 				break;
 			case \LiveVoting\Context\ILIASVersionEnum::ILIAS_VERSION_5_2:
 				include_once './Services/MathJax/classes/class.ilMathJax.php';
 				ilMathJax::getInstance()->includeMathJax();
 				break;
 			default:
-				ilMathJax::includeMathJax();
+				\ilUtil::includeMathjax();
 				break;
 		}
 
