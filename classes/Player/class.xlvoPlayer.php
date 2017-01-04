@@ -661,6 +661,8 @@ class xlvoPlayer extends CachingActiveRecord  {
 	public function wakeUp($field_name, $field_value) {
 		switch ($field_name) {
 			case 'button_states':
+				if(!is_string($field_value))
+					return null;
 				$var = json_decode($field_value, true);
 
                 //check if we got the database entry
