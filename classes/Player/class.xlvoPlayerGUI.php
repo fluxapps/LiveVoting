@@ -13,6 +13,8 @@ use LiveVoting\xlvoLinkButton;
 
 require_once('./Services/Administration/classes/class.ilSetting.php');
 require_once('./Services/UIComponent/AdvancedSelectionList/classes/class.ilAdvancedSelectionListGUI.php');
+require_once("./include/inc.ilias_version.php");
+require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Context/class.ILIASVersionEnum.php");
 
 /**
  * Class xlvoPlayerGUI
@@ -410,8 +412,24 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 
 	protected function initJSandCss() {
-		include_once './Services/MathJax/classes/class.ilMathJax.php';
-		ilMathJax::getInstance()->includeMathJax();
+		$subversion = (int)explode('.', ILIAS_VERSION_NUMERIC)[1];
+
+		switch ($subversion) {
+			case \LiveVoting\Context\ILIASVersionEnum::ILIAS_VERSION_5_0:
+				ilMathJax::includeMathJax();
+				break;
+			case \LiveVoting\Context\ILIASVersionEnum::ILIAS_VERSION_5_1:
+				ilMathJax::includeMathJax();
+				break;
+			case \LiveVoting\Context\ILIASVersionEnum::ILIAS_VERSION_5_2:
+				include_once './Services/MathJax/classes/class.ilMathJax.php';
+				ilMathJax::getInstance()->includeMathJax();
+				break;
+			default:
+				ilMathJax::includeMathJax();
+				break;
+		}
+
 		$mathJaxSetting = new ilSetting("MathJax");
 		$settings = array(
 			'status_running' => xlvoPlayer::STAT_RUNNING,
