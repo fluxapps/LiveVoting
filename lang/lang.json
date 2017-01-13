@@ -17,7 +17,7 @@
                 "translations": {
                     "de": "LiveVoting erstellen",
                     "en": "Create LiveVoting",
-                    "hu": "Él?szavazás létrehozása"
+                    "hu": "Élőszavazás létrehozása"
                 }
             }
         },
@@ -26,7 +26,7 @@
                 "translations": {
                     "de": "Aktionen",
                     "en": "Actions",
-                    "hu": "M?veletek"
+                    "hu": "Műveletek"
                 }
             },
             "all": {
@@ -159,7 +159,7 @@
                 "translations": {
                     "de": "Zeitpunkt",
                     "en": "Timestamp",
-                    "hu": "Id?bélyeg"
+                    "hu": "Időbélyeg"
                 }
             },
             "user": {
@@ -261,7 +261,7 @@
                 "translations": {
                     "de": "LiveVoting erstellen",
                     "en": "Create LiveVoting",
-                    "hu": "Él?szavazás létrehozása"
+                    "hu": "Élőszavazás létrehozása"
                 }
             }
         },
@@ -270,7 +270,7 @@
                 "translations": {
                     "de": "LiveVoting erstellen",
                     "en": "Create LiveVoting",
-                    "hu": "Él?szavazás létrehozása"
+                    "hu": "Élőszavazás létrehozása"
                 }
             }
         },
@@ -279,7 +279,7 @@
                 "translations": {
                     "de": "LiveVoting erstellen",
                     "en": "Create LiveVoting",
-                    "hu": "Él?szavazás létrehozása"
+                    "hu": "Élőszavazás létrehozása"
                 }
             }
         },
@@ -322,14 +322,14 @@
                 "translations": {
                     "de": "LiveVotings",
                     "en": "LiveVotings",
-                    "hu": "Él?szavazás"
+                    "hu": "Élőszavazás"
                 }
             },
             "xlvo_duplicate": {
                 "translations": {
                     "de": "Bestehendes LiveVoting kopieren",
                     "en": "Clone existing LiveVoting",
-                    "hu": "Meglév? él?szavazás klónozása"
+                    "hu": "Meglévő élőszavazás klónozása"
                 }
             }
         },
@@ -385,7 +385,7 @@
                 "translations": {
                     "de": "Benutzer können erst abstimmen, wenn die Frage freigegeben wird.",
                     "en": "Users can vote after the presenter presses the Vote-Button of the question.",
-                    "hu": "Kérdésváltás után a felhasználók azután szavazhatnak, miután az el?adó megnyomta a Szavazz gombot."
+                    "hu": "Kérdésváltás után a felhasználók azután szavazhatnak, miután az előadó megnyomta a Szavazz gombot."
                 },
                 "last_used": "13.01.2017"
             },
@@ -422,7 +422,7 @@
                 "translations": {
                     "de": "Status beibehalten",
                     "en": "Reuse Status",
-                    "hu": "El?z? állapot használata"
+                    "hu": "Előző állapot használata"
                 },
                 "last_used": "13.01.2017"
             },
@@ -438,7 +438,7 @@
                 "translations": {
                     "de": "Die Teilnahme am LiveVoting ohne Login erfordert kein ILIAS Benutzerkonto. Alle Personen im Besitz des entsprechenden PINs können am LiveVoting teilnehmen.",
                     "en": "The LiveVoting can be used for the voters without authentication, even when the Object is in a secured Space like a Course. Voters access the LiveVoting with a PIN",
-                    "hu": "Az él?szavazás bejelentkezés nélkül használható, akkor is, ha az objektum védett, biztonságos helyen van, pl. egy kurzusban. A szavazók egy PIN kóddal érik el az él?szavazást."
+                    "hu": "Az élőszavazás bejelentkezés nélkül használható, akkor is, ha az objektum védett, biztonságos helyen van, pl. egy kurzusban. A szavazók egy PIN kóddal érik el az élőszavazást."
                 },
                 "last_used": "13.01.2017"
             },
@@ -446,7 +446,7 @@
                 "translations": {
                     "de": "Nur wenn das LiveVoting online geschaltet ist, können Benutzer das LiveVoting sehen und benutzen.",
                     "en": "Object is online and available",
-                    "hu": "Objektum online és elérhet?"
+                    "hu": "Objektum online és elérhető"
                 },
                 "last_used": "13.01.2017"
             },
@@ -454,14 +454,14 @@
                 "translations": {
                     "de": "Beim Wechseln zwischen Voting wird jeweils übernommen, ob das nächste Voting freigegeben werden soll, oder nicht.",
                     "en": "Re-use the state of the current Voting when switching to the next (frozen / not frozen).",
-                    "hu": "Az él?szavazás pillanatnyi állapotának meg?rzése amikor a következ?re váltunk (szüneteltetett / nem szüneteltetett)."
+                    "hu": "Az élőszavazás pillanatnyi állapotának megőrzése amikor a következőre váltunk (szüneteltetett / nem szüneteltetett)."
                 }
             },
             "info_terminable": {
                 "translations": {
                     "de": "Das LiveVoting kann nur innerhalb der definierten Zeit zum Abstimmen genutzt werden",
                     "en": "The LiveVoting only can be used in the definied period of time",
-                    "hu": "Az el?szavazás csak a meghatározott id?tartam alatt érhet? el"
+                    "hu": "Az előszavazás csak a meghatározott időtartam alatt érhető el"
                 }
             },
             "msg_properties_form_saved": {
@@ -530,7 +530,7 @@
                 "translations": {
                     "de": "Status beibehalten",
                     "en": "Reuse state",
-                    "hu": "El?z? állapot használata"
+                    "hu": "Előző állapot használata"
                 },
                 "last_used": "13.01.2017"
             },
@@ -575,21 +575,21 @@
                 "translations": {
                     "de": "Zeitraum",
                     "en": "Time range",
-                    "hu": "Id?tartam"
+                    "hu": "Időtartam"
                 }
             },
             "terminable_select_end_time": {
                 "translations": {
                     "de": "Ende",
                     "en": "End",
-                    "hu": "Záró id?"
+                    "hu": "Záró idő"
                 }
             },
             "terminable_select_start_time": {
                 "translations": {
                     "de": "Start",
                     "en": "Start",
-                    "hu": "Kezd? id?"
+                    "hu": "Kezdő idő"
                 }
             },
             "title": {
@@ -604,14 +604,14 @@
                 "translations": {
                     "de": "LiveVoting",
                     "en": "LiveVoting",
-                    "hu": "Él?szavazás"
+                    "hu": "Élőszavazás"
                 }
             },
             "xlvo_duplicate": {
                 "translations": {
                     "de": "Bestehendes LiveVoting kopieren",
                     "en": "Clone existing LiveVoting",
-                    "hu": "Meglév? él?szavazás duplikálása"
+                    "hu": "Meglévő élőszavazás duplikálása"
                 }
             }
         },
@@ -641,28 +641,28 @@
                 "translations": {
                     "de": "Sie können das LiveVoting nicht starten! Das LiveVoting ist offline.",
                     "en": "This LiveVoting can't be started since it is offline.",
-                    "hu": "Ez az él?szavazás nem indítható, mert jelenleg offline"
+                    "hu": "Ez az élőszavazás nem indítható, mert jelenleg offline"
                 }
             },
             "msg_no_start_2": {
                 "translations": {
                     "de": "Das LiveVoting kann nicht gestartet werden, da noch keine Votings vorhanden sind.",
                     "en": "This LiveVoting can't be started since there are no Votings available yet.",
-                    "hu": "Ez az él?szavazás nem indítható, mert nincsenek elérhet? szavazatok"
+                    "hu": "Ez az élőszavazás nem indítható, mert nincsenek elérhető szavazatok"
                 }
             },
             "msg_no_votings": {
                 "translations": {
                     "de": "Es sind keine Fragen vorhanden, das Voting kann nicht gestartet werden.",
                     "en": "There are no Questions, the LiveVoting can be started.",
-                    "hu": "Ez az él?szavazás nem indítható, mert nincs benne kérdés"
+                    "hu": "Ez az élőszavazás nem indítható, mert nincs benne kérdés"
                 }
             },
             "msg_voting_not_available": {
                 "translations": {
                     "de": "Das ausgewählte Voting ist nicht vorhanden",
                     "en": "The selected Voting is not available",
-                    "hu": "A kijelölt él?szavazás nem érhet? el"
+                    "hu": "A kijelölt élőszavazás nem érhető el"
                 }
             },
             "player_countdown": {
@@ -697,14 +697,14 @@
                 "translations": {
                     "de": "LiveVoting beginnen",
                     "en": "Start LiveVoting",
-                    "hu": "Él?szavazás indítása"
+                    "hu": "Élőszavazás indítása"
                 }
             },
             "start_voting_and_unfreeze": {
                 "translations": {
                     "de": "LiveVoting beginnen und direkt freigeben",
                     "en": "Start LiveVoting and start voting directly",
-                    "hu": "Él?szavazás indítása és a szavazás azonnali megkezdése"
+                    "hu": "Élőszavazás indítása és a szavazás azonnali megkezdése"
                 }
             },
             "terminate": {
@@ -755,7 +755,7 @@
                 "translations": {
                     "de": "Unterschiedliche Farben",
                     "en": "Different Colors",
-                    "hu": "Különböz? színek"
+                    "hu": "Különböző színek"
                 }
             },
             "1_info_latex": {
@@ -776,14 +776,14 @@
                 "translations": {
                     "de": "Ein Nutzer kann mehr als einen Text eingeben",
                     "en": "User can select more than one Option",
-                    "hu": "Válaszadó több, mint egy válaszlehet?séget jelölhet meg"
+                    "hu": "Válaszadó több, mint egy válaszlehetőséget jelölhet meg"
                 }
             },
             "1_options": {
                 "translations": {
                     "de": "Mögliche Antworten",
                     "en": "Options",
-                    "hu": "Lehet?ségek"
+                    "hu": "Lehetőségek"
                 }
             },
             "1_option_text": {
@@ -842,7 +842,7 @@
                 "translations": {
                     "de": "Zurücksetzen",
                     "en": "Clear",
-                    "hu": "Kezd?állapotba"
+                    "hu": "Kezdőállapotba"
                 }
             },
             "2_delete_all": {
@@ -898,7 +898,7 @@
                 "translations": {
                     "de": "Zurücksetzen",
                     "en": "Clear",
-                    "hu": "Kezd?állapotba"
+                    "hu": "Kezdőállapotba"
                 }
             },
             "4_correct": {
@@ -947,7 +947,7 @@
                 "translations": {
                     "de": "Optionen",
                     "en": "Options",
-                    "hu": "Lehet?ségek"
+                    "hu": "Lehetőségek"
                 }
             },
             "4_option_correct_position": {
@@ -1017,7 +1017,7 @@
                 "translations": {
                     "de": "Optionen",
                     "en": "Options",
-                    "hu": "Lehet?ségek"
+                    "hu": "Lehetőségek"
                 }
             },
             "5_option_text": {
@@ -1071,7 +1071,7 @@
                 "translations": {
                     "de": "LiveVoting erstellen",
                     "en": "Create LiveVoting",
-                    "hu": "Él?szavazás létrehozása"
+                    "hu": "Élőszavazás létrehozása"
                 }
             }
         },
@@ -1166,7 +1166,7 @@
                 "translations": {
                     "de": "Abstimmung gestoppt",
                     "en": "Voting stopped",
-                    "hu": "Él?szavazás inaktív"
+                    "hu": "Élőszavazás inaktív"
                 }
             },
             "info_frozen": {
@@ -1180,14 +1180,14 @@
                 "translations": {
                     "de": "Dieses LiveVoting wurde vom Präsentator nicht gestartet, bitte warten...",
                     "en": "This LiveVoting has not yet been started by the presenter...",
-                    "hu": "Azt az él?szavazást még nem indította el az el?adó..."
+                    "hu": "Azt az élőszavazást még nem indította el az előadó..."
                 }
             },
             "info_stopped": {
                 "translations": {
                     "de": "Das LiveVoting wurde gestoppt.",
                     "en": "This LiveVoting has been stopped",
-                    "hu": "Ez az él?szavazás jelenleg nem aktív, szavazatot nem adhat le."
+                    "hu": "Ez az élőszavazás jelenleg nem aktív, szavazatot nem adhat le."
                 }
             },
             "msg_access_screen": {
@@ -1201,28 +1201,28 @@
                 "translations": {
                     "de": "Das LiveVoting wurde beendet, vielen Dank für Ihre Teilnahme",
                     "en": "This LiveVoting has been terminated. Thanks for your participation.",
-                    "hu": "Ez a él?szavazás véget ért. Köszönjük résztvételét."
+                    "hu": "Ez a élőszavazás véget ért. Köszönjük résztvételét."
                 }
             },
             "msg_not_running_screen": {
                 "translations": {
                     "de": "Dieses LiveVoting ist zur Zeit nicht aktiv.",
                     "en": "This LiveVoting is currently not active.",
-                    "hu": "Ez az él?szavazás jelenleg nem aktív."
+                    "hu": "Ez az élőszavazás jelenleg nem aktív."
                 }
             },
             "msg_start_of_voting_screen": {
                 "translations": {
                     "de": "Bitte warten, bis der Präsentator das Voting freigibt",
                     "en": "Please wait until the presenter starts the Voting",
-                    "hu": "Kérem, várjon amíg elindul az él?szavazás"
+                    "hu": "Kérem, várjon amíg elindul az élőszavazás"
                 }
             },
             "msg_validation_error_pin_1": {
                 "translations": {
                     "de": "Dieses LiveVoting ist zur Zeit nicht online",
                     "en": "This LiveVoting is not online",
-                    "hu": "Ez az él?szavazás nem online"
+                    "hu": "Ez az élőszavazás nem online"
                 }
             },
             "msg_validation_error_pin_2": {
@@ -1236,14 +1236,14 @@
                 "translations": {
                     "de": "Zu diesem PIN wurde keine LiveVoting gefunden",
                     "en": "No LiveVoting with this PIN found",
-                    "hu": "Ehhez a PIN-hez nincs él?szavazás"
+                    "hu": "Ehhez a PIN-hez nincs élőszavazás"
                 }
             },
             "msg_validation_error_pin_4": {
                 "translations": {
                     "de": "Dieses LiveVoting ist zum aktuellen Zeitpunkt nicht verfügbar",
                     "en": "This LiveVoting is not available at the moment",
-                    "hu": "Ez az él?szavazás jelenleg nem érhet? el"
+                    "hu": "Ez az élőszavazás jelenleg nem érhető el"
                 }
             },
             "msg_waiting_screen": {
@@ -1257,7 +1257,7 @@
                 "translations": {
                     "de": "LiveVoting starten",
                     "en": "Start LiveVoting",
-                    "hu": "Belépés él?szavazásba"
+                    "hu": "Belépés élőszavazásba"
                 }
             },
             "pin_input": {
@@ -1294,7 +1294,7 @@
                 "translations": {
                     "de": "Aktionen",
                     "en": "Actions",
-                    "hu": "M?velet"
+                    "hu": "Művelet"
                 }
             },
             "add": {
@@ -1315,7 +1315,7 @@
                 "translations": {
                     "de": "Spalten für Antwortmöglichkeiten",
                     "en": "Colums for possible answers",
-                    "hu": "A válaszlehet?ségeket ennyi oszlopba rendezzük az el?adó képerny?jén"
+                    "hu": "A válaszlehetőségeket ennyi oszlopba rendezzük az előadó képernyőjén"
                 }
             },
             "confirm_number_of_votes": {
@@ -1414,7 +1414,7 @@
                 "translations": {
                     "de": "Alle Antworten werden gespeichert, auch wenn sie später geändert werden. Dadurch kann das Antwortverhalten beobachtet werden.",
                     "en": "All answers the participants give are saved even if they change their opinion later. You can analyze the voting behaviour of your users.",
-                    "hu": "A válaszadók összes szavazatát mentjük, akkor is, ha kés?bb azt módosítják. Így a válaszadók szavazási viselkedését is elemezheti."
+                    "hu": "A válaszadók összes szavazatát mentjük, akkor is, ha később azt módosítják. Így a válaszadók szavazási viselkedését is elemezheti."
                 },
                 "last_used": "13.01.2017"
             },
@@ -1527,7 +1527,7 @@
                 "translations": {
                     "de": "User können eine resp. mehrere Auswahlmöglichkeit(en) auswählen",
                     "en": "A User can vote for different options",
-                    "hu": "Lehet?ségek közül lehet választani."
+                    "hu": "Lehetőségek közül lehet választani."
                 }
             },
             "type_2": {
@@ -1614,7 +1614,7 @@
                 "translations": {
                     "de": "LiveVoting löschen",
                     "en": "Delete LiveVoting",
-                    "hu": "Él?szavazás törlése"
+                    "hu": "Élőszavazás törlése"
                 }
             },
             "edit": {
@@ -1636,7 +1636,7 @@
                 "translations": {
                     "de": "Neues LiveVoting anlegen",
                     "en": "Add new LiveVoting",
-                    "hu": "Új Él?szavazás létrehozása"
+                    "hu": "Új Élőszavazás létrehozása"
                 }
             },
             "read": {
@@ -1650,14 +1650,14 @@
                 "translations": {
                     "de": "LiveVoting sichtbar",
                     "en": "LiveVotings visible",
-                    "hu": "Él?szavazások látható"
+                    "hu": "Élőszavazások látható"
                 }
             },
             "write": {
                 "translations": {
                     "de": "LiveVoting präsentieren und bearbeiten",
                     "en": "Present and edit LiveVoting",
-                    "hu": "Él?szavazás indítása és módosítása"
+                    "hu": "Élőszavazás indítása és módosítása"
                 }
             }
         }
