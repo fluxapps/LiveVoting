@@ -100,7 +100,7 @@ playplayer_msg_no_start_2#:#Das LiveVoting kann nicht gestartet werden, da noch 
 qtype_1_colors#:#Unterschiedliche Farben
 qtype_1_info_latex#:#LaTeX kann mit [tex] ... [/tex] formatiert werden.
 qtype_1_multi_selection#:#Mehrfachauswahl
-qtype_1_multi_selection_info#:#Ein Nutzer kann mehr als einen Text eingeben
+qtype_1_multi_selection_info#:#in Nutzer kann mehrere Antworten wählen. Beim Einblenden der Resultate wird für jede Antwortmöglichkeit das Verhältnis separat berechnet (Anzahl erhaltener Stimmen / Anzahl Abstimmende).
 qtype_1_options#:#Mögliche Antworten
 qtype_1_option_text#:#Options-Text
 qtype_1_optmsg_success_voting_updated#:#Voting wurde gespeichert

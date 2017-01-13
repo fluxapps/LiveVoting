@@ -756,42 +756,48 @@
                     "de": "Unterschiedliche Farben",
                     "en": "Different Colors",
                     "hu": "Különböző színek"
-                }
+                },
+                "last_used": "13.01.2017"
             },
             "1_info_latex": {
                 "translations": {
                     "de": "LaTeX kann mit [tex] ... [/tex] formatiert werden.",
                     "en": "LaTeX can be surrounded with [tex] ... [/tex]",
                     "hu": "LaTeX részt [tex] ... [/tex] közé kell írni."
-                }
+                },
+                "last_used": "13.01.2017"
             },
             "1_multi_selection": {
                 "translations": {
                     "de": "Mehrfachauswahl",
                     "en": "Multiple Selection",
                     "hu": "Többszörös kijelölés"
-                }
+                },
+                "last_used": "13.01.2017"
             },
             "1_multi_selection_info": {
                 "translations": {
-                    "de": "Ein Nutzer kann mehr als einen Text eingeben",
+                    "de": "in Nutzer kann mehrere Antworten wählen. Beim Einblenden der Resultate wird für jede Antwortmöglichkeit das Verhältnis separat berechnet (Anzahl erhaltener Stimmen / Anzahl Abstimmende).",
                     "en": "User can select more than one Option",
                     "hu": "Válaszadó több, mint egy válaszlehetőséget jelölhet meg"
-                }
+                },
+                "last_used": "13.01.2017"
             },
             "1_options": {
                 "translations": {
                     "de": "Mögliche Antworten",
                     "en": "Options",
                     "hu": "Lehetőségek"
-                }
+                },
+                "last_used": "13.01.2017"
             },
             "1_option_text": {
                 "translations": {
                     "de": "Options-Text",
                     "en": "Option-Text",
                     "hu": "Option-Text"
-                }
+                },
+                "last_used": "13.01.2017"
             },
             "1_optmsg_success_voting_updated": {
                 "translations": {
@@ -1039,7 +1045,8 @@
                     "de": "Antworten",
                     "en": "Answers",
                     "hu": "Válaszok"
-                }
+                },
+                "last_used": "13.01.2017"
             },
             "multi_free_input": {
                 "translations": {
@@ -1097,14 +1104,16 @@
                     "de": "Verwalten",
                     "en": "Manage",
                     "hu": "Kezelés"
-                }
+                },
+                "last_used": "13.01.2017"
             },
             "show": {
                 "translations": {
                     "de": "Zeigen",
                     "en": "Show",
                     "hu": "Megjelenítés"
-                }
+                },
+                "last_used": "13.01.2017"
             }
         },
         "tab": {
@@ -1309,14 +1318,16 @@
                     "de": "Abbrechen",
                     "en": "Cancel",
                     "hu": "Mégsem"
-                }
+                },
+                "last_used": "13.01.2017"
             },
             "columns": {
                 "translations": {
                     "de": "Spalten für Antwortmöglichkeiten",
                     "en": "Colums for possible answers",
                     "hu": "A válaszlehetőségeket ennyi oszlopba rendezzük az előadó képernyőjén"
-                }
+                },
+                "last_used": "13.01.2017"
             },
             "confirm_number_of_votes": {
                 "translations": {
@@ -1344,7 +1355,8 @@
                     "de": "Erstellen",
                     "en": "Create",
                     "hu": "Létrehozás"
-                }
+                },
+                "last_used": "13.01.2017"
             },
             "delete": {
                 "translations": {
@@ -1365,7 +1377,8 @@
                     "de": "Beschreibung",
                     "en": "Description",
                     "hu": "Leírás"
-                }
+                },
+                "last_used": "13.01.2017"
             },
             "duplicate": {
                 "translations": {
@@ -1393,7 +1406,8 @@
                     "de": "Frage",
                     "en": "Question",
                     "hu": "Kérdése"
-                }
+                },
+                "last_used": "13.01.2017"
             },
             "form_title_update": {
                 "translations": {
@@ -1444,7 +1458,8 @@
                     "de": "Frage",
                     "en": "Question",
                     "hu": "Kérdés"
-                }
+                },
+                "last_used": "13.01.2017"
             },
             "reset": {
                 "translations": {
@@ -1507,7 +1522,8 @@
                     "de": "Titel",
                     "en": "Title",
                     "hu": "Cím"
-                }
+                },
+                "last_used": "13.01.2017"
             },
             "type": {
                 "translations": {
