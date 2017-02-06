@@ -41,8 +41,8 @@ Sind Sie interessiert an einer Plugin-Patenschaft (https://studer-raimann.ch/pro
 
 ###Contact
 studer + raimann ag  
-Waldeggstrasse 72  
-3097 Liebefeld  
+Farbweg 9  
+3400 Burgdorf  
 Switzerland  
 
 info@studer-raimann.ch  
