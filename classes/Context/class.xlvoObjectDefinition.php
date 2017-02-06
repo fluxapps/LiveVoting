@@ -1,5 +1,7 @@
 <?php
 
+namespace LiveVoting\Context;
+
 /**
  * Class xlvoObjectDefinition
  *

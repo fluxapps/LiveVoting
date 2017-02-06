@@ -1,0 +1,51 @@
+{
+    "name": "studer-raimann.ch/live-voting",
+    "description": "ILIAS 5 LiveVoting plugin",
+    "type": "project",
+    "license": "GPL-3.0+",
+    "authors": [
+        {
+            "name": "Nicolas Schaefli",
+            "email": "ns@studer-raimann.ch",
+            "homepage": "https://studer-raimann.ch",
+            "role": "Software Engineer"
+        },
+        {
+            "name": "Fabian Schmid",
+            "email": "fs@studer-raimann.ch",
+            "homepage": "https://studer-raimann.ch",
+            "role": "Member of the Executive Board"
+        },
+        {
+            "name": "Oskar Truffer",
+            "email": "ot@studer-raimann.ch",
+            "homepage": "https://studer-raimann.ch",
+            "role": "Project Manager, Software Engineer"
+        },
+        {
+            "name": "Daniel Aemmer",
+            "email": "daniel.aemmer@phbern.ch",
+            "homepage": "https://www.phbern.ch"
+        }
+    ],
+    "support": {
+        "email": "info@studer-raimann.ch"
+    },
+    "minimum-stability": "beta",
+    "prefer-stable": true,
+    "require": {
+        "php" : "^5.5.9 || ^7.0",
+        "endroid/qrcode": "^1.7"
+    },
+    "require-dev": {
+	"endroid/qrcode": "^1.7"
+    },
+    "autoload": {
+        "classmap": ["./classes/"]
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true,
+        "classmap-authoritative": true
+    }
+}

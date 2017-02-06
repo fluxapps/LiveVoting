@@ -1,5 +1,5 @@
 <?php
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/Bar/class.xlvoBarGUI.php');
+use LiveVoting\Display\Bar\xlvoBarGUI;
 
 /**
  * Class xlvoBarCollectionGUI
@@ -11,7 +11,7 @@ require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/
 class xlvoBarCollectionGUI {
 
 	/**
-	 * @var ilTemplate
+	 * @var \ilTemplate
 	 */
 	protected $tpl;
 	/**
@@ -33,7 +33,7 @@ class xlvoBarCollectionGUI {
 
 
 	public function __construct() {
-		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Display/Bar/tpl.bar_collection.html', true, true);
+		$this->tpl = new \ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Display/Bar/tpl.bar_collection.html', true, true);
 	}
 
 

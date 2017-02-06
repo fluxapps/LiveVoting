@@ -1,5 +1,7 @@
 <?php
 
+namespace LiveVoting\Context;
+
 // TODO SRAG-GC IMPLEMENT INTERFACE - EXPLINATION: In ILIAS 5.2 the abstract class ilContextBase has been replaced by the interface ilContextTemplate.
 // TODO SRAG-GC IMPLEMENT INTERFACE - EXPLINATION: In order to stay compatible as well with ILIAS < 5.2 and ILIAS >= 5.2, we removed as well "extends ilContextBase" as "implement ilContextTemplate"
 // TODO SRAG-GC IMPLEMENT INTERFACE - EXPLINATION: However, as soon as this plugin won't support ILIAS 5.1 anymore, we should implement the interface again

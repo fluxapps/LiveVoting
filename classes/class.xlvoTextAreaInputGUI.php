@@ -1,4 +1,5 @@
 <?php
+
 require_once('./Services/Form/classes/class.ilTextAreaInputGUI.php');
 
 /**
@@ -6,7 +7,7 @@ require_once('./Services/Form/classes/class.ilTextAreaInputGUI.php');
  *
  * @author Fabian Schmid <fs@studer-raimann.ch>
  */
-class xlvoTextAreaInputGUI extends ilTextAreaInputGUI {
+class xlvoTextAreaInputGUI extends \ilTextAreaInputGUI {
 
 	/**
 	 * @var string
@@ -49,7 +50,7 @@ class xlvoTextAreaInputGUI extends ilTextAreaInputGUI {
 	 * @return string
 	 */
 	public function render() {
-		$tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/tpl.text_area_helper.html', false, false);
+		$tpl = new \ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/tpl.text_area_helper.html', false, false);
 		$this->insert($tpl);
 		$tpl->setVariable('INLINE_STYLE', $this->getInlineStyle());
 

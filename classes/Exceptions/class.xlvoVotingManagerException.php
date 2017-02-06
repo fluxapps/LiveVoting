@@ -1,5 +1,7 @@
 <?php
 
+namespace LiveVoting\Exceptions;
+
 /**
  * Class
  *
@@ -7,9 +9,9 @@
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version 1.0.0
  */
-class xlvoVotingManagerException extends Exception {
+class xlvoVotingManagerException extends \Exception {
 
-	public function __construct($message, $code = 0, Exception $previous = NULL) {
+	public function __construct($message, $code = 0, \Exception $previous = NULL) {
 		parent::__construct($message, $code, $previous);
 	}
 }

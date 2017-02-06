@@ -1,5 +1,8 @@
 <?php
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/Bar/class.xlvoBarGUI.php');
+
+use LiveVoting\Display\Bar\xlvoBarGUI;
+use LiveVoting\Vote\xlvoVote;
+use LiveVoting\Voting\xlvoVoting;
 
 /**
  * Class xlvoBarFreeInputsGUI
@@ -17,7 +20,7 @@ class xlvoBarFreeInputsGUI implements xlvoBarGUI {
 	 */
 	protected $vote;
 	/**
-	 * @var ilTemplate
+	 * @var \ilTemplate
 	 */
 	protected $tpl;
 
@@ -29,7 +32,7 @@ class xlvoBarFreeInputsGUI implements xlvoBarGUI {
 	public function __construct(xlvoVoting $voting, xlvoVote $vote) {
 		$this->voting = $voting;
 		$this->vote = $vote;
-		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Display/Bar/tpl.bar_free_input.html', true, true);
+		$this->tpl = new \ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Display/Bar/tpl.bar_free_input.html', true, true);
 	}
 
 

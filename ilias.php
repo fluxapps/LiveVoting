@@ -9,23 +9,36 @@
  *         Depending on Context, an ILIAS environment or just the pin context is loaded
  */
 
+require_once __DIR__ . '/vendor/autoload.php';
 require_once('dir.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Context/class.xlvoInitialisation.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Js/class.xlvoJs.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Conf/class.xlvoConf.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/User/class.xlvoUser.php');
-xlvoInitialisation::init();
-global $ilUser;
-if ($ilUser instanceof ilObjUser && $ilUser->getId()) {
-	xlvoUser::getInstance()->setIdentifier($ilUser->getId())->setType(xlvoUser::TYPE_ILIAS);
-} else {
-	xlvoUser::getInstance()->setIdentifier(session_id())->setType(xlvoUser::TYPE_PIN);
+
+use LiveVoting\Conf\xlvoConf;
+use LiveVoting\Context\cookie\CookieManager;
+use LiveVoting\Context\InitialisationManager;
+use LiveVoting\Context\xlvoBasicInitialisation;
+use LiveVoting\Context\xlvoContext;
+use LiveVoting\Context\xlvoInitialisation;
+use LiveVoting\User\xlvoUser;
+
+$context = CookieManager::getContext();
+switch ($context) {
+    case xlvoContext::CONTEXT_PIN:
+        InitialisationManager::startMinimal();
+        break;
+
+    case xlvoContext::CONTEXT_ILIAS:
+        InitialisationManager::startLight();
+        //TODO: catch error if user used the go to link but has no ilias authentication. Atm the error handling page is shown.
+        break;
 }
+
+xlvoConf::load();
+
 global $ilCtrl, $ilBench;
+
 /**
  * @var ilCtrl $ilCtrl
  */
-
 $ilCtrl->setTargetScript(xlvoConf::getFullApiURL());
 $ilCtrl->callBaseClass();
 $ilBench->save();

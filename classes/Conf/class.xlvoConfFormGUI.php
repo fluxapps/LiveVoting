@@ -1,6 +1,9 @@
 <?php
+
+
+use LiveVoting\Conf\xlvoConf;
+
 require_once('./Services/Form/classes/class.ilPropertyFormGUI.php');
-require_once('class.xlvoConf.php');
 
 /**
  * Class xlvoConfFormGUI
@@ -8,7 +11,7 @@ require_once('class.xlvoConf.php');
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version 1.0.0
  */
-class xlvoConfFormGUI extends ilPropertyFormGUI {
+class xlvoConfFormGUI extends \ilPropertyFormGUI {
 
 	/**
 	 * @var  xlvoConf
@@ -19,7 +22,7 @@ class xlvoConfFormGUI extends ilPropertyFormGUI {
 	 */
 	protected $parent_gui;
 	/**
-	 * @var  ilCtrl
+	 * @var  \ilCtrl
 	 */
 	protected $ctrl;
 	/**
@@ -47,18 +50,25 @@ class xlvoConfFormGUI extends ilPropertyFormGUI {
 		$this->setFormAction($this->ctrl->getFormAction($this->parent_gui));
 		$this->initButtons();
 
-		$use_shortlink = new ilCheckboxInputGUI($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK), xlvoConf::F_ALLOW_SHORTLINK);
+		$use_shortlink = new \ilCheckboxInputGUI($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK), xlvoConf::F_ALLOW_SHORTLINK);
 		$use_shortlink->setInfo($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK . '_info') . '<br><br><span class="label label-default">' . xlvoConf::REWRITE_RULE . '</span><br><br>');
 
-		$shortlink = new ilTextInputGUI($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_LINK), xlvoConf::F_ALLOW_SHORTLINK_LINK);
+		$shortlink = new \ilTextInputGUI($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_LINK), xlvoConf::F_ALLOW_SHORTLINK_LINK);
 		$shortlink->setInfo($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_LINK . '_info'));
 		$use_shortlink->addSubItem($shortlink);
 
-		$base_url = new ilTextInputGUI($this->parent_gui->txt(xlvoConf::F_BASE_URL), xlvoConf::F_BASE_URL);
+		$base_url = new \ilTextInputGUI($this->parent_gui->txt(xlvoConf::F_BASE_URL), xlvoConf::F_BASE_URL);
 		$base_url->setInfo($this->parent_gui->txt(xlvoConf::F_BASE_URL . '_info'));
 		$use_shortlink->addSubItem($base_url);
 
+		$request_frequency = new \ilNumberInputGUI($this->parent_gui->txt(xlvoConf::REQUEST_FREQUENCY), xlvoConf::REQUEST_FREQUENCY);
+		$request_frequency->setInfo($this->parent_gui->txt(xlvoConf::REQUEST_FREQUENCY . '_info'));
+		$request_frequency->allowDecimals(true);
+		$request_frequency->setMinValue(xlvoConf::MIN_CLIENT_UPDATE_FREQUENCY, false);
+		$request_frequency->setMaxValue(xlvoConf::MAX_CLIENT_UPDATE_FREQUENCY, false);
+
 		$this->addItem($use_shortlink);
+		$this->addItem($request_frequency);
 	}
 
 
@@ -134,7 +144,7 @@ class xlvoConfFormGUI extends ilPropertyFormGUI {
 	 * @return bool
 	 */
 	public static function checkForSubItem($item) {
-		return !$item instanceof ilFormSectionHeaderGUI AND !$item instanceof ilMultiSelectInputGUI;
+		return !$item instanceof \ilFormSectionHeaderGUI AND !$item instanceof \ilMultiSelectInputGUI;
 	}
 
 
@@ -144,8 +154,6 @@ class xlvoConfFormGUI extends ilPropertyFormGUI {
 	 * @return bool
 	 */
 	public static function checkItem($item) {
-		return !$item instanceof ilFormSectionHeaderGUI;
+		return !$item instanceof \ilFormSectionHeaderGUI;
 	}
 }
-
-?>

@@ -1,6 +1,6 @@
 <?php
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilLiveVotingPlugin.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Js/class.xlvoJs.php');
+
+use LiveVoting\Conf\xlvoConf;
 
 /**
  * Class xlvoGUI
@@ -25,10 +25,10 @@ class xlvoGUI {
 	public function __construct() {
 		global $tpl, $ilCtrl, $ilTabs, $ilToolbar;
 		/**
-		 * @var $ilCtrl    ilCtrl
-		 * @var $ilTabs    ilTabsGUI
-		 * @var $tpl       ilTemplate
-		 * @var $ilToolbar ilToolbarGUI
+		 * @var $ilCtrl    \ilCtrl
+		 * @var $ilTabs    \ilTabsGUI
+		 * @var $tpl       |ilTemplate
+		 * @var $ilToolbar |ilToolbarGUI
 		 */
 		$this->tpl = $tpl;
 		$this->tabs = $ilTabs;

@@ -1,5 +1,4 @@
 <?php
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoQuestionTypesGUI.php');
 
 /**
  * Class xlvoSingleVoteGUI
@@ -35,7 +34,7 @@ class xlvoSingleVoteGUI extends xlvoQuestionTypesGUI {
 			return array();
 		}
 		$states = $this->getButtonsStates();
-		$t = ilLinkButton::getInstance();
+		$t = \ilLinkButton::getInstance();
 		$t->setId(self::BUTTON_TOGGLE_PERCENTAGE);
 		if ($states[self::BUTTON_TOGGLE_PERCENTAGE]) {
 			$t->setCaption('%', false);
@@ -62,7 +61,7 @@ class xlvoSingleVoteGUI extends xlvoQuestionTypesGUI {
 	 * @return string
 	 */
 	public function getMobileHTML() {
-		$tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/QuestionTypes/SingleVote/tpl.single_vote.html', false, true);
+		$tpl = new \ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/QuestionTypes/SingleVote/tpl.single_vote.html', false, true);
 		$answer_count = 64;
 		foreach ($this->manager->getVoting()->getVotingOptions() as $xlvoOption) {
 			$answer_count ++;

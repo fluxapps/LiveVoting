@@ -1,4 +1,5 @@
 <?php
+
 require_once("./Services/Table/interfaces/interface.ilTableFilterItem.php");
 require_once("./Services/Form/classes/class.ilSubEnabledFormPropertyGUI.php");
 require_once("./Services/UIComponent/Toolbar/interfaces/interface.ilToolbarItem.php");
@@ -8,7 +9,7 @@ require_once("./Services/UIComponent/Toolbar/interfaces/interface.ilToolbarItem.
  *
  * @author Michael Herren <mh@studer-raimann.ch>
  */
-class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
+class xlvoMultiLineInputGUI extends \ilFormPropertyGUI {
 
 	const HOOK_IS_LINE_REMOVABLE = "hook_is_line_removable";
 	const HOOK_IS_INPUT_DISABLED = "hook_is_disabled";
@@ -125,7 +126,7 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	 * @param       $input
 	 * @param array $options
 	 */
-	public function addInput(ilFormPropertyGUI $input, $options = array()) {
+	public function addInput(\ilFormPropertyGUI $input, $options = array()) {
 		$this->inputs[$input->getPostVar()] = $input;
 		$this->input_options[$input->getPostVar()] = $options;
 		$this->counter ++;
@@ -191,8 +192,8 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 		foreach ($this->inputs as $key => $item) {
 			if (method_exists($item, 'setValue')) {
 				$item->setValue($a_value[$key]);
-			} elseif ($item instanceof ilDateTimeInputGUI) {
-				$item->setDate(new ilDate($a_value[$key]['date'], IL_CAL_DATE));
+			} elseif ($item instanceof \ilDateTimeInputGUI) {
+				$item->setDate(new \ilDate($a_value[$key]['date'], IL_CAL_DATE));
 			}
 		}
 		$this->value = $a_value;
@@ -242,7 +243,7 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 		foreach ($_POST[$this->getPostVar()] as $item_num => $item) {
 			foreach ($this->inputs as $input_key => $input) {
 				if (isset($item[$input_key])) {
-					$out_array[$item_num][$input_key] = (is_string($item[$input_key])) ? ilUtil::stripSlashes($item[$input_key]) : $item[$input_key];
+					$out_array[$item_num][$input_key] = (is_string($item[$input_key])) ? \ilUtil::stripSlashes($item[$input_key]) : $item[$input_key];
 				}
 			}
 		}
@@ -290,11 +291,11 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 
 	/**
 	 * @param                   $iterator_id
-	 * @param ilFormPropertyGUI $input
+	 * @param \ilFormPropertyGUI $input
 	 *
 	 * @return string
 	 */
-	protected function createInputPostVar($iterator_id, ilFormPropertyGUI $input) {
+	protected function createInputPostVar($iterator_id, \ilFormPropertyGUI $input) {
 		if ($this->getMulti()) {
 			return $this->getPostVar() . '[' . $iterator_id . '][' . $input->getPostVar() . ']';
 		} else {
@@ -309,11 +310,11 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	 * @param int $iterator_id
 	 *
 	 * @return string
-	 * @throws ilException
+	 * @throws \ilException
 	 */
 	public function render($iterator_id = 0, $clean_render = false) {
 		$first_label = true;
-		$tpl = new ilTemplate("tpl.multi_line_input.html", true, true, 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting');
+		$tpl = new \ilTemplate("tpl.multi_line_input.html", true, true, 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting');
 		$class = 'multi_input_line';
 		$this->addCustomAttribute('class', $class, true);
 		foreach ($this->getCustomAttributes() as $key => $value) {
@@ -329,14 +330,14 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 			$is_ta = false;
 			if (!method_exists($input, 'render')) {
 				switch (true) {
-					case ($input instanceof ilHiddenInputGUI):
+					case ($input instanceof \ilHiddenInputGUI):
 						$is_hidden = true;
 						break;
-					case ($input instanceof ilTextAreaInputGUI):
+					case ($input instanceof \ilTextAreaInputGUI):
 						$is_ta = true;
 						break;
 					default:
-						throw new ilException("Method " . get_class($input)
+						throw new \ilException("Method " . get_class($input)
 						                      . "::render() does not exists! You cannot use this input-type in ilMultiLineInputGUI");
 				}
 			}
@@ -364,7 +365,7 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 				case $is_hidden:
 					$tpl->setCurrentBlock('hidden');
 					$tpl->setVariable('NAME', $post_var);
-					$tpl->setVariable('VALUE', ilUtil::prepareFormOutput($input->getValue()));
+					$tpl->setVariable('VALUE', \ilUtil::prepareFormOutput($input->getValue()));
 					break;
 				case $is_ta:
 					if ($this->isShowLabel() || ($this->isShowLabelOnce() && $first_label)) {
@@ -404,7 +405,6 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 			$tpl->parseCurrentBlock();
 		}
 		if ($this->getMulti() && !$this->getDisabled()) {
-			require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/class.xlvoGlyphGUI.php');
 			$image_plus = xlvoGlyphGUI::get('plus');
 			$show_remove = true;
 			$is_removeable_hook = $this->getHook(self::HOOK_IS_LINE_REMOVABLE);

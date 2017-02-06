@@ -1,7 +1,6 @@
 <?php
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoQuestionTypesGUI.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/Bar/class.xlvoBarMovableGUI.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/CorrectOrder/class.xlvoCorrectOrderGUI.php');
+
+use LiveVoting\Js\xlvoJs;
 
 /**
  * Class xlvoFreeOrderGUI
@@ -25,7 +24,7 @@ class xlvoFreeOrderGUI extends xlvoCorrectOrderGUI {
 			return array();
 		}
 		$states = $this->getButtonsStates();
-		$b = ilLinkButton::getInstance();
+		$b = \ilLinkButton::getInstance();
 		$b->setId(self::BUTTON_TOTTLE_DISPLAY_CORRECT_ORDER);
 		if ($states[self::BUTTON_TOTTLE_DISPLAY_CORRECT_ORDER]) {
 			$b->setCaption(xlvoGlyphGUI::get('align-left'), false);

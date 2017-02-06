@@ -1,5 +1,5 @@
 <?php
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoSubFormGUI.php');
+
 
 /**
  * Class xlvoFreeInputSubFormGUI
@@ -12,18 +12,18 @@ class xlvoFreeInputSubFormGUI extends xlvoSubFormGUI {
 
 
 	protected function initFormElements() {
-		$cb = new ilCheckboxInputGUI($this->txt(self::F_MULTI_FREE_INPUT), self::F_MULTI_FREE_INPUT);
+		$cb = new \ilCheckboxInputGUI($this->txt(self::F_MULTI_FREE_INPUT), self::F_MULTI_FREE_INPUT);
 		$cb->setInfo($this->txt(self::F_MULTI_FREE_INPUT . '_info'));
 		$this->addFormElement($cb);
 	}
 
 
 	/**
-	 * @param ilFormPropertyGUI $element
+	 * @param \ilFormPropertyGUI $element
 	 * @param $value
 	 * @return mixed
 	 */
-	protected function handleField(ilFormPropertyGUI $element, $value) {
+	protected function handleField(\ilFormPropertyGUI $element, $value) {
 		switch ($element->getPostVar()) {
 			case self::F_MULTI_FREE_INPUT:
 				$this->getXlvoVoting()->setMultiFreeInput($value);
@@ -33,10 +33,10 @@ class xlvoFreeInputSubFormGUI extends xlvoSubFormGUI {
 
 
 	/**
-	 * @param ilFormPropertyGUI $element
+	 * @param \ilFormPropertyGUI $element
 	 * @return mixed
 	 */
-	protected function getFieldValue(ilFormPropertyGUI $element) {
+	protected function getFieldValue(\ilFormPropertyGUI $element) {
 		switch ($element->getPostVar()) {
 			case self::F_MULTI_FREE_INPUT:
 				return $this->getXlvoVoting()->isMultiFreeInput();

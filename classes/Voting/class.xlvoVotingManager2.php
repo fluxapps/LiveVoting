@@ -1,8 +1,17 @@
 <?php
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Player/ex.xlvoPlayerException.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Vote/class.xlvoVote.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Pin/class.xlvoPin.php');
-require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Vote/class.xlvoVoteHistoryObject.php");
+
+namespace LiveVoting\Voting;
+use LiveVoting\Exceptions\xlvoVotingManagerException;
+use LiveVoting\Option\xlvoOption;
+use LiveVoting\Pin\xlvoPin;
+use LiveVoting\Player\xlvoPlayer;
+use LiveVoting\Player\xlvoPlayerException;
+use LiveVoting\QuestionTypes\xlvoQuestionTypes;
+use LiveVoting\Round\xlvoRound;
+use LiveVoting\User\xlvoUser;
+use LiveVoting\Vote\xlvoVote;
+use LiveVoting\Voter\xlvoVoterException;
+use xlvoVotingConfig;
 
 /**
  * Class xlvoVotingManager2
@@ -38,14 +47,21 @@ class xlvoVotingManager2 {
 		$obj_id = xlvoPin::checkPin($pin, false);
 		$this->obj_id = $obj_id;
 		$this->player = xlvoPlayer::getInstanceForObjId($this->obj_id);
-		$this->player->setRoundId(xlvoRound::getLatestRound($this->obj_id)->getId());
+        $round_id = $this->player->getRoundId();
+		$this->player->setRoundId(xlvoRound::getLatestRoundId($this->obj_id));
+
+        if($round_id !== $this->player->getRoundId())
+        {
+            $this->player->store();
+        }
+
 		$this->initVoting();
 	}
 
 
 	/**
 	 * @param $pin
-	 * @throws \xlvoVoterException
+	 * @throws xlvoVoterException
 	 */
 	public function checkPIN($pin) {
 		xlvoPin::checkPin($pin, true);
@@ -136,7 +152,7 @@ class xlvoVotingManager2 {
 		$xlvoVote->setType(xlvoQuestionTypes::TYPE_FREE_INPUT);
 		$xlvoVote->setStatus(xlvoVote::STAT_ACTIVE);
 		$xlvoVote->setFreeInput($input);
-		$xlvoVote->setRoundId(xlvoRound::getLatestRound($this->obj_id)->getId());
+		$xlvoVote->setRoundId(xlvoRound::getLatestRoundId($this->obj_id));
 		$xlvoVote->store();
 		if (!$this->getVoting()->isMultiFreeInput()) {
 			$this->unvoteAll($xlvoVote->getId());
@@ -414,7 +430,7 @@ class xlvoVotingManager2 {
 
 	/**
 	 * @return bool
-	 * @throws \xlvoPlayerException
+	 * @throws xlvoPlayerException
 	 */
 	public function prepareStart() {
 		if (!$this->getVotingConfig()->isObjOnline()) {
@@ -554,7 +570,7 @@ class xlvoVotingManager2 {
 
 	/**
 	 * @param string $order
-	 * @return ActiveRecordList
+	 * @return \ActiveRecordList
 	 */
 	protected function getVotingsList($order = 'ASC') {
 		return xlvoVoting::where(array(

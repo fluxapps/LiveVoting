@@ -1,13 +1,15 @@
 <?php
 
-require_once("./Services/ActiveRecord/class.ActiveRecord.php");
+namespace LiveVoting\User;
+
+use LiveVoting\Cache\CachingActiveRecord;
 
 /**
  * Class xlvoVoteHistory
  *
  * @author Oskar Truffer <ot@studer-raimann.ch>
  */
-class xlvoVoteHistoryObject extends ActiveRecord{
+class xlvoVoteHistoryObject extends CachingActiveRecord {
 
 	/**
 	 * @var string

@@ -1,5 +1,8 @@
 <?php
 
+namespace LiveVoting\Js;
+use ilLiveVotingPlugin;
+
 /**
  * Class xlvoJsSettings
  *

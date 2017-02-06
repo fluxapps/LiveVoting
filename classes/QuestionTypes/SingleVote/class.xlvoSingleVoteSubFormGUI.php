@@ -1,6 +1,7 @@
 <?php
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoSubFormGUI.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/FreeInput/class.xlvoMultiLineInputGUI.php');
+
+use LiveVoting\Conf\xlvoConf;
+use LiveVoting\Option\xlvoOption;
 
 /**
  * Class xlvoSingleVoteSubFormGUI
@@ -21,11 +22,11 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 
 
 	protected function initFormElements() {
-		$cb = new ilCheckboxInputGUI($this->txt(self::F_MULTI_SELECTION), self::F_MULTI_SELECTION);
+		$cb = new \ilCheckboxInputGUI($this->txt(self::F_MULTI_SELECTION), self::F_MULTI_SELECTION);
 		$cb->setInfo($this->txt(self::F_MULTI_SELECTION . '_info'));
 		$this->addFormElement($cb);
 
-		$cb = new ilCheckboxInputGUI($this->txt(self::F_COLORS), self::F_COLORS);
+		$cb = new \ilCheckboxInputGUI($this->txt(self::F_COLORS), self::F_COLORS);
 		//		$cb->setInfo($this->pl->txt('info_singlevote_colors'));
 		//		$this->addFormElement($cb);
 
@@ -35,11 +36,11 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 
 		$xlvoMultiLineInputGUI->setPositionMovable(true);
 
-		$te = new ilTextInputGUI($this->txt('option_text'), self::F_TEXT);
+		$te = new \ilTextInputGUI($this->txt('option_text'), self::F_TEXT);
 		$te->setInfo($this->txt('info_latex'));
 		$xlvoMultiLineInputGUI->addInput($te);
 
-		$h = new ilHiddenInputGUI(self::F_ID);
+		$h = new \ilHiddenInputGUI(self::F_ID);
 		$xlvoMultiLineInputGUI->addInput($h);
 
 		$this->addFormElement($xlvoMultiLineInputGUI);
@@ -47,11 +48,11 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 
 
 	/**
-	 * @param ilFormPropertyGUI $element
+	 * @param \ilFormPropertyGUI $element
 	 * @param $value
 	 * @return mixed
 	 */
-	protected function handleField(ilFormPropertyGUI $element, $value) {
+	protected function handleField(\ilFormPropertyGUI $element, $value) {
 		switch ($element->getPostVar()) {
 			case self::F_MULTI_SELECTION:
 				$this->getXlvoVoting()->setMultiSelection($value);
@@ -80,10 +81,10 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 
 
 	/**
-	 * @param ilFormPropertyGUI $element
+	 * @param \ilFormPropertyGUI $element
 	 * @return mixed
 	 */
-	protected function getFieldValue(ilFormPropertyGUI $element) {
+	protected function getFieldValue(\ilFormPropertyGUI $element) {
 		switch ($element->getPostVar()) {
 			case self::F_MULTI_SELECTION:
 				return $this->getXlvoVoting()->isMultiSelection();

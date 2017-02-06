@@ -1,7 +1,8 @@
 <?php
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Js/class.xlvoJsResponse.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Js/class.xlvoJsSettings.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Conf/class.xlvoConf.php');
+
+namespace LiveVoting\Js;
+use LiveVoting\Conf\xlvoConf;
+use xlvoGUI;
 
 /**
  * Class xlvoJs
@@ -93,7 +94,7 @@ class xlvoJs {
 
 		global $ilCtrl;
 		/**
-		 * @var ilCtrl $ilCtrl
+		 * @var \ilCtrl $ilCtrl
 		 */
 		$ilCtrl2 = clone($ilCtrl);
 		$ilCtrl->initBaseClass('ilUIPluginRouterGUI');
@@ -136,7 +137,7 @@ class xlvoJs {
 	public function ilias($xlvoGUI, $cmd = '') {
 		global $ilCtrl;
 		/**
-		 * @var $ilCtrl ilCtrl
+		 * @var $ilCtrl \ilCtrl
 		 */
 		$this->settings->addSetting(self::BASE_URL_SETTING, $ilCtrl->getLinkTarget($xlvoGUI, $cmd, '', true));
 

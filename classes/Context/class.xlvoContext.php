@@ -1,4 +1,7 @@
 <?php
+
+namespace LiveVoting\Context;
+
 include_once "Services/Context/classes/class.ilContext.php";
 
 /**
@@ -6,7 +9,12 @@ include_once "Services/Context/classes/class.ilContext.php";
  *
  * @author Fabian Schmid <fs@studer-raimann.ch>
  */
-class xlvoContext extends ilContext {
+class xlvoContext extends \ilContext {
+
+	const XLVO_CONTEXT = 'xlvo_context';
+	const CONTEXT_PIN = 1;
+	const CONTEXT_ILIAS = 2;
+
 
 	public function __construct() {
 		self::init('xlvoContextLiveVoting');
@@ -19,9 +27,9 @@ class xlvoContext extends ilContext {
 	 * @return bool|void
 	 */
 	public static function init($context) {
-		include_once('class.xlvoContextLiveVoting.php');
-		ilContext::$class_name = 'xlvoContextLiveVoting';
-		ilContext::$type = - 1;
+		//include_once('class.xlvoContextLiveVoting.php');
+		\ilContext::$class_name = 'LiveVoting\Context\xlvoContextLiveVoting';
+		\ilContext::$type = - 1;
 
 		return true;
 	}

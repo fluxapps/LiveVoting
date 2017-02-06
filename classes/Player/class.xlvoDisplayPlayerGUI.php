@@ -1,8 +1,11 @@
 <?php
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/Bar/class.xlvoBarGUI.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/Bar/class.xlvoBarCollectionGUI.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/Bar/class.xlvoBarPercentageGUI.php');
-require_once('Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoInputResultsGUI.php');
+
+use LiveVoting\Option\xlvoOption;
+use LiveVoting\Player\xlvoPlayer;
+use LiveVoting\QuestionTypes\xlvoQuestionTypes;
+use LiveVoting\Voter\xlvoVoter;
+use LiveVoting\Voting\xlvoVoting;
+use LiveVoting\Voting\xlvoVotingManager2;
 
 /**
  * Class xlvoDisplayPlayerGUI
@@ -16,7 +19,7 @@ require_once('Customizing/global/plugins/Services/Repository/RepositoryObject/Li
 class xlvoDisplayPlayerGUI {
 
 	/**
-	 * @var ilTemplate
+	 * @var \ilTemplate
 	 */
 	protected $tpl;
 	/**
@@ -27,10 +30,6 @@ class xlvoDisplayPlayerGUI {
 	 * @var int
 	 */
 	protected $answer_count = 64;
-	/**
-	 * @var xlvoVotingManager
-	 */
-	protected $voting_manager;
 	/**
 	 * @var xlvoVotingManager2
 	 */
@@ -44,7 +43,7 @@ class xlvoDisplayPlayerGUI {
 	 */
 	public function __construct(xlvoVotingManager2 $manager) {
 		$this->manager = $manager;
-		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Player/tpl.player.html', true, true);
+		$this->tpl = new \ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Player/tpl.player.html', true, true);
 		$this->pl = ilLiveVotingPlugin::getInstance();
 	}
 

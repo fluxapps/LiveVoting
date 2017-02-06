@@ -1,4 +1,10 @@
 <?php
+
+namespace LiveVoting\Context;
+
+use LiveVoting\Conf\xlvoConf;
+use LiveVoting\xlvoSessionHandler;
+
 require_once('./Services/Init/classes/class.ilInitialisation.php');
 
 /**
@@ -9,7 +15,7 @@ require_once('./Services/Init/classes/class.ilInitialisation.php');
  * @description Initializes a ILIAS environment depending on Context (PIN or ILIAS).
  *              This is used in every entry-point for users and AJAX requests
  */
-class xlvoInitialisation extends ilInitialisation {
+class xlvoInitialisation extends \ilInitialisation {
 
 	const USE_OWN_GLOBAL_TPL = true;
 	const CONTEXT_PIN = 1;
@@ -47,8 +53,6 @@ class xlvoInitialisation extends ilInitialisation {
 				//				self::initILIAS();
 				break;
 			case self::CONTEXT_PIN:
-				require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Context/class.xlvoContext.php");
-				require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Context/class.xlvoContextLiveVoting.php");
 				xlvoContext::init('xlvoContextLiveVoting');
 				self::initILIAS2();
 				break;
@@ -76,7 +80,6 @@ class xlvoInitialisation extends ilInitialisation {
 	 * set Custom Session handler which does not use db
 	 */
 	public static function setSessionHandler() {
-		require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoSessionHandler.php');
 		$session = new xlvoSessionHandler();
 
 		session_set_save_handler(array(
@@ -104,7 +107,7 @@ class xlvoInitialisation extends ilInitialisation {
 	public static function initILIAS2() {
 		global $tree;
 		require_once("./include/inc.ilias_version.php");
-		if(version_compare(ILIAS_VERSION_NUMERIC, '5.2.00', '>=')) {
+		if (version_compare(ILIAS_VERSION_NUMERIC, '5.2.00', '>=')) {
 			self::initDependencyInjection();
 		}
 		self::initCore();
@@ -113,14 +116,14 @@ class xlvoInitialisation extends ilInitialisation {
 		self::initLanguage();
 		$tree->initLangCode();
 		self::initHTML2();
-		require_once('class.xlvoObjectDefinition.php');
 		global $objDefinition;
 		$objDefinition = new xlvoObjectDefinition();
 	}
 
+
 	public static function initDependencyInjection() {
 		$GLOBALS["DIC"] = new \ILIAS\DI\Container();
-		$GLOBALS["DIC"]["ilLoggerFactory"] = function($c) {
+		$GLOBALS["DIC"]["ilLoggerFactory"] = function ($c) {
 			return ilLoggerFactory::getInstance();
 		};
 	}
@@ -129,7 +132,7 @@ class xlvoInitialisation extends ilInitialisation {
 	protected static function initHTML2() {
 		parent::initHTML();
 		if (self::USE_OWN_GLOBAL_TPL) {
-			$tpl = new ilTemplate("tpl.main.html", true, true, 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting');
+			$tpl = new \ilTemplate("tpl.main.html", true, true, 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting');
 			$tpl->addCss('./templates/default/delos.css');
 			$tpl->addBlockFile("CONTENT", "content", "tpl.main_voter.html", 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting');
 
@@ -143,9 +146,9 @@ class xlvoInitialisation extends ilInitialisation {
 		$tpl->setVariable('BASE', xlvoConf::getBaseURL());
 		if (self::USE_OWN_GLOBAL_TPL) {
 			include_once("./Services/jQuery/classes/class.iljQueryUtil.php");
-			iljQueryUtil::initjQuery();
+			\iljQueryUtil::initjQuery();
 			include_once("./Services/UICore/classes/class.ilUIFramework.php");
-			ilUIFramework::init();
+			\ilUIFramework::init();
 		}
 	}
 
@@ -171,7 +174,7 @@ class xlvoInitialisation extends ilInitialisation {
 
 		self::initGlobal("ilObjDataCache", "ilObjectDataCache", "./Services/Object/classes/class.ilObjectDataCache.php");
 		require_once "./Services/Tree/classes/class.ilTree.php";
-		$tree = new ilTree(ROOT_FOLDER_ID);
+		$tree = new \ilTree(ROOT_FOLDER_ID);
 		self::initGlobal("tree", $tree);
 		unset($tree);
 		self::initGlobal("ilCtrl", "ilCtrl", "./Services/UICore/classes/class.ilCtrl.php");

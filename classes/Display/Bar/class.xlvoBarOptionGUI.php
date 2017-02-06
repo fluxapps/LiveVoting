@@ -1,6 +1,10 @@
 <?php
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Display/Bar/class.xlvoBarGUI.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voting/class.xlvoVotingManager.php');
+
+use LiveVoting\Display\Bar\xlvoBarGUI;
+use LiveVoting\Option\xlvoOption;
+use LiveVoting\Vote\xlvoVote;
+use LiveVoting\Voting\xlvoVoting;
+use LiveVoting\Voting\xlvoVotingManager2;
 
 /**
  * Class xlvoBarOptionGUI
@@ -24,11 +28,11 @@ class xlvoBarOptionGUI implements xlvoBarGUI {
 	 */
 	protected $option_letter;
 	/**
-	 * @var ilTemplate
+	 * @var \ilTemplate
 	 */
 	protected $tpl;
 	/**
-	 * @var xlvoVotingManager
+	 * @var xlvoVotingManager2
 	 */
 	protected $voting_manager;
 
@@ -39,11 +43,11 @@ class xlvoBarOptionGUI implements xlvoBarGUI {
 	 * @param            $option_letter
 	 */
 	public function __construct(xlvoVoting $voting, xlvoOption $option, $option_letter) {
-		$this->voting_manager = new xlvoVotingManager();
+		$this->voting_manager = xlvoVotingManager2::getInstanceFromObjId($voting->getObjId());
 		$this->voting = $voting;
 		$this->option = $option;
 		$this->option_letter = $option_letter;
-		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Display/Bar/tpl.bar_option.html', true, true);
+		$this->tpl = new \ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Display/Bar/tpl.bar_option.html', true, true);
 	}
 
 

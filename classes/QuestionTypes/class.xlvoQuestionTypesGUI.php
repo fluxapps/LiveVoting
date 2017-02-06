@@ -1,5 +1,7 @@
 <?php
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.xlvoGUI.php');
+
+use LiveVoting\QuestionTypes\xlvoQuestionTypes;
+use LiveVoting\Voting\xlvoVotingManager2;
 
 /**
  * Class xlvoQuestionTypesGUI
@@ -37,20 +39,30 @@ abstract class xlvoQuestionTypesGUI extends xlvoGUI {
 	 * @param xlvoVotingManager2 $manager
 	 * @param null $override_type
 	 * @return xlvoQuestionTypesGUI
+     * @throws \ilException                 Throws an \ilException if no gui class was found.
 	 */
 	public static function getInstance(xlvoVotingManager2 $manager, $override_type = null) {
-		$class_type = xlvoQuestionTypes::getClassName($override_type ? $override_type : $manager->getVoting()->getVotingType());
-		/**
-		 * @var $class_name xlvoQuestionTypesGUI
-		 * @var $gui        xlvoQuestionTypesGUI
-		 */
-		$class_name = 'xlvo' . $class_type . 'GUI';
-		$base = './Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/';
-		require_once($base . $class_type . '/class.' . $class_name . '.php');
+		$class = xlvoQuestionTypes::getClassName($override_type ? $override_type : $manager->getVoting()->getVotingType());
 
-		$gui = new $class_name();
+        $gui = null;
+        switch ($class) {
+            case "CorrectOrder":
+                $gui = new xlvoCorrectOrderGUI();
+                break;
+            case "FreeInput":
+                $gui = new xlvoFreeInputGUI();
+                break;
+            case "FreeOrder":
+                $gui = new xlvoFreeOrderGUI();
+                break;
+            case "SingleVote":
+                $gui = new xlvoSingleVoteGUI();
+                break;
+            default:
+                throw new \ilException("Could not find the gui for the current voting.");
+        }
+
 		$gui->setManager($manager);
-
 		return $gui;
 	}
 
@@ -153,7 +165,7 @@ abstract class xlvoQuestionTypesGUI extends xlvoGUI {
 
 
 	/**
-	 * @return ilButtonBase[]
+	 * @return \ilButtonBase[]
 	 */
 	public function getButtonInstances() {
 		return array();

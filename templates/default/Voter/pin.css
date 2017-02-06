@@ -20,6 +20,11 @@ div.lxvo-row {
 }
 #xlvo-display-player {
   background-color: #F9F9F9;
+  position: relative;
+}
+#xlvo-display-player .xlvo-display-player-content {
+  position: absolute;
+  width: 100%;
 }
 #xlvo_player_loading {
   width: 100%;
@@ -102,7 +107,7 @@ div.lxvo-row {
 /* @nav-tabs-link-hover-border-color: @brand-primary; */
 /* ILIAS variables candidates */
 .label-cd-danger {
-  background-color: #ff3a00;
+  background-color: #FF3A00;
 }
 .label-cd-danger[href]:hover,
 .label-cd-danger[href]:focus {
@@ -138,9 +143,15 @@ div.lxvo-row {
   height: 100% !important;
   z-index: 5000 !important;
   background-color: black !important;
+  overflow-y: scroll;
 }
 .xlvo-fullscreen #xlvo-display-player {
-  font-size: 200%;
+  font-size: 150%;
+}
+@media only screen and (max-width: 768px) {
+  img {
+    height: auto !important;
+  }
 }
 div#il_prop_cont_pin_input div.col-sm-9 {
   width: 100%;

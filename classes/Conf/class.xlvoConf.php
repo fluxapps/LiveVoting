@@ -1,15 +1,17 @@
 <?php
-require_once('./Services/ActiveRecord/class.ActiveRecord.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Js/class.xlvoJs.php');
+
+namespace LiveVoting\Conf;
+
+use LiveVoting\Cache\CachingActiveRecord;
 
 /**
  * Class xlvoConf
  *
  * @author Fabian Schmid <fs@studer-raimann.ch>
  */
-class xlvoConf extends ActiveRecord {
+class xlvoConf extends CachingActiveRecord  {
 
-	const CONFIG_VERSION = 1;
+	const CONFIG_VERSION = 2;
 	const F_CONFIG_VERSION = 'config_version';
 	const F_ALLOW_FREEZE = 'allow_freeze';
 	const F_ALLOW_FULLSCREEN = 'allow_fullscreen';
@@ -20,9 +22,21 @@ class xlvoConf extends ActiveRecord {
 	const F_USE_QR = 'use_qr';
 	const REWRITE_RULE = "RewriteRule ^vote(/[\\w]*|) Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?pin=$1 [L]";
 	const API_URL = './Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/ilias.php';
+    const REQUEST_FREQUENCY = 'request_frequency';
 
 
-	/**
+    /**
+     * Min client update frequency in seconds.
+     * This value should never be set bellow 1 second.
+     */
+    const MIN_CLIENT_UPDATE_FREQUENCY = 1;
+
+    /**
+     * Max client update frequency in seconds.
+     */
+    const MAX_CLIENT_UPDATE_FREQUENCY = 60;
+
+    /**
 	 * @return string
 	 */
 	public static function getShortLinkURL() {
@@ -32,7 +46,7 @@ class xlvoConf extends ActiveRecord {
 			$url = str_replace("http://", '', $url);
 			$url = str_replace("https://", '', $url);
 
-			if (ilHTTPS::getInstance()->isDetected()) {
+			if (\ilHTTPS::getInstance()->isDetected()) {
 				$url = 'https://' . $url;
 			} else {
 				$url = 'http://' . $url;
@@ -50,7 +64,7 @@ class xlvoConf extends ActiveRecord {
 	 */
 	public static function isLatexEnabled() {
 		include_once "./Services/Administration/classes/class.ilSetting.php";
-		$mathJaxSetting = new ilSetting("MathJax");
+		$mathJaxSetting = new \ilSetting("MathJax");
 
 		return (bool)$mathJaxSetting->get("enable");
 	}
@@ -147,6 +161,8 @@ class xlvoConf extends ActiveRecord {
 			$obj->create();
 		}
 	}
+
+
 
 
 	/**

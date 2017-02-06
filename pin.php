@@ -4,15 +4,22 @@
  *
  *         User starts here. Use a RewriteRule to access this page a bit simpler
  */
+
+use LiveVoting\Conf\xlvoConf;
+use LiveVoting\Context\cookie\CookieManager;
+use LiveVoting\Context\InitialisationManager;
+use LiveVoting\Context\xlvoContext;
+
+require_once __DIR__ . '/vendor/autoload.php';
 require_once('dir.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Context/class.xlvoInitialisation.php');
-xlvoInitialisation::init(xlvoInitialisation::CONTEXT_PIN);
-xlvoInitialisation::resetCookiePIN();
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Conf/class.xlvoConf.php');
-require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Voter/class.xlvoVoter2GUI.php');
+
+InitialisationManager::startMinimal();
+CookieManager::setContext(xlvoContext::CONTEXT_PIN);
+CookieManager::resetCookiePIN();
+
 $existing_pin = trim($_REQUEST['pin'], '/');
 if ($existing_pin) {
-	xlvoInitialisation::setCookiePIN(trim($_REQUEST['pin'], '/'));
+	CookieManager::setCookiePIN(trim($_REQUEST['pin'], '/'));
 }
 global $ilCtrl;
 /**

@@ -18,7 +18,9 @@ Start at your ILIAS root directory
 ```bash
 mkdir -p Customizing/global/plugins/Services/Repository/RepositoryObject  
 cd Customizing/global/plugins/Services/Repository/RepositoryObject
-git clone https://github.com/studer-raimann/LiveVoting.git  
+git clone https://github.com/studer-raimann/LiveVoting.git
+cd ./LiveVoting
+php composer.phar install
 ```  
 As ILIAS administrator go to "Administration->Plugins" and install/activate the plugin.  
 
