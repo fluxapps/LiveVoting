@@ -8,6 +8,7 @@ use LiveVoting\Context\xlvoContext;
 use LiveVoting\Context\xlvoDummyUser;
 use LiveVoting\Context\xlvoILIAS;
 use LiveVoting\Context\xlvoObjectDefinition;
+use LiveVoting\Context\xlvoRbacReview;
 use LiveVoting\xlvoSessionHandler;
 
 /**
@@ -67,6 +68,7 @@ class xlvoBasicInitialisation {
 		$this->initPluginAdmin();
 		$this->initTemplate();
 		$this->initUser();
+		$this->initRbac();
 		//$this->setCookieParams();
 	}
 
@@ -83,7 +85,15 @@ class xlvoBasicInitialisation {
 			foreach ($_GET as $k => $v) {
 				// \r\n used for IMAP MX Injection
 				// ' used for SQL Injection
-				$_GET[$k] = str_replace(array( "\x00", "\n", "\r", "\\", "'", '"', "\x1a" ), "", $v);
+				$_GET[$k] = str_replace(array(
+					"\x00",
+					"\n",
+					"\r",
+					"\\",
+					"'",
+					'"',
+					"\x1a",
+				), "", $v);
 
 				// this one is for XSS of any kind
 				$_GET[$k] = strip_tags($_GET[$k]);
@@ -463,7 +473,8 @@ class xlvoBasicInitialisation {
 		$https->enableSecureCookies();
 		$https->checkPort();
 
-		return define('ILIAS_HTTP_PATH', \ilUtil::removeTrailingPathSeparators($protocol . $host . $uri));
+		return define('ILIAS_HTTP_PATH', \ilUtil::removeTrailingPathSeparators($protocol . $host
+		                                                                       . $uri));
 	}
 
 
@@ -593,7 +604,7 @@ class xlvoBasicInitialisation {
 	/**
 	 * Create or override a global variable.
 	 *
-	 * @param string $name  The name of the global variable.
+	 * @param string $name The name of the global variable.
 	 * @param object $value The value where the global variable should point at.
 	 */
 	private function makeGlobal($name, $value) {
@@ -606,5 +617,13 @@ class xlvoBasicInitialisation {
 	 */
 	private function initUser() {
 		$this->makeGlobal('ilUser', new xlvoDummyUser());
+	}
+
+
+	/**
+	 * Initialise a fake rbac to satisfy other plugins
+	 */
+	private function initRbac() {
+		$this->makeGlobal('rbacreview', new xlvoRbacReview());
 	}
 }
