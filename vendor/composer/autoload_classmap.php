@@ -42,6 +42,7 @@ return array(
     'LiveVoting\\Context\\xlvoILIAS' => $baseDir . '/classes/Context/class.xlvoILIAS.php',
     'LiveVoting\\Context\\xlvoInitialisation' => $baseDir . '/classes/Context/class.xlvoInitialisation.php',
     'LiveVoting\\Context\\xlvoObjectDefinition' => $baseDir . '/classes/Context/class.xlvoObjectDefinition.php',
+    'LiveVoting\\Context\\xlvoRbacReview' => $baseDir . '/classes/Context/class.xlvoRbacReview.php',
     'LiveVoting\\Display\\Bar\\xlvoBarGUI' => $baseDir . '/classes/Display/Bar/class.xlvoBarGUI.php',
     'LiveVoting\\Exceptions\\xlvoVotingManagerException' => $baseDir . '/classes/Exceptions/class.xlvoVotingManagerException.php',
     'LiveVoting\\Js\\xlvoJs' => $baseDir . '/classes/Js/class.xlvoJs.php',

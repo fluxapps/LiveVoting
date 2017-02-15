@@ -7,6 +7,7 @@ require_once("./include/inc.ilias_version.php");
 use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Context\cookie\CookieManager;
 use LiveVoting\Context\xlvoContext;
+use LiveVoting\Context\xlvoRbacReview;
 use LiveVoting\Context\xlvoDummyUser;
 use LiveVoting\Context\xlvoILIAS;
 use LiveVoting\Context\xlvoObjectDefinition;
@@ -69,6 +70,7 @@ class xlvoBasicInitialisation {
 		$this->initPluginAdmin();
 		$this->initTemplate();
 		$this->initUser();
+		$this->initRbac();
 		//$this->setCookieParams();
 	}
 
@@ -585,5 +587,12 @@ class xlvoBasicInitialisation {
 	 */
 	private function initUser() {
 		$this->makeGlobal('ilUser', new xlvoDummyUser());
+	}
+
+	/**
+	 * Initialise a fake rbac to satisfy other plugins
+	 */
+	private function initRbac() {
+		$this->makeGlobal('rbacreview', new xlvoRbacReview());
 	}
 }
