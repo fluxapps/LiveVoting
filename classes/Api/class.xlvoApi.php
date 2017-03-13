@@ -65,6 +65,7 @@ class xlvoApi {
 				$Voter = new \stdClass();
 				$Voter->Identifier = $item['participant'];
 				$Voter->Answer = $item['answer'];
+				$Voter->Id = $item['id'];
 
 				$stdClass->Voters[] = $Voter;
 			}

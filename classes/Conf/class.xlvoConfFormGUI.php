@@ -1,5 +1,6 @@
 <?php
 
+use LiveVoting\Api\xlvoApi;
 use LiveVoting\Conf\xlvoConf;
 
 require_once('./Services/Form/classes/class.ilPropertyFormGUI.php');
@@ -79,8 +80,8 @@ class xlvoConfFormGUI extends \ilPropertyFormGUI {
 
 		$api_type = new ilSelectInputGUI($this->parent_gui->txt(xlvoConf::F_API_TYPE), xlvoConf::F_API_TYPE);
 		$api_type->setOptions(array(
-			\LiveVoting\Api\xlvoApi::TYPE_JSON => 'JSON',
-			\LiveVoting\Api\xlvoApi::TYPE_XML  => 'XML',
+			xlvoApi::TYPE_JSON => 'JSON',
+			xlvoApi::TYPE_XML  => 'XML',
 		));
 		$result_api->addSubItem($api_type);
 

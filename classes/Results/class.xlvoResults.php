@@ -39,16 +39,16 @@ class xlvoResults {
 
 	/**
 	 * @param array|null $filter
-	 * @param callable|null $format_patricipant_name
+	 * @param callable|null $formatParticipantCallable
 	 * @return array
 	 */
-	public function getData(array $filter = null, callable $format_patricipant_name = null, callable $concat_votes = null) {
-		if (!$format_patricipant_name) {
-			$format_patricipant_name = $this->getFormatParticipantCallable();
+	public function getData(array $filter = null, callable $formatParticipantCallable = null, callable $concatVotesCallable = null) {
+		if (!$formatParticipantCallable) {
+			$formatParticipantCallable = $this->getFormatParticipantCallable();
 		}
 
-		if (!$concat_votes) {
-			$concat_votes = $this->getConcatVotesCallable();
+		if (!$concatVotesCallable) {
+			$concatVotesCallable = $this->getConcatVotesCallable();
 		}
 
 		$obj_id = $this->getObjId();
@@ -78,16 +78,18 @@ class xlvoResults {
 					"user_identifier" => $participant->getUserIdentifier(),
 					"status"          => xlvoVote::STAT_ACTIVE,
 				))->get();
+				$vote = array_shift(array_values($votes));
 				$data[] = array(
-					"position"        => $voting->getPosition(),
-					"participant"     => $format_patricipant_name($participant),
+					"position"        => (int)$voting->getPosition(),
+					"participant"     => $formatParticipantCallable($participant),
 					"user_id"         => $participant->getUserId(),
 					"user_identifier" => $participant->getUserIdentifier(),
 					"title"           => $voting->getTitle(),
 					"question"        => $voting->getQuestion(),
-					"answer"          => $concat_votes($voting, $votes),
+					"answer"          => $concatVotesCallable($voting, $votes),
 					"voting_id"       => $voting->getId(),
 					"round_id"        => $round_id,
+					"id"              => ($vote instanceof xlvoVote ? $vote->getId() : ''),
 				);
 			}
 		}
@@ -113,14 +115,6 @@ class xlvoResults {
 	 */
 	protected function getFormatParticipantCallable() {
 		return function (xlvoParticipant $participant) {
-			if ($participant->getUserIdType() == xlvoUser::TYPE_ILIAS
-			    && $participant->getUserId()
-			) {
-				$name = \ilObjUser::_lookupName($participant->getUserId());
-
-				return $name['firstname'] . " " . $name['lastname'];
-			}
-
 			return $participant->getUserIdentifier();
 		};
 	}
