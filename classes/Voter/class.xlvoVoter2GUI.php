@@ -156,7 +156,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 		/**
 		 * @var $delay string
 		 */
-		$delay = xlvoConf::getConfig(xlvoConf::REQUEST_FREQUENCY);
+		$delay = xlvoConf::getConfig(xlvoConf::F_REQUEST_FREQUENCY);
 
 		//check if we get some valid settings otherwise fall back to default value.
 		if (is_numeric($delay)) {

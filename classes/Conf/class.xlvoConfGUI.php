@@ -1,4 +1,5 @@
 <?php
+use LiveVoting\Conf\xlvoConf;
 
 /**
  * Class xlvoConfGUI
@@ -20,9 +21,27 @@ class xlvoConfGUI extends xlvoGUI {
 
 
 	public function index() {
+		global $ilToolbar;
+		/**
+		 * @var $ilToolbar ilToolbarGUI
+		 */
+		if (xlvoConf::getConfig(xlvoConf::F_RESULT_API)) {
+			$b = ilLinkButton::getInstance();
+			$b->setUrl($this->ctrl->getLinkTarget($this, 'resetToken'));
+			$b->setCaption($this->txt('regenerate_token'), false);
+			$ilToolbar->addButtonInstance($b);
+		}
+
 		$xlvoConfFormGUI = new xlvoConfFormGUI($this);
 		$xlvoConfFormGUI->fillForm();
 		$this->tpl->setContent($xlvoConfFormGUI->getHTML());
+	}
+
+
+	protected function resetToken() {
+		xlvoConf::set(xlvoConf::F_API_TOKEN, null);
+		xlvoConf::getConfig(xlvoConf::F_API_TOKEN);
+		$this->cancel();
 	}
 
 
