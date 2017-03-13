@@ -69,7 +69,7 @@ class xlvoApi {
 				$stdClass->Voters[] = $Voter;
 			}
 
-			$data->Votings[$xlvoVoting->getId()] = $stdClass;
+			$data->Votings[$xlvoVoting->getPosition()] = $stdClass;
 		}
 
 		$this->data = $data;
@@ -77,10 +77,12 @@ class xlvoApi {
 
 
 	protected function check() {
+		xlvoPin::checkPin($this->getPin()->getPin());
+
 		if (!xlvoConf::getConfig(xlvoConf::F_RESULT_API)) {
 			throw new xlvoPlayerException('API not configured', 3);
 		}
-		if ($this->getToken() !== xlvoConf::getConfig(xlvoConf::F_API_TOKEN)) {
+		if ($this->getToken() !== xlvoConf::getApiToken()) {
 			throw new xlvoPlayerException('wrong API token', 4);
 		}
 	}
