@@ -539,11 +539,15 @@ class xlvoVoting extends CachingActiveRecord {
 	 */
 	public function _toJson() {
 		$class = new \stdClass();
-		$class->Id = $this->getId();
-		$class->Title = $this->getTitle();
-		$class->QuestionType = xlvoQuestionTypes::getClassName($this->getVotingType());
-		$class->Question = $this->getRawQuestion();
-		$class->Position = $this->getPosition();
+		$class->Id = (int)$this->getId();
+		$class->Title = (string)$this->getTitle();
+		$class->QuestionType = (string)xlvoQuestionTypes::getClassName($this->getVotingType());
+		$class->QuestionTypeId = (int)$this->getVotingType();
+		$class->Question = (string)$this->getRawQuestion();
+		$class->Position = (int)$this->getPosition();
+		foreach ($this->getVotingOptions() as $xlvoOption) {
+			$class->Options[] = $xlvoOption->_toJson();
+		}
 
 		return $class;
 	}

@@ -64,8 +64,10 @@ class xlvoApi {
 			foreach ($xlvoResults->getData(array( 'voting' => $xlvoVoting->getId() )) as $item) {
 				$Voter = new \stdClass();
 				$Voter->Identifier = $item['participant'];
+				$Voter->AnswerId = $item['answer_id'];
 				$Voter->Answer = $item['answer'];
 				$Voter->Id = $item['id'];
+				//				$Voter->Full = $item;
 
 				$stdClass->Voters[] = $Voter;
 			}

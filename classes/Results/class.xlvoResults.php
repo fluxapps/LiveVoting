@@ -79,6 +79,7 @@ class xlvoResults {
 					"status"          => xlvoVote::STAT_ACTIVE,
 				))->get();
 				$vote = array_shift(array_values($votes));
+				$vote_ids = array_keys($votes);
 				$data[] = array(
 					"position"        => (int)$voting->getPosition(),
 					"participant"     => $formatParticipantCallable($participant),
@@ -87,6 +88,7 @@ class xlvoResults {
 					"title"           => $voting->getTitle(),
 					"question"        => $voting->getQuestion(),
 					"answer"          => $concatVotesCallable($voting, $votes),
+					"answer_ids"      => $vote_ids,
 					"voting_id"       => $voting->getId(),
 					"round_id"        => $round_id,
 					"id"              => ($vote instanceof xlvoVote ? $vote->getId() : ''),
