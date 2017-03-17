@@ -16,7 +16,6 @@ require_once("./Services/Form/classes/class.ilSelectInputGUI.php");
  */
 class xlvoResultsTableGUI extends ilTable2GUI {
 
-	const LENGTH = 100;
 	/**
 	 * @var ilLiveVotingPlugin
 	 */
@@ -74,11 +73,11 @@ class xlvoResultsTableGUI extends ilTable2GUI {
 
 
 	protected function buildColumns() {
-		$this->addColumn($this->pl->txt('common_position'), 'position', '5%');
+		$this->addColumn($this->pl->txt('common_position'), 'position', '1%');
 		$this->addColumn($this->pl->txt('common_user'), 'user', '10%');
-		$this->addColumn($this->pl->txt('voting_title'), 'title', '10%');
-		$this->addColumn($this->pl->txt('common_question'), 'question', '35%');
-		$this->addColumn($this->pl->txt('common_answer'), 'answer', '40%');
+		$this->addColumn($this->pl->txt('voting_title'), 'title', '15%');
+		$this->addColumn($this->pl->txt('common_question'), 'question', '20%');
+		$this->addColumn($this->pl->txt('common_answer'), 'answer', 'auto');
 		if ($this->isShowHistory()) {
 			$this->addColumn($this->pl->txt('common_history'), "", 'auto');
 		}
@@ -92,11 +91,13 @@ class xlvoResultsTableGUI extends ilTable2GUI {
 	public function buildData($obj_id, $round_id) {
 		$xlvoResults = new xlvoResults($obj_id, $round_id);
 
-		$this->setData($xlvoResults->getData($this->filter, $this->parent_obj->getParticipantNameCallable(), function ($voting, $votes) {
+		$a_data = $xlvoResults->getData($this->filter, $this->parent_obj->getParticipantNameCallable(), function ($voting, $votes) {
 			$resultsGUI = xlvoResultGUI::getInstance($voting);
 
 			return $resultsGUI->getTextRepresentation($votes);
-		}));
+		});
+
+		$this->setData($a_data);
 	}
 
 
@@ -106,9 +107,9 @@ class xlvoResultsTableGUI extends ilTable2GUI {
 	public function fillRow($record) {
 		$this->tpl->setVariable("POSITION", $record['position']);
 		$this->tpl->setVariable("USER", $record['participant']);
-		$this->tpl->setVariable("QUESTION", $this->shorten($record['question']));
-		$this->tpl->setVariable("TITLE", $this->shorten($record['title']));
-		$this->tpl->setVariable("ANSWER", $this->shorten($record['answer']));
+		$this->tpl->setVariable("QUESTION", $this->shorten($record['question'], 40));
+		$this->tpl->setVariable("TITLE", $this->shorten($record['title'], 40));
+		$this->tpl->setVariable("ANSWER", $this->shorten($record['answer'], 100));
 		if ($this->isShowHistory()) {
 			$this->tpl->setVariable("ACTION", $this->pl->txt("common_show_history"));
 			$this->ctrl->setParameter($this->parent_obj, 'round_id', $record['round_id']);
@@ -182,11 +183,13 @@ class xlvoResultsTableGUI extends ilTable2GUI {
 
 
 	/**
-	 * @param string $question
+	 * @param $question
+	 * @param int $length
 	 * @return string
 	 */
-	protected function shorten($question) {
-		return strlen($question) > self::LENGTH ? substr($question, 0, self::LENGTH)
-		                                          . "..." : $question;
+	protected function shorten($question, $length = xlvoResultsGUI::LENGTH) {
+		$closure = $this->parent_obj->getShortener($length);
+
+		return $closure($question);
 	}
 }

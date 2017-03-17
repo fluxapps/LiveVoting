@@ -80,9 +80,8 @@ class xlvoResultsGUI extends xlvoGUI {
 
 		$table = new xlvoResultsTableGUI($this, 'showResults', $this->config->getVotingHistory());
 		$this->buildFilters($table);
-		$table->initFilter();
+		//		$table->initFilter();
 		$table->buildData($this->obj_id, $this->round->getId());
-
 		$tpl->setContent($table->getHTML());
 	}
 
@@ -246,17 +245,14 @@ class xlvoResultsGUI extends xlvoGUI {
 		$table->addFilterItem($filter);
 		$filter->readFromSession();
 
-		// Title
+		//		 Title
 		$filter = new ilSelectInputGUI($this->pl->txt("voting_title"), "voting_title");
 		$titles = array();
 		$titles[0] = $this->pl->txt("common_all");
 		$titles = array_replace($titles, xlvoVoting::where(array( "obj_id" => $this->obj_id ))
 		                                           ->getArray("id", "title")); //dont use array_merge: it kills the keys.
-		$shortener = function (&$value) {
-			$value = strlen($value) > self::LENGTH ? substr($value, 0, self::LENGTH)
-			                                         . "..." : $value;
-		};
-		array_walk($titles, $shortener);
+		$closure = $this->getShortener(40);
+		array_walk($titles, $closure);
 		$filter->setOptions($titles);
 		$table->addFilterItem($filter);
 		$filter->readFromSession();
@@ -268,7 +264,7 @@ class xlvoResultsGUI extends xlvoGUI {
 		$votings[0] = $this->pl->txt("common_all");
 		$votings = array_replace($votings, xlvoVoting::where(array( "obj_id" => $this->obj_id ))
 		                                             ->getArray("id", "question")); //dont use array_merge: it kills the keys.
-		array_walk($votings, $shortener);
+		array_walk($votings, $closure);
 		$filter->setOptions($votings);
 		$table->addFilterItem($filter);
 		$filter->readFromSession();
@@ -313,11 +309,17 @@ class xlvoResultsGUI extends xlvoGUI {
 
 
 	/**
-	 * @param string $question
-	 * @return string
+	 * @param int $length
+	 * @return \Closure
 	 */
-	protected function shorten($question) {
-		return strlen($question) > self::LENGTH ? substr($question, 0, self::LENGTH)
-		                                          . "..." : $question;
+	public function getShortener($length = self::LENGTH) {
+		return function (&$question) use ($length) {
+			$qs = nl2br($question);
+			$qs = strip_tags($qs);
+
+			$question = strlen($qs) > $length ? substr($qs, 0, $length) . "..." : $qs;
+
+			return $question;
+		};
 	}
 }

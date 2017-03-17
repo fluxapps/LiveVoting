@@ -86,7 +86,7 @@ class xlvoResults {
 					"user_id"         => $participant->getUserId(),
 					"user_identifier" => $participant->getUserIdentifier(),
 					"title"           => $voting->getTitle(),
-					"question"        => $voting->getQuestion(),
+					"question"        => $voting->getRawQuestion(),
 					"answer"          => $concatVotesCallable($voting, $votes),
 					"answer_ids"      => $vote_ids,
 					"voting_id"       => $voting->getId(),
