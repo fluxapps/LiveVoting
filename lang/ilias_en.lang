@@ -37,6 +37,7 @@ config_result_api_info#:#Results of a Voting can be accessed as JSON via Customi
 config_api_token#:#API-Token
 config_api_type#:#Type
 config_regenerate_token#:#Regenerate Token
+config_open_result_api#:#Open API-Link (with latest Voting)
 correct_order#:#Correct Order
 crs_create_xlvo#:#Create LiveVoting
 fikd_create_xlvo#:#Create LiveVoting

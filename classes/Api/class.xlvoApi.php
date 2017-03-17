@@ -48,14 +48,17 @@ class xlvoApi {
 		$this->check();
 
 		$manager = new xlvoVotingManager2($this->pin->getPin());
-
+		$title = \ilObject2::_lookupTitle($manager->getObjId());
 		$data = new \stdClass();
+		$data->Info->Title = $title;
+		$latestRound = xlvoRound::getLatestRound($manager->getObjId());
+		$data->Info->Round = $latestRound->getRoundNumber();
+		$data->Info->RoundId = $latestRound->getId();
 		$data->Info->Pin = $pin->getPin();
 		$data->Info->Date = date(DATE_ISO8601);
 		$data->Votings = array();
 
-		$xlvoResults = new xlvoResults($manager->getObjId(), xlvoRound::getLatestRound($manager->getObjId())
-		                                                              ->getId());
+		$xlvoResults = new xlvoResults($manager->getObjId(), $latestRound->getId());
 
 		foreach ($manager->getAllVotings() as $xlvoVoting) {
 			$stdClass = $xlvoVoting->_toJson();
@@ -64,7 +67,7 @@ class xlvoApi {
 			foreach ($xlvoResults->getData(array( 'voting' => $xlvoVoting->getId() )) as $item) {
 				$Voter = new \stdClass();
 				$Voter->Identifier = $item['participant'];
-				$Voter->AnswerId = $item['answer_id'];
+				$Voter->AnswerIds = $item['answer_ids'];
 				$Voter->Answer = $item['answer'];
 				$Voter->Id = $item['id'];
 				//				$Voter->Full = $item;

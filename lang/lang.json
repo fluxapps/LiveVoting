@@ -105,7 +105,7 @@
                     "en": "Wrong Order",
                     "hu": "Hibás sorrend"
                 },
-                "last_used": "13.03.2017"
+                "last_used": "17.03.2017"
             },
             "new_round": {
                 "translations": {
@@ -178,7 +178,7 @@
                     "en": "Activate Short URL",
                     "hu": "Rövid URL aktiválása"
                 },
-                "last_used": "13.03.2017"
+                "last_used": "17.03.2017"
             },
             "allow_shortlink_info": {
                 "translations": {
@@ -186,7 +186,7 @@
                     "en": "Use a Short URL like /vote by adding the following RewriteRule to your .htaccess:",
                     "hu": "Rövid URL (pl. /vote) használatához adja a RewriteRule szabályt .htaccess fájljához:"
                 },
-                "last_used": "13.03.2017"
+                "last_used": "17.03.2017"
             },
             "allow_shortlink_link": {
                 "translations": {
@@ -194,7 +194,7 @@
                     "en": "Short URL",
                     "hu": "Rövid URL"
                 },
-                "last_used": "13.03.2017"
+                "last_used": "17.03.2017"
             },
             "allow_shortlink_link_info": {
                 "translations": {
@@ -202,7 +202,7 @@
                     "en": "Full Short URL of your Installation , e.g. https://ilias.domain.com/vote",
                     "hu": "Telepítése teljes rövid URL-je , pl. https://ilias.domain.hu/vote"
                 },
-                "last_used": "13.03.2017"
+                "last_used": "17.03.2017"
             },
             "base_url": {
                 "translations": {
@@ -210,7 +210,7 @@
                     "en": "Base URL",
                     "hu": "Alap URL"
                 },
-                "last_used": "13.03.2017"
+                "last_used": "17.03.2017"
             },
             "base_url_info": {
                 "translations": {
@@ -218,7 +218,7 @@
                     "en": "URL of yout ILIAS-Installation incl. Subfolders, e.g. https://www.domain.com/ilias",
                     "hu": "Telepítése URL-je (alkönyvtárat is beleértve), pl. https://www.domain.hu/ilias"
                 },
-                "last_used": "13.03.2017"
+                "last_used": "17.03.2017"
             },
             "cancel": {
                 "translations": {
@@ -226,7 +226,7 @@
                     "en": "Cancel",
                     "hu": "Mégsem"
                 },
-                "last_used": "13.03.2017"
+                "last_used": "17.03.2017"
             },
             "msg_success": {
                 "translations": {
@@ -234,21 +234,21 @@
                     "en": "Saved",
                     "hu": "Mentve"
                 },
-                "last_used": "13.03.2017"
+                "last_used": "17.03.2017"
             },
             "request_frequency": {
                 "translations": {
                     "de": "Klienten aktualisierungs Frequenz",
                     "en": "Client update frequency"
                 },
-                "last_used": "13.03.2017"
+                "last_used": "17.03.2017"
             },
             "request_frequency_info": {
                 "translations": {
                     "de": "Die aktualisierungs Frequenz der LiveVoting Klienten, angegeben in Sekunden. Umso kleiner die Zahl ist umso schneller reagieren die Clients (z.B. Smartphones der Benutzer) während eines LiveVotings, allerdings erhöht sich die Last auf den Server merklich. Richtwert 2-5 Sekunden.",
                     "en": "The client side live voting data update frequency measured in seconds. The lower the number the faster the clients react to changes by the tutor but the load on the server increases. We recommend 2 - 5 seconds."
                 },
-                "last_used": "13.03.2017"
+                "last_used": "17.03.2017"
             },
             "update": {
                 "translations": {
@@ -256,7 +256,7 @@
                     "en": "Update",
                     "hu": "Módosítás"
                 },
-                "last_used": "13.03.2017"
+                "last_used": "17.03.2017"
             },
             "result_api": {
                 "translations": {
@@ -264,7 +264,7 @@
                     "hu": "MISSING",
                     "de": "Resultate-API aktivieren"
                 },
-                "last_used": "13.03.2017"
+                "last_used": "17.03.2017"
             },
             "result_api_info": {
                 "translations": {
@@ -272,7 +272,7 @@
                     "hu": "Results of a Voting can be accessed as JSON via Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/api.php?pin=XXXX?token=XXXXX",
                     "de": "Resultate eines Votings können als JSON via Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/api.php?pin=XXXX?token=XXXXX abgerufen werden"
                 },
-                "last_used": "13.03.2017"
+                "last_used": "17.03.2017"
             },
             "api_token": {
                 "translations": {
@@ -280,7 +280,7 @@
                     "hu": "API-Token",
                     "de": "API-Token"
                 },
-                "last_used": "13.03.2017"
+                "last_used": "17.03.2017"
             },
             "api_type": {
                 "translations": {
@@ -288,7 +288,7 @@
                     "hu": "Type",
                     "de": "Typ"
                 },
-                "last_used": "13.03.2017"
+                "last_used": "17.03.2017"
             },
             "regenerate_token": {
                 "translations": {
@@ -296,7 +296,15 @@
                     "hu": "Regenerate Token",
                     "de": "Token neu generieren"
                 },
-                "last_used": "13.03.2017"
+                "last_used": "17.03.2017"
+            },
+            "open_result_api": {
+                "translations": {
+                    "en": "Open API-Link (with latest Voting)",
+                    "hu": "Open API-Link (with latest Voting)",
+                    "de": "API-Link öffnen (mit neustem Voting)"
+                },
+                "last_used": "17.03.2017"
             }
         },
         "correct": {

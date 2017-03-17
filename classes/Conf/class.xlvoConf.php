@@ -23,6 +23,7 @@ class xlvoConf extends CachingActiveRecord {
 	const F_USE_QR = 'use_qr';
 	const REWRITE_RULE = "RewriteRule ^vote(/[\\w]*|) Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?pin=$1 [L]";
 	const API_URL = './Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/ilias.php';
+	const RESULT_API_URL = './Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/api.php';
 	const F_REQUEST_FREQUENCY = 'request_frequency';
 	const F_RESULT_API = 'result_api';
 	const F_API_TYPE = 'api_type';
