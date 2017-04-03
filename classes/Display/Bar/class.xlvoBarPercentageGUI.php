@@ -37,7 +37,6 @@ class xlvoBarPercentageGUI implements xlvoBarGUI {
 	/**
 	 * @var int
 	 */
-
 	protected $round = 2;
 
 
@@ -55,13 +54,18 @@ class xlvoBarPercentageGUI implements xlvoBarGUI {
 			$tpl->parseCurrentBlock();
 		}
 
-		$calculated_percentage = $this->getVotes() / $this->getMaxVotes() * 100;
+		if ($this->getMaxVotes() == 0) {
+			$calculated_percentage = 0;
+		} else {
+			$calculated_percentage = $this->getVotes() / $this->getMaxVotes() * 100;
+		}
 
 		$tpl->setVariable('MAX', $this->getMaxVotes());
 		$tpl->setVariable('PERCENT', $this->getVotes());
 		$tpl->setVariable('PERCENT_STYLE', str_replace(',', '.', round($calculated_percentage, 1)));
 		if ($this->isShowInPercent()) {
-			$tpl->setVariable('PERCENT_TEXT', round($calculated_percentage, $this->getRound()) . '%');
+			$tpl->setVariable('PERCENT_TEXT', round($calculated_percentage, $this->getRound())
+			                                  . '%');
 		} else {
 			$tpl->setVariable('PERCENT_TEXT', round($this->getVotes(), $this->getRound()));
 		}

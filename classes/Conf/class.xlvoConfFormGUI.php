@@ -1,5 +1,6 @@
 <?php
 
+use LiveVoting\Api\xlvoApi;
 use LiveVoting\Conf\xlvoConf;
 
 require_once('./Services/Form/classes/class.ilPropertyFormGUI.php');
@@ -73,8 +74,22 @@ class xlvoConfFormGUI extends \ilPropertyFormGUI {
 		$this->addItem($use_shortlink);
 		$this->addItem($request_frequency);
 
+		// Results API
 		$result_api = new \ilCheckboxInputGUI($this->parent_gui->txt(xlvoConf::F_RESULT_API), xlvoConf::F_RESULT_API);
 		$result_api->setInfo($this->parent_gui->txt(xlvoConf::F_RESULT_API . '_info'));
+
+		$api_type = new ilSelectInputGUI($this->parent_gui->txt(xlvoConf::F_API_TYPE), xlvoConf::F_API_TYPE);
+		$api_type->setOptions(array(
+			xlvoApi::TYPE_JSON => 'JSON',
+			xlvoApi::TYPE_XML  => 'XML',
+		));
+		$result_api->addSubItem($api_type);
+
+		$api_token = new ilNonEditableValueGUI();
+		$api_token->setTitle($this->parent_gui->txt(xlvoConf::F_API_TOKEN));
+		$api_token->setValue(xlvoConf::getApiToken());
+		$result_api->addSubItem($api_token);
+
 		$this->addItem($result_api);
 	}
 
@@ -162,6 +177,6 @@ class xlvoConfFormGUI extends \ilPropertyFormGUI {
 	 * @return bool
 	 */
 	public static function checkItem($item) {
-		return !$item instanceof \ilFormSectionHeaderGUI;
+		return !$item instanceof \ilFormSectionHeaderGUI && !$item instanceof ilNonEditableValueGUI;
 	}
 }

@@ -11,7 +11,7 @@ use LiveVoting\Cache\CachingActiveRecord;
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version 1.0.0
  */
-class xlvoOption extends CachingActiveRecord  {
+class xlvoOption extends CachingActiveRecord {
 
 	const STAT_INACTIVE = 0;
 	const STAT_ACTIVE = 1;
@@ -229,5 +229,18 @@ class xlvoOption extends CachingActiveRecord  {
 	 */
 	public function setCorrectPosition($correct_position) {
 		$this->correct_position = $correct_position;
+	}
+
+
+	/**
+	 * @return \stdClass
+	 */
+	public function _toJson() {
+		$class = new \stdClass();
+		$class->Id = (int)$this->getId();
+		$class->Text = (string)$this->getText();
+		$class->Position = (int)$this->getPosition();
+
+		return $class;
 	}
 }

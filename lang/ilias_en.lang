@@ -32,6 +32,12 @@ config_msg_success#:#Saved
 config_request_frequency#:#Client update frequency
 config_request_frequency_info#:#The client side live voting data update frequency measured in seconds. The lower the number the faster the clients react to changes by the tutor but the load on the server increases. We recommend 2 - 5 seconds.
 config_update#:#Update
+config_result_api#:#Activate Results-API
+config_result_api_info#:#Results of a Voting can be accessed as JSON via Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/api.php?pin=XXXX?token=XXXXX
+config_api_token#:#API-Token
+config_api_type#:#Type
+config_regenerate_token#:#Regenerate Token
+config_open_result_api#:#Open API-Link (with latest Voting)
 correct_order#:#Correct Order
 crs_create_xlvo#:#Create LiveVoting
 fikd_create_xlvo#:#Create LiveVoting
