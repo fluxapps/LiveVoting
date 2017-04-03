@@ -41,7 +41,7 @@ class xlvoGUI {
 
 	public function executeCommand() {
 		$nextClass = $this->ctrl->getNextClass();
-
+		\LiveVoting\Js\xlvoJs::getInstance()->name('Main')->init();
 		switch ($nextClass) {
 			default:
 				$cmd = $this->ctrl->getCmd(self::CMD_STANDARD);
