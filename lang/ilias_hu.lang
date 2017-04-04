@@ -36,6 +36,8 @@ config_api_token#:#API-Token
 config_api_type#:#Type
 config_regenerate_token#:#Regenerate Token
 config_open_result_api#:#Open API-Link (with latest Voting)
+config_use_global_cache#:#aktiválása caching
+config_use_global_cache_info#:#Lehetővé teszi a LiveVoting plugint használni a globális cache mechanizmus, amely biztosítja ILIAS. Az alapul szolgáló cache szinkronizálni kell egy multi veszi a telepítést, egyébként a plugin megjósolhatatlan eredményeket.
 correct_order#:#Helyes sorrend
 crs_create_xlvo#:#Élőszavazás létrehozása
 fikd_create_xlvo#:#Élőszavazás létrehozása

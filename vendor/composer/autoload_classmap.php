@@ -22,6 +22,7 @@ return array(
     'Endroid\\QrCode\\QrCode' => $vendorDir . '/endroid/qrcode/src/QrCode.php',
     'LiveVoting\\Api\\xlvoApi' => $baseDir . '/classes/Api/class.xlvoApi.php',
     'LiveVoting\\Cache\\CachingActiveRecord' => $baseDir . '/classes/Cache/class.CachingActiveRecord.php',
+    'LiveVoting\\Cache\\Initialisable' => $baseDir . '/classes/Cache/Initialisable.php',
     'LiveVoting\\Cache\\Version\\v50\\xlvoCache' => $baseDir . '/classes/Cache/Version/v50/class.xlvoCache.php',
     'LiveVoting\\Cache\\Version\\v51\\xlvoCache' => $baseDir . '/classes/Cache/Version/v51/class.xlvoCache.php',
     'LiveVoting\\Cache\\Version\\v52\\xlvoCache' => $baseDir . '/classes/Cache/Version/v52/class.xlvoCache.php',

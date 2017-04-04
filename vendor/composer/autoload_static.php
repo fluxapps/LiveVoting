@@ -45,6 +45,7 @@ class ComposerStaticInit50828317cca5f7a8531843b9c8af0526
         'Endroid\\QrCode\\QrCode' => __DIR__ . '/..' . '/endroid/qrcode/src/QrCode.php',
         'LiveVoting\\Api\\xlvoApi' => __DIR__ . '/../..' . '/classes/Api/class.xlvoApi.php',
         'LiveVoting\\Cache\\CachingActiveRecord' => __DIR__ . '/../..' . '/classes/Cache/class.CachingActiveRecord.php',
+        'LiveVoting\\Cache\\Initialisable' => __DIR__ . '/../..' . '/classes/Cache/Initialisable.php',
         'LiveVoting\\Cache\\Version\\v50\\xlvoCache' => __DIR__ . '/../..' . '/classes/Cache/Version/v50/class.xlvoCache.php',
         'LiveVoting\\Cache\\Version\\v51\\xlvoCache' => __DIR__ . '/../..' . '/classes/Cache/Version/v51/class.xlvoCache.php',
         'LiveVoting\\Cache\\Version\\v52\\xlvoCache' => __DIR__ . '/../..' . '/classes/Cache/Version/v52/class.xlvoCache.php',

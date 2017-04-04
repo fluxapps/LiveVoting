@@ -9,7 +9,9 @@
 namespace LiveVoting\Cache\Version\v50;
 
 
+use LiveVoting\Cache\Initialisable;
 use LiveVoting\Cache\xlvoCacheService;
+use LiveVoting\Conf\xlvoConf;
 use RuntimeException;
 
 require_once('./Services/GlobalCache/classes/class.ilGlobalCache.php');
@@ -20,7 +22,7 @@ require_once('./Services/GlobalCache/classes/class.ilGlobalCache.php');
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version 1.0.0
  */
-class xlvoCache extends \ilGlobalCache implements xlvoCacheService {
+class xlvoCache extends \ilGlobalCache implements xlvoCacheService, Initialisable {
 
     const COMP_PREFIX = 'xlvo';
     /**
@@ -36,17 +38,46 @@ class xlvoCache extends \ilGlobalCache implements xlvoCacheService {
 
 
     /**
+     *
+     * @param string $component Parameter never used and should be omitted.
+     *
      * @return xlvoCache
      */
-    public static function getInstance() {
+    public static function getInstance($component = '') {
 
         $xlvoCache = new self(self::getComponentType(), 'LiveVoting');
 
-        $xlvoCache->setActive(true);
-        self::setOverrideActive(true);
+        $xlvoCache->setActive(false);
+        self::setOverrideActive(false);
 
         return $xlvoCache;
     }
+
+    public function init()
+    {
+        $ilGlobalCacheService = null;
+
+        if(xlvoConf::getConfig(xlvoConf::F_USE_GLOBAL_CACHE) === 1)
+        {
+            $serviceName = self::lookupServiceClassName($this->getServiceType());
+            $ilGlobalCacheService = new $serviceName(self::$unique_service_id, $this->getComponent());
+            $ilGlobalCacheService->setServiceType($this->getServiceType());
+        }
+        else
+        {
+            $serviceName = self::lookupServiceClassName(self::TYPE_STATIC);
+            $ilGlobalCacheService = new $serviceName(self::$unique_service_id, $this->getComponent());
+            $ilGlobalCacheService->setServiceType(self::TYPE_STATIC);
+        }
+
+        $this->global_cache = $ilGlobalCacheService;
+        $this->setActive(in_array($this->getComponent(), self::getActiveComponents()));
+
+
+        $this->setActive(true);
+        self::setOverrideActive(true);
+    }
+
 
     /**
      * @param $service_type
@@ -63,6 +94,9 @@ class xlvoCache extends \ilGlobalCache implements xlvoCacheService {
                 break;
             case self::TYPE_XCACHE:
                 return 'ilXcache';
+                break;
+            case self::TYPE_STATIC:
+                return 'ilStaticCache';
                 break;
             default:
                 return 'ilStaticCache';

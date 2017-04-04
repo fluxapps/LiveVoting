@@ -28,6 +28,7 @@ class xlvoConf extends CachingActiveRecord {
 	const F_RESULT_API = 'result_api';
 	const F_API_TYPE = 'api_type';
 	const F_API_TOKEN = 'api_token';
+	const F_USE_GLOBAL_CACHE = 'use_global_cache';
 	/**
 	 * Min client update frequency in seconds.
 	 * This value should never be set bellow 1 second.
@@ -145,7 +146,7 @@ class xlvoConf extends CachingActiveRecord {
 
 
 	public static function load() {
-		$null = parent::get();
+		parent::get();
 	}
 
 

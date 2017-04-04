@@ -71,8 +71,9 @@ class xlvoConfFormGUI extends \ilPropertyFormGUI {
 		$request_frequency->setMinValue(xlvoConf::MIN_CLIENT_UPDATE_FREQUENCY, false);
 		$request_frequency->setMaxValue(xlvoConf::MAX_CLIENT_UPDATE_FREQUENCY, false);
 
-		$this->addItem($use_shortlink);
-		$this->addItem($request_frequency);
+		//global cache setting
+        $global_cache_enabled = new \ilCheckboxInputGUI($this->parent_gui->txt(xlvoConf::F_USE_GLOBAL_CACHE), xlvoConf::F_USE_GLOBAL_CACHE);
+        $global_cache_enabled->setInfo($this->parent_gui->txt(xlvoConf::F_USE_GLOBAL_CACHE . '_info'));
 
 		// Results API
 		$result_api = new \ilCheckboxInputGUI($this->parent_gui->txt(xlvoConf::F_RESULT_API), xlvoConf::F_RESULT_API);
@@ -90,8 +91,12 @@ class xlvoConfFormGUI extends \ilPropertyFormGUI {
 		$api_token->setValue(xlvoConf::getApiToken());
 		$result_api->addSubItem($api_token);
 
-		$this->addItem($result_api);
-	}
+		//add items to GUI
+        $this->addItem($use_shortlink);
+        $this->addItem($request_frequency);
+        $this->addItem($result_api);
+        $this->addItem($global_cache_enabled);
+    }
 
 
 	protected function initButtons() {

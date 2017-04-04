@@ -39,6 +39,8 @@ config_api_type#:#Type
 config_regenerate_token#:#Regenerate Token
 config_open_result_api#:#Open API-Link (with latest Voting)
 correct_order#:#Correct Order
+config_use_global_cache#:#Activate caching
+config_use_global_cache_info#:#Enables the LiveVoting plugin to use the global caching mechanism, which is provided by ILIAS. The underlying cache must be synchronised within a multi note setup, otherwise the plugin produces unpredictable results.
 crs_create_xlvo#:#Create LiveVoting
 fikd_create_xlvo#:#Create LiveVoting
 grp_create_xlvo#:#Create LiveVoting

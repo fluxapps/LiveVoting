@@ -37,6 +37,8 @@ config_api_token#:#API-Token
 config_api_type#:#Typ
 config_regenerate_token#:#Token neu generieren
 config_open_result_api#:#API-Link öffnen (mit neustem Voting)
+config_use_global_cache#:#Cache aktivieren
+config_use_global_cache_info#:#Aktiviert die Verwendung der globalen Cache Mechanik von ILIAS. Der zugrundeliegende cache muss in einem Setup mit mehreren ILIAS installation synchron sein, da das Plugin ansonsten unvorhersehbare Werte produzieren wird.
 correct_order#:#Korrekte Reihenfolge
 crs_create_xlvo#:#LiveVoting erstellen
 fikd_create_xlvo#:#LiveVoting erstellen
