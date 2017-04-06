@@ -25,12 +25,12 @@ class xlvoCacheFactory {
         {
             $subversion = (int)explode('.', ILIAS_VERSION_NUMERIC)[1];
             switch ($subversion) {
-                case ILIASVersionEnum::ILIAS_VERSION_5_0:
-                    self::$cache_instance = Version\v50\xlvoCache::getInstance();
                 case ILIASVersionEnum::ILIAS_VERSION_5_1:
                     self::$cache_instance = Version\v51\xlvoCache::getInstance();
+                    break;
                 case ILIASVersionEnum::ILIAS_VERSION_5_2:
                     self::$cache_instance = Version\v52\xlvoCache::getInstance('');
+                    break;
             }
 
             /*
