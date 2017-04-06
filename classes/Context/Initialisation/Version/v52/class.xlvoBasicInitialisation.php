@@ -474,9 +474,16 @@ class xlvoBasicInitialisation {
 	private function initErrorHandling() {
 		global $ilErr;
 
-		error_reporting(((ini_get("error_reporting")) & ~E_DEPRECATED) & ~E_STRICT);
+		// error_reporting(((ini_get("error_reporting")) & ~E_DEPRECATED) & ~E_STRICT); // removed reading ini since notices lead to a non working livevoting in 5.2 when E_NOTICE is enabled
+		error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_NOTICE);
 
 		// error handler
+		if (!defined('ERROR_HANDLER')) {
+			define('ERROR_HANDLER', 'PRETTY_PAGE');
+		}
+		if (!defined('DEVMODE')) {
+			define('DEVMODE', false);
+		}
 		require_once "./Services/Init/classes/class.ilErrorHandling.php";
 		$this->makeGlobal("ilErr", new \ilErrorHandling());
 		$ilErr->setErrorHandling(PEAR_ERROR_CALLBACK, array( $ilErr, 'errorHandler' ));
