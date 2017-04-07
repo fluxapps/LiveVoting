@@ -102,6 +102,7 @@ player_unfreeze#:#Szavazz
 player_voters_online#:#Online
 player_voting_countdown#:#Visszaszámlálás
 player_voting_list#:#Kérdések
+player_voters_description#:#Választók
 qtype_1_colors#:#Különböző színek
 qtype_1_info_latex#:#LaTeX részt [tex] ... [/tex] közé kell írni.
 qtype_1_multi_selection#:#Többszörös kijelölés
