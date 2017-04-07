@@ -50,6 +50,7 @@ class xlvoApi {
 		$manager = new xlvoVotingManager2($this->pin->getPin());
 		$title = \ilObject2::_lookupTitle($manager->getObjId());
 		$data = new \stdClass();
+		$data->Info = new \stdClass();
 		$data->Info->Title = $title;
 		$latestRound = xlvoRound::getLatestRound($manager->getObjId());
 		$data->Info->Round = $latestRound->getRoundNumber();
