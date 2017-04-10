@@ -9,7 +9,7 @@ use LiveVoting\Cache\CachingActiveRecord;
  *
  * @author Fabian Schmid <fs@studer-raimann.ch>
  */
-class xlvoConf extends CachingActiveRecord  {
+class xlvoConf extends CachingActiveRecord {
 
 	const CONFIG_VERSION = 2;
 	const F_CONFIG_VERSION = 'config_version';
@@ -19,24 +19,28 @@ class xlvoConf extends CachingActiveRecord  {
 	const F_ALLOW_SHORTLINK_LINK = 'allow_shortlink_link';
 	const F_BASE_URL = 'base_url';
 	const F_ALLOW_GLOBAL_ANONYMOUS = 'global_anonymous';
+	const F_REGENERATE_TOKEN = 'regenerate_token';
 	const F_USE_QR = 'use_qr';
 	const REWRITE_RULE = "RewriteRule ^vote(/[\\w]*|) Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?pin=$1 [L]";
 	const API_URL = './Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/ilias.php';
-    const REQUEST_FREQUENCY = 'request_frequency';
+	const RESULT_API_URL = './Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/api.php';
+	const F_REQUEST_FREQUENCY = 'request_frequency';
+	const F_RESULT_API = 'result_api';
+	const F_API_TYPE = 'api_type';
+	const F_API_TOKEN = 'api_token';
+	const F_USE_GLOBAL_CACHE = 'use_global_cache';
+	/**
+	 * Min client update frequency in seconds.
+	 * This value should never be set bellow 1 second.
+	 */
+	const MIN_CLIENT_UPDATE_FREQUENCY = 1;
+	/**
+	 * Max client update frequency in seconds.
+	 */
+	const MAX_CLIENT_UPDATE_FREQUENCY = 60;
 
 
-    /**
-     * Min client update frequency in seconds.
-     * This value should never be set bellow 1 second.
-     */
-    const MIN_CLIENT_UPDATE_FREQUENCY = 1;
-
-    /**
-     * Max client update frequency in seconds.
-     */
-    const MAX_CLIENT_UPDATE_FREQUENCY = 60;
-
-    /**
+	/**
 	 * @return string
 	 */
 	public static function getShortLinkURL() {
@@ -52,7 +56,8 @@ class xlvoConf extends CachingActiveRecord  {
 				$url = 'http://' . $url;
 			}
 		} else {
-			$url = ILIAS_HTTP_PATH . '/Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?pin=';
+			$url = ILIAS_HTTP_PATH
+			       . '/Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?pin=';
 		}
 
 		return $url;
@@ -67,6 +72,20 @@ class xlvoConf extends CachingActiveRecord  {
 		$mathJaxSetting = new \ilSetting("MathJax");
 
 		return (bool)$mathJaxSetting->get("enable");
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public static function getApiToken() {
+		$token = self::getConfig(self::F_API_TOKEN);
+		if (!$token) {
+			$token = md5(time());
+			self::set(self::F_API_TOKEN, $token);
+		}
+
+		return $token;
 	}
 
 
@@ -127,7 +146,7 @@ class xlvoConf extends CachingActiveRecord  {
 
 
 	public static function load() {
-		$null = parent::get();
+		parent::get();
 	}
 
 
@@ -161,8 +180,6 @@ class xlvoConf extends CachingActiveRecord  {
 			$obj->create();
 		}
 	}
-
-
 
 
 	/**

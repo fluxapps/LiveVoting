@@ -31,6 +31,14 @@ config_msg_success#:#Gespeichert
 config_request_frequency#:#Klienten aktualisierungs Frequenz
 config_request_frequency_info#:#Die aktualisierungs Frequenz der LiveVoting Klienten, angegeben in Sekunden. Umso kleiner die Zahl ist umso schneller reagieren die Clients (z.B. Smartphones der Benutzer) während eines LiveVotings, allerdings erhöht sich die Last auf den Server merklich. Richtwert 2-5 Sekunden.
 config_update#:#Speichern
+config_result_api#:#Resultate-API aktivieren
+config_result_api_info#:#Resultate eines Votings können als JSON via Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/api.php?pin=XXXX?token=XXXXX abgerufen werden
+config_api_token#:#API-Token
+config_api_type#:#Typ
+config_regenerate_token#:#Token neu generieren
+config_open_result_api#:#API-Link öffnen (mit neustem Voting)
+config_use_global_cache#:#Cache aktivieren
+config_use_global_cache_info#:#Aktiviert die Verwendung der globalen Cache Mechanik von ILIAS. Der zugrundeliegende cache muss in einem Setup mit mehreren ILIAS installation synchron sein, da das Plugin ansonsten unvorhersehbare Werte produzieren wird.
 correct_order#:#Korrekte Reihenfolge
 crs_create_xlvo#:#LiveVoting erstellen
 fikd_create_xlvo#:#LiveVoting erstellen
@@ -96,6 +104,7 @@ player_unfreeze#:#Abstimmen
 player_voters_online#:#Online
 player_voting_countdown#:#Countdown
 player_voting_list#:#Fragen
+player_voters_description#:#Abstimmende
 playplayer_msg_no_start_2#:#Das LiveVoting kann nicht gestartet werden, da noch keine Votings vorhanden sind.
 qtype_1_colors#:#Unterschiedliche Farben
 qtype_1_info_latex#:#LaTeX kann mit [tex] ... [/tex] formatiert werden.

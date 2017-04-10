@@ -7,6 +7,7 @@ require_once("./include/inc.ilias_version.php");
 use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Context\cookie\CookieManager;
 use LiveVoting\Context\xlvoContext;
+use LiveVoting\Context\xlvoRbacReview;
 use LiveVoting\Context\xlvoDummyUser;
 use LiveVoting\Context\xlvoILIAS;
 use LiveVoting\Context\xlvoObjectDefinition;
@@ -69,6 +70,7 @@ class xlvoBasicInitialisation {
 		$this->initPluginAdmin();
 		$this->initTemplate();
 		$this->initUser();
+		$this->initRbac();
 		//$this->setCookieParams();
 	}
 
@@ -452,7 +454,8 @@ class xlvoBasicInitialisation {
 	private function initErrorHandling() {
 		global $ilErr;
 
-		error_reporting(((ini_get("error_reporting")) & ~E_DEPRECATED) & ~E_STRICT);
+		// error_reporting(((ini_get("error_reporting")) & ~E_DEPRECATED) & ~E_STRICT); // removed reading ini since notices lead to a non working livevoting in 5.1 when E_NOTICE is enabled
+		error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_NOTICE);
 
 		// error handler
 		require_once "./Services/Init/classes/class.ilErrorHandling.php";
@@ -585,5 +588,12 @@ class xlvoBasicInitialisation {
 	 */
 	private function initUser() {
 		$this->makeGlobal('ilUser', new xlvoDummyUser());
+	}
+
+	/**
+	 * Initialise a fake rbac to satisfy other plugins
+	 */
+	private function initRbac() {
+		$this->makeGlobal('rbacreview', new xlvoRbacReview());
 	}
 }

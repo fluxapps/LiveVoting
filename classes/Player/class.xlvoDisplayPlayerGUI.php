@@ -91,6 +91,11 @@ class xlvoDisplayPlayerGUI {
 			$this->tpl->setVariable('COUNTDOWN_CSS', $this->manager->getPlayer()->getCountdownClassname());
 			$this->tpl->parseCurrentBlock();
 		}
+
+		//parse votes block
+		$this->tpl->setVariable('VOTERS', $this->manager->countVoters());
+		$this->tpl->setVariable('VOTERS_DESCRIPTION', $this->pl->txt('player_voters_description'));
+
 		$this->tpl->setVariable('COUNT', $this->manager->countVotings());
 		$this->tpl->setVariable('POSITION', $this->manager->getVotingPosition());
 	}

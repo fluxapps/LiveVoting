@@ -32,7 +32,15 @@ config_msg_success#:#Saved
 config_request_frequency#:#Client update frequency
 config_request_frequency_info#:#The client side live voting data update frequency measured in seconds. The lower the number the faster the clients react to changes by the tutor but the load on the server increases. We recommend 2 - 5 seconds.
 config_update#:#Update
+config_result_api#:#Activate Results-API
+config_result_api_info#:#Results of a Voting can be accessed as JSON via Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/api.php?pin=XXXX?token=XXXXX
+config_api_token#:#API-Token
+config_api_type#:#Type
+config_regenerate_token#:#Regenerate Token
+config_open_result_api#:#Open API-Link (with latest Voting)
 correct_order#:#Correct Order
+config_use_global_cache#:#Activate caching
+config_use_global_cache_info#:#Enables the LiveVoting plugin to use the global caching mechanism, which is provided by ILIAS. The underlying cache must be synchronised within a multi note setup, otherwise the plugin produces unpredictable results.
 crs_create_xlvo#:#Create LiveVoting
 fikd_create_xlvo#:#Create LiveVoting
 grp_create_xlvo#:#Create LiveVoting
@@ -96,6 +104,7 @@ player_unfreeze#:#Vote
 player_voters_online#:#Online
 player_voting_countdown#:#Countdown
 player_voting_list#:#Questions
+player_voters_description#:#Voters
 qtype_1_colors#:#Different Colors
 qtype_1_info_latex#:#LaTeX can be surrounded with [tex] ... [/tex]
 qtype_1_multi_selection#:#Multiple Selection

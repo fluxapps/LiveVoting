@@ -8,8 +8,11 @@
 
 namespace LiveVoting\Cache\Version\v52;
 
+use LiveVoting\Cache\Initialisable;
 use LiveVoting\Cache\xlvoCacheService;
+use LiveVoting\Conf\xlvoConf;
 use RuntimeException;
+use Whoops\Exception\ErrorException;
 
 require_once('./Services/GlobalCache/classes/class.ilGlobalCache.php');
 
@@ -19,7 +22,7 @@ require_once('./Services/GlobalCache/classes/class.ilGlobalCache.php');
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version 1.0.0
  */
-class xlvoCache extends \ilGlobalCache implements xlvoCacheService {
+class xlvoCache extends \ilGlobalCache implements xlvoCacheService, Initialisable {
 
 	const COMP_PREFIX = 'xlvo';
 	/**
@@ -41,28 +44,69 @@ class xlvoCache extends \ilGlobalCache implements xlvoCacheService {
 	public static function getInstance($component) {
 		$service_type = self::getSettings()->getService();
 		$xlvoCache = new self($service_type);
-		$xlvoCache->initCachingService();
 
-		$xlvoCache->setActive(true);
-		self::setOverrideActive(true);
+		//must be disabled because the xlvoConf loads the data via xlvoCache which is not fully initialised at this point.
+		$xlvoCache->setActive(false);
+		self::setOverrideActive(false);
 
 		return $xlvoCache;
 	}
 
 
-	protected function initCachingService() {
+    /**
+     * Init the cache.
+     */
+    public function init()
+    {
+        $this->initCachingService();
+        $this->setActive(true);
+        self::setOverrideActive(true);
+    }
+
+
+    protected function initCachingService() {
 		/**
 		 * @var $ilGlobalCacheService \ilGlobalCacheService
 		 */
 		if (!$this->getComponent()) {
 			$this->setComponent('LiveVoting');
 		}
-		$serviceName = self::lookupServiceClassName($this->getServiceType());
-		$ilGlobalCacheService = new $serviceName(self::$unique_service_id, $this->getComponent());
-		$ilGlobalCacheService->setServiceType($this->getServiceType());
+
+        $ilGlobalCacheService = null;
+
+		if($this->isLiveVotingCacheEnabled())
+        {
+            $serviceName = self::lookupServiceClassName($this->getServiceType());
+            $ilGlobalCacheService = new $serviceName(self::$unique_service_id, $this->getComponent());
+            $ilGlobalCacheService->setServiceType($this->getServiceType());
+        }
+        else
+        {
+            $serviceName = self::lookupServiceClassName(self::TYPE_STATIC);
+            $ilGlobalCacheService = new $serviceName(self::$unique_service_id, $this->getComponent());
+            $ilGlobalCacheService->setServiceType(self::TYPE_STATIC);
+        }
+
 		$this->global_cache = $ilGlobalCacheService;
 		$this->setActive(in_array($this->getComponent(), self::getActiveComponents()));
 	}
+
+    /**
+     * Checks if live voting is able to use the global cache.
+     *
+     * @return bool
+     */
+	private function isLiveVotingCacheEnabled()
+    {
+        try
+        {
+            return (int)xlvoConf::getConfig(xlvoConf::F_USE_GLOBAL_CACHE) === 1;
+        }
+        catch (ErrorException $exceptionex) //catch exception while dbupdate is running. (xlvoConf is not ready at that time).
+        {
+            return false;
+        }
+    }
 
 
 	/**
@@ -81,6 +125,9 @@ class xlvoCache extends \ilGlobalCache implements xlvoCacheService {
 			case self::TYPE_XCACHE:
 				return 'ilXcache';
 				break;
+            case self::TYPE_STATIC:
+                return 'ilStaticCache';
+                break;
 			default:
 				return 'ilStaticCache';
 				break;

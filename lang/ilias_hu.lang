@@ -1,9 +1,157 @@
-voter_msg_waiting_screen#:#Kérem, várjon...
-voter_pin_form_title#:#Belépés élőszavazásba
-voter_pin_input#:#PIN
-voter_save#:#Mentés
-voter_send#:#Mehet
-voter_text#:#Válasz
+cat_create_xlobj_results_behaviour#:#Eredmények megjelenítése
+cat_create_xlvo#:#Élőszavazás létrehozása
+common_actions#:#Műveletek
+common_all#:#Összes
+common_all2#:#HIÁNYZIK
+common_answer#:#Válasz
+common_back#:#Vissza
+common_cancel#:#Mégsem
+common_change#:#Módosítás
+common_common_new_round_created#:#Új kört sikeresen inicializálta.
+common_confirm_new_round#:#Új kör indításakor a jelenlegi kör leáll, nem folytatható tovább. Biztos, hogy elindít egy új kört?
+common_correct_order#:#Helyes sorrend
+common_history#:#Történelem
+common_incorrect_order#:#Hibás sorrend
+common_new_round#:#Új kör
+common_new_round_created#:#Új kört sikeresen inaktiválta.
+common_participant#:#Válaszadó
+common_position#:#Pozíció
+common_question#:#Kérdés
+common_round#:#Kör
+common_show_history#:#Történelem
+common_time#:#Időbélyeg
+common_user#:#Felhasználó
+config_allow_shortlink#:#Rövid URL aktiválása
+config_allow_shortlink_info#:#Rövid URL (pl. /vote) használatához adja a RewriteRule szabályt .htaccess fájljához:
+config_allow_shortlink_link#:#Rövid URL
+config_allow_shortlink_link_info#:#Telepítése teljes rövid URL-je , pl. https://ilias.domain.hu/vote
+config_base_url#:#Alap URL
+config_base_url_info#:#Telepítése URL-je (alkönyvtárat is beleértve), pl. https://www.domain.hu/ilias
+config_cancel#:#Mégsem
+config_msg_success#:#Mentve
+config_update#:#Módosítás
+config_result_api#:#MISSING
+config_result_api_info#:#Results of a Voting can be accessed as JSON via Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/api.php?pin=XXXX?token=XXXXX
+config_api_token#:#API-Token
+config_api_type#:#Type
+config_regenerate_token#:#Regenerate Token
+config_open_result_api#:#Open API-Link (with latest Voting)
+config_use_global_cache#:#aktiválása caching
+config_use_global_cache_info#:#Lehetővé teszi a LiveVoting plugint használni a globális cache mechanizmus, amely biztosítja ILIAS. Az alapul szolgáló cache szinkronizálni kell egy multi veszi a telepítést, egyébként a plugin megjósolhatatlan eredményeket.
+correct_order#:#Helyes sorrend
+crs_create_xlvo#:#Élőszavazás létrehozása
+fikd_create_xlvo#:#Élőszavazás létrehozása
+grp_create_xlvo#:#Élőszavazás létrehozása
+incorrect_order#:#Hibás sorrend
+msg_success_voting_created#:#Szavazást sikeresen létrehozta
+msg_success_voting_updated#:#Szavazást sikeresen módosította
+new_round#:#Új kör
+objs_xlvo#:#Élőszavazás
+objs_xlvo_duplicate#:#Meglévő élőszavazás klónozása
+obj_anonymous#:#Szavazás bejelentkezés nélkül
+obj_crs#:#Kurzus
+obj_description#:#Leírás
+obj_edit_properties#:#Tulajdonságok módosítása
+obj_formtitle_change_vote#:#Navigáció közbeni viselkedés
+obj_frozen_alway_off#:#Kérdés mindig inaktív váltás után
+obj_frozen_alway_off_info#:#Kérdésváltás után a felhasználók azután szavazhatnak, miután az előadó megnyomta a Szavazz gombot.
+obj_frozen_alway_on#:#Kérdés mindig aktív váltás után
+obj_frozen_alway_on_info#:#Kérdésváltás után a felhasználók rögtön szavazhatnak.
+obj_frozen_behaviour#:#Szüneteltetés állapota
+obj_frozen_reuse#:#Előző állapot használata
+obj_frozen_reuse_info#:#Kérdésváltás után a szüneteltetés állapota nem változik.
+obj_info_anonymous#:#Az élőszavazás bejelentkezés nélkül használható, akkor is, ha az objektum védett, biztonságos helyen van, pl. egy kurzusban. A szavazók egy PIN kóddal érik el az élőszavazást.
+obj_info_online#:#Objektum online és elérhető
+obj_info_reuse_status#:#Az élőszavazás pillanatnyi állapotának megőrzése amikor a következőre váltunk (szüneteltetett / nem szüneteltetett).
+obj_info_terminable#:#Az előszavazás csak a meghatározott időtartam alatt érhető el
+obj_msg_properties_form_saved#:#Beállításokat sikeresen mentette.
+obj_offline#:#Offline
+obj_online#:#Online
+obj_results_alway_off#:#Szavazatállás sohasem látható
+obj_results_alway_off_info#:#Kérdésváltás után a pillanatnyi szavazatállás nem jelenik meg.
+obj_results_alway_on#:#Szavazatállás mindig látható
+obj_results_alway_on_info#:#Kérdésváltás után a pillanatnyi szavazatállás jelenik meg.
+obj_results_behaviour#:#Szavazatállás megjelenítése
+obj_results_reuse#:#Előző állapot használata
+obj_results_reuse_info#:#Kérdésváltás után a szavazatállás láthatósága nem változik.
+obj_reuse_status#:#Válaszadók állapotának újbóli felhasználása
+obj_save#:#Mentés
+obj_status#:#Állapot
+obj_terminable#:#Szavazás idejének korlátozása
+obj_terminable_select#:#Időtartam
+obj_terminable_select_end_time#:#Záró idő
+obj_terminable_select_start_time#:#Kezdő idő
+obj_title#:#Cím
+obj_xlvo#:#Élőszavazás
+obj_xlvo_duplicate#:#Meglévő élőszavazás duplikálása
+player_close_modal#:#Bezárás
+player_freeze#:#Szüneteltetés
+player_hide_results#:#Szavazatállás elrejtése
+player_msg_no_start_1#:#Ez az élőszavazás nem indítható, mert jelenleg offline
+player_msg_no_start_2#:#Ez az élőszavazás nem indítható, mert nincsenek elérhető szavazatok
+player_msg_no_votings#:#Ez az élőszavazás nem indítható, mert nincs benne kérdés
+player_msg_voting_not_available#:#A kijelölt élőszavazás nem érhető el
+player_player_countdown#:#Visszaszámlálás
+player_reset#:#Reset
+player_seconds#:#mp
+player_show_results#:#Szavazatállás megjelenítése
+player_start_voting#:#Élőszavazás indítása
+player_start_voting_and_unfreeze#:#Élőszavazás indítása és a szavazás azonnali megkezdése
+player_terminate#:#Megszakítás
+player_unfreeze#:#Szavazz
+player_voters_online#:#Online
+player_voting_countdown#:#Visszaszámlálás
+player_voting_list#:#Kérdések
+player_voters_description#:#Választók
+qtype_1_colors#:#Különböző színek
+qtype_1_info_latex#:#LaTeX részt [tex] ... [/tex] közé kell írni.
+qtype_1_multi_selection#:#Többszörös kijelölés
+qtype_1_multi_selection_info#:#Válaszadó több, mint egy válaszlehetőséget jelölhet meg
+qtype_1_options#:#Lehetőségek
+qtype_1_option_text#:#Option-Text
+qtype_1_total_voters#:#Összes szavazó
+qtype_1_total_votes#:#Összes szavazó
+qtype_1_unvote#:#Szavazat visszavonása
+qtype_1_vote#:#Szavazás
+qtype_2_answers#:#Válaszok
+qtype_2_clear#:#Kezdőállapotba
+qtype_2_delete_all#:#Összes törlése
+qtype_2_input#:#Válasz
+qtype_2_multi_free_input#:#Többszörös válasz
+qtype_2_multi_free_input_info#:#Több válasz is adható
+qtype_2_send#:#Mentés
+qtype_2_text#:#Szöveg
+qtype_2_your_input#:#Jelenleg mentett válasza:
+qtype_4_clear#:#Kezdőállapotba
+qtype_4_correct#:#Helyes
+qtype_4_correct_solution#:#Helyes sorrend:
+qtype_4_display_correct_order#:#Rendezés irányának megjelenítése
+qtype_4_display_std_order#:#Alapértelmezett sorrend megjelenítése
+qtype_4_hide_correct_order#:#Rendezés irányának elrejtése
+qtype_4_id#:#ID
+qtype_4_options#:#Lehetőségek
+qtype_4_option_correct_position#:#Helyes sorrend
+qtype_4_option_position#:#Pozíció
+qtype_4_option_text#:#Kifejezés
+qtype_4_save#:#Mentés
+qtype_4_wrong#:#Hibás
+qtype_4_your_order#:#Az Ön válasza:
+qtype_5_correct_solution#:#HIÁNYZIK
+qtype_5_display_correct_order#:#Sorrend
+qtype_5_hide_correct_order#:#Fordított sorrend
+qtype_5_options#:#Lehetőségek
+qtype_5_option_text#:#Szöveg
+qtype_5_option_weight#:#Szélesség
+qtype_form_header#:#Válaszok
+qtype_multi_free_input#:#Többszörös válasz
+results_title#:#Eredmények
+rminable_select_start_time#:#Indítás
+root_create_xlvo#:#Élőszavazás létrehozása
+subtab_edit#:#Kezelés
+subtab_show#:#Megjelenítés
+tab_content#:#Tartalom
+tab_edit#:#Beállítások
+tab_results#:#Eredmények
 voter_answer#:#Válasz
 voter_delete#:#Törlés
 voter_header_frozen#:#A szavazás szünetel
@@ -20,9 +168,16 @@ voter_msg_validation_error_pin_1#:#Ez az élőszavazás nem online
 voter_msg_validation_error_pin_2#:#Jelentkezzen be, hogy szavazhasson
 voter_msg_validation_error_pin_3#:#Ehhez a PIN-hez nincs élőszavazás
 voter_msg_validation_error_pin_4#:#Ez az élőszavazás jelenleg nem érhető el
+voter_msg_waiting_screen#:#Kérem, várjon...
+voter_pin_form_title#:#Belépés élőszavazásba
+voter_pin_input#:#PIN
+voter_save#:#Mentés
+voter_send#:#Mehet
+voter_text#:#Válasz
 voting_actions#:#Művelet
 voting_add#:#Kérdés létrehozása
 voting_cancel#:#Mégsem
+voting_columns#:#A válaszlehetőségeket ennyi oszlopba rendezzük az előadó képernyőjén
 voting_confirm_number_of_votes#:#Felhasználói válaszok száma:
 voting_confirm_reset#:#Biztos, hogy reseteli ezt a szavazás? Az összes választ töröljük.
 voting_confirm_reset_all#:#Biztos, hogy reseteli ezt a szavazás összes eredményét? Az összes választ töröljük.
@@ -30,9 +185,16 @@ voting_create#:#Létrehozás
 voting_delete#:#Törlés
 voting_delete_confirm#:#Biztos, hogy törli a szavazatot?
 voting_description#:#Leírás
+voting_duplicate#:#Duplikálás
 voting_edit#:#Módosítás
-voting_msg_sorting_saved#:#Sorrend mentése
+voting_export#:#Exportálás
+voting_form_title_create#:#Kérdése
+voting_form_title_update#:#Kérdése
+voting_history#:#Szavazástörténelem
+voting_history_info#:#A válaszadók összes szavazatát mentjük, akkor is, ha később azt módosítják. Így a válaszadók szavazási viselkedését is elemezheti.
+voting_import#:#Importálás
 voting_msg_duplicated#:#Kérdést sikeresen duplikálta
+voting_msg_sorting_saved#:#Sorrend mentése
 voting_question#:#Kérdés
 voting_reset#:#Reset
 voting_reset_all#:#Összes szavazat resetelése
@@ -52,17 +214,10 @@ voting_type_3#:#Tartomány
 voting_type_4#:#Helyes sorrend
 voting_type_4_info#:#A kifejezéseket a helyes sorrendbe kell rendezni.
 voting_type_5#:#Sorrendbe rendezés
-voting_update#:#Mentés és vissza
 voting_type_5_info#:#A kifejezések a kérdésben meghatározott szempont szerint sorrendbe kell rakni.
-voting_export#:#Exportálás
-voting_import#:#Importálás
-voting_form_title_update#:#Kérdése
-voting_form_title_create#:#Kérdése
-voting_columns#:#A válaszlehetőségeket ennyi oszlopba rendezzük az előadó képernyőjén
-voting_duplicate#:#Duplikálás
+voting_update#:#Mentés és vissza
 voting_update_and_stay#:#Mentés
-voting_history#:#Szavazástörténelem
-voting_history_info#:#A válaszadók összes szavazatát mentjük, akkor is, ha később azt módosítják. Így a válaszadók szavazási viselkedését is elemezheti.
+vqtype_1_options#:#Beállítások
 xlvo_add#:#Létrehozása
 xlvo_delete#:#Élőszavazás törlése
 xlvo_edit#:#Módosítás
@@ -71,149 +226,3 @@ xlvo_new#:#Új Élőszavazás létrehozása
 xlvo_read#:#Olvasás (csak nem-anonim módban használható)
 xlvo_visible#:#Élőszavazások látható
 xlvo_write#:#Élőszavazás indítása és módosítása
-common_back#:#Vissza
-common_actions#:#Műveletek
-common_confirm_new_round#:#Új kör indításakor a jelenlegi kör leáll, nem folytatható tovább. Biztos, hogy elindít egy új kört?
-common_new_round#:#Új kör
-common_cancel#:#Mégsem
-common_all#:#Összes
-common_all2#:#HIÁNYZIK
-common_answer#:#Válasz
-common_change#:#Módosítás
-common_common_new_round_created#:#Új kört sikeresen inicializálta.
-common_correct_order#:#Helyes sorrend
-common_history#:#Történelem
-common_incorrect_order#:#Hibás sorrend
-common_new_round_created#:#Új kört sikeresen inaktiválta.
-common_participant#:#Válaszadó
-common_position#:#Pozíció
-common_question#:#Kérdés
-common_round#:#Kör
-common_show_history#:#Történelem
-common_time#:#Időbélyeg
-common_user#:#Felhasználó
-config_allow_shortlink#:#Rövid URL aktiválása
-config_allow_shortlink_info#:#Rövid URL (pl. /vote) használatához adja a RewriteRule szabályt .htaccess fájljához:
-config_allow_shortlink_link#:#Rövid URL
-config_allow_shortlink_link_info#:#Telepítése teljes rövid URL-je , pl. https://ilias.domain.hu/vote
-config_base_url#:#Alap URL
-config_base_url_info#:#Telepítése URL-je (alkönyvtárat is beleértve), pl. https://www.domain.hu/ilias
-config_cancel#:#Mégsem
-config_msg_success#:#Mentve
-config_update#:#Módosítás
-msg_success_voting_created#:#Szavazást sikeresen létrehozta
-msg_success_voting_updated#:#Szavazást sikeresen módosította
-obj_anonymous#:#Szavazás bejelentkezés nélkül
-obj_description#:#Leírás
-obj_edit_properties#:#Tulajdonságok módosítása
-obj_info_anonymous#:#Az élőszavazás bejelentkezés nélkül használható, akkor is, ha az objektum védett, biztonságos helyen van, pl. egy kurzusban. A szavazók egy PIN kóddal érik el az élőszavazást.
-obj_info_online#:#Objektum online és elérhető
-obj_info_reuse_status#:#Az élőszavazás pillanatnyi állapotának megőrzése amikor a következőre váltunk (szüneteltetett / nem szüneteltetett).
-obj_info_terminable#:#Az előszavazás csak a meghatározott időtartam alatt érhető el
-obj_msg_properties_form_saved#:#Beállításokat sikeresen mentette.
-obj_online#:#Online
-obj_reuse_status#:#Válaszadók állapotának újbóli felhasználása
-obj_save#:#Mentés
-obj_terminable#:#Szavazás idejének korlátozása
-obj_terminable_select#:#Időtartam
-obj_terminable_select_end_time#:#Záró idő
-obj_terminable_select_start_time#:#Kezdő idő
-obj_title#:#Cím
-obj_xlvo#:#Élőszavazás
-obj_xlvo_duplicate#:#Meglévő élőszavazás duplikálása
-obj_status#:#Állapot
-obj_offline#:#Offline
-obj_formtitle_change_vote#:#Navigáció közbeni viselkedés
-obj_frozen_behaviour#:#Szüneteltetés állapota
-obj_frozen_alway_on#:#Kérdés mindig aktív váltás után
-obj_frozen_alway_off#:#Kérdés mindig inaktív váltás után
-obj_frozen_alway_on_info#:#Kérdésváltás után a felhasználók rögtön szavazhatnak.
-obj_frozen_alway_off_info#:#Kérdésváltás után a felhasználók azután szavazhatnak, miután az előadó megnyomta a Szavazz gombot.
-obj_results_behaviour#:#Szavazatállás megjelenítése
-obj_results_alway_on#:#Szavazatállás mindig látható
-obj_results_alway_on_info#:#Kérdésváltás után a pillanatnyi szavazatállás jelenik meg.
-obj_results_alway_off#:#Szavazatállás sohasem látható
-obj_results_alway_off_info#:#Kérdésváltás után a pillanatnyi szavazatállás nem jelenik meg.
-obj_frozen_reuse#:#Előző állapot használata
-obj_frozen_reuse_info#:#Kérdésváltás után a szüneteltetés állapota nem változik.
-obj_results_reuse#:#Előző állapot használata
-obj_results_reuse_info#:#Kérdésváltás után a szavazatállás láthatósága nem változik.
-obj_crs#:#Kurzus
-objs_xlvo#:#Élőszavazás
-objs_xlvo_duplicate#:#Meglévő élőszavazás klónozása
-player_close_modal#:#Bezárás
-player_freeze#:#Szüneteltetés
-player_hide_results#:#Szavazatállás elrejtése
-player_msg_no_start_1#:#Ez az élőszavazás nem indítható, mert jelenleg offline
-player_msg_no_start_2#:#Ez az élőszavazás nem indítható, mert nincsenek elérhető szavazatok
-player_msg_no_votings#:#Ez az élőszavazás nem indítható, mert nincs benne kérdés
-player_msg_voting_not_available#:#A kijelölt élőszavazás nem érhető el
-player_reset#:#Reset
-player_show_results#:#Szavazatállás megjelenítése
-player_start_voting#:#Élőszavazás indítása
-player_start_voting_and_unfreeze#:#Élőszavazás indítása és a szavazás azonnali megkezdése
-player_terminate#:#Megszakítás
-player_unfreeze#:#Szavazz
-player_voters_online#:#Online
-player_voting_list#:#Kérdések
-player_voting_countdown#:#Visszaszámlálás
-player_seconds#:#mp
-player_player_countdown#:#Visszaszámlálás
-qtype_1_colors#:#Különböző színek
-qtype_1_multi_selection#:#Többszörös kijelölés
-qtype_1_multi_selection_info#:#Válaszadó több, mint egy válaszlehetőséget jelölhet meg
-qtype_1_option_text#:#Option-Text
-qtype_1_options#:#Lehetőségek
-qtype_1_total_votes#:#Összes szavazó
-qtype_1_total_voters#:#Összes szavazó
-qtype_1_unvote#:#Szavazat visszavonása
-qtype_1_vote#:#Szavazás
-qtype_2_answers#:#Válaszok
-qtype_2_clear#:#Kezdőállapotba
-qtype_2_delete_all#:#Összes törlése
-qtype_2_input#:#Válasz
-qtype_2_multi_free_input#:#Többszörös válasz
-qtype_2_multi_free_input_info#:#Több válasz is adható
-qtype_2_send#:#Mentés
-qtype_2_your_input#:#Jelenleg mentett válasza:
-qtype_4_clear#:#Kezdőállapotba
-qtype_4_id#:#ID
-qtype_4_option_correct_position#:#Helyes sorrend
-qtype_4_option_position#:#Pozíció
-qtype_4_option_text#:#Kifejezés
-qtype_4_options#:#Lehetőségek
-qtype_4_save#:#Mentés
-qtype_4_your_order#:#Az Ön válasza:
-qtype_5_option_text#:#Szöveg
-qtype_5_option_weight#:#Szélesség
-qtype_5_options#:#Lehetőségek
-qtype_form_header#:#Válaszok
-qtype_multi_free_input#:#Többszörös válasz
-qtype_2_text#:#Szöveg
-qtype_4_display_correct_order#:#Rendezés irányának megjelenítése
-qtype_4_hide_correct_order#:#Rendezés irányának elrejtése
-qtype_4_correct#:#Helyes
-qtype_4_wrong#:#Hibás
-qtype_4_correct_solution#:#Helyes sorrend:
-qtype_4_display_std_order#:#Alapértelmezett sorrend megjelenítése
-qtype_5_display_correct_order#:#Sorrend
-qtype_5_hide_correct_order#:#Fordított sorrend
-qtype_5_correct_solution#:#HIÁNYZIK
-qtype_1_info_latex#:#LaTeX részt [tex] ... [/tex] közé kell írni.
-subtab_edit#:#Kezelés
-subtab_show#:#Megjelenítés
-tab_content#:#Tartalom
-tab_edit#:#Beállítások
-tab_results#:#Eredmények
-cat_create_xlvo#:#Élőszavazás létrehozása
-cat_create_xlobj_results_behaviour#:#Eredmények megjelenítése
-crs_create_xlvo#:#Élőszavazás létrehozása
-fikd_create_xlvo#:#Élőszavazás létrehozása
-grp_create_xlvo#:#Élőszavazás létrehozása
-root_create_xlvo#:#Élőszavazás létrehozása
-rminable_select_start_time#:#Indítás
-vqtype_1_options#:#Beállítások
-correct_order#:#Helyes sorrend
-incorrect_order#:#Hibás sorrend
-new_round#:#Új kör
-results_title#:#Eredmények

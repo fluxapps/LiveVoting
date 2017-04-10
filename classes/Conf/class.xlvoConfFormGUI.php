@@ -1,6 +1,6 @@
 <?php
 
-
+use LiveVoting\Api\xlvoApi;
 use LiveVoting\Conf\xlvoConf;
 
 require_once('./Services/Form/classes/class.ilPropertyFormGUI.php');
@@ -33,6 +33,7 @@ class xlvoConfFormGUI extends \ilPropertyFormGUI {
 
 	/**
 	 * xlvoConfFormGUI constructor.
+	 *
 	 * @param xlvoConfGUI $parent_gui
 	 */
 	public function __construct(xlvoConfGUI $parent_gui) {
@@ -51,7 +52,9 @@ class xlvoConfFormGUI extends \ilPropertyFormGUI {
 		$this->initButtons();
 
 		$use_shortlink = new \ilCheckboxInputGUI($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK), xlvoConf::F_ALLOW_SHORTLINK);
-		$use_shortlink->setInfo($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK . '_info') . '<br><br><span class="label label-default">' . xlvoConf::REWRITE_RULE . '</span><br><br>');
+		$use_shortlink->setInfo($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK . '_info')
+		                        . '<br><br><span class="label label-default">'
+		                        . xlvoConf::REWRITE_RULE . '</span><br><br>');
 
 		$shortlink = new \ilTextInputGUI($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_LINK), xlvoConf::F_ALLOW_SHORTLINK_LINK);
 		$shortlink->setInfo($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_LINK . '_info'));
@@ -61,15 +64,39 @@ class xlvoConfFormGUI extends \ilPropertyFormGUI {
 		$base_url->setInfo($this->parent_gui->txt(xlvoConf::F_BASE_URL . '_info'));
 		$use_shortlink->addSubItem($base_url);
 
-		$request_frequency = new \ilNumberInputGUI($this->parent_gui->txt(xlvoConf::REQUEST_FREQUENCY), xlvoConf::REQUEST_FREQUENCY);
-		$request_frequency->setInfo($this->parent_gui->txt(xlvoConf::REQUEST_FREQUENCY . '_info'));
+		$request_frequency = new \ilNumberInputGUI($this->parent_gui->txt(xlvoConf::F_REQUEST_FREQUENCY), xlvoConf::F_REQUEST_FREQUENCY);
+		$request_frequency->setInfo($this->parent_gui->txt(xlvoConf::F_REQUEST_FREQUENCY
+		                                                   . '_info'));
 		$request_frequency->allowDecimals(true);
 		$request_frequency->setMinValue(xlvoConf::MIN_CLIENT_UPDATE_FREQUENCY, false);
 		$request_frequency->setMaxValue(xlvoConf::MAX_CLIENT_UPDATE_FREQUENCY, false);
 
-		$this->addItem($use_shortlink);
-		$this->addItem($request_frequency);
-	}
+		//global cache setting
+        $global_cache_enabled = new \ilCheckboxInputGUI($this->parent_gui->txt(xlvoConf::F_USE_GLOBAL_CACHE), xlvoConf::F_USE_GLOBAL_CACHE);
+        $global_cache_enabled->setInfo($this->parent_gui->txt(xlvoConf::F_USE_GLOBAL_CACHE . '_info'));
+
+		// Results API
+		$result_api = new \ilCheckboxInputGUI($this->parent_gui->txt(xlvoConf::F_RESULT_API), xlvoConf::F_RESULT_API);
+		$result_api->setInfo($this->parent_gui->txt(xlvoConf::F_RESULT_API . '_info'));
+
+		$api_type = new ilSelectInputGUI($this->parent_gui->txt(xlvoConf::F_API_TYPE), xlvoConf::F_API_TYPE);
+		$api_type->setOptions(array(
+			xlvoApi::TYPE_JSON => 'JSON',
+			xlvoApi::TYPE_XML  => 'XML',
+		));
+		$result_api->addSubItem($api_type);
+
+		$api_token = new ilNonEditableValueGUI();
+		$api_token->setTitle($this->parent_gui->txt(xlvoConf::F_API_TOKEN));
+		$api_token->setValue(xlvoConf::getApiToken());
+		$result_api->addSubItem($api_token);
+
+		//add items to GUI
+        $this->addItem($use_shortlink);
+        $this->addItem($request_frequency);
+        $this->addItem($result_api);
+        $this->addItem($global_cache_enabled);
+    }
 
 
 	protected function initButtons() {
@@ -144,7 +171,8 @@ class xlvoConfFormGUI extends \ilPropertyFormGUI {
 	 * @return bool
 	 */
 	public static function checkForSubItem($item) {
-		return !$item instanceof \ilFormSectionHeaderGUI AND !$item instanceof \ilMultiSelectInputGUI;
+		return !$item instanceof \ilFormSectionHeaderGUI AND !$item instanceof
+		                                                      \ilMultiSelectInputGUI;
 	}
 
 
@@ -154,6 +182,6 @@ class xlvoConfFormGUI extends \ilPropertyFormGUI {
 	 * @return bool
 	 */
 	public static function checkItem($item) {
-		return !$item instanceof \ilFormSectionHeaderGUI;
+		return !$item instanceof \ilFormSectionHeaderGUI && !$item instanceof ilNonEditableValueGUI;
 	}
 }

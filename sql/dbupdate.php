@@ -453,3 +453,11 @@ $ilDB->addIndex('xlvo_voter', array('player_id', 'user_identifier'), 'in1');
 $ilDB->addIndex('rep_robj_xlvo_round_n', array('obj_id'), 'in1');
 $ilDB->addIndex('rep_robj_xlvo_option_n', array('voting_id'), 'in1');
 ?>
+<#32>
+<?php
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
+
+use \LiveVoting\Conf\xlvoConf;
+
+xlvoConf::set(xlvoConf::F_USE_GLOBAL_CACHE, 1);
+?>

@@ -14,7 +14,7 @@ use LiveVoting\QuestionTypes\xlvoQuestionTypes;
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version 1.0.0
  */
-class xlvoVoting extends CachingActiveRecord  {
+class xlvoVoting extends CachingActiveRecord {
 
 	const STAT_ACTIVE = 5;
 	const STAT_INACTIVE = 1;
@@ -127,6 +127,7 @@ class xlvoVoting extends CachingActiveRecord  {
 	 */
 	protected $first_voting_option = null;
 
+
 	/**
 	 * @param       $primary_key
 	 * @param array $add_constructor_args
@@ -141,7 +142,12 @@ class xlvoVoting extends CachingActiveRecord  {
 	 * @return int
 	 */
 	public function getComputedColums() {
-		return (12 / (in_array($this->getColumns(), array( 1, 2, 3, 4 )) ? $this->getColumns() : self::ROWS_DEFAULT));
+		return (12 / (in_array($this->getColumns(), array(
+				1,
+				2,
+				3,
+				4,
+			)) ? $this->getColumns() : self::ROWS_DEFAULT));
 	}
 
 
@@ -170,8 +176,8 @@ class xlvoVoting extends CachingActiveRecord  {
 		if ($change_name) {
 
 			$count = 1;
-			while (xlvoVoting::where(array( 'title' => $this->getTitle() . ' (' . $count . ')' ))->where(array( 'obj_id' => $this->getObjId() ))
-			                 ->count()) {
+			while (xlvoVoting::where(array( 'title' => $this->getTitle() . ' (' . $count . ')' ))
+			                 ->where(array( 'obj_id' => $this->getObjId() ))->count()) {
 				$count ++;
 			}
 
@@ -193,7 +199,8 @@ class xlvoVoting extends CachingActiveRecord  {
 
 	public function create() {
 		global $ilDB;
-		$res = $ilDB->query('SELECT MAX(position) AS max FROM rep_robj_xlvo_voting_n WHERE obj_id = ' . $ilDB->quote($this->getObjId(), 'integer'));
+		$res = $ilDB->query('SELECT MAX(position) AS max FROM rep_robj_xlvo_voting_n WHERE obj_id = '
+		                    . $ilDB->quote($this->getObjId(), 'integer'));
 		$data = $ilDB->fetchObject($res);
 		$this->setPosition($data->max + 1);
 		parent::create();
@@ -303,9 +310,11 @@ class xlvoVoting extends CachingActiveRecord  {
 		 * @var xlvoOption[] $xlvoOptions
 		 * @var xlvoOption $first_voting_option
 		 */
-		$xlvoOptions = xlvoOption::where(array( 'voting_id' => $this->id ))->orderBy('position')->get();
+		$xlvoOptions = xlvoOption::where(array( 'voting_id' => $this->id ))->orderBy('position')
+		                         ->get();
 		$this->setVotingOptions($xlvoOptions);
-		$first_voting_option = xlvoOption::where(array( 'voting_id' => $this->id ))->orderBy('position')->first();
+		$first_voting_option = xlvoOption::where(array( 'voting_id' => $this->id ))
+		                                 ->orderBy('position')->first();
 		$this->setFirstVotingOption($first_voting_option);
 	}
 
@@ -402,8 +411,22 @@ class xlvoVoting extends CachingActiveRecord  {
 	/**
 	 * @return string
 	 */
+	public function getRawQuestion() {
+		return trim(preg_replace('/\s+/', ' ', strip_tags($this->question)));
+	}
+
+
+	/**
+	 * @return string
+	 */
 	public function getQuestionForEditor() {
-		return \ilRTE::_replaceMediaObjectImageSrc($this->question, 1);
+		try {
+			$prepared = \ilRTE::_replaceMediaObjectImageSrc($this->question, 1);
+		} catch (\ilObjectTypeMismatchException $e) {
+			return $this->question;
+		}
+
+		return $prepared;
 	}
 
 
@@ -508,5 +531,24 @@ class xlvoVoting extends CachingActiveRecord  {
 	 */
 	public function setColumns($columns) {
 		$this->columns = $columns;
+	}
+
+
+	/**
+	 * @return \stdClass
+	 */
+	public function _toJson() {
+		$class = new \stdClass();
+		$class->Id = (int)$this->getId();
+		$class->Title = (string)$this->getTitle();
+		$class->QuestionType = (string)xlvoQuestionTypes::getClassName($this->getVotingType());
+		$class->QuestionTypeId = (int)$this->getVotingType();
+		$class->Question = (string)$this->getRawQuestion();
+		$class->Position = (int)$this->getPosition();
+		foreach ($this->getVotingOptions() as $xlvoOption) {
+			$class->Options[] = $xlvoOption->_toJson();
+		}
+
+		return $class;
 	}
 }

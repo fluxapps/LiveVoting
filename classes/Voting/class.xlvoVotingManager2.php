@@ -365,8 +365,7 @@ class xlvoVotingManager2 {
 	 * @return int
 	 */
 	public function countVoters() {
-		$q = "SELECT COUNT(DISTINCT user_identifier) AS maxcount FROM rep_robj_xlvo_vote_n WHERE voting_id = %s AND status = %s AND round_id = %s";
-
+		$q = 'SELECT user_id_type, user_identifier, user_id FROM rep_robj_xlvo_vote_n WHERE voting_id = %s AND status = %s AND round_id = %s GROUP BY user_id_type, user_identifier, user_id';
 
 		global $ilDB;
 		$res = $ilDB->queryF($q, array( 'integer', 'integer', 'integer' ), array(
@@ -374,9 +373,8 @@ class xlvoVotingManager2 {
 			xlvoVote::STAT_ACTIVE,
 			$this->player->getRoundId(),
 		));
-		$data = $ilDB->fetchObject($res);
 
-		return $data->maxcount ? $data->maxcount : 0;
+		return $res->numRows();
 	}
 
 

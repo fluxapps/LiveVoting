@@ -8,7 +8,6 @@ use LiveVoting\User\xlvoUser;
 use LiveVoting\User\xlvoVoteHistoryObject;
 use LiveVoting\Voting\xlvoVoting;
 
-
 /**
  * Class xlvoVote
  *
@@ -17,12 +16,13 @@ use LiveVoting\Voting\xlvoVoting;
  * @author    Oskar Truffer <ot@studer-raimann.ch>
  * @version   1.0.0
  */
-class xlvoVote extends CachingActiveRecord  {
+class xlvoVote extends CachingActiveRecord {
 
 	const STAT_INACTIVE = 0;
 	const STAT_ACTIVE = 1;
 	const USER_ILIAS = 0;
 	const USER_ANONYMOUS = 1;
+
 
 	/**
 	 * @param xlvoUser $xlvoUser
@@ -61,6 +61,14 @@ class xlvoVote extends CachingActiveRecord  {
 		$obj->store();
 
 		return $obj->getId();
+	}
+
+
+	/**
+	 * @return xlvoOption
+	 */
+	public function getOption() {
+		return xlvoOption::find($this->getOptionId());
 	}
 
 

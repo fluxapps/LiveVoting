@@ -10,6 +10,7 @@ use LiveVoting\Context\xlvoContext;
 use LiveVoting\Context\xlvoDummyUser;
 use LiveVoting\Context\xlvoILIAS;
 use LiveVoting\Context\xlvoObjectDefinition;
+use LiveVoting\Context\xlvoRbacReview;
 use LiveVoting\xlvoSessionHandler;
 
 /**
@@ -61,16 +62,16 @@ class xlvoBasicInitialisation {
 		// $this->initLog();
 		$this->initSessionHandler();
 		$this->initSettings();  //required
+		$this->initAccessHandling();
 		$this->buildHTTPPath();
 		$this->initLocale();
 		$this->initLanguage();
 		$this->initDataCache();
 		$this->initObjectDefinition();
 		$this->initControllFlow();
+		$this->initUser();
 		$this->initPluginAdmin();
 		$this->initTemplate();
-		$this->initUser();
-		$this->initAccessHandling();
 		//$this->setCookieParams();
 	}
 
@@ -87,7 +88,15 @@ class xlvoBasicInitialisation {
 			foreach ($_GET as $k => $v) {
 				// \r\n used for IMAP MX Injection
 				// ' used for SQL Injection
-				$_GET[$k] = str_replace(array( "\x00", "\n", "\r", "\\", "'", '"', "\x1a" ), "", $v);
+				$_GET[$k] = str_replace(array(
+					"\x00",
+					"\n",
+					"\r",
+					"\\",
+					"'",
+					'"',
+					"\x1a",
+				), "", $v);
 
 				// this one is for XSS of any kind
 				$_GET[$k] = strip_tags($_GET[$k]);
@@ -304,7 +313,7 @@ class xlvoBasicInitialisation {
 	private function initDependencyInjection() {
 		if (version_compare(ILIAS_VERSION_NUMERIC, '5.2.00', '>=')) {
 			require_once("libs/composer/vendor/autoload.php");
-//			require_once('./src/DI/Container.php');
+			//			require_once('./src/DI/Container.php');
 			$GLOBALS["DIC"] = new \ILIAS\DI\Container();
 			$GLOBALS["DIC"]["ilLoggerFactory"] = function ($c) {
 				return ilLoggerFactory::getInstance();
@@ -357,7 +366,7 @@ class xlvoBasicInitialisation {
 
 		// really always required?
 		require_once "./Services/Utilities/classes/class.ilUtil.php";
-//		require_once "./Services/Utilities/classes/class.ilFormat.php";
+		//		require_once "./Services/Utilities/classes/class.ilFormat.php";
 		require_once "./Services/Calendar/classes/class.ilDatePresentation.php";
 		require_once "include/inc.ilias_version.php";
 
@@ -454,7 +463,8 @@ class xlvoBasicInitialisation {
 		$https->enableSecureCookies();
 		$https->checkPort();
 
-		return define('ILIAS_HTTP_PATH', \ilUtil::removeTrailingPathSeparators($protocol . $host . $uri));
+		return define('ILIAS_HTTP_PATH', \ilUtil::removeTrailingPathSeparators($protocol . $host
+		                                                                       . $uri));
 	}
 
 
@@ -464,9 +474,16 @@ class xlvoBasicInitialisation {
 	private function initErrorHandling() {
 		global $ilErr;
 
-		error_reporting(((ini_get("error_reporting")) & ~E_DEPRECATED) & ~E_STRICT);
+		// error_reporting(((ini_get("error_reporting")) & ~E_DEPRECATED) & ~E_STRICT); // removed reading ini since notices lead to a non working livevoting in 5.2 when E_NOTICE is enabled
+		error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_NOTICE);
 
 		// error handler
+		if (!defined('ERROR_HANDLER')) {
+			define('ERROR_HANDLER', 'PRETTY_PAGE');
+		}
+		if (!defined('DEVMODE')) {
+			define('DEVMODE', false);
+		}
 		require_once "./Services/Init/classes/class.ilErrorHandling.php";
 		$this->makeGlobal("ilErr", new \ilErrorHandling());
 		$ilErr->setErrorHandling(PEAR_ERROR_CALLBACK, array( $ilErr, 'errorHandler' ));
@@ -584,12 +601,12 @@ class xlvoBasicInitialisation {
 	/**
 	 * Create or override a global variable.
 	 *
-	 * @param string $name  The name of the global variable.
+	 * @param string $name The name of the global variable.
 	 * @param object $value The value where the global variable should point at.
 	 */
 	private function makeGlobal($name, $value) {
 		$GLOBALS[$name] = $value;
-		$GLOBALS["DIC"][$name] = function($c) use ($name) {
+		$GLOBALS["DIC"][$name] = function ($c) use ($name) {
 			return $GLOBALS[$name];
 		};
 	}
@@ -602,22 +619,21 @@ class xlvoBasicInitialisation {
 		$this->makeGlobal('ilUser', new xlvoDummyUser());
 	}
 
+
 	/**
 	 * Starting from ILIAS 5.2 basic initialisation also needs rbac stuff.
-	 * You may ask why? well: deep down ilias wants to initialize the footer. Event hough we don't want the footer.
-	 * This may not seem too bad... but the footer wants to translate something
+	 * You may ask why? well: deep down ilias wants to initialize the footer. Event hough we don't
+	 * want the footer. This may not seem too bad... but the footer wants to translate something
 	 * and the translation somehow needs rbac. god...
 	 *
 	 * We can remove this when this gets fixed: Services/UICore/classes/class.ilTemplate.php:479
 	 */
 	private function initAccessHandling() {
+		// thisone we can mock
+		$this->makeGlobal('rbacreview', new xlvoRbacReview());
+
 		// Rbac Review needs the logger... but doesn't include it itself so we do it for him.
 		require_once("./Services/Logging/classes/public/class.ilLoggerFactory.php");
-
-		// we don't really need rbacreview... but it's a dependency of rbacsystem. Something's upside down here....
-		require_once("./Services/AccessControl/classes/class.ilRbacReview.php");
-		$rbacreview = new \ilRbacReview();
-		$this->makeGlobal("rbacreview", $rbacreview);
 
 		// Finally our initialization needs the rbacsystem. Overhead much....
 		require_once "./Services/AccessControl/classes/class.ilRbacSystem.php";

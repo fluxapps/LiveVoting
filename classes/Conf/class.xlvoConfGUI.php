@@ -1,4 +1,7 @@
 <?php
+use LiveVoting\Conf\xlvoConf;
+use LiveVoting\Pin\xlvoPin;
+use LiveVoting\Voting\xlvoVoting;
 
 /**
  * Class xlvoConfGUI
@@ -20,9 +23,36 @@ class xlvoConfGUI extends xlvoGUI {
 
 
 	public function index() {
+		global $ilToolbar;
+		/**
+		 * @var $ilToolbar ilToolbarGUI
+		 */
+		if (xlvoConf::getConfig(xlvoConf::F_RESULT_API)) {
+			$b = ilLinkButton::getInstance();
+			$b->setUrl($this->ctrl->getLinkTarget($this, 'resetToken'));
+			$b->setCaption($this->txt('regenerate_token'), false);
+			$ilToolbar->addButtonInstance($b);
+			$b = ilLinkButton::getInstance();
+			$xlvoVoting = xlvoVoting::last();
+			$xlvoVoting = $xlvoVoting ? $xlvoVoting : new xlvoVoting();
+			$url = xlvoConf::getBaseURL() . xlvoConf::RESULT_API_URL . '?token=%s&type=%s&pin=%s';
+			$url = sprintf($url, xlvoConf::getApiToken(), xlvoConf::getConfig(xlvoConf::F_API_TYPE), xlvoPin::lookupPin($xlvoVoting->getObjId()));
+			$b->setUrl($url);
+			$b->setTarget('_blank');
+			$b->setCaption($this->txt('open_result_api'), false);
+			$ilToolbar->addButtonInstance($b);
+		}
+
 		$xlvoConfFormGUI = new xlvoConfFormGUI($this);
 		$xlvoConfFormGUI->fillForm();
 		$this->tpl->setContent($xlvoConfFormGUI->getHTML());
+	}
+
+
+	protected function resetToken() {
+		xlvoConf::set(xlvoConf::F_API_TOKEN, null);
+		xlvoConf::getConfig(xlvoConf::F_API_TOKEN);
+		$this->cancel();
 	}
 
 

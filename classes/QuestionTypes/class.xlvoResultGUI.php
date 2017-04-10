@@ -45,13 +45,21 @@ abstract class xlvoResultGUI {
 
 
 	/**
+	 * @param $votes xlvoVote[]
+	 * @return string
+	 */
+	public abstract function getAPIRepresentation($votes);
+
+
+	/**
 	 * Creates an instance of the result gui.
 	 *
-	 * @param $voting xlvoVoting    Finished or ongoing voting.
+	 * @param $voting               xlvoVoting    Finished or ongoing voting.
 	 * @return xlvoResultGUI        Result GUI to display the voting results.
-	 * @throws \ilException         Throws an \ilException if no result gui class was found for the given voting type.
+	 * @throws \ilException         Throws an \ilException if no result gui class was found for the
+	 *                              given voting type.
 	 */
-	public static function getInstance($voting) {
+	public static function getInstance(xlvoVoting $voting) {
 		$class = xlvoQuestionTypes::getClassName($voting->getVotingType());
 
 		switch ($class) {
