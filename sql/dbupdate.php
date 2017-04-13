@@ -461,3 +461,7 @@ use \LiveVoting\Conf\xlvoConf;
 
 xlvoConf::set(xlvoConf::F_USE_GLOBAL_CACHE, 1);
 ?>
+<#33>
+<?php
+\LiveVoting\Voting\xlvoVoting::updateDB();
+?>

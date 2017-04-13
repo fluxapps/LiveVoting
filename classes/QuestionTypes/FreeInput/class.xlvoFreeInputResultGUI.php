@@ -19,7 +19,7 @@ class xlvoFreeInputResultGUI extends xlvoResultGUI {
 			$strings[] = $vote->getFreeInput();
 		}
 
-		return implode(", ", $strings);
+		return implode(', ', $strings);
 	}
 
 

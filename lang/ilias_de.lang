@@ -147,6 +147,12 @@ qtype_5_hide_correct_order#:#Sortieren aufheben
 qtype_5_options#:#Optionen
 qtype_5_option_text#:#Text
 qtype_5_option_weight#:#Gewichtung
+qtype_6_invalid_start_range#:#Der Anfang des Bereichs muss kleiner sein als das Ende. Bitte beachten Sie, dass der Startbereich zwischen 2147483645 und -2147483646 liegen muss.
+qtype_6_invalid_end_range#:#Das Ende des Bereichs muss größer sein als der Start. Bitte beachten Sie, dass der Endbereich zwischen 2147483646 und -2147483647 liegen muss.
+qtype_6_voter_start_button_vote#:#Stimmen
+qtype_6_voter_start_button_unvote#:#Verwerfen
+qtype_6_range_start#:#Start
+qtype_6_range_end#:#Ende
 qtype_form_header#:#Antworten
 qtype_multi_free_input#:#Mehrfache Eingaben
 results_title#:#Resultate
@@ -221,6 +227,8 @@ voting_type_4#:#Korrekte Reihenfolge
 voting_type_4_info#:#User müssen Begriffe in die richtige Reihenfolge bringen
 voting_type_5#:#Prioritäten
 voting_type_5_info#:#User können Begriffe nach Prioritäten anordnen
+voting_type_6#:#Zahl schätzen
+voting_type_6_info#:#User können eine Zahl zwischen X und Y schätzen.
 voting_update#:#Speichern und zurückkehren
 voting_update_and_stay#:#Speichern
 xlvo_add#:#Hinzufügen

@@ -144,6 +144,12 @@ qtype_5_hide_correct_order#:#Revert Sorting
 qtype_5_options#:#Options
 qtype_5_option_text#:#Text
 qtype_5_option_weight#:#Weight
+qtype_6_invalid_start_range#:#The start of the range must be less than the end. Please note that the start range must be between 2147483645 and -2147483646.
+qtype_6_invalid_end_range#:#The end of the range must be greater than the start. Please note that the end range must be between 2147483646 and -2147483647.
+qtype_6_voter_start_button_vote#:#Vote
+qtype_6_voter_start_button_unvote#:#Discard
+qtype_6_range_start#:#Start
+qtype_6_range_end#:#End
 qtype_form_header#:#Answers
 qtype_multi_free_input#:#Multiple Inputs
 results_title#:#Results
@@ -219,6 +225,8 @@ voting_type_4#:#Correct Order
 voting_type_4_info#:#Terms must be sorted in the correct order.
 voting_type_5#:#Priorities
 voting_type_5_info#:#Terms can be sorted after Priorities
+voting_type_6#:#Number Range
+voting_type_6_info#:#Users can guess a number between X and Y.
 voting_update#:#Update and return
 voting_update_and_stay#:#Update
 vqtype_1_options#:#Options

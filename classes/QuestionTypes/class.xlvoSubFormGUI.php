@@ -26,25 +26,24 @@ abstract class xlvoSubFormGUI {
 		if (!self::$instance instanceof self) {
 
 			$class = xlvoQuestionTypes::getClassName($xlvoVoting->getVotingType());
-			/**
-			 * @var $class_name xlvoFreeInputSubFormGUI
-			 * @var $subform    xlvoFreeInputSubFormGUI
-			 */
-			$class_name = 'xlvo' . $class . 'SubFormGUI';
+
             $gui = null;
             switch ($class) {
-                case "CorrectOrder":
+	            case xlvoQuestionTypes::CORRECT_ORDER:
                     $gui = new xlvoCorrectOrderSubFormGUI($xlvoVoting);
                     break;
-                case "FreeInput":
+	            case xlvoQuestionTypes::FREE_INPUT:
                     $gui = new xlvoFreeInputSubFormGUI($xlvoVoting);
                     break;
-                case "FreeOrder":
+	            case xlvoQuestionTypes::FREE_ORDER:
                     $gui = new xlvoFreeOrderSubFormGUI($xlvoVoting);
                     break;
-                case "SingleVote":
+	            case xlvoQuestionTypes::SINGLE_VOTE:
                     $gui = new xlvoSingleVoteSubFormGUI($xlvoVoting);
                     break;
+	            case xlvoQuestionTypes::NUMBER_RANGE:
+	            	$gui = new xlvoNumberRangeSubFormGUI($xlvoVoting);
+	            	break;
                 default:
                     throw new \ilException("Could not find the sub form gui for the given voting.");
             }

@@ -46,18 +46,21 @@ abstract class xlvoQuestionTypesGUI extends xlvoGUI {
 
         $gui = null;
         switch ($class) {
-            case "CorrectOrder":
+            case xlvoQuestionTypes::CORRECT_ORDER:
                 $gui = new xlvoCorrectOrderGUI();
                 break;
-            case "FreeInput":
+	        case xlvoQuestionTypes::FREE_INPUT:
                 $gui = new xlvoFreeInputGUI();
                 break;
-            case "FreeOrder":
+	        case xlvoQuestionTypes::FREE_ORDER:
                 $gui = new xlvoFreeOrderGUI();
                 break;
-            case "SingleVote":
+	        case xlvoQuestionTypes::SINGLE_VOTE:
                 $gui = new xlvoSingleVoteGUI();
                 break;
+	        case xlvoQuestionTypes::NUMBER_RANGE:
+	        	$gui = new xlvoNumberRangeGUI();
+	        	break;
             default:
                 throw new \ilException("Could not find the gui for the current voting.");
         }

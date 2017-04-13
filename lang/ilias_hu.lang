@@ -142,6 +142,12 @@ qtype_5_hide_correct_order#:#Fordított sorrend
 qtype_5_options#:#Lehetőségek
 qtype_5_option_text#:#Szöveg
 qtype_5_option_weight#:#Szélesség
+qtype_6_invalid_start_range#:#A start a tartományban kisebbnek kell lennie a végén. Felhívjuk figyelmét, hogy a start tartomány között kell lennie 2147483645 és -2147483646.
+qtype_6_invalid_end_range#:#A végén a tartomány nagyobbnak kell lennie, mint a kezdés. Felhívjuk figyelmét, hogy a végén tartomány között kell lennie 2147483646 és -2147483647.
+qtype_6_voter_start_button_vote#:#Szavazás
+qtype_6_voter_start_button_unvote#:#Megválni
+qtype_6_range_start#:#Rajt
+qtype_6_range_end#:#Vég
 qtype_form_header#:#Válaszok
 qtype_multi_free_input#:#Többszörös válasz
 results_title#:#Eredmények
@@ -215,6 +221,8 @@ voting_type_4#:#Helyes sorrend
 voting_type_4_info#:#A kifejezéseket a helyes sorrendbe kell rendezni.
 voting_type_5#:#Sorrendbe rendezés
 voting_type_5_info#:#A kifejezések a kérdésben meghatározott szempont szerint sorrendbe kell rakni.
+voting_type_6#:#Számtartomány
+voting_type_6_info#:#A felhasználók kitalálni egy számot X és Y között.
 voting_update#:#Mentés és vissza
 voting_update_and_stay#:#Mentés
 vqtype_1_options#:#Beállítások

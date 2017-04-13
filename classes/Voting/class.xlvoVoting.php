@@ -119,6 +119,34 @@ class xlvoVoting extends CachingActiveRecord {
 	 */
 	protected $columns = self::ROWS_DEFAULT;
 	/**
+	 * @var int
+	 *
+	 * This field must be:
+	 * 1 = true
+	 * 0 = false
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           1
+	 */
+	protected $percentage = 1;
+	/**
+	 * @var int
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           8
+	 */
+	protected $start_range = 0;
+	/**
+	 * @var int
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           8
+	 */
+	protected $end_range = 100;
+	/**
 	 * @var xlvoOption[]
 	 */
 	protected $voting_options = array();
@@ -532,6 +560,68 @@ class xlvoVoting extends CachingActiveRecord {
 	public function setColumns($columns) {
 		$this->columns = $columns;
 	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getPercentage() {
+		return $this->percentage;
+	}
+
+
+	/**
+	 * @param int $percentage
+	 *
+	 * @return xlvoVoting
+	 */
+	public function setPercentage($percentage) {
+		$this->percentage = $percentage;
+
+		return $this;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getStartRange() {
+		return $this->start_range;
+	}
+
+
+	/**
+	 * @param int $start_range
+	 *
+	 * @return xlvoVoting
+	 */
+	public function setStartRange($start_range) {
+		$this->start_range = $start_range;
+
+		return $this;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getEndRange() {
+		return $this->end_range;
+	}
+
+
+	/**
+	 * @param int $end_range
+	 *
+	 * @return xlvoVoting
+	 */
+	public function setEndRange($end_range){
+		$this->end_range = $end_range;
+
+		return $this;
+	}
+
+
 
 
 	/**
