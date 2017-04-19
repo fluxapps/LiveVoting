@@ -456,6 +456,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 		))->init()->call('run');
 		global $tpl;
 		$tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Player/player.css');
+		$tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Display/Bar/bar.css');
 	}
 
 

@@ -10,11 +10,13 @@ use LiveVoting\Vote\xlvoVote;
  */
 class xlvoFreeInputResultsGUI extends xlvoInputResultsGUI {
 
+
+
 	/**
 	 * @return string
 	 */
 	public function getHTML() {
-		$bars = new xlvoBarCollectionGUI();
+		$bars = new xlvoBarGroupingCollectionGUI();
 		/**
 		 * @var xlvoOption $option
 		 */

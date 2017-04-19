@@ -121,4 +121,5 @@ class xlvoNumberRangeGUI extends xlvoQuestionTypesGUI{
 	{
 		return $value >= $start && $value <= $end;
 	}
+
 }

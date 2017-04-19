@@ -51,6 +51,8 @@ class xlvoVotingFormGUI extends \ilPropertyFormGUI {
 	 * @param xlvoVoting $xlvoVoting
 	 */
 	public function __construct(xlvoVotingGUI $parent_gui, xlvoVoting $xlvoVoting) {
+		parent::__construct();
+
 		global $ilCtrl;
 		/**
 		 * @var $ilCtrl \ilCtrl
