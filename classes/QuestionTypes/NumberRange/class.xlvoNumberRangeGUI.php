@@ -38,7 +38,6 @@ class xlvoNumberRangeGUI extends xlvoQuestionTypesGUI{
 			->name('NumberRange')
 			->category('QuestionTypes')
 			->addLibToHeader('bootstrap-slider.min.js')
-			->addSettings(['percentage' => (int)$this->manager->getVoting()->getPercentage() === 1])
 			->init();
 	}
 
@@ -98,6 +97,7 @@ class xlvoNumberRangeGUI extends xlvoQuestionTypesGUI{
 		$template->setVariable('SLIDER_MIN', $start);
 		$template->setVariable('SLIDER_MAX', $end);
 		$template->setVariable('SLIDER_STEP', self::SLIDER_STEP);
+		$template->setVariable('SHOW_PERCENTAGE', (int)$this->manager->getVoting()->getPercentage());
 
 		$userVotes = $this->manager->getVotesOfUser(false);
 		if(count($userVotes) > 0)

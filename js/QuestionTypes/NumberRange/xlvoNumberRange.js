@@ -9,16 +9,18 @@ var xlvoNumberRange = {
 		config.base_url = config.base_url.replace(replacer, '');
 		this.config = config;
 		this.ready = true;
-		this.percentageSign = (config.percentage === true) ? '%' : '';
+		this.percentageSign = '';
 
 	},
 	config: {},
 	base_url: '',
 	run: function () {
 
+		this.percentageSign = $('#percentage')[0].value === "1" ? '%' : '';
+
 		var numberDisplay = $('#number-display');
 		var oldText = numberDisplay.text();
-		console.log(oldText);
+
 		numberDisplay.text(oldText.concat(this.percentageSign));
 
 		var slider = $("#slider").bootstrapSlider();
