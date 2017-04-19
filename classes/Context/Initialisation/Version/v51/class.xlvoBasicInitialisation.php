@@ -58,7 +58,7 @@ class xlvoBasicInitialisation {
 		$this->determineClient();
 		$this->loadClientIniFile();
 		$this->initDatabase();
-		// $this->initLog();
+		$this->initLog();
 		$this->initSessionHandler();
 		$this->initSettings();  //required
 		$this->buildHTTPPath();

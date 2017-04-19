@@ -59,7 +59,7 @@ class xlvoBasicInitialisation {
 		$this->determineClient();
 		$this->loadClientIniFile();
 		$this->initDatabase();
-		// $this->initLog();
+		$this->initLog(); //<-- required for ilCtrl error messages
 		$this->initSessionHandler();
 		$this->initSettings();  //required
 		$this->initAccessHandling();
