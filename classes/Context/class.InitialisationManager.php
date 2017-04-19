@@ -29,9 +29,6 @@ final class InitialisationManager {
 		CookieManager::setContext(xlvoContext::CONTEXT_PIN);
 		$subversion = (int)explode('.', ILIAS_VERSION_NUMERIC)[1];
 		switch ($subversion) {
-			case ILIASVersionEnum::ILIAS_VERSION_5_0:
-				Initialisation\Version\v50\xlvoBasicInitialisation::init();
-				break;
 			case ILIASVersionEnum::ILIAS_VERSION_5_1:
 				Initialisation\Version\v51\xlvoBasicInitialisation::init();
 				break;

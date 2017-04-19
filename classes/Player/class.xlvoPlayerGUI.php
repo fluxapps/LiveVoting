@@ -415,9 +415,6 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$subversion = (int)explode('.', ILIAS_VERSION_NUMERIC)[1];
 
 		switch ($subversion) {
-			case \LiveVoting\Context\ILIASVersionEnum::ILIAS_VERSION_5_0:
-				\ilUtil::includeMathjax();
-				break;
 			case \LiveVoting\Context\ILIASVersionEnum::ILIAS_VERSION_5_1:
 				\ilUtil::includeMathjax();
 				break;
@@ -426,7 +423,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 				ilMathJax::getInstance()->includeMathJax();
 				break;
 			default:
-				\ilUtil::includeMathjax();
+				throw new ilException('Can not initialise js and css for the installed ILIAS version.');
 				break;
 		}
 
