@@ -102,7 +102,7 @@ class xlvoCache extends \ilGlobalCache implements xlvoCacheService, Initialisabl
         {
             return (int)xlvoConf::getConfig(xlvoConf::F_USE_GLOBAL_CACHE) === 1;
         }
-        catch (ErrorException $exceptionex) //catch exception while dbupdate is running. (xlvoConf is not ready at that time).
+        catch (\Exception $exceptione) //catch exception while dbupdate is running. (xlvoConf is not ready at that time).
         {
             return false;
         }
