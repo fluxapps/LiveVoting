@@ -153,6 +153,12 @@ qtype_6_voter_start_button_vote#:#Stimmen
 qtype_6_voter_start_button_unvote#:#Verwerfen
 qtype_6_range_start#:#Start
 qtype_6_range_end#:#Ende
+qtype_6_option_percentage#:#Prozentual
+qtype_6_option_range_start#:#Start
+qtype_6_option_range_end#:#Ende
+qtype_6_option_percentage_info#:#Blendet ein Prozentzeichen neben der Start und Endzahl ein.
+qtype_6_option_range_start_info#:#Start des Zahlenbereichs.
+qtype_6_option_range_end_info#:#Ende des Zahlenbereichs.
 qtype_form_header#:#Antworten
 qtype_multi_free_input#:#Mehrfache Eingaben
 results_title#:#Resultate

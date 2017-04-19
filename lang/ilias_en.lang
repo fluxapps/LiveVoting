@@ -150,6 +150,12 @@ qtype_6_voter_start_button_vote#:#Vote
 qtype_6_voter_start_button_unvote#:#Discard
 qtype_6_range_start#:#Start
 qtype_6_range_end#:#End
+qtype_6_option_percentage#:#Percentage
+qtype_6_option_range_start#:#Start
+qtype_6_option_range_end#:#End
+qtype_6_option_percentage_info#:#Shows the number range with a percentage sign. There are no calculations done, this is only an visual option.
+qtype_6_option_range_start_info#:#The start of the number range.
+qtype_6_option_range_end_info#:#The end of the number range.
 qtype_form_header#:#Answers
 qtype_multi_free_input#:#Multiple Inputs
 results_title#:#Results
