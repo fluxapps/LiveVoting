@@ -16,21 +16,12 @@ class xlvoNumberRangeGUI extends xlvoQuestionTypesGUI{
 	const SAVE_BUTTON_UNVOTE = 'voter_start_button_unvote';
 	const SLIDER_STEP = 1;
 
-	private $option;
-
-
 	public function setManager($manager) {
 
 		if($manager === NULL)
 			throw new ilException('The manager must not be null.');
 
 		parent::setManager($manager);
-
-		//fetch the first option
-		$this->option = array_values($this->manager->getOptions())[0];
-
-		if($this->option === NULL)
-			throw new ilException('No option found for the number range question.');
 	}
 
 	public function initJS() {
@@ -47,18 +38,13 @@ class xlvoNumberRangeGUI extends xlvoQuestionTypesGUI{
 		if($this->manager === NULL)
 			throw new ilException('The NumberRange question got no voting manager! Please set one via setManager.');
 
-		//vote
-		//the vote method also unvotes because of that we need some checks, if we unvoted or not.
-		$this->manager->vote($this->option->getId());
-
 		//get all votes of the currents user
 		$votes = $this->manager->getVotesOfUser(false);
 
 		//check if we voted or unvoted
-		if(count($votes) === 1)
+		if(count($votes) === 0)
 		{
 			//we voted
-			$vote = array_values($votes)[0];
 
 			//filter the input and convert to int
 			$filteredInput = filter_input(INPUT_POST, self::USER_SELECTED_NUMBER, FILTER_VALIDATE_INT);
@@ -73,14 +59,19 @@ class xlvoNumberRangeGUI extends xlvoQuestionTypesGUI{
 				//validate user input
 				if($this->isVoteValid($start, $end, $filteredInput))
 				{
-					$vote->setFreeInput($filteredInput);
-					$vote->store();
+					//vote
+					$this->manager->inputOne([
+						'input' => $filteredInput,
+						'vote_id' => '-1'
+					]);
 					return;
 				}
 			}
-
-			//the filter failed or the user supplied an invalid value.
-			$this->manager->unvote($this->option->getId());
+		}
+		else
+		{
+			//We unvoted
+			$this->manager->unvoteAll();
 		}
 
 	}
