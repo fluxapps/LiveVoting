@@ -60,12 +60,12 @@ class xlvoDisplayPlayerGUI {
 
 		$xlvoInputResultGUI = xlvoInputResultsGUI::getInstance($this->manager);
 		if ($player->isShowResults()) {
+			//add result view to player
 			$this->tpl->setVariable('OPTION_CONTENT', $xlvoInputResultGUI->getHTML());
-		} else {
+		}
+		else {
+			//add options to player
 			$xlvoOptions = $this->manager->getVoting()->getVotingOptions();
-			if ($xlvoInputResultGUI->isShuffleResults()) {
-				shuffle($xlvoOptions);
-			}
 			foreach ($xlvoOptions as $item) {
 				$this->addOption($item);
 			}

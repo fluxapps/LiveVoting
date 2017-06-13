@@ -1,6 +1,7 @@
 <?php
 
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
+use LiveVoting\Vote\xlvoVote;
 use LiveVoting\Voting\xlvoVoting;
 use LiveVoting\Voting\xlvoVotingManager2;
 
@@ -15,10 +16,6 @@ abstract class xlvoInputResultsGUI {
 	 * @var xlvoVoting
 	 */
 	protected $voting;
-	/**
-	 * @var bool
-	 */
-	protected $shuffle_results = false;
 	/**
 	 * @var xlvoVotingManager2
 	 */
@@ -69,22 +66,6 @@ abstract class xlvoInputResultsGUI {
                 throw new \ilException('Could not find the results gui for the given voting.');
         }
 	}
-
-
-	/**
-	 * @return boolean
-	 */
-	public function isShuffleResults() {
-		return $this->shuffle_results;
-	}
-
-	/**
-	 * @param boolean $shuffle_results
-	 */
-	public function setShuffleResults($shuffle_results) {
-		$this->shuffle_results = $shuffle_results;
-	}
-
 
 	abstract public function getHTML();
 
