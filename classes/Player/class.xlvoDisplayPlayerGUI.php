@@ -66,6 +66,10 @@ class xlvoDisplayPlayerGUI {
 		else {
 			//add options to player
 			$xlvoOptions = $this->manager->getVoting()->getVotingOptions();
+			usort($xlvoOptions, function ($option1, $option2) {
+				return $option1->getPosition() < $option2->getPosition();
+			});
+
 			foreach ($xlvoOptions as $item) {
 				$this->addOption($item);
 			}
