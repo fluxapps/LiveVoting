@@ -13,6 +13,9 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI{
 	const OPTION_PERCENTAGE = 'option_percentage';
 	const OPTION_PERCENTAGE_INFO = 'option_percentage_info';
 
+	const OPTION_ALTERNATIVE_RESULT_DISPLAY_MODE = 'option_alternative_result_display_mode';
+	const OPTION_ALTERNATIVE_RESULT_DISPLAY_MODE_INFO = 'option_alternative_result_display_mode_info';
+
 	const OPTION_RANGE_START = 'option_range_start';
 	const OPTION_RANGE_START_INFO = 'option_range_start_info';
 
@@ -39,6 +42,11 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI{
 		$percentageCheckBox->setInfo($this->txt(self::OPTION_PERCENTAGE_INFO));
 		$percentageCheckBox->setChecked(((int)$this->getXlvoVoting()->getStartRange()) === 1);
 
+		//create badge box option for the result display
+		$alternativeResultDisplayModeCheckBox = new \ilCheckboxInputGUI($this->txt(self::OPTION_ALTERNATIVE_RESULT_DISPLAY_MODE), self::OPTION_ALTERNATIVE_RESULT_DISPLAY_MODE);
+		$alternativeResultDisplayModeCheckBox->setInfo($this->txt(self::OPTION_ALTERNATIVE_RESULT_DISPLAY_MODE_INFO));
+		$alternativeResultDisplayModeCheckBox->setChecked(((int)$this->getXlvoVoting()->getAltResultDisplayMode()) === 1);
+
 		//create start range number input
 		$startRange = new ilNumberInputGUI($this->txt(self::OPTION_RANGE_START), self::OPTION_RANGE_START);
 		$startRange->setInfo($this->txt(self::OPTION_RANGE_START_INFO));
@@ -56,6 +64,7 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI{
 
 		//add elements to gui
 		$this->addFormElement($percentageCheckBox);
+		$this->addFormElement($alternativeResultDisplayModeCheckBox);
 		$this->addFormElement($startRange);
 		$this->addFormElement($endRange);
 	}
@@ -82,6 +91,8 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI{
 				return $this->setStartRange($value);
 			case self::OPTION_RANGE_END:
 				return $this->setEndRange($value);
+			case self::OPTION_ALTERNATIVE_RESULT_DISPLAY_MODE:
+				return $this->getXlvoVoting()->setAltResultDisplayMode($value === 1 ? 1 : 0); //if the value is 1 set 1 or else 0.
 			default:
 				throw new ilException('Unknown element can not set the value.');
 		}
@@ -107,6 +118,8 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI{
 				return (int)$this->getXlvoVoting()->getStartRange();
 			case self::OPTION_RANGE_END:
 				return (int)$this->getXlvoVoting()->getEndRange();
+			case self::OPTION_ALTERNATIVE_RESULT_DISPLAY_MODE:
+				return (int)$this->getXlvoVoting()->getAltResultDisplayMode();
 			default:
 				throw new ilException('Unknown element can not get the value.');
 		}

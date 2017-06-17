@@ -26,6 +26,10 @@ final class xlvoBarGroupingCollectionGUI extends \xlvoBarCollectionGUI {
 	 * @var bool $rendered
 	 */
 	private $rendered = false;
+	/**
+	 * @var bool $sorted
+	 */
+	private $sorted = false;
 
 
 	/**
@@ -44,6 +48,10 @@ final class xlvoBarGroupingCollectionGUI extends \xlvoBarCollectionGUI {
 			throw new ilException('$bar_gui must a type of xlvoBarFreeInputsGUI.');
 	}
 
+	public function sorted($enabled) {
+		$this->sorted = $enabled;
+	}
+
 
 	/**
 	 * Render the template.
@@ -55,10 +63,17 @@ final class xlvoBarGroupingCollectionGUI extends \xlvoBarCollectionGUI {
 	public function getHTML() {
 
 		$this->checkCollectionState();
-		$unique = $this->makeUniqueArray($this->bars);
+
+		$bars = NULL;
+		if($this->sorted) {
+			$bars = $this->sortBarsByFrequency($this->bars);
+		}
+		else {
+			$bars = $this->makeUniqueArray($this->bars);
+		}
 
 		//render the bars on demand
-		foreach ($unique as $bar)
+		foreach ($bars as $bar)
 		{
 			$count = $this->countItemOccurence($this->bars, $bar);
 			$this->renderBar($bar, $count);
@@ -150,7 +165,6 @@ final class xlvoBarGroupingCollectionGUI extends \xlvoBarCollectionGUI {
 		$this->tpl->parseCurrentBlock();
 	}
 
-
 	/**
 	 * Count the occurrences of bar within the given collection of bar.
 	 *
@@ -159,7 +173,7 @@ final class xlvoBarGroupingCollectionGUI extends \xlvoBarCollectionGUI {
 	 *
 	 * @return int The times bar was found in bars.
 	 */
-	private function countItemOccurence(array &$bars, xlvoBarFreeInputsGUI $bar)
+	private function countItemOccurence(array $bars, xlvoBarFreeInputsGUI $bar)
 	{
 		$count = 0;
 		foreach ($bars as $entry)
@@ -215,5 +229,47 @@ final class xlvoBarGroupingCollectionGUI extends \xlvoBarCollectionGUI {
 	{
 		if($this->rendered)
 			throw new ilException("The bars are already rendered, therefore the collection can't be modified or rendered.");
+	}
+
+
+	/**
+	 * Creates a copy with unique elements of the supplied array and sorts the content afterwards.
+	 * The current sorting is descending.
+	 *
+	 * @param xlvoBarFreeInputsGUI[] $bars The array of bars which should be sorted.
+	 *
+	 * @return xlvoBarFreeInputsGUI[] Descending sorted array.
+	 */
+	private function sortBarsByFrequency(array $bars) {
+		//dirty -> should be optimised in the future.
+
+		$unique = $this->makeUniqueArray($bars);
+
+		//[[count, bar], [count, bar]]
+		$result = [];
+
+		foreach ($unique as $item) {
+			$result[] = [$this->countItemOccurence($bars, $item), $item];
+		}
+
+		//sort elements
+		usort($result, function ($array1, $array2) {
+			if($array1[0] == $array2[0])
+				return 0;
+
+			if($array1[0] < $array2[0])
+				return 1;
+
+			return -1;
+		});
+
+		//flatten the array to the bars
+		$sortedResult = [];
+
+		foreach ($result as $entry) {
+			$sortedResult[] = $entry[1];
+		}
+
+		return $sortedResult;
 	}
 }

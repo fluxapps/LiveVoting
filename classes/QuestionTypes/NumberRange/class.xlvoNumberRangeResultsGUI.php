@@ -11,6 +11,21 @@ class xlvoNumberRangeResultsGUI extends xlvoInputResultsGUI{
 	const BAR_COUNT = 5;
 	
 	public function getHTML() {
+
+		if($this->voting->getAltResultDisplayMode() === 1) {
+			return $this->renderBarResult();
+		}
+
+		return $this->renderGroupedTextResult();
+	}
+
+
+	/**
+	 * Render 5 horizontal bars which display the distribution of the answers.
+	 *
+	 * @return string The rendered result page.
+	 */
+	private function renderBarResult() {
 		$values = $this->getAllVoteValues();
 
 		$bars = new xlvoBarCollectionGUI();
@@ -29,6 +44,28 @@ class xlvoNumberRangeResultsGUI extends xlvoInputResultsGUI{
 
 
 	/**
+	 * Render a result page which shows all answers as text.
+	 * The answers are grouped together and sorted descending.
+	 *
+	 * @return string The rendered result page.
+	 */
+	private function renderGroupedTextResult() {
+
+		$votes = $this->manager->getVotesOfVoting();
+
+		$bars = new xlvoBarGroupingCollectionGUI();
+		$bars->sorted(true);
+
+		foreach ($votes as $value) {
+			$bar = new xlvoBarFreeInputsGUI($this->voting, $value);
+			$bars->addBar($bar);
+		}
+
+		return $bars->getHTML();
+	}
+
+
+	/**
 	 * Creates a CSV of the given votes.
 	 *
 	 * @param xlvoVote[] $votes An array of votes which should be parsed into a string representation.
@@ -39,7 +76,6 @@ class xlvoNumberRangeResultsGUI extends xlvoInputResultsGUI{
 		$result = xlvoNumberRangeResultGUI::getInstance($this->voting);
 		return $result->getTextRepresentation($votes);
 	}
-
 
 	/**
 	 * Fetches all data and simplifies them to an array with 10 values.

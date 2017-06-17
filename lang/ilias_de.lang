@@ -154,6 +154,8 @@ qtype_6_voter_start_button_unvote#:#Verwerfen
 qtype_6_range_start#:#Start
 qtype_6_range_end#:#Ende
 qtype_6_option_percentage#:#Prozentual
+qtype_6_option_alternative_result_display_mode#:#Textresultats Anzeige
+qtype_6_option_alternative_result_display_mode_info#:#Alternative Darstellungsart der Antworten. Diese werden als Text absteigend gruppiert dargestellt.
 qtype_6_option_range_start#:#Start
 qtype_6_option_range_end#:#Ende
 qtype_6_option_percentage_info#:#Blendet ein Prozentzeichen neben der Start und Endzahl ein.

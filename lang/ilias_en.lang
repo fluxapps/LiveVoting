@@ -151,6 +151,8 @@ qtype_6_voter_start_button_unvote#:#Discard
 qtype_6_range_start#:#Start
 qtype_6_range_end#:#End
 qtype_6_option_percentage#:#Percentage
+qtype_6_option_alternative_result_display_mode#:#Result text representation
+qtype_6_option_alternative_result_display_mode_info#:#Alternative mode which displays the result as text grouped together. The answers are sorted descending by quantity.
 qtype_6_option_range_start#:#Start
 qtype_6_option_range_end#:#End
 qtype_6_option_percentage_info#:#Shows the number range with a percentage sign. There are no calculations done, this is only an visual option.
