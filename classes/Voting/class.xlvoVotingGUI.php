@@ -114,10 +114,10 @@ class xlvoVotingGUI {
 
 
 	protected function content() {
-		if (!$this->access->hasWriteAccess()) {
+		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
 			\ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 		} else {
-			if ($this->access->hasWriteAccess()) {
+			if (ilObjLiveVotingAccess::hasWriteAccess()) {
 				$b = \ilLinkButton::getInstance();
 				$b->setPrimary(true);
 				$b->setCaption($this->txt('add'), false);
@@ -156,7 +156,7 @@ class xlvoVotingGUI {
 
 
 	protected function selectType() {
-		if (!$this->access->hasWriteAccess()) {
+		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
 			\ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
@@ -181,7 +181,7 @@ class xlvoVotingGUI {
 
 
 	protected function add() {
-		if (!$this->access->hasWriteAccess()) {
+		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
 			\ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
@@ -195,7 +195,7 @@ class xlvoVotingGUI {
 
 
 	protected function create() {
-		if (!$this->access->hasWriteAccess()) {
+		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
 			\ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
@@ -213,7 +213,7 @@ class xlvoVotingGUI {
 
 
 	protected function edit() {
-		if (!$this->access->hasWriteAccess()) {
+		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
 			\ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
@@ -267,7 +267,7 @@ class xlvoVotingGUI {
 	 * @param string $cmd
 	 */
 	protected function update($cmd = self::CMD_STANDARD) {
-		if (!$this->access->hasWriteAccess()) {
+		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
 			\ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
@@ -283,7 +283,7 @@ class xlvoVotingGUI {
 
 
 	protected function confirmDelete() {
-		if (!$this->access->hasWriteAccess()) {
+		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
 			\ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
@@ -311,7 +311,7 @@ class xlvoVotingGUI {
 
 
 	protected function delete() {
-		if (!$this->access->hasWriteAccess()) {
+		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
 			\ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
@@ -347,7 +347,7 @@ class xlvoVotingGUI {
 
 
 	protected function confirmReset() {
-		if (!$this->access->hasWriteAccess()) {
+		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
 			\ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
@@ -375,7 +375,7 @@ class xlvoVotingGUI {
 
 
 	protected function reset() {
-		if (!$this->access->hasWriteAccess()) {
+		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
 			\ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
@@ -403,7 +403,7 @@ class xlvoVotingGUI {
 
 
 	protected function confirmResetAll() {
-		if (!$this->access->hasWriteAccess()) {
+		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
 			\ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
@@ -428,7 +428,7 @@ class xlvoVotingGUI {
 
 
 	protected function resetAll() {
-		if (!$this->access->hasWriteAccess()) {
+		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
 			\ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
@@ -468,7 +468,7 @@ class xlvoVotingGUI {
 
 
 	protected function saveSorting() {
-		if (!$this->access->hasWriteAccess()) {
+		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
 			\ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 		} else {
 			if (is_array($_POST['position'])) {
