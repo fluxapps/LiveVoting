@@ -21,6 +21,7 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI {
 
 
 	protected function initFormElements() {
+
 		$xlvoMultiLineInputGUI = new xlvoMultiLineInputGUI($this->txt(self::F_OPTIONS), self::F_OPTIONS);
 		$xlvoMultiLineInputGUI->setPositionMovable(false);
 		$xlvoMultiLineInputGUI->setShowLabel(true);

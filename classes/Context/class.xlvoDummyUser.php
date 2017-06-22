@@ -1,13 +1,13 @@
 <?php
+
+namespace LiveVoting\Context;
+
 /**
  * Class xlvoDummyUser
  * Dummy user which only simulates required functionally for the ilHelpGUI class.
  *
  * @author  Nicolas Schäfli <ns@studer-raimann.ch>
  */
-
-namespace LiveVoting\Context;
-
 class xlvoDummyUser {
 
 	const LANGUAGE_CODE = "de";
