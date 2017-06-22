@@ -44,7 +44,7 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI {
 	/**
 	 * @param \ilFormPropertyGUI $element
 	 * @param $value
-	 * @return mixed
+	 * @return void
 	 */
 	protected function handleField(\ilFormPropertyGUI $element, $value) {
 		switch ($element->getPostVar()) {
@@ -71,27 +71,29 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI {
 
 	/**
 	 * @param \ilFormPropertyGUI $element
-	 * @return mixed
+	 * @return array
 	 */
 	protected function getFieldValue(\ilFormPropertyGUI $element) {
 		switch ($element->getPostVar()) {
 			case self::F_OPTIONS:
-				$array = array();
+				$array = [];
 				/**
 				 * @var $option xlvoOption
 				 */
 				$options = $this->getXlvoVoting()->getVotingOptions();
 				foreach ($options as $option) {
-					$array[] = array(
+					$array[] = [
 						self::F_ID               => $option->getId(),
 						self::F_TEXT             => $option->getTextForEditor(),
 						self::F_POSITION         => $option->getPosition(),
 						self::F_CORRECT_POSITION => $option->getCorrectPosition(),
-					);
+					];
 				}
 
 				return $array;
 		}
+
+		return [];
 	}
 
 
