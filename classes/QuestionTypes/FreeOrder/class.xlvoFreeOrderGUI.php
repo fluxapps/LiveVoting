@@ -11,6 +11,16 @@ use LiveVoting\Js\xlvoJs;
  */
 class xlvoFreeOrderGUI extends xlvoCorrectOrderGUI {
 
+	/**
+	 * xlvoFreeOrderGUI constructor.
+	 */
+	public function __construct() {
+		parent::__construct();
+
+		$this->setRandomizeOptions(false);
+	}
+
+
 	public function initJS() {
 		xlvoJs::getInstance()->api($this)->name('FreeOrder')->category('QuestionTypes')->addLibToHeader('jquery.ui.touch-punch.min.js')->init();
 	}

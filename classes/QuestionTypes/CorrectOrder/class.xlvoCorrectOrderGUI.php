@@ -16,6 +16,8 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 	const BUTTON_TOTTLE_DISPLAY_CORRECT_ORDER = 'display_correct_order';
 	const BUTTON_TOGGLE_PERCENTAGE = 'toggle_percentage';
 
+	private $randomizeOptions = true;
+
 
 	/**
 	 * @return string
@@ -67,13 +69,20 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 			$tpl->setVariable('BTN_RESET_DISABLED', 'disabled="disabled"');
 		}
 
+		$options = NULL;
 
-		//randomize the options for the voters
-		$randomizedOptions = $this->randomizeWithoutCorrectSequence(
-			$this->manager->getVoting()->getVotingOptions()
-		);
+		if($this->randomizeOptions) {
+			//randomize the options for the voters
+			$options = $this->randomizeWithoutCorrectSequence(
+				$this->manager->getVoting()->getVotingOptions()
+			);
+		}
+		else {
+			$options = $this->manager->getVoting()->getVotingOptions();
+		}
 
-		$bars = new xlvoBarMovableGUI($randomizedOptions, $order, $vote_id);
+
+		$bars = new xlvoBarMovableGUI($options, $order, $vote_id);
 		$bars->setShowOptionLetter(true);
 		$tpl->setVariable('CONTENT', $bars->getHTML());
 
@@ -138,6 +147,29 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 		$states = $this->getButtonsStates();
 		$this->saveButtonState($button_id, !$states[$button_id]);
 	}
+
+
+	/**
+	 * Checks whether the options displayed to the voter is randomized.
+	 * The options get randomized by default.
+	 *
+	 * @return bool
+	 */
+	public function isRandomizeOptions() {
+		return $this->randomizeOptions;
+	}
+
+
+	/**
+	 * Set the configuration regarding the randomization of the options.
+	 *
+	 * @param bool $randomizeOptions
+	 */
+	public function setRandomizeOptions($randomizeOptions) {
+		$this->randomizeOptions = $randomizeOptions;
+	}
+
+
 
 	/**
 	 * @return xlvoOption[]
