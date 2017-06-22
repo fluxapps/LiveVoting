@@ -147,6 +147,14 @@ class xlvoVoting extends CachingActiveRecord {
 	 */
 	protected $end_range = 100;
 	/**
+	 * @var int
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           1
+	 */
+	protected $alt_result_display_mode;
+	/**
 	 * @var xlvoOption[]
 	 */
 	protected $voting_options = array();
@@ -617,6 +625,26 @@ class xlvoVoting extends CachingActiveRecord {
 	 */
 	public function setEndRange($end_range){
 		$this->end_range = $end_range;
+
+		return $this;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getAltResultDisplayMode() {
+		return $this->alt_result_display_mode;
+	}
+
+
+	/**
+	 * @param int $alt_result_display_mode
+	 *
+	 * @return xlvoVoting
+	 */
+	public function setAltResultDisplayMode($alt_result_display_mode){
+		$this->alt_result_display_mode = $alt_result_display_mode;
 
 		return $this;
 	}
