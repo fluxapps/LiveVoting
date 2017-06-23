@@ -58,6 +58,8 @@ class xlvoNumberRangeResultsGUI extends xlvoInputResultsGUI{
 
 		foreach ($votes as $value) {
 			$bar = new xlvoBarFreeInputsGUI($this->voting, $value);
+			$bar->setBig(true);
+			$bar->setCenter(true);
 			$bars->addBar($bar);
 		}
 

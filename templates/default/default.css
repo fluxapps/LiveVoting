@@ -131,3 +131,8 @@ span.xlvo-label-url {
   overflow: hidden !important;
   text-overflow: ellipsis;
 }
+.zoom {
+  font-size: 30px;
+  line-height: 32px;
+  zoom: 4;
+}

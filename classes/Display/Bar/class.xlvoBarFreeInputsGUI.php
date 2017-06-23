@@ -27,11 +27,23 @@ class xlvoBarFreeInputsGUI implements xlvoBarGUI {
 	 * @var int $occurrences
 	 */
 	private $occurrences;
+	/**
+	 * @var bool
+	 */
+	private $strong = false;
+	/**
+	 * @var bool
+	 */
+	private $center = false;
+	/**
+	 * @var bool
+	 */
+	private $big = false;
 
 
 	/**
 	 * @param xlvoVoting $voting
-	 * @param xlvoVote $vote
+	 * @param xlvoVote   $vote
 	 */
 	public function __construct(xlvoVoting $voting, xlvoVote $vote) {
 		$this->voting = $voting;
@@ -44,8 +56,20 @@ class xlvoBarFreeInputsGUI implements xlvoBarGUI {
 	protected function render() {
 		$this->tpl->setVariable('FREE_INPUT', $this->vote->getFreeInput());
 
-		if($this->occurrences > 1)
+		if ($this->isCenter()) {
+			$this->tpl->touchBlock('center');
+		}
+		if ($this->isBig()) {
+			$this->tpl->touchBlock('big');
+		}
+		if ($this->isStrong()) {
+			$this->tpl->touchBlock('strong');
+			$this->tpl->touchBlock('strong_end');
+		}
+
+		if ($this->occurrences > 1) {
 			$this->tpl->setVariable('GROUPED_BARS_COUNT', $this->occurrences);
+		}
 	}
 
 
@@ -76,15 +100,63 @@ class xlvoBarFreeInputsGUI implements xlvoBarGUI {
 	 *
 	 * @return bool True if the freetext is case insensitive equal to the given one.
 	 */
-	public function equals(xlvoBarFreeInputsGUI $bar)
-	{
+	public function equals(xlvoBarFreeInputsGUI $bar) {
 		return strcasecmp($this->vote->getFreeInput(), $bar->vote->getFreeInput()) === 0;
 	}
+
 
 	/**
 	 * @param int $occurrences
 	 */
 	public function setOccurrences($occurrences) {
 		$this->occurrences = $occurrences;
+	}
+
+
+	/**
+	 * @return bool
+	 */
+	public function isStrong() {
+		return $this->strong;
+	}
+
+
+	/**
+	 * @param bool $strong
+	 */
+	public function setStrong($strong) {
+		$this->strong = $strong;
+	}
+
+
+	/**
+	 * @return bool
+	 */
+	public function isCenter() {
+		return $this->center;
+	}
+
+
+	/**
+	 * @param bool $center
+	 */
+	public function setCenter($center) {
+		$this->center = $center;
+	}
+
+
+	/**
+	 * @return bool
+	 */
+	public function isBig() {
+		return $this->big;
+	}
+
+
+	/**
+	 * @param bool $big
+	 */
+	public function setBig($big) {
+		$this->big = $big;
 	}
 }
