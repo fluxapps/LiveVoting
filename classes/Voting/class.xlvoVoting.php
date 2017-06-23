@@ -155,6 +155,14 @@ class xlvoVoting extends CachingActiveRecord {
 	 */
 	protected $alt_result_display_mode;
 	/**
+	 * @var int
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           1
+	 */
+	protected $randomise_option_sequence;
+	/**
 	 * @var xlvoOption[]
 	 */
 	protected $voting_options = array();
@@ -650,6 +658,24 @@ class xlvoVoting extends CachingActiveRecord {
 	}
 
 
+	/**
+	 * @return int
+	 */
+	public function getRandomiseOptionSequence() {
+		return $this->randomise_option_sequence;
+	}
+
+
+	/**
+	 * @param int $randomise_option_sequence
+	 *
+	 * @return xlvoVoting
+	 */
+	public function setRandomiseOptionSequence($randomise_option_sequence) {
+		$this->randomise_option_sequence = $randomise_option_sequence;
+
+		return $this;
+	}
 
 
 	/**

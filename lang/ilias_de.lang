@@ -141,6 +141,8 @@ qtype_4_option_text#:#Begriff
 qtype_4_save#:#Speichern
 qtype_4_wrong#:#Falsch
 qtype_4_your_order#:#Ihre gespeicherte Eingabe:
+qtype_4_option_randomise_option_after_save#:#Zufallsreihenfolge
+qtype_4_option_randomise_option_after_save_info#:#Bestimmt die Reihenfolge der Optionen zufällig wenn diese gesichert werden. Die Generierung einer korrekten Antwort ist jedoch ausgeschlossen.
 qtype_5_correct_solution#:#MISSING
 qtype_5_display_correct_order#:#Sortieren
 qtype_5_hide_correct_order#:#Sortieren aufheben

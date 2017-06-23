@@ -14,6 +14,8 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI {
 	const F_ID = 'id';
 	const F_POSITION = 'position';
 	const F_CORRECT_POSITION = 'correct_position';
+	const OPTION_RANDOMIZE_OPTIONS_AFTER_SAVE = 'option_randomise_option_after_save';
+	const OPTION_RANDOMIZE_OPTIONS_AFTER_SAVE_INFO = 'option_randomise_option_after_save_info';
 	/**
 	 * @var xlvoOption[]
 	 */
@@ -23,8 +25,18 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI {
 	protected function initFormElements() {
 
 		$xlvoMultiLineInputGUI = new xlvoMultiLineInputGUI($this->txt(self::F_OPTIONS), self::F_OPTIONS);
-		$xlvoMultiLineInputGUI->setPositionMovable(false);
 		$xlvoMultiLineInputGUI->setShowLabel(true);
+
+		$randomiseOptionSequenceAfterSave = new ilCheckboxInputGUI($this->txt(self::OPTION_RANDOMIZE_OPTIONS_AFTER_SAVE), self::OPTION_RANDOMIZE_OPTIONS_AFTER_SAVE);
+		$randomiseOptionSequenceAfterSave->setOptionTitle($this->txt(self::OPTION_RANDOMIZE_OPTIONS_AFTER_SAVE_INFO));
+		if($this->getXlvoVoting()->getRandomiseOptionSequence() === 1) {
+			$xlvoMultiLineInputGUI->setPositionMovable(false);
+			$randomiseOptionSequenceAfterSave->setChecked(true);
+		}
+		else {
+			$xlvoMultiLineInputGUI->setPositionMovable(true);
+			$randomiseOptionSequenceAfterSave->setChecked(false);
+		}
 
 		$h = new \ilHiddenInputGUI(self::F_ID);
 		$xlvoMultiLineInputGUI->addInput($h);
@@ -37,14 +49,17 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI {
 		$te = new \ilTextInputGUI($this->txt('option_text'), self::F_TEXT);
 		$xlvoMultiLineInputGUI->addInput($te);
 
+		$this->addFormElement($randomiseOptionSequenceAfterSave);
 		$this->addFormElement($xlvoMultiLineInputGUI);
 	}
 
 
 	/**
 	 * @param \ilFormPropertyGUI $element
-	 * @param $value
+	 * @param                    $value
+	 *
 	 * @return void
+	 * @throws ilException  If the postvar of the gui element is not recognised.
 	 */
 	protected function handleField(\ilFormPropertyGUI $element, $value) {
 		switch ($element->getPostVar()) {
@@ -65,13 +80,19 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI {
 					$pos ++;
 				}
 				break;
+			case self::OPTION_RANDOMIZE_OPTIONS_AFTER_SAVE:
+				$value = intval($value);
+				$this->getXlvoVoting()->setRandomiseOptionSequence($value === 1 ? 1 : 0);
+				break;
+			default:
+				throw new ilException('Unknown element can not set the value.');
 		}
 	}
 
 
 	/**
 	 * @param \ilFormPropertyGUI $element
-	 * @return array
+	 * @return array|int
 	 */
 	protected function getFieldValue(\ilFormPropertyGUI $element) {
 		switch ($element->getPostVar()) {
@@ -91,6 +112,8 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI {
 				}
 
 				return $array;
+			case self::OPTION_RANDOMIZE_OPTIONS_AFTER_SAVE:
+				return (int)$this->getXlvoVoting()->getRandomiseOptionSequence();
 		}
 
 		return [];
@@ -113,7 +136,9 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI {
 		}
 
 		//randomize the order on save
-		$this->randomiseOptionPosition($this->options);
+		if($this->getXlvoVoting()->getRandomiseOptionSequence() === 1)
+			$this->randomiseOptionPosition($this->options);
+
 		foreach ($this->options as $option) {
 			$option->update();
 		}

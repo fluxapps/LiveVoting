@@ -138,6 +138,8 @@ qtype_4_option_text#:#Term
 qtype_4_save#:#Save
 qtype_4_wrong#:#Wrong
 qtype_4_your_order#:#Your Submission:
+qtype_4_option_randomise_option_after_save#:#Randomise options
+qtype_4_option_randomise_option_after_save_info#:#Shuffles the options on save without generating the right answer.
 qtype_5_correct_solution#:#MISSING
 qtype_5_display_correct_order#:#Sort
 qtype_5_hide_correct_order#:#Revert Sorting

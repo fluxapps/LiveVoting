@@ -136,6 +136,8 @@ qtype_4_option_text#:#Kifejezés
 qtype_4_save#:#Mentés
 qtype_4_wrong#:#Hibás
 qtype_4_your_order#:#Az Ön válasza:
+qtype_4_option_randomise_option_after_save#:#Randomize opciók
+qtype_4_option_randomise_option_after_save_info#:#Véletlenszerűen választja ki a mentési beállításokat anélkül, hogy a megfelelő választ generálná.
 qtype_5_correct_solution#:#HIÁNYZIK
 qtype_5_display_correct_order#:#Sorrend
 qtype_5_hide_correct_order#:#Fordított sorrend
