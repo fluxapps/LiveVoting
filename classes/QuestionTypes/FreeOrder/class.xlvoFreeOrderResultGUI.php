@@ -9,6 +9,7 @@ class xlvoFreeOrderResultGUI extends xlvoResultGUI {
 
 	/**
 	 * @param \LiveVoting\Vote\xlvoVote[] $votes
+	 *
 	 * @return string
 	 */
 	public function getTextRepresentation($votes) {
@@ -18,7 +19,11 @@ class xlvoFreeOrderResultGUI extends xlvoResultGUI {
 		} else {
 			$vote = array_shift($votes);
 		}
-		foreach (json_decode($vote->getFreeInput()) as $option_id) {
+		$json_decode = json_decode($vote->getFreeInput());
+		if (!is_array($json_decode)) {
+			return "";
+		}
+		foreach ($json_decode as $option_id) {
 			$strings[] = $this->options[$option_id]->getTextForPresentation();
 		}
 
@@ -28,6 +33,7 @@ class xlvoFreeOrderResultGUI extends xlvoResultGUI {
 
 	/**
 	 * @param \LiveVoting\Vote\xlvoVote[] $votes
+	 *
 	 * @return string
 	 */
 	public function getAPIRepresentation($votes) {
@@ -37,7 +43,11 @@ class xlvoFreeOrderResultGUI extends xlvoResultGUI {
 		} else {
 			$vote = array_shift($votes);
 		}
-		foreach (json_decode($vote->getFreeInput()) as $option_id) {
+		$json_decode = json_decode($vote->getFreeInput());
+		if (!is_array($json_decode)) {
+			return "";
+		}
+		foreach ($json_decode as $option_id) {
 			$strings[] = $this->options[$option_id]->getText();
 		}
 
