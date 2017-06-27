@@ -21,9 +21,12 @@ class xlvoFreeOrderResultsGUI extends xlvoCorrectOrderResultsGUI {
 
 		foreach ($this->manager->getVotesOfVoting() as $xlvoVote) {
 			$option_amount2 = $option_amount;
-			foreach (json_decode($xlvoVote->getFreeInput()) as $option_id) {
-				$option_weight[$option_id] = $option_weight[$option_id] + $option_amount2;
-				$option_amount2 --;
+			$json_decode = json_decode($xlvoVote->getFreeInput(), true);
+			if(is_array($json_decode)) {
+				foreach ($json_decode as $option_id) {
+					$option_weight[$option_id] = $option_weight[$option_id] + $option_amount2;
+					$option_amount2 --;
+				}
 			}
 		}
 
