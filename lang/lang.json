@@ -914,7 +914,8 @@
                     "de": "Anzahl Stimmen",
                     "en": "Total Votes",
                     "hu": "Összes szavazó"
-                }
+                },
+                "last_used": "28.06.2017"
             },
             "1_unvote": {
                 "translations": {
@@ -946,8 +947,8 @@
             },
             "2_delete_all": {
                 "translations": {
-                    "de": "Alle löschen",
-                    "en": "Delete All",
+                    "de": "Alle zurücksetzen",
+                    "en": "Clear all",
                     "hu": "Összes törlése"
                 }
             },

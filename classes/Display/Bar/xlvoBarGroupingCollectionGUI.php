@@ -12,12 +12,11 @@ use \LiveVoting\Display\Bar\xlvoBarGUI;
  *
  * @author  Nicolas Schäfli <ns@studer-raimann.ch>
  * @version 1.0.0
- * @since 3.5.0
+ * @since   3.5.0
  */
 final class xlvoBarGroupingCollectionGUI extends \xlvoBarCollectionGUI {
 
 	const TEMPLATE_BLOCK_NAME = 'bar';
-
 	/**
 	 * @var xlvoBarFreeInputsGUI[] $bars
 	 */
@@ -36,17 +35,21 @@ final class xlvoBarGroupingCollectionGUI extends \xlvoBarCollectionGUI {
 	 * Adds a bar to the grouping collection.
 	 *
 	 * @param xlvoBarGUI $bar_gui
+	 *
 	 * @return void
-	 * @throws ilException If the bars are already rendered or the given type is not compatible with the collection.
+	 * @throws ilException If the bars are already rendered or the given type is not compatible
+	 *                     with the collection.
 	 */
 	public function addBar(xlvoBarGUI $bar_gui) {
 		$this->checkCollectionState();
 
-		if($bar_gui instanceof xlvoBarFreeInputsGUI)
+		if ($bar_gui instanceof xlvoBarFreeInputsGUI) {
 			$this->bars[] = $bar_gui;
-		else
+		} else {
 			throw new ilException('$bar_gui must a type of xlvoBarFreeInputsGUI.');
+		}
 	}
+
 
 	public function sorted($enabled) {
 		$this->sorted = $enabled;
@@ -64,17 +67,17 @@ final class xlvoBarGroupingCollectionGUI extends \xlvoBarCollectionGUI {
 
 		$this->checkCollectionState();
 
-		$bars = NULL;
-		if($this->sorted) {
+		$this->renderVotersAndVotes();
+
+		$bars = null;
+		if ($this->sorted) {
 			$bars = $this->sortBarsByFrequency($this->bars);
-		}
-		else {
+		} else {
 			$bars = $this->makeUniqueArray($this->bars);
 		}
 
 		//render the bars on demand
-		foreach ($bars as $bar)
-		{
+		foreach ($bars as $bar) {
 			$count = $this->countItemOccurence($this->bars, $bar);
 			$this->renderBar($bar, $count);
 		}
@@ -89,7 +92,8 @@ final class xlvoBarGroupingCollectionGUI extends \xlvoBarCollectionGUI {
 	/**
 	 * Add a solution to the collection.
 	 *
-	 * @param string $html  The html which should be displayed as the solution.
+	 * @param string $html The html which should be displayed as the solution.
+	 *
 	 * @return void
 	 * @throws ilException If the bars are already rendered.
 	 */
@@ -103,6 +107,7 @@ final class xlvoBarGroupingCollectionGUI extends \xlvoBarCollectionGUI {
 	 * Set the total votes of this question.
 	 *
 	 * @param int $total_votes The total votes done.
+	 *
 	 * @return void
 	 * @throws ilException If the bars are already rendered.
 	 */
@@ -116,6 +121,7 @@ final class xlvoBarGroupingCollectionGUI extends \xlvoBarCollectionGUI {
 	 * Indicates if the voters should be shown by the collection.
 	 *
 	 * @param bool $show_total_votes Should the total votes be displayed?
+	 *
 	 * @return void
 	 * @throws ilException If the bars are already rendered.
 	 */
@@ -129,6 +135,7 @@ final class xlvoBarGroupingCollectionGUI extends \xlvoBarCollectionGUI {
 	 * Set the number of the voter participating at this question.
 	 *
 	 * @param int $total_voters The number of voters.
+	 *
 	 * @return void
 	 * @throws ilException If the bars are already rendered.
 	 */
@@ -140,6 +147,7 @@ final class xlvoBarGroupingCollectionGUI extends \xlvoBarCollectionGUI {
 
 	/**
 	 * @param bool $show_total_voters
+	 *
 	 * @return void
 	 * @throws ilException If the bars are already rendered.
 	 */
@@ -152,18 +160,19 @@ final class xlvoBarGroupingCollectionGUI extends \xlvoBarCollectionGUI {
 	/**
 	 * This method renders the bars.
 	 *
-	 * @param xlvoBarFreeInputsGUI    $bar     The bar which should be rendered into the template.
-	 * @param int                     $count   The times the bar got grouped.
+	 * @param xlvoBarFreeInputsGUI $bar   The bar which should be rendered into the template.
+	 * @param int                  $count The times the bar got grouped.
+	 *
 	 * @return void
 	 */
-	private function renderBar(xlvoBarFreeInputsGUI $bar, $count)
-	{
+	private function renderBar(xlvoBarFreeInputsGUI $bar, $count) {
 		$bar->setOccurrences($count);
 
 		$this->tpl->setCurrentBlock(self::TEMPLATE_BLOCK_NAME);
 		$this->tpl->setVariable('BAR', $bar->getHTML());
 		$this->tpl->parseCurrentBlock();
 	}
+
 
 	/**
 	 * Count the occurrences of bar within the given collection of bar.
@@ -173,13 +182,12 @@ final class xlvoBarGroupingCollectionGUI extends \xlvoBarCollectionGUI {
 	 *
 	 * @return int The times bar was found in bars.
 	 */
-	private function countItemOccurence(array $bars, xlvoBarFreeInputsGUI $bar)
-	{
+	private function countItemOccurence(array $bars, xlvoBarFreeInputsGUI $bar) {
 		$count = 0;
-		foreach ($bars as $entry)
-		{
-			if($bar->equals($entry))
-				$count++;
+		foreach ($bars as $entry) {
+			if ($bar->equals($entry)) {
+				$count ++;
+			}
 		}
 
 		return $count;
@@ -190,32 +198,27 @@ final class xlvoBarGroupingCollectionGUI extends \xlvoBarCollectionGUI {
 	 * Filter the array by freetext input.
 	 * The filter is case insensitive.
 	 *
-	 * @param xlvoBarFreeInputsGUI[] $bars  The array which should be filtered.
+	 * @param xlvoBarFreeInputsGUI[] $bars The array which should be filtered.
 	 *
 	 * @return xlvoBarFreeInputsGUI[] The new array which contains only unique bars.
 	 */
-	private function makeUniqueArray(array $bars)
-	{
+	private function makeUniqueArray(array $bars) {
 		/**
 		 * @var xlvoBarFreeInputsGUI $filter
 		 */
 		$uniqueBars = [];
 
-		while (count($bars) > 0)
-		{
+		while (count($bars) > 0) {
 			$bar = reset($bars);
-			$bars = array_filter(
-				$bars,
-				function ($item) use ($bar)
-				{
-					return !$bar->equals($item);
-				}
-			);
+			$bars = array_filter($bars, function ($item) use ($bar) {
+				return !$bar->equals($item);
+			});
 			$uniqueBars[] = $bar;
 		}
 
 		return $uniqueBars;
 	}
+
 
 	/**
 	 * Checks the collection state. If the collection is no longer
@@ -225,10 +228,10 @@ final class xlvoBarGroupingCollectionGUI extends \xlvoBarCollectionGUI {
 	 * @return void
 	 * @throws ilException If the bars are already rendered.
 	 */
-	private function checkCollectionState()
-	{
-		if($this->rendered)
+	private function checkCollectionState() {
+		if ($this->rendered) {
 			throw new ilException("The bars are already rendered, therefore the collection can't be modified or rendered.");
+		}
 	}
 
 
@@ -249,18 +252,20 @@ final class xlvoBarGroupingCollectionGUI extends \xlvoBarCollectionGUI {
 		$result = [];
 
 		foreach ($unique as $item) {
-			$result[] = [$this->countItemOccurence($bars, $item), $item];
+			$result[] = [ $this->countItemOccurence($bars, $item), $item ];
 		}
 
 		//sort elements
 		usort($result, function ($array1, $array2) {
-			if($array1[0] == $array2[0])
+			if ($array1[0] == $array2[0]) {
 				return 0;
+			}
 
-			if($array1[0] < $array2[0])
+			if ($array1[0] < $array2[0]) {
 				return 1;
+			}
 
-			return -1;
+			return - 1;
 		});
 
 		//flatten the array to the bars

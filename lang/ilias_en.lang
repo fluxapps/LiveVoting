@@ -117,7 +117,7 @@ qtype_1_unvote#:#Unvote
 qtype_1_vote#:#Vote
 qtype_2_answers#:#Inputs
 qtype_2_clear#:#Clear
-qtype_2_delete_all#:#Delete All
+qtype_2_delete_all#:#Clear all
 qtype_2_input#:#Input
 qtype_2_multi_free_input#:#Multiple Inputs
 qtype_2_multi_free_input_info#:#A User can hand in multiple Texts

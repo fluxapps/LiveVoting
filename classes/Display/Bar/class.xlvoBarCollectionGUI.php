@@ -41,16 +41,7 @@ class xlvoBarCollectionGUI {
 	 * @return string
 	 */
 	public function getHTML() {
-		if ($this->isShowTotalVotes()) {
-			$this->tpl->setCurrentBlock('total_votes');
-			$this->tpl->setVariable('TOTAL_VOTES', ilLiveVotingPlugin::getInstance()->txt('qtype_1_total_votes') . ': ' . $this->getTotalVotes());
-			$this->tpl->parseCurrentBlock();
-		}
-		if ($this->isShowTotalVoters()) {
-			$this->tpl->setCurrentBlock('total_voters');
-			$this->tpl->setVariable('TOTAL_VOTERS', ilLiveVotingPlugin::getInstance()->txt('qtype_1_total_voters') . ': ' . $this->getTotalVoters());
-			$this->tpl->parseCurrentBlock();
-		}
+		$this->renderVotersAndVotes();
 
 		return $this->tpl->get();
 	}
@@ -137,5 +128,21 @@ class xlvoBarCollectionGUI {
 	 */
 	public function setShowTotalVoters($show_total_voters) {
 		$this->show_total_voters = $show_total_voters;
+	}
+
+
+	protected function renderVotersAndVotes() {
+		if ($this->isShowTotalVotes()) {
+			$this->tpl->setCurrentBlock('total_votes');
+			$this->tpl->setVariable('TOTAL_VOTES', ilLiveVotingPlugin::getInstance()->txt('qtype_1_total_votes')
+			                                       . ': ' . $this->getTotalVotes());
+			$this->tpl->parseCurrentBlock();
+		}
+		if ($this->isShowTotalVoters()) {
+			$this->tpl->setCurrentBlock('total_voters');
+			$this->tpl->setVariable('TOTAL_VOTERS', ilLiveVotingPlugin::getInstance()->txt('qtype_1_total_voters')
+			                                        . ': ' . $this->getTotalVoters());
+			$this->tpl->parseCurrentBlock();
+		}
 	}
 }

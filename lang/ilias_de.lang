@@ -120,7 +120,7 @@ qtype_1_unvote#:#Unvote
 qtype_1_vote#:#Vote
 qtype_2_answers#:#Eingaben
 qtype_2_clear#:#Zurücksetzen
-qtype_2_delete_all#:#Alle löschen
+qtype_2_delete_all#:#Alle zurücksetzen
 qtype_2_input#:#Eingabe
 qtype_2_multi_free_input#:#Mehrfache Eingaben
 qtype_2_multi_free_input_info#:#Ein Nutzer kann mehr als einen Text eingeben
