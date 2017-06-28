@@ -12,9 +12,11 @@ class xlvoFreeOrderResultsGUI extends xlvoCorrectOrderResultsGUI {
 	 */
 	public function getHTML() {
 		$bars = new xlvoBarCollectionGUI();
-		$bars->setShowTotalVoters(false);
 		$total_voters = $this->manager->countVoters();
 		$bars->setTotalVoters($total_voters);
+		$bars->setShowTotalVoters(false);
+		$bars->setTotalVotes($total_voters);
+		$bars->setShowTotalVotes(true);
 
 		$option_amount = $this->manager->countOptions();
 		$option_weight = array();

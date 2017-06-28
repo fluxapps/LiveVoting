@@ -919,15 +919,15 @@
             },
             "1_unvote": {
                 "translations": {
-                    "de": "Unvote",
-                    "en": "Unvote",
+                    "de": "Zurücketzen",
+                    "en": "Discard",
                     "hu": "Szavazat visszavonása"
                 }
             },
             "1_vote": {
                 "translations": {
-                    "de": "Vote",
-                    "en": "Vote",
+                    "de": "Senden",
+                    "en": "Send",
                     "hu": "Szavazás"
                 }
             },
@@ -940,15 +940,15 @@
             },
             "2_clear": {
                 "translations": {
-                    "de": "Zurücksetzen",
-                    "en": "Clear",
+                    "de": "Verwerfen",
+                    "en": "Discard",
                     "hu": "Kezdőállapotba"
                 }
             },
             "2_delete_all": {
                 "translations": {
-                    "de": "Alle zurücksetzen",
-                    "en": "Clear all",
+                    "de": "Alle verwerfen",
+                    "en": "Discard all",
                     "hu": "Összes törlése"
                 }
             },
@@ -996,8 +996,8 @@
             },
             "4_clear": {
                 "translations": {
-                    "de": "Zurücksetzen",
-                    "en": "Clear",
+                    "de": "Verwerfen",
+                    "en": "Discard",
                     "hu": "Kezdőállapotba"
                 }
             },
@@ -1076,8 +1076,8 @@
             },
             "4_save": {
                 "translations": {
-                    "de": "Speichern",
-                    "en": "Save",
+                    "de": "Senden",
+                    "en": "Send",
                     "hu": "Mentés"
                 }
             },
@@ -1097,8 +1097,8 @@
             },
             "5_correct_solution": {
                 "translations": {
-                    "de": "MISSING",
-                    "en": "MISSING",
+                    "de": "Richtige Lösung",
+                    "en": "Correct Solution",
                     "hu": "HIÁNYZIK"
                 }
             },
@@ -1164,15 +1164,15 @@
             },
             "6_voter_start_button_vote": {
                 "translations": {
-                    "en": "Vote",
-                    "de": "Stimmen",
+                    "en": "Send",
+                    "de": "Senden",
                     "hu": "Szavazás"
                 }
             },
             "6_voter_clear": {
                 "translations": {
-                    "en": "Clear",
-                    "de": "Zurücksetzen",
+                    "en": "Discard",
+                    "de": "Verwerfen",
                     "hu": "Kezdőállapotba"
                 }
             },

@@ -113,18 +113,18 @@ qtype_1_options#:#Options
 qtype_1_option_text#:#Option-Text
 qtype_1_total_voters#:#Total Voters
 qtype_1_total_votes#:#Total Votes
-qtype_1_unvote#:#Unvote
-qtype_1_vote#:#Vote
+qtype_1_unvote#:#Discard
+qtype_1_vote#:#Send
 qtype_2_answers#:#Inputs
-qtype_2_clear#:#Clear
-qtype_2_delete_all#:#Clear all
+qtype_2_clear#:#Discard
+qtype_2_delete_all#:#Discard all
 qtype_2_input#:#Input
 qtype_2_multi_free_input#:#Multiple Inputs
 qtype_2_multi_free_input_info#:#A User can hand in multiple Texts
 qtype_2_send#:#Send
 qtype_2_text#:#Text
 qtype_2_your_input#:#Your saved input:
-qtype_4_clear#:#Clear
+qtype_4_clear#:#Discard
 qtype_4_correct#:#Correct
 qtype_4_correct_solution#:#Correct order:
 qtype_4_display_correct_order#:#Korrekte Reihenfolge anzeigen
@@ -135,10 +135,10 @@ qtype_4_options#:#Options
 qtype_4_option_correct_position#:#Correct Position
 qtype_4_option_position#:#Position
 qtype_4_option_text#:#Term
-qtype_4_save#:#Save
+qtype_4_save#:#Send
 qtype_4_wrong#:#Wrong
 qtype_4_your_order#:#Your Submission:
-qtype_5_correct_solution#:#MISSING
+qtype_5_correct_solution#:#Correct Solution
 qtype_5_display_correct_order#:#Sort
 qtype_5_hide_correct_order#:#Revert Sorting
 qtype_5_options#:#Options
@@ -147,8 +147,8 @@ qtype_5_option_weight#:#Weight
 qtype_form_header#:#Answers
 qtype_multi_free_input#:#Multiple Inputs
 qtype_6_range_start#:#Start
-qtype_6_voter_start_button_vote#:#Vote
-qtype_6_voter_clear#:#Clear
+qtype_6_voter_start_button_vote#:#Send
+qtype_6_voter_clear#:#Discard
 qtype_6_voter_start_button_unvote#:#Discard
 qtype_6_invalid_end_range#:#The end of the range must be greater than the start. Please note that the end range must be between 2147483646 and -2147483647.
 qtype_6_invalid_start_range#:#The start of the range must be less than the end. Please note that the start range must be between 2147483645 and -2147483646.
