@@ -47,8 +47,6 @@ incorrect_order#:#Falsche Reihenfolge
 msg_success_voting_created#:#Voting wurde erstellt
 msg_success_voting_updated#:#Voting wurde gespeichert
 new_round#:#Neuer Durchgang
-objs_xlvo#:#LiveVotings
-objs_xlvo_duplicate#:#Bestehendes LiveVoting kopieren
 obj_anonymous#:#Abstimmung ohne Login
 obj_crs#:#Kurs
 obj_description#:#Beschreibung
@@ -86,6 +84,8 @@ obj_terminable_select_start_time#:#Start
 obj_title#:#Titel
 obj_xlvo#:#LiveVoting
 obj_xlvo_duplicate#:#Bestehendes LiveVoting kopieren
+objs_xlvo#:#LiveVotings
+objs_xlvo_duplicate#:#Bestehendes LiveVoting kopieren
 player_close_modal#:#Schliessen
 player_freeze#:#Pausieren
 player_hide_results#:#Resultate ausblenden
@@ -116,18 +116,18 @@ qtype_1_optmsg_success_voting_updated#:#Voting wurde gespeichert
 qtype_1_total_obj_results_alway_on_info#:#Die Resultate werden nach einem Wechsel der Frage automatisch eingeblendet.
 qtype_1_total_voters#:#Anzahl Abstimmende
 qtype_1_total_votes#:#Anzahl Stimmen
-qtype_1_unvote#:#Unvote
-qtype_1_vote#:#Vote
+qtype_1_unvote#:#Zurücketzen
+qtype_1_vote#:#Senden
 qtype_2_answers#:#Eingaben
-qtype_2_clear#:#Zurücksetzen
-qtype_2_delete_all#:#Alle löschen
+qtype_2_clear#:#Verwerfen
+qtype_2_delete_all#:#Alle verwerfen
 qtype_2_input#:#Eingabe
 qtype_2_multi_free_input#:#Mehrfache Eingaben
 qtype_2_multi_free_input_info#:#Ein Nutzer kann mehr als einen Text eingeben
 qtype_2_send#:#Senden
 qtype_2_text#:#Text
 qtype_2_your_input#:#Ihre gespeicherte Eingabe:
-qtype_4_clear#:#Zurücksetzen
+qtype_4_clear#:#Verwerfen
 qtype_4_correct#:#Richtig
 qtype_4_correct_solution#:#Korrekte Reihenfolge:
 qtype_4_display_correct_order#:#Show correct order
@@ -138,10 +138,10 @@ qtype_4_options#:#Optionen
 qtype_4_option_correct_position#:#Korrekte Position
 qtype_4_option_position#:#Position
 qtype_4_option_text#:#Begriff
-qtype_4_save#:#Speichern
+qtype_4_save#:#Senden
 qtype_4_wrong#:#Falsch
 qtype_4_your_order#:#Ihre gespeicherte Eingabe:
-qtype_5_correct_solution#:#MISSING
+qtype_5_correct_solution#:#Richtige Lösung
 qtype_5_display_correct_order#:#Sortieren
 qtype_5_hide_correct_order#:#Sortieren aufheben
 qtype_5_options#:#Optionen
@@ -149,6 +149,24 @@ qtype_5_option_text#:#Text
 qtype_5_option_weight#:#Gewichtung
 qtype_form_header#:#Antworten
 qtype_multi_free_input#:#Mehrfache Eingaben
+qtype_6_range_start#:#Start
+qtype_6_voter_start_button_vote#:#Senden
+qtype_6_voter_clear#:#Verwerfen
+qtype_6_voter_start_button_unvote#:#Verwerfen
+qtype_6_invalid_end_range#:#Das Ende des Bereichs muss größer sein als der Start. Bitte beachten Sie, dass der Endbereich zwischen 2147483646 und -2147483647 liegen muss.
+qtype_6_invalid_start_range#:#Der Anfang des Bereichs muss kleiner sein als das Ende. Bitte beachten Sie, dass der Startbereich zwischen 2147483645 und -2147483646 liegen muss.
+qtype_6_range_end#:#Ende
+qtype_6_option_percentage#:#Prozentual
+qtype_6_option_range_start#:#Start
+qtype_6_option_range_end#:#Ende
+qtype_6_option_percentage_info#:#Blendet ein Prozentzeichen neben der Start und Endzahl ein.
+qtype_6_option_range_start_info#:#Start des Zahlenbereichs.
+qtype_6_option_range_end_info#:#Ende des Zahlenbereichs.
+qtype_4_option_randomise_option_after_save#:#Zufallsreihenfolge
+qtype_4_option_randomise_option_after_save_inf#:#Bestimmt die Reihenfolge der Optionen zufällig wenn diese gesichert werden. Die Generierung einer korrekten Antwort ist jedoch ausgeschlossen.
+qtype_6_option_alternative_result_display_mode#:#Alternative Darstellungsart der Antworten
+qtype_6_option_alternative_result_display_mode_info#:#Alternative Darstellungsart der Antworten. Diese werden als Text absteigend gruppiert dargestellt.
+qtype_4_option_randomise_option_after_save_info#:#Bestimmt die Reihenfolge der Optionen zufällig wenn diese gesichert werden. Die Generierung einer korrekten Antwort ist jedoch ausgeschlossen.
 results_title#:#Resultate
 root_create_xlvo#:#LiveVoting erstellen
 show_attendees#:#Anzahl Teilnehmende (Online)
@@ -223,6 +241,8 @@ voting_type_5#:#Prioritäten
 voting_type_5_info#:#User können Begriffe nach Prioritäten anordnen
 voting_update#:#Speichern und zurückkehren
 voting_update_and_stay#:#Speichern
+voting_type_6#:#Zahl schätzen
+voting_type_6_info#:#User können eine Zahl zwischen X und Y schätzen.
 xlvo_add#:#Hinzufügen
 xlvo_delete#:#LiveVoting löschen
 xlvo_edit#:#Bearbeiten

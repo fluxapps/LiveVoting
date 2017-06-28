@@ -39,7 +39,7 @@ class xlvoFreeOrderSubFormGUI extends xlvoSubFormGUI {
 	/**
 	 * @param \ilFormPropertyGUI $element
 	 * @param $value
-	 * @return mixed
+	 * @return void
 	 */
 	protected function handleField(\ilFormPropertyGUI $element, $value) {
 		switch ($element->getPostVar()) {
@@ -66,12 +66,12 @@ class xlvoFreeOrderSubFormGUI extends xlvoSubFormGUI {
 
 	/**
 	 * @param \ilFormPropertyGUI $element
-	 * @return mixed
+	 * @return array
 	 */
 	protected function getFieldValue(\ilFormPropertyGUI $element) {
 		switch ($element->getPostVar()) {
 			case self::F_OPTIONS:
-				$array = array();
+				$array = [];
 				/**
 				 * @var $option xlvoOption
 				 */
@@ -87,6 +87,8 @@ class xlvoFreeOrderSubFormGUI extends xlvoSubFormGUI {
 
 				return $array;
 		}
+
+		return [];
 	}
 
 
@@ -105,7 +107,7 @@ class xlvoFreeOrderSubFormGUI extends xlvoSubFormGUI {
 			}
 		}
 		$this->getXlvoVoting()->setMultiFreeInput(true);
-		$this->getXlvoVoting()->renegerateOptionSorting();
+		//$this->getXlvoVoting()->renegerateOptionSorting();
 		$this->getXlvoVoting()->update();
 	}
 }

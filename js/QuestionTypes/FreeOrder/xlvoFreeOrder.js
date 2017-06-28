@@ -19,6 +19,5 @@ var xlvoFreeOrder = {
      * @param button_data
      */
     handleButtonPress: function (button_id, button_data) {
-
     }
 };

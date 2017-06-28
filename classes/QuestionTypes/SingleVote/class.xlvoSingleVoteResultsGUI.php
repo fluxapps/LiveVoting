@@ -31,7 +31,7 @@ class xlvoSingleVoteResultsGUI extends xlvoInputResultsGUI {
 		$bars = new xlvoBarCollectionGUI();
 		$bars->setShowTotalVoters(false);
 		$bars->setTotalVoters($voters);
-		$bars->setShowTotalVotes($this->voting->isMultiSelection());
+		$bars->setShowTotalVotes(true);
 		$bars->setTotalVotes($voters);
 
 		foreach ($this->voting->getVotingOptions() as $xlvoOption) {

@@ -60,12 +60,16 @@ class xlvoDisplayPlayerGUI {
 
 		$xlvoInputResultGUI = xlvoInputResultsGUI::getInstance($this->manager);
 		if ($player->isShowResults()) {
+			//add result view to player
 			$this->tpl->setVariable('OPTION_CONTENT', $xlvoInputResultGUI->getHTML());
-		} else {
+		}
+		else {
+			//add options to player
 			$xlvoOptions = $this->manager->getVoting()->getVotingOptions();
-			if ($xlvoInputResultGUI->isShuffleResults()) {
-				shuffle($xlvoOptions);
-			}
+			usort($xlvoOptions, function ($option1, $option2) {
+				return $option1->getPosition() > $option2->getPosition();
+			});
+
 			foreach ($xlvoOptions as $item) {
 				$this->addOption($item);
 			}
@@ -124,6 +128,27 @@ class xlvoDisplayPlayerGUI {
 		if ($option->getType() == xlvoQuestionTypes::TYPE_FREE_INPUT) {
 			return;
 		}
+
+		//workaround due to the old question design.
+		if($option->getType() == xlvoQuestionTypes::TYPE_NUMBER_RANGE)
+		{
+			$columnWith = 6; //because of bootstrap grid 12 = 100%, 6 = 50% therefore 2 columns
+			$percentage = (int)$this->manager->getVoting()->getPercentage() === 1 ? '%' : '';
+
+			$this->tpl->setCurrentBlock('option');
+			$this->tpl->setVariable('OPTION_LETTER', $this->pl->txt('qtype_6_range_start'));
+			$this->tpl->setVariable('OPTION_COL', $columnWith);
+			$this->tpl->setVariable('OPTION_TEXT', "{$this->manager->getVoting()->getStartRange()}{$percentage}");
+			$this->tpl->parseCurrentBlock();
+
+			$this->tpl->setCurrentBlock('option');
+			$this->tpl->setVariable('OPTION_LETTER', $this->pl->txt('qtype_6_range_end'));
+			$this->tpl->setVariable('OPTION_COL', $columnWith);
+			$this->tpl->setVariable('OPTION_TEXT', "{$this->manager->getVoting()->getEndRange()}{$percentage}");
+			$this->tpl->parseCurrentBlock();
+			return;
+		}
+
 		$this->answer_count ++;
 		$this->tpl->setCurrentBlock('option');
 		$this->tpl->setVariable('OPTION_LETTER', $option->getCipher());

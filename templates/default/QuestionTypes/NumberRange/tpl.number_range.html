@@ -1,0 +1,48 @@
+<div class="row">
+	<div class="col-lg-12 col-xs-12 col-sm-12 col-md-12">
+		<div class="well">
+			<p id="number-display" class="h1 text-center">{SLIDER_VALUE}</p>
+		</div>
+	</div>
+</div>
+
+<form id="{FORM_ID}" action="{ACTION}" method="post">
+	<div class="row">
+		<div class="col-lg-12 col-xs-12 col-sm-12 col-md-12">
+			<input
+					id="slider"
+					name="user_selected_number"
+					data-slider-id="ext1-slider"
+					data-provide="slider"
+					type="text"
+					data-slider-min="{SLIDER_MIN}"
+					data-slider-max="{SLIDER_MAX}"
+					data-slider-step="{SLIDER_STEP}"
+					data-slider-value="{SLIDER_VALUE}"
+			/>
+		</div>
+		<script>
+            xlvoNumberRange.run();
+		</script>
+	</div>
+
+	<div class="row top-buffer">
+		<div class="col-lg-3 col-xs-3 col-sm-3 col-md-3">
+			<button type="button" id="btn-slider-left" class="btn btn-default btn-block"><i class="glyphicon glyphicon-arrow-left"></i></button>
+		</div>
+		<div class="col-lg-6 col-xs-6 col-sm-6 col-md-6">&nbsp;
+		</div>
+		<div class="col-lg-3 col-xs-3 col-sm-3 col-md-3">
+			<button type="button" id="btn-slider-right" class="btn btn-default btn-block"><i class="glyphicon glyphicon-arrow-right"></i></button>
+		</div>
+	</div>
+
+	<div class="row top-buffer">
+		<div class="col-lg-12 pull-right">
+			<button type="submit" class="btn btn-default" name="cmd[clear]" value="{BTN_CLEAR}" {BTN_RESET_DISABLED}>{BTN_CLEAR}</button>
+			<button type="submit" class="btn btn-default" name="cmd[submit]" value="{BTN_SAVE}">{BTN_SAVE}</button>
+			<input id="percentage" name="percentage" type="hidden" value="{SHOW_PERCENTAGE}" />
+		</div>
+	</div>
+</form>
+

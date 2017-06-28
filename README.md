@@ -42,6 +42,9 @@ Config Rewrite Rule in .htaccess or Apache-Config:
 
 LiveVoting is currently not fully supported by Google Chrome.
 
+## Versioning
+We use SemVer for versioning. For the versions available, see the tags on this repository.
+
 ## HINWEIS
 
 Dieses Plugin wird open source durch die studer + raimann ag der ILIAS Community zur Verüfgung gestellt. Das Plugin hat noch keinen Pluginpaten. Das heisst, dass die studer + raimann ag etwaige Fehler, Support und Release-Pflege für die Kunden der studer + raimann ag mit einem entsprechenden Hosting/Wartungsvertrag leistet. Wir veröffentlichen unsere Plugins, weil wir diese sehr gerne auch anderen Community-Mitglieder verfügbar machen möchten. Falls Sie nicht zu unseren Hosting-Kunden gehören, bitten wir Sie um Verständnis, dass wir leider weder kostenlosen Support noch die Release-Pflege für Sie garantieren können.

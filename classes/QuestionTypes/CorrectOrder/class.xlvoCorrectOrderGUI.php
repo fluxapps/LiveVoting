@@ -16,6 +16,8 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 	const BUTTON_TOTTLE_DISPLAY_CORRECT_ORDER = 'display_correct_order';
 	const BUTTON_TOGGLE_PERCENTAGE = 'toggle_percentage';
 
+	private $randomizeOptions = true;
+
 
 	/**
 	 * @return string
@@ -67,7 +69,20 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 			$tpl->setVariable('BTN_RESET_DISABLED', 'disabled="disabled"');
 		}
 
-		$bars = new xlvoBarMovableGUI($this->manager->getVoting()->getVotingOptions(), $order, $vote_id);
+		$options = NULL;
+
+		if($this->randomizeOptions) {
+			//randomize the options for the voters
+			$options = $this->randomizeWithoutCorrectSequence(
+				$this->manager->getVoting()->getVotingOptions()
+			);
+		}
+		else {
+			$options = $this->manager->getVoting()->getVotingOptions();
+		}
+
+
+		$bars = new xlvoBarMovableGUI($options, $order, $vote_id);
 		$bars->setShowOptionLetter(true);
 		$tpl->setVariable('CONTENT', $bars->getHTML());
 
@@ -133,6 +148,29 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 		$this->saveButtonState($button_id, !$states[$button_id]);
 	}
 
+
+	/**
+	 * Checks whether the options displayed to the voter is randomized.
+	 * The options get randomized by default.
+	 *
+	 * @return bool
+	 */
+	public function isRandomizeOptions() {
+		return $this->randomizeOptions;
+	}
+
+
+	/**
+	 * Set the configuration regarding the randomization of the options.
+	 *
+	 * @param bool $randomizeOptions
+	 */
+	public function setRandomizeOptions($randomizeOptions) {
+		$this->randomizeOptions = $randomizeOptions;
+	}
+
+
+
 	/**
 	 * @return xlvoOption[]
 	 */
@@ -143,5 +181,91 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 		};
 		ksort($correct_order);
 		return $correct_order;
+	}
+
+
+	/**
+	 * Randomizes an array of xlvoOption.
+	 * This function never returns the correct sequence of options.
+	 *
+	 * @param xlvoOption[] $options The options which should get randomized.
+	 *
+	 * @return xlvoOption[] The randomized option array.
+	 */
+	private function randomizeWithoutCorrectSequence(array &$options)
+	{
+		if(count($options) <= 1)
+			return $options;
+
+		//shuffle array items (can't use the PHP shuffle function because the keys are not preserved.)
+		$optionsClone = $this->shuffleArray($options);
+
+		$lastCorrectPosition = 0;
+
+		/**
+		 * @var xlvoOption $option
+		 */
+		foreach ($optionsClone as $option)
+		{
+			//get correct item position
+			$currentCurrentPosition = $option->getCorrectPosition();
+
+			//calculate the difference
+			$difference = $lastCorrectPosition - $currentCurrentPosition;
+			$lastCorrectPosition = $currentCurrentPosition;
+
+			//check if we shuffled the correct answer by accident.
+			//the correct answer would always produce a difference of -1.
+			//1 - 2 = -1, 2 - 3 = -1, 3 - 4 = -1 ...
+			if($difference !== -1)
+				return $optionsClone;
+		}
+
+		//try to shuffle again because we got the right answer by accident.
+		//we pass the original array, this should enable php to drop the array clone out of the memory.
+		return $this->randomizeWithoutCorrectSequence($options);
+	}
+
+
+	/**
+	 * Shuffles the array given array the keys are preserved.
+	 * Please note that the array passed into this method get never modified.
+	 *
+	 * @param array $array  The array which should be shuffled.
+	 *
+	 * @return array The newly shuffled array.
+	 */
+	private function shuffleArray(array &$array)
+	{
+		$clone = $this->cloneArray($array);
+		$shuffledArray = [];
+
+		while(count($clone) > 0)
+		{
+			$key = array_rand($clone);
+			$shuffledArray[$key] = &$clone[$key];
+			unset($clone[$key]);
+		}
+
+		return $shuffledArray;
+	}
+
+
+	/**
+	 * Create a shallow copy of the given array.
+	 *
+	 * @param array $array  The array which should be copied.
+	 *
+	 * @return array    The newly created shallow copy of the given array.
+	 */
+	private function cloneArray(array &$array)
+	{
+		$clone = [];
+		foreach($array as $key => $value)
+		{
+			$clone[$key] = &$array[$key]; //get the ref on the array value not the foreach value.
+		}
+
+		return $clone;
 	}
 }

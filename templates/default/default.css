@@ -117,6 +117,9 @@ div.xlvo-preview-outer {
   margin: auto;
   display: block;
 }
+.ui-sortable-handle {
+  cursor: move;
+}
 span.xlvo-label-url {
   font-size: 3vw;
 }
@@ -127,4 +130,8 @@ span.xlvo-label-url {
   white-space: nowrap;
   overflow: hidden !important;
   text-overflow: ellipsis;
+}
+.zoom {
+  font-size: 30px;
+  line-height: 32px;
 }

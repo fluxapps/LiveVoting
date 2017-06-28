@@ -63,16 +63,18 @@ abstract class xlvoResultGUI {
 		$class = xlvoQuestionTypes::getClassName($voting->getVotingType());
 
 		switch ($class) {
-			case "CorrectOrder":
+			case xlvoQuestionTypes::CORRECT_ORDER:
 				return new xlvoCorrectOrderResultGUI($voting);
-			case "FreeInput":
+			case xlvoQuestionTypes::FREE_INPUT:
 				return new xlvoFreeInputResultGUI($voting);
-			case "FreeOrder":
+			case xlvoQuestionTypes::FREE_ORDER:
 				return new xlvoFreeOrderResultGUI($voting);
-			case "SingleVote":
+			case xlvoQuestionTypes::SINGLE_VOTE:
 				return new xlvoSingleVoteResultGUI($voting);
+			case xlvoQuestionTypes::NUMBER_RANGE:
+				return new xlvoNumberRangeResultGUI($voting);
 			default:
-				throw new \ilException("Could not find the result gui for the given voting.");
+				throw new \ilException('Could not find the result gui for the given voting.');
 		}
 	}
 }

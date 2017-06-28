@@ -14,7 +14,9 @@ class xlvoFreeInputResultsGUI extends xlvoInputResultsGUI {
 	 * @return string
 	 */
 	public function getHTML() {
-		$bars = new xlvoBarCollectionGUI();
+		$bars = new xlvoBarGroupingCollectionGUI();
+		$bars->setShowTotalVotes(true);
+
 		/**
 		 * @var xlvoOption $option
 		 */
@@ -27,12 +29,15 @@ class xlvoFreeInputResultsGUI extends xlvoInputResultsGUI {
 		foreach ($votes as $vote) {
 			$bars->addBar(new xlvoBarFreeInputsGUI($this->manager->getVoting(), $vote));
 		}
+		$bars->setTotalVotes(count($votes));
 
 		return $bars->getHTML();
 	}
 
+
 	/**
 	 * @param $votes xlvoVote[]
+	 *
 	 * @return string
 	 */
 	public function getTextRepresentationForVotes($votes) {
@@ -40,6 +45,7 @@ class xlvoFreeInputResultsGUI extends xlvoInputResultsGUI {
 		foreach ($votes as $vote) {
 			$string_votes[] = $vote->getFreeInput();
 		}
+
 		return implode(", ", $string_votes);
 	}
 }

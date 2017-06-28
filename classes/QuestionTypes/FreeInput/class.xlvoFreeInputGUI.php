@@ -78,7 +78,6 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 		$form = new \ilPropertyFormGUI();
 		$form->setFormAction($this->ctrl->getFormAction($this));
 		$form->setId('xlvo_free_input');
-		$form->addCommandButton(self::CMD_SUBMIT, $this->txt('send'));
 
 		$votes = $this->manager->getVotesOfUser(true);
 		$vote = array_shift(array_values($votes));
@@ -97,6 +96,7 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 
 		$form->addItem($an);
 		$form->addItem($hi2);
+		$form->addCommandButton(self::CMD_SUBMIT, $this->txt('send'));
 
 		return $form->getHTML();
 	}
@@ -108,7 +108,6 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 	protected function renderMultiForm() {
 		$form = new \ilPropertyFormGUI();
 		$form->setFormAction($this->ctrl->getFormAction($this));
-		$form->addCommandButton(self::CMD_SUBMIT, $this->txt('send'));
 
 		$xlvoVotes = $this->manager->getVotesOfUser();
 		if (count($xlvoVotes) > 0) {
@@ -136,6 +135,7 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 		}
 
 		$form->setValuesByArray(array( self::F_VOTE_MULTI_LINE_INPUT => $array ));
+		$form->addCommandButton(self::CMD_SUBMIT, $this->txt('send'));
 
 		return $form->getHTML();
 	}

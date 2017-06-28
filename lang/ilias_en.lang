@@ -38,9 +38,9 @@ config_api_token#:#API-Token
 config_api_type#:#Type
 config_regenerate_token#:#Regenerate Token
 config_open_result_api#:#Open API-Link (with latest Voting)
-correct_order#:#Correct Order
 config_use_global_cache#:#Activate caching
 config_use_global_cache_info#:#Enables the LiveVoting plugin to use the global caching mechanism, which is provided by ILIAS. The underlying cache must be synchronised within a multi note setup, otherwise the plugin produces unpredictable results.
+correct_order#:#Correct Order
 crs_create_xlvo#:#Create LiveVoting
 fikd_create_xlvo#:#Create LiveVoting
 grp_create_xlvo#:#Create LiveVoting
@@ -48,8 +48,6 @@ incorrect_order#:#Incorrect Order
 msg_success_voting_created#:#Voting has been created
 msg_success_voting_updated#:#Voting has been udpated
 new_round#:#New Round
-objs_xlvo#:#LiveVotings
-objs_xlvo_duplicate#:#Clone existing LiveVoting
 obj_anonymous#:#Vote without Login
 obj_crs#:#Course
 obj_description#:#Description
@@ -86,6 +84,8 @@ obj_terminable_select_start_time#:#Start
 obj_title#:#Title
 obj_xlvo#:#LiveVoting
 obj_xlvo_duplicate#:#Clone existing LiveVoting
+objs_xlvo#:#LiveVotings
+objs_xlvo_duplicate#:#Clone existing LiveVoting
 player_close_modal#:#Close
 player_freeze#:#Pause
 player_hide_results#:#Hide Results
@@ -113,18 +113,18 @@ qtype_1_options#:#Options
 qtype_1_option_text#:#Option-Text
 qtype_1_total_voters#:#Total Voters
 qtype_1_total_votes#:#Total Votes
-qtype_1_unvote#:#Unvote
-qtype_1_vote#:#Vote
+qtype_1_unvote#:#Discard
+qtype_1_vote#:#Send
 qtype_2_answers#:#Inputs
-qtype_2_clear#:#Clear
-qtype_2_delete_all#:#Delete All
+qtype_2_clear#:#Discard
+qtype_2_delete_all#:#Discard all
 qtype_2_input#:#Input
 qtype_2_multi_free_input#:#Multiple Inputs
 qtype_2_multi_free_input_info#:#A User can hand in multiple Texts
 qtype_2_send#:#Send
 qtype_2_text#:#Text
 qtype_2_your_input#:#Your saved input:
-qtype_4_clear#:#Clear
+qtype_4_clear#:#Discard
 qtype_4_correct#:#Correct
 qtype_4_correct_solution#:#Correct order:
 qtype_4_display_correct_order#:#Korrekte Reihenfolge anzeigen
@@ -135,10 +135,10 @@ qtype_4_options#:#Options
 qtype_4_option_correct_position#:#Correct Position
 qtype_4_option_position#:#Position
 qtype_4_option_text#:#Term
-qtype_4_save#:#Save
+qtype_4_save#:#Send
 qtype_4_wrong#:#Wrong
 qtype_4_your_order#:#Your Submission:
-qtype_5_correct_solution#:#MISSING
+qtype_5_correct_solution#:#Correct Solution
 qtype_5_display_correct_order#:#Sort
 qtype_5_hide_correct_order#:#Revert Sorting
 qtype_5_options#:#Options
@@ -146,6 +146,24 @@ qtype_5_option_text#:#Text
 qtype_5_option_weight#:#Weight
 qtype_form_header#:#Answers
 qtype_multi_free_input#:#Multiple Inputs
+qtype_6_range_start#:#Start
+qtype_6_voter_start_button_vote#:#Send
+qtype_6_voter_clear#:#Discard
+qtype_6_voter_start_button_unvote#:#Discard
+qtype_6_invalid_end_range#:#The end of the range must be greater than the start. Please note that the end range must be between 2147483646 and -2147483647.
+qtype_6_invalid_start_range#:#The start of the range must be less than the end. Please note that the start range must be between 2147483645 and -2147483646.
+qtype_6_range_end#:#End
+qtype_6_option_percentage#:#Percentage
+qtype_6_option_range_start#:#Start
+qtype_6_option_range_end#:#End
+qtype_6_option_percentage_info#:#Shows the number range with a percentage sign. There are no calculations done, this is only an visual option.
+qtype_6_option_range_start_info#:#The start of the number range.
+qtype_6_option_range_end_info#:#The end of the number range.
+qtype_4_option_randomise_option_after_save#:#Randomise options
+qtype_4_option_randomise_option_after_save_inf#:#Shuffles the options on save without generating the right answer.
+qtype_6_option_alternative_result_display_mode#:#Alternative Display-Mode
+qtype_6_option_alternative_result_display_mode_info#:#Alternative mode which displays the result as text grouped together. The answers are sorted descending by quantity.
+qtype_4_option_randomise_option_after_save_info#:#Shuffles the options on save without generating the right answer.
 results_title#:#Results
 rminable_select_start_time#:#Start
 root_create_xlvo#:#Create LiveVoting
@@ -221,6 +239,8 @@ voting_type_5#:#Priorities
 voting_type_5_info#:#Terms can be sorted after Priorities
 voting_update#:#Update and return
 voting_update_and_stay#:#Update
+voting_type_6#:#Number Range
+voting_type_6_info#:#Users can guess a number between X and Y.
 vqtype_1_options#:#Options
 xlvo_add#:#Add
 xlvo_delete#:#Delete LiveVoting

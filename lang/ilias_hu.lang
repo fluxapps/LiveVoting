@@ -46,8 +46,6 @@ incorrect_order#:#Hibás sorrend
 msg_success_voting_created#:#Szavazást sikeresen létrehozta
 msg_success_voting_updated#:#Szavazást sikeresen módosította
 new_round#:#Új kör
-objs_xlvo#:#Élőszavazás
-objs_xlvo_duplicate#:#Meglévő élőszavazás klónozása
 obj_anonymous#:#Szavazás bejelentkezés nélkül
 obj_crs#:#Kurzus
 obj_description#:#Leírás
@@ -84,6 +82,8 @@ obj_terminable_select_start_time#:#Kezdő idő
 obj_title#:#Cím
 obj_xlvo#:#Élőszavazás
 obj_xlvo_duplicate#:#Meglévő élőszavazás duplikálása
+objs_xlvo#:#Élőszavazás
+objs_xlvo_duplicate#:#Meglévő élőszavazás klónozása
 player_close_modal#:#Bezárás
 player_freeze#:#Szüneteltetés
 player_hide_results#:#Szavazatállás elrejtése
@@ -144,6 +144,24 @@ qtype_5_option_text#:#Szöveg
 qtype_5_option_weight#:#Szélesség
 qtype_form_header#:#Válaszok
 qtype_multi_free_input#:#Többszörös válasz
+qtype_6_range_start#:#Rajt
+qtype_6_voter_start_button_vote#:#Szavazás
+qtype_6_voter_clear#:#Kezdőállapotba
+qtype_6_voter_start_button_unvote#:#Megválni
+qtype_6_invalid_end_range#:#A végén a tartomány nagyobbnak kell lennie, mint a kezdés. Felhívjuk figyelmét, hogy a végén tartomány között kell lennie 2147483646 és -2147483647.
+qtype_6_invalid_start_range#:#A start a tartományban kisebbnek kell lennie a végén. Felhívjuk figyelmét, hogy a start tartomány között kell lennie 2147483645 és -2147483646.
+qtype_6_range_end#:#Vég
+qtype_6_option_percentage#:#Százalék
+qtype_6_option_range_start#:#Kezdet
+qtype_6_option_range_end#:#Vég
+qtype_6_option_percentage_info#:#Kijelzők százalék jelek mellett a kezdő és záró szám.
+qtype_6_option_range_start_info#:#Kezdje a szám tartományban.
+qtype_6_option_range_end_info#:#Vége a fordulatszám-tartományban.
+qtype_4_option_randomise_option_after_save#:#Randomize opciók
+qtype_4_option_randomise_option_after_save_inf#:#Véletlenszerűen választja ki a mentési beállításokat anélkül, hogy a megfelelő választ generálná.
+qtype_6_option_alternative_result_display_mode#:#Alternatív képviselete a válaszokat
+qtype_6_option_alternative_result_display_mode_info#:#Alternatív képviselete a válaszokat. Ezeket mutatja lehajló csoportosítva szövegként.
+qtype_4_option_randomise_option_after_save_info#:#Véletlenszerűen választja ki a mentési beállításokat anélkül, hogy a megfelelő választ generálná.
 results_title#:#Eredmények
 rminable_select_start_time#:#Indítás
 root_create_xlvo#:#Élőszavazás létrehozása
@@ -217,6 +235,8 @@ voting_type_5#:#Sorrendbe rendezés
 voting_type_5_info#:#A kifejezések a kérdésben meghatározott szempont szerint sorrendbe kell rakni.
 voting_update#:#Mentés és vissza
 voting_update_and_stay#:#Mentés
+voting_type_6#:#Számtartomány
+voting_type_6_info#:#A felhasználók kitalálni egy számot X és Y között.
 vqtype_1_options#:#Beállítások
 xlvo_add#:#Létrehozása
 xlvo_delete#:#Élőszavazás törlése

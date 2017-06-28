@@ -148,6 +148,8 @@ class xlvoVoter2GUI extends xlvoGUI {
 	protected function initJsAndCss() {
 		require_once('./Services/jQuery/classes/class.iljQueryUtil.php');
 		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voter/voter.css');
+		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/QuestionTypes/NumberRange/bootstrap-slider.min.css');
+		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/QuestionTypes/NumberRange/number_range.css');
 		\iljQueryUtil::initjQueryUI();
 
 		if(version_compare(ILIAS_VERSION_NUMERIC, self::ILIAS_VERSION_5_2) >= 0)

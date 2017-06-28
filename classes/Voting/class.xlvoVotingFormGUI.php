@@ -51,6 +51,8 @@ class xlvoVotingFormGUI extends \ilPropertyFormGUI {
 	 * @param xlvoVoting $xlvoVoting
 	 */
 	public function __construct(xlvoVotingGUI $parent_gui, xlvoVoting $xlvoVoting) {
+		parent::__construct();
+
 		global $ilCtrl;
 		/**
 		 * @var $ilCtrl \ilCtrl
@@ -124,11 +126,6 @@ class xlvoVotingFormGUI extends \ilPropertyFormGUI {
 			'numlist',
 			'cite',
 		));
-
-        //disable image upload for ILIAS 5.0 and below because the web access check would break the images
-        if(version_compare(ILIAS_VERSION_NUMERIC, '5.1.00', '<')) {
-            $te->removePlugin('ilimgupload');
-        }
 
 		$te->setRows(5);
 		$this->addItem($te);

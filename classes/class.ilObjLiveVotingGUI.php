@@ -17,9 +17,12 @@ require_once('./Services/Form/classes/class.ilDateDurationInputGUI.php');
 /**
  * Class ilObjLiveVotingGUI
  *
- * @ilCtrl_isCalledBy ilObjLiveVotingGUI: ilRepositoryGUI, ilObjPluginDispatchGUI, ilAdministrationGUI
- * @ilCtrl_Calls      ilObjLiveVotingGUI: ilPermissionGUI, ilInfoScreenGUI, ilObjectCopyGUI, ilCommonActionDispatcherGUI
- * @ilCtrl_Calls      ilObjLiveVotingGUI: xlvoVoterGUI, xlvoPlayerGUI, xlvoPlayer2GUI, xlvoVotingGUI, xlvoResultsGUI
+ * @ilCtrl_isCalledBy ilObjLiveVotingGUI: ilRepositoryGUI, ilObjPluginDispatchGUI
+ * @ilCtrl_isCalledBy ilObjLiveVotingGUI: ilAdministrationGUI
+ * @ilCtrl_Calls      ilObjLiveVotingGUI: ilPermissionGUI, ilInfoScreenGUI, ilObjectCopyGUI
+ * @ilCtrl_Calls      ilObjLiveVotingGUI: ilCommonActionDispatcherGUI
+ * @ilCtrl_Calls      ilObjLiveVotingGUI: xlvoVoterGUI, xlvoPlayerGUI, xlvoPlayer2GUI
+ * @ilCtrl_Calls      ilObjLiveVotingGUI: xlvoVotingGUI, xlvoResultsGUI
  *
  * @author            Daniel Aemmer <daniel.aemmer@phbern.ch>
  * @author            Fabian Schmid <fs@studer-raimann.ch>
@@ -86,7 +89,6 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI {
 		$this->tabs = $ilTabs;
 		$this->usr = $ilUser;
 		$this->toolbar = $ilToolbar;
-		$this->access = new ilObjLiveVotingAccess();
 		$this->pl = ilLiveVotingPlugin::getInstance();
 	}
 
@@ -130,7 +132,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI {
 			// show info of parent
 			$this->tpl->setTitle(\ilObject::_lookupTitle(\ilObject::_lookupObjId($_GET['ref_id'])));
 			$this->tpl->setTitleIcon(\ilObject::_getIcon(\ilObject::_lookupObjId($_GET['ref_id']), 'big'), $this->pl->txt('obj_'
-			                                                                                                            . \ilObject::_lookupType($_GET['ref_id'], true)));
+			                                                                                                              . \ilObject::_lookupType($_GET['ref_id'], true)));
 			$this->setLocator();
 		}
 	}
@@ -147,23 +149,22 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI {
 		$next_class = $this->ctrl->getNextClass($this);
 		$cmd = $this->ctrl->getCmd();
 
-		if (!$this->access->hasWriteAccess()) {
-			$xlvoVotingManager2 = xlvoVotingManager2::getInstanceFromObjId($this->obj_id);
-			global $ilCtrl;
-			/**
-			 * @var \ilCtrl $ilCtrl
-			 */
-			xlvoInitialisation::setCookiePIN($xlvoVotingManager2->getVotingConfig()->getPin(), true);
-            CookieManager::setContext(xlvoContext::CONTEXT_ILIAS);
-
-			$ilCtrl->initBaseClass('ilUIPluginRouterGUI');
-			$ilCtrl->setTargetScript(xlvoConf::getFullApiURL());
-			$ilCtrl->redirectByClass(array(
-				'ilUIPluginRouterGUI',
-				'xlvoVoter2GUI',
-			));
+		if (ilObjLiveVotingAccess::hasWriteAccess()
+		    || ilObjLiveVotingAccess::hasCreateAccess()
+		       && $_GET["new_type"] == "xlvo"
+		) {
+			$this->triageCmdClass($next_class, $cmd);
+		} else {
+			$this->redirectToPublicVotingMask();
 		}
+	}
 
+
+	/**
+	 * @param $next_class
+	 * @param $cmd
+	 */
+	protected function triageCmdClass($next_class, $cmd) {
 		switch ($next_class) {
 			case 'xlvovotinggui':
 				$xlvoVotingGUI = new xlvoVotingGUI();
@@ -276,7 +277,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI {
 	protected function setTabs() {
 		$this->tabs->addTab(self::TAB_CONTENT, $this->pl->txt(self::TAB_CONTENT), $this->ctrl->getLinkTargetByClass('xlvoplayergui', xlvoPlayerGUI::CMD_STANDARD));
 		$this->addInfoTab();
-		if ($this->access->hasWriteAccess()) {
+		if (ilObjLiveVotingAccess::hasWriteAccess()) {
 			$this->tabs->addTab(self::TAB_EDIT, $this->pl->txt(self::TAB_EDIT), $this->ctrl->getLinkTargetByClass('ilobjlivevotinggui', self::CMD_EDIT));
 			$this->tabs->addTab(self::TAB_RESULTS, $this->pl->txt(self::TAB_RESULTS), $this->ctrl->getLinkTargetByClass('xlvoResultsGUI', xlvoResultsGUI::CMD_SHOW));
 		}
@@ -294,7 +295,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI {
 		switch ($tab) {
 			case self::TAB_CONTENT:
 				$this->tabs->addSubTab(self::SUBTAB_SHOW, $this->pl->txt(self::SUBTAB_SHOW), $this->ctrl->getLinkTargetByClass('xlvoplayergui', xlvoPlayerGUI::CMD_STANDARD));
-				if ($this->access->hasWriteAccess()) {
+				if (ilObjLiveVotingAccess::hasWriteAccess()) {
 					$this->tabs->addSubTab(self::SUBTAB_EDIT, $this->pl->txt(self::SUBTAB_EDIT), $this->ctrl->getLinkTargetByClass('xlvovotinggui', xlvoVotingGUI::CMD_STANDARD));
 				}
 				break;
@@ -316,7 +317,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI {
 
 
 	public function editProperties() {
-		if (!$this->access->hasWriteAccess()) {
+		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
 			\ilUtil::sendFailure($this->pl->txt('obj_permission_denied'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
@@ -330,12 +331,13 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI {
 
 	/**
 	 * @param string $a_new_type
+	 *
 	 * @return array
 	 */
 	protected function initCreationForms($a_new_type) {
 		$forms = array(
-			self::CFORM_NEW => $this->initCreateForm($a_new_type),
-			self::CFORM_CLONE => $this->fillCloneTemplate(null, $a_new_type)
+			self::CFORM_NEW   => $this->initCreateForm($a_new_type),
+			self::CFORM_CLONE => $this->fillCloneTemplate(null, $a_new_type),
 		);
 
 		return $forms;
@@ -344,6 +346,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI {
 
 	/**
 	 * @param string $a_new_type
+	 *
 	 * @return \ilPropertyFormGUI
 	 */
 	public function initCreateForm($a_new_type) {
@@ -355,7 +358,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI {
 
 
 	protected function initPropertiesForm() {
-		if (!$this->access->hasWriteAccess()) {
+		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
 			\ilUtil::sendFailure(ilLiveVotingPlugin::getInstance()->txt('obj_permission_denied'), true);
 		} else {
 			$this->form = new \ilPropertyFormGUI();
@@ -377,9 +380,9 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI {
 			$cb->setInfo($this->pl->txt('voting_history_info'));
 			$this->form->addItem($cb);
 
-            $cb = new \ilCheckboxInputGUI($this->pl->txt("show_attendees"), xlvoVotingConfig::F_SHOW_ATTENDEES);
-            $cb->setInfo($this->pl->txt('show_attendees_info'));
-            $this->form->addItem($cb);
+			$cb = new \ilCheckboxInputGUI($this->pl->txt("show_attendees"), xlvoVotingConfig::F_SHOW_ATTENDEES);
+			$cb->setInfo($this->pl->txt('show_attendees_info'));
+			$this->form->addItem($cb);
 
 			// Voting Settings
 			$h = new \ilFormSectionHeaderGUI();
@@ -445,7 +448,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI {
 
 
 	public function updateProperties() {
-		if (!$this->access->hasWriteAccess()) {
+		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
 			\ilUtil::sendFailure(ilLiveVotingPlugin::getInstance()->txt('obj_permission_denied_write'), true);
 		} else {
 			$this->tabs->setTabActive(self::TAB_EDIT);
@@ -476,7 +479,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI {
 				$config->setFrozenBehaviour($this->form->getInput(xlvoVotingConfig::F_FROZEN_BEHAVIOUR));
 				$config->setResultsBehaviour($this->form->getInput(xlvoVotingConfig::F_RESULTS_BEHAVIOUR));
 				$config->setVotingHistory($this->form->getInput(xlvoVotingConfig::F_VOTING_HISTORY));
-                $config->setShowAttendees($this->form->getInput(xlvoVotingConfig::F_SHOW_ATTENDEES));
+				$config->setShowAttendees($this->form->getInput(xlvoVotingConfig::F_SHOW_ATTENDEES));
 
 				$config->update();
 				\ilUtil::sendSuccess($this->pl->txt('obj_msg_properties_form_saved'), true);
@@ -535,5 +538,19 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI {
 		}
 
 		parent::_goto($a_target);
+	}
+
+
+	protected function redirectToPublicVotingMask() {
+		$xlvoVotingManager2 = xlvoVotingManager2::getInstanceFromObjId($this->obj_id);
+		xlvoInitialisation::setCookiePIN($xlvoVotingManager2->getVotingConfig()->getPin(), true);
+		CookieManager::setContext(xlvoContext::CONTEXT_ILIAS);
+
+		$this->ctrl->initBaseClass(ilUIPluginRouterGUI::class);
+		$this->ctrl->setTargetScript(xlvoConf::getFullApiURL());
+		$this->ctrl->redirectByClass(array(
+			ilUIPluginRouterGUI::class,
+			xlvoVoter2GUI::class,
+		));
 	}
 }

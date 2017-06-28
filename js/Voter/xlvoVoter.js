@@ -4,6 +4,7 @@
  */
 var xlvoVoter = {
     init: function (json) {
+        
         var config = JSON.parse(json);
         var replacer = new RegExp('amp;', 'g');
         config.base_url = config.base_url.replace(replacer, '');

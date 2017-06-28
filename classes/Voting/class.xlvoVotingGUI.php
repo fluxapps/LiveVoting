@@ -73,7 +73,6 @@ class xlvoVotingGUI {
 	 * @var int
 	 */
 	protected $obj_id;
-
 	/**
 	 * @var xlvoRound
 	 */
@@ -114,10 +113,10 @@ class xlvoVotingGUI {
 
 
 	protected function content() {
-		if (!$this->access->hasWriteAccess()) {
+		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
 			\ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 		} else {
-			if ($this->access->hasWriteAccess()) {
+			if (ilObjLiveVotingAccess::hasWriteAccess()) {
 				$b = \ilLinkButton::getInstance();
 				$b->setPrimary(true);
 				$b->setCaption($this->txt('add'), false);
@@ -127,7 +126,10 @@ class xlvoVotingGUI {
 				$voting_ids = xlvoVoting::where(array( 'obj_id' => $this->obj_id ))->getArray(null, 'id');
 				$has_votes = false;
 				if (count($voting_ids) > 0) {
-					$has_votes = xlvoVote::where(array( 'voting_id' => $voting_ids, 'round_id' => $this->round->getId()))->hasSets();
+					$has_votes = xlvoVote::where(array(
+						'voting_id' => $voting_ids,
+						'round_id'  => $this->round->getId(),
+					))->hasSets();
 				}
 
 				$b = \ilLinkButton::getInstance();
@@ -156,7 +158,7 @@ class xlvoVotingGUI {
 
 
 	protected function selectType() {
-		if (!$this->access->hasWriteAccess()) {
+		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
 			\ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
@@ -181,7 +183,7 @@ class xlvoVotingGUI {
 
 
 	protected function add() {
-		if (!$this->access->hasWriteAccess()) {
+		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
 			\ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
@@ -195,7 +197,7 @@ class xlvoVotingGUI {
 
 
 	protected function create() {
-		if (!$this->access->hasWriteAccess()) {
+		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
 			\ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
@@ -213,7 +215,7 @@ class xlvoVotingGUI {
 
 
 	protected function edit() {
-		if (!$this->access->hasWriteAccess()) {
+		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
 			\ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
@@ -267,7 +269,7 @@ class xlvoVotingGUI {
 	 * @param string $cmd
 	 */
 	protected function update($cmd = self::CMD_STANDARD) {
-		if (!$this->access->hasWriteAccess()) {
+		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
 			\ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
@@ -283,7 +285,7 @@ class xlvoVotingGUI {
 
 
 	protected function confirmDelete() {
-		if (!$this->access->hasWriteAccess()) {
+		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
 			\ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
@@ -311,7 +313,7 @@ class xlvoVotingGUI {
 
 
 	protected function delete() {
-		if (!$this->access->hasWriteAccess()) {
+		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
 			\ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
@@ -332,7 +334,7 @@ class xlvoVotingGUI {
 				/**
 				 * @var $votes xlvoVote[]
 				 */
-				$votes = xlvoVote::where(array( 'voting_id' => $xlvoVoting->getId()))->get();
+				$votes = xlvoVote::where(array( 'voting_id' => $xlvoVoting->getId() ))->get();
 				foreach ($votes as $vote) {
 					$vote->delete();
 				}
@@ -347,7 +349,7 @@ class xlvoVotingGUI {
 
 
 	protected function confirmReset() {
-		if (!$this->access->hasWriteAccess()) {
+		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
 			\ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
@@ -375,7 +377,7 @@ class xlvoVotingGUI {
 
 
 	protected function reset() {
-		if (!$this->access->hasWriteAccess()) {
+		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
 			\ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
@@ -403,7 +405,7 @@ class xlvoVotingGUI {
 
 
 	protected function confirmResetAll() {
-		if (!$this->access->hasWriteAccess()) {
+		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
 			\ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
@@ -417,7 +419,8 @@ class xlvoVotingGUI {
 			foreach ($votings as $voting) {
 				$num_votes += xlvoVote::where(array( 'voting_id' => $voting->getId() ))->count();
 			}
-			$confirm->addItem(self::IDENTIFIER, 0, $this->txt('confirm_number_of_votes') . " " . $num_votes);
+			$confirm->addItem(self::IDENTIFIER, 0, $this->txt('confirm_number_of_votes') . " "
+			                                       . $num_votes);
 			$confirm->setFormAction($this->ctrl->getFormAction($this));
 			$confirm->setCancel($this->txt('cancel'), self::CMD_CANCEL);
 			$confirm->setConfirm($this->txt('reset_all'), self::CMD_RESET_ALL);
@@ -428,7 +431,7 @@ class xlvoVotingGUI {
 
 
 	protected function resetAll() {
-		if (!$this->access->hasWriteAccess()) {
+		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
 			\ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
@@ -468,7 +471,7 @@ class xlvoVotingGUI {
 
 
 	protected function saveSorting() {
-		if (!$this->access->hasWriteAccess()) {
+		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
 			\ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
 		} else {
 			if (is_array($_POST['position'])) {
@@ -520,6 +523,7 @@ class xlvoVotingGUI {
 
 	/**
 	 * @param $key
+	 *
 	 * @return string
 	 */
 	public function txt($key) {
@@ -556,6 +560,11 @@ class xlvoVotingGUI {
 			$xml_voting->appendChild(new \DOMElement('voting_status'))->appendChild(new \DOMCdataSection($xlvoVoting->getVotingStatus()));
 			$xml_voting->appendChild(new \DOMElement('position'))->appendChild(new \DOMCdataSection($xlvoVoting->getPosition()));
 			$xml_voting->appendChild(new \DOMElement('columns'))->appendChild(new \DOMCdataSection($xlvoVoting->getColumns()));
+			$xml_voting->appendChild(new \DOMElement('percentage'))->appendChild(new \DOMCdataSection($xlvoVoting->getPercentage()));
+			$xml_voting->appendChild(new \DOMElement('start_range'))->appendChild(new \DOMCdataSection($xlvoVoting->getStartRange()));
+			$xml_voting->appendChild(new \DOMElement('end_range'))->appendChild(new \DOMCdataSection($xlvoVoting->getEndRange()));
+			$xml_voting->appendChild(new \DOMElement('alt_result_display_mode'))->appendChild(new \DOMCdataSection($xlvoVoting->getAltResultDisplayMode()));
+			$xml_voting->appendChild(new \DOMElement('randomise_option_sequence'))->appendChild(new \DOMCdataSection($xlvoVoting->getRandomiseOptionSequence()));
 
 			$xml_options = $xml_voting->appendChild(new \DOMElement('options'));
 			foreach ($xlvoVoting->getVotingOptions() as $xlvoOption) {
@@ -594,6 +603,11 @@ class xlvoVotingGUI {
 			$voting_status = $node->getElementsByTagName('voting_status')->item(0)->nodeValue;
 			$position = $node->getElementsByTagName('position')->item(0)->nodeValue;
 			$columns = $node->getElementsByTagName('columns')->item(0)->nodeValue;
+			$percentage = $node->getElementsByTagName('percentage')->item(0)->nodeValue;
+			$start_range = $node->getElementsByTagName('start_range')->item(0)->nodeValue;
+			$end_range = $node->getElementsByTagName('end_range')->item(0)->nodeValue;
+			$alt_result_display_mode = $node->getElementsByTagName('alt_result_display_mode')->item(0)->nodeValue;
+			$randomise_option_sequence = $node->getElementsByTagName('randomise_option_sequence')->item(0)->nodeValue;
 
 			$xlvoVoting = new xlvoVoting();
 			$xlvoVoting->setObjId($this->getObjId());
@@ -607,6 +621,12 @@ class xlvoVotingGUI {
 			$xlvoVoting->setVotingStatus($voting_status);
 			$xlvoVoting->setPosition($position);
 			$xlvoVoting->setColumns($columns ? $columns : 2);
+			$xlvoVoting->setPercentage($percentage);
+			$xlvoVoting->setStartRange($start_range);
+			$xlvoVoting->setEndRange($end_range);
+			$xlvoVoting->setAltResultDisplayMode($alt_result_display_mode);
+			$xlvoVoting->setRandomiseOptionSequence($randomise_option_sequence);
+
 			$xlvoVoting->create();
 
 			$options = $node->getElementsByTagName('option');
