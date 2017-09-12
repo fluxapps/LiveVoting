@@ -35,10 +35,10 @@
     "prefer-stable": true,
     "require": {
         "php" : "^5.5.9 || ^7.0",
-        "endroid/qrcode": "^1.7"
+        "endroid/qrcode": "^1.9"
     },
     "require-dev": {
-	"endroid/qrcode": "^1.7"
+	"endroid/qrcode": "^1.9"
     },
     "autoload": {
         "classmap": ["./classes/"]
