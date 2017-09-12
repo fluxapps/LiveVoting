@@ -26,5 +26,17 @@ class xlvoRbacReview {
 	public function assignedGlobalRoles($user_id) {
 		return array();
 	}
+
+
+	/**
+	 * get all assigned roles to a given user
+	 * @access	public
+	 * @param	integer		usr_id
+	 * @return	array		all roles (id) the user have
+	 */
+	public function assignedRoles($a_usr_id)
+	{
+		return [];
+	}
 }
 
