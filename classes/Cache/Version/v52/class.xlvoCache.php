@@ -211,7 +211,6 @@ class xlvoCache extends \ilGlobalCache implements xlvoCacheService, Initialisabl
 		if (!$this->global_cache instanceof \ilGlobalCacheService || !$this->isActive()) {
 			return false;
 		}
-		$this->global_cache->setValid($key);
 
 		return $this->global_cache->set($key, $this->global_cache->serialize($value), $ttl);
 	}
@@ -229,9 +228,7 @@ class xlvoCache extends \ilGlobalCache implements xlvoCacheService, Initialisabl
 		$unserialized_return = $this->global_cache->unserialize($this->global_cache->get($key));
 
 		if ($unserialized_return) {
-			if ($this->global_cache->isValid($key)) {
-				return $unserialized_return;
-			}
+			return $unserialized_return;
 		}
 
 		return null;
