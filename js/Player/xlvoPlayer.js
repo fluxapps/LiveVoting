@@ -265,10 +265,10 @@ var xlvoPlayer = {
         $.get(xlvoPlayer.config.base_url, {cmd: 'getPlayerData'}).done(function (data) {
             xlvoPlayer.counter++;
             if ((xlvoPlayer.counter > xlvoPlayer.forced_update_interval) // Forced update of HTML
-                || (data.player.last_update != xlvoPlayer.player.last_update) // Player is out of sync
-                || (data.player.show_results != xlvoPlayer.player.show_results) // Show Results has changed
-                || (data.player.status != xlvoPlayer.player.status) // player status has changed
-                || (data.player.active_voting_id != xlvoPlayer.player.active_voting_id) //Voting has changed
+                || (data.player.last_update !== xlvoPlayer.player.last_update) // Player is out of sync
+                || (data.player.show_results !== xlvoPlayer.player.show_results) // Show Results has changed
+                || (data.player.status !== xlvoPlayer.player.status) // player status has changed
+                || (data.player.active_voting_id !== xlvoPlayer.player.active_voting_id) //Voting has changed
                 || xlvoPlayer.player.has_countdown) // countdown is running
             {
 
