@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased] - XXX
+### Added
+- Added the functionality to pin a voting to the personal workspace
+### Changed
+### Deprecated
+### Removed
+### Fixed
+- Fixed a issue which prevented the cache to work like intended in ILIAS 5.2
+### Security
+
 ## [3.5.0] - 2017-04-19
 
 ### Added
