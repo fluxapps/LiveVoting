@@ -13,6 +13,7 @@ require_once('./Services/AccessControl/classes/class.ilPermissionGUI.php');
 require_once('./Services/InfoScreen/classes/class.ilInfoScreenGUI.php');
 require_once('./Services/UIComponent/Button/classes/class.ilLinkButton.php');
 require_once('./Services/Form/classes/class.ilDateDurationInputGUI.php');
+require_once('./Services/PersonalDesktop/interfaces/interface.ilDesktopItemHandling.php');
 
 /**
  * Class ilObjLiveVotingGUI
@@ -29,7 +30,7 @@ require_once('./Services/Form/classes/class.ilDateDurationInputGUI.php');
  * @version           1.0.0
  *
  */
-class ilObjLiveVotingGUI extends \ilObjectPluginGUI {
+class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHandling {
 
 	const XLVO = 'xlvo';
 	const CMD_STANDARD = 'showContent';
@@ -552,5 +553,23 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI {
 			ilUIPluginRouterGUI::class,
 			xlvoVoter2GUI::class,
 		));
+	}
+
+
+	public function addToDeskObject() {
+		global $lng;
+
+		include_once './Services/PersonalDesktop/classes/class.ilDesktopItemGUI.php';
+		ilDesktopItemGUI::addToDesktop();
+		ilUtil::sendSuccess($lng->txt("added_to_desktop"));
+	}
+
+
+	public function removeFromDeskObject() {
+		global $lng;
+
+		include_once './Services/PersonalDesktop/classes/class.ilDesktopItemGUI.php';
+		ilDesktopItemGUI::removeFromDesktop();
+		ilUtil::sendSuccess($lng->txt("removed_from_desktop"));
 	}
 }
