@@ -633,11 +633,6 @@ class xlvoBasicInitialisation {
 		// thisone we can mock
 		$this->makeGlobal('rbacreview', new xlvoRbacReview());
 
-		// Rbac Review needs the logger... but doesn't include it itself so we do it for him.
-		require_once("./Services/Logging/classes/public/class.ilLoggerFactory.php");
-
-		// Finally our initialization needs the rbacsystem. Overhead much....
-		require_once "./Services/AccessControl/classes/class.ilRbacSystem.php";
 		$rbacsystem = new xlvoRbacSystem();
 		$this->makeGlobal("rbacsystem", $rbacsystem);
 	}
