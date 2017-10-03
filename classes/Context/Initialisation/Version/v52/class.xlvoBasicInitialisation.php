@@ -11,6 +11,7 @@ use LiveVoting\Context\xlvoDummyUser;
 use LiveVoting\Context\xlvoILIAS;
 use LiveVoting\Context\xlvoObjectDefinition;
 use LiveVoting\Context\xlvoRbacReview;
+use LiveVoting\Context\xlvoRbacSystem;
 use LiveVoting\xlvoSessionHandler;
 
 /**
@@ -637,7 +638,7 @@ class xlvoBasicInitialisation {
 
 		// Finally our initialization needs the rbacsystem. Overhead much....
 		require_once "./Services/AccessControl/classes/class.ilRbacSystem.php";
-		$rbacsystem = \ilRbacSystem::getInstance();
+		$rbacsystem = new xlvoRbacSystem();
 		$this->makeGlobal("rbacsystem", $rbacsystem);
 	}
 }
