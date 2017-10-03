@@ -57,10 +57,10 @@ var xlvoVoter = {
                     xlvoVoter.interval = null;
                 }
 
-                var voting_has_changed = (xlvoVoter.player.active_voting_id != data.active_voting_id), // Voting has changed
-                    status_has_changed = (xlvoVoter.player.status != data.status), // Status of player has changed
+                var voting_has_changed = (xlvoVoter.player.active_voting_id !== data.active_voting_id), // Voting has changed
+                    status_has_changed = (xlvoVoter.player.status !== data.status), // Status of player has changed
                     forced_update = (xlvoVoter.counter > xlvoVoter.forced_update), // forced update
-                    frozen_changed = (xlvoVoter.player.frozen != data.frozen); // frozen status has changed
+                    frozen_changed = (xlvoVoter.player.frozen !== data.frozen); // frozen status has changed
 
                 xlvoVoter.player = data;
                 if (status_has_changed || voting_has_changed || forced_update || frozen_changed) {
@@ -121,8 +121,6 @@ var xlvoVoter = {
      */
     log: function (data) {
         if (xlvoVoter.config.debug) {
-            var err = new Error(), stack = err.stack;
-            // console.log(stack);
             console.log(data);
         }
     }
