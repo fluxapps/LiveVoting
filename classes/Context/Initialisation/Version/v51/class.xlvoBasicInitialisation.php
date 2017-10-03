@@ -11,6 +11,7 @@ use LiveVoting\Context\xlvoRbacReview;
 use LiveVoting\Context\xlvoDummyUser;
 use LiveVoting\Context\xlvoILIAS;
 use LiveVoting\Context\xlvoObjectDefinition;
+use LiveVoting\Context\xlvoRbacSystem;
 use LiveVoting\xlvoSessionHandler;
 
 /**
@@ -581,8 +582,7 @@ class xlvoBasicInitialisation {
 	private function makeGlobal($name, $value) {
 		$GLOBALS[$name] = $value;
 	}
-
-
+	
 	/**
 	 * Initialise a fake user service to satisfy the help system module.
 	 */
@@ -595,5 +595,8 @@ class xlvoBasicInitialisation {
 	 */
 	private function initRbac() {
 		$this->makeGlobal('rbacreview', new xlvoRbacReview());
+
+		$rbacsystem = new xlvoRbacSystem();
+		$this->makeGlobal("rbacsystem", $rbacsystem);
 	}
 }
