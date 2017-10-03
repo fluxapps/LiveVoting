@@ -66,6 +66,7 @@ class ComposerStaticInit50828317cca5f7a8531843b9c8af0526
         'LiveVoting\\Context\\xlvoInitialisation' => __DIR__ . '/../..' . '/classes/Context/class.xlvoInitialisation.php',
         'LiveVoting\\Context\\xlvoObjectDefinition' => __DIR__ . '/../..' . '/classes/Context/class.xlvoObjectDefinition.php',
         'LiveVoting\\Context\\xlvoRbacReview' => __DIR__ . '/../..' . '/classes/Context/class.xlvoRbacReview.php',
+        'LiveVoting\\Context\\xlvoRbacSystem' => __DIR__ . '/../..' . '/classes/Context/xlvoRbacSystem.php',
         'LiveVoting\\Display\\Bar\\xlvoBarGUI' => __DIR__ . '/../..' . '/classes/Display/Bar/class.xlvoBarGUI.php',
         'LiveVoting\\Exceptions\\xlvoVotingManagerException' => __DIR__ . '/../..' . '/classes/Exceptions/class.xlvoVotingManagerException.php',
         'LiveVoting\\Js\\xlvoJs' => __DIR__ . '/../..' . '/classes/Js/class.xlvoJs.php',
