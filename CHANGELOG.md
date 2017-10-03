@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Fixed a issue which prevented the cache to work like intended in ILIAS 5.2
 - Fixed a redirect loop if the page translation is enabled.
 - Fixed plugin regression 
+- Slightly improved ILIAS 5.2 initialisation performance
 ### Security
 
 ## [3.5.0] - 2017-04-19
