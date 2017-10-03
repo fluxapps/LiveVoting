@@ -52,7 +52,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 	public function executeCommand() {
 		global $ilUser;
 		$this->pin = xlvoInitialisation::getCookiePIN();
-		$this->manager = new xlvoVotingManager2($this->pin, true);
+		$this->manager = new xlvoVotingManager2($this->pin);
 		$nextClass = $this->ctrl->getNextClass();
 		switch ($nextClass) {
 			case '':
