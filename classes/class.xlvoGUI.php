@@ -20,6 +20,30 @@ class xlvoGUI {
 	const CMD_DELETE = 'delete';
 	const CMD_CANCEL = 'cancel';
 	const CMD_VIEW = 'view';
+	/**
+	 * @var ilTemplate $tpl
+	 */
+	protected $tpl;
+	/**
+	 * @var ilTabsGUI $tabs
+	 */
+	protected $tabs;
+	/**
+	 * @var ilCtrl $ctrl
+	 */
+	protected $ctrl;
+	/**
+	 * @var ilToolbarGUI $toolbar
+	 */
+	protected $toolbar;
+	/**
+	 * @var ilLiveVotingPlugin $pl
+	 */
+	protected $pl;
+	/**
+	 * @var bool $is_api_call
+	 */
+	private $is_api_call;
 
 
 	public function __construct() {

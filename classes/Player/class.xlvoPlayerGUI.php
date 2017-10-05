@@ -242,34 +242,32 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 * Set Toolbar Content and Buttons for the Player.
 	 */
 	protected function initToolbarDuringVoting() {
-		$ilias_51 = version_compare(ILIAS_VERSION_NUMERIC, '5.1.00', '>');
-		if ($ilias_51) {
+		$newerThanIlias51 = version_compare(ILIAS_VERSION_NUMERIC, '5.1.00', '>');
+		if ($newerThanIlias51) {
 			require_once('./Services/UIComponent/SplitButton/classes/class.ilButtonToSplitButtonMenuItemAdapter.php');
 			require_once('./Services/UIComponent/SplitButton/classes/class.ilSplitButtonGUI.php');
 		}
 
 		// Freeze
-		$b = xlvoLinkButton::getInstance();
-		$b->clearClasses();
-		$b->addCSSClass('btn-warning');
-		$b->setCaption(xlvoGlyphGUI::get('pause') . $this->txt('freeze'), false);
-		$b->setUrl('#');
-		$b->setId('btn-freeze');
-		if (method_exists($this->toolbar, 'addStickyItem')) { // Only ILIAS 5.1
-			$this->toolbar->addStickyItem($b);
-		} else {
-			$this->toolbar->addButtonInstance($b);
-		}
+		$suspendButton = xlvoLinkButton::getInstance();
+		$suspendButton->clearClasses();
+		$suspendButton->addCSSClass('btn-warning');
+		$suspendButton->setCaption(xlvoGlyphGUI::get('pause') . $this->txt('freeze'), false);
+		$suspendButton->setUrl('#');
+		$suspendButton->setId('btn-freeze');
+		$this->addStickyButtonToToolbar($suspendButton);
 
 		// Unfreeze
-		$unfreeze = ilLinkButton::getInstance();
-		$unfreeze->setPrimary(true);
-		$unfreeze->setCaption(xlvoGlyphGUI::get('play') . $this->txt('unfreeze'), false);
-		$unfreeze->setUrl('#');
-		$unfreeze->setId('btn-unfreeze');
-		if ($ilias_51) {
+		$playButton = xlvoLinkButton::getInstance();
+		$playButton->clearClasses();
+		$playButton->setPrimary(true);
+		$playButton->setCaption(xlvoGlyphGUI::get('play') . $this->txt('unfreeze'), false);
+		$playButton->setUrl('#');
+		$playButton->setId('btn-unfreeze');
+
+		if ($newerThanIlias51) {
 			$split = ilSplitButtonGUI::getInstance();
-			$split->setDefaultButton($unfreeze);
+			$split->setDefaultButton($playButton);
 			foreach (array( 10, 30, 90, 120, 180, 240, 300 ) as $seconds) {
 				$cd = ilLinkButton::getInstance();
 				$cd->setUrl('#');
@@ -278,7 +276,9 @@ class xlvoPlayerGUI extends xlvoGUI {
 				$ilSplitButtonMenuItem = new ilButtonToSplitButtonMenuItemAdapter($cd);
 				$split->addMenuItem($ilSplitButtonMenuItem);
 			}
-			$this->toolbar->addButtonInstance($split);
+
+			$this->addStickyButtonToToolbar($split);
+
 		} else {
 			$current_selection_list = new ilAdvancedSelectionListGUI();
 			$current_selection_list->setListTitle($this->txt('player_countdown'));
@@ -292,29 +292,29 @@ class xlvoPlayerGUI extends xlvoGUI {
 				$str = $seconds . ' ' . $this->pl->txt('player_seconds');
 				$current_selection_list->addItem($str, $seconds, '#', '', '', '', '', false, 'xlvoPlayer.countdown(' . $seconds . ')');
 			}
-			$this->toolbar->addButtonInstance($unfreeze);
+			$this->addStickyButtonToToolbar($playButton);
 			$this->toolbar->addText($current_selection_list->getHTML());
 		}
 		// Hide
-		$b = ilLinkButton::getInstance();
-		$b->setCaption($this->txt('hide_results'), false);
-		$b->setUrl('#');
-		$b->setId('btn-hide-results');
-		$this->toolbar->addButtonInstance($b);
+		$suspendButton = ilLinkButton::getInstance();
+		$suspendButton->setCaption($this->txt('hide_results'), false);
+		$suspendButton->setUrl('#');
+		$suspendButton->setId('btn-hide-results');
+		$this->toolbar->addButtonInstance($suspendButton);
 
 		// Show
-		$b = ilLinkButton::getInstance();
-		$b->setCaption($this->txt('show_results'), false);
-		$b->setUrl('#');
-		$b->setId('btn-show-results');
-		$this->toolbar->addButtonInstance($b);
+		$suspendButton = ilLinkButton::getInstance();
+		$suspendButton->setCaption($this->txt('show_results'), false);
+		$suspendButton->setUrl('#');
+		$suspendButton->setId('btn-show-results');
+		$this->toolbar->addButtonInstance($suspendButton);
 
 		// Reset
-		$b = ilLinkButton::getInstance();
-		$b->setCaption(xlvoGlyphGUI::get('remove') . $this->txt('reset'), false);
-		$b->setUrl('#');
-		$b->setId('btn-reset');
-		$this->toolbar->addButtonInstance($b);
+		$suspendButton = ilLinkButton::getInstance();
+		$suspendButton->setCaption(xlvoGlyphGUI::get('remove') . $this->txt('reset'), false);
+		$suspendButton->setUrl('#');
+		$suspendButton->setId('btn-reset');
+		$this->toolbar->addButtonInstance($suspendButton);
 
 		//
 		//
@@ -323,20 +323,20 @@ class xlvoPlayerGUI extends xlvoGUI {
 		//
 
 		// PREV
-		$b = ilLinkButton::getInstance();
-		$b->setDisabled(true);
-		$b->setUrl($this->ctrl->getLinkTarget($this, self::CMD_PREVIOUS));
-		$b->setCaption(xlvoGlyphGUI::get(xlvoGlyphGUI::PREVIOUS), false);
-		$b->setId('btn-previous');
-		$this->toolbar->addButtonInstance($b);
+		$suspendButton = ilLinkButton::getInstance();
+		$suspendButton->setDisabled(true);
+		$suspendButton->setUrl($this->ctrl->getLinkTarget($this, self::CMD_PREVIOUS));
+		$suspendButton->setCaption(xlvoGlyphGUI::get(xlvoGlyphGUI::PREVIOUS), false);
+		$suspendButton->setId('btn-previous');
+		$this->toolbar->addButtonInstance($suspendButton);
 
 		// NEXT
-		$b = ilLinkButton::getInstance();
-		$b->setDisabled(true);
-		$b->setCaption(xlvoGlyphGUI::get(xlvoGlyphGUI::NEXT), false);
-		$b->setUrl($this->ctrl->getLinkTarget($this, self::CMD_NEXT));
-		$b->setId('btn-next');
-		$this->toolbar->addButtonInstance($b);
+		$suspendButton = ilLinkButton::getInstance();
+		$suspendButton->setDisabled(true);
+		$suspendButton->setCaption(xlvoGlyphGUI::get(xlvoGlyphGUI::NEXT), false);
+		$suspendButton->setUrl($this->ctrl->getLinkTarget($this, self::CMD_NEXT));
+		$suspendButton->setId('btn-next');
+		$this->toolbar->addButtonInstance($suspendButton);
 
 		// Votings
 		$current_selection_list = $this->getVotingSelectionList();
@@ -350,34 +350,55 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 		// Fullscreen
 		if ($this->manager->getVotingConfig()->isFullScreen()) {
-			$b = ilLinkButton::getInstance();
-			$b->setCaption(xlvoGlyphGUI::get('fullscreen'), false);
-			$b->setUrl('#');
-			$b->setId('btn-start-fullscreen');
-			$this->toolbar->addButtonInstance($b);
+			$suspendButton = ilLinkButton::getInstance();
+			$suspendButton->setCaption(xlvoGlyphGUI::get('fullscreen'), false);
+			$suspendButton->setUrl('#');
+			$suspendButton->setId('btn-start-fullscreen');
+			$this->toolbar->addButtonInstance($suspendButton);
 
-			$b = ilLinkButton::getInstance();
-			$b->setCaption(xlvoGlyphGUI::get('resize-small'), false);
-			$b->setUrl('#');
-			$b->setId('btn-close-fullscreen');
-			$this->toolbar->addButtonInstance($b);
+			$suspendButton = ilLinkButton::getInstance();
+			$suspendButton->setCaption(xlvoGlyphGUI::get('resize-small'), false);
+			$suspendButton->setUrl('#');
+			$suspendButton->setId('btn-close-fullscreen');
+			$this->toolbar->addButtonInstance($suspendButton);
 		}
 
 		// END
-		$b = ilLinkButton::getInstance();
-		$b->setCaption(xlvoGlyphGUI::get('stop') . $this->txt('terminate'), false);
-		$b->setUrl($this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_TERMINATE));
-		$b->setId('btn-terminate');
-		$this->toolbar->addButtonInstance($b);
+		$suspendButton = ilLinkButton::getInstance();
+		$suspendButton->setCaption(xlvoGlyphGUI::get('stop') . $this->txt('terminate'), false);
+		$suspendButton->setUrl($this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_TERMINATE));
+		$suspendButton->setId('btn-terminate');
+		$this->toolbar->addButtonInstance($suspendButton);
 		if (self::DEBUG) {
 
 			// PAUSE PULL
-			$b = ilLinkButton::getInstance();
-			$b->setCaption('Toogle Pulling', false);
-			$b->setUrl('#');
-			$b->setId('btn-toggle-pull');
-			$this->toolbar->addButtonInstance($b);
+			$suspendButton = ilLinkButton::getInstance();
+			$suspendButton->setCaption('Toogle Pulling', false);
+			$suspendButton->setUrl('#');
+			$suspendButton->setId('btn-toggle-pull');
+			$this->toolbar->addButtonInstance($suspendButton);
 		}
+	}
+
+
+	/**
+	 * Adds a button to the toolbar and make it stick to it,
+	 * which means that the button is also visible if the mobile size of the website is used.
+	 *
+	 * @param ilButtonBase $button Button which should be added sticky to the toolbar.
+	 *
+	 * @return void
+	 */
+	private function addStickyButtonToToolbar(ilButtonBase $button) {
+
+		//check if the new methods are usable
+		if (method_exists($this->toolbar, 'addStickyItem')) {
+			$this->toolbar->addStickyItem($button);
+		} else {
+			// ILIAS 5.1 fallback
+			$this->toolbar->addButtonInstance($button);
+		}
+		
 	}
 
 
