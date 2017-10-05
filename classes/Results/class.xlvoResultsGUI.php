@@ -25,11 +25,11 @@ class xlvoResultsGUI extends xlvoGUI {
 	/**
 	 * @var xlvoRound
 	 */
-	protected $round;
+	private $round;
 	/**
 	 * @var int
 	 */
-	protected $obj_id = 0;
+	private $obj_id = 0;
 	/**
 	 * @var ilLiveVotingPlugin
 	 */
@@ -37,7 +37,7 @@ class xlvoResultsGUI extends xlvoGUI {
 	/**
 	 * @var xlvoVotingConfig
 	 */
-	protected $config;
+	private $config;
 	/**
 	 * @var \ilCtrl
 	 */
@@ -61,19 +61,31 @@ class xlvoResultsGUI extends xlvoGUI {
 		$cmd = $ilCtrl->getCmd();
 		switch ($cmd) {
 			case self::CMD_SHOW:
+				$this->showResults();
+				return;
 			case self::CMD_CHANGE_ROUND:
+				$this->changeRound();
+				return;
 			case self::CMD_NEW_ROUND:
+				$this->newRound();
+				return;
 			case self::CMD_APPLY_FILTER:
+				$this->applyFilter();
+				return;
 			case self::CMD_RESET_FILTER:
+				$this->resetFilter();
+				return;
 			case self::CMD_SHOW_HISTORY:
+				$this->showHistory();
+				return;
 			case self::CMD_CONFIRM_NEW_ROUND:
-				$this->{$cmd}();
-				break;
+				$this->confirmNewRound();
+				return;
 		}
 	}
 
 
-	protected function showResults() {
+	private function showResults() {
 		global $tpl;
 
 		$this->buildToolbar();
@@ -95,7 +107,7 @@ class xlvoResultsGUI extends xlvoGUI {
 	}
 
 
-	protected function getRounds() {
+	private function getRounds() {
 		/** @var xlvoRound[] $rounds */
 		$rounds = xlvoRound::where(array( 'obj_id' => $this->obj_id ))->get();
 		$array = array();
@@ -111,20 +123,20 @@ class xlvoResultsGUI extends xlvoGUI {
 	 * @param xlvoRound $round
 	 * @return string
 	 */
-	protected function getRoundTitle(xlvoRound $round) {
+	private function getRoundTitle(xlvoRound $round) {
 		return $round->getTitle() ? $round->getTitle() : $this->pl->txt("common_round") . " "
 		                                                 . $round->getRoundNumber();
 	}
 
 
-	protected function changeRound() {
+	private function changeRound() {
 		$round = $_POST['round_id'];
 		$this->ctrl->setParameter($this, 'round_id', $round);
 		$this->ctrl->redirect($this, self::CMD_SHOW);
 	}
 
 
-	protected function newRound() {
+	private function newRound() {
 		$lastRound = xlvoRound::getLatestRound($this->obj_id);
 		$newRound = new xlvoRound();
 		$newRound->setRoundNumber($lastRound->getRoundNumber() + 1);
@@ -137,7 +149,7 @@ class xlvoResultsGUI extends xlvoGUI {
 	}
 
 
-	protected function applyFilter() {
+	private function applyFilter() {
 		$table = new xlvoResultsTableGUI($this, 'showResults');
 		$this->buildFilters($table);
 		$table->initFilter();
@@ -146,7 +158,7 @@ class xlvoResultsGUI extends xlvoGUI {
 	}
 
 
-	protected function resetFilter() {
+	private function resetFilter() {
 		$table = new xlvoResultsTableGUI($this, 'showResults');
 		$this->buildFilters($table);
 		$table->initFilter();
@@ -155,7 +167,7 @@ class xlvoResultsGUI extends xlvoGUI {
 	}
 
 
-	protected function showHistory() {
+	private function showHistory() {
 		global $tpl;
 		$this->tabs->setBackTarget($this->pl->txt('common_back'), $this->ctrl->getLinkTarget($this, self::CMD_SHOW));
 
@@ -232,7 +244,7 @@ class xlvoResultsGUI extends xlvoGUI {
 	/**
 	 * @param $table xlvoResultsTableGUI
 	 */
-	protected function buildFilters(&$table) {
+	private function buildFilters(&$table) {
 		$filter = new \ilSelectInputGUI($this->pl->txt("common_participant"), "participant");
 		$participants = xlvoParticipants::getInstance($this->obj_id)
 		                                ->getParticipantsForRound($this->round->getId());
@@ -277,7 +289,7 @@ class xlvoResultsGUI extends xlvoGUI {
 	/**
 	 *
 	 */
-	protected function buildToolbar() {
+	private function buildToolbar() {
 		global $ilToolbar;
 		/**
 		 * @var $ilToolbar \ilToolbarGUI
