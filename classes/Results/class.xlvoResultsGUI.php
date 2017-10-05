@@ -92,7 +92,7 @@ class xlvoResultsGUI extends xlvoGUI {
 
 		$table = new xlvoResultsTableGUI($this, 'showResults', $this->config->getVotingHistory());
 		$this->buildFilters($table);
-		//		$table->initFilter();
+		$table->initFilter();
 		$table->buildData($this->obj_id, $this->round->getId());
 		$tpl->setContent($table->getHTML());
 	}

@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Fixed a redirect loop if the page translation is enabled.
 - Fixed plugin regression 
 - Slightly improved ILIAS 5.2 initialisation performance
+- Results filter is now working again as expected.
 ### Security
 
 ## [3.5.0] - 2017-04-19
