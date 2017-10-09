@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Fixed plugin regression 
 - Slightly improved ILIAS 5.2 initialisation performance
 - Results filter is now working again as expected.
+- The play button is now displayed as intended on small displays (presenter view).
 ### Security
 
 ## [3.5.0] - 2017-04-19
