@@ -105,18 +105,18 @@ class xlvoPin {
         if ($xlvoVotingConfig instanceof xlvoVotingConfig) {
             if (!$xlvoVotingConfig->isObjOnline()) {
                 if ($safe_mode) {
-                    throw new xlvoVoterException('', xlvoVoterException::VOTING_OFFLINE);
+                    throw new xlvoVoterException('The voting is currently offline.', xlvoVoterException::VOTING_OFFLINE);
                 }
             }
             if (!$xlvoVotingConfig->isAnonymous() && xlvoUser::getInstance()->isPINUser()) {
                 if ($safe_mode) {
-                    throw new xlvoVoterException('', xlvoVoterException::VOTING_NOT_ANONYMOUS);
+                    throw new xlvoVoterException('The voting is not available for anonymous users.', xlvoVoterException::VOTING_NOT_ANONYMOUS);
                 }
             }
 
             if (!$xlvoVotingConfig->isAvailableForUser() && xlvoUser::getInstance()->isPINUser()) {
                 if ($safe_mode) {
-                    throw new xlvoVoterException('', xlvoVoterException::VOTING_UNAVAILABLE);
+                    throw new xlvoVoterException('The voting is currently unavailable.', xlvoVoterException::VOTING_UNAVAILABLE);
                 }
             }
 
