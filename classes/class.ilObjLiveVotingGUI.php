@@ -78,11 +78,15 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 	/**
 	 * @var ilLanguage
 	 */
-	protected $lng;
+	public $lng;
 	/**
 	 * @var ilNavigationHistory
 	 */
-	protected $ilNavigationHistory;
+	protected $history;
+	/**
+	 * @var ilPropertyFormGUI
+	 */
+	protected $form;
 
 
 	protected function afterConstructor() {
@@ -95,7 +99,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 		$this->toolbar = $DIC->toolbar();
 		$this->lng = $DIC->language();
 		$this->pl = ilLiveVotingPlugin::getInstance();
-		$this->ilNavigationHistory = $DIC["ilNavigationHistory"];
+		$this->history = $DIC["ilNavigationHistory"];
 		$this->access = $DIC->access();
 	}
 
@@ -129,14 +133,14 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 			}
 
 			// add entry to navigation history
-			if ($this->access->checkAccess('read', '', $_GET['ref_id'])) {
-				$this->ilNavigationHistory->addItem($_GET['ref_id'], $this->ctrl->getLinkTarget($this, $this->getStandardCmd()), $this->getType());
+			if ($this->access->checkAccess('read', '', $this->ref_id)) {
+				$this->history->addItem($this->ref_id, $this->ctrl->getLinkTarget($this, $this->getStandardCmd()), $this->getType());
 			}
 		} else {
 			// show info of parent
-			$this->tpl->setTitle(\ilObject::_lookupTitle(\ilObject::_lookupObjId($_GET['ref_id'])));
-			$this->tpl->setTitleIcon(\ilObject::_getIcon(\ilObject::_lookupObjId($_GET['ref_id']), 'big'), $this->pl->txt('obj_'
-			                                                                                                              . \ilObject::_lookupType($_GET['ref_id'], true)));
+			$this->tpl->setTitle(\ilObject::_lookupTitle(\ilObject::_lookupObjId($this->ref_id)));
+			$this->tpl->setTitleIcon(\ilObject::_getIcon(\ilObject::_lookupObjId($this->ref_id), 'big'), $this->pl->txt('obj_'
+			                                                                                                              . \ilObject::_lookupType($this->ref_id, true)));
 			$this->setLocator();
 		}
 	}
@@ -148,7 +152,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 	public function executeCommand() {
 		$this->initHeaderAndLocator();
 
-		$this->tpl->setPermanentLink('xlvo', $_GET['ref_id']);
+		$this->tpl->setPermanentLink('xlvo', $this->ref_id);
 
 		$next_class = $this->ctrl->getNextClass($this);
 		$cmd = $this->ctrl->getCmd();
