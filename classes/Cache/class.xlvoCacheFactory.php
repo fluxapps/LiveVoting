@@ -29,6 +29,9 @@ class xlvoCacheFactory {
 	            case ILIASVersionEnum::ILIAS_VERSION_5_3:
                     self::$cache_instance = Version\v52\xlvoCache::getInstance('');
                     break;
+	            default:
+		            throw new ilException('Can not initialise cache for the installed ILIAS version.');
+		            break;
             }
 
             /*
