@@ -1,6 +1,6 @@
 <?php
 
-namespace LiveVoting\Context\Initialisation\Version\v52;
+namespace LiveVoting\Context\Initialisation\Version\v53;
 
 require_once("./include/inc.ilias_version.php");
 
@@ -15,7 +15,7 @@ use LiveVoting\Context\xlvoRbacSystem;
 use LiveVoting\xlvoSessionHandler;
 
 /**
- * Class xlvoBasicInitialisation for ILIAS 5.2 (Experimental)
+ * Class xlvoBasicInitialisation for ILIAS 5.3 (Experimental)
  *
  * @author      Nicolas Schaefli <ns@studer-raimann.ch>
  *
@@ -80,7 +80,14 @@ class xlvoBasicInitialisation {
 		$this->initControllFlow();
 		$this->initUser();
 		$this->initPluginAdmin();
+		$this->initAccess();
+		$this->initTree();
 		$this->initTemplate();
+		$this->initHTTPServices();
+		$this->initTabs();
+		$this->initNavigationHistory();
+		$this->initHelp();
+		$this->initMainMenu();
 		//$this->setCookieParams();
 	}
 
@@ -115,7 +122,7 @@ class xlvoBasicInitialisation {
 
 
 	private function initTemplate() {
-		$styleDefinition = new xlvoStyleDefinition();
+		$styleDefinition = new \LiveVoting\Context\Initialisation\Version\v52\xlvoStyleDefinition();
 		$this->makeGlobal('styleDefinition', $styleDefinition);
 
 		$ilias = new xlvoILIAS();
@@ -633,5 +640,80 @@ class xlvoBasicInitialisation {
 
 		$rbacsystem = new xlvoRbacSystem();
 		$this->makeGlobal("rbacsystem", $rbacsystem);
+	}
+
+
+	/**
+	 * Initialise a fake access service to satisfy the help system module.
+	 */
+	private function initAccess() {
+		$this->makeGlobal('ilAccess', new \ilAccess());
+	}
+
+	/**
+	 * Initialise a fake three service to satisfy the help system module.
+	 */
+	private function initTree() {
+		$this->makeGlobal('tree', new \ilTree(ROOT_FOLDER_ID));
+	}
+
+	/**
+	 * Initialise a fake http services to satisfy the help system module.
+	 */
+	private static function initHTTPServices() {
+		global $DIC;
+
+		$DIC['http.request_factory'] = function ($c) {
+			return new \ILIAS\HTTP\Request\RequestFactoryImpl();
+		};
+
+		$DIC['http.response_factory'] = function ($c) {
+			return new \ILIAS\HTTP\Response\ResponseFactoryImpl();
+		};
+
+		$DIC['http.cookie_jar_factory'] = function ($c) {
+			return new \ILIAS\HTTP\Cookies\CookieJarFactoryImpl();
+		};
+
+		$DIC['http.response_sender_strategy'] = function ($c) {
+			return new \ILIAS\HTTP\Response\Sender\DefaultResponseSenderStrategy();
+		};
+
+		$DIC['http'] = function ($c) {
+			return new \ILIAS\DI\HTTPServices(
+				$c['http.response_sender_strategy'],
+				$c['http.cookie_jar_factory'],
+				$c['http.request_factory'],
+				$c['http.response_factory']
+			);
+		};
+	}
+
+	/**
+	 * Initialise a fake tabs service to satisfy the help system module.
+	 */
+	private function initTabs() {
+		$this->makeGlobal('ilTabs', new \ilTabsGUI());
+	}
+
+	/**
+	 * Initialise a fake NavigationHistory service to satisfy the help system module.
+	 */
+	private function initNavigationHistory() {
+		$this->makeGlobal('ilNavigationHistory', new \ilNavigationHistory());
+	}
+
+	/**
+	 * Initialise a fake help service to satisfy the help system module.
+	 */
+	private function initHelp() {
+		$this->makeGlobal('ilHelp', new \ilHelp());
+	}
+
+	/**
+	 * Initialise a fake MainMenu service to satisfy the help system module.
+	 */
+	private function initMainMenu() {
+		$this->makeGlobal('ilMainMenu', new \ilMainMenuGUI());
 	}
 }

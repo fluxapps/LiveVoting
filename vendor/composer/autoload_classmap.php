@@ -33,6 +33,7 @@ return array(
     'LiveVoting\\Context\\Initialisation\\Version\\v52\\xlvoBasicInitialisation' => $baseDir . '/classes/Context/Initialisation/Version/v52/class.xlvoBasicInitialisation.php',
     'LiveVoting\\Context\\Initialisation\\Version\\v52\\xlvoSkin' => $baseDir . '/classes/Context/Initialisation/Version/v52/class.xlvoStyleDefinition.php',
     'LiveVoting\\Context\\Initialisation\\Version\\v52\\xlvoStyleDefinition' => $baseDir . '/classes/Context/Initialisation/Version/v52/class.xlvoStyleDefinition.php',
+	'LiveVoting\\Context\\Initialisation\\Version\\v53\\xlvoBasicInitialisation' => $baseDir . '/classes/Context/Initialisation/Version/v53/class.xlvoBasicInitialisation.php',
     'LiveVoting\\Context\\cookie\\CookieManager' => $baseDir . '/classes/Context/cookie/CookieManager.php',
     'LiveVoting\\Context\\xlvoContext' => $baseDir . '/classes/Context/class.xlvoContext.php',
     'LiveVoting\\Context\\xlvoContextLiveVoting' => $baseDir . '/classes/Context/class.xlvoContextLiveVoting.php',

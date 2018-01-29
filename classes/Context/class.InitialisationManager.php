@@ -30,8 +30,10 @@ final class InitialisationManager {
 		$subversion = (int)explode('.', ILIAS_VERSION_NUMERIC)[1];
 		switch ($subversion) {
 			case ILIASVersionEnum::ILIAS_VERSION_5_2:
-			case ILIASVersionEnum::ILIAS_VERSION_5_3:
 				Initialisation\Version\v52\xlvoBasicInitialisation::init();
+				break;
+			case ILIASVersionEnum::ILIAS_VERSION_5_3:
+				Initialisation\Version\v53\xlvoBasicInitialisation::init();
 				break;
 			default:
 				throw new \Exception("Can't find bootstrap code for the given ILIAS version.");
