@@ -27,6 +27,7 @@ class xlvoPlayer extends CachingActiveRecord  {
 	const SECONDS_ACTIVE = 4;
 	const SECONDS_TO_SLEEP = 30;
     const CACHE_TTL_SECONDS = 1800;
+    const TABLE_NAME = 'rep_robj_xlvo_player_n';
 	/**
 	 * @var array
 	 */
@@ -37,7 +38,7 @@ class xlvoPlayer extends CachingActiveRecord  {
 	 * @return string
 	 */
 	public static function returnDbTableName() {
-		return 'rep_robj_xlvo_player_n';
+		return self::TABLE_NAME;
 	}
 
 
@@ -65,7 +66,7 @@ class xlvoPlayer extends CachingActiveRecord  {
 	private static function getInstanceForObjectIdWithCache($obj_id)
     {
 
-        $key = self::returnDbTableName() . '_obj_id_' . $obj_id;
+        $key = self::TABLE_NAME . '_obj_id_' . $obj_id;
         $cache = xlvoCacheFactory::getInstance();
         $instance = $cache->get($key);
 

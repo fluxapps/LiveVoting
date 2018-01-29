@@ -74,7 +74,7 @@ class xlvoPin {
 	private static function checkPinWithCache($pin, $safe_mode = true)
     {
         //use cache to speed up pin fetch operation
-        $key = xlvoVotingConfig::returnDbTableName() . '_pin_' . $pin;
+        $key = xlvoVotingConfig::TABLE_NAME . '_pin_' . $pin;
         $cache = xlvoCacheFactory::getInstance();
 
         $config = $cache->get($key);
@@ -224,7 +224,7 @@ class xlvoPin {
 
 	private function getLastAccessWithCache()
     {
-        $key = xlvoVotingConfig::returnDbTableName() . '_pin_' . $this->getPin();
+        $key = xlvoVotingConfig::TABLE_NAME . '_pin_' . $this->getPin();
         /**
          * @var $xlvoVotingConfig \stdClass
          */

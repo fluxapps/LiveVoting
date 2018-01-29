@@ -16,6 +16,8 @@ use LiveVoting\Player\xlvoPlayer;
  */
 class xlvoRound extends CachingActiveRecord  {
 
+	const TABLE_NAME = 'rep_robj_xlvo_round_n';
+
     /**
      * @param $obj_id
      * @return int
@@ -27,8 +29,8 @@ class xlvoRound extends CachingActiveRecord  {
         /**
          * @var $ilDB \ilDB
          */
-        $q = "SELECT result.id FROM (SELECT id FROM rep_robj_xlvo_round_n WHERE rep_robj_xlvo_round_n.obj_id = %s) AS result ORDER BY result.id DESC LIMIT 1";
-        //$q = "SELECT MAX(id) FROM rep_robj_xlvo_round_n WHERE obj_id = %s";
+        $q = "SELECT result.id FROM (SELECT id FROM " . self::TABLE_NAME . " WHERE " . self::TABLE_NAME . ".obj_id = %s) AS result ORDER BY result.id DESC LIMIT 1";
+        //$q = "SELECT MAX(id) FROM " . self::TABLE_NAME . " WHERE obj_id = %s";
         $result = $ilDB->queryF($q, array('integer'), array($obj_id));
         $data = $ilDB->fetchObject($result);
 
@@ -70,7 +72,7 @@ class xlvoRound extends CachingActiveRecord  {
 	 * @return string
 	 */
 	public static function returnDbTableName() {
-		return 'rep_robj_xlvo_round_n';
+		return self::TABLE_NAME;
 	}
 
 

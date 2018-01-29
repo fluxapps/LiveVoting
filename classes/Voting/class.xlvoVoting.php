@@ -20,6 +20,7 @@ class xlvoVoting extends CachingActiveRecord {
 	const STAT_INACTIVE = 1;
 	const STAT_INCOMPLETE = 2;
 	const ROWS_DEFAULT = 1;
+	const TABLE_NAME = 'rep_robj_xlvo_voting_n';
 	/**
 	 * @var int
 	 *
@@ -244,7 +245,7 @@ class xlvoVoting extends CachingActiveRecord {
 	public function create() {
 		global $DIC;
 		$ilDB = $DIC->database();
-		$res = $ilDB->query('SELECT MAX(position) AS max FROM rep_robj_xlvo_voting_n WHERE obj_id = '
+		$res = $ilDB->query('SELECT MAX(position) AS max FROM ' . self::TABLE_NAME. ' WHERE obj_id = '
 		                    . $ilDB->quote($this->getObjId(), 'integer'));
 		$data = $ilDB->fetchObject($res);
 		$this->setPosition($data->max + 1);
@@ -298,7 +299,7 @@ class xlvoVoting extends CachingActiveRecord {
 	 * @return string
 	 */
 	public static function returnDbTableName() {
-		return 'rep_robj_xlvo_voting_n';
+		return self::TABLE_NAME;
 	}
 
 
