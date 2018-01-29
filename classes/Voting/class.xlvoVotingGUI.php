@@ -147,7 +147,10 @@ class xlvoVotingGUI {
 					$this->toolbar->setFormAction($this->ctrl->getLinkTarget($this, 'import'), true);
 					$import = new \ilFileInputGUI('xlvo_import', 'xlvo_import');
 					$this->toolbar->addInputItem($import);
-					$this->toolbar->addFormButton($this->txt('import'), 'import');
+					$button = ilSubmitButton::getInstance();
+					$button->setCaption($this->txt('import'), false);
+					$button->setCommand('import');
+					$this->toolbar->addButtonInstance($button);
 				}
 
 				$xlvoVotingTableGUI = new xlvoVotingTableGUI($this, self::CMD_STANDARD);

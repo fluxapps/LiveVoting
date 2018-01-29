@@ -175,7 +175,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 
 			case 'xlvoresultsgui':
 				$xlvoResultsGUI = new xlvoResultsGUI($this->obj_id);
-				$this->tabs->setTabActive(self::TAB_RESULTS);
+				$this->tabs->activateTab(self::TAB_RESULTS);
 				$this->ctrl->forwardCommand($xlvoResultsGUI);
 				break;
 
@@ -193,7 +193,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 			case 'ilpermissiongui':
 				include_once("Services/AccessControl/classes/class.ilPermissionGUI.php");
 				$perm_gui = new \ilPermissionGUI($this);
-				$this->tabs->setTabActive("perm_settings");
+				$this->tabs->activateTab("perm_settings");
 				$ret = $this->ctrl->forwardCommand($perm_gui);
 				break;
 
@@ -205,7 +205,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 				break;
 
 			case 'illearningprogressgui':
-				$this->tabs->setTabActive("learning_progress");
+				$this->tabs->activateTab("learning_progress");
 				include_once './Services/Tracking/classes/class.ilLearningProgressGUI.php';
 				$new_gui = new \ilLearningProgressGUI(\ilLearningProgressGUI::LP_CONTEXT_REPOSITORY, $this->object->getRefId(), $_GET['user_id'] ? $_GET['user_id'] : $GLOBALS['ilUser']->getId());
 				$this->ctrl->forwardCommand($new_gui);
@@ -292,7 +292,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 	 * @param $tab
 	 */
 	protected function setSubTabs($tab, $active_subtab = null) {
-		$this->tabs->setTabActive($tab);
+		$this->tabs->activateTab($tab);
 		switch ($tab) {
 			case self::TAB_CONTENT:
 				$this->tabs->addSubTab(self::SUBTAB_SHOW, $this->pl->txt(self::SUBTAB_SHOW), $this->ctrl->getLinkTargetByClass('xlvoplayergui', xlvoPlayerGUI::CMD_STANDARD));
@@ -322,7 +322,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 			\ilUtil::sendFailure($this->pl->txt('obj_permission_denied'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
-			$this->tabs->setTabActive(self::TAB_EDIT);
+			$this->tabs->activateTab(self::TAB_EDIT);
 			$this->initPropertiesForm();
 			$this->fillPropertiesForm();
 			$this->tpl->setContent($this->form->getHTML());
@@ -452,7 +452,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
 			\ilUtil::sendFailure(ilLiveVotingPlugin::getInstance()->txt('obj_permission_denied_write'), true);
 		} else {
-			$this->tabs->setTabActive(self::TAB_EDIT);
+			$this->tabs->activateTab(self::TAB_EDIT);
 			$this->initPropertiesForm();
 
 			if ($this->form->checkInput()) {

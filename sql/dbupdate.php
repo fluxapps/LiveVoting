@@ -183,31 +183,31 @@ $ilDB->addTableColumn('rep_robj_xlvo_data', 'is_colorful', array(
 <?php
 require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
-\LiveVoting\Option\xlvoOption::installDB();
+\LiveVoting\Option\xlvoOption::updateDB();
 ?>
 <#10>
 <?php
 require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
-\LiveVoting\Vote\xlvoVote::installDB();
+\LiveVoting\Vote\xlvoVote::updateDB();
 ?>
 <#11>
 <?php
 require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
-\LiveVoting\Voting\xlvoVoting::installDB();
+\LiveVoting\Voting\xlvoVoting::updateDB();
 ?>
 <#12>
 <?php
 require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
-xlvoVotingConfig::installDB();
+xlvoVotingConfig::updateDB();
 ?>
 <#13>
 <?php
 require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
-\LiveVoting\Player\xlvoPlayer::installDB();
+\LiveVoting\Player\xlvoPlayer::updateDB();
 ?>
 <#14>
 <?php
@@ -314,7 +314,7 @@ while ($resData = $ilDB->fetchAssoc($setData)) {
 <?php
 require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
-\LiveVoting\Conf\xlvoConf::installDB();
+\LiveVoting\Conf\xlvoConf::updateDB();
 $a_set = $ilDB->query('SELECT * FROM rep_robj_xlvo_conf');
 while ($data = $ilDB->fetchObject($a_set)) {
     \LiveVoting\Conf\xlvoConf::set($data->config_key, $data->config_value);
@@ -330,7 +330,7 @@ xlvoVotingConfig::updateDB();
 <?php
 require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
-\LiveVoting\Voter\xlvoVoter::installDB();
+\LiveVoting\Voter\xlvoVoter::updateDB();
 ?>
 <#19>
 <?php
@@ -394,13 +394,13 @@ require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/Li
 <?php
 require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
-\LiveVoting\Round\xlvoRound::installDB();
+\LiveVoting\Round\xlvoRound::updateDB();
 ?>
 <#27>
 <?php
 require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
-\LiveVoting\User\xlvoVoteHistoryObject::installDB();
+\LiveVoting\User\xlvoVoteHistoryObject::updateDB();
 ?>
 <#28>
 <?php
