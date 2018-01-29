@@ -29,6 +29,7 @@ class xlvoCacheFactory {
                     self::$cache_instance = Version\v51\xlvoCache::getInstance();
                     break;
                 case ILIASVersionEnum::ILIAS_VERSION_5_2:
+	            case ILIASVersionEnum::ILIAS_VERSION_5_3:
                     self::$cache_instance = Version\v52\xlvoCache::getInstance('');
                     break;
             }

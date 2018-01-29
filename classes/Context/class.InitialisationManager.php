@@ -33,6 +33,7 @@ final class InitialisationManager {
 				Initialisation\Version\v51\xlvoBasicInitialisation::init();
 				break;
 			case ILIASVersionEnum::ILIAS_VERSION_5_2:
+			case ILIASVersionEnum::ILIAS_VERSION_5_3:
 				Initialisation\Version\v52\xlvoBasicInitialisation::init();
 				break;
 			default:
