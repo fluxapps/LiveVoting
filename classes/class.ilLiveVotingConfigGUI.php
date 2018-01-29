@@ -40,11 +40,11 @@ class ilLiveVotingConfigGUI extends \ilPluginConfigGUI {
 
 
 	public function executeCommand() {
-		$this->ctrl->setParameterByClass("ilobjcomponentsettingsgui", "ctype", $_GET["ctype"]);
-		$this->ctrl->setParameterByClass("ilobjcomponentsettingsgui", "cname", $_GET["cname"]);
-		$this->ctrl->setParameterByClass("ilobjcomponentsettingsgui", "slot_id", $_GET["slot_id"]);
-		$this->ctrl->setParameterByClass("ilobjcomponentsettingsgui", "plugin_id", $_GET["plugin_id"]);
-		$this->ctrl->setParameterByClass("ilobjcomponentsettingsgui", "pname", $_GET["pname"]);
+		$this->ctrl->setParameterByClass(\ilObjComponentSettingsGUI::class, "ctype", $_GET["ctype"]);
+		$this->ctrl->setParameterByClass(\ilObjComponentSettingsGUI::class, "cname", $_GET["cname"]);
+		$this->ctrl->setParameterByClass(\ilObjComponentSettingsGUI::class, "slot_id", $_GET["slot_id"]);
+		$this->ctrl->setParameterByClass(\ilObjComponentSettingsGUI::class, "plugin_id", $_GET["plugin_id"]);
+		$this->ctrl->setParameterByClass(\ilObjComponentSettingsGUI::class, "pname", $_GET["pname"]);
 
 		$this->tpl->setTitle($this->lng->txt("cmps_plugin") . ": " . $_GET["pname"]);
 		$this->tpl->setDescription("");
@@ -52,9 +52,9 @@ class ilLiveVotingConfigGUI extends \ilPluginConfigGUI {
 		$this->tabs->clearTargets();
 
 		if ($_GET["plugin_id"]) {
-			$this->tabs->setBackTarget($this->lng->txt("cmps_plugin"), $this->ctrl->getLinkTargetByClass("ilobjcomponentsettingsgui", "showPlugin"));
+			$this->tabs->setBackTarget($this->lng->txt("cmps_plugin"), $this->ctrl->getLinkTargetByClass(\ilObjComponentSettingsGUI::class, "showPlugin"));
 		} else {
-			$this->tabs->setBackTarget($this->lng->txt("cmps_plugins"), $this->ctrl->getLinkTargetByClass("ilobjcomponentsettingsgui", "listPlugins"));
+			$this->tabs->setBackTarget($this->lng->txt("cmps_plugins"), $this->ctrl->getLinkTargetByClass(\ilObjComponentSettingsGUI::class, "listPlugins"));
 		}
 
 		$nextClass = $this->ctrl->getNextClass();
@@ -64,8 +64,8 @@ class ilLiveVotingConfigGUI extends \ilPluginConfigGUI {
 			$this->ctrl->forwardCommand($a_gui_object);
 		} else {
 			$this->ctrl->redirectByClass(array(
-				'xlvoMainGUI',
-				'xlvoConfGUI'
+				xlvoMainGUI::class,
+				xlvoConfGUI::class
 			));
 		}
 	}

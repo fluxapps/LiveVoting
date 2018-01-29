@@ -23,9 +23,9 @@ if ($existing_pin) {
 }
 global $DIC;
 $ilCtrl = $DIC->ctrl();
-$ilCtrl->initBaseClass('ilUIPluginRouterGUI');
+$ilCtrl->initBaseClass(ilUIPluginRouterGUI::class);
 $ilCtrl->setTargetScript(xlvoConf::getFullApiURL());
 $ilCtrl->redirectByClass(array(
-	'ilUIPluginRouterGUI',
-	'xlvoVoter2GUI',
+	ilUIPluginRouterGUI::class,
+	xlvoVoter2GUI::class,
 ), $existing_pin ? xlvoVoter2GUI::CMD_START_VOTER_PLAYER : xlvoVoter2GUI::CMD_STANDARD);

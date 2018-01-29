@@ -273,7 +273,7 @@ class xlvoResultsGUI extends xlvoGUI {
 	 */
 	private function buildToolbar() {
 		$button = \ilLinkButton::getInstance();
-		$button->setUrl($this->ctrl->getLinkTargetByClass('xlvoResultsGUI', xlvoResultsGUI::CMD_CONFIRM_NEW_ROUND));
+		$button->setUrl($this->ctrl->getLinkTargetByClass(xlvoResultsGUI::class, xlvoResultsGUI::CMD_CONFIRM_NEW_ROUND));
 		$button->setCaption($this->pl->txt("new_round"), false);
 		$this->toolbar->addButtonInstance($button);
 

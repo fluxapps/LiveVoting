@@ -454,8 +454,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 			'status_running' => xlvoPlayer::STAT_RUNNING,
 			'identifier'     => self::IDENTIFIER,
 			'use_mathjax'    => (bool)$mathJaxSetting->get("enable"),
-			'debug'          => self::DEBUG,
-			'ilias_51'       => version_compare(ILIAS_VERSION_NUMERIC, '5.1.00', '>'),
+			'debug'          => self::DEBUG
 		);
 		$keyboard = new stdClass();
 		$keyboard->active = $this->manager->getVotingConfig()->isKeyboardActive();

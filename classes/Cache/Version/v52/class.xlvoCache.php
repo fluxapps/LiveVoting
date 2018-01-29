@@ -117,19 +117,19 @@ class xlvoCache extends \ilGlobalCache implements xlvoCacheService, Initialisabl
 	public static function lookupServiceClassName($service_type) {
 		switch ($service_type) {
 			case self::TYPE_APC:
-				return 'ilApc';
+				return \ilApc::class;
 				break;
 			case self::TYPE_MEMCACHED:
-				return 'ilMemcache';
+				return \ilMemcache::class;
 				break;
 			case self::TYPE_XCACHE:
-				return 'ilXcache';
+				return \ilXcache::class;
 				break;
             case self::TYPE_STATIC:
-                return 'ilStaticCache';
+                return \ilStaticCache::class;
                 break;
 			default:
-				return 'ilStaticCache';
+				return \ilStaticCache::class;
 				break;
 		}
 	}

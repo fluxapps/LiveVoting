@@ -57,7 +57,7 @@ class xlvoInitialisation extends \ilInitialisation {
 				//				self::initILIAS();
 				break;
 			case self::CONTEXT_PIN:
-				xlvoContext::init('xlvoContextLiveVoting');
+				xlvoContext::init(xlvoContextLiveVoting::class);
 				self::initILIAS2();
 				break;
 		}

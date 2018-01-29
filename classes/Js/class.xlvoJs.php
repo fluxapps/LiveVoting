@@ -103,7 +103,7 @@ class xlvoJs {
 	 */
 	public function api(xlvoGUI $xlvoGUI, array $additional_classes = array(), $cmd = '') {
 		$ilCtrl2 = clone($this->ctrl);
-		$this->ctrl->initBaseClass('ilUIPluginRouterGUI');
+		$this->ctrl->initBaseClass(ilUIPluginRouterGUI::class);
 		$ilCtrl2->setTargetScript(self::API_URL);
 		$additional_classes[] = get_class($xlvoGUI);
 
