@@ -242,11 +242,8 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 * Set Toolbar Content and Buttons for the Player.
 	 */
 	protected function initToolbarDuringVoting() {
-		$newerThanIlias51 = version_compare(ILIAS_VERSION_NUMERIC, '5.1.00', '>');
-		if ($newerThanIlias51) {
-			require_once('./Services/UIComponent/SplitButton/classes/class.ilButtonToSplitButtonMenuItemAdapter.php');
-			require_once('./Services/UIComponent/SplitButton/classes/class.ilSplitButtonGUI.php');
-		}
+		require_once('./Services/UIComponent/SplitButton/classes/class.ilButtonToSplitButtonMenuItemAdapter.php');
+		require_once('./Services/UIComponent/SplitButton/classes/class.ilSplitButtonGUI.php');
 
 		// Freeze
 		$suspendButton = xlvoLinkButton::getInstance();
@@ -265,7 +262,6 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$playButton->setUrl('#');
 		$playButton->setId('btn-unfreeze');
 
-		if ($newerThanIlias51) {
 			$split = ilSplitButtonGUI::getInstance();
 			$split->setDefaultButton($playButton);
 			foreach (array( 10, 30, 90, 120, 180, 240, 300 ) as $seconds) {
@@ -279,22 +275,6 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 			$this->addStickyButtonToToolbar($split);
 
-		} else {
-			$current_selection_list = new ilAdvancedSelectionListGUI();
-			$current_selection_list->setListTitle($this->txt('player_countdown'));
-			$current_selection_list->setId('xlvo_cd');
-			$current_selection_list->setTriggerEvent('player_countdown');
-			$current_selection_list->setUseImages(false);
-			/**
-			 * @var xlvoVoting[] $votings
-			 */
-			foreach (array( 10, 30, 90, 120, 180, 240, 300 ) as $seconds) {
-				$str = $seconds . ' ' . $this->pl->txt('player_seconds');
-				$current_selection_list->addItem($str, $seconds, '#', '', '', '', '', false, 'xlvoPlayer.countdown(' . $seconds . ')');
-			}
-			$this->addStickyButtonToToolbar($playButton);
-			$this->toolbar->addText($current_selection_list->getHTML());
-		}
 		// Hide
 		$suspendButton = ilLinkButton::getInstance();
 		$suspendButton->setCaption($this->txt('hide_results'), false);
@@ -436,11 +416,8 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$subversion = (int)explode('.', ILIAS_VERSION_NUMERIC)[1];
 
 		switch ($subversion) {
-			case \LiveVoting\Context\ILIASVersionEnum::ILIAS_VERSION_5_1:
-				$util = new ilUtil();
-				$util->includeMathjax();
-				break;
 			case \LiveVoting\Context\ILIASVersionEnum::ILIAS_VERSION_5_2:
+			case \LiveVoting\Context\ILIASVersionEnum::ILIAS_VERSION_5_3:
 				include_once './Services/MathJax/classes/class.ilMathJax.php';
 				ilMathJax::getInstance()->includeMathJax();
 				break;
