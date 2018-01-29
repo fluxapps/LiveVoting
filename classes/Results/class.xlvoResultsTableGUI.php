@@ -111,7 +111,7 @@ class xlvoResultsTableGUI extends ilTable2GUI {
 			$this->ctrl->setParameter($this->parent_obj, 'user_id', $record['user_id']);
 			$this->ctrl->setParameter($this->parent_obj, 'user_identifier', $record['user_identifier']);
 			$this->ctrl->setParameter($this->parent_obj, 'voting_id', $record['voting_id']);
-			$this->tpl->setVariable("ACTION_URL", $this->ctrl->getLinkTarget($this->parent_obj, 'showHistory'));
+			$this->tpl->setVariable("ACTION_URL", $this->ctrl->getLinkTarget($this->parent_obj, xlvoResultsGUI::CMD_SHOW_HISTORY));
 		}
 	}
 

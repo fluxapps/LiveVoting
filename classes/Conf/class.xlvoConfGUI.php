@@ -12,6 +12,8 @@ use LiveVoting\Voting\xlvoVoting;
  */
 class xlvoConfGUI extends xlvoGUI {
 
+	const CMD_RESET_TOKEN = 'resetToken';
+
 	/**
 	 * @param $key
 	 *
@@ -25,7 +27,7 @@ class xlvoConfGUI extends xlvoGUI {
 	public function index() {
 		if (xlvoConf::getConfig(xlvoConf::F_RESULT_API)) {
 			$b = ilLinkButton::getInstance();
-			$b->setUrl($this->ctrl->getLinkTarget($this, 'resetToken'));
+			$b->setUrl($this->ctrl->getLinkTarget($this, self::CMD_RESET_TOKEN));
 			$b->setCaption($this->txt('regenerate_token'), false);
 			$this->toolbar->addButtonInstance($b);
 			$b = ilLinkButton::getInstance();

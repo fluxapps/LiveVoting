@@ -43,6 +43,8 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 	const SUBTAB_EDIT = 'subtab_edit';
 	const TAB_CONTENT = 'tab_content';
 	const TAB_RESULTS = 'tab_results';
+	const TAB_PERMISSIONS = 'perm_settings';
+	const TAB_LEARNING_PROGRESS = 'learning_progress';
 	const F_TITLE = 'title';
 	const F_DESCRIPTION = 'description';
 	/**
@@ -194,7 +196,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 			case 'ilpermissiongui':
 				include_once("Services/AccessControl/classes/class.ilPermissionGUI.php");
 				$perm_gui = new \ilPermissionGUI($this);
-				$this->tabs->activateTab("perm_settings");
+				$this->tabs->activateTab(self::TAB_PERMISSIONS);
 				$ret = $this->ctrl->forwardCommand($perm_gui);
 				break;
 
@@ -206,7 +208,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 				break;
 
 			case 'illearningprogressgui':
-				$this->tabs->activateTab("learning_progress");
+				$this->tabs->activateTab(self::TAB_PERMISSIONS);
 				include_once './Services/Tracking/classes/class.ilLearningProgressGUI.php';
 				$new_gui = new \ilLearningProgressGUI(\ilLearningProgressGUI::LP_CONTEXT_REPOSITORY, $this->object->getRefId(), $_GET['user_id'] ? $_GET['user_id'] : $GLOBALS['ilUser']->getId());
 				$this->ctrl->forwardCommand($new_gui);

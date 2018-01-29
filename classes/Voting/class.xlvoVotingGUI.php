@@ -40,6 +40,8 @@ class xlvoVotingGUI {
 	const CMD_RESET_ALL = 'resetAll';
 	const CMD_CANCEL = 'cancel';
 	const CMD_BACK = 'back';
+	const CMD_EXPORT = 'export';
+	const CMD_IMPORT = 'import';
 	const F_TYPE = 'type';
 	/**
 	 * @var \ilTemplate
@@ -134,15 +136,15 @@ class xlvoVotingGUI {
 				if ($_GET['import']) {
 					$b = \ilLinkButton::getInstance();
 					$b->setCaption($this->txt('export'), false);
-					$b->setUrl($this->ctrl->getLinkTarget(new xlvoVotingGUI(), 'export'));
+					$b->setUrl($this->ctrl->getLinkTarget(new xlvoVotingGUI(), self::CMD_EXPORT));
 					$this->toolbar->addButtonInstance($b);
 
-					$this->toolbar->setFormAction($this->ctrl->getLinkTarget($this, 'import'), true);
+					$this->toolbar->setFormAction($this->ctrl->getLinkTarget($this, self::CMD_IMPORT), true);
 					$import = new \ilFileInputGUI('xlvo_import', 'xlvo_import');
 					$this->toolbar->addInputItem($import);
 					$button = ilSubmitButton::getInstance();
 					$button->setCaption($this->txt('import'), false);
-					$button->setCommand('import');
+					$button->setCommand(self::CMD_IMPORT);
 					$this->toolbar->addButtonInstance($button);
 				}
 

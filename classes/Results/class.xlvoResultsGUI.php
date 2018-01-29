@@ -75,7 +75,7 @@ class xlvoResultsGUI extends xlvoGUI {
 	private function showResults() {
 		$this->buildToolbar();
 
-		$table = new xlvoResultsTableGUI($this, 'showResults', $this->config->getVotingHistory());
+		$table = new xlvoResultsTableGUI($this, self::CMD_SHOW, $this->config->getVotingHistory());
 		$this->buildFilters($table);
 		$table->initFilter();
 		$table->buildData($this->obj_id, $this->round->getId());
@@ -130,25 +130,25 @@ class xlvoResultsGUI extends xlvoGUI {
 		$this->ctrl->setParameter($this, 'round_id', xlvoRound::getLatestRound($this->obj_id)
 		                                                      ->getId());
 		\ilUtil::sendSuccess($this->pl->txt("common_new_round_created"), true);
-		$this->ctrl->redirect($this, "showResults");
+		$this->ctrl->redirect($this, self::CMD_SHOW);
 	}
 
 
 	private function applyFilter() {
-		$table = new xlvoResultsTableGUI($this, 'showResults');
+		$table = new xlvoResultsTableGUI($this, self::CMD_SHOW);
 		$this->buildFilters($table);
 		$table->initFilter();
 		$table->writeFilterToSession();
-		$this->ctrl->redirect($this, 'showResults');
+		$this->ctrl->redirect($this, self::CMD_SHOW);
 	}
 
 
 	private function resetFilter() {
-		$table = new xlvoResultsTableGUI($this, 'showResults');
+		$table = new xlvoResultsTableGUI($this, self::CMD_SHOW);
 		$this->buildFilters($table);
 		$table->initFilter();
 		$table->resetFilter();
-		$this->ctrl->redirect($this, 'showResults');
+		$this->ctrl->redirect($this, self::CMD_SHOW);
 	}
 
 
@@ -173,7 +173,7 @@ class xlvoResultsGUI extends xlvoGUI {
 		$form = new \ilPropertyFormGUI();
 		$form->setItems(array( $q, $p, $d ));
 
-		$table = new xlvoVoteHistoryTableGUI($this, 'showHistory');
+		$table = new xlvoVoteHistoryTableGUI($this, self::CMD_SHOW_HISTORY);
 		$table->parseData($_GET['user_id'], $_GET['user_identifier'], $_GET['voting_id'], $this->round->getId());
 		$this->tpl->setContent($form->getHTML() . $table->getHTML());
 	}
