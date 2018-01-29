@@ -25,4 +25,8 @@ class xlvoObjectDefinition {
 	public function getTranslationType() {
 		return ''; //"sys"
 	}
+
+	public function getOrgUnitPermissionTypes() {
+		return [];
+	}
 }
