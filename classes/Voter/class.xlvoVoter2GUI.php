@@ -29,7 +29,6 @@ class xlvoVoter2GUI extends xlvoGUI {
 	const CMD_START_VOTER_PLAYER = 'startVoterPlayer';
 	const CMD_GET_VOTING_DATA = 'loadVotingData';
 	const DEBUG = false;
-	const ILIAS_VERSION_5_2 = "5.2.0";
 	/**
 	 * @var string
 	 */
@@ -151,16 +150,9 @@ class xlvoVoter2GUI extends xlvoGUI {
 		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/QuestionTypes/NumberRange/number_range.css');
 		\iljQueryUtil::initjQueryUI();
 
-		if(version_compare(ILIAS_VERSION_NUMERIC, self::ILIAS_VERSION_5_2) >= 0)
-		{
-			require_once './Services/MathJax/classes/class.ilMathJax.php';
-			ilMathJax::getInstance()->includeMathJax();
-		}
-		else
-		{
-			$util = new ilUtil();
-			$util->includeMathjax();
-		}
+		require_once './Services/MathJax/classes/class.ilMathJax.php';
+		ilMathJax::getInstance()->includeMathJax();
+
 		$t = array( 'player_seconds' );
 
 		$mathJaxSetting = new ilSetting("MathJax");
