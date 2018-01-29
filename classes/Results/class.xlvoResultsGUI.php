@@ -31,17 +31,9 @@ class xlvoResultsGUI extends xlvoGUI {
 	 */
 	private $obj_id = 0;
 	/**
-	 * @var ilLiveVotingPlugin
-	 */
-	protected $pl;
-	/**
 	 * @var xlvoVotingConfig
 	 */
 	private $config;
-	/**
-	 * @var \ilCtrl
-	 */
-	protected $ctrl;
 
 
 	public function __construct($obj_id) {
@@ -53,12 +45,7 @@ class xlvoResultsGUI extends xlvoGUI {
 
 
 	public function executeCommand() {
-		/**
-		 * @var $ilCtrl \ilCtrl
-		 */
-		global $ilCtrl;
-
-		$cmd = $ilCtrl->getCmd();
+		$cmd = $this->ctrl->getCmd();
 		switch ($cmd) {
 			case self::CMD_SHOW:
 				$this->showResults();
@@ -86,15 +73,13 @@ class xlvoResultsGUI extends xlvoGUI {
 
 
 	private function showResults() {
-		global $tpl;
-
 		$this->buildToolbar();
 
 		$table = new xlvoResultsTableGUI($this, 'showResults', $this->config->getVotingHistory());
 		$this->buildFilters($table);
 		$table->initFilter();
 		$table->buildData($this->obj_id, $this->round->getId());
-		$tpl->setContent($table->getHTML());
+		$this->tpl->setContent($table->getHTML());
 	}
 
 
@@ -168,7 +153,6 @@ class xlvoResultsGUI extends xlvoGUI {
 
 
 	private function showHistory() {
-		global $tpl;
 		$this->tabs->setBackTarget($this->pl->txt('common_back'), $this->ctrl->getLinkTarget($this, self::CMD_SHOW));
 
 		$user_id = $_GET['user_id'] ? $_GET['user_id'] : $_GET['user_identifier'];
@@ -191,7 +175,7 @@ class xlvoResultsGUI extends xlvoGUI {
 
 		$table = new xlvoVoteHistoryTableGUI($this, 'showHistory');
 		$table->parseData($_GET['user_id'], $_GET['user_identifier'], $_GET['voting_id'], $this->round->getId());
-		$tpl->setContent($form->getHTML() . $table->getHTML());
+		$this->tpl->setContent($form->getHTML() . $table->getHTML());
 	}
 
 
@@ -228,8 +212,6 @@ class xlvoResultsGUI extends xlvoGUI {
 
 
 	public function confirmNewRound() {
-		global $tpl;
-
 		require_once "./Services/Utilities/classes/class.ilConfirmationGUI.php";
 
 		$conf = new \ilConfirmationGUI();
@@ -237,7 +219,7 @@ class xlvoResultsGUI extends xlvoGUI {
 		$conf->setHeaderText($this->pl->txt('common_confirm_new_round'));
 		$conf->setConfirm($this->pl->txt("common_new_round"), self::CMD_NEW_ROUND);
 		$conf->setCancel($this->pl->txt('common_cancel'), self::CMD_SHOW);
-		$tpl->setContent($conf->getHTML());
+		$this->tpl->setContent($conf->getHTML());
 	}
 
 
@@ -290,33 +272,28 @@ class xlvoResultsGUI extends xlvoGUI {
 	 *
 	 */
 	private function buildToolbar() {
-		global $ilToolbar;
-		/**
-		 * @var $ilToolbar \ilToolbarGUI
-		 */
-
 		$button = \ilLinkButton::getInstance();
 		$button->setUrl($this->ctrl->getLinkTargetByClass('xlvoResultsGUI', xlvoResultsGUI::CMD_CONFIRM_NEW_ROUND));
 		$button->setCaption($this->pl->txt("new_round"), false);
-		$ilToolbar->addButtonInstance($button);
+		$this->toolbar->addButtonInstance($button);
 
-		$ilToolbar->addSeparator();
+		$this->toolbar->addSeparator();
 
 		$table_selection = new \ilSelectInputGUI('', 'round_id');
 		$options = $this->getRounds();
 		$table_selection->setOptions($options);
 		$table_selection->setValue($this->round->getId());
 
-		$ilToolbar->setFormAction($this->ctrl->getFormAction($this, self::CMD_CHANGE_ROUND));
-		$ilToolbar->addText($this->pl->txt("common_round"));
-		$ilToolbar->addInputItem($table_selection);
+		$this->toolbar->setFormAction($this->ctrl->getFormAction($this, self::CMD_CHANGE_ROUND));
+		$this->toolbar->addText($this->pl->txt("common_round"));
+		$this->toolbar->addInputItem($table_selection);
 
 		require_once 'Services/UIComponent/Button/classes/class.ilSubmitButton.php';
 
 		$button = \ilSubmitButton::getInstance();
 		$button->setCaption($this->pl->txt('common_change'), false);
 		$button->setCommand(self::CMD_CHANGE_ROUND);
-		$ilToolbar->addButtonInstance($button);
+		$this->toolbar->addButtonInstance($button);
 	}
 
 

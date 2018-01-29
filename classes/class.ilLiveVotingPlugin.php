@@ -65,7 +65,8 @@ class ilLiveVotingPlugin extends \ilRepositoryObjectPlugin {
 			"xlvo_voter",
 			"xlvo_voter_seq",
 		);
-		global $ilDB;
+		global $DIC;
+		$ilDB = $DIC->database();
 		foreach ($tables as $table) {
 			$substr = substr($table, - 4);
 			if ($substr == '_seq') {

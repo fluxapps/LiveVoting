@@ -43,23 +43,22 @@ class xlvoGUI {
 	/**
 	 * @var bool $is_api_call
 	 */
-	private $is_api_call;
+	protected $is_api_call;
+	/**
+	 * @var ilObjUser
+	 */
+	protected $usr;
 
 
 	public function __construct() {
-		global $tpl, $ilCtrl, $ilTabs, $ilToolbar;
-		/**
-		 * @var $ilCtrl    \ilCtrl
-		 * @var $ilTabs    \ilTabsGUI
-		 * @var $tpl       |ilTemplate
-		 * @var $ilToolbar |ilToolbarGUI
-		 */
-		$this->tpl = $tpl;
-		$this->tabs = $ilTabs;
-		$this->ctrl = $ilCtrl;
-		$this->toolbar = $ilToolbar;
+		global $DIC;
+		$this->tpl = $DIC->ui()->mainTemplate();
+		$this->tabs = $DIC->tabs();
+		$this->ctrl = $DIC->ctrl();
+		$this->toolbar = $DIC->toolbar();
 		$this->pl = ilLiveVotingPlugin::getInstance();
 		$this->is_api_call = ($this->ctrl->getTargetScript() == xlvoConf::getFullApiURL());
+		$this->usr = $DIC->user();
 	}
 
 

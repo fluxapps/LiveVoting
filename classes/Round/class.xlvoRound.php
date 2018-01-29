@@ -22,7 +22,8 @@ class xlvoRound extends CachingActiveRecord  {
      */
     public static function getLatestRoundId($obj_id)
     {
-        global $ilDB;
+        global $DIC;
+        $ilDB = $DIC->database();
         /**
          * @var $ilDB \ilDB
          */

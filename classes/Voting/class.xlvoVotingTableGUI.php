@@ -39,18 +39,19 @@ class xlvoVotingTableGUI extends \ilTable2GUI {
 	 * @var \ilCtrl
 	 */
 	protected $ctrl;
+	/**
+	 * @var ilObjLiveVotingAccess
+	 */
+	protected $access;
 
 
 	public function __construct(xlvoVotingGUI $a_parent_obj, $a_parent_cmd) {
-		/**
-		 * @var $ilCtrl    \ilCtrl
-		 * @var $ilToolbar ilToolbarGUI
-		 */
-		global $ilCtrl, $ilToolbar;
+		global $DIC;
 		$this->voting_gui = $a_parent_obj;
-		$this->toolbar = $ilToolbar;
-		$this->ctrl = $ilCtrl;
+		$this->toolbar = $DIC->toolbar();
+		$this->ctrl = $DIC->ctrl();
 		$this->pl = ilLiveVotingPlugin::getInstance();
+		$this->access = new ilObjLiveVotingAccess();
 
 		xlvoJs::getInstance()->addLibToHeader('sortable.js');
 
@@ -167,16 +168,13 @@ class xlvoVotingTableGUI extends \ilTable2GUI {
 	 * @param xlvoVoting $xlvoVoting
 	 */
 	protected function addActionMenu(xlvoVoting $xlvoVoting) {
-		global $access;
-		$access = new ilObjLiveVotingAccess();
-
 		$current_selection_list = new \ilAdvancedSelectionListGUI();
 		$current_selection_list->setListTitle($this->txt('actions'));
 		$current_selection_list->setId('xlvo_actions_' . $xlvoVoting->getId());
 		$current_selection_list->setUseImages(false);
 
 		$this->ctrl->setParameter($this->voting_gui, xlvoVotingGUI::IDENTIFIER, $xlvoVoting->getId());
-		if ($access->hasWriteAccess()) {
+		if ($this->access->hasWriteAccess()) {
 			$current_selection_list->addItem($this->txt('edit'), xlvoVotingGUI::CMD_EDIT, $this->ctrl->getLinkTarget($this->voting_gui, xlvoVotingGUI::CMD_EDIT));
 			$current_selection_list->addItem($this->txt('reset'), xlvoVotingGUI::CMD_CONFIRM_RESET, $this->ctrl->getLinkTarget($this->voting_gui, xlvoVotingGUI::CMD_CONFIRM_RESET));
 			$current_selection_list->addItem($this->txt(xlvoVotingGUI::CMD_DUPLICATE), xlvoVotingGUI::CMD_DUPLICATE, $this->ctrl->getLinkTarget($this->voting_gui, xlvoVotingGUI::CMD_DUPLICATE));

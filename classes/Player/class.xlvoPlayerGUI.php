@@ -436,8 +436,11 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$subversion = (int)explode('.', ILIAS_VERSION_NUMERIC)[1];
 
 		switch ($subversion) {
+			case \LiveVoting\Context\ILIASVersionEnum::ILIAS_VERSION_5_1:
+				$util = new ilUtil();
+				$util->includeMathjax();
+				break;
 			case \LiveVoting\Context\ILIASVersionEnum::ILIAS_VERSION_5_2:
-			case \LiveVoting\Context\ILIASVersionEnum::ILIAS_VERSION_5_3:
 				include_once './Services/MathJax/classes/class.ilMathJax.php';
 				ilMathJax::getInstance()->includeMathJax();
 				break;
@@ -470,9 +473,8 @@ class xlvoPlayerGUI extends xlvoGUI {
 			'player_voters_online',
 			'voting_confirm_reset',
 		))->init()->call('run');
-		global $tpl;
-		$tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Player/player.css');
-		$tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Display/Bar/bar.css');
+		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Player/player.css');
+		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Display/Bar/bar.css');
 	}
 
 

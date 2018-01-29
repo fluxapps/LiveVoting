@@ -48,7 +48,8 @@ final class InitialisationManager {
 	public static final function startLight() {
 		xlvoInitialisation::init();
 
-		global $ilUser;
+		global $DIC;
+		$ilUser = $DIC->user();
 
 		if ($ilUser instanceof \ilObjUser && $ilUser->getId()) {
 			xlvoUser::getInstance()->setIdentifier($ilUser->getId())->setType(xlvoUser::TYPE_ILIAS);

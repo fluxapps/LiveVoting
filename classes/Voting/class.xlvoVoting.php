@@ -242,7 +242,8 @@ class xlvoVoting extends CachingActiveRecord {
 
 
 	public function create() {
-		global $ilDB;
+		global $DIC;
+		$ilDB = $DIC->database();
 		$res = $ilDB->query('SELECT MAX(position) AS max FROM rep_robj_xlvo_voting_n WHERE obj_id = '
 		                    . $ilDB->quote($this->getObjId(), 'integer'));
 		$data = $ilDB->fetchObject($res);

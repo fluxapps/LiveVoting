@@ -62,7 +62,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 	 */
 	protected $toolbar;
 	/**
-	 * @var ilObjLiveVotingAccess
+	 * @var ilAccess
 	 */
 	protected $access;
 	/**
@@ -73,24 +73,28 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 	 * @var \ilObjUser
 	 */
 	protected $usr;
+	/**
+	 * @var ilLanguage
+	 */
+	protected $lng;
+	/**
+	 * @var ilNavigationHistory
+	 */
+	protected $ilNavigationHistory;
 
 
 	protected function afterConstructor() {
-		global $tpl, $ilCtrl, $ilTabs, $ilUser, $ilToolbar;
+		global $DIC;
 
-		/**
-		 * @var $tpl       \ilTemplate
-		 * @var $ilCtrl    \ilCtrl
-		 * @var $ilTabs    \ilTabsGUI
-		 * @var $ilUser    \ilObjUser
-		 * @var $ilToolbar \ilToolbarGUI
-		 */
-		$this->tpl = $tpl;
-		$this->ctrl = $ilCtrl;
-		$this->tabs = $ilTabs;
-		$this->usr = $ilUser;
-		$this->toolbar = $ilToolbar;
+		$this->tpl = $DIC->ui()->mainTemplate();
+		$this->ctrl = $DIC->ctrl();
+		$this->tabs = $DIC->tabs();
+		$this->usr = $DIC->user();
+		$this->toolbar = $DIC->toolbar();
+		$this->lng = $DIC->language();
 		$this->pl = ilLiveVotingPlugin::getInstance();
+		$this->ilNavigationHistory = $DIC["ilNavigationHistory"];
+		$this->access = $DIC->access();
 	}
 
 
@@ -103,8 +107,6 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 
 
 	protected function initHeaderAndLocator() {
-		global $ilNavigationHistory;
-
 		// get standard template (includes main menu and general layout)
 		$this->tpl->getStandardTemplate();
 		$this->setTitleAndDescription();
@@ -124,10 +126,9 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 				$this->setAdminTabs();
 			}
 
-			global $ilAccess;
 			// add entry to navigation history
-			if ($ilAccess->checkAccess('read', '', $_GET['ref_id'])) {
-				$ilNavigationHistory->addItem($_GET['ref_id'], $this->ctrl->getLinkTarget($this, $this->getStandardCmd()), $this->getType());
+			if ($this->access->checkAccess('read', '', $_GET['ref_id'])) {
+				$this->ilNavigationHistory->addItem($_GET['ref_id'], $this->ctrl->getLinkTarget($this, $this->getStandardCmd()), $this->getType());
 			}
 		} else {
 			// show info of parent
@@ -522,14 +523,12 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 	 * Goto redirection
 	 */
 	public static function _goto($a_target) {
+		global $DIC;
+		$ilCtrl = $DIC->ctrl();
 		if (preg_match("/[\\d]*_pin_([\\w]*)/", $a_target[0], $matches)) {
 			xlvoInitialisation::saveContext(xlvoInitialisation::CONTEXT_ILIAS);
 			xlvoInitialisation::setCookiePIN($matches[1], true);
 
-			global $ilCtrl;
-			/**
-			 * @var \ilCtrl $ilCtrl
-			 */
 			$ilCtrl->initBaseClass('ilUIPluginRouterGUI');
 			$ilCtrl->setTargetScript(ltrim(xlvoConf::getFullApiURL(), './'));
 			$ilCtrl->redirectByClass(array(
@@ -557,19 +556,15 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 
 
 	public function addToDeskObject() {
-		global $lng;
-
 		include_once './Services/PersonalDesktop/classes/class.ilDesktopItemGUI.php';
 		ilDesktopItemGUI::addToDesktop();
-		ilUtil::sendSuccess($lng->txt("added_to_desktop"));
+		ilUtil::sendSuccess($this->lng->txt("added_to_desktop"));
 	}
 
 
 	public function removeFromDeskObject() {
-		global $lng;
-
 		include_once './Services/PersonalDesktop/classes/class.ilDesktopItemGUI.php';
 		ilDesktopItemGUI::removeFromDesktop();
-		ilUtil::sendSuccess($lng->txt("removed_from_desktop"));
+		ilUtil::sendSuccess($this->lng->txt("removed_from_desktop"));
 	}
 }

@@ -80,20 +80,13 @@ class xlvoVotingGUI {
 
 
 	public function __construct() {
-		global $tpl, $ilCtrl, $ilTabs, $ilUser, $ilToolbar;
+		global $DIC;
 
-		/**
-		 * @var $tpl       \ilTemplate
-		 * @var $ilCtrl    \ilCtrl
-		 * @var $ilTabs    \ilTabsGUI
-		 * @var $ilUser    \ilObjUser
-		 * @var $ilToolbar \ilToolbarGUI
-		 */
-		$this->tpl = $tpl;
-		$this->ctrl = $ilCtrl;
-		$this->tabs = $ilTabs;
-		$this->usr = $ilUser;
-		$this->toolbar = $ilToolbar;
+		$this->tpl = $DIC->ui()->mainTemplate();
+		$this->ctrl = $DIC->ctrl();
+		$this->tabs = $DIC->tabs();
+		$this->usr = $DIC->user();
+		$this->toolbar = $DIC->toolbar();
 		$this->access = new ilObjLiveVotingAccess();
 		$this->pl = ilLiveVotingPlugin::getInstance();
 		$this->obj_id = \ilObject2::_lookupObjId($_GET['ref_id']);

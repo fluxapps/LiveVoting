@@ -21,10 +21,8 @@ $existing_pin = trim($_REQUEST['pin'], '/');
 if ($existing_pin) {
 	CookieManager::setCookiePIN(trim($_REQUEST['pin'], '/'));
 }
-global $ilCtrl;
-/**
- * @var ilCtrl $ilCtrl
- */
+global $DIC;
+$ilCtrl = $DIC->ctrl();
 $ilCtrl->initBaseClass('ilUIPluginRouterGUI');
 $ilCtrl->setTargetScript(xlvoConf::getFullApiURL());
 $ilCtrl->redirectByClass(array(

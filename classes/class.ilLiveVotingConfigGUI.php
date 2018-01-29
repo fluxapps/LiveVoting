@@ -12,35 +12,58 @@ require_once('./Services/Component/classes/class.ilPluginConfigGUI.php');
  */
 class ilLiveVotingConfigGUI extends \ilPluginConfigGUI {
 
+	/**
+	 * @var ilCtrl
+	 */
+	protected $ctrl;
+	/**
+	 * @var ilTabsGUI
+	 */
+	protected $tabs;
+	/**
+	 * @var ilLanguage
+	 */
+	protected $lng;
+	/**
+	 * @var ilTemplate
+	 */
+	protected $tpl;
+	
+	public function __construct() { 
+		global $DIC;
+		
+		$this->ctrl = $DIC->ctrl();
+		$this->tabs = $DIC->tabs();
+		$this->lng = $DIC->language();
+		$this->tpl = $DIC->ui()->mainTemplate();
+	}
+
+
 	public function executeCommand() {
-		global $ilCtrl, $ilTabs, $lng, $tpl;
-		/**
-		 * @var $ilCtrl \ilCtrl
-		 */
-		$ilCtrl->setParameterByClass("ilobjcomponentsettingsgui", "ctype", $_GET["ctype"]);
-		$ilCtrl->setParameterByClass("ilobjcomponentsettingsgui", "cname", $_GET["cname"]);
-		$ilCtrl->setParameterByClass("ilobjcomponentsettingsgui", "slot_id", $_GET["slot_id"]);
-		$ilCtrl->setParameterByClass("ilobjcomponentsettingsgui", "plugin_id", $_GET["plugin_id"]);
-		$ilCtrl->setParameterByClass("ilobjcomponentsettingsgui", "pname", $_GET["pname"]);
+		$this->ctrl->setParameterByClass("ilobjcomponentsettingsgui", "ctype", $_GET["ctype"]);
+		$this->ctrl->setParameterByClass("ilobjcomponentsettingsgui", "cname", $_GET["cname"]);
+		$this->ctrl->setParameterByClass("ilobjcomponentsettingsgui", "slot_id", $_GET["slot_id"]);
+		$this->ctrl->setParameterByClass("ilobjcomponentsettingsgui", "plugin_id", $_GET["plugin_id"]);
+		$this->ctrl->setParameterByClass("ilobjcomponentsettingsgui", "pname", $_GET["pname"]);
 
-		$tpl->setTitle($lng->txt("cmps_plugin") . ": " . $_GET["pname"]);
-		$tpl->setDescription("");
+		$this->tpl->setTitle($this->lng->txt("cmps_plugin") . ": " . $_GET["pname"]);
+		$this->tpl->setDescription("");
 
-		$ilTabs->clearTargets();
+		$this->tabs->clearTargets();
 
 		if ($_GET["plugin_id"]) {
-			$ilTabs->setBackTarget($lng->txt("cmps_plugin"), $ilCtrl->getLinkTargetByClass("ilobjcomponentsettingsgui", "showPlugin"));
+			$this->tabs->setBackTarget($this->lng->txt("cmps_plugin"), $this->ctrl->getLinkTargetByClass("ilobjcomponentsettingsgui", "showPlugin"));
 		} else {
-			$ilTabs->setBackTarget($lng->txt("cmps_plugins"), $ilCtrl->getLinkTargetByClass("ilobjcomponentsettingsgui", "listPlugins"));
+			$this->tabs->setBackTarget($this->lng->txt("cmps_plugins"), $this->ctrl->getLinkTargetByClass("ilobjcomponentsettingsgui", "listPlugins"));
 		}
 
-		$nextClass = $ilCtrl->getNextClass();
+		$nextClass = $this->ctrl->getNextClass();
 
 		if ($nextClass) {
 			$a_gui_object = new xlvoMainGUI();
-			$ilCtrl->forwardCommand($a_gui_object);
+			$this->ctrl->forwardCommand($a_gui_object);
 		} else {
-			$ilCtrl->redirectByClass(array(
+			$this->ctrl->redirectByClass(array(
 				'xlvoMainGUI',
 				'xlvoConfGUI'
 			));
