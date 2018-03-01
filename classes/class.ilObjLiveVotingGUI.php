@@ -533,7 +533,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 		$ilCtrl = $DIC->ctrl();
 		if (preg_match("/[\\d]*_pin_([\\w]*)/", $a_target[0], $matches)) {
 			xlvoInitialisation::saveContext(xlvoInitialisation::CONTEXT_ILIAS);
-			xlvoInitialisation::setCookiePIN($matches[1], true);
+			CookieManager::setCookiePIN($matches[1], true);
 
 			$ilCtrl->initBaseClass(ilUIPluginRouterGUI::class);
 			$ilCtrl->setTargetScript(ltrim(xlvoConf::getFullApiURL(), './'));
@@ -549,7 +549,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 
 	protected function redirectToPublicVotingMask() {
 		$xlvoVotingManager2 = xlvoVotingManager2::getInstanceFromObjId($this->obj_id);
-		xlvoInitialisation::setCookiePIN($xlvoVotingManager2->getVotingConfig()->getPin(), true);
+		CookieManager::setCookiePIN($xlvoVotingManager2->getVotingConfig()->getPin(), true);
 		CookieManager::setContext(xlvoContext::CONTEXT_ILIAS);
 
 		$this->ctrl->initBaseClass(ilUIPluginRouterGUI::class);
