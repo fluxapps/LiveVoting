@@ -49,7 +49,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 
 
 	public function executeCommand() {
-		$this->pin = xlvoInitialisation::getCookiePIN();
+		$this->pin = CookieManager::getCookiePIN();
 		$this->manager = new xlvoVotingManager2($this->pin);
 		$nextClass = $this->ctrl->getNextClass();
 		switch ($nextClass) {
@@ -110,13 +110,13 @@ class xlvoVoter2GUI extends xlvoGUI {
 		try {
 			xlvoPin::checkPin($_POST[self::F_PIN_INPUT]);
 		} catch (xlvoVoterException $e) {
-			xlvoInitialisation::resetCookiePIN();
+			CookieManager::resetCookiePIN();
 			\ilUtil::sendFailure($this->txt('msg_validation_error_pin_' . $e->getCode()));
 			$this->index();
 			$redirect = false;
 		}
 		if ($redirect) {
-			xlvoInitialisation::setCookiePIN($_POST[self::F_PIN_INPUT]);
+			CookieManager::setCookiePIN($_POST[self::F_PIN_INPUT]);
 			$this->ctrl->redirect($this, self::CMD_START_VOTER_PLAYER);
 		}
 	}
