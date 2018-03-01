@@ -14,6 +14,7 @@ final class CookieManager {
 
 	const PIN_COOKIE = 'xlvo_pin';
 	const PIN_COOKIE_FORCE = 'xlvo_force';
+	const PUK_COOKIE = 'xlvo_puk';
 
 
 	/**
@@ -34,11 +35,12 @@ final class CookieManager {
 	 * The context constants can be found in the xlvoContext class.
 	 *
 	 * @param int $context CONTEXT_ILIAS or CONTEXT_PIN are valid options.
+	 *
 	 * @throws \Exception Throws exception when the given context is invalid.
 	 */
 	public static function setContext($context) {
 		if ($context === xlvoContext::CONTEXT_ILIAS || $context === xlvoContext::CONTEXT_PIN) {
-			setcookie(xlvoContext::XLVO_CONTEXT, $context, null, '/');
+			setcookie(xlvoContext::XLVO_CONTEXT, $context, NULL, '/');
 		} else {
 			throw new \Exception("invalid context received");
 		}
@@ -61,9 +63,9 @@ final class CookieManager {
 	 * @param int $pin
 	 */
 	public static function setCookiePIN($pin, $forrce = false) {
-		setcookie(self::PIN_COOKIE, $pin, null, '/');
+		setcookie(self::PIN_COOKIE, $pin, NULL, '/');
 		if ($forrce) {
-			setcookie(self::PIN_COOKIE_FORCE, true, null, '/');
+			setcookie(self::PIN_COOKIE_FORCE, true, NULL, '/');
 		}
 	}
 
@@ -71,10 +73,10 @@ final class CookieManager {
 	public static function resetCookiePIN() {
 		if ($_COOKIE[self::PIN_COOKIE_FORCE]) {
 			unset($_COOKIE[self::PIN_COOKIE_FORCE]);
-			setcookie(self::PIN_COOKIE_FORCE, null, - 1, '/');
+			setcookie(self::PIN_COOKIE_FORCE, NULL, - 1, '/');
 		} else {
 			unset($_COOKIE[self::PIN_COOKIE]);
-			setcookie(self::PIN_COOKIE, null, - 1, '/');
+			setcookie(self::PIN_COOKIE, NULL, - 1, '/');
 		}
 	}
 
@@ -84,5 +86,40 @@ final class CookieManager {
 	 */
 	private static function hasCookiePIN() {
 		return isset($_COOKIE[self::PIN_COOKIE]);
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public static function getCookiePUK() {
+		if (!self::hasCookiePUK()) {
+			return false;
+		}
+
+		return $_COOKIE[self::PUK_COOKIE];
+	}
+
+
+	/**
+	 * @param string $puk
+	 */
+	public static function setCookiePUK($puk, $forrce = false) {
+		setcookie(self::PUK_COOKIE, $puk, NULL, '/');
+	}
+
+
+	public static function resetCookiePUK() {
+		if (isset($_COOKIE[self::PUK_COOKIE])) {
+			unset($_COOKIE[self::PUK_COOKIE]);
+		}
+	}
+
+
+	/**
+	 * @return bool
+	 */
+	private static function hasCookiePUK() {
+		return isset($_COOKIE[self::PUK_COOKIE]);
 	}
 }

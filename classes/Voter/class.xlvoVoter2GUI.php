@@ -28,6 +28,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 	const F_PIN_INPUT = 'pin_input';
 	const CMD_START_VOTER_PLAYER = 'startVoterPlayer';
 	const CMD_GET_VOTING_DATA = 'loadVotingData';
+	const CMD_START_PRESENTER = 'startPresenter';
 	const DEBUG = false;
 	/**
 	 * @var string
@@ -41,6 +42,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 
 	/**
 	 * @param $key
+	 *
 	 * @return string
 	 */
 	protected function txt($key) {
@@ -54,7 +56,9 @@ class xlvoVoter2GUI extends xlvoGUI {
 		$nextClass = $this->ctrl->getNextClass();
 		switch ($nextClass) {
 			case '':
-				if (!$this->manager->getVotingConfig()->isAnonymous() && (is_null($this->usr) || $this->usr->getId() == 13 || $this->usr->getId() == 0)) {
+				if (!$this->manager->getVotingConfig()->isAnonymous()
+					&& (is_null($this->usr) || $this->usr->getId() == 13
+						|| $this->usr->getId() == 0)) {
 					//remove plugin path to get "real" web root otherwise we break installations with context paths -> http://demo.ilias.ch/test/goto.php
 					$plugin_path = "Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting";
 					$ilias_base_path = str_replace($plugin_path, '', ILIAS_HTTP_PATH);
@@ -130,6 +134,24 @@ class xlvoVoter2GUI extends xlvoGUI {
 	}
 
 
+	protected function startPresenter() {
+		$puk = CookieManager::getCookiePUK();
+
+		/**
+		 * @var xlvoVotingConfig|null $xlvoVotingConfig
+		 */
+
+		$xlvoVotingConfig = xlvoVotingConfig::find($this->manager->getObjId());
+
+		if ($xlvoVotingConfig === NULL || $xlvoVotingConfig->getPuk() !== $puk) {
+			die("Wrong PUK!");
+		}
+
+		$player_gui= new xlvoPlayerGUI();
+		//$player_gui->startPlayer();
+	}
+
+
 	protected function getVotingData() {
 		/**
 		 * @var $showAttendees xlvoVotingConfig
@@ -171,12 +193,12 @@ class xlvoVoter2GUI extends xlvoGUI {
 
 		$settings = array(
 			'use_mathjax' => (bool)$mathJaxSetting->get("enable"),
-			'debug'       => self::DEBUG,
-			'delay'       => $delay,
+			'debug' => self::DEBUG,
+			'delay' => $delay,
 		);
 
 		xlvoJs::getInstance()->api($this, array( ilUIPluginRouterGUI::class ))->addSettings($settings)->name('Voter')->addTranslations($t)->init()
-		      ->call('run');
+			->call('run');
 		foreach (xlvoQuestionTypes::getActiveTypes() as $type) {
 			xlvoQuestionTypesGUI::getInstance($this->manager, $type)->initJS();
 		}
