@@ -28,7 +28,6 @@ class xlvoVoter2GUI extends xlvoGUI {
 	const F_PIN_INPUT = 'pin_input';
 	const CMD_START_VOTER_PLAYER = 'startVoterPlayer';
 	const CMD_GET_VOTING_DATA = 'loadVotingData';
-	const CMD_START_PRESENTER = 'startPresenter';
 	const DEBUG = false;
 	/**
 	 * @var string
@@ -131,24 +130,6 @@ class xlvoVoter2GUI extends xlvoGUI {
 		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/default.css');
 		$tpl = new \ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voter/tpl.voter_player.html', true, false);
 		$this->tpl->setContent($tpl->get());
-	}
-
-
-	protected function startPresenter() {
-		$puk = CookieManager::getCookiePUK();
-
-		/**
-		 * @var xlvoVotingConfig|null $xlvoVotingConfig
-		 */
-
-		$xlvoVotingConfig = xlvoVotingConfig::find($this->manager->getObjId());
-
-		if ($xlvoVotingConfig === NULL || $xlvoVotingConfig->getPuk() !== $puk) {
-			die("Wrong PUK!");
-		}
-
-		$player_gui= new xlvoPlayerGUI();
-		//$player_gui->startPlayer();
 	}
 
 

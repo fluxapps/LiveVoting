@@ -34,5 +34,5 @@ $ilCtrl->initBaseClass(ilUIPluginRouterGUI::class);
 $ilCtrl->setTargetScript(xlvoConf::getFullApiURL());
 $ilCtrl->redirectByClass(array(
 	ilUIPluginRouterGUI::class,
-	xlvoVoter2GUI::class,
-), $puk ? xlvoVoter2GUI::CMD_START_PRESENTER : xlvoVoter2GUI::CMD_STANDARD);
+	xlvoPlayerGUI::class,
+), xlvoPlayerGUI::CMD_START_PRESENTER);
