@@ -251,4 +251,3 @@ xlvo_new#:#Neues LiveVoting anlegen
 xlvo_read#:#Leserecht (nur im nicht-anonymen Modus verwendet
 xlvo_visible#:#LiveVoting sichtbar
 xlvo_write#:#LiveVoting präsentieren und bearbeiten
-config_presenter_link#:#Moderator-Link

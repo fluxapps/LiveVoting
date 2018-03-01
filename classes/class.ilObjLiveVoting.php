@@ -79,11 +79,9 @@ class ilObjLiveVoting extends \ilObjectPlugin {
 	 */
 	function doCreate() {
 		$xlvoPin = new xlvoPin();
-		$xlvoPuk = new xlvoPin();
 		$config = new xlvoVotingConfig();
 		$config->setObjId($this->getId());
 		$config->setPin($xlvoPin->getPin());
-		$config->setPuk($xlvoPuk->getPin());
 		$config->save();
 	}
 
@@ -183,8 +181,6 @@ class ilObjLiveVoting extends \ilObjectPlugin {
 			// set unique pin for cloned object
 			$xlvoPin = new xlvoPin();
 			$config_clone->setPin($xlvoPin->getPin());
-			$xlvoPuk = new xlvoPin();
-			$config_clone->setPuk($xlvoPuk->getPin());
 			$config_clone->update();
 		}
 
