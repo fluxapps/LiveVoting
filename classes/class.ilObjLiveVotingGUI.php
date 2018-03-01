@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../vendor/autoload.php';
+
 use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Context\cookie\CookieManager;
 use LiveVoting\Context\xlvoContext;
@@ -47,6 +48,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 	const TAB_LEARNING_PROGRESS = 'learning_progress';
 	const F_TITLE = 'title';
 	const F_DESCRIPTION = 'description';
+	const F_PRESENTER_LINK = 'presenter_link';
 	/**
 	 * @var \ilTemplate
 	 */
@@ -140,7 +142,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 			// show info of parent
 			$this->tpl->setTitle(\ilObject::_lookupTitle(\ilObject::_lookupObjId($this->ref_id)));
 			$this->tpl->setTitleIcon(\ilObject::_getIcon(\ilObject::_lookupObjId($this->ref_id), 'big'), $this->pl->txt('obj_'
-			                                                                                                              . \ilObject::_lookupType($this->ref_id, true)));
+				. \ilObject::_lookupType($this->ref_id, true)));
 			$this->setLocator();
 		}
 	}
@@ -158,9 +160,8 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 		$cmd = $this->ctrl->getCmd();
 
 		if (ilObjLiveVotingAccess::hasWriteAccess()
-		    || ilObjLiveVotingAccess::hasCreateAccess()
-		       && $_GET["new_type"] == "xlvo"
-		) {
+			|| ilObjLiveVotingAccess::hasCreateAccess()
+			&& $_GET["new_type"] == "xlvo") {
 			$this->triageCmdClass($next_class, $cmd);
 		} else {
 			$this->redirectToPublicVotingMask();
@@ -298,7 +299,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 	/**
 	 * @param $tab
 	 */
-	protected function setSubTabs($tab, $active_subtab = null) {
+	protected function setSubTabs($tab, $active_subtab = NULL) {
 		$this->tabs->activateTab($tab);
 		switch ($tab) {
 			case self::TAB_CONTENT:
@@ -344,8 +345,8 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 	 */
 	protected function initCreationForms($a_new_type) {
 		$forms = array(
-			self::CFORM_NEW   => $this->initCreateForm($a_new_type),
-			self::CFORM_CLONE => $this->fillCloneTemplate(null, $a_new_type),
+			self::CFORM_NEW => $this->initCreateForm($a_new_type),
+			self::CFORM_CLONE => $this->fillCloneTemplate(NULL, $a_new_type),
 		);
 
 		return $forms;
@@ -427,6 +428,13 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 
 			$this->form->addItem($results);
 
+			$h = new \ilFormSectionHeaderGUI();
+			$h->setTitle("");
+			$this->form->addItem($h);
+
+			$presenter_link = new ilNonEditableValueGUI($this->pl->txt('config_presenter_link'), self::F_PRESENTER_LINK);
+			$this->form->addItem($presenter_link);
+
 			$this->form->addCommandButton('updateProperties', $this->pl->txt('obj_save'));
 			$this->form->setFormAction($this->ctrl->getFormAction($this));
 		}
@@ -450,6 +458,9 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 		$values[xlvoVotingConfig::F_RESULTS_BEHAVIOUR] = $config->getResultsBehaviour();
 		$values[xlvoVotingConfig::F_VOTING_HISTORY] = $config->getVotingHistory();
 		$values[xlvoVotingConfig::F_SHOW_ATTENDEES] = $config->isShowAttendees();
+		$values[self::F_PRESENTER_LINK] = ILIAS_HTTP_PATH
+			. '/Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/presenter.php?pin=' . $config->getPin() . "&puk="
+			. $config->getPuk();
 
 		$this->form->setValuesByArray($values);
 	}
@@ -481,8 +492,8 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 					$config->setStartDate($this->getDateTimeFromArray($terminable_select['start']));
 					$config->setEndDate($this->getDateTimeFromArray($terminable_select['end']));
 				} else {
-					$config->setStartDate(null);
-					$config->setEndDate(null);
+					$config->setStartDate(NULL);
+					$config->setEndDate(NULL);
 				}
 				$config->setFrozenBehaviour($this->form->getInput(xlvoVotingConfig::F_FROZEN_BEHAVIOUR));
 				$config->setResultsBehaviour($this->form->getInput(xlvoVotingConfig::F_RESULTS_BEHAVIOUR));
