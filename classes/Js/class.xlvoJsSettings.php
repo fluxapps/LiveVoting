@@ -1,6 +1,7 @@
 <?php
 
 namespace LiveVoting\Js;
+
 use ilLiveVotingPlugin;
 
 /**
@@ -18,6 +19,15 @@ class xlvoJsSettings {
 	 * @var array
 	 */
 	protected $translations = array();
+	/**
+	 * @var ilLiveVotingPlugin
+	 */
+	protected $pl;
+
+
+	public function __construct() {
+		$this->pl = ilLiveVotingPlugin::getInstance();
+	}
 
 
 	/**
@@ -33,8 +43,7 @@ class xlvoJsSettings {
 	 * @param $key
 	 */
 	public function addTranslation($key) {
-		$pl = ilLiveVotingPlugin::getInstance();
-		$this->translations[$key] = $pl->txt($key);
+		$this->translations[$key] = $this->pl->txt($key);
 	}
 
 

@@ -41,6 +41,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 
 	/**
 	 * @param $key
+	 *
 	 * @return string
 	 */
 	protected function txt($key) {
@@ -54,9 +55,11 @@ class xlvoVoter2GUI extends xlvoGUI {
 		$nextClass = $this->ctrl->getNextClass();
 		switch ($nextClass) {
 			case '':
-				if (!$this->manager->getVotingConfig()->isAnonymous() && (is_null($this->usr) || $this->usr->getId() == 13 || $this->usr->getId() == 0)) {
+				if (!$this->manager->getVotingConfig()->isAnonymous()
+					&& (is_null($this->usr) || $this->usr->getId() == 13
+						|| $this->usr->getId() == 0)) {
 					//remove plugin path to get "real" web root otherwise we break installations with context paths -> http://demo.ilias.ch/test/goto.php
-					$plugin_path = "Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting";
+					$plugin_path = substr($this->pl->getDirectory(), 2); // Remove ./
 					$ilias_base_path = str_replace($plugin_path, '', ILIAS_HTTP_PATH);
 					$login_target = "{$ilias_base_path}goto.php?target=xlvo_1_pin_" . $this->pin;
 
@@ -86,8 +89,8 @@ class xlvoVoter2GUI extends xlvoGUI {
 			$this->ctrl->redirect($this, self::CMD_START_VOTER_PLAYER);
 		}
 
-		$tpl = new \ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voter/tpl.pin.html', true, false);
-		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voter/pin.css');
+		$tpl = new \ilTemplate($this->pl->getDirectory() . '/templates/default/Voter/tpl.pin.html', true, false);
+		$this->tpl->addCss($this->pl->getDirectory() . '/templates/default/Voter/pin.css');
 		$pin_form = new \ilPropertyFormGUI();
 		$pin_form->setFormAction($this->ctrl->getLinkTarget($this, self::CMD_CHECK_PIN));
 		$pin_form->addCommandButton(self::CMD_CHECK_PIN, $this->txt('send'));
@@ -124,8 +127,8 @@ class xlvoVoter2GUI extends xlvoGUI {
 
 	protected function startVoterPlayer() {
 		$this->initJsAndCss();
-		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/default.css');
-		$tpl = new \ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voter/tpl.voter_player.html', true, false);
+		$this->tpl->addCss($this->pl->getDirectory() . '/templates/default/default.css');
+		$tpl = new \ilTemplate($this->pl->getDirectory() . '/templates/default/Voter/tpl.voter_player.html', true, false);
 		$this->tpl->setContent($tpl->get());
 	}
 
@@ -145,9 +148,9 @@ class xlvoVoter2GUI extends xlvoGUI {
 
 	protected function initJsAndCss() {
 		require_once('./Services/jQuery/classes/class.iljQueryUtil.php');
-		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voter/voter.css');
-		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/QuestionTypes/NumberRange/bootstrap-slider.min.css');
-		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/QuestionTypes/NumberRange/number_range.css');
+		$this->tpl->addCss($this->pl->getDirectory() . '/templates/default/Voter/voter.css');
+		$this->tpl->addCss($this->pl->getDirectory() . '/templates/default/QuestionTypes/NumberRange/bootstrap-slider.min.css');
+		$this->tpl->addCss($this->pl->getDirectory() . '/templates/default/QuestionTypes/NumberRange/number_range.css');
 		\iljQueryUtil::initjQueryUI();
 
 		require_once './Services/MathJax/classes/class.ilMathJax.php';
@@ -171,12 +174,12 @@ class xlvoVoter2GUI extends xlvoGUI {
 
 		$settings = array(
 			'use_mathjax' => (bool)$mathJaxSetting->get("enable"),
-			'debug'       => self::DEBUG,
-			'delay'       => $delay,
+			'debug' => self::DEBUG,
+			'delay' => $delay,
 		);
 
 		xlvoJs::getInstance()->api($this, array( ilUIPluginRouterGUI::class ))->addSettings($settings)->name('Voter')->addTranslations($t)->init()
-		      ->call('run');
+			->call('run');
 		foreach (xlvoQuestionTypes::getActiveTypes() as $type) {
 			xlvoQuestionTypesGUI::getInstance($this->manager, $type)->initJS();
 		}
@@ -184,7 +187,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 
 
 	protected function getHTML() {
-		$tpl = new \ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Voter/tpl.inner_screen.html', true, true);
+		$tpl = new \ilTemplate($this->pl->getDirectory() . '/templates/default/Voter/tpl.inner_screen.html', true, true);
 		switch ($this->manager->getPlayer()->getStatus(true)) {
 			case xlvoPlayer::STAT_STOPPED:
 				$tpl->setVariable('TITLE', $this->txt('header_stopped'));

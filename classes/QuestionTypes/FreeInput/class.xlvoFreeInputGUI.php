@@ -39,14 +39,14 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 			$array = array();
 			foreach ($_POST[self::F_VOTE_MULTI_LINE_INPUT] as $item) {
 				$array[] = array(
-					"input"   => $item[self::F_FREE_INPUT],
+					"input" => $item[self::F_FREE_INPUT],
 					"vote_id" => $item[self::F_VOTE_ID],
 				);
 			}
 			$this->manager->inputAll($array);
 		} else {
 			$this->manager->inputOne(array(
-				"input"   => $_POST[self::F_FREE_INPUT],
+				"input" => $_POST[self::F_FREE_INPUT],
 				"vote_id" => $_POST[self::F_VOTE_ID],
 			));
 		}
@@ -63,7 +63,7 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 	 * @return string
 	 */
 	public function getMobileHTML() {
-		$this->tpl = new \ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Display/tpl.free_input.html', true, true);
+		$this->tpl = new \ilTemplate($this->pl->getDirectory() . '/templates/default/Display/tpl.free_input.html', true, true);
 		$this->pl = ilLiveVotingPlugin::getInstance();
 		$this->render();
 
@@ -130,7 +130,7 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 		foreach ($xlvoVotes as $xlvoVote) {
 			$array[] = array(
 				self::F_FREE_INPUT => $xlvoVote->getFreeInput(),
-				self::F_VOTE_ID    => $xlvoVote->getId(),
+				self::F_VOTE_ID => $xlvoVote->getId(),
 			);
 		}
 

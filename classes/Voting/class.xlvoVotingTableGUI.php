@@ -62,7 +62,7 @@ class xlvoVotingTableGUI extends \ilTable2GUI {
 
 		parent::__construct($a_parent_obj, $a_parent_cmd);
 
-		$this->setRowTemplate('tpl.tbl_voting.html', 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting');
+		$this->setRowTemplate('tpl.tbl_voting.html', $this->pl->getDirectory());
 		$this->setExternalSorting(true);
 		$this->setExternalSegmentation(true);
 		$this->initColums();
@@ -76,6 +76,7 @@ class xlvoVotingTableGUI extends \ilTable2GUI {
 
 	/**
 	 * @param $key
+	 *
 	 * @return string
 	 */
 	protected function txt($key) {
@@ -92,9 +93,9 @@ class xlvoVotingTableGUI extends \ilTable2GUI {
 
 		$status = new \ilSelectInputGUI($this->txt('status'), 'voting_status');
 		$status_options = array(
-			- 1                         => '',
-			xlvoVoting::STAT_INACTIVE   => $this->txt('status_' . xlvoVoting::STAT_INACTIVE),
-			xlvoVoting::STAT_ACTIVE     => $this->txt('status_' . xlvoVoting::STAT_ACTIVE),
+			- 1 => '',
+			xlvoVoting::STAT_INACTIVE => $this->txt('status_' . xlvoVoting::STAT_INACTIVE),
+			xlvoVoting::STAT_ACTIVE => $this->txt('status_' . xlvoVoting::STAT_ACTIVE),
 			xlvoVoting::STAT_INCOMPLETE => $this->txt('status_' . xlvoVoting::STAT_INCOMPLETE),
 		);
 		$status->setOptions($status_options);
@@ -191,7 +192,7 @@ class xlvoVotingTableGUI extends \ilTable2GUI {
 		$this->determineLimit();
 
 		$collection = xlvoVoting::where(array( 'obj_id' => $this->voting_gui->getObjId() ))
-		                        ->where(array( 'voting_type' => xlvoQuestionTypes::getActiveTypes() ))->orderBy('position', 'ASC');
+			->where(array( 'voting_type' => xlvoQuestionTypes::getActiveTypes() ))->orderBy('position', 'ASC');
 		$this->setMaxCount($collection->count());
 		$sorting_column = $this->getOrderField() ? $this->getOrderField() : 'position';
 		$offset = $this->getOffset() ? $this->getOffset() : 0;
@@ -235,6 +236,7 @@ class xlvoVotingTableGUI extends \ilTable2GUI {
 
 	/**
 	 * @param string $question
+	 *
 	 * @return string
 	 */
 	protected function shorten($question) {

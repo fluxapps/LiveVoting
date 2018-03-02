@@ -1,4 +1,5 @@
 <?php
+
 use LiveVoting\Display\Bar\xlvoBarGUI;
 
 /**
@@ -38,10 +39,19 @@ class xlvoBarPercentageGUI implements xlvoBarGUI {
 	 * @var int
 	 */
 	protected $round = 2;
+	/**
+	 * @var ilLiveVotingPlugin
+	 */
+	protected $pl;
+
+
+	public function __construct() {
+		$this->pl = ilLiveVotingPlugin::getInstance();
+	}
 
 
 	public function getHTML() {
-		$tpl = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Display/Bar/tpl.bar_percentage.html', true, true);
+		$tpl = new ilTemplate($this->pl->getDirectory() . '/templates/default/Display/Bar/tpl.bar_percentage.html', true, true);
 
 		$tpl->setVariable('TITLE', $this->getTitle());
 
@@ -64,8 +74,7 @@ class xlvoBarPercentageGUI implements xlvoBarGUI {
 		$tpl->setVariable('PERCENT', $this->getVotes());
 		$tpl->setVariable('PERCENT_STYLE', str_replace(',', '.', round($calculated_percentage, 1)));
 		if ($this->isShowInPercent()) {
-			$tpl->setVariable('PERCENT_TEXT', round($calculated_percentage, $this->getRound())
-			                                  . '%');
+			$tpl->setVariable('PERCENT_TEXT', round($calculated_percentage, $this->getRound()) . '%');
 		} else {
 			$tpl->setVariable('PERCENT_TEXT', round($this->getVotes(), $this->getRound()));
 		}
