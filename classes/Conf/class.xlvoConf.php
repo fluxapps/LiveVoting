@@ -53,7 +53,7 @@ class xlvoConf extends CachingActiveRecord {
 			$url = self::getConfig(self::F_ALLOW_SHORTLINK_LINK);
 			$url = rtrim($url, "/") . "/";
 		} else {
-			$url = ILIAS_HTTP_PATH . substr($pl->getDirectory(), 2) . '/pin.php?pin=';
+			$url = ILIAS_HTTP_PATH . substr($pl->getDirectory(), 1) . '/pin.php?pin=';
 		}
 
 		return $url;
