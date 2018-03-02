@@ -119,7 +119,7 @@ final class CookieManager {
 	/**
 	 * @return bool
 	 */
-	private static function hasCookiePUK() {
+	public static function hasCookiePUK() {
 		return isset($_COOKIE[self::PUK_COOKIE]);
 	}
 }

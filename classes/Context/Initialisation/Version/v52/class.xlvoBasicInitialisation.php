@@ -129,6 +129,7 @@ class xlvoBasicInitialisation {
 		$this->makeGlobal("ilias", $ilias);
 
 		$tpl = new \ilTemplate("tpl.main.html", true, true, 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting');
+		$tpl->touchBlock("navbar");
 		$tpl->addCss('./templates/default/delos.css');
 		$tpl->addBlockFile("CONTENT", "content", "tpl.main_voter.html", 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting');
 		$tpl->setVariable('BASE', xlvoConf::getBaseURL());
