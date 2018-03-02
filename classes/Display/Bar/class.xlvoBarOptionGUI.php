@@ -35,6 +35,10 @@ class xlvoBarOptionGUI implements xlvoBarGUI {
 	 * @var xlvoVotingManager2
 	 */
 	protected $voting_manager;
+	/**
+	 * @var ilLiveVotingPlugin
+	 */
+	protected $pl;
 
 
 	/**
@@ -47,7 +51,8 @@ class xlvoBarOptionGUI implements xlvoBarGUI {
 		$this->voting = $voting;
 		$this->option = $option;
 		$this->option_letter = $option_letter;
-		$this->tpl = new \ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Display/Bar/tpl.bar_option.html', true, true);
+		$this->pl = ilLiveVotingPlugin::getInstance();
+		$this->tpl = new \ilTemplate($this->pl->getDirectory() . '/templates/default/Display/Bar/tpl.bar_option.html', true, true);
 	}
 
 

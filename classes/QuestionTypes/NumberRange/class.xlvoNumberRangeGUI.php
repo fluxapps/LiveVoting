@@ -1,4 +1,5 @@
 <?php
+
 use LiveVoting\Js\xlvoJs;
 use LiveVoting\Vote\xlvoVote;
 
@@ -20,7 +21,7 @@ class xlvoNumberRangeGUI extends xlvoQuestionTypesGUI {
 
 	public function setManager($manager) {
 
-		if ($manager === null) {
+		if ($manager === NULL) {
 			throw new ilException('The manager must not be null.');
 		}
 
@@ -41,7 +42,7 @@ class xlvoNumberRangeGUI extends xlvoQuestionTypesGUI {
 
 	protected function submit() {
 
-		if ($this->manager === null) {
+		if ($this->manager === NULL) {
 			throw new ilException('The NumberRange question got no voting manager! Please set one via setManager.');
 		}
 
@@ -56,7 +57,7 @@ class xlvoNumberRangeGUI extends xlvoQuestionTypesGUI {
 		$filteredInput = filter_input(INPUT_POST, self::USER_SELECTED_NUMBER, FILTER_VALIDATE_INT);
 
 		//check if the filter failed
-		if ($filteredInput !== false && $filteredInput !== null) {
+		if ($filteredInput !== false && $filteredInput !== NULL) {
 			//filter succeeded set value and store vote
 			$start = (int)$this->manager->getVoting()->getStartRange();
 			$end = (int)$this->manager->getVoting()->getEndRange();
@@ -65,7 +66,7 @@ class xlvoNumberRangeGUI extends xlvoQuestionTypesGUI {
 			if ($this->isVoteValid($start, $end, $filteredInput)) {
 				//vote
 				$this->manager->inputOne([
-					'input'   => $filteredInput,
+					'input' => $filteredInput,
 					'vote_id' => '-1',
 				]);
 
@@ -80,7 +81,7 @@ class xlvoNumberRangeGUI extends xlvoQuestionTypesGUI {
 		$end = (int)$this->manager->getVoting()->getEndRange();
 		$sliderValue = ceil(($start + $end) / 2);
 
-		$template = new \ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/QuestionTypes/NumberRange/tpl.number_range.html', true, true);
+		$template = new \ilTemplate($this->pl->getDirectory() . '/templates/default/QuestionTypes/NumberRange/tpl.number_range.html', true, true);
 		$template->setVariable('ACTION', $this->ctrl->getFormAction($this));
 		$template->setVariable('SHOW_PERCENTAGE', (int)$this->manager->getVoting()->getPercentage());
 

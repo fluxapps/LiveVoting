@@ -11,6 +11,7 @@ class xlvoSingleVoteGUI extends xlvoQuestionTypesGUI {
 
 	const BUTTON_TOGGLE_PERCENTAGE = 'toggle_percentage';
 
+
 	/**
 	 * @description add JS to the HEAD
 	 */
@@ -25,6 +26,7 @@ class xlvoSingleVoteGUI extends xlvoQuestionTypesGUI {
 	protected function submit() {
 		$this->manager->vote($_GET['option_id']);
 	}
+
 
 	/**
 	 * @return array
@@ -55,13 +57,12 @@ class xlvoSingleVoteGUI extends xlvoQuestionTypesGUI {
 		$this->saveButtonState($button_id, !$states[$button_id]);
 	}
 
-	
 
 	/**
 	 * @return string
 	 */
 	public function getMobileHTML() {
-		$tpl = new \ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/QuestionTypes/SingleVote/tpl.single_vote.html', false, true);
+		$tpl = new \ilTemplate($this->pl->getDirectory() . '/templates/default/QuestionTypes/SingleVote/tpl.single_vote.html', false, true);
 		$answer_count = 64;
 		foreach ($this->manager->getVoting()->getVotingOptions() as $xlvoOption) {
 			$answer_count ++;

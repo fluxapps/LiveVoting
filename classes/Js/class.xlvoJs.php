@@ -1,6 +1,7 @@
 <?php
 
 namespace LiveVoting\Js;
+
 use LiveVoting\Conf\xlvoConf;
 use xlvoGUI;
 
@@ -51,6 +52,10 @@ class xlvoJs {
 	 * @var \ilTemplate
 	 */
 	protected $tpl;
+	/**
+	 * @var \ilLiveVotingPlugin
+	 */
+	protected $pl;
 
 
 	/**
@@ -61,6 +66,7 @@ class xlvoJs {
 		$this->settings = new xlvoJsSettings();
 		$this->ctrl = $DIC->ctrl();
 		$this->tpl = $DIC->ui()->mainTemplate();
+		$this->pl = \ilLiveVotingPlugin::getInstance();
 	}
 
 
@@ -71,6 +77,7 @@ class xlvoJs {
 
 	/**
 	 * @param array $settings
+	 *
 	 * @return $this
 	 */
 	public function addSettings(array $settings) {
@@ -84,6 +91,7 @@ class xlvoJs {
 
 	/**
 	 * @param array $translations
+	 *
 	 * @return $this
 	 */
 	public function addTranslations(array $translations) {
@@ -97,8 +105,9 @@ class xlvoJs {
 
 	/**
 	 * @param xlvoGUI $xlvoGUI
-	 * @param array $additional_classes
-	 * @param string $cmd
+	 * @param array   $additional_classes
+	 * @param string  $cmd
+	 *
 	 * @return $this
 	 */
 	public function api(xlvoGUI $xlvoGUI, array $additional_classes = array(), $cmd = '') {
@@ -107,7 +116,7 @@ class xlvoJs {
 		$ilCtrl2->setTargetScript(self::API_URL);
 		$additional_classes[] = get_class($xlvoGUI);
 
-		$this->settings->addSetting(self::BASE_URL_SETTING, $this->ctrl->getLinkTargetByClass($additional_classes, $cmd, null, true));
+		$this->settings->addSetting(self::BASE_URL_SETTING, $this->ctrl->getLinkTargetByClass($additional_classes, $cmd, NULL, true));
 
 		return $this;
 	}
@@ -115,6 +124,7 @@ class xlvoJs {
 
 	/**
 	 * @param $name
+	 *
 	 * @return $this
 	 */
 	public function name($name) {
@@ -126,6 +136,7 @@ class xlvoJs {
 
 	/**
 	 * @param $category
+	 *
 	 * @return $this
 	 */
 	public function category($category) {
@@ -137,7 +148,8 @@ class xlvoJs {
 
 	/**
 	 * @param xlvoGUI $xlvoGUI
-	 * @param string $cmd
+	 * @param string  $cmd
+	 *
 	 * @return $this
 	 */
 	public function ilias($xlvoGUI, $cmd = '') {
@@ -187,6 +199,7 @@ class xlvoJs {
 
 	/**
 	 * @param $code
+	 *
 	 * @return $this
 	 */
 	public function addOnLoadCode($code) {
@@ -197,8 +210,9 @@ class xlvoJs {
 
 
 	/**
-	 * @param $method
+	 * @param        $method
 	 * @param string $params
+	 *
 	 * @return $this
 	 */
 	public function call($method, $params = '') {
@@ -222,6 +236,7 @@ class xlvoJs {
 	/**
 	 * @param $method
 	 * @param $params
+	 *
 	 * @return string
 	 */
 	public function getCallCode($method, $params = '') {
@@ -230,13 +245,14 @@ class xlvoJs {
 
 
 	/**
-	 * @param $name_of_lib
+	 * @param      $name_of_lib
 	 * @param bool $external
+	 *
 	 * @return $this
 	 */
 	public function addLibToHeader($name_of_lib, $external = true) {
 		if ($external) {
-			$this->tpl->addJavaScript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/js/libs/' . $name_of_lib);
+			$this->tpl->addJavascript($this->pl->getDirectory() . '/js/libs/' . $name_of_lib);
 		} else {
 			$this->tpl->addJavaScript($name_of_lib);
 		}

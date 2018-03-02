@@ -15,7 +15,6 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 
 	const BUTTON_TOTTLE_DISPLAY_CORRECT_ORDER = 'display_correct_order';
 	const BUTTON_TOGGLE_PERCENTAGE = 'toggle_percentage';
-
 	private $randomizeOptions = true;
 
 
@@ -50,17 +49,15 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 	 * @return string
 	 */
 	protected function getFormContent() {
-		$pl = ilLiveVotingPlugin::getInstance();
-
-		$tpl = new \ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/QuestionTypes/FreeOrder/tpl.free_order.html', true, false);
+		$tpl = new \ilTemplate($this->pl->getDirectory() . '/templates/default/QuestionTypes/FreeOrder/tpl.free_order.html', true, false);
 		$tpl->setVariable('ACTION', $this->ctrl->getFormAction($this));
 		$tpl->setVariable('ID', 'xlvo_sortable');
-		$tpl->setVariable('BTN_RESET', $pl->txt('qtype_4_clear'));
-		$tpl->setVariable('BTN_SAVE', $pl->txt('qtype_4_save'));
+		$tpl->setVariable('BTN_RESET', $this->pl->txt('qtype_4_clear'));
+		$tpl->setVariable('BTN_SAVE', $this->pl->txt('qtype_4_save'));
 
 		$vote = array_shift(array_values($this->manager->getVotesOfUser()));
 		$order = array();
-		$vote_id = null;
+		$vote_id = NULL;
 		if ($vote instanceof xlvoVote) {
 			$order = json_decode($vote->getFreeInput());
 			$vote_id = $vote->getId();
@@ -71,16 +68,12 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 
 		$options = NULL;
 
-		if($this->randomizeOptions) {
+		if ($this->randomizeOptions) {
 			//randomize the options for the voters
-			$options = $this->randomizeWithoutCorrectSequence(
-				$this->manager->getVoting()->getVotingOptions()
-			);
-		}
-		else {
+			$options = $this->randomizeWithoutCorrectSequence($this->manager->getVoting()->getVotingOptions());
+		} else {
 			$options = $this->manager->getVoting()->getVotingOptions();
 		}
-
 
 		$bars = new xlvoBarMovableGUI($options, $order, $vote_id);
 		$bars->setShowOptionLetter(true);
@@ -170,7 +163,6 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 	}
 
 
-
 	/**
 	 * @return xlvoOption[]
 	 */
@@ -180,6 +172,7 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 			$correct_order[(int)$xlvoOption->getCorrectPosition()] = $xlvoOption;
 		};
 		ksort($correct_order);
+
 		return $correct_order;
 	}
 
@@ -192,10 +185,10 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 	 *
 	 * @return xlvoOption[] The randomized option array.
 	 */
-	private function randomizeWithoutCorrectSequence(array &$options)
-	{
-		if(count($options) <= 1)
+	private function randomizeWithoutCorrectSequence(array &$options) {
+		if (count($options) <= 1) {
 			return $options;
+		}
 
 		//shuffle array items (can't use the PHP shuffle function because the keys are not preserved.)
 		$optionsClone = $this->shuffleArray($options);
@@ -205,8 +198,7 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 		/**
 		 * @var xlvoOption $option
 		 */
-		foreach ($optionsClone as $option)
-		{
+		foreach ($optionsClone as $option) {
 			//get correct item position
 			$currentCurrentPosition = $option->getCorrectPosition();
 
@@ -217,8 +209,9 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 			//check if we shuffled the correct answer by accident.
 			//the correct answer would always produce a difference of -1.
 			//1 - 2 = -1, 2 - 3 = -1, 3 - 4 = -1 ...
-			if($difference !== -1)
+			if ($difference !== - 1) {
 				return $optionsClone;
+			}
 		}
 
 		//try to shuffle again because we got the right answer by accident.
@@ -231,17 +224,15 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 	 * Shuffles the array given array the keys are preserved.
 	 * Please note that the array passed into this method get never modified.
 	 *
-	 * @param array $array  The array which should be shuffled.
+	 * @param array $array The array which should be shuffled.
 	 *
 	 * @return array The newly shuffled array.
 	 */
-	private function shuffleArray(array &$array)
-	{
+	private function shuffleArray(array &$array) {
 		$clone = $this->cloneArray($array);
 		$shuffledArray = [];
 
-		while(count($clone) > 0)
-		{
+		while (count($clone) > 0) {
 			$key = array_rand($clone);
 			$shuffledArray[$key] = &$clone[$key];
 			unset($clone[$key]);
@@ -254,15 +245,13 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 	/**
 	 * Create a shallow copy of the given array.
 	 *
-	 * @param array $array  The array which should be copied.
+	 * @param array $array The array which should be copied.
 	 *
 	 * @return array    The newly created shallow copy of the given array.
 	 */
-	private function cloneArray(array &$array)
-	{
+	private function cloneArray(array &$array) {
 		$clone = [];
-		foreach($array as $key => $value)
-		{
+		foreach ($array as $key => $value) {
 			$clone[$key] = &$array[$key]; //get the ref on the array value not the foreach value.
 		}
 

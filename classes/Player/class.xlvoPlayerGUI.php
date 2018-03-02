@@ -49,7 +49,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 	public function __construct() {
 		parent::__construct();
 		$this->manager = xlvoVotingManager2::getInstanceFromObjId(\ilObject2::_lookupObjId($_GET['ref_id']));
-		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/default.css');
+		$this->tpl->addCss($this->pl->getDirectory() . '/templates/default/default.css');
 	}
 
 
@@ -93,7 +93,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$current_selection_list = $this->getVotingSelectionList(false);
 		$this->toolbar->addText($current_selection_list->getHTML());
 
-		$template = new \ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Player/tpl.start.html', true, true);
+		$template = new \ilTemplate($this->pl->getDirectory() . '/templates/default/Player/tpl.start.html', true, true);
 		/**
 		 * @var xlvoVotingConfig $xlvoVotingConfig
 		 */
@@ -471,14 +471,14 @@ class xlvoPlayerGUI extends xlvoGUI {
 			'player_voters_online',
 			'voting_confirm_reset',
 		))->init()->call('run');
-		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Player/player.css');
-		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Display/Bar/bar.css');
+		$this->tpl->addCss($this->pl->getDirectory() . '/templates/default/Player/player.css');
+		$this->tpl->addCss($this->pl->getDirectory() . '/LiveVoting/templates/default/Display/Bar/bar.css');
 	}
 
 
 	protected function handlePreview() {
 		if ($this->manager->getVotingConfig()->isSelfVote()) {
-			$preview = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Player/tpl.preview.html', true, false);
+			$preview = new ilTemplate($this->pl->getDirectory() . '/templates/default/Player/tpl.preview.html', true, false);
 			$preview->setVariable('URL', xlvoConf::getShortLinkURL() . $this->manager->getVotingConfig()->getPin());
 			$this->tpl->setRightContent($preview->get());
 		}

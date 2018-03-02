@@ -22,6 +22,7 @@ use LiveVoting\xlvoSessionHandler;
  * @description Initializes a minimal ILIAS environment.
  */
 class xlvoBasicInitialisation {
+
 	/**
 	 * @var \ilIniFile
 	 */
@@ -30,13 +31,20 @@ class xlvoBasicInitialisation {
 	 * @var \ilSetting
 	 */
 	protected $settings;
+	/**
+	 * @var \ilLiveVotingPlugin
+	 */
+	protected $pl;
+
 
 	/**
 	 * xlvoInitialisation constructor.
 	 *
 	 * @param int $context
 	 */
-	protected function __construct($context = null) {
+	protected function __construct($context = NULL) {
+		$this->pl = \ilLiveVotingPlugin::getInstance();
+
 		if ($context) {
 			CookieManager::setContext($context);
 		}
@@ -50,7 +58,7 @@ class xlvoBasicInitialisation {
 	 *
 	 * @return xlvoBasicInitialisation
 	 */
-	public static function init($context = null) {
+	public static function init($context = NULL) {
 		return new self($context);
 	}
 
@@ -131,7 +139,7 @@ class xlvoBasicInitialisation {
 		$tpl = new \ilTemplate("tpl.main.html", true, true, 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting');
 		$tpl->touchBlock("navbar");
 		$tpl->addCss('./templates/default/delos.css');
-		$tpl->addBlockFile("CONTENT", "content", "tpl.main_voter.html", 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting');
+		$tpl->addBlockFile("CONTENT", "content", "tpl.main_voter.html", $this->pl->getDirectory());
 		$tpl->setVariable('BASE', xlvoConf::getBaseURL());
 		$this->makeGlobal("tpl", $tpl);
 
@@ -474,8 +482,7 @@ class xlvoBasicInitialisation {
 		$https->enableSecureCookies();
 		$https->checkPort();
 
-		return define('ILIAS_HTTP_PATH', \ilUtil::removeTrailingPathSeparators($protocol . $host
-			. $uri));
+		return define('ILIAS_HTTP_PATH', \ilUtil::removeTrailingPathSeparators($protocol . $host . $uri));
 	}
 
 
@@ -494,7 +501,7 @@ class xlvoBasicInitialisation {
 			define('DEVMODE', false);
 		}
 		require_once "./Services/Init/classes/class.ilErrorHandling.php";
-		$ilErr =  new \ilErrorHandling();
+		$ilErr = new \ilErrorHandling();
 		$this->makeGlobal("ilErr", $ilErr);
 		$ilErr->setErrorHandling(PEAR_ERROR_CALLBACK, array( $ilErr, 'errorHandler' ));
 	}
@@ -607,7 +614,7 @@ class xlvoBasicInitialisation {
 	/**
 	 * Create or override a global variable.
 	 *
-	 * @param string $name The name of the global variable.
+	 * @param string $name  The name of the global variable.
 	 * @param object $value The value where the global variable should point at.
 	 */
 	private function makeGlobal($name, $value) {
@@ -652,6 +659,7 @@ class xlvoBasicInitialisation {
 		$this->makeGlobal('ilAccess', new \ilAccessHandler());
 	}
 
+
 	/**
 	 * Initialise a fake three service to satisfy the help system module.
 	 */
@@ -659,6 +667,7 @@ class xlvoBasicInitialisation {
 		require_once('Services/Tree/classes/class.ilTree.php');
 		$this->makeGlobal('tree', new \ilTree(ROOT_FOLDER_ID));
 	}
+
 
 	/**
 	 * Initialise a fake http services to satisfy the help system module.
@@ -683,14 +692,10 @@ class xlvoBasicInitialisation {
 		};
 
 		$DIC['http'] = function ($c) {
-			return new \ILIAS\DI\HTTPServices(
-				$c['http.response_sender_strategy'],
-				$c['http.cookie_jar_factory'],
-				$c['http.request_factory'],
-				$c['http.response_factory']
-			);
+			return new \ILIAS\DI\HTTPServices($c['http.response_sender_strategy'], $c['http.cookie_jar_factory'], $c['http.request_factory'], $c['http.response_factory']);
 		};
 	}
+
 
 	/**
 	 * Initialise a fake tabs service to satisfy the help system module.
@@ -700,6 +705,7 @@ class xlvoBasicInitialisation {
 		$this->makeGlobal('ilTabs', new \ilTabsGUI());
 	}
 
+
 	/**
 	 * Initialise a fake NavigationHistory service to satisfy the help system module.
 	 */
@@ -708,6 +714,7 @@ class xlvoBasicInitialisation {
 		$this->makeGlobal('ilNavigationHistory', new \ilNavigationHistory());
 	}
 
+
 	/**
 	 * Initialise a fake help service to satisfy the help system module.
 	 */
@@ -715,6 +722,7 @@ class xlvoBasicInitialisation {
 		require_once('Services/Help/classes/class.ilHelp.php');
 		$this->makeGlobal('ilHelp', new \ilHelp());
 	}
+
 
 	/**
 	 * Initialise a fake MainMenu service to satisfy the help system module.

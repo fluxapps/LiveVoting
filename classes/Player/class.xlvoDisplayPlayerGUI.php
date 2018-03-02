@@ -43,8 +43,8 @@ class xlvoDisplayPlayerGUI {
 	 */
 	public function __construct(xlvoVotingManager2 $manager) {
 		$this->manager = $manager;
-		$this->tpl = new \ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Player/tpl.player.html', true, true);
 		$this->pl = ilLiveVotingPlugin::getInstance();
+		$this->tpl = new \ilTemplate($this->pl->getDirectory() . '/templates/default/Player/tpl.player.html', true, true);
 	}
 
 
@@ -62,8 +62,7 @@ class xlvoDisplayPlayerGUI {
 		if ($player->isShowResults()) {
 			//add result view to player
 			$this->tpl->setVariable('OPTION_CONTENT', $xlvoInputResultGUI->getHTML());
-		}
-		else {
+		} else {
 			//add options to player
 			$xlvoOptions = $this->manager->getVoting()->getVotingOptions();
 			usort($xlvoOptions, function ($option1, $option2) {
@@ -107,6 +106,7 @@ class xlvoDisplayPlayerGUI {
 
 	/**
 	 * @param bool $inner
+	 *
 	 * @return string
 	 */
 	public function getHTML($inner = false) {
@@ -130,8 +130,7 @@ class xlvoDisplayPlayerGUI {
 		}
 
 		//workaround due to the old question design.
-		if($option->getType() == xlvoQuestionTypes::TYPE_NUMBER_RANGE)
-		{
+		if ($option->getType() == xlvoQuestionTypes::TYPE_NUMBER_RANGE) {
 			$columnWith = 6; //because of bootstrap grid 12 = 100%, 6 = 50% therefore 2 columns
 			$percentage = (int)$this->manager->getVoting()->getPercentage() === 1 ? '%' : '';
 
@@ -146,6 +145,7 @@ class xlvoDisplayPlayerGUI {
 			$this->tpl->setVariable('OPTION_COL', $columnWith);
 			$this->tpl->setVariable('OPTION_TEXT', "{$this->manager->getVoting()->getEndRange()}{$percentage}");
 			$this->tpl->parseCurrentBlock();
+
 			return;
 		}
 
