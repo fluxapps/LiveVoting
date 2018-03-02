@@ -458,8 +458,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 		$values[xlvoVotingConfig::F_RESULTS_BEHAVIOUR] = $config->getResultsBehaviour();
 		$values[xlvoVotingConfig::F_VOTING_HISTORY] = $config->getVotingHistory();
 		$values[xlvoVotingConfig::F_SHOW_ATTENDEES] = $config->isShowAttendees();
-		$values[self::F_PRESENTER_LINK] = ILIAS_HTTP_PATH
-			. '/Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/presenter.php?pin=' . $config->getPin() . "&puk="
+		$values[self::F_PRESENTER_LINK] = ILIAS_HTTP_PATH . substr($this->pl->getDirectory(), 2) . '/presenter.php?pin=' . $config->getPin() . "&puk="
 			. $config->getPuk();
 
 		$this->form->setValuesByArray($values);

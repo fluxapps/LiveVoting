@@ -31,6 +31,10 @@ class xlvoBasicInitialisation {
 	 * @var \ilSetting
 	 */
 	protected $settings;
+	/**
+	 * @var \ilLiveVotingPlugin
+	 */
+	protected $pl;
 
 
 	/**
@@ -39,6 +43,8 @@ class xlvoBasicInitialisation {
 	 * @param int $context
 	 */
 	protected function __construct($context = NULL) {
+		$this->pl = \ilLiveVotingPlugin::getInstance();
+
 		if ($context) {
 			CookieManager::setContext($context);
 		}
@@ -130,7 +136,7 @@ class xlvoBasicInitialisation {
 		$ilias = new xlvoILIAS();
 		$this->makeGlobal("ilias", $ilias);
 
-		$tpl = new \ilTemplate("tpl.main.html", true, true, 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting');
+		$tpl = new \ilTemplate("tpl.main.html", true, true, $this->pl->getDirectory());
 		if (!CookieManager::hasCookiePUK()) {
 			$tpl->touchBlock("navbar");
 		}

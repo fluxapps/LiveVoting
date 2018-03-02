@@ -133,7 +133,7 @@ class xlvoInitialisation extends \ilInitialisation {
 		parent::initHTML();
 		$pl = \ilLiveVotingPlugin::getInstance();
 		if (self::USE_OWN_GLOBAL_TPL) {
-			$tpl = new \ilTemplate("tpl.main.html", true, true, 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting');
+			$tpl = new \ilTemplate("tpl.main.html", true, true, $pl->getDirectory());
 			$tpl->touchBlock("navbar");
 			$tpl->addCss('./templates/default/delos.css');
 			$tpl->addBlockFile("CONTENT", "content", "tpl.main_voter.html", $pl->getDirectory());

@@ -45,17 +45,15 @@ class xlvoConf extends CachingActiveRecord {
 	 * @return string
 	 */
 	public static function getShortLinkURL() {
-
-		$url = null;
+		$pl = \ilLiveVotingPlugin::getInstance();
+		$url = NULL;
 		$shortLinkEnabled = intval(self::getConfig(self::F_ALLOW_SHORTLINK));
 
 		if ($shortLinkEnabled === 1) {
 			$url = self::getConfig(self::F_ALLOW_SHORTLINK_LINK);
 			$url = rtrim($url, "/") . "/";
-		}
-		else {
-			$url = ILIAS_HTTP_PATH
-			       . '/Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?pin=';
+		} else {
+			$url = ILIAS_HTTP_PATH . substr($pl->getDirectory(), 2) . '/pin.php?pin=';
 		}
 
 		return $url;
