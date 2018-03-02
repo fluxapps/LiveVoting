@@ -16,6 +16,7 @@ require_once('dir.php');
 InitialisationManager::startMinimal();
 CookieManager::setContext(xlvoContext::CONTEXT_PIN);
 CookieManager::resetCookiePIN();
+CookieManager::resetCookiePUK();
 
 $existing_pin = trim($_REQUEST['pin'], '/');
 if ($existing_pin) {

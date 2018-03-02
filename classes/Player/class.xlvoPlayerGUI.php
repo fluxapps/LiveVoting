@@ -1,6 +1,7 @@
 <?php
 
 use LiveVoting\Conf\xlvoConf;
+use LiveVoting\Context\cookie\CookieManager;
 use LiveVoting\Js\xlvoJs;
 use LiveVoting\Js\xlvoJsResponse;
 use LiveVoting\Player\QR\xlvoQR;
@@ -19,13 +20,16 @@ require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/
 /**
  * Class xlvoPlayerGUI
  *
- * @author Fabian Schmid <fs@studer-raimann.ch>
+ * @author            Fabian Schmid <fs@studer-raimann.ch>
+ *
+ * @ilCtrl_isCalledBy xlvoPlayerGUI: ilUIPluginRouterGUI
  */
 class xlvoPlayerGUI extends xlvoGUI {
 
 	const IDENTIFIER = 'xvi';
 	const CMD_START_PLAYER = 'startPlayer';
 	const CMD_START_PLAYER_AND_UNFREEZE = 'startPlayerAnUnfreeze';
+	const CMD_START_PRESENTER = 'startPresenter';
 	const CMD_NEXT = 'next';
 	const CMD_PREVIOUS = 'previous';
 	const CMD_FREEZE = 'freeze';
@@ -138,6 +142,27 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$modal = xlvoQRModalGUI::getInstanceFromVotingConfig($this->manager->getVotingConfig())->getHTML();
 		$this->tpl->setContent($modal . $this->getPlayerHTML());
 		$this->handlePreview();
+	}
+
+
+	protected function startPresenter() {
+		$pin = CookieManager::getCookiePIN();
+		$this->manager = new xlvoVotingManager2($pin);
+
+		$puk = CookieManager::getCookiePUK();
+
+		/**
+		 * @var xlvoVotingConfig|null $xlvoVotingConfig
+		 */
+
+		$xlvoVotingConfig = xlvoVotingConfig::find($this->manager->getObjId());
+
+		if ($xlvoVotingConfig === NULL
+			|| $xlvoVotingConfig->getPuk() !== $puk /*|| !ilObjLiveVotingAccess::hasWriteAccess($this->manager->getObjId())*/) {
+			die("Wrong PUK!");
+		}
+
+		$this->startPlayer();
 	}
 
 

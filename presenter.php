@@ -5,8 +5,7 @@
  *         User starts here. Use a RewriteRule to access this page a bit simpler
  */
 
-use LiveVoting\Api\xlvoApi;
-use LiveVoting\Pin\xlvoPin;
+use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Context\cookie\CookieManager;
 use LiveVoting\Context\InitialisationManager;
 use LiveVoting\Context\xlvoContext;
@@ -20,11 +19,20 @@ CookieManager::resetCookiePIN();
 CookieManager::resetCookiePUK();
 
 $existing_pin = trim($_REQUEST['pin'], '/');
-if ($existing_pin !== "") {
+$puk = false;
+if ($existing_pin) {
 	CookieManager::setCookiePIN($existing_pin);
-	$api = new xlvoApi(new xlvoPin($existing_pin), $_GET['token']);
-	if ($_GET['type']) {
-		$api->setType($_GET['type']);
+
+	$puk = trim($_REQUEST['puk'], '/');
+	if ($puk) {
+		CookieManager::setCookiePUK($puk);
 	}
-	$api->send();
 }
+global $DIC;
+$ilCtrl = $DIC->ctrl();
+$ilCtrl->initBaseClass(ilUIPluginRouterGUI::class);
+$ilCtrl->setTargetScript(xlvoConf::getFullApiURL());
+$ilCtrl->redirectByClass(array(
+	ilUIPluginRouterGUI::class,
+	xlvoPlayerGUI::class,
+), xlvoPlayerGUI::CMD_START_PRESENTER);

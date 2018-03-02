@@ -319,6 +319,14 @@
                     "de": "Aktiviert die Verwendung der globalen Cache Mechanik von ILIAS. Der zugrundeliegende cache muss in einem Setup mit mehreren ILIAS installation synchron sein, da das Plugin ansonsten unvorhersehbare Werte produzieren wird.",
                     "hu": "Lehetővé teszi a LiveVoting plugint használni a globális cache mechanizmus, amely biztosítja ILIAS. Az alapul szolgáló cache szinkronizálni kell egy multi veszi a telepítést, egyébként a plugin megjósolhatatlan eredményeket."
                 }
+            } ,
+            "presenter_link": {
+                "translations": {
+                    "en": "Presenter link",
+                    "de": "Moderator-Link",
+                    "hu": "MISSING"
+                },
+                "last_used": "01.03.2018"
             }
         },
         "correct": {
