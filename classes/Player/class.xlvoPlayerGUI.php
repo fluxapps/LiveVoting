@@ -370,15 +370,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 * @return void
 	 */
 	private function addStickyButtonToToolbar(ilButtonBase $button) {
-
-		//check if the new methods are usable
-		if (method_exists($this->toolbar, 'addStickyItem')) {
-			$this->toolbar->addStickyItem($button);
-		} else {
-			// ILIAS 5.1 fallback
-			$this->toolbar->addButtonInstance($button);
-		}
-		
+		$this->toolbar->addStickyItem($button);
 	}
 
 
