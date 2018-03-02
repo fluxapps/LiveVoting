@@ -31,10 +31,6 @@ class xlvoBasicInitialisation {
 	 * @var \ilSetting
 	 */
 	protected $settings;
-	/**
-	 * @var \ilLiveVotingPlugin
-	 */
-	protected $pl;
 
 
 	/**
@@ -43,8 +39,6 @@ class xlvoBasicInitialisation {
 	 * @param int $context
 	 */
 	protected function __construct($context = NULL) {
-		$this->pl = \ilLiveVotingPlugin::getInstance();
-
 		if ($context) {
 			CookieManager::setContext($context);
 		}
@@ -130,16 +124,18 @@ class xlvoBasicInitialisation {
 
 
 	private function initTemplate() {
+		$pl = \ilLiveVotingPlugin::getInstance();
+
 		$styleDefinition = new \LiveVoting\Context\Initialisation\Version\v52\xlvoStyleDefinition();
 		$this->makeGlobal('styleDefinition', $styleDefinition);
 
 		$ilias = new xlvoILIAS();
 		$this->makeGlobal("ilias", $ilias);
 
-		$tpl = new \ilTemplate("tpl.main.html", true, true, $this->pl->getDirectory());
+		$tpl = new \ilTemplate("tpl.main.html", true, true, $pl->getDirectory());
 		$tpl->touchBlock("navbar");
 		$tpl->addCss('./templates/default/delos.css');
-		$tpl->addBlockFile("CONTENT", "content", "tpl.main_voter.html", $this->pl->getDirectory());
+		$tpl->addBlockFile("CONTENT", "content", "tpl.main_voter.html", $pl->getDirectory());
 		$tpl->setVariable('BASE', xlvoConf::getBaseURL());
 		$this->makeGlobal("tpl", $tpl);
 
