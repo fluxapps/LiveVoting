@@ -80,6 +80,10 @@ class xlvoVotingGUI {
 	 * @var xlvoRound
 	 */
 	protected $round;
+	/**
+	 * @var ilObjLiveVoting
+	 */
+	protected $obj;
 
 
 	public function __construct() {
@@ -92,8 +96,10 @@ class xlvoVotingGUI {
 		$this->toolbar = $DIC->toolbar();
 		$this->access = new ilObjLiveVotingAccess();
 		$this->pl = ilLiveVotingPlugin::getInstance();
-		$this->obj_id = \ilObject2::_lookupObjId($_GET['ref_id']);
+		$ref_id = filter_input(INPUT_GET, 'ref_id');
+		$this->obj_id = \ilObject2::_lookupObjId($ref_id);
 		$this->round = xlvoRound::getLatestRound($this->obj_id);
+		$this->obj = new ilObjLiveVoting($ref_id);
 	}
 
 
@@ -665,6 +671,13 @@ class xlvoVotingGUI {
 
 
 	protected function powerPointExport() {
+		$template_path = ILIAS_ABSOLUTE_PATH . substr($this->pl->getDirectory(), 1) . "/templates/powerpoint";
+		$temp_path = CLIENT_DATA_DIR . "/temp/" . uniqid("lv_pp_", true);
+		$tmp_file = $temp_path . ".pptx";
+		$file_name = $this->obj->getTitle() . ".pptx";
+
+		ilUtil::rCopy($template_path, $temp_path);
+
 		/**
 		 * @var xlvoVoting $votings
 		 */
@@ -673,12 +686,14 @@ class xlvoVotingGUI {
 			'voting_type' => xlvoQuestionTypes::getActiveTypes()
 		])->orderBy('position', 'ASC')->get();
 
-		$tmp_file = "";
-		$file_name = "";
-
 		foreach ($votings as $voting) {
 
 		}
+
+		// TODO Fix sub folder
+		ilUtil::zip($temp_path, $tmp_file);
+
+		ilUtil::delDir($temp_path);
 
 		ilUtil::deliverFile($tmp_file, $file_name, "", false, true, true);
 	}
