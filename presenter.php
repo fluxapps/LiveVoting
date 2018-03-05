@@ -17,6 +17,7 @@ InitialisationManager::startMinimal();
 CookieManager::setContext(xlvoContext::CONTEXT_PIN);
 CookieManager::resetCookiePIN();
 CookieManager::resetCookiePUK();
+CookieManager::resetCookieVoting();
 
 $existing_pin = trim($_REQUEST['pin'], '/');
 $puk = false;
@@ -30,6 +31,11 @@ if ($existing_pin) {
 	$puk = trim($_REQUEST['puk'], '/');
 	if ($puk) {
 		CookieManager::setCookiePUK($puk);
+	}
+
+	$voting = trim($_REQUEST['voting'], '/');
+	if ($voting) {
+		CookieManager::setCookieVoting($voting);
 	}
 
 	$xlvoVotingConfig = xlvoVotingConfig::where([ 'pin' => $existing_pin ])->first();

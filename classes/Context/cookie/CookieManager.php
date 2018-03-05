@@ -15,6 +15,7 @@ final class CookieManager {
 	const PIN_COOKIE = 'xlvo_pin';
 	const PIN_COOKIE_FORCE = 'xlvo_force';
 	const PUK_COOKIE = 'xlvo_puk';
+	const VOTING_COOKIE = 'xlvo_voting';
 
 
 	/**
@@ -112,6 +113,7 @@ final class CookieManager {
 	public static function resetCookiePUK() {
 		if (isset($_COOKIE[self::PUK_COOKIE])) {
 			unset($_COOKIE[self::PUK_COOKIE]);
+			setcookie(self::PUK_COOKIE, NULL, - 1, '/');
 		}
 	}
 
@@ -121,5 +123,41 @@ final class CookieManager {
 	 */
 	public static function hasCookiePUK() {
 		return isset($_COOKIE[self::PUK_COOKIE]);
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public static function getCookieVoting() {
+		if (!self::hasCookieVoting()) {
+			return false;
+		}
+
+		return $_COOKIE[self::VOTING_COOKIE];
+	}
+
+
+	/**
+	 * @param string $voting
+	 */
+	public static function setCookieVoting($voting, $forrce = false) {
+		setcookie(self::VOTING_COOKIE, $voting, NULL, '/');
+	}
+
+
+	public static function resetCookieVoting() {
+		if (isset($_COOKIE[self::VOTING_COOKIE])) {
+			unset($_COOKIE[self::VOTING_COOKIE]);
+			setcookie(self::VOTING_COOKIE, NULL, - 1, '/');
+		}
+	}
+
+
+	/**
+	 * @return bool
+	 */
+	public static function hasCookieVoting() {
+		return isset($_COOKIE[self::VOTING_COOKIE]);
 	}
 }

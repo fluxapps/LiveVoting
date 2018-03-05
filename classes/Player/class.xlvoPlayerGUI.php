@@ -164,6 +164,11 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 		$this->ctrl->saveParameter($this, "ref_id");
 
+		if (CookieManager::hasCookieVoting()) {
+			$this->manager->open(CookieManager::getCookieVoting());
+			CookieManager::resetCookieVoting();
+		}
+
 		$this->startPlayer();
 	}
 
