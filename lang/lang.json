@@ -1894,6 +1894,13 @@
                     "de": "User können eine Zahl zwischen X und Y schätzen.",
                     "hu": "A felhasználók kitalálni egy számot X és Y között."
                 }
+            },
+            "powerpoint_export": {
+                "translations": {
+                    "en": "Export as PowerPoint",
+                    "de": "Als PowerPoint exportieren",
+                    "hu": "MISSING"
+                }
             }
         },
         "vqtype": {
