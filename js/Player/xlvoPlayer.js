@@ -65,12 +65,14 @@ var xlvoPlayer = {
         var jq_target = $('div.ilTabsContentOuter');
         var target = jq_target[0];
         var self = this;
-        this.btn_start_fullscreen.click(function () {
+        this.btn_start_fullscreen.click(function (e) {
+            e.preventDefault();
             if (screenfull.enabled) {
                 screenfull.request(target);
             }
         });
-        this.btn_close_fullscreen.click(function () {
+        this.btn_close_fullscreen.click(function (e) {
+	        e.preventDefault();
             if (screenfull.enabled) {
                 screenfull.exit(target);
             }
