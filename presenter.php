@@ -20,6 +20,10 @@ CookieManager::resetCookiePUK();
 
 $existing_pin = trim($_REQUEST['pin'], '/');
 $puk = false;
+/**
+ * @var xlvoVotingConfig|null $xlvoVotingConfig
+ */
+$xlvoVotingConfig = NULL;
 if ($existing_pin) {
 	CookieManager::setCookiePIN($existing_pin);
 
@@ -27,11 +31,16 @@ if ($existing_pin) {
 	if ($puk) {
 		CookieManager::setCookiePUK($puk);
 	}
+
+	$xlvoVotingConfig = xlvoVotingConfig::where([ 'pin' => $existing_pin ])->first();
 }
 global $DIC;
 $ilCtrl = $DIC->ctrl();
 $ilCtrl->initBaseClass(ilUIPluginRouterGUI::class);
 $ilCtrl->setTargetScript(xlvoConf::getFullApiURL());
+if ($xlvoVotingConfig !== NULL) {
+	$ilCtrl->setParameterByClass(xlvoPlayerGUI::class, "ref_id", current(ilObject2::_getAllReferences($xlvoVotingConfig->getObjId())));
+}
 $ilCtrl->redirectByClass(array(
 	ilUIPluginRouterGUI::class,
 	xlvoPlayerGUI::class,

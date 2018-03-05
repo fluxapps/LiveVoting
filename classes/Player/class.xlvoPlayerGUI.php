@@ -162,6 +162,8 @@ class xlvoPlayerGUI extends xlvoGUI {
 			die("Wrong PUK!");
 		}
 
+		$this->ctrl->saveParameter($this, "ref_id");
+
 		$this->startPlayer();
 	}
 
