@@ -679,7 +679,7 @@ class xlvoVotingGUI {
 		ilUtil::rCopy($template_path, $temp_path);
 
 		/**
-		 * @var xlvoVoting $votings
+		 * @var xlvoVoting[] $votings
 		 */
 		$votings = xlvoVoting::where([
 			'obj_id' => $this->obj_id,
@@ -690,8 +690,7 @@ class xlvoVotingGUI {
 
 		}
 
-		// TODO Fix sub folder
-		ilUtil::zip($temp_path, $tmp_file);
+		ilUtil::zip($temp_path, $tmp_file, true);
 
 		ilUtil::delDir($temp_path);
 
