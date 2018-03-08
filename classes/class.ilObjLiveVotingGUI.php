@@ -310,7 +310,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 				break;
 		}
 		if ($active_subtab) {
-			$this->tabs->setSubTabActive($active_subtab);
+			$this->tabs->activateSubTab($active_subtab);
 		}
 	}
 
