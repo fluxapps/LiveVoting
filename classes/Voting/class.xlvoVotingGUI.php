@@ -544,7 +544,7 @@ class xlvoVotingGUI {
 		$domxml = new \DOMDocument('1.0', 'UTF-8');
 		$domxml->preserveWhiteSpace = false;
 		$domxml->formatOutput = true;
-		$config = $domxml->appendChild(new \DOMElement('LiveVoting'));
+		$config = $domxml->appendChild(new \DOMElement(ilLiveVotingPlugin::PLUGIN_NAME));
 
 		$xml_info = $config->appendChild(new \DOMElement('info'));
 		$xml_info->appendChild(new \DOMElement('plugin_version', $this->pl->getVersion()));

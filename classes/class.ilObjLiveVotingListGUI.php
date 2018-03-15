@@ -46,7 +46,7 @@ class ilObjLiveVotingListGUI extends \ilObjectPluginListGUI {
 	 * Init type
 	 */
 	public function initType() {
-		$this->setType("xlvo");
+		$this->setType(ilLiveVotingPlugin::PLUGIN_ID);
 	}
 
 
@@ -54,7 +54,7 @@ class ilObjLiveVotingListGUI extends \ilObjectPluginListGUI {
 	 * Get name of gui class handling the commands
 	 */
 	public function getGuiClass() {
-		return "ilObjLiveVotingGUI";
+		return ilObjLiveVotingGUI::class;
 	}
 
 
@@ -78,14 +78,14 @@ class ilObjLiveVotingListGUI extends \ilObjectPluginListGUI {
 		$this->commands = array(
 			array(
 				"permission" => "read",
-				"cmd"        => "showContent",
-				"default"    => true,
+				"cmd" => "showContent",
+				"default" => true,
 			),
 			array(
 				"permission" => "write",
-				"cmd"        => "editProperties",
-				"txt"        => $this->txt("xlvo_edit"),
-				"default"    => false,
+				"cmd" => "editProperties",
+				"txt" => $this->txt("xlvo_edit"),
+				"default" => false,
 			),
 		);
 
@@ -95,6 +95,7 @@ class ilObjLiveVotingListGUI extends \ilObjectPluginListGUI {
 
 	/**
 	 * @param string $a_cmd
+	 *
 	 * @return string
 	 */
 	public function getCommandFrame($a_cmd) {
@@ -126,9 +127,9 @@ class ilObjLiveVotingListGUI extends \ilObjectPluginListGUI {
 		require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilObjLiveVotingAccess.php');
 		if (!ilObjLiveVotingAccess::checkOnline($this->obj_id)) {
 			$props[] = array(
-				"alert"    => true,
+				"alert" => true,
 				"property" => $this->txt("obj_status"),
-				"value"    => $this->txt("obj_offline"),
+				"value" => $this->txt("obj_offline"),
 			);
 		}
 

@@ -33,7 +33,6 @@ require_once('./Services/PersonalDesktop/interfaces/interface.ilDesktopItemHandl
  */
 class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHandling {
 
-	const XLVO = 'xlvo';
 	const CMD_STANDARD = 'showContent';
 	const CMD_AFTER_CREATION = 'showContentAfterCreation';
 	const CMD_SHOW_CONTENT = 'showContent';
@@ -110,7 +109,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 	 * @return string
 	 */
 	public final function getType() {
-		return self::XLVO;
+		return ilLiveVotingPlugin::PLUGIN_ID;
 	}
 
 
@@ -154,14 +153,14 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 	public function executeCommand() {
 		$this->initHeaderAndLocator();
 
-		$this->tpl->setPermanentLink('xlvo', $this->ref_id);
+		$this->tpl->setPermanentLink(ilLiveVotingPlugin::PLUGIN_ID, $this->ref_id);
 
 		$next_class = $this->ctrl->getNextClass($this);
 		$cmd = $this->ctrl->getCmd();
 
 		if (ilObjLiveVotingAccess::hasWriteAccess()
 			|| ilObjLiveVotingAccess::hasCreateAccess()
-			&& $_GET["new_type"] == "xlvo") {
+			&& $_GET["new_type"] == ilLiveVotingPlugin::PLUGIN_ID) {
 			$this->triageCmdClass($next_class, $cmd);
 		} else {
 			$this->redirectToPublicVotingMask();

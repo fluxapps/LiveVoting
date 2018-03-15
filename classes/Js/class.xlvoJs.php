@@ -162,8 +162,8 @@ class xlvoJs {
 	protected function resolveLib() {
 		$base_path = self::BASE_PATH;
 		$category = ($this->category ? $this->category . '/' : '') . $this->name . '/';
-		$file_name = 'xlvo' . $this->name . '.js';
-		$file_name_min = 'xlvo' . $this->name . '.min.js';
+		$file_name = \ilLiveVotingPlugin::PLUGIN_ID . $this->name . '.js';
+		$file_name_min = \ilLiveVotingPlugin::PLUGIN_ID . $this->name . '.min.js';
 		$full_path_min = $base_path . $category . $file_name_min;
 		$full_path = $base_path . $category . $file_name;
 		if (is_file($full_path_min) && !self::DEVELOP) {
@@ -229,7 +229,7 @@ class xlvoJs {
 	 * @return string
 	 */
 	public function getInitCode() {
-		return 'xlvo' . $this->name . '.init(\'' . $this->settings->asJson() . '\');';
+		return \ilLiveVotingPlugin::PLUGIN_ID . $this->name . '.init(\'' . $this->settings->asJson() . '\');';
 	}
 
 
@@ -240,7 +240,7 @@ class xlvoJs {
 	 * @return string
 	 */
 	public function getCallCode($method, $params = '') {
-		return 'xlvo' . $this->name . '.' . $method . '(' . $params . ');';
+		return \ilLiveVotingPlugin::PLUGIN_ID . $this->name . '.' . $method . '(' . $params . ');';
 	}
 
 

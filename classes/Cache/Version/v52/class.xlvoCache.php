@@ -24,7 +24,6 @@ require_once('./Services/GlobalCache/classes/class.ilGlobalCache.php');
  */
 class xlvoCache extends \ilGlobalCache implements xlvoCacheService, Initialisable {
 
-	const COMP_PREFIX = 'xlvo';
 	/**
 	 * @var bool
 	 */
@@ -33,12 +32,13 @@ class xlvoCache extends \ilGlobalCache implements xlvoCacheService, Initialisabl
 	 * @var array
 	 */
 	protected static $active_components = array(
-		self::COMP_PREFIX,
+		\ilLiveVotingPlugin::PLUGIN_ID,
 	);
 
 
 	/**
 	 * @param null $component
+	 *
 	 * @return \LiveVoting\Cache\Version\v52\xlvoCache
 	 */
 	public static function getInstance($component) {
@@ -53,60 +53,54 @@ class xlvoCache extends \ilGlobalCache implements xlvoCacheService, Initialisabl
 	}
 
 
-    /**
-     * Init the cache.
-     */
-    public function init()
-    {
-        $this->initCachingService();
-        $this->setActive(true);
-        self::setOverrideActive(true);
-    }
+	/**
+	 * Init the cache.
+	 */
+	public function init() {
+		$this->initCachingService();
+		$this->setActive(true);
+		self::setOverrideActive(true);
+	}
 
 
-    protected function initCachingService() {
+	protected function initCachingService() {
 		/**
 		 * @var $ilGlobalCacheService \ilGlobalCacheService
 		 */
 		if (!$this->getComponent()) {
-			$this->setComponent('LiveVoting');
+			$this->setComponent(\ilLiveVotingPlugin::PLUGIN_NAME);
 		}
 
-        $ilGlobalCacheService = null;
+		$ilGlobalCacheService = NULL;
 
-		if($this->isLiveVotingCacheEnabled())
-        {
-            $serviceName = self::lookupServiceClassName($this->getServiceType());
-            $ilGlobalCacheService = new $serviceName(self::$unique_service_id, $this->getComponent());
-            $ilGlobalCacheService->setServiceType($this->getServiceType());
-        }
-        else
-        {
-            $serviceName = self::lookupServiceClassName(self::TYPE_STATIC);
-            $ilGlobalCacheService = new $serviceName(self::$unique_service_id, $this->getComponent());
-            $ilGlobalCacheService->setServiceType(self::TYPE_STATIC);
-        }
+		if ($this->isLiveVotingCacheEnabled()) {
+			$serviceName = self::lookupServiceClassName($this->getServiceType());
+			$ilGlobalCacheService = new $serviceName(self::$unique_service_id, $this->getComponent());
+			$ilGlobalCacheService->setServiceType($this->getServiceType());
+		} else {
+			$serviceName = self::lookupServiceClassName(self::TYPE_STATIC);
+			$ilGlobalCacheService = new $serviceName(self::$unique_service_id, $this->getComponent());
+			$ilGlobalCacheService->setServiceType(self::TYPE_STATIC);
+		}
 
 		$this->global_cache = $ilGlobalCacheService;
 		$this->setActive(in_array($this->getComponent(), self::getActiveComponents()));
 	}
 
-    /**
-     * Checks if live voting is able to use the global cache.
-     *
-     * @return bool
-     */
-	private function isLiveVotingCacheEnabled()
-    {
-        try
-        {
-            return (int)xlvoConf::getConfig(xlvoConf::F_USE_GLOBAL_CACHE) === 1;
-        }
-        catch (\Exception $exceptione) //catch exception while dbupdate is running. (xlvoConf is not ready at that time).
-        {
-            return false;
-        }
-    }
+
+	/**
+	 * Checks if live voting is able to use the global cache.
+	 *
+	 * @return bool
+	 */
+	private function isLiveVotingCacheEnabled() {
+		try {
+			return (int)xlvoConf::getConfig(xlvoConf::F_USE_GLOBAL_CACHE) === 1;
+		} catch (\Exception $exceptione) //catch exception while dbupdate is running. (xlvoConf is not ready at that time).
+		{
+			return false;
+		}
+	}
 
 
 	/**
@@ -125,9 +119,9 @@ class xlvoCache extends \ilGlobalCache implements xlvoCacheService, Initialisabl
 			case self::TYPE_XCACHE:
 				return \ilXcache::class;
 				break;
-            case self::TYPE_STATIC:
-                return \ilStaticCache::class;
-                break;
+			case self::TYPE_STATIC:
+				return \ilStaticCache::class;
+				break;
 			default:
 				return \ilStaticCache::class;
 				break;
@@ -200,13 +194,13 @@ class xlvoCache extends \ilGlobalCache implements xlvoCacheService, Initialisabl
 
 
 	/**
-	 * @param string $key  An unique key.
-	 * @param mixed $value Serializable object or string.
-	 * @param null $ttl    Time to life measured in seconds.
+	 * @param string $key   An unique key.
+	 * @param mixed  $value Serializable object or string.
+	 * @param null   $ttl   Time to life measured in seconds.
 	 *
 	 * @return bool              True if the cache entry was set otherwise false.
 	 */
-	public function set($key, $value, $ttl = null) {
+	public function set($key, $value, $ttl = NULL) {
 		//		$ttl = $ttl ? $ttl : 480;
 		if (!$this->global_cache instanceof \ilGlobalCacheService || !$this->isActive()) {
 			return false;
@@ -231,6 +225,6 @@ class xlvoCache extends \ilGlobalCache implements xlvoCacheService, Initialisabl
 			return $unserialized_return;
 		}
 
-		return null;
+		return NULL;
 	}
 }

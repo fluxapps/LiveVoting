@@ -21,6 +21,7 @@
 	| Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. |
 	+-----------------------------------------------------------------------------+
 */
+
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\Pin\xlvoPin;
 use LiveVoting\Player\xlvoPlayer;
@@ -48,7 +49,7 @@ class ilObjLiveVoting extends \ilObjectPlugin {
 
 
 	/**
-	 * @param int $a_ref_id
+	 * @param int        $a_ref_id
 	 * @param bool|false $by_oid
 	 */
 	function __construct($a_ref_id = 0, $by_oid = false) {
@@ -70,7 +71,7 @@ class ilObjLiveVoting extends \ilObjectPlugin {
 	 * Get type.
 	 */
 	final function initType() {
-		$this->setType("xlvo");
+		$this->setType(ilLiveVotingPlugin::PLUGIN_ID);
 	}
 
 
@@ -168,7 +169,7 @@ class ilObjLiveVoting extends \ilObjectPlugin {
 	 * @param                 $a_copy_id
 	 * @param ilObjLiveVoting $new_obj
 	 */
-	public function doCloneObject($new_obj, $a_target_id, $a_copy_id = null ) {
+	public function doCloneObject($new_obj, $a_target_id, $a_copy_id = NULL) {
 
 		/**
 		 * @var $config xlvoVotingConfig

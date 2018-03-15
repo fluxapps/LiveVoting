@@ -48,7 +48,7 @@ class xlvoVotingFormGUI extends \ilPropertyFormGUI {
 
 	/**
 	 * @param xlvoVotingGUI $parent_gui
-	 * @param xlvoVoting $xlvoVoting
+	 * @param xlvoVoting    $xlvoVoting
 	 */
 	public function __construct(xlvoVotingGUI $parent_gui, xlvoVoting $xlvoVoting) {
 		parent::__construct();
@@ -87,7 +87,7 @@ class xlvoVotingFormGUI extends \ilPropertyFormGUI {
 		$te->addButton('latex');
 		$te->addButton('pastelatex');
 		$te->setRequired(true);
-		$te->setRTESupport(\ilObject::_lookupObjId($_GET['ref_id']), "dcl", "xlvo", null, false); // We have to prepend that this is a datacollection
+		$te->setRTESupport(\ilObject::_lookupObjId($_GET['ref_id']), "dcl", ilLiveVotingPlugin::PLUGIN_ID, NULL, false); // We have to prepend that this is a datacollection
 		$te->setUseRte(true);
 		$te->setRteTags(array(
 			'p',
@@ -140,6 +140,7 @@ class xlvoVotingFormGUI extends \ilPropertyFormGUI {
 
 	/**
 	 * @param $key
+	 *
 	 * @return string
 	 */
 	protected function txt($key) {
@@ -149,11 +150,11 @@ class xlvoVotingFormGUI extends \ilPropertyFormGUI {
 
 	public function fillForm() {
 		$array = array(
-			'type'          => $this->voting->getVotingType(),
-			'title'         => $this->voting->getTitle(),
-			'description'   => $this->voting->getDescription(),
-			'question'      => $this->voting->getQuestionForEditor(),
-			'voting_type'   => $this->voting->getVotingType(),
+			'type' => $this->voting->getVotingType(),
+			'title' => $this->voting->getTitle(),
+			'description' => $this->voting->getDescription(),
+			'question' => $this->voting->getQuestionForEditor(),
+			'voting_type' => $this->voting->getVotingType(),
 			'voting_status' => ($this->voting->getVotingStatus() == xlvoVoting::STAT_ACTIVE),
 			self::F_COLUMNS => $this->voting->getColumns(),
 		);

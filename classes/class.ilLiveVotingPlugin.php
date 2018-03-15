@@ -12,6 +12,7 @@ include_once('./Services/Repository/classes/class.ilRepositoryObjectPlugin.php')
  */
 class ilLiveVotingPlugin extends \ilRepositoryObjectPlugin {
 
+	const PLUGIN_ID = 'xlvo';
 	const PLUGIN_NAME = 'LiveVoting';
 	/**
 	 * @var ilLiveVotingPlugin
