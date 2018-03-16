@@ -54,10 +54,10 @@ class ilObjLiveVoting extends \ilObjectPlugin {
 	 */
 	function __construct($a_ref_id = 0, $by_oid = false) {
 		parent::__construct($a_ref_id);
-		if ($a_ref_id != 0) {
+		/*if ($a_ref_id != 0) {
 			$this->id = $a_ref_id;
 			$this->doRead();
-		}
+		}*/
 		global $DIC;
 		/**
 		 * @var $ilDB   \ilDB
@@ -257,5 +257,18 @@ class ilObjLiveVoting extends \ilObjectPlugin {
 		foreach ($media_object_ids as $media_object_id) {
 			\ilObjMediaObject::_saveUsage($media_object_id, 'dcl:html', $new_obj->getId());
 		}
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getPresenterLink() {
+		/**
+		 * @var $config xlvoVotingConfig
+		 */
+		$config = xlvoVotingConfig::find($this->id);
+
+		return ILIAS_HTTP_PATH . substr($this->plugin->getDirectory(), 1) . '/presenter.php?pin=' . $config->getPin() . "&puk=" . $config->getPuk();
 	}
 }

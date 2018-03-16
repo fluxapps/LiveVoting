@@ -671,29 +671,6 @@ class xlvoVotingGUI {
 
 
 	protected function powerPointExport() {
-		$template_path = ILIAS_ABSOLUTE_PATH . substr($this->pl->getDirectory(), 1) . "/templates/powerpoint";
-		$temp_path = CLIENT_DATA_DIR . "/temp/" . uniqid("lv_pp_", true);
-		$tmp_file = $temp_path . ".pptx";
-		$file_name = $this->obj->getTitle() . ".pptx";
-
-		ilUtil::rCopy($template_path, $temp_path);
-
-		/**
-		 * @var xlvoVoting[] $votings
-		 */
-		$votings = xlvoVoting::where([
-			'obj_id' => $this->obj_id,
-			'voting_type' => xlvoQuestionTypes::getActiveTypes()
-		])->orderBy('position', 'ASC')->get();
-
-		foreach ($votings as $voting) {
-
-		}
-
-		ilUtil::zip($temp_path, $tmp_file, true);
-
-		ilUtil::delDir($temp_path);
-
-		ilUtil::deliverFile($tmp_file, $file_name, "", false, true, true);
+		$powerPointExport = new LiveVoting\PowerPointExport\ilPowerPointExport($this->obj);
 	}
 }
