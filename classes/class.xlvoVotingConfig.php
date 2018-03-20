@@ -9,7 +9,7 @@ use LiveVoting\Cache\CachingActiveRecord;
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version 1.0.0
  */
-class xlvoVotingConfig extends CachingActiveRecord  {
+class xlvoVotingConfig extends CachingActiveRecord {
 
 	const B_FROZEN_ALWAY_OFF = 0;
 	const B_FROZEN_ALWAY_ON = 1;
@@ -25,14 +25,15 @@ class xlvoVotingConfig extends CachingActiveRecord  {
 	const F_TERMINABLE = 'terminable';
 	const F_TERMINABLE_SELECT = "terminable_select";
 	const F_VOTING_HISTORY = "voting_history";
-    const F_SHOW_ATTENDEES = "show_attendees";
+	const F_SHOW_ATTENDEES = "show_attendees";
+	const TABLE_NAME = 'rep_robj_xlvo_config_n';
 
 
 	/**
 	 * @return string
 	 */
 	public static function returnDbTableName() {
-		return 'rep_robj_xlvo_config_n';
+		return self::TABLE_NAME;
 	}
 
 
@@ -122,7 +123,6 @@ class xlvoVotingConfig extends CachingActiveRecord  {
 	 * @db_length           1
 	 */
 	protected $results_behaviour = self::B_RESULTS_ALWAY_OFF;
-
 	/**
 	 * @var int
 	 *
@@ -131,17 +131,16 @@ class xlvoVotingConfig extends CachingActiveRecord  {
 	 * @db_length           1
 	 */
 	protected $voting_history = false;
-
 	/**
 	 * @var bool
 	 */
 	protected $full_screen = true;
 	/**
 	 * @var bool
-     *
-     * @db_has_field        true
-     * @db_fieldtype        integer
-     * @db_length           1
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           1
 	 */
 	protected $show_attendees = false;
 	/**
@@ -152,6 +151,14 @@ class xlvoVotingConfig extends CachingActiveRecord  {
 	 * @var bool
 	 */
 	protected $keyboard_active = false;
+	/**
+	 * @var string
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        text
+	 * @db_length           256
+	 */
+	protected $puk = '';
 
 
 	/**
@@ -417,12 +424,14 @@ class xlvoVotingConfig extends CachingActiveRecord  {
 		$this->results_behaviour = $results_behaviour;
 	}
 
+
 	/**
 	 * @return int
 	 */
 	public function getVotingHistory() {
 		return $this->voting_history;
 	}
+
 
 	/**
 	 * @param int $voting_history
@@ -432,4 +441,18 @@ class xlvoVotingConfig extends CachingActiveRecord  {
 	}
 
 
+	/**
+	 * @return string
+	 */
+	public function getPuk() {
+		return $this->puk;
+	}
+
+
+	/**
+	 * @param string $puk
+	 */
+	public function setPuk($puk) {
+		$this->puk = $puk;
+	}
 }

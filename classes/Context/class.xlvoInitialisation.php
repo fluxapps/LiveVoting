@@ -3,6 +3,7 @@
 namespace LiveVoting\Context;
 
 use LiveVoting\Conf\xlvoConf;
+use LiveVoting\Context\cookie\CookieManager;
 use LiveVoting\xlvoSessionHandler;
 
 require_once('./Services/Init/classes/class.ilInitialisation.php');
@@ -20,9 +21,10 @@ class xlvoInitialisation extends \ilInitialisation {
 	const USE_OWN_GLOBAL_TPL = true;
 	const CONTEXT_PIN = 1;
 	const CONTEXT_ILIAS = 2;
-	const XLVO_CONTEXT = 'xlvo_context';
-	const PIN_COOKIE = 'xlvo_pin';
-	const PIN_COOKIE_FORCE = 'xlvo_force';
+	/**
+	 * @var \ilTree
+	 */
+	protected static $tree;
 	/**
 	 * @var int
 	 */
@@ -34,11 +36,11 @@ class xlvoInitialisation extends \ilInitialisation {
 	 *
 	 * @param int $context
 	 */
-	protected function __construct($context = null) {
+	protected function __construct($context = NULL) {
 		if ($context) {
 			self::saveContext($context);
 		} else {
-			self::readFromCookie();
+			self::setContext(CookieManager::getContext());
 		}
 		$this->run();
 	}
@@ -53,7 +55,7 @@ class xlvoInitialisation extends \ilInitialisation {
 				//				self::initILIAS();
 				break;
 			case self::CONTEXT_PIN:
-				xlvoContext::init('xlvoContextLiveVoting');
+				xlvoContext::init(xlvoContextLiveVoting::class);
 				self::initILIAS2();
 				break;
 		}
@@ -65,14 +67,14 @@ class xlvoInitialisation extends \ilInitialisation {
 	 *
 	 * @return xlvoInitialisation
 	 */
-	public static function init($context = null) {
+	public static function init($context = NULL) {
 		return new self($context);
 	}
 
 
 	public static function saveContext($context) {
 		self::setContext($context);
-		self::writeToCookie();
+		CookieManager::setContext($context);
 	}
 
 
@@ -105,25 +107,23 @@ class xlvoInitialisation extends \ilInitialisation {
 
 
 	public static function initILIAS2() {
-		global $tree;
+		global $DIC;
 		require_once("./include/inc.ilias_version.php");
-		if (version_compare(ILIAS_VERSION_NUMERIC, '5.2.00', '>=')) {
-			self::initDependencyInjection();
-		}
+		self::initDependencyInjection();
 		self::initCore();
 		self::initClient();
 		self::initUser();
 		self::initLanguage();
-		$tree->initLangCode();
+		self::$tree->initLangCode();
 		self::initHTML2();
-		global $objDefinition;
-		$objDefinition = new xlvoObjectDefinition();
+		$GLOBALS["objDefinition"] = $DIC["objDefinition"] = new xlvoObjectDefinition();
 	}
 
 
 	public static function initDependencyInjection() {
-		$GLOBALS["DIC"] = new \ILIAS\DI\Container();
-		$GLOBALS["DIC"]["ilLoggerFactory"] = function ($c) {
+		global $DIC;
+		$DIC = new \ILIAS\DI\Container();
+		$DIC["ilLoggerFactory"] = function ($c) {
 			return ilLoggerFactory::getInstance();
 		};
 	}
@@ -131,14 +131,15 @@ class xlvoInitialisation extends \ilInitialisation {
 
 	protected static function initHTML2() {
 		parent::initHTML();
+		$pl = \ilLiveVotingPlugin::getInstance();
 		if (self::USE_OWN_GLOBAL_TPL) {
-			$tpl = new \ilTemplate("tpl.main.html", true, true, 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting');
+			$tpl = new \ilTemplate("tpl.main.html", true, true, $pl->getDirectory());
+			$tpl->touchBlock("navbar");
 			$tpl->addCss('./templates/default/delos.css');
-			$tpl->addBlockFile("CONTENT", "content", "tpl.main_voter.html", 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting');
+			$tpl->addBlockFile("CONTENT", "content", "tpl.main_voter.html", $pl->getDirectory());
 
 			self::initGlobal("tpl", $tpl);
 		}
-		global $tpl;
 		if (!self::USE_OWN_GLOBAL_TPL) {
 			$tpl->getStandardTemplate();
 		}
@@ -154,8 +155,6 @@ class xlvoInitialisation extends \ilInitialisation {
 
 
 	protected static function initClient() {
-		global $https;
-
 		self::determineClient();
 		self::initClientIniFile();
 		self::initDatabase();
@@ -174,29 +173,13 @@ class xlvoInitialisation extends \ilInitialisation {
 
 		self::initGlobal("ilObjDataCache", "ilObjectDataCache", "./Services/Object/classes/class.ilObjectDataCache.php");
 		require_once "./Services/Tree/classes/class.ilTree.php";
-		$tree = new \ilTree(ROOT_FOLDER_ID);
-		self::initGlobal("tree", $tree);
-		unset($tree);
+		self::$tree = new \ilTree(ROOT_FOLDER_ID);
+		self::initGlobal("tree", self::$tree);
+		//unset(self::$tree);
 		self::initGlobal("ilCtrl", "ilCtrl", "./Services/UICore/classes/class.ilCtrl.php");
 		$GLOBALS['COOKIE_PATH'] = '/';
 		self::setCookieParams();
 		self::initLog();
-	}
-
-
-	// PIN COOKIE
-
-	protected static function readFromCookie() {
-		if (!empty($_COOKIE[self::XLVO_CONTEXT])) {
-			self::setContext($_COOKIE[self::XLVO_CONTEXT]);
-		} else {
-			self::setContext(self::CONTEXT_ILIAS);
-		}
-	}
-
-
-	protected static function writeToCookie() {
-		setcookie(self::XLVO_CONTEXT, self::getContext(), null, '/');
 	}
 
 
@@ -213,47 +196,5 @@ class xlvoInitialisation extends \ilInitialisation {
 	 */
 	public static function setContext($context) {
 		self::$context = $context;
-	}
-
-
-	/**
-	 * @return int
-	 */
-	public static function getCookiePIN() {
-		if (!self::hasCookiePIN()) {
-			return false;
-		}
-
-		return $_COOKIE[self::PIN_COOKIE];
-	}
-
-
-	/**
-	 * @param int $pin
-	 */
-	public static function setCookiePIN($pin, $forrce = false) {
-		setcookie(self::PIN_COOKIE, $pin, null, '/');
-		if ($forrce) {
-			setcookie(self::PIN_COOKIE_FORCE, true, null, '/');
-		}
-	}
-
-
-	public static function resetCookiePIN() {
-		if ($_COOKIE[self::PIN_COOKIE_FORCE]) {
-			unset($_COOKIE[self::PIN_COOKIE_FORCE]);
-			setcookie(self::PIN_COOKIE_FORCE, null, - 1, '/');
-		} else {
-			unset($_COOKIE[self::PIN_COOKIE]);
-			setcookie(self::PIN_COOKIE, null, - 1, '/');
-		}
-	}
-
-
-	/**
-	 * @return bool
-	 */
-	protected static function hasCookiePIN() {
-		return isset($_COOKIE[self::PIN_COOKIE]);
 	}
 }

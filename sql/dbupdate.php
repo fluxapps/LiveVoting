@@ -1,5 +1,6 @@
 <#1>
 <?php
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 /**
  * @var $ilDB ilDB
  */
@@ -30,16 +31,17 @@ $fields = array(
 'notnull' => false
 )
 );
-if(!$ilDB->tableExists('rep_robj_xlvo_data')) {
-	$ilDB->createTable("rep_robj_xlvo_data", $fields);
-	$ilDB->addPrimaryKey("rep_robj_xlvo_data", array( "id" ));
+if(!$ilDB->tableExists(\LiveVoting\Option\xlvoData::TABLE_NAME)) {
+	$ilDB->createTable(\LiveVoting\Option\xlvoData::TABLE_NAME, $fields);
+	$ilDB->addPrimaryKey(\LiveVoting\Option\xlvoData::TABLE_NAME, array( "id" ));
 }
-if(!$ilDB->sequenceExists('rep_robj_xlvo_data')) {
-	$ilDB->createSequence("rep_robj_xlvo_data");
+if(!$ilDB->sequenceExists(\LiveVoting\Option\xlvoData::TABLE_NAME)) {
+	$ilDB->createSequence(\LiveVoting\Option\xlvoData::TABLE_NAME);
 }
 ?>
 <#2>
 <?php
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 $fields = array(
 'id' => array(
 'type' => 'integer',
@@ -62,16 +64,17 @@ $fields = array(
 'notnull' => false
 )
 );
-if (! $ilDB->tableExists('rep_robj_xlvo_vote')) {
-	$ilDB->createTable("rep_robj_xlvo_vote", $fields);
-	$ilDB->addPrimaryKey("rep_robj_xlvo_vote", array( "id" ));
+if (! $ilDB->tableExists(\LiveVoting\Vote\xlvoVoteOld::TABLE_NAME)) {
+	$ilDB->createTable(\LiveVoting\Vote\xlvoVoteOld::TABLE_NAME, $fields);
+	$ilDB->addPrimaryKey(\LiveVoting\Vote\xlvoVoteOld::TABLE_NAME, array( "id" ));
 }
-if (!$ilDB->sequenceExists('rep_robj_xlvo_vote')) {
-	$ilDB->createSequence("rep_robj_xlvo_vote");
+if (!$ilDB->sequenceExists(\LiveVoting\Vote\xlvoVoteOld::TABLE_NAME)) {
+	$ilDB->createSequence(\LiveVoting\Vote\xlvoVoteOld::TABLE_NAME);
 }
 ?>
 <#3>
 <?php
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 $fields = array(
 'id' => array(
 'type' => 'integer',
@@ -89,39 +92,40 @@ $fields = array(
 'notnull' => false
 )
 );
-if (! $ilDB->tableExists('rep_robj_xlvo_option')) {
-	$ilDB->createTable("rep_robj_xlvo_option", $fields);
-	$ilDB->addPrimaryKey("rep_robj_xlvo_option", array( "id" ));
+if (! $ilDB->tableExists(\LiveVoting\Option\xlvoOptionOld::TABLE_NAME)) {
+	$ilDB->createTable(\LiveVoting\Option\xlvoOptionOld::TABLE_NAME, $fields);
+	$ilDB->addPrimaryKey(\LiveVoting\Option\xlvoOptionOld::TABLE_NAME, array( "id" ));
 }
-if (! $ilDB->sequenceExists('rep_robj_xlvo_option')) {
-	$ilDB->createSequence("rep_robj_xlvo_option");
+if (! $ilDB->sequenceExists(\LiveVoting\Option\xlvoOptionOld::TABLE_NAME)) {
+	$ilDB->createSequence(\LiveVoting\Option\xlvoOptionOld::TABLE_NAME);
 }
 ?>
 <#4>
 <?php
-if (! $ilDB->tableColumnExists('rep_robj_xlvo_data', 'question')) {
-$ilDB->addTableColumn('rep_robj_xlvo_data', 'question', array(
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
+if (! $ilDB->tableColumnExists(\LiveVoting\Option\xlvoData::TABLE_NAME, 'question')) {
+$ilDB->addTableColumn(\LiveVoting\Option\xlvoData::TABLE_NAME, 'question', array(
 'type' => 'text',
 'length' => 4000
 ));
 }
 
-if (! $ilDB->tableColumnExists('rep_robj_xlvo_data', 'is_terminated')) {
-$ilDB->addTableColumn('rep_robj_xlvo_data', 'is_terminated', array(
+if (! $ilDB->tableColumnExists(\LiveVoting\Option\xlvoData::TABLE_NAME, 'is_terminated')) {
+$ilDB->addTableColumn(\LiveVoting\Option\xlvoData::TABLE_NAME, 'is_terminated', array(
 'type' => 'integer',
 'length' => 1,
 'default' => 0
 ));
 }
-if (! $ilDB->tableColumnExists('rep_robj_xlvo_data', 'start_time')) {
-$ilDB->addTableColumn('rep_robj_xlvo_data', 'start_time', array(
+if (! $ilDB->tableColumnExists(\LiveVoting\Option\xlvoData::TABLE_NAME, 'start_time')) {
+$ilDB->addTableColumn(\LiveVoting\Option\xlvoData::TABLE_NAME, 'start_time', array(
 'type' => 'integer',
 'length' => 8,
 'default' => 0
 ));
 }
-if (! $ilDB->tableColumnExists('rep_robj_xlvo_data', 'end_time')) {
-$ilDB->addTableColumn('rep_robj_xlvo_data', 'end_time', array(
+if (! $ilDB->tableColumnExists(\LiveVoting\Option\xlvoData::TABLE_NAME, 'end_time')) {
+$ilDB->addTableColumn(\LiveVoting\Option\xlvoData::TABLE_NAME, 'end_time', array(
 'type' => 'integer',
 'length' => 8,
 'default' => 0
@@ -130,6 +134,7 @@ $ilDB->addTableColumn('rep_robj_xlvo_data', 'end_time', array(
 ?>
 <#5>
 <?php
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 $fields = array(
 'lvo_key' => array(
 'type' => 'text',
@@ -140,15 +145,16 @@ $fields = array(
 'length' => 64,
 )
 );
-if (! $ilDB->tableExists('rep_robj_xlvo_conf')) {
-	$ilDB->createTable("rep_robj_xlvo_conf", $fields);
-	$ilDB->addPrimaryKey("rep_robj_xlvo_conf", array( "lvo_key" ));
+if (! $ilDB->tableExists(\LiveVoting\Conf\xlvoConfOld::TABLE_NAME)) {
+	$ilDB->createTable(\LiveVoting\Conf\xlvoConfOld::TABLE_NAME, $fields);
+	$ilDB->addPrimaryKey(\LiveVoting\Conf\xlvoConfOld::TABLE_NAME, array( "lvo_key" ));
 }
 ?>
 <#6>
 <?php
-if (! $ilDB->tableColumnExists('rep_robj_xlvo_data', 'is_freezed')) {
-$ilDB->addTableColumn('rep_robj_xlvo_data', 'is_freezed', array(
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
+if (! $ilDB->tableColumnExists(\LiveVoting\Option\xlvoData::TABLE_NAME, 'is_freezed')) {
+$ilDB->addTableColumn(\LiveVoting\Option\xlvoData::TABLE_NAME, 'is_freezed', array(
 'type' => 'integer',
 'length' => 1,
 'default' => 0
@@ -157,21 +163,23 @@ $ilDB->addTableColumn('rep_robj_xlvo_data', 'is_freezed', array(
 ?>
 <#7>
 <?php
-if($ilDB->tableColumnExists('rep_robj_xlvo_conf', 'lvo_key')) {
-	$ilDB->renameTableColumn('rep_robj_xlvo_conf', 'lvo_key', 'config_key');
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
+if($ilDB->tableColumnExists(\LiveVoting\Conf\xlvoConfOld::TABLE_NAME, 'lvo_key')) {
+	$ilDB->renameTableColumn(\LiveVoting\Conf\xlvoConfOld::TABLE_NAME, 'lvo_key', 'config_key');
 }
-if($ilDB->tableColumnExists('rep_robj_xlvo_conf', 'lvo_value')) {
-	$ilDB->renameTableColumn('rep_robj_xlvo_conf', 'lvo_value', 'config_value');
+if($ilDB->tableColumnExists(\LiveVoting\Conf\xlvoConfOld::TABLE_NAME, 'lvo_value')) {
+	$ilDB->renameTableColumn(\LiveVoting\Conf\xlvoConfOld::TABLE_NAME, 'lvo_value', 'config_value');
 }
-$ilDB->modifyTableColumn('rep_robj_xlvo_conf', 'config_value', array(
+$ilDB->modifyTableColumn(\LiveVoting\Conf\xlvoConfOld::TABLE_NAME, 'config_value', array(
 'type' => 'clob',
 'notnull' => false
 ));
 ?>
 <#8>
 <?php
-if (! $ilDB->tableColumnExists('rep_robj_xlvo_data', 'is_colorful')) {
-$ilDB->addTableColumn('rep_robj_xlvo_data', 'is_colorful', array(
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
+if (! $ilDB->tableColumnExists(\LiveVoting\Option\xlvoData::TABLE_NAME, 'is_colorful')) {
+$ilDB->addTableColumn(\LiveVoting\Option\xlvoData::TABLE_NAME, 'is_colorful', array(
 'type' => 'integer',
 'length' => 1,
 'default' => 0,
@@ -183,36 +191,37 @@ $ilDB->addTableColumn('rep_robj_xlvo_data', 'is_colorful', array(
 <?php
 require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
-\LiveVoting\Option\xlvoOption::installDB();
+\LiveVoting\Option\xlvoOption::updateDB();
 ?>
 <#10>
 <?php
 require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
-\LiveVoting\Vote\xlvoVote::installDB();
+\LiveVoting\Vote\xlvoVote::updateDB();
 ?>
 <#11>
 <?php
 require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
-\LiveVoting\Voting\xlvoVoting::installDB();
+\LiveVoting\Voting\xlvoVoting::updateDB();
 ?>
 <#12>
 <?php
 require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
-xlvoVotingConfig::installDB();
+xlvoVotingConfig::updateDB();
 ?>
 <#13>
 <?php
 require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
-\LiveVoting\Player\xlvoPlayer::installDB();
+\LiveVoting\Player\xlvoPlayer::updateDB();
 ?>
 <#14>
 <?php
-if (! $ilDB->tableColumnExists('rep_robj_xlvo_data', 'end_time')) {
-$ilDB->addTableColumn('rep_robj_xlvo_data', 'end_time', array(
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
+if (! $ilDB->tableColumnExists(\LiveVoting\Option\xlvoData::TABLE_NAME, 'end_time')) {
+$ilDB->addTableColumn(\LiveVoting\Option\xlvoData::TABLE_NAME, 'end_time', array(
 'type' => 'integer',
 'length' => 8,
 'default' => 0
@@ -227,7 +236,7 @@ $ilDB->addTableColumn('rep_robj_xlvo_data', 'end_time', array(
 require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 require_once('./Services/Object/classes/class.ilObject2.php');
 
-$query = "SELECT * FROM rep_robj_xlvo_data";
+$query = "SELECT * FROM " . \LiveVoting\Option\xlvoData::TABLE_NAME;
 $setData = $ilDB->query($query);
 while ($resData = $ilDB->fetchAssoc($setData)) {
 	$obj_id = $resData['id'];
@@ -273,7 +282,7 @@ while ($resData = $ilDB->fetchAssoc($setData)) {
 	}
 
 	// rep_robj_xlvo_option
-	$query = "SELECT * FROM rep_robj_xlvo_option WHERE data_id = " . $ilDB->quote($xlvoVotingConfig->getObjId(), "integer");
+	$query = "SELECT * FROM " . \LiveVoting\Option\xlvoOptionOld::TABLE_NAME . " WHERE data_id = " . $ilDB->quote($xlvoVotingConfig->getObjId(), "integer");
 	$setOption = $ilDB->query($query);
 	while ($resOption = $ilDB->fetchAssoc($setOption)) {
 		/**
@@ -287,7 +296,7 @@ while ($resData = $ilDB->fetchAssoc($setData)) {
 		$xlvoOption->create();
 
 		// rep_robj_xlvo_vote
-		$setVote = $ilDB->query("SELECT * FROM rep_robj_xlvo_vote " . " WHERE option_id = " . $ilDB->quote($resOption['id'], "integer"));
+		$setVote = $ilDB->query("SELECT * FROM " . \LiveVoting\Vote\xlvoVoteOld::TABLE_NAME . " WHERE option_id = " . $ilDB->quote($resOption['id'], "integer"));
 		while ($resVote = $ilDB->fetchAssoc($setVote)) {
 			/**
 			 * @var $xlvoVote \LiveVoting\Vote\xlvoVote
@@ -314,8 +323,8 @@ while ($resData = $ilDB->fetchAssoc($setData)) {
 <?php
 require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
-\LiveVoting\Conf\xlvoConf::installDB();
-$a_set = $ilDB->query('SELECT * FROM rep_robj_xlvo_conf');
+\LiveVoting\Conf\xlvoConf::updateDB();
+$a_set = $ilDB->query('SELECT * FROM ' . \LiveVoting\Conf\xlvoConfOld::TABLE_NAME);
 while ($data = $ilDB->fetchObject($a_set)) {
     \LiveVoting\Conf\xlvoConf::set($data->config_key, $data->config_value);
 }
@@ -330,7 +339,7 @@ xlvoVotingConfig::updateDB();
 <?php
 require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
-\LiveVoting\Voter\xlvoVoter::installDB();
+\LiveVoting\Voter\xlvoVoter::updateDB();
 ?>
 <#19>
 <?php
@@ -345,7 +354,7 @@ require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/Li
 require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
 xlvoVotingConfig::updateDB();
-$xlvo_conf_table_name = xlvoVotingConfig::returnDbTableName();
+$xlvo_conf_table_name = xlvoVotingConfig::TABLE_NAME;
 $frozen_behaviour = xlvoVotingConfig::B_FROZEN_ALWAY_OFF;
 $results_behaviour = xlvoVotingConfig::B_RESULTS_ALWAY_OFF;
 $q = "UPDATE {$xlvo_conf_table_name} SET frozen_behaviour={$frozen_behaviour}, results_behaviour={$results_behaviour}";
@@ -362,7 +371,7 @@ require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/Li
 require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
 \LiveVoting\Voting\xlvoVoting::updateDB();
-$xlvo_voting_table_name = \LiveVoting\Voting\xlvoVoting::returnDbTableName();
+$xlvo_voting_table_name = \LiveVoting\Voting\xlvoVoting::TABLE_NAME;
 $default = \LiveVoting\Voting\xlvoVoting::ROWS_DEFAULT;
 $q = "UPDATE {$xlvo_voting_table_name} SET columns = {$default}";
 $ilDB->manipulate($q);
@@ -381,7 +390,8 @@ require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/Li
 ?>
 <#24>
 <?php
-$ilDB->manipulate("UPDATE rep_robj_xlvo_config_n SET frozen_behaviour = 0, results_behaviour = 0");
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
+$ilDB->manipulate("UPDATE " . xlvoVotingConfig::TABLE_NAME . " SET frozen_behaviour = 0, results_behaviour = 0");
 ?>
 <#25>
 <?php
@@ -394,13 +404,13 @@ require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/Li
 <?php
 require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
-\LiveVoting\Round\xlvoRound::installDB();
+\LiveVoting\Round\xlvoRound::updateDB();
 ?>
 <#27>
 <?php
 require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
-\LiveVoting\User\xlvoVoteHistoryObject::installDB();
+\LiveVoting\User\xlvoVoteHistoryObject::updateDB();
 ?>
 <#28>
 <?php
@@ -449,9 +459,12 @@ foreach($configs as $config)
 ?>
 <#31>
 <?php
-$ilDB->addIndex('xlvo_voter', array('player_id', 'user_identifier'), 'in1');
-$ilDB->addIndex('rep_robj_xlvo_round_n', array('obj_id'), 'in1');
-$ilDB->addIndex('rep_robj_xlvo_option_n', array('voting_id'), 'in1');
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
+
+
+$ilDB->addIndex(\LiveVoting\Voter\xlvoVoter::TABLE_NAME, array('player_id', 'user_identifier'), 'in1');
+$ilDB->addIndex(\LiveVoting\Round\xlvoRound::TABLE_NAME, array('obj_id'), 'in1');
+$ilDB->addIndex(\LiveVoting\Option\xlvoOption::TABLE_NAME, array('voting_id'), 'in1');
 ?>
 <#32>
 <?php
@@ -463,13 +476,36 @@ xlvoConf::set(xlvoConf::F_USE_GLOBAL_CACHE, 1);
 ?>
 <#33>
 <?php
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 \LiveVoting\Voting\xlvoVoting::updateDB();
 ?>
 <#34>
 <?php
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 \LiveVoting\Voting\xlvoVoting::updateDB();
 ?>
 <#35>
 <?php
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 \LiveVoting\Voting\xlvoVoting::updateDB();
+?>
+<#36>
+<?php
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
+
+xlvoVotingConfig::updateDB();
+
+foreach (xlvoVotingConfig::get() as $xlvoVotingConfig) {
+	/**
+	 * @var xlvoVotingConfig $xlvoVotingConfig
+	 */
+
+	if (empty($xlvoVotingConfig->getPuk())) {
+		$xlvoPuk = new LiveVoting\Pin\xlvoPin();
+
+		$xlvoVotingConfig->setPuk($xlvoPuk->getPin());
+
+		$xlvoVotingConfig->update();
+	}
+}
 ?>

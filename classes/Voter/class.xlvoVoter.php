@@ -17,6 +17,7 @@ class xlvoVoter extends CachingActiveRecord  {
      * Default client update delay in seconds
      */
     const DEFAULT_CLIENT_UPDATE_DELAY = 1;
+    const TABLE_NAME = 'xlvo_voter';
 
 	/**
 	 * @return string
@@ -24,7 +25,7 @@ class xlvoVoter extends CachingActiveRecord  {
 	 * @deprecated
 	 */
 	static function returnDbTableName() {
-		return 'xlvo_voter';
+		return self::TABLE_NAME;
 	}
 
 	/**

@@ -250,3 +250,5 @@ xlvo_new#:#Add new LiveVoting
 xlvo_read#:#Read (used only in non-anonymous-mode)
 xlvo_visible#:#LiveVotings visible
 xlvo_write#:#Present and edit LiveVoting
+config_presenter_link#:#Presenter link
+voting_powerpoint_export#:#Export as PowerPoint

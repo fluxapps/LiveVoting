@@ -12,6 +12,7 @@ include_once('./Services/Repository/classes/class.ilRepositoryObjectPlugin.php')
  */
 class ilLiveVotingPlugin extends \ilRepositoryObjectPlugin {
 
+	const PLUGIN_ID = 'xlvo';
 	const PLUGIN_NAME = 'LiveVoting';
 	/**
 	 * @var ilLiveVotingPlugin
@@ -41,31 +42,32 @@ class ilLiveVotingPlugin extends \ilRepositoryObjectPlugin {
 
 	protected function uninstallCustom() {
 		$tables = array(
-			"rep_robj_xlvo_conf",
-			"rep_robj_xlvo_config_n",
-			"rep_robj_xlvo_data",
-			"rep_robj_xlvo_data_seq",
-			"rep_robj_xlvo_option",
-			"rep_robj_xlvo_option_n",
-			"rep_robj_xlvo_option_n_seq",
-			"rep_robj_xlvo_option_seq",
-			"rep_robj_xlvo_player_n",
-			"rep_robj_xlvo_player_n_seq",
-			"rep_robj_xlvo_round_n",
-			"rep_robj_xlvo_round_n_seq",
-			"rep_robj_xlvo_vote",
-			"rep_robj_xlvo_vote_n",
-			"rep_robj_xlvo_vote_n_seq",
-			"rep_robj_xlvo_vote_seq",
-			"rep_robj_xlvo_votehist",
-			"rep_robj_xlvo_votehist_seq",
-			"rep_robj_xlvo_voting_n",
-			"rep_robj_xlvo_voting_n_seq",
-			"xlvo_config",
-			"xlvo_voter",
-			"xlvo_voter_seq",
+			\LiveVoting\Conf\xlvoConfOld::TABLE_NAME,
+			xlvoVotingConfig::TABLE_NAME,
+			\LiveVoting\Option\xlvoData::TABLE_NAME,
+			\LiveVoting\Option\xlvoData::TABLE_NAME . "_seq",
+			\LiveVoting\Option\xlvoOption::TABLE_NAME,
+			\LiveVoting\Option\xlvoOption::TABLE_NAME . "_seq",
+			\LiveVoting\Option\xlvoOptionOld::TABLE_NAME,
+			\LiveVoting\Option\xlvoOptionOld::TABLE_NAME . "_seq",
+			\LiveVoting\Player\xlvoPlayer::TABLE_NAME,
+			\LiveVoting\Player\xlvoPlayer::TABLE_NAME . "_seq",
+			\LiveVoting\Round\xlvoRound::TABLE_NAME,
+			\LiveVoting\Round\xlvoRound::TABLE_NAME . "_seq",
+			\LiveVoting\Vote\xlvoVote::TABLE_NAME,
+			\LiveVoting\Vote\xlvoVote::TABLE_NAME . "_seq",
+			\LiveVoting\Vote\xlvoVoteOld::TABLE_NAME,
+			\LiveVoting\Vote\xlvoVoteOld::TABLE_NAME . "_seq",
+			\LiveVoting\User\xlvoVoteHistoryObject::TABLE_NAME,
+			\LiveVoting\User\xlvoVoteHistoryObject::TABLE_NAME . "_seq",
+			\LiveVoting\Voting\xlvoVoting::TABLE_NAME,
+			\LiveVoting\Voting\xlvoVoting::TABLE_NAME . "_seq",
+			\LiveVoting\Conf\xlvoConf::TABLE_NAME,
+			\LiveVoting\Voter\xlvoVoter::TABLE_NAME,
+			\LiveVoting\Voter\xlvoVoter::TABLE_NAME . "_seq",
 		);
-		global $ilDB;
+		global $DIC;
+		$ilDB = $DIC->database();
 		foreach ($tables as $table) {
 			$substr = substr($table, - 4);
 			if ($substr == '_seq') {

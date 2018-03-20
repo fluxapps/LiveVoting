@@ -17,7 +17,7 @@ class xlvoContext extends \ilContext {
 
 
 	public function __construct() {
-		self::init('xlvoContextLiveVoting');
+		self::init(xlvoContextLiveVoting::class);
 	}
 
 

@@ -29,11 +29,11 @@ final class InitialisationManager {
 		CookieManager::setContext(xlvoContext::CONTEXT_PIN);
 		$subversion = (int)explode('.', ILIAS_VERSION_NUMERIC)[1];
 		switch ($subversion) {
-			case ILIASVersionEnum::ILIAS_VERSION_5_1:
-				Initialisation\Version\v51\xlvoBasicInitialisation::init();
-				break;
 			case ILIASVersionEnum::ILIAS_VERSION_5_2:
 				Initialisation\Version\v52\xlvoBasicInitialisation::init();
+				break;
+			case ILIASVersionEnum::ILIAS_VERSION_5_3:
+				Initialisation\Version\v53\xlvoBasicInitialisation::init();
 				break;
 			default:
 				throw new \Exception("Can't find bootstrap code for the given ILIAS version.");
@@ -50,7 +50,8 @@ final class InitialisationManager {
 	public static final function startLight() {
 		xlvoInitialisation::init();
 
-		global $ilUser;
+		global $DIC;
+		$ilUser = $DIC->user();
 
 		if ($ilUser instanceof \ilObjUser && $ilUser->getId()) {
 			xlvoUser::getInstance()->setIdentifier($ilUser->getId())->setType(xlvoUser::TYPE_ILIAS);

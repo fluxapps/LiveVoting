@@ -16,18 +16,18 @@ require_once('dir.php');
 InitialisationManager::startMinimal();
 CookieManager::setContext(xlvoContext::CONTEXT_PIN);
 CookieManager::resetCookiePIN();
+CookieManager::resetCookiePUK();
+CookieManager::resetCookieVoting();
 
 $existing_pin = trim($_REQUEST['pin'], '/');
 if ($existing_pin) {
-	CookieManager::setCookiePIN(trim($_REQUEST['pin'], '/'));
+	CookieManager::setCookiePIN($existing_pin);
 }
-global $ilCtrl;
-/**
- * @var ilCtrl $ilCtrl
- */
-$ilCtrl->initBaseClass('ilUIPluginRouterGUI');
+global $DIC;
+$ilCtrl = $DIC->ctrl();
+$ilCtrl->initBaseClass(ilUIPluginRouterGUI::class);
 $ilCtrl->setTargetScript(xlvoConf::getFullApiURL());
 $ilCtrl->redirectByClass(array(
-	'ilUIPluginRouterGUI',
-	'xlvoVoter2GUI',
+	ilUIPluginRouterGUI::class,
+	xlvoVoter2GUI::class,
 ), $existing_pin ? xlvoVoter2GUI::CMD_START_VOTER_PLAYER : xlvoVoter2GUI::CMD_STANDARD);

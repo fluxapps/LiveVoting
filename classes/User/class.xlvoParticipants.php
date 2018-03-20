@@ -43,13 +43,14 @@ class xlvoParticipants {
 	 * @return xlvoParticipant[]
 	 */
 	public function getParticipantsForRound($round_id, $filter = null) {
-		global $ilDB;
+		global $DIC;
+		$ilDB = $DIC->database();
 
 		if ($filter) {
-			$query = "SELECT DISTINCT user_identifier, user_id FROM rep_robj_xlvo_vote_n WHERE round_id = %s AND (user_identifier LIKE %s OR user_id = %s)";
+			$query = "SELECT DISTINCT user_identifier, user_id FROM " . \LiveVoting\Vote\xlvoVote::TABLE_NAME . " WHERE round_id = %s AND (user_identifier LIKE %s OR user_id = %s)";
 			$result = $ilDB->queryF($query, array( "integer", "text", "integer" ), array( $round_id, $filter, $filter ));
 		} else {
-			$query = "SELECT DISTINCT user_identifier, user_id FROM rep_robj_xlvo_vote_n WHERE round_id = %s";
+			$query = "SELECT DISTINCT user_identifier, user_id FROM " . \LiveVoting\Vote\xlvoVote::TABLE_NAME . " WHERE round_id = %s";
 			$result = $ilDB->queryF($query, array( "integer" ), array( $round_id ));
 		}
 

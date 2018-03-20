@@ -27,8 +27,8 @@ switch ($context) {
         break;
 }
 
-global $tpl;
+global $DIC;
 ilUtil::sendFailure($_SESSION["failure"]);
 ilSession::clear("referer");
 ilSession::clear("message");
-$tpl->show();
+$DIC->ui()->mainTemplate()->show();

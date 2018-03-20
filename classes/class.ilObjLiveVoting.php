@@ -21,6 +21,7 @@
 	| Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. |
 	+-----------------------------------------------------------------------------+
 */
+
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\Pin\xlvoPin;
 use LiveVoting\Player\xlvoPlayer;
@@ -48,21 +49,21 @@ class ilObjLiveVoting extends \ilObjectPlugin {
 
 
 	/**
-	 * @param int $a_ref_id
+	 * @param int        $a_ref_id
 	 * @param bool|false $by_oid
 	 */
 	function __construct($a_ref_id = 0, $by_oid = false) {
 		parent::__construct($a_ref_id);
-		if ($a_ref_id != 0) {
+		/*if ($a_ref_id != 0) {
 			$this->id = $a_ref_id;
 			$this->doRead();
-		}
-		global $ilDB;
+		}*/
+		global $DIC;
 		/**
 		 * @var $ilDB   \ilDB
 		 * @var $by_oid int
 		 */
-		$this->db = $ilDB;
+		$this->db = $DIC->database();
 	}
 
 
@@ -70,7 +71,7 @@ class ilObjLiveVoting extends \ilObjectPlugin {
 	 * Get type.
 	 */
 	final function initType() {
-		$this->setType("xlvo");
+		$this->setType(ilLiveVotingPlugin::PLUGIN_ID);
 	}
 
 
@@ -79,9 +80,11 @@ class ilObjLiveVoting extends \ilObjectPlugin {
 	 */
 	function doCreate() {
 		$xlvoPin = new xlvoPin();
+		$xlvoPuk = new xlvoPin();
 		$config = new xlvoVotingConfig();
 		$config->setObjId($this->getId());
 		$config->setPin($xlvoPin->getPin());
+		$config->setPuk($xlvoPuk->getPin());
 		$config->save();
 	}
 
@@ -166,7 +169,7 @@ class ilObjLiveVoting extends \ilObjectPlugin {
 	 * @param                 $a_copy_id
 	 * @param ilObjLiveVoting $new_obj
 	 */
-	public function doCloneObject($new_obj, $a_target_id, $a_copy_id = null ) {
+	public function doCloneObject($new_obj, $a_target_id, $a_copy_id = NULL) {
 
 		/**
 		 * @var $config xlvoVotingConfig
@@ -181,6 +184,8 @@ class ilObjLiveVoting extends \ilObjectPlugin {
 			// set unique pin for cloned object
 			$xlvoPin = new xlvoPin();
 			$config_clone->setPin($xlvoPin->getPin());
+			$xlvoPuk = new xlvoPin();
+			$config_clone->setPuk($xlvoPuk->getPin());
 			$config_clone->update();
 		}
 
@@ -252,5 +257,18 @@ class ilObjLiveVoting extends \ilObjectPlugin {
 		foreach ($media_object_ids as $media_object_id) {
 			\ilObjMediaObject::_saveUsage($media_object_id, 'dcl:html', $new_obj->getId());
 		}
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getPresenterLink() {
+		/**
+		 * @var $config xlvoVotingConfig
+		 */
+		$config = xlvoVotingConfig::find($this->id);
+
+		return ILIAS_HTTP_PATH . substr($this->plugin->getDirectory(), 1) . '/presenter.php?pin=' . $config->getPin() . "&puk=" . $config->getPuk();
 	}
 }

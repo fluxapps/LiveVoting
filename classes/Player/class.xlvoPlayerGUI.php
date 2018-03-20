@@ -1,6 +1,7 @@
 <?php
 
 use LiveVoting\Conf\xlvoConf;
+use LiveVoting\Context\cookie\CookieManager;
 use LiveVoting\Js\xlvoJs;
 use LiveVoting\Js\xlvoJsResponse;
 use LiveVoting\Player\QR\xlvoQR;
@@ -19,13 +20,16 @@ require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/
 /**
  * Class xlvoPlayerGUI
  *
- * @author Fabian Schmid <fs@studer-raimann.ch>
+ * @author            Fabian Schmid <fs@studer-raimann.ch>
+ *
+ * @ilCtrl_isCalledBy xlvoPlayerGUI: ilUIPluginRouterGUI
  */
 class xlvoPlayerGUI extends xlvoGUI {
 
 	const IDENTIFIER = 'xvi';
 	const CMD_START_PLAYER = 'startPlayer';
 	const CMD_START_PLAYER_AND_UNFREEZE = 'startPlayerAnUnfreeze';
+	const CMD_START_PRESENTER = 'startPresenter';
 	const CMD_NEXT = 'next';
 	const CMD_PREVIOUS = 'previous';
 	const CMD_FREEZE = 'freeze';
@@ -45,12 +49,13 @@ class xlvoPlayerGUI extends xlvoGUI {
 	public function __construct() {
 		parent::__construct();
 		$this->manager = xlvoVotingManager2::getInstanceFromObjId(\ilObject2::_lookupObjId($_GET['ref_id']));
-		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/default.css');
+		$this->tpl->addCss($this->pl->getDirectory() . '/templates/default/default.css');
 	}
 
 
 	/**
 	 * @param $key
+	 *
 	 * @return string
 	 */
 	protected function txt($key) {
@@ -58,10 +63,10 @@ class xlvoPlayerGUI extends xlvoGUI {
 	}
 
 
-    /**
-     * @return bool
-     */
-    protected function index() {
+	/**
+	 * @return bool
+	 */
+	protected function index() {
 		try {
 			$this->manager->prepareStart();
 		} catch (xlvoPlayerException $e) {
@@ -88,7 +93,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$current_selection_list = $this->getVotingSelectionList(false);
 		$this->toolbar->addText($current_selection_list->getHTML());
 
-		$template = new \ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Player/tpl.start.html', true, true);
+		$template = new \ilTemplate($this->pl->getDirectory() . '/templates/default/Player/tpl.start.html', true, true);
 		/**
 		 * @var xlvoVotingConfig $xlvoVotingConfig
 		 */
@@ -110,9 +115,11 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$this->tpl->setContent($template->get());
 	}
 
-    protected function getAttendees() {
-        xlvoJsResponse::getInstance(xlvoVoter::countVoters($this->manager->getPlayer()->getId()))->send();
-    }
+
+	protected function getAttendees() {
+		xlvoJsResponse::getInstance(xlvoVoter::countVoters($this->manager->getPlayer()->getId()))->send();
+	}
+
 
 	protected function startPlayerAnUnfreeze() {
 		$this->initJSandCss();
@@ -138,11 +145,39 @@ class xlvoPlayerGUI extends xlvoGUI {
 	}
 
 
+	protected function startPresenter() {
+		$pin = CookieManager::getCookiePIN();
+		$this->manager = new xlvoVotingManager2($pin);
+
+		$puk = CookieManager::getCookiePUK();
+
+		/**
+		 * @var xlvoVotingConfig|null $xlvoVotingConfig
+		 */
+
+		$xlvoVotingConfig = xlvoVotingConfig::find($this->manager->getObjId());
+
+		if ($xlvoVotingConfig === NULL
+			|| $xlvoVotingConfig->getPuk() !== $puk /*|| !ilObjLiveVotingAccess::hasWriteAccess($this->manager->getObjId())*/) {
+			die("Wrong PUK!");
+		}
+
+		$this->ctrl->saveParameter($this, "ref_id");
+
+		if (CookieManager::hasCookieVoting()) {
+			$this->manager->open(CookieManager::getCookieVoting());
+			CookieManager::resetCookieVoting();
+		}
+
+		$this->startPlayer();
+	}
+
+
 	protected function getPlayerData() {
 		$this->manager->attend();
 		$results = array(
-			'player'       => $this->manager->getPlayer()->getStdClassForPlayer(),
-			'player_html'  => $this->getPlayerHTML(true),
+			'player' => $this->manager->getPlayer()->getStdClassForPlayer(),
+			'player_html' => $this->getPlayerHTML(true),
 			'buttons_html' => $this->getButtonsHTML(),
 		);
 		xlvoJsResponse::getInstance($results)->send();
@@ -151,6 +186,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 	/**
 	 * @param bool $inner
+	 *
 	 * @return string
 	 */
 	protected function getPlayerHTML($inner = false) {
@@ -242,11 +278,8 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 * Set Toolbar Content and Buttons for the Player.
 	 */
 	protected function initToolbarDuringVoting() {
-		$newerThanIlias51 = version_compare(ILIAS_VERSION_NUMERIC, '5.1.00', '>');
-		if ($newerThanIlias51) {
-			require_once('./Services/UIComponent/SplitButton/classes/class.ilButtonToSplitButtonMenuItemAdapter.php');
-			require_once('./Services/UIComponent/SplitButton/classes/class.ilSplitButtonGUI.php');
-		}
+		require_once('./Services/UIComponent/SplitButton/classes/class.ilButtonToSplitButtonMenuItemAdapter.php');
+		require_once('./Services/UIComponent/SplitButton/classes/class.ilSplitButtonGUI.php');
 
 		// Freeze
 		$suspendButton = xlvoLinkButton::getInstance();
@@ -265,36 +298,19 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$playButton->setUrl('#');
 		$playButton->setId('btn-unfreeze');
 
-		if ($newerThanIlias51) {
-			$split = ilSplitButtonGUI::getInstance();
-			$split->setDefaultButton($playButton);
-			foreach (array( 10, 30, 90, 120, 180, 240, 300 ) as $seconds) {
-				$cd = ilLinkButton::getInstance();
-				$cd->setUrl('#');
-				$cd->setCaption($seconds . ' ' . $this->pl->txt('player_seconds'), false);
-				$cd->setOnClick("xlvoPlayer.countdown($seconds);");
-				$ilSplitButtonMenuItem = new ilButtonToSplitButtonMenuItemAdapter($cd);
-				$split->addMenuItem($ilSplitButtonMenuItem);
-			}
-
-			$this->addStickyButtonToToolbar($split);
-
-		} else {
-			$current_selection_list = new ilAdvancedSelectionListGUI();
-			$current_selection_list->setListTitle($this->txt('player_countdown'));
-			$current_selection_list->setId('xlvo_cd');
-			$current_selection_list->setTriggerEvent('player_countdown');
-			$current_selection_list->setUseImages(false);
-			/**
-			 * @var xlvoVoting[] $votings
-			 */
-			foreach (array( 10, 30, 90, 120, 180, 240, 300 ) as $seconds) {
-				$str = $seconds . ' ' . $this->pl->txt('player_seconds');
-				$current_selection_list->addItem($str, $seconds, '#', '', '', '', '', false, 'xlvoPlayer.countdown(' . $seconds . ')');
-			}
-			$this->addStickyButtonToToolbar($playButton);
-			$this->toolbar->addText($current_selection_list->getHTML());
+		$split = ilSplitButtonGUI::getInstance();
+		$split->setDefaultButton($playButton);
+		foreach (array( 10, 30, 90, 120, 180, 240, 300 ) as $seconds) {
+			$cd = ilLinkButton::getInstance();
+			$cd->setUrl('#');
+			$cd->setCaption($seconds . ' ' . $this->pl->txt('player_seconds'), false);
+			$cd->setOnClick("xlvoPlayer.countdown($seconds);");
+			$ilSplitButtonMenuItem = new ilButtonToSplitButtonMenuItemAdapter($cd);
+			$split->addMenuItem($ilSplitButtonMenuItem);
 		}
+
+		$this->addStickyButtonToToolbar($split);
+
 		// Hide
 		$suspendButton = ilLinkButton::getInstance();
 		$suspendButton->setCaption($this->txt('hide_results'), false);
@@ -390,20 +406,13 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 * @return void
 	 */
 	private function addStickyButtonToToolbar(ilButtonBase $button) {
-
-		//check if the new methods are usable
-		if (method_exists($this->toolbar, 'addStickyItem')) {
-			$this->toolbar->addStickyItem($button);
-		} else {
-			// ILIAS 5.1 fallback
-			$this->toolbar->addButtonInstance($button);
-		}
-		
+		$this->toolbar->addStickyItem($button);
 	}
 
 
 	/**
 	 * @param bool $async
+	 *
 	 * @return ilAdvancedSelectionListGUI
 	 */
 	protected function getVotingSelectionList($async = true) {
@@ -436,11 +445,8 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$subversion = (int)explode('.', ILIAS_VERSION_NUMERIC)[1];
 
 		switch ($subversion) {
-			case \LiveVoting\Context\ILIASVersionEnum::ILIAS_VERSION_5_1:
-				$util = new ilUtil();
-				$util->includeMathjax();
-				break;
 			case \LiveVoting\Context\ILIASVersionEnum::ILIAS_VERSION_5_2:
+			case \LiveVoting\Context\ILIASVersionEnum::ILIAS_VERSION_5_3:
 				include_once './Services/MathJax/classes/class.ilMathJax.php';
 				ilMathJax::getInstance()->includeMathJax();
 				break;
@@ -452,10 +458,9 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$mathJaxSetting = new ilSetting("MathJax");
 		$settings = array(
 			'status_running' => xlvoPlayer::STAT_RUNNING,
-			'identifier'     => self::IDENTIFIER,
-			'use_mathjax'    => (bool)$mathJaxSetting->get("enable"),
-			'debug'          => self::DEBUG,
-			'ilias_51'       => version_compare(ILIAS_VERSION_NUMERIC, '5.1.00', '>'),
+			'identifier' => self::IDENTIFIER,
+			'use_mathjax' => (bool)$mathJaxSetting->get("enable"),
+			'debug' => self::DEBUG
 		);
 		$keyboard = new stdClass();
 		$keyboard->active = $this->manager->getVotingConfig()->isKeyboardActive();
@@ -473,15 +478,14 @@ class xlvoPlayerGUI extends xlvoGUI {
 			'player_voters_online',
 			'voting_confirm_reset',
 		))->init()->call('run');
-		global $tpl;
-		$tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Player/player.css');
-		$tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Display/Bar/bar.css');
+		$this->tpl->addCss($this->pl->getDirectory() . '/templates/default/Player/player.css');
+		$this->tpl->addCss($this->pl->getDirectory() . '/LiveVoting/templates/default/Display/Bar/bar.css');
 	}
 
 
 	protected function handlePreview() {
 		if ($this->manager->getVotingConfig()->isSelfVote()) {
-			$preview = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Player/tpl.preview.html', true, false);
+			$preview = new ilTemplate($this->pl->getDirectory() . '/templates/default/Player/tpl.preview.html', true, false);
 			$preview->setVariable('URL', xlvoConf::getShortLinkURL() . $this->manager->getVotingConfig()->getPin());
 			$this->tpl->setRightContent($preview->get());
 		}

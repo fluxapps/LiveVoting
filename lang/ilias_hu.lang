@@ -246,3 +246,5 @@ xlvo_new#:#Új Élőszavazás létrehozása
 xlvo_read#:#Olvasás (csak nem-anonim módban használható)
 xlvo_visible#:#Élőszavazások látható
 xlvo_write#:#Élőszavazás indítása és módosítása
+config_presenter_link#:#MISSING
+voting_powerpoint_export#:#MISSING

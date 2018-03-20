@@ -1,6 +1,7 @@
 <?php
 
 namespace LiveVoting\Js;
+
 use LiveVoting\Conf\xlvoConf;
 use xlvoGUI;
 
@@ -43,13 +44,29 @@ class xlvoJs {
 	 * @var xlvoJsSettings
 	 */
 	protected $settings;
+	/**
+	 * @var \ilCtrl
+	 */
+	protected $ctrl;
+	/**
+	 * @var \ilTemplate
+	 */
+	protected $tpl;
+	/**
+	 * @var \ilLiveVotingPlugin
+	 */
+	protected $pl;
 
 
 	/**
 	 * xlvoJs constructor.
 	 */
 	protected function __construct() {
+		global $DIC;
 		$this->settings = new xlvoJsSettings();
+		$this->ctrl = $DIC->ctrl();
+		$this->tpl = $DIC->ui()->mainTemplate();
+		$this->pl = \ilLiveVotingPlugin::getInstance();
 	}
 
 
@@ -60,6 +77,7 @@ class xlvoJs {
 
 	/**
 	 * @param array $settings
+	 *
 	 * @return $this
 	 */
 	public function addSettings(array $settings) {
@@ -73,6 +91,7 @@ class xlvoJs {
 
 	/**
 	 * @param array $translations
+	 *
 	 * @return $this
 	 */
 	public function addTranslations(array $translations) {
@@ -86,22 +105,18 @@ class xlvoJs {
 
 	/**
 	 * @param xlvoGUI $xlvoGUI
-	 * @param array $additional_classes
-	 * @param string $cmd
+	 * @param array   $additional_classes
+	 * @param string  $cmd
+	 *
 	 * @return $this
 	 */
 	public function api(xlvoGUI $xlvoGUI, array $additional_classes = array(), $cmd = '') {
-
-		global $ilCtrl;
-		/**
-		 * @var \ilCtrl $ilCtrl
-		 */
-		$ilCtrl2 = clone($ilCtrl);
-		$ilCtrl->initBaseClass('ilUIPluginRouterGUI');
+		$ilCtrl2 = clone($this->ctrl);
+		$this->ctrl->initBaseClass(\ilUIPluginRouterGUI::class);
 		$ilCtrl2->setTargetScript(self::API_URL);
 		$additional_classes[] = get_class($xlvoGUI);
 
-		$this->settings->addSetting(self::BASE_URL_SETTING, $ilCtrl->getLinkTargetByClass($additional_classes, $cmd, null, true));
+		$this->settings->addSetting(self::BASE_URL_SETTING, $this->ctrl->getLinkTargetByClass($additional_classes, $cmd, NULL, true));
 
 		return $this;
 	}
@@ -109,6 +124,7 @@ class xlvoJs {
 
 	/**
 	 * @param $name
+	 *
 	 * @return $this
 	 */
 	public function name($name) {
@@ -120,6 +136,7 @@ class xlvoJs {
 
 	/**
 	 * @param $category
+	 *
 	 * @return $this
 	 */
 	public function category($category) {
@@ -131,15 +148,12 @@ class xlvoJs {
 
 	/**
 	 * @param xlvoGUI $xlvoGUI
-	 * @param string $cmd
+	 * @param string  $cmd
+	 *
 	 * @return $this
 	 */
 	public function ilias($xlvoGUI, $cmd = '') {
-		global $ilCtrl;
-		/**
-		 * @var $ilCtrl \ilCtrl
-		 */
-		$this->settings->addSetting(self::BASE_URL_SETTING, $ilCtrl->getLinkTarget($xlvoGUI, $cmd, '', true));
+		$this->settings->addSetting(self::BASE_URL_SETTING, $this->ctrl->getLinkTarget($xlvoGUI, $cmd, '', true));
 
 		return $this;
 	}
@@ -148,8 +162,8 @@ class xlvoJs {
 	protected function resolveLib() {
 		$base_path = self::BASE_PATH;
 		$category = ($this->category ? $this->category . '/' : '') . $this->name . '/';
-		$file_name = 'xlvo' . $this->name . '.js';
-		$file_name_min = 'xlvo' . $this->name . '.min.js';
+		$file_name = \ilLiveVotingPlugin::PLUGIN_ID . $this->name . '.js';
+		$file_name_min = \ilLiveVotingPlugin::PLUGIN_ID . $this->name . '.min.js';
 		$full_path_min = $base_path . $category . $file_name_min;
 		$full_path = $base_path . $category . $file_name;
 		if (is_file($full_path_min) && !self::DEVELOP) {
@@ -185,27 +199,27 @@ class xlvoJs {
 
 	/**
 	 * @param $code
+	 *
 	 * @return $this
 	 */
 	public function addOnLoadCode($code) {
-		global $tpl;
-		$tpl->addOnLoadCode($code);
+		$this->tpl->addOnLoadCode($code);
 
 		return $this;
 	}
 
 
 	/**
-	 * @param $method
+	 * @param        $method
 	 * @param string $params
+	 *
 	 * @return $this
 	 */
 	public function call($method, $params = '') {
 		if (!$this->init) {
 			return $this;
 		}
-		global $tpl;
-		$tpl->addOnLoadCode($this->getCallCode($method, $params));
+		$this->tpl->addOnLoadCode($this->getCallCode($method, $params));
 
 		return $this;
 	}
@@ -215,31 +229,32 @@ class xlvoJs {
 	 * @return string
 	 */
 	public function getInitCode() {
-		return 'xlvo' . $this->name . '.init(\'' . $this->settings->asJson() . '\');';
+		return \ilLiveVotingPlugin::PLUGIN_ID . $this->name . '.init(\'' . $this->settings->asJson() . '\');';
 	}
 
 
 	/**
 	 * @param $method
 	 * @param $params
+	 *
 	 * @return string
 	 */
 	public function getCallCode($method, $params = '') {
-		return 'xlvo' . $this->name . '.' . $method . '(' . $params . ');';
+		return \ilLiveVotingPlugin::PLUGIN_ID . $this->name . '.' . $method . '(' . $params . ');';
 	}
 
 
 	/**
-	 * @param $name_of_lib
+	 * @param      $name_of_lib
 	 * @param bool $external
+	 *
 	 * @return $this
 	 */
 	public function addLibToHeader($name_of_lib, $external = true) {
-		global $tpl;
 		if ($external) {
-			$tpl->addJavaScript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/js/libs/' . $name_of_lib);
+			$this->tpl->addJavascript($this->pl->getDirectory() . '/js/libs/' . $name_of_lib);
 		} else {
-			$tpl->addJavaScript($name_of_lib);
+			$this->tpl->addJavaScript($name_of_lib);
 		}
 
 		return $this;

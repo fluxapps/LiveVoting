@@ -34,11 +34,9 @@ switch ($context) {
 
 xlvoConf::load();
 
-global $ilCtrl, $ilBench;
-
-/**
- * @var ilCtrl $ilCtrl
- */
+global $DIC;
+$ilCtrl = $DIC->ctrl();
+$ilBench = $DIC["ilBench"];
 $ilCtrl->setTargetScript(xlvoConf::getFullApiURL());
 $ilCtrl->callBaseClass();
 $ilBench->save();

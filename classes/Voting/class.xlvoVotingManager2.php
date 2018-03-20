@@ -365,9 +365,10 @@ class xlvoVotingManager2 {
 	 * @return int
 	 */
 	public function countVoters() {
-		$q = 'SELECT user_id_type, user_identifier, user_id FROM rep_robj_xlvo_vote_n WHERE voting_id = %s AND status = %s AND round_id = %s GROUP BY user_id_type, user_identifier, user_id';
+		$q = 'SELECT user_id_type, user_identifier, user_id FROM ' . xlvoVote::TABLE_NAME . ' WHERE voting_id = %s AND status = %s AND round_id = %s GROUP BY user_id_type, user_identifier, user_id';
 
-		global $ilDB;
+		global $DIC;
+		$ilDB = $DIC->database();
 		$res = $ilDB->queryF($q, array( 'integer', 'integer', 'integer' ), array(
 			$this->getVoting()->getId(),
 			xlvoVote::STAT_ACTIVE,
@@ -383,9 +384,10 @@ class xlvoVotingManager2 {
 	 */
 	public function getMaxCountOfVotes() {
 		$q = "SELECT MAX(counted) AS maxcount FROM
-				( SELECT COUNT(*) AS counted FROM rep_robj_xlvo_vote_n WHERE voting_id = %s AND status = %s AND round_id = %s GROUP BY option_id )
+				( SELECT COUNT(*) AS counted FROM " . xlvoVote::TABLE_NAME . " WHERE voting_id = %s AND status = %s AND round_id = %s GROUP BY option_id )
 				AS counts";
-		global $ilDB;
+		global $DIC;
+		$ilDB = $DIC->database();
 		$res = $ilDB->queryF($q, array( 'integer', 'integer', 'integer' ), array(
 			$this->getVoting()->getId(),
 			xlvoVote::STAT_ACTIVE,

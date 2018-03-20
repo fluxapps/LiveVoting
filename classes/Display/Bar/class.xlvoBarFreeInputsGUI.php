@@ -39,6 +39,10 @@ class xlvoBarFreeInputsGUI implements xlvoBarGUI {
 	 * @var bool
 	 */
 	private $big = false;
+	/**
+	 * @var ilLiveVotingPlugin
+	 */
+	protected $pl;
 
 
 	/**
@@ -48,7 +52,8 @@ class xlvoBarFreeInputsGUI implements xlvoBarGUI {
 	public function __construct(xlvoVoting $voting, xlvoVote $vote) {
 		$this->voting = $voting;
 		$this->vote = $vote;
-		$this->tpl = new \ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Display/Bar/tpl.bar_free_input.html', true, true);
+		$this->pl = ilLiveVotingPlugin::getInstance();
+		$this->tpl = new \ilTemplate($this->pl->getDirectory() . '/templates/default/Display/Bar/tpl.bar_free_input.html', true, true);
 		$this->occurrences = 0;
 	}
 

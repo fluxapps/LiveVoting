@@ -70,6 +70,18 @@ class xlvoMultiLineInputGUI extends \ilFormPropertyGUI {
 	 * @var bool
 	 */
 	protected $show_info = false;
+	/**
+	 * @var ilLanguage
+	 */
+	protected $lng;
+	/**
+	 * @var ilTemplate
+	 */
+	protected $tpl;
+	/**
+	 * @var ilLiveVotingPlugin
+	 */
+	protected $pl;
 
 
 	/**
@@ -80,6 +92,10 @@ class xlvoMultiLineInputGUI extends \ilFormPropertyGUI {
 	 */
 	public function __construct($a_title = "", $a_postvar = "") {
 		parent::__construct($a_title, $a_postvar);
+		global $DIC;
+		$this->lng = $DIC->language();
+		$this->tpl = $DIC->ui()->mainTemplate();
+		$this->pl = ilLiveVotingPlugin::getInstance();
 		$this->setType("line_select");
 		$this->setMulti(true);
 		$this->initCSSandJS();
@@ -236,7 +252,6 @@ class xlvoMultiLineInputGUI extends \ilFormPropertyGUI {
 	 * @return    boolean        Input ok, true/false
 	 */
 	public function checkInput() {
-		global $lng;
 		$valid = true;
 		// escape data
 		$out_array = array();
@@ -258,7 +273,7 @@ class xlvoMultiLineInputGUI extends \ilFormPropertyGUI {
 			}
 		}
 		if (!$valid) {
-			$this->setAlert($lng->txt("msg_input_is_required"));
+			$this->setAlert($this->lng->txt("msg_input_is_required"));
 
 			return false;
 		}
@@ -290,7 +305,7 @@ class xlvoMultiLineInputGUI extends \ilFormPropertyGUI {
 
 
 	/**
-	 * @param                   $iterator_id
+	 * @param                    $iterator_id
 	 * @param \ilFormPropertyGUI $input
 	 *
 	 * @return string
@@ -314,7 +329,7 @@ class xlvoMultiLineInputGUI extends \ilFormPropertyGUI {
 	 */
 	public function render($iterator_id = 0, $clean_render = false) {
 		$first_label = true;
-		$tpl = new \ilTemplate("tpl.multi_line_input.html", true, true, 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting');
+		$tpl = new \ilTemplate("tpl.multi_line_input.html", true, true, $this->pl->getDirectory());
 		$class = 'multi_input_line';
 		$this->addCustomAttribute('class', $class, true);
 		foreach ($this->getCustomAttributes() as $key => $value) {
@@ -338,7 +353,7 @@ class xlvoMultiLineInputGUI extends \ilFormPropertyGUI {
 						break;
 					default:
 						throw new \ilException("Method " . get_class($input)
-						                      . "::render() does not exists! You cannot use this input-type in ilMultiLineInputGUI");
+							. "::render() does not exists! You cannot use this input-type in ilMultiLineInputGUI");
 				}
 			}
 
@@ -430,9 +445,8 @@ class xlvoMultiLineInputGUI extends \ilFormPropertyGUI {
 
 
 	public function initCSSandJS() {
-		global $tpl;
-		$tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/multi_line_input.css');
-		$tpl->addJavascript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/js/libs/multi_line_input.min.js');
+		$this->tpl->addCss($this->pl->getDirectory() . '/templates/default/multi_line_input.css');
+		$this->tpl->addJavascript($this->pl->getDirectory() . '/js/libs/multi_line_input.min.js');
 	}
 
 
@@ -457,7 +471,7 @@ class xlvoMultiLineInputGUI extends \ilFormPropertyGUI {
 		if ($this->getMulti()) {
 			$output = '<div id="' . $this->getFieldId() . '" class="multi_line_input">' . $output . '</div>';
 			$output .= '<script type="text/javascript">$("#' . $this->getFieldId() . '").multi_line_input(' . json_encode($this->input_options)
-			           . ')</script>';
+				. ')</script>';
 		}
 		$a_tpl->setCurrentBlock("prop_generic");
 		$a_tpl->setVariable("PROP_GENERIC", $output);

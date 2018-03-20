@@ -1,51 +1,54 @@
 {
-    "name": "studer-raimann.ch/live-voting",
-    "description": "ILIAS 5 LiveVoting plugin",
-    "type": "project",
-    "license": "GPL-3.0+",
-    "authors": [
-        {
-            "name": "Nicolas Schaefli",
-            "email": "ns@studer-raimann.ch",
-            "homepage": "https://studer-raimann.ch",
-            "role": "Software Engineer"
-        },
-        {
-            "name": "Fabian Schmid",
-            "email": "fs@studer-raimann.ch",
-            "homepage": "https://studer-raimann.ch",
-            "role": "Member of the Executive Board"
-        },
-        {
-            "name": "Oskar Truffer",
-            "email": "ot@studer-raimann.ch",
-            "homepage": "https://studer-raimann.ch",
-            "role": "Project Manager, Software Engineer"
-        },
-        {
-            "name": "Daniel Aemmer",
-            "email": "daniel.aemmer@phbern.ch",
-            "homepage": "https://www.phbern.ch"
-        }
-    ],
-    "support": {
-        "email": "info@studer-raimann.ch"
+  "name": "studer-raimann.ch/live-voting",
+  "description": "ILIAS 5 LiveVoting plugin",
+  "type": "project",
+  "license": "GPL-3.0+",
+  "authors": [
+    {
+      "name": "Nicolas Schaefli",
+      "email": "ns@studer-raimann.ch",
+      "homepage": "https://studer-raimann.ch",
+      "role": "Software Engineer"
     },
-    "minimum-stability": "beta",
-    "prefer-stable": true,
-    "require": {
-        "php" : "^5.5.9 || ^7.0",
-        "endroid/qrcode": "^1.9"
+    {
+      "name": "Fabian Schmid",
+      "email": "fs@studer-raimann.ch",
+      "homepage": "https://studer-raimann.ch",
+      "role": "Member of the Executive Board"
     },
-    "require-dev": {
-	"endroid/qrcode": "^1.9"
+    {
+      "name": "Oskar Truffer",
+      "email": "ot@studer-raimann.ch",
+      "homepage": "https://studer-raimann.ch",
+      "role": "Project Manager, Software Engineer"
     },
-    "autoload": {
-        "classmap": ["./classes/"]
-    },
-    "config": {
-        "optimize-autoloader": true,
-        "sort-packages": true,
-        "classmap-authoritative": true
+    {
+      "name": "Daniel Aemmer",
+      "email": "daniel.aemmer@phbern.ch",
+      "homepage": "https://www.phbern.ch"
     }
+  ],
+  "support": {
+    "email": "info@studer-raimann.ch"
+  },
+  "minimum-stability": "beta",
+  "prefer-stable": true,
+  "require": {
+    "php": "^5.5.9 || ^7.0",
+    "endroid/qrcode": "^1.9",
+    "phpoffice/phppresentation": "^0.9.0"
+  },
+  "require-dev": {
+    "endroid/qrcode": "^1.9"
+  },
+  "autoload": {
+    "classmap": [
+      "./classes/"
+    ]
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "sort-packages": true,
+    "classmap-authoritative": true
+  }
 }
