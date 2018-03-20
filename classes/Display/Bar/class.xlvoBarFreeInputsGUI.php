@@ -1,6 +1,6 @@
 <?php
 
-use LiveVoting\Display\Bar\xlvoBarGUI;
+use LiveVoting\Display\Bar\xlvoGeneralBarGUI;
 use LiveVoting\Vote\xlvoVote;
 use LiveVoting\Voting\xlvoVoting;
 
@@ -9,7 +9,7 @@ use LiveVoting\Voting\xlvoVoting;
  *
  * @author Fabian Schmid <fs@studer-raimann.ch>
  */
-class xlvoBarFreeInputsGUI implements xlvoBarGUI {
+class xlvoBarFreeInputsGUI extends xlvoAbstractBarGUI implements xlvoGeneralBarGUI {
 
 	/**
 	 * @var xlvoVoting
@@ -101,11 +101,11 @@ class xlvoBarFreeInputsGUI implements xlvoBarGUI {
 	 * This function returns true if the free text is case insensitive equal to the
 	 * given one.
 	 *
-	 * @param xlvoBarFreeInputsGUI $bar The object which should be used for the comparison.
+	 * @param xlvoGeneralBarGUI $bar The object which should be used for the comparison.
 	 *
 	 * @return bool True if the freetext is case insensitive equal to the given one.
 	 */
-	public function equals(xlvoBarFreeInputsGUI $bar) {
+	public function equals(xlvoGeneralBarGUI $bar) {
 		return strcasecmp($this->vote->getFreeInput(), $bar->vote->getFreeInput()) === 0;
 	}
 

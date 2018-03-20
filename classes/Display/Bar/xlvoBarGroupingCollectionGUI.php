@@ -1,6 +1,6 @@
 <?php
 
-use \LiveVoting\Display\Bar\xlvoBarGUI;
+use \LiveVoting\Display\Bar\xlvoGeneralBarGUI;
 
 /**
  * Class xlvoBarGroupingCollectionGUI
@@ -34,13 +34,13 @@ final class xlvoBarGroupingCollectionGUI extends \xlvoBarCollectionGUI {
 	/**
 	 * Adds a bar to the grouping collection.
 	 *
-	 * @param xlvoBarGUI $bar_gui
+	 * @param xlvoGeneralBarGUI $bar_gui
 	 *
 	 * @return void
 	 * @throws ilException If the bars are already rendered or the given type is not compatible
 	 *                     with the collection.
 	 */
-	public function addBar(xlvoBarGUI $bar_gui) {
+	public function addBar(xlvoGeneralBarGUI $bar_gui) {
 		$this->checkCollectionState();
 
 		if ($bar_gui instanceof xlvoBarFreeInputsGUI) {

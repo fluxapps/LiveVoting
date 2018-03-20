@@ -1,6 +1,6 @@
 <?php
 
-use LiveVoting\Display\Bar\xlvoBarGUI;
+use LiveVoting\Display\Bar\xlvoGeneralBarGUI;
 use LiveVoting\Option\xlvoOption;
 
 /**
@@ -8,7 +8,7 @@ use LiveVoting\Option\xlvoOption;
  *
  * @author Fabian Schmid <fs@studer-raimann.ch>
  */
-class xlvoBarMovableGUI implements xlvoBarGUI {
+class xlvoBarMovableGUI implements xlvoGeneralBarGUI {
 
 	/**
 	 * @var \ilTemplate
@@ -25,7 +25,7 @@ class xlvoBarMovableGUI implements xlvoBarGUI {
 	/**
 	 * @var int
 	 */
-	protected $vote_id = NULL;
+	protected $vote_id = null;
 	/**
 	 * @var bool
 	 */
@@ -42,7 +42,7 @@ class xlvoBarMovableGUI implements xlvoBarGUI {
 	 * @param array $options
 	 * @param array $order
 	 */
-	public function __construct(array $options, array $order = array(), $vote_id = NULL) {
+	public function __construct(array $options, array $order = array(), $vote_id = null) {
 		$this->options = $options;
 		$this->order = $order;
 		$this->vote_id = $vote_id;

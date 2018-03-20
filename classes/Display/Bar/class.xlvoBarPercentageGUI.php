@@ -1,6 +1,6 @@
 <?php
 
-use LiveVoting\Display\Bar\xlvoBarGUI;
+use LiveVoting\Display\Bar\xlvoGeneralBarGUI;
 
 /**
  * Class xlvoBarPercentageGUI
@@ -9,7 +9,7 @@ use LiveVoting\Display\Bar\xlvoBarGUI;
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version 1.0.0
  */
-class xlvoBarPercentageGUI implements xlvoBarGUI {
+class xlvoBarPercentageGUI implements xlvoGeneralBarGUI {
 
 	/**
 	 * @var int

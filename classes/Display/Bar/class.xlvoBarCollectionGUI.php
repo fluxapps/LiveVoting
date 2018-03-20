@@ -1,6 +1,5 @@
 <?php
-
-use LiveVoting\Display\Bar\xlvoBarGUI;
+use LiveVoting\Display\Bar\xlvoGeneralBarGUI;
 
 /**
  * Class xlvoBarCollectionGUI
@@ -54,9 +53,9 @@ class xlvoBarCollectionGUI {
 
 
 	/**
-	 * @param $bar_gui xlvoBarGUI
+	 * @param $bar_gui xlvoGeneralBarGUI
 	 */
-	public function addBar(xlvoBarGUI $bar_gui) {
+	public function addBar(xlvoGeneralBarGUI $bar_gui) {
 		$this->tpl->setCurrentBlock('bar');
 		$this->tpl->setVariable('BAR', $bar_gui->getHTML());
 		$this->tpl->parseCurrentBlock();
@@ -140,12 +139,14 @@ class xlvoBarCollectionGUI {
 	protected function renderVotersAndVotes() {
 		if ($this->isShowTotalVotes()) {
 			$this->tpl->setCurrentBlock('total_votes');
-			$this->tpl->setVariable('TOTAL_VOTES', ilLiveVotingPlugin::getInstance()->txt('qtype_1_total_votes') . ': ' . $this->getTotalVotes());
+			$this->tpl->setVariable('TOTAL_VOTES', ilLiveVotingPlugin::getInstance()->txt('qtype_1_total_votes')
+			                                       . ': ' . $this->getTotalVotes());
 			$this->tpl->parseCurrentBlock();
 		}
 		if ($this->isShowTotalVoters()) {
 			$this->tpl->setCurrentBlock('total_voters');
-			$this->tpl->setVariable('TOTAL_VOTERS', ilLiveVotingPlugin::getInstance()->txt('qtype_1_total_voters') . ': ' . $this->getTotalVoters());
+			$this->tpl->setVariable('TOTAL_VOTERS', ilLiveVotingPlugin::getInstance()->txt('qtype_1_total_voters')
+			                                        . ': ' . $this->getTotalVoters());
 			$this->tpl->parseCurrentBlock();
 		}
 	}
