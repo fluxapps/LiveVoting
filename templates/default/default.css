@@ -20,7 +20,6 @@
 /* @il-highlight-bg: lighten(@brand-secondary, 44%); */
 /* @il-highlight-bg: lighten(#21c5d8, 40%); */
 /* @nav-tabs-link-hover-border-color: @brand-primary; */
-/* ILIAS variables candidates */
 .btn-default:active,
 .btn-default.active {
   background-color: #3d516c !important;

@@ -99,7 +99,8 @@ class xlvoNumberRangeResultsGUI extends xlvoInputResultsGUI {
 		};
 
 		$info = new xlvoBarCollectionGUI();
-		$mean = new xlvoBarInfoGUI('Mean', round($vote_sum / $vote_count, 2));
+		$value = $vote_count > 0 ? round($vote_sum / $vote_count, 2) : 0;
+		$mean = new xlvoBarInfoGUI('Mean', $value);
 		$mean->setBig(true);
 		$mean->setDark(true);
 		$mean->setCenter(true);

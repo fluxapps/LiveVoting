@@ -42,8 +42,10 @@ abstract class xlvoAbstractBarGUI implements xlvoGeneralBarGUI {
 
 
 	protected function initTemplate() {
+		global $DIC;
 		$this->tpl = new \ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Display/Bar/tpl.bar_free_input.html',
 			true, true);
+		$DIC->ui()->mainTemplate()->addCss("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Display/Bar/bar.css");
 	}
 
 
