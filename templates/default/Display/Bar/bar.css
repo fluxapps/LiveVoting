@@ -12,3 +12,7 @@
 .progress-title {
   margin-bottom: 2px;
 }
+.well.well-dark {
+  background-color: #777777;
+  color: white;
+}

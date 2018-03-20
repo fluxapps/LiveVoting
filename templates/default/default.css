@@ -43,8 +43,6 @@ div.xlvo_shortlink {
   line-height: 115px;
   text-align: center;
   vertical-align: middle;
-  white-space: pre-wrap;
-  word-wrap: break-word;
 }
 div.xlvo_pin * {
   margin: 0;
