@@ -40,6 +40,7 @@ config_regenerate_token#:#Regenerate Token
 config_open_result_api#:#Open API-Link (with latest Voting)
 config_use_global_cache#:#Activate caching
 config_use_global_cache_info#:#Enables the LiveVoting plugin to use the global caching mechanism, which is provided by ILIAS. The underlying cache must be synchronised within a multi note setup, otherwise the plugin produces unpredictable results.
+config_presenter_link#:#Presenter link
 correct_order#:#Correct Order
 crs_create_xlvo#:#Create LiveVoting
 fikd_create_xlvo#:#Create LiveVoting
@@ -161,9 +162,12 @@ qtype_6_option_range_start_info#:#The start of the number range.
 qtype_6_option_range_end_info#:#The end of the number range.
 qtype_4_option_randomise_option_after_save#:#Randomise options
 qtype_4_option_randomise_option_after_save_inf#:#Shuffles the options on save without generating the right answer.
-qtype_6_option_alternative_result_display_mode#:#Alternative Display-Mode
+qtype_6_option_alternative_result_display_mode#:#Display-Mode
 qtype_6_option_alternative_result_display_mode_info#:#Alternative mode which displays the result as text grouped together. The answers are sorted descending by quantity.
 qtype_4_option_randomise_option_after_save_info#:#Shuffles the options on save without generating the right answer.
+qtype_6_display_mode_nr_0#:#Grouped Text TBD
+qtype_6_display_mode_nr_1#:#Bars TBD
+qtype_6_display_mode_nr_2#:#Grouped Text Extended TBD
 results_title#:#Results
 rminable_select_start_time#:#Start
 root_create_xlvo#:#Create LiveVoting
@@ -241,6 +245,7 @@ voting_update#:#Update and return
 voting_update_and_stay#:#Update
 voting_type_6#:#Number Range
 voting_type_6_info#:#Users can guess a number between X and Y.
+voting_powerpoint_export#:#Export as PowerPoint
 vqtype_1_options#:#Options
 xlvo_add#:#Add
 xlvo_delete#:#Delete LiveVoting
@@ -250,5 +255,3 @@ xlvo_new#:#Add new LiveVoting
 xlvo_read#:#Read (used only in non-anonymous-mode)
 xlvo_visible#:#LiveVotings visible
 xlvo_write#:#Present and edit LiveVoting
-config_presenter_link#:#Presenter link
-voting_powerpoint_export#:#Export as PowerPoint

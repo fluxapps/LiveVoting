@@ -38,6 +38,7 @@ config_regenerate_token#:#Regenerate Token
 config_open_result_api#:#Open API-Link (with latest Voting)
 config_use_global_cache#:#aktiválása caching
 config_use_global_cache_info#:#Lehetővé teszi a LiveVoting plugint használni a globális cache mechanizmus, amely biztosítja ILIAS. Az alapul szolgáló cache szinkronizálni kell egy multi veszi a telepítést, egyébként a plugin megjósolhatatlan eredményeket.
+config_presenter_link#:#MISSING
 correct_order#:#Helyes sorrend
 crs_create_xlvo#:#Élőszavazás létrehozása
 fikd_create_xlvo#:#Élőszavazás létrehozása
@@ -159,9 +160,12 @@ qtype_6_option_range_start_info#:#Kezdje a szám tartományban.
 qtype_6_option_range_end_info#:#Vége a fordulatszám-tartományban.
 qtype_4_option_randomise_option_after_save#:#Randomize opciók
 qtype_4_option_randomise_option_after_save_inf#:#Véletlenszerűen választja ki a mentési beállításokat anélkül, hogy a megfelelő választ generálná.
-qtype_6_option_alternative_result_display_mode#:#Alternatív képviselete a válaszokat
+qtype_6_option_alternative_result_display_mode#:#Képviselete a válaszokat
 qtype_6_option_alternative_result_display_mode_info#:#Alternatív képviselete a válaszokat. Ezeket mutatja lehajló csoportosítva szövegként.
 qtype_4_option_randomise_option_after_save_info#:#Véletlenszerűen választja ki a mentési beállításokat anélkül, hogy a megfelelő választ generálná.
+qtype_6_display_mode_nr_0#:#Grouped Text TBD
+qtype_6_display_mode_nr_1#:#Bars TBD
+qtype_6_display_mode_nr_2#:#Grouped Text Extended TBD
 results_title#:#Eredmények
 rminable_select_start_time#:#Indítás
 root_create_xlvo#:#Élőszavazás létrehozása
@@ -237,6 +241,7 @@ voting_update#:#Mentés és vissza
 voting_update_and_stay#:#Mentés
 voting_type_6#:#Számtartomány
 voting_type_6_info#:#A felhasználók kitalálni egy számot X és Y között.
+voting_powerpoint_export#:#MISSING
 vqtype_1_options#:#Beállítások
 xlvo_add#:#Létrehozása
 xlvo_delete#:#Élőszavazás törlése
@@ -246,5 +251,3 @@ xlvo_new#:#Új Élőszavazás létrehozása
 xlvo_read#:#Olvasás (csak nem-anonim módban használható)
 xlvo_visible#:#Élőszavazások látható
 xlvo_write#:#Élőszavazás indítása és módosítása
-config_presenter_link#:#MISSING
-voting_powerpoint_export#:#MISSING
