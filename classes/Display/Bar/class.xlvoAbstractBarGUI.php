@@ -31,21 +31,24 @@ abstract class xlvoAbstractBarGUI implements xlvoGeneralBarGUI {
 	 * @var bool
 	 */
 	private $dark = false;
+	/**
+	 * @var ilLiveVotingPlugin
+	 */
+	protected $pl;
 
 
 	/**
 	 * xlvoAbstractBarGUI constructor.
 	 */
 	public function __construct() {
-
+		$this->pl = ilLiveVotingPlugin::getInstance();
 	}
 
 
 	protected function initTemplate() {
 		global $DIC;
-		$this->tpl = new \ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Display/Bar/tpl.bar_free_input.html',
-			true, true);
-		$DIC->ui()->mainTemplate()->addCss("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Display/Bar/bar.css");
+		$this->tpl = $this->pl->getTemplate('default/Display/Bar/tpl.bar_free_input.html');
+		$DIC->ui()->mainTemplate()->addCss($this->pl->getDirectory() . "/templates/default/Display/Bar/bar.css");
 	}
 
 

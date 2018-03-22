@@ -329,7 +329,7 @@ class xlvoMultiLineInputGUI extends \ilFormPropertyGUI {
 	 */
 	public function render($iterator_id = 0, $clean_render = false) {
 		$first_label = true;
-		$tpl = new \ilTemplate("tpl.multi_line_input.html", true, true, $this->pl->getDirectory());
+		$tpl = $this->pl->getTemplate("tpl.multi_line_input.html");
 		$class = 'multi_input_line';
 		$this->addCustomAttribute('class', $class, true);
 		foreach ($this->getCustomAttributes() as $key => $value) {

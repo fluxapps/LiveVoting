@@ -44,7 +44,7 @@ class xlvoDisplayPlayerGUI {
 	public function __construct(xlvoVotingManager2 $manager) {
 		$this->manager = $manager;
 		$this->pl = ilLiveVotingPlugin::getInstance();
-		$this->tpl = new \ilTemplate($this->pl->getDirectory() . '/templates/default/Player/tpl.player.html', true, true);
+		$this->tpl = $this->pl->getTemplate('default/Player/tpl.player.html');
 	}
 
 

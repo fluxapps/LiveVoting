@@ -1,4 +1,5 @@
 <?php
+
 use LiveVoting\Display\Bar\xlvoGeneralBarGUI;
 
 /**
@@ -38,7 +39,7 @@ class xlvoBarCollectionGUI {
 
 	public function __construct() {
 		$this->pl = ilLiveVotingPlugin::getInstance();
-		$this->tpl = new \ilTemplate($this->pl->getDirectory() . '/templates/default/Display/Bar/tpl.bar_collection.html', true, true);
+		$this->tpl = $this->pl->getTemplate('default/Display/Bar/tpl.bar_collection.html');
 	}
 
 
@@ -139,14 +140,12 @@ class xlvoBarCollectionGUI {
 	protected function renderVotersAndVotes() {
 		if ($this->isShowTotalVotes()) {
 			$this->tpl->setCurrentBlock('total_votes');
-			$this->tpl->setVariable('TOTAL_VOTES', ilLiveVotingPlugin::getInstance()->txt('qtype_1_total_votes')
-			                                       . ': ' . $this->getTotalVotes());
+			$this->tpl->setVariable('TOTAL_VOTES', ilLiveVotingPlugin::getInstance()->txt('qtype_1_total_votes') . ': ' . $this->getTotalVotes());
 			$this->tpl->parseCurrentBlock();
 		}
 		if ($this->isShowTotalVoters()) {
 			$this->tpl->setCurrentBlock('total_voters');
-			$this->tpl->setVariable('TOTAL_VOTERS', ilLiveVotingPlugin::getInstance()->txt('qtype_1_total_voters')
-			                                        . ': ' . $this->getTotalVoters());
+			$this->tpl->setVariable('TOTAL_VOTERS', ilLiveVotingPlugin::getInstance()->txt('qtype_1_total_voters') . ': ' . $this->getTotalVoters());
 			$this->tpl->parseCurrentBlock();
 		}
 	}

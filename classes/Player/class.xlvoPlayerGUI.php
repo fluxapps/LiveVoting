@@ -93,7 +93,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$current_selection_list = $this->getVotingSelectionList(false);
 		$this->toolbar->addText($current_selection_list->getHTML());
 
-		$template = new \ilTemplate($this->pl->getDirectory() . '/templates/default/Player/tpl.start.html', true, true);
+		$template = $this->pl->getTemplate('default/Player/tpl.start.html');
 		/**
 		 * @var xlvoVotingConfig $xlvoVotingConfig
 		 */
@@ -485,7 +485,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 	protected function handlePreview() {
 		if ($this->manager->getVotingConfig()->isSelfVote()) {
-			$preview = new ilTemplate($this->pl->getDirectory() . '/templates/default/Player/tpl.preview.html', true, false);
+			$preview = $this->pl->getTemplate('default/Player/tpl.preview.html', true, false);
 			$preview->setVariable('URL', xlvoConf::getShortLinkURL() . $this->manager->getVotingConfig()->getPin());
 			$this->tpl->setRightContent($preview->get());
 		}

@@ -51,7 +51,7 @@ class xlvoBarPercentageGUI implements xlvoGeneralBarGUI {
 
 
 	public function getHTML() {
-		$tpl = new ilTemplate($this->pl->getDirectory() . '/templates/default/Display/Bar/tpl.bar_percentage.html', true, true);
+		$tpl = $this->pl->getTemplate('default/Display/Bar/tpl.bar_percentage.html');
 
 		$tpl->setVariable('TITLE', $this->getTitle());
 

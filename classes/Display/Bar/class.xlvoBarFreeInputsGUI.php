@@ -53,7 +53,7 @@ class xlvoBarFreeInputsGUI extends xlvoAbstractBarGUI implements xlvoGeneralBarG
 		$this->voting = $voting;
 		$this->vote = $vote;
 		$this->pl = ilLiveVotingPlugin::getInstance();
-		$this->tpl = new \ilTemplate($this->pl->getDirectory() . '/templates/default/Display/Bar/tpl.bar_free_input.html', true, true);
+		$this->tpl = $this->pl->getTemplate('default/Display/Bar/tpl.bar_free_input.html');
 		$this->occurrences = 0;
 	}
 

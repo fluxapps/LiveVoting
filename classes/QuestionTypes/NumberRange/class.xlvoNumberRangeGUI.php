@@ -81,7 +81,7 @@ class xlvoNumberRangeGUI extends xlvoQuestionTypesGUI {
 		$end = (int)$this->manager->getVoting()->getEndRange();
 		$sliderValue = ceil(($start + $end) / 2);
 
-		$template = new \ilTemplate($this->pl->getDirectory() . '/templates/default/QuestionTypes/NumberRange/tpl.number_range.html', true, true);
+		$template = $this->pl->getTemplate('default/QuestionTypes/NumberRange/tpl.number_range.html');
 		$template->setVariable('ACTION', $this->ctrl->getFormAction($this));
 		$template->setVariable('SHOW_PERCENTAGE', (int)$this->manager->getVoting()->getPercentage());
 

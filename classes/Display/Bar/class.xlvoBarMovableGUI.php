@@ -25,7 +25,7 @@ class xlvoBarMovableGUI implements xlvoGeneralBarGUI {
 	/**
 	 * @var int
 	 */
-	protected $vote_id = null;
+	protected $vote_id = NULL;
 	/**
 	 * @var bool
 	 */
@@ -42,12 +42,12 @@ class xlvoBarMovableGUI implements xlvoGeneralBarGUI {
 	 * @param array $options
 	 * @param array $order
 	 */
-	public function __construct(array $options, array $order = array(), $vote_id = null) {
+	public function __construct(array $options, array $order = array(), $vote_id = NULL) {
 		$this->options = $options;
 		$this->order = $order;
 		$this->vote_id = $vote_id;
 		$this->pl = ilLiveVotingPlugin::getInstance();
-		$this->tpl = new \ilTemplate($this->pl->getDirectory() . '/templates/default/Display/Bar/tpl.bar_movable.html', false, true);
+		$this->tpl = $this->pl->getTemplate('default/Display/Bar/tpl.bar_movable.html', false);
 	}
 
 

@@ -132,7 +132,7 @@ class xlvoBasicInitialisation {
 		$ilias = new xlvoILIAS();
 		$this->makeGlobal("ilias", $ilias);
 
-		$tpl = new \ilTemplate("tpl.main.html", true, true, $pl->getDirectory());
+		$tpl = $pl->getTemplate("tpl.main.html");
 		if (!CookieManager::hasCookiePUK()) {
 			$tpl->touchBlock("navbar");
 		}

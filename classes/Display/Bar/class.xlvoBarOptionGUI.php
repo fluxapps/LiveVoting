@@ -52,7 +52,7 @@ class xlvoBarOptionGUI implements xlvoGeneralBarGUI {
 		$this->option = $option;
 		$this->option_letter = $option_letter;
 		$this->pl = ilLiveVotingPlugin::getInstance();
-		$this->tpl = new \ilTemplate($this->pl->getDirectory() . '/templates/default/Display/Bar/tpl.bar_option.html', true, true);
+		$this->tpl = $this->pl->getTemplate('default/Display/Bar/tpl.bar_option.html');
 	}
 
 

@@ -89,7 +89,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 			$this->ctrl->redirect($this, self::CMD_START_VOTER_PLAYER);
 		}
 
-		$tpl = new \ilTemplate($this->pl->getDirectory() . '/templates/default/Voter/tpl.pin.html', true, false);
+		$tpl = $this->pl->getTemplate('default/Voter/tpl.pin.html', true, false);
 		$this->tpl->addCss($this->pl->getDirectory() . '/templates/default/Voter/pin.css');
 		$pin_form = new \ilPropertyFormGUI();
 		$pin_form->setFormAction($this->ctrl->getLinkTarget($this, self::CMD_CHECK_PIN));
@@ -130,7 +130,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 	protected function startVoterPlayer() {
 		$this->initJsAndCss();
 		$this->tpl->addCss($this->pl->getDirectory() . '/templates/default/default.css');
-		$tpl = new \ilTemplate($this->pl->getDirectory() . '/templates/default/Voter/tpl.voter_player.html', true, false);
+		$tpl = $this->pl->getTemplate('default/Voter/tpl.voter_player.html', true, false);
 		$this->tpl->setContent($tpl->get());
 	}
 
@@ -189,7 +189,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 
 
 	protected function getHTML() {
-		$tpl = new \ilTemplate($this->pl->getDirectory() . '/templates/default/Voter/tpl.inner_screen.html', true, true);
+		$tpl = $this->pl->getTemplate('default/Voter/tpl.inner_screen.html');
 		switch ($this->manager->getPlayer()->getStatus(true)) {
 			case xlvoPlayer::STAT_STOPPED:
 				$tpl->setVariable('TITLE', $this->txt('header_stopped'));

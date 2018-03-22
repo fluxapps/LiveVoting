@@ -49,7 +49,7 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 	 * @return string
 	 */
 	protected function getFormContent() {
-		$tpl = new \ilTemplate($this->pl->getDirectory() . '/templates/default/QuestionTypes/FreeOrder/tpl.free_order.html', true, false);
+		$tpl = $this->pl->getTemplate('default/QuestionTypes/FreeOrder/tpl.free_order.html', true, false);
 		$tpl->setVariable('ACTION', $this->ctrl->getFormAction($this));
 		$tpl->setVariable('ID', 'xlvo_sortable');
 		$tpl->setVariable('BTN_RESET', $this->pl->txt('qtype_4_clear'));

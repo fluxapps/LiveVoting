@@ -63,7 +63,7 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 	 * @return string
 	 */
 	public function getMobileHTML() {
-		$this->tpl = new \ilTemplate($this->pl->getDirectory() . '/templates/default/Display/tpl.free_input.html', true, true);
+		$this->tpl = $this->pl->getTemplate('default/Display/tpl.free_input.html');
 		$this->pl = ilLiveVotingPlugin::getInstance();
 		$this->render();
 
