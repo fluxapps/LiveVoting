@@ -11,7 +11,7 @@ use LiveVoting\Context\InitialisationManager;
 use LiveVoting\Context\xlvoContext;
 
 require_once __DIR__ . '/vendor/autoload.php';
-require_once('dir.php');
+require_once 'dir.php';
 
 InitialisationManager::startMinimal();
 CookieManager::setContext(xlvoContext::CONTEXT_PIN);
