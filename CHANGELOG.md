@@ -4,6 +4,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.7.0] - 2018-03-23
+
+### Added
+- ILIAS 5.3 support
+- Feature: Presenter link
+- Feature: Export PowerPoint with slides for each questions with presenter link
+- Feature: Presentation of number range
+
+### Changed
+-
+
+### Removed
+- Removed ILIAS 5.1 support
+
+### Fixed
+- Fix no wrap if the shortlink URL is too long
+- Fix no preventDefault on fullscreen button which caused unwanted redirects
+- Fixed filtering by participant for anonymous participants
+
+### Improved
+- Refactoring
+
 ## [Unreleased] - XXX
 ### Added
 - Added the functionality to pin a voting to the personal workspace
