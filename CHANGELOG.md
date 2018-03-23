@@ -15,6 +15,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 -
 
+### Deprecated
+-
+
 ### Removed
 - Removed ILIAS 5.1 support
 
@@ -25,6 +28,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Improved
 - Refactoring
+
+### Security
+-
 
 ## [Unreleased] - XXX
 ### Added
