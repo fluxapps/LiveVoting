@@ -165,7 +165,7 @@ class ilPowerPointExport {
 	 * @param int        $num
 	 */
 	protected function addVoting(xlvoVoting $voting, $num) {
-		copy(__DIR__ . "/thumbnail.png", $this->temp_folder . "/ppt/media/image" . $num . ".png");
+		copy(__DIR__ . "/../../templates/images/thumbnail.png", $this->temp_folder . "/ppt/media/image" . $num . ".png");
 
 		$this->updateContentTypes($voting, $num);
 		$this->updateSlide($voting, $num);
