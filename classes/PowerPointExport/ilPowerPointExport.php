@@ -89,7 +89,7 @@ class ilPowerPointExport {
 		$this->votings = array_values(xlvoVoting::where([
 			'obj_id' => $this->obj->getId(),
 			'voting_type' => xlvoQuestionTypes::getActiveTypes()
-		])->orderBy('position', 'ASC')->get());
+		])->orderBy('position', 'ASC')->get()); // Correct index with array_values
 	}
 
 
@@ -154,8 +154,8 @@ class ilPowerPointExport {
 		ilUtil::makeDirParents($this->temp_folder . "/ppt/webextensions/_rels");
 		ilUtil::makeDirParents($this->temp_folder . "/ppt/media");
 
-		foreach ($this->votings as $num => $voting) {
-			$this->addVoting($voting, ($num + 1));
+		foreach ($this->votings as $i => $voting) {
+			$this->addVoting($voting, ($i + 1));
 		}
 	}
 
@@ -205,22 +205,89 @@ class ilPowerPointExport {
 		$file = $this->temp_folder . "/ppt/slides/slide" . $num . ".xml";
 
 		$guid = $this->guid();
+		$rand = rand(1000000000, 9999999999);
 
-		$xml = new DOMDocument();
+		$xml = file_get_contents($file);
 
-		$xml->load($file);
+		$pos = stripos($xml, "</p:grpSpPr>");
+		$xml = substr($xml, 0, ($pos + 12)) . '
+<mc:AlternateContent xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">
+	<mc:Choice xmlns:we="http://schemas.microsoft.com/office/webextensions/webextension/2010/11" xmlns:pca="http://schemas.microsoft.com/office/powerpoint/2013/contentapp" Requires="we pca">
+		<p:graphicFrame>
+			<p:nvGraphicFramePr>
+				<p:cNvPr id="' . ($num * 2 - 1) . '" name="Add-In ' . $num . '" title="Webviewer">
+					<a:extLst>
+						<a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+							<a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="' . $guid . '"/>
+						</a:ext>
+					</a:extLst>
+				</p:cNvPr>
+				<p:cNvGraphicFramePr>
+					<a:graphicFrameLocks noGrp="1"/>
+				</p:cNvGraphicFramePr>
+				<p:nvPr/>
+			</p:nvGraphicFramePr>
+			<p:xfrm>
+				<a:off x="0" y="857250"/>
+				<a:ext cx="9144000" cy="5143500"/>
+			</p:xfrm>
+			<a:graphic>
+				<a:graphicData uri="http://schemas.microsoft.com/office/webextensions/webextension/2010/11">
+					<we:webextensionref xmlns:we="http://schemas.microsoft.com/office/webextensions/webextension/2010/11" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" r:id="rId2"/>
+				</a:graphicData>
+			</a:graphic>
+		</p:graphicFrame>
+	</mc:Choice>
+	<mc:Fallback>
+		<p:pic>
+			<p:nvPicPr>
+				<p:cNvPr id="' . ($num * 2) . '" name="Add-In" title="Webviewer">
+					<a:extLst>
+						<a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+							<a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="' . $guid . '"/>
+						</a:ext>
+					</a:extLst>
+				</p:cNvPr>
+				<p:cNvPicPr>
+					<a:picLocks noGrp="1" noRot="1" noChangeAspect="1" noMove="1" noResize="1" noEditPoints="1" noAdjustHandles="1" noChangeArrowheads="1" noChangeShapeType="1"/>
+				</p:cNvPicPr>
+				<p:nvPr/>
+			</p:nvPicPr>
+			<p:blipFill>
+				<a:blip r:embed="rId3"/>
+				<a:stretch>
+					<a:fillRect/>
+				</a:stretch>
+			</p:blipFill>
+			<p:spPr>
+				<a:xfrm>
+					<a:off x="0" y="857250"/>
+					<a:ext cx="9144000" cy="5143500"/>
+				</a:xfrm>
+				<a:prstGeom prst="rect">
+					<a:avLst/>
+				</a:prstGeom>
+			</p:spPr>
+		</p:pic>
+	</mc:Fallback>
+</mc:AlternateContent>' . substr($xml, ($pos + 12));
 
-		$tree = $xml->getElementsByTagName("sld")->item(0)->getElementsByTagName("cSld")->item(0)->getElementsByTagName("spTree")->item(0);
+		file_put_contents($file, $xml);
 
-		$node = $xml->createDocumentFragment();
-		$node->appendXML('<mc:AlternateContent xmlns:mc="http://schemas.openxmlformats.org" xmlns:p="http://schemas.openxmlformats.org" xmlns:a="http://schemas.openxmlformats.org" xmlns:a16="http://schemas.openxmlformats.org" xmlns:r="http://schemas.openxmlformats.org" xmlns:we="http://schemas.openxmlformats.org"><mc:Choice Requires="we pca"><p:graphicFrame><p:nvGraphicFramePr><p:cNvPr id="4" name="Add-In 3" title="Webviewer"><a:extLst><a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}"><a16:creationId id="'
-			. $guid
-			. '"/></a:ext></a:extLst></p:cNvPr><p:cNvGraphicFramePr><a:graphicFrameLocks noGrp="1"/></p:cNvGraphicFramePr><p:nvPr/></p:nvGraphicFramePr><p:xfrm><a:off x="1524000" y="857249"/><a:ext cx="9144000" cy="5143500"/></p:xfrm><a:graphic><a:graphicData uri="http://schemas.microsoft.com/office/webextensions/webextension/2010/11"><we:webextensionref r:id="rId2"/></a:graphicData></a:graphic></p:graphicFrame></mc:Choice><mc:Fallback><p:pic><p:nvPicPr><p:cNvPr id="4" name="Add-In 3" title="Webviewer"><a:extLst><a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}"><a16:creationId id="'
-			. $guid
-			. '"/></a:ext></a:extLst></p:cNvPr><p:cNvPicPr><a:picLocks noGrp="1" noRot="1" noChangeAspect="1" noMove="1" noResize="1" noEditPoints="1" noAdjustHandles="1" noChangeArrowheads="1" noChangeShapeType="1"/></p:cNvPicPr><p:nvPr/></p:nvPicPr><p:blipFill><a:blip r:embed="rId3"/><a:stretch><a:fillRect/></a:stretch></p:blipFill><p:spPr><a:xfrm><a:off x="1524000" y="857249"/><a:ext cx="9144000" cy="5143500"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr></p:pic></mc:Fallback></mc:AlternateContent>');
-		$tree->appendChild($node);
-
-		$xml->save($file);
+		// DOMDocument not works or is buggy because unknown namespace?!
+		/**
+		 * $xml = new DOMDocument();
+		 *
+		 * $xml->load($file);
+		 *
+		 * $tree = $xml->getElementsByTagName("sld")->item(0)->getElementsByTagName("cSld")->item(0)->getElementsByTagName("spTree")->item(0);
+		 *
+		 * $node = $xml->createDocumentFragment();
+		 * $node->appendXML('XML');
+		 * $tree->appendChild($node);
+		 *
+		 * $xml->save($file);
+		 */
 	}
 
 
@@ -239,9 +306,8 @@ class ilPowerPointExport {
 
 		$node = $xml->createDocumentFragment();
 		$node->appendXML('<Relationship Id="rId2" Type="http://schemas.microsoft.com/office/2011/relationships/webextension" Target="../webextensions/webextension'
-			. $num
-			. '.xml"/><Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="../media/image'
-			. $num . '.png"/>');
+			. $num . '.xml"/>
+<Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="../media/image' . $num . '.png"/>');
 		$types->appendChild($node);
 
 		$xml->save($file);
@@ -254,19 +320,28 @@ class ilPowerPointExport {
 	 */
 	protected function updateWebExtension(xlvoVoting $voting, $num) {
 		$presenter_link = $this->obj->getPresenterLink() . "&voting=" . $voting->getId();
-		$presenter_link = "https://google.ch";
 
 		$secure = (stripos($presenter_link, "https://") === 0);
-		$link = substr($presenter_link, stripos($presenter_link, "://") + 3);
+		$link = substr($presenter_link, (stripos($presenter_link, "://") + 3));
 
 		$guid = $this->guid();
 
 		$file = $this->temp_folder . "/ppt/webextensions/webextension" . $num . ".xml";
 
-		file_put_contents($file, '<we:webextension id="' . $guid
-			. '"><we:reference id="wa104295828" version="1.6.0.0" store="de-CH" storeType="OMEX"/><we:alternateReferences><we:reference id="wa104295828" version="1.6.0.0" store="wa104295828" storeType="OMEX"/></we:alternateReferences><we:properties><we:property name="__labs__" value="{"configuration":{"appVersion":{"major":1,"minor":0},"components":[{"type":"Labs.Components.ActivityComponent","name":"LiveVoting","values":{},"data":{"uri":"'
-			. $link . '"},"secure":' . var_export($secure, true)
-			. '}],"name":"LiveVoting","timeline":null,"analytics":null},"hostVersion":{"major":0,"minor":1}}"/></we:properties><we:bindings/><we:snapshot r:embed="rId1"/></we:webextension>');
+		file_put_contents($file, '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<we:webextension xmlns:we="http://schemas.microsoft.com/office/webextensions/webextension/2010/11" id="' . $guid . '">
+	<we:reference id="wa104295828" version="1.6.0.0" store="de-CH" storeType="OMEX"/>
+	<we:alternateReferences>
+		<we:reference id="wa104295828" version="1.6.0.0" store="wa104295828" storeType="OMEX"/>
+	</we:alternateReferences>
+	<we:properties>
+		<we:property name="__labs__" value="{&quot;configuration&quot;:{&quot;appVersion&quot;:{&quot;major&quot;:1,&quot;minor&quot;:0},&quot;components&quot;:[{&quot;type&quot;:&quot;Labs.Components.ActivityComponent&quot;,&quot;name&quot;:&quot;'
+			. $link . '&quot;,&quot;values&quot;:{},&quot;data&quot;:{&quot;uri&quot;:&quot;' . $link . '&quot;},&quot;secure&quot;:'
+			. var_export($secure, true) . '}],&quot;name&quot;:&quot;' . $link . '&quot;,&quot;timeline&quot;:null,&quot;analytics&quot;:null},&quot;hostVersion&quot;:{&quot;major&quot;:0,&quot;minor&quot;:1}}"/>
+	</we:properties>
+	<we:bindings/>
+	<we:snapshot xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" r:embed="rId1"/>
+</we:webextension>');
 	}
 
 
@@ -277,8 +352,10 @@ class ilPowerPointExport {
 	protected function updateWebExtensionRel(xlvoVoting $voting, $num) {
 		$file = $this->temp_folder . "/ppt/webextensions/_rels/webextension" . $num . ".xml.rels";
 
-		file_put_contents($file, '<Relationships><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="../media/image'
-			. $num . '.png"/></Relationships>');
+		file_put_contents($file, '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+	<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="../media/image' . $num . '.png"/>
+</Relationships>');
 	}
 
 
