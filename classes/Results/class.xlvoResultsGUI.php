@@ -192,7 +192,7 @@ class xlvoResultsGUI extends xlvoGUI {
 				return $name['firstname'] . " " . $name['lastname'];
 			}
 
-			return $this->pl->txt("common_participant") . " " . $participant->getNumber();
+			return $this->pl->txt("common_participant") . " " . substr($participant->getUserIdentifier(), 0, 4);
 		};
 	}
 
