@@ -10,6 +10,9 @@
 - show/hide live results
 - Freeze Voting
 - Fullscreen
+- Presenter link
+- Export PowerPoint with slides for each questions with presenter link
+- Presentation of Number range
  
 ## Documentation
 
@@ -44,6 +47,10 @@ LiveVoting is currently not fully supported by Google Chrome.
 
 ## Versioning
 We use SemVer for versioning. For the versions available, see the tags on this repository.
+
+## PowerPoint export
+For display the exported PowerPoint files you need to install the WebViewer-AddIn in PowerPoint:
+https://appsource.microsoft.com/en-us/product/office/WA104295828?tab=Overview
 
 ### ILIAS Plugin SLA
 
