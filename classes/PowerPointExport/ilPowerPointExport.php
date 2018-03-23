@@ -336,8 +336,8 @@ class ilPowerPointExport {
 	</we:alternateReferences>
 	<we:properties>
 		<we:property name="__labs__" value="{&quot;configuration&quot;:{&quot;appVersion&quot;:{&quot;major&quot;:1,&quot;minor&quot;:0},&quot;components&quot;:[{&quot;type&quot;:&quot;Labs.Components.ActivityComponent&quot;,&quot;name&quot;:&quot;'
-			. $link . '&quot;,&quot;values&quot;:{},&quot;data&quot;:{&quot;uri&quot;:&quot;' . $link . '&quot;},&quot;secure&quot;:'
-			. var_export($secure, true) . '}],&quot;name&quot;:&quot;' . $link . '&quot;,&quot;timeline&quot;:null,&quot;analytics&quot;:null},&quot;hostVersion&quot;:{&quot;major&quot;:0,&quot;minor&quot;:1}}"/>
+			. htmlspecialchars($link) . '&quot;,&quot;values&quot;:{},&quot;data&quot;:{&quot;uri&quot;:&quot;' . htmlspecialchars($link)
+			. '&quot;},&quot;secure&quot;:' . var_export($secure, true) . '}],&quot;name&quot;:&quot;' . htmlspecialchars($link) . '&quot;,&quot;timeline&quot;:null,&quot;analytics&quot;:null},&quot;hostVersion&quot;:{&quot;major&quot;:0,&quot;minor&quot;:1}}"/>
 	</we:properties>
 	<we:bindings/>
 	<we:snapshot xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" r:embed="rId1"/>
