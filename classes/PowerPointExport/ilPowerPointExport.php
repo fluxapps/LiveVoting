@@ -58,6 +58,7 @@ class ilPowerPointExport {
 		$this->pl = ilLiveVotingPlugin::getInstance();
 
 		$this->temp_folder = $this->getTempFolder();
+		ilUtil::makeDirParents($this->temp_folder);
 		$this->temp_file = $this->temp_folder . ".pptx";
 		$this->file_name = $this->getFileName();
 	}
