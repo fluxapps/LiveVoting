@@ -21,6 +21,7 @@ common_round#:#Kör
 common_show_history#:#Történelem
 common_time#:#Időbélyeg
 common_user#:#Felhasználó
+common_option_no_longer_available#:#[Option no longer available]
 config_allow_shortlink#:#Rövid URL aktiválása
 config_allow_shortlink_info#:#Rövid URL (pl. /vote) használatához adja a RewriteRule szabályt .htaccess fájljához:
 config_allow_shortlink_link#:#Rövid URL

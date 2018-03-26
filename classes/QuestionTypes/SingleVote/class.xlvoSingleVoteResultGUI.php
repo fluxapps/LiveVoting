@@ -24,7 +24,7 @@ class xlvoSingleVoteResultGUI extends xlvoResultGUI {
 			if ($xlvoOption instanceof xlvoOption) {
 				$strings[] = $xlvoOption->getTextForPresentation();
 			} else {
-				$strings[] = "[Option no longer available]";
+				$strings[] = $this->pl->txt("common_option_no_longer_available");
 			}
 		}
 

@@ -20,6 +20,7 @@ common_round#:#Durchgang
 common_show_history#:#Verlauf
 common_time#:#Zeitpunkt
 common_user#:#Benutzer
+common_option_no_longer_available#:#[Option nicht mehr vorhanden]
 config_allow_shortlink#:#Kurz-URL einschalten
 config_allow_shortlink_info#:#Eine Kurz-URL kann bspw. durch hinzufügen einer RewriteRule in der .htaccess erstellt werden, dadurch kann auf https://ilias.domain.com/vote angestimmt werden:
 config_allow_shortlink_link#:#Kurz-URL
