@@ -61,7 +61,10 @@ class ilPowerPointExport {
 		ilUtil::makeDirParents($this->temp_folder);
 		$this->temp_file = $this->temp_folder . ".pptx";
 		$this->file_name = $this->getFileName();
+	}
 
+
+	public function run() {
 		$this->loadVotings();
 
 		$this->pp = new PhpPresentation();
@@ -87,10 +90,13 @@ class ilPowerPointExport {
 	 *
 	 */
 	protected function loadVotings() {
-		$this->votings = array_values(xlvoVoting::where([
-			'obj_id' => $this->obj->getId(),
-			'voting_type' => xlvoQuestionTypes::getActiveTypes()
-		])->orderBy('position', 'ASC')->get()); // Correct index with array_values
+		$this->votings = array_values(
+			xlvoVoting::where(
+				[
+					'obj_id' => $this->obj->getId(), 'voting_type' => xlvoQuestionTypes::getActiveTypes(),
+				]
+			)->orderBy('position', 'ASC')->get()
+		); // Correct index with array_values
 	}
 
 
@@ -190,8 +196,9 @@ class ilPowerPointExport {
 		$types = $xml->getElementsByTagName("Types")->item(0);
 
 		$node = $xml->createDocumentFragment();
-		$node->appendXML('<Override PartName="/ppt/webextensions/webextension' . $num
-			. '.xml" ContentType="application/vnd.ms-office.webextension+xml"/>');
+		$node->appendXML(
+			'<Override PartName="/ppt/webextensions/webextension' . $num . '.xml" ContentType="application/vnd.ms-office.webextension+xml"/>'
+		);
 		$types->appendChild($node);
 
 		$xml->save($file);
@@ -306,9 +313,10 @@ class ilPowerPointExport {
 		$types = $xml->getElementsByTagName("Relationships")->item(0);
 
 		$node = $xml->createDocumentFragment();
-		$node->appendXML('<Relationship Id="rId2" Type="http://schemas.microsoft.com/office/2011/relationships/webextension" Target="../webextensions/webextension'
-			. $num . '.xml"/>
-<Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="../media/image' . $num . '.png"/>');
+		$node->appendXML(
+			'<Relationship Id="rId2" Type="http://schemas.microsoft.com/office/2011/relationships/webextension" Target="../webextensions/webextension' . $num . '.xml"/>
+<Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="../media/image' . $num . '.png"/>'
+		);
 		$types->appendChild($node);
 
 		$xml->save($file);
@@ -329,20 +337,20 @@ class ilPowerPointExport {
 
 		$file = $this->temp_folder . "/ppt/webextensions/webextension" . $num . ".xml";
 
-		file_put_contents($file, '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+		file_put_contents(
+			$file, '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <we:webextension xmlns:we="http://schemas.microsoft.com/office/webextensions/webextension/2010/11" id="' . $guid . '">
 	<we:reference id="wa104295828" version="1.6.0.0" store="de-CH" storeType="OMEX"/>
 	<we:alternateReferences>
 		<we:reference id="wa104295828" version="1.6.0.0" store="wa104295828" storeType="OMEX"/>
 	</we:alternateReferences>
 	<we:properties>
-		<we:property name="__labs__" value="{&quot;configuration&quot;:{&quot;appVersion&quot;:{&quot;major&quot;:1,&quot;minor&quot;:0},&quot;components&quot;:[{&quot;type&quot;:&quot;Labs.Components.ActivityComponent&quot;,&quot;name&quot;:&quot;'
-			. htmlspecialchars($link) . '&quot;,&quot;values&quot;:{},&quot;data&quot;:{&quot;uri&quot;:&quot;' . htmlspecialchars($link)
-			. '&quot;},&quot;secure&quot;:' . var_export($secure, true) . '}],&quot;name&quot;:&quot;' . htmlspecialchars($link) . '&quot;,&quot;timeline&quot;:null,&quot;analytics&quot;:null},&quot;hostVersion&quot;:{&quot;major&quot;:0,&quot;minor&quot;:1}}"/>
+		<we:property name="__labs__" value="{&quot;configuration&quot;:{&quot;appVersion&quot;:{&quot;major&quot;:1,&quot;minor&quot;:0},&quot;components&quot;:[{&quot;type&quot;:&quot;Labs.Components.ActivityComponent&quot;,&quot;name&quot;:&quot;' . htmlspecialchars($link) . '&quot;,&quot;values&quot;:{},&quot;data&quot;:{&quot;uri&quot;:&quot;' . htmlspecialchars($link) . '&quot;},&quot;secure&quot;:' . var_export($secure, true) . '}],&quot;name&quot;:&quot;' . htmlspecialchars($link) . '&quot;,&quot;timeline&quot;:null,&quot;analytics&quot;:null},&quot;hostVersion&quot;:{&quot;major&quot;:0,&quot;minor&quot;:1}}"/>
 	</we:properties>
 	<we:bindings/>
 	<we:snapshot xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" r:embed="rId1"/>
-</we:webextension>');
+</we:webextension>'
+		);
 	}
 
 
@@ -353,10 +361,12 @@ class ilPowerPointExport {
 	protected function updateWebExtensionRel(xlvoVoting $voting, $num) {
 		$file = $this->temp_folder . "/ppt/webextensions/_rels/webextension" . $num . ".xml.rels";
 
-		file_put_contents($file, '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+		file_put_contents(
+			$file, '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
 	<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="../media/image' . $num . '.png"/>
-</Relationships>');
+</Relationships>'
+		);
 	}
 
 
@@ -417,8 +427,6 @@ class ilPowerPointExport {
 			return trim(com_create_guid(), '{}');
 		}
 
-		return "{"
-			. sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535))
-			. "}";
+		return "{" . sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535)) . "}";
 	}
 }

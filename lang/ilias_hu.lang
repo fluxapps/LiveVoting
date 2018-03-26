@@ -22,6 +22,7 @@ common_show_history#:#Történelem
 common_time#:#Időbélyeg
 common_user#:#Felhasználó
 common_option_no_longer_available#:#[Option no longer available]
+common_ok#:#OK
 config_allow_shortlink#:#Rövid URL aktiválása
 config_allow_shortlink_info#:#Rövid URL (pl. /vote) használatához adja a RewriteRule szabályt .htaccess fájljához:
 config_allow_shortlink_link#:#Rövid URL
@@ -40,6 +41,8 @@ config_open_result_api#:#Open API-Link (with latest Voting)
 config_use_global_cache#:#aktiválása caching
 config_use_global_cache_info#:#Lehetővé teszi a LiveVoting plugint használni a globális cache mechanizmus, amely biztosítja ILIAS. Az alapul szolgáló cache szinkronizálni kell egy multi veszi a telepítést, egyébként a plugin megjósolhatatlan eredményeket.
 config_presenter_link#:#MISSING
+config_ppt_export#:#Powerpoint-Export
+config_ppt_export_info#:#Activate Powerpoint-Export: This features needs the Powerpoint-WebView-Plugin installed and will only work if you ILIAS runs on HTTPS.
 correct_order#:#Helyes sorrend
 crs_create_xlvo#:#Élőszavazás létrehozása
 fikd_create_xlvo#:#Élőszavazás létrehozása
@@ -84,6 +87,7 @@ obj_terminable_select_start_time#:#Kezdő idő
 obj_title#:#Cím
 obj_xlvo#:#Élőszavazás
 obj_xlvo_duplicate#:#Meglévő élőszavazás duplikálása
+obj_#:#MISSING
 objs_xlvo#:#Élőszavazás
 objs_xlvo_duplicate#:#Meglévő élőszavazás klónozása
 player_close_modal#:#Bezárás
@@ -243,6 +247,7 @@ voting_update_and_stay#:#Mentés
 voting_type_6#:#Számtartomány
 voting_type_6_info#:#A felhasználók kitalálni egy számot X és Y között.
 voting_powerpoint_export#:#MISSING
+voting_confirm_ppt_export_msg#:#A Powerpoint-Slideshow will be created with one slide per voting using the Presenter-Shortlink. Please note that this slides will require the Powerpoint-WebView-Plugin installed.
 vqtype_1_options#:#Beállítások
 xlvo_add#:#Létrehozása
 xlvo_delete#:#Élőszavazás törlése
