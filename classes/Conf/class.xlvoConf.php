@@ -29,6 +29,7 @@ class xlvoConf extends CachingActiveRecord {
 	const F_API_TYPE = 'api_type';
 	const F_API_TOKEN = 'api_token';
 	const F_USE_GLOBAL_CACHE = 'use_global_cache';
+	const F_ACTIVATE_POWERPOINT_EXPORT = 'ppt_export';
 	/**
 	 * Min client update frequency in seconds.
 	 * This value should never be set bellow 1 second.
@@ -46,7 +47,7 @@ class xlvoConf extends CachingActiveRecord {
 	 */
 	public static function getShortLinkURL() {
 		$pl = \ilLiveVotingPlugin::getInstance();
-		$url = NULL;
+		$url = null;
 		$shortLinkEnabled = intval(self::getConfig(self::F_ALLOW_SHORTLINK));
 
 		if ($shortLinkEnabled === 1) {
@@ -170,7 +171,7 @@ class xlvoConf extends CachingActiveRecord {
 		$obj = new self($name);
 		$obj->setValue(json_encode($value));
 
-		if (self::where(array( 'name' => $name ))->hasSets()) {
+		if (self::where(array('name' => $name))->hasSets()) {
 			$obj->update();
 		} else {
 			$obj->create();

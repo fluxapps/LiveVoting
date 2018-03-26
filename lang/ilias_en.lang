@@ -21,6 +21,7 @@ common_round#:#Round
 common_show_history#:#History
 common_time#:#Timestamp
 common_user#:#User
+common_ok#:#OK
 config_allow_shortlink#:#Activate Short URL
 config_allow_shortlink_info#:#Use a Short URL like /vote by adding the following RewriteRule to your .htaccess:
 config_allow_shortlink_link#:#Short URL
@@ -41,6 +42,8 @@ config_open_result_api#:#Open API-Link (with latest Voting)
 config_use_global_cache#:#Activate caching
 config_use_global_cache_info#:#Enables the LiveVoting plugin to use the global caching mechanism, which is provided by ILIAS. The underlying cache must be synchronised within a multi note setup, otherwise the plugin produces unpredictable results.
 config_presenter_link#:#Presenter link
+config_ppt_export#:#Powerpoint-Export
+config_ppt_export_info#:#Activate Powerpoint-Export: This features needs the Powerpoint-WebView-Plugin installed and will only work if you ILIAS runs on HTTPS.
 correct_order#:#Correct Order
 crs_create_xlvo#:#Create LiveVoting
 fikd_create_xlvo#:#Create LiveVoting
@@ -85,6 +88,7 @@ obj_terminable_select_start_time#:#Start
 obj_title#:#Title
 obj_xlvo#:#LiveVoting
 obj_xlvo_duplicate#:#Clone existing LiveVoting
+obj_#:#MISSING
 objs_xlvo#:#LiveVotings
 objs_xlvo_duplicate#:#Clone existing LiveVoting
 player_close_modal#:#Close
@@ -246,6 +250,7 @@ voting_update_and_stay#:#Update
 voting_type_6#:#Number Range
 voting_type_6_info#:#Users can guess a number between X and Y.
 voting_powerpoint_export#:#Export as PowerPoint
+voting_confirm_ppt_export_msg#:#A Powerpoint-Slideshow will be created with one slide per voting using the Presenter-Shortlink. Please note that this slides will require the Powerpoint-WebView-Plugin installed.
 vqtype_1_options#:#Options
 xlvo_add#:#Add
 xlvo_delete#:#Delete LiveVoting

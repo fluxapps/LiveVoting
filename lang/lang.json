@@ -62,7 +62,8 @@
                     "de": "Abbrechen",
                     "en": "Cancel",
                     "hu": "Mégsem"
-                }
+                },
+                "last_used": "26.03.2018"
             },
             "change": {
                 "translations": {
@@ -169,6 +170,14 @@
                     "en": "User",
                     "hu": "Felhasználó"
                 }
+            },
+            "ok": {
+                "translations": {
+                    "en": "OK",
+                    "hu": "OK",
+                    "de": "OK"
+                },
+                "last_used": "26.03.2018"
             }
         },
         "config": {
@@ -178,7 +187,7 @@
                     "en": "Activate Short URL",
                     "hu": "Rövid URL aktiválása"
                 },
-                "last_used": "17.03.2017"
+                "last_used": "26.03.2018"
             },
             "allow_shortlink_info": {
                 "translations": {
@@ -186,7 +195,7 @@
                     "en": "Use a Short URL like /vote by adding the following RewriteRule to your .htaccess:",
                     "hu": "Rövid URL (pl. /vote) használatához adja a RewriteRule szabályt .htaccess fájljához:"
                 },
-                "last_used": "17.03.2017"
+                "last_used": "26.03.2018"
             },
             "allow_shortlink_link": {
                 "translations": {
@@ -194,7 +203,7 @@
                     "en": "Short URL",
                     "hu": "Rövid URL"
                 },
-                "last_used": "17.03.2017"
+                "last_used": "26.03.2018"
             },
             "allow_shortlink_link_info": {
                 "translations": {
@@ -202,7 +211,7 @@
                     "en": "Full Short URL of your Installation , e.g. https://ilias.domain.com/vote",
                     "hu": "Telepítése teljes rövid URL-je , pl. https://ilias.domain.hu/vote"
                 },
-                "last_used": "17.03.2017"
+                "last_used": "26.03.2018"
             },
             "base_url": {
                 "translations": {
@@ -210,7 +219,7 @@
                     "en": "Base URL",
                     "hu": "Alap URL"
                 },
-                "last_used": "17.03.2017"
+                "last_used": "26.03.2018"
             },
             "base_url_info": {
                 "translations": {
@@ -218,7 +227,7 @@
                     "en": "URL of yout ILIAS-Installation incl. Subfolders, e.g. https://www.domain.com/ilias",
                     "hu": "Telepítése URL-je (alkönyvtárat is beleértve), pl. https://www.domain.hu/ilias"
                 },
-                "last_used": "17.03.2017"
+                "last_used": "26.03.2018"
             },
             "cancel": {
                 "translations": {
@@ -226,7 +235,7 @@
                     "en": "Cancel",
                     "hu": "Mégsem"
                 },
-                "last_used": "17.03.2017"
+                "last_used": "26.03.2018"
             },
             "msg_success": {
                 "translations": {
@@ -234,21 +243,21 @@
                     "en": "Saved",
                     "hu": "Mentve"
                 },
-                "last_used": "17.03.2017"
+                "last_used": "26.03.2018"
             },
             "request_frequency": {
                 "translations": {
                     "de": "Klienten aktualisierungs Frequenz",
                     "en": "Client update frequency"
                 },
-                "last_used": "17.03.2017"
+                "last_used": "26.03.2018"
             },
             "request_frequency_info": {
                 "translations": {
                     "de": "Die aktualisierungs Frequenz der LiveVoting Klienten, angegeben in Sekunden. Umso kleiner die Zahl ist umso schneller reagieren die Clients (z.B. Smartphones der Benutzer) während eines LiveVotings, allerdings erhöht sich die Last auf den Server merklich. Richtwert 2-5 Sekunden.",
                     "en": "The client side live voting data update frequency measured in seconds. The lower the number the faster the clients react to changes by the tutor but the load on the server increases. We recommend 2 - 5 seconds."
                 },
-                "last_used": "17.03.2017"
+                "last_used": "26.03.2018"
             },
             "update": {
                 "translations": {
@@ -256,7 +265,7 @@
                     "en": "Update",
                     "hu": "Módosítás"
                 },
-                "last_used": "17.03.2017"
+                "last_used": "26.03.2018"
             },
             "result_api": {
                 "translations": {
@@ -264,7 +273,7 @@
                     "hu": "MISSING",
                     "de": "Resultate-API aktivieren"
                 },
-                "last_used": "17.03.2017"
+                "last_used": "26.03.2018"
             },
             "result_api_info": {
                 "translations": {
@@ -272,7 +281,7 @@
                     "hu": "Results of a Voting can be accessed as JSON via Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/api.php?pin=XXXX?token=XXXXX",
                     "de": "Resultate eines Votings können als JSON via Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/api.php?pin=XXXX?token=XXXXX abgerufen werden"
                 },
-                "last_used": "17.03.2017"
+                "last_used": "26.03.2018"
             },
             "api_token": {
                 "translations": {
@@ -280,7 +289,7 @@
                     "hu": "API-Token",
                     "de": "API-Token"
                 },
-                "last_used": "17.03.2017"
+                "last_used": "26.03.2018"
             },
             "api_type": {
                 "translations": {
@@ -288,7 +297,7 @@
                     "hu": "Type",
                     "de": "Typ"
                 },
-                "last_used": "17.03.2017"
+                "last_used": "26.03.2018"
             },
             "regenerate_token": {
                 "translations": {
@@ -311,14 +320,16 @@
                     "en": "Activate caching",
                     "de": "Cache aktivieren",
                     "hu": "aktiválása caching"
-                }
+                },
+                "last_used": "26.03.2018"
             },
             "use_global_cache_info": {
                 "translations": {
                     "en": "Enables the LiveVoting plugin to use the global caching mechanism, which is provided by ILIAS. The underlying cache must be synchronised within a multi note setup, otherwise the plugin produces unpredictable results.",
                     "de": "Aktiviert die Verwendung der globalen Cache Mechanik von ILIAS. Der zugrundeliegende cache muss in einem Setup mit mehreren ILIAS installation synchron sein, da das Plugin ansonsten unvorhersehbare Werte produzieren wird.",
                     "hu": "Lehetővé teszi a LiveVoting plugint használni a globális cache mechanizmus, amely biztosítja ILIAS. Az alapul szolgáló cache szinkronizálni kell egy multi veszi a telepítést, egyébként a plugin megjósolhatatlan eredményeket."
-                }
+                },
+                "last_used": "26.03.2018"
             },
             "presenter_link": {
                 "translations": {
@@ -327,6 +338,22 @@
                     "hu": "MISSING"
                 },
                 "last_used": "01.03.2018"
+            },
+            "ppt_export": {
+                "translations": {
+                    "en": "Powerpoint-Export",
+                    "hu": "Powerpoint-Export",
+                    "de": "Powerpoint-Export"
+                },
+                "last_used": "26.03.2018"
+            },
+            "ppt_export_info": {
+                "translations": {
+                    "en": "Activate Powerpoint-Export: This features needs the Powerpoint-WebView-Plugin installed and will only work if you ILIAS runs on HTTPS.",
+                    "hu": "Activate Powerpoint-Export: This features needs the Powerpoint-WebView-Plugin installed and will only work if you ILIAS runs on HTTPS.",
+                    "de": "Powerpoint-Export aktivieren: Dieses Feature funktioniert nur mit installierten PowerPoint-WebView-Plugin und wenn die ILIAS Installation unter HTTPS betrieben wird."
+                },
+                "last_used": "26.03.2018"
             }
         },
         "correct": {
@@ -672,13 +699,21 @@
                     "de": "LiveVoting",
                     "en": "LiveVoting",
                     "hu": "Élőszavazás"
-                }
+                },
+                "last_used": "26.03.2018"
             },
             "xlvo_duplicate": {
                 "translations": {
                     "de": "Bestehendes LiveVoting kopieren",
                     "en": "Clone existing LiveVoting",
                     "hu": "Meglévő élőszavazás duplikálása"
+                }
+            },
+            "": {
+                "translations": {
+                    "en": "MISSING",
+                    "hu": "MISSING",
+                    "de": "MISSING"
                 }
             }
         },
@@ -695,7 +730,8 @@
                     "de": "Bestehendes LiveVoting kopieren",
                     "en": "Clone existing LiveVoting",
                     "hu": "Meglévő élőszavazás klónozása"
-                }
+                },
+                "last_used": "23.03.2018"
             }
         },
         "player": {
@@ -712,7 +748,7 @@
                     "en": "Pause",
                     "hu": "Szüneteltetés"
                 },
-                "last_used": "28.06.2017"
+                "last_used": "23.03.2018"
             },
             "hide_results": {
                 "translations": {
@@ -720,7 +756,7 @@
                     "en": "Hide Results",
                     "hu": "Szavazatállás elrejtése"
                 },
-                "last_used": "28.06.2017"
+                "last_used": "23.03.2018"
             },
             "msg_no_start_1": {
                 "translations": {
@@ -764,7 +800,7 @@
                     "en": "Reset",
                     "hu": "Reset"
                 },
-                "last_used": "28.06.2017"
+                "last_used": "23.03.2018"
             },
             "seconds": {
                 "translations": {
@@ -772,7 +808,7 @@
                     "en": "sec",
                     "hu": "mp"
                 },
-                "last_used": "28.06.2017"
+                "last_used": "23.03.2018"
             },
             "show_results": {
                 "translations": {
@@ -780,21 +816,23 @@
                     "en": "Show Results",
                     "hu": "Szavazatállás megjelenítése"
                 },
-                "last_used": "28.06.2017"
+                "last_used": "23.03.2018"
             },
             "start_voting": {
                 "translations": {
                     "de": "LiveVoting beginnen",
                     "en": "Start LiveVoting",
                     "hu": "Élőszavazás indítása"
-                }
+                },
+                "last_used": "26.03.2018"
             },
             "start_voting_and_unfreeze": {
                 "translations": {
                     "de": "LiveVoting beginnen und direkt freigeben",
                     "en": "Start LiveVoting and start voting directly",
                     "hu": "Élőszavazás indítása és a szavazás azonnali megkezdése"
-                }
+                },
+                "last_used": "26.03.2018"
             },
             "terminate": {
                 "translations": {
@@ -802,7 +840,7 @@
                     "en": "Terminate",
                     "hu": "Megszakítás"
                 },
-                "last_used": "28.06.2017"
+                "last_used": "23.03.2018"
             },
             "unfreeze": {
                 "translations": {
@@ -810,7 +848,7 @@
                     "en": "Vote",
                     "hu": "Szavazz"
                 },
-                "last_used": "28.06.2017"
+                "last_used": "23.03.2018"
             },
             "voters_online": {
                 "translations": {
@@ -818,7 +856,7 @@
                     "en": "Online",
                     "hu": "Online"
                 },
-                "last_used": "28.06.2017"
+                "last_used": "23.03.2018"
             },
             "voting_countdown": {
                 "translations": {
@@ -833,7 +871,7 @@
                     "en": "Questions",
                     "hu": "Kérdések"
                 },
-                "last_used": "28.06.2017"
+                "last_used": "26.03.2018"
             },
             "voters_description": {
                 "translations": {
@@ -841,7 +879,7 @@
                     "hu": "Választók",
                     "de": "Abstimmende"
                 },
-                "last_used": "28.06.2017"
+                "last_used": "23.03.2018"
             }
         },
         "playplayer": {
@@ -1374,7 +1412,7 @@
                     "en": "Manage",
                     "hu": "Kezelés"
                 },
-                "last_used": "20.03.2018"
+                "last_used": "26.03.2018"
             },
             "show": {
                 "translations": {
@@ -1382,7 +1420,7 @@
                     "en": "Show",
                     "hu": "Megjelenítés"
                 },
-                "last_used": "20.03.2018"
+                "last_used": "26.03.2018"
             }
         },
         "tab": {
@@ -1392,7 +1430,7 @@
                     "en": "Content",
                     "hu": "Tartalom"
                 },
-                "last_used": "20.03.2018"
+                "last_used": "26.03.2018"
             },
             "edit": {
                 "translations": {
@@ -1400,7 +1438,7 @@
                     "en": "Settings",
                     "hu": "Beállítások"
                 },
-                "last_used": "20.03.2018"
+                "last_used": "26.03.2018"
             },
             "results": {
                 "translations": {
@@ -1408,7 +1446,7 @@
                     "en": "Results",
                     "hu": "Eredmények"
                 },
-                "last_used": "20.03.2018"
+                "last_used": "26.03.2018"
             }
         },
         "voter": {
@@ -1574,7 +1612,7 @@
                     "en": "Actions",
                     "hu": "Művelet"
                 },
-                "last_used": "28.06.2017"
+                "last_used": "26.03.2018"
             },
             "add": {
                 "translations": {
@@ -1582,7 +1620,7 @@
                     "en": "Add Question",
                     "hu": "Kérdés létrehozása"
                 },
-                "last_used": "28.06.2017"
+                "last_used": "26.03.2018"
             },
             "cancel": {
                 "translations": {
@@ -1613,7 +1651,7 @@
                     "en": "Do you like to reset this Voting? All User-Inputs will be deleted.",
                     "hu": "Biztos, hogy reseteli ezt a szavazás? Az összes választ töröljük."
                 },
-                "last_used": "28.06.2017"
+                "last_used": "23.03.2018"
             },
             "confirm_reset_all": {
                 "translations": {
@@ -1636,7 +1674,7 @@
                     "en": "Delete",
                     "hu": "Törlés"
                 },
-                "last_used": "28.06.2017"
+                "last_used": "26.03.2018"
             },
             "delete_confirm": {
                 "translations": {
@@ -1659,7 +1697,7 @@
                     "en": "Clone",
                     "hu": "Duplikálás"
                 },
-                "last_used": "28.06.2017"
+                "last_used": "26.03.2018"
             },
             "edit": {
                 "translations": {
@@ -1667,14 +1705,15 @@
                     "en": "Edit",
                     "hu": "Módosítás"
                 },
-                "last_used": "28.06.2017"
+                "last_used": "26.03.2018"
             },
             "export": {
                 "translations": {
                     "de": "Export",
                     "en": "Export",
                     "hu": "Exportálás"
-                }
+                },
+                "last_used": "23.03.2018"
             },
             "form_title_create": {
                 "translations": {
@@ -1713,7 +1752,8 @@
                     "de": "Import",
                     "en": "Import",
                     "hu": "Importálás"
-                }
+                },
+                "last_used": "23.03.2018"
             },
             "msg_duplicated": {
                 "translations": {
@@ -1735,7 +1775,7 @@
                     "en": "Question",
                     "hu": "Kérdés"
                 },
-                "last_used": "20.03.2018"
+                "last_used": "26.03.2018"
             },
             "reset": {
                 "translations": {
@@ -1743,7 +1783,7 @@
                     "en": "Reset",
                     "hu": "Reset"
                 },
-                "last_used": "28.06.2017"
+                "last_used": "26.03.2018"
             },
             "reset_all": {
                 "translations": {
@@ -1751,7 +1791,7 @@
                     "en": "Reset all Votings",
                     "hu": "Összes szavazat resetelése"
                 },
-                "last_used": "28.06.2017"
+                "last_used": "26.03.2018"
             },
             "save_sorting": {
                 "translations": {
@@ -1759,7 +1799,7 @@
                     "en": "Save Order",
                     "hu": "Sorrend mentése"
                 },
-                "last_used": "28.06.2017"
+                "last_used": "26.03.2018"
             },
             "select_type": {
                 "translations": {
@@ -1775,7 +1815,7 @@
                     "en": "Status",
                     "hu": "Állapot"
                 },
-                "last_used": "28.06.2017"
+                "last_used": "26.03.2018"
             },
             "status_1": {
                 "translations": {
@@ -1783,7 +1823,7 @@
                     "en": "Inactive",
                     "hu": "Inaktív"
                 },
-                "last_used": "28.06.2017"
+                "last_used": "26.03.2018"
             },
             "status_2": {
                 "translations": {
@@ -1791,7 +1831,7 @@
                     "en": "Incomplete",
                     "hu": "Befejezetlen"
                 },
-                "last_used": "28.06.2017"
+                "last_used": "26.03.2018"
             },
             "status_5": {
                 "translations": {
@@ -1799,7 +1839,7 @@
                     "en": "Active",
                     "hu": "Aktív"
                 },
-                "last_used": "28.06.2017"
+                "last_used": "26.03.2018"
             },
             "title": {
                 "translations": {
@@ -1807,7 +1847,7 @@
                     "en": "Title",
                     "hu": "Cím"
                 },
-                "last_used": "20.03.2018"
+                "last_used": "26.03.2018"
             },
             "type": {
                 "translations": {
@@ -1815,7 +1855,7 @@
                     "en": "Type",
                     "hu": "Típus"
                 },
-                "last_used": "28.06.2017"
+                "last_used": "26.03.2018"
             },
             "type_1": {
                 "translations": {
@@ -1823,7 +1863,7 @@
                     "en": "Single/Multiple Choice",
                     "hu": "Egyszeres/többszörös választás"
                 },
-                "last_used": "28.06.2017"
+                "last_used": "26.03.2018"
             },
             "type_1_info": {
                 "translations": {
@@ -1839,7 +1879,7 @@
                     "en": "Free Input",
                     "hu": "Szabadszöveges"
                 },
-                "last_used": "28.06.2017"
+                "last_used": "26.03.2018"
             },
             "type_2_info": {
                 "translations": {
@@ -1862,7 +1902,7 @@
                     "en": "Correct Order",
                     "hu": "Helyes sorrend"
                 },
-                "last_used": "28.06.2017"
+                "last_used": "26.03.2018"
             },
             "type_4_info": {
                 "translations": {
@@ -1878,7 +1918,7 @@
                     "en": "Priorities",
                     "hu": "Sorrendbe rendezés"
                 },
-                "last_used": "28.06.2017"
+                "last_used": "26.03.2018"
             },
             "type_5_info": {
                 "translations": {
@@ -1910,7 +1950,7 @@
                     "de": "Zahl schätzen",
                     "hu": "Számtartomány"
                 },
-                "last_used": "28.06.2017"
+                "last_used": "26.03.2018"
             },
             "type_6_info": {
                 "translations": {
@@ -1925,7 +1965,15 @@
                     "de": "Als PowerPoint exportieren",
                     "hu": "MISSING"
                 },
-                "last_used": "05.03.2018"
+                "last_used": "26.03.2018"
+            },
+            "confirm_ppt_export_msg": {
+                "translations": {
+                    "en": "A Powerpoint-Slideshow will be created with one slide per voting using the Presenter-Shortlink. Please note that this slides will require the Powerpoint-WebView-Plugin installed.",
+                    "hu": "A Powerpoint-Slideshow will be created with one slide per voting using the Presenter-Shortlink. Please note that this slides will require the Powerpoint-WebView-Plugin installed.",
+                    "de": "Eine Powerpoint-Präsentation mit einer Folie pro Frage wird erstellt, welche den jeweiligen Presenter-Link nutzen. Bitte beachten Sie, dass das Powepoint-WebView-Plugin installiert sein muss."
+                },
+                "last_used": "26.03.2018"
             }
         },
         "vqtype": {
@@ -1942,7 +1990,8 @@
                     "de": "Hinzufügen",
                     "en": "Add",
                     "hu": "Létrehozása"
-                }
+                },
+                "last_used": "23.03.2018"
             },
             "delete": {
                 "translations": {
@@ -1957,7 +2006,7 @@
                     "en": "Edit",
                     "hu": "Módosítás"
                 },
-                "last_used": "20.03.2018"
+                "last_used": "26.03.2018"
             },
             "edit_permission": {
                 "translations": {
@@ -1971,7 +2020,8 @@
                     "de": "Neues LiveVoting anlegen",
                     "en": "Add new LiveVoting",
                     "hu": "Új Élőszavazás létrehozása"
-                }
+                },
+                "last_used": "23.03.2018"
             },
             "read": {
                 "translations": {

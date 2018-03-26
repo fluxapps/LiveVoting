@@ -52,9 +52,9 @@ class xlvoConfFormGUI extends \ilPropertyFormGUI {
 		$this->initButtons();
 
 		$use_shortlink = new \ilCheckboxInputGUI($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK), xlvoConf::F_ALLOW_SHORTLINK);
-		$use_shortlink->setInfo($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK . '_info')
-		                        . '<br><br><span class="label label-default">'
-		                        . xlvoConf::REWRITE_RULE . '</span><br><br>');
+		$use_shortlink->setInfo(
+			$this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK . '_info') . '<br><br><span class="label label-default">' . xlvoConf::REWRITE_RULE . '</span><br><br>'
+		);
 
 		$shortlink = new \ilTextInputGUI($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_LINK), xlvoConf::F_ALLOW_SHORTLINK_LINK);
 		$shortlink->setInfo($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_LINK . '_info'));
@@ -65,25 +65,29 @@ class xlvoConfFormGUI extends \ilPropertyFormGUI {
 		$use_shortlink->addSubItem($base_url);
 
 		$request_frequency = new \ilNumberInputGUI($this->parent_gui->txt(xlvoConf::F_REQUEST_FREQUENCY), xlvoConf::F_REQUEST_FREQUENCY);
-		$request_frequency->setInfo($this->parent_gui->txt(xlvoConf::F_REQUEST_FREQUENCY
-		                                                   . '_info'));
+		$request_frequency->setInfo(
+			$this->parent_gui->txt(
+				xlvoConf::F_REQUEST_FREQUENCY . '_info'
+			)
+		);
 		$request_frequency->allowDecimals(true);
 		$request_frequency->setMinValue(xlvoConf::MIN_CLIENT_UPDATE_FREQUENCY, false);
 		$request_frequency->setMaxValue(xlvoConf::MAX_CLIENT_UPDATE_FREQUENCY, false);
 
 		//global cache setting
-        $global_cache_enabled = new \ilCheckboxInputGUI($this->parent_gui->txt(xlvoConf::F_USE_GLOBAL_CACHE), xlvoConf::F_USE_GLOBAL_CACHE);
-        $global_cache_enabled->setInfo($this->parent_gui->txt(xlvoConf::F_USE_GLOBAL_CACHE . '_info'));
+		$global_cache_enabled = new \ilCheckboxInputGUI($this->parent_gui->txt(xlvoConf::F_USE_GLOBAL_CACHE), xlvoConf::F_USE_GLOBAL_CACHE);
+		$global_cache_enabled->setInfo($this->parent_gui->txt(xlvoConf::F_USE_GLOBAL_CACHE . '_info'));
 
 		// Results API
 		$result_api = new \ilCheckboxInputGUI($this->parent_gui->txt(xlvoConf::F_RESULT_API), xlvoConf::F_RESULT_API);
 		$result_api->setInfo($this->parent_gui->txt(xlvoConf::F_RESULT_API . '_info'));
 
 		$api_type = new ilSelectInputGUI($this->parent_gui->txt(xlvoConf::F_API_TYPE), xlvoConf::F_API_TYPE);
-		$api_type->setOptions(array(
-			xlvoApi::TYPE_JSON => 'JSON',
-			xlvoApi::TYPE_XML  => 'XML',
-		));
+		$api_type->setOptions(
+			array(
+				xlvoApi::TYPE_JSON => 'JSON', xlvoApi::TYPE_XML => 'XML',
+			)
+		);
 		$result_api->addSubItem($api_type);
 
 		$api_token = new ilNonEditableValueGUI();
@@ -91,12 +95,17 @@ class xlvoConfFormGUI extends \ilPropertyFormGUI {
 		$api_token->setValue(xlvoConf::getApiToken());
 		$result_api->addSubItem($api_token);
 
+		// PPT Export
+		$ppt_export = new ilCheckboxInputGUI($this->parent_gui->txt(xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT), xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT);
+		$ppt_export->setInfo($this->parent_gui->txt(xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . '_info'));
+
 		//add items to GUI
-        $this->addItem($use_shortlink);
-        $this->addItem($request_frequency);
-        $this->addItem($result_api);
-        $this->addItem($global_cache_enabled);
-    }
+		$this->addItem($use_shortlink);
+		$this->addItem($request_frequency);
+		$this->addItem($result_api);
+		$this->addItem($global_cache_enabled);
+		$this->addItem($ppt_export);
+	}
 
 
 	protected function initButtons() {
@@ -171,8 +180,7 @@ class xlvoConfFormGUI extends \ilPropertyFormGUI {
 	 * @return bool
 	 */
 	public static function checkForSubItem($item) {
-		return !$item instanceof \ilFormSectionHeaderGUI AND !$item instanceof
-		                                                      \ilMultiSelectInputGUI;
+		return !$item instanceof \ilFormSectionHeaderGUI AND !$item instanceof \ilMultiSelectInputGUI;
 	}
 
 
