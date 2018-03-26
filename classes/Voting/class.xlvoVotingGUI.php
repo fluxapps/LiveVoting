@@ -129,7 +129,7 @@ class xlvoVotingGUI {
 			if (\LiveVoting\Conf\xlvoConf::getConfig(\LiveVoting\Conf\xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT)) {
 				$powerpoint_export = \ilLinkButton::getInstance();
 				$powerpoint_export->setCaption($this->txt('powerpoint_export'), false);
-				$powerpoint_export->setUrl($this->ctrl->getLinkTarget($this, self::CMD_CONFIRM_POWERPOINT_EXPORT));
+				$powerpoint_export->setUrl($this->ctrl->getLinkTarget($this, self::CMD_POWERPOINT_EXPORT));
 				$this->toolbar->addButtonInstance($powerpoint_export);
 			}
 
