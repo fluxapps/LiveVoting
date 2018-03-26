@@ -12,7 +12,7 @@ class xlvoFreeOrderResultGUI extends xlvoResultGUI {
 	/**
 	 * @param \LiveVoting\Vote\xlvoVote[] $votes
 	 *
-	 * @return string|xlvoOption
+	 * @return string
 	 */
 	public function getTextRepresentation($votes) {
 		$strings = array();
