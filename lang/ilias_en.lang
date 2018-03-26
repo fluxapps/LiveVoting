@@ -14,7 +14,6 @@ common_history#:#History
 common_incorrect_order#:#Wrong Order
 common_new_round#:#New Round
 common_new_round_created#:#New round has been initialised successfully.
-common_option_no_longer_available#:#[Option no longer available]
 common_participant#:#Participant
 common_position#:#Position
 common_question#:#Question
@@ -22,6 +21,7 @@ common_round#:#Round
 common_show_history#:#History
 common_time#:#Timestamp
 common_user#:#User
+common_option_no_longer_available#:#[Option no longer available]
 config_allow_shortlink#:#Activate Short URL
 config_allow_shortlink_info#:#Use a Short URL like /vote by adding the following RewriteRule to your .htaccess:
 config_allow_shortlink_link#:#Short URL

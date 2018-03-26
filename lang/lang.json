@@ -169,6 +169,13 @@
                     "en": "User",
                     "hu": "Felhasználó"
                 }
+            },
+            "option_no_longer_available": {
+                "translations": {
+                    "de": "[Option nicht mehr vorhanden]",
+                    "en": "[Option no longer available]",
+                    "hu": "[Option no longer available]"
+                }
             }
         },
         "config": {
@@ -407,7 +414,7 @@
                     "en": "Vote without Login",
                     "hu": "Szavazás bejelentkezés nélkül"
                 },
-                "last_used": "16.01.2017"
+                "last_used": "26.03.2018"
             },
             "crs": {
                 "translations": {
@@ -422,7 +429,7 @@
                     "en": "Description",
                     "hu": "Leírás"
                 },
-                "last_used": "16.01.2017"
+                "last_used": "26.03.2018"
             },
             "edit_properties": {
                 "translations": {
@@ -430,7 +437,7 @@
                     "en": "Edit Properties",
                     "hu": "Tulajdonságok módosítása"
                 },
-                "last_used": "16.01.2017"
+                "last_used": "26.03.2018"
             },
             "formtitle_change_vote": {
                 "translations": {
@@ -438,7 +445,7 @@
                     "en": "Behaviour while navigating",
                     "hu": "Navigáció közbeni viselkedés"
                 },
-                "last_used": "16.01.2017"
+                "last_used": "26.03.2018"
             },
             "frozen_alway_off": {
                 "translations": {
@@ -446,7 +453,7 @@
                     "en": "Question is always inactive after changing",
                     "hu": "Kérdés mindig inaktív váltás után"
                 },
-                "last_used": "16.01.2017"
+                "last_used": "26.03.2018"
             },
             "frozen_alway_off_info": {
                 "translations": {
@@ -454,7 +461,7 @@
                     "en": "Users can vote after the presenter presses the Vote-Button of the question.",
                     "hu": "Kérdésváltás után a felhasználók azután szavazhatnak, miután az előadó megnyomta a Szavazz gombot."
                 },
-                "last_used": "16.01.2017"
+                "last_used": "26.03.2018"
             },
             "frozen_alway_ofxlvo_edit": {
                 "translations": {
@@ -467,7 +474,7 @@
                     "en": "Question is always active after changing",
                     "hu": "Kérdés mindig aktív váltás után"
                 },
-                "last_used": "16.01.2017"
+                "last_used": "26.03.2018"
             },
             "frozen_alway_on_info": {
                 "translations": {
@@ -475,7 +482,7 @@
                     "en": "Users can vote directly after switching question.",
                     "hu": "Kérdésváltás után a felhasználók rögtön szavazhatnak."
                 },
-                "last_used": "16.01.2017"
+                "last_used": "26.03.2018"
             },
             "frozen_behaviour": {
                 "translations": {
@@ -483,7 +490,7 @@
                     "en": "Frozen-State",
                     "hu": "Szüneteltetés állapota"
                 },
-                "last_used": "16.01.2017"
+                "last_used": "26.03.2018"
             },
             "frozen_reuse": {
                 "translations": {
@@ -491,7 +498,7 @@
                     "en": "Reuse Status",
                     "hu": "Előző állapot használata"
                 },
-                "last_used": "16.01.2017"
+                "last_used": "26.03.2018"
             },
             "frozen_reuse_info": {
                 "translations": {
@@ -499,7 +506,7 @@
                     "en": "Frozen-State is consistent after switching question.",
                     "hu": "Kérdésváltás után a szüneteltetés állapota nem változik."
                 },
-                "last_used": "16.01.2017"
+                "last_used": "26.03.2018"
             },
             "info_anonymous": {
                 "translations": {
@@ -507,7 +514,7 @@
                     "en": "The LiveVoting can be used for the voters without authentication, even when the Object is in a secured Space like a Course. Voters access the LiveVoting with a PIN",
                     "hu": "Az élőszavazás bejelentkezés nélkül használható, akkor is, ha az objektum védett, biztonságos helyen van, pl. egy kurzusban. A szavazók egy PIN kóddal érik el az élőszavazást."
                 },
-                "last_used": "16.01.2017"
+                "last_used": "26.03.2018"
             },
             "info_online": {
                 "translations": {
@@ -515,7 +522,7 @@
                     "en": "Object is online and available",
                     "hu": "Objektum online és elérhető"
                 },
-                "last_used": "16.01.2017"
+                "last_used": "26.03.2018"
             },
             "info_reuse_status": {
                 "translations": {
@@ -551,7 +558,7 @@
                     "en": "Online",
                     "hu": "Online"
                 },
-                "last_used": "16.01.2017"
+                "last_used": "26.03.2018"
             },
             "results_alway_off": {
                 "translations": {
@@ -559,7 +566,7 @@
                     "en": "Results are always hidden",
                     "hu": "Szavazatállás sohasem látható"
                 },
-                "last_used": "16.01.2017"
+                "last_used": "26.03.2018"
             },
             "results_alway_off_info": {
                 "translations": {
@@ -567,7 +574,7 @@
                     "en": "Results are always hidden after switching question.",
                     "hu": "Kérdésváltás után a pillanatnyi szavazatállás nem jelenik meg."
                 },
-                "last_used": "16.01.2017"
+                "last_used": "26.03.2018"
             },
             "results_alway_on": {
                 "translations": {
@@ -575,7 +582,7 @@
                     "en": "Results are always visible",
                     "hu": "Szavazatállás mindig látható"
                 },
-                "last_used": "16.01.2017"
+                "last_used": "26.03.2018"
             },
             "results_alway_on_info": {
                 "translations": {
@@ -583,7 +590,7 @@
                     "en": "Results are always visible after switching question.",
                     "hu": "Kérdésváltás után a pillanatnyi szavazatállás jelenik meg."
                 },
-                "last_used": "16.01.2017"
+                "last_used": "26.03.2018"
             },
             "results_behaviour": {
                 "translations": {
@@ -591,7 +598,7 @@
                     "en": "Show Results",
                     "hu": "Szavazatállás megjelenítése"
                 },
-                "last_used": "16.01.2017"
+                "last_used": "26.03.2018"
             },
             "results_reuse": {
                 "translations": {
@@ -599,7 +606,7 @@
                     "en": "Reuse state",
                     "hu": "Előző állapot használata"
                 },
-                "last_used": "16.01.2017"
+                "last_used": "26.03.2018"
             },
             "results_reuse_info": {
                 "translations": {
@@ -607,7 +614,7 @@
                     "en": "The State is consistent after switching question.",
                     "hu": "Kérdésváltás után a szavazatállás láthatósága nem változik."
                 },
-                "last_used": "16.01.2017"
+                "last_used": "26.03.2018"
             },
             "reuse_status": {
                 "translations": {
@@ -622,7 +629,7 @@
                     "en": "Save",
                     "hu": "Mentés"
                 },
-                "last_used": "16.01.2017"
+                "last_used": "26.03.2018"
             },
             "status": {
                 "translations": {
@@ -665,7 +672,7 @@
                     "en": "Title",
                     "hu": "Cím"
                 },
-                "last_used": "16.01.2017"
+                "last_used": "26.03.2018"
             },
             "xlvo": {
                 "translations": {
@@ -1357,14 +1364,14 @@
                     "de": "Anzahl Teilnehmende (Online)",
                     "en": "Show Attendees (Online)"
                 },
-                "last_used": "16.01.2017"
+                "last_used": "26.03.2018"
             },
             "attendees_info": {
                 "translations": {
                     "de": "Die Anzahl der aktuell teilnehmenden Personen wird im Präsentationsmodus angezeigt. Diese Funktion hat einen Einfluss auf die Geschwindigkeit des Systems und sollte nur bei LiveVotings mit geringer Anzahl Teilnehmenden (Abhängig von der Installationsgrösse) verwendet werden.",
                     "en": "Show the count of attendees, this has an impact on performance and should only be activated for a small live voting."
                 },
-                "last_used": "16.01.2017"
+                "last_used": "26.03.2018"
             }
         },
         "subtab": {
@@ -1392,7 +1399,7 @@
                     "en": "Content",
                     "hu": "Tartalom"
                 },
-                "last_used": "20.03.2018"
+                "last_used": "26.03.2018"
             },
             "edit": {
                 "translations": {
@@ -1400,7 +1407,7 @@
                     "en": "Settings",
                     "hu": "Beállítások"
                 },
-                "last_used": "20.03.2018"
+                "last_used": "26.03.2018"
             },
             "results": {
                 "translations": {
@@ -1408,7 +1415,7 @@
                     "en": "Results",
                     "hu": "Eredmények"
                 },
-                "last_used": "20.03.2018"
+                "last_used": "26.03.2018"
             }
         },
         "voter": {
@@ -1698,7 +1705,7 @@
                     "en": "Voting History",
                     "hu": "Szavazástörténelem"
                 },
-                "last_used": "16.01.2017"
+                "last_used": "26.03.2018"
             },
             "history_info": {
                 "translations": {
@@ -1706,7 +1713,7 @@
                     "en": "All answers the participants give are saved even if they change their opinion later. You can analyze the voting behaviour of your users.",
                     "hu": "A válaszadók összes szavazatát mentjük, akkor is, ha később azt módosítják. Így a válaszadók szavazási viselkedését is elemezheti."
                 },
-                "last_used": "16.01.2017"
+                "last_used": "26.03.2018"
             },
             "import": {
                 "translations": {
@@ -1957,7 +1964,7 @@
                     "en": "Edit",
                     "hu": "Módosítás"
                 },
-                "last_used": "20.03.2018"
+                "last_used": "26.03.2018"
             },
             "edit_permission": {
                 "translations": {

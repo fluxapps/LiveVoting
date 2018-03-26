@@ -14,7 +14,6 @@ common_history#:#Történelem
 common_incorrect_order#:#Hibás sorrend
 common_new_round#:#Új kör
 common_new_round_created#:#Új kört sikeresen inaktiválta.
-common_option_no_longer_available#:#[Option no longer available]
 common_participant#:#Válaszadó
 common_position#:#Pozíció
 common_question#:#Kérdés
@@ -22,6 +21,7 @@ common_round#:#Kör
 common_show_history#:#Történelem
 common_time#:#Időbélyeg
 common_user#:#Felhasználó
+common_option_no_longer_available#:#[Option no longer available]
 config_allow_shortlink#:#Rövid URL aktiválása
 config_allow_shortlink_info#:#Rövid URL (pl. /vote) használatához adja a RewriteRule szabályt .htaccess fájljához:
 config_allow_shortlink_link#:#Rövid URL
