@@ -1,5 +1,6 @@
 <?php
 
+use LiveVoting\Option\xlvoOption;
 use LiveVoting\Vote\xlvoVote;
 
 /**
@@ -11,7 +12,7 @@ class xlvoCorrectOrderResultGUI extends xlvoResultGUI {
 
 	/**
 	 * @param xlvoVote[] $votes
-	 * @return string
+	 * @return string|xlvoOption
 	 */
 	public function getTextRepresentation($votes) {
 		$strings = array();
@@ -26,7 +27,12 @@ class xlvoCorrectOrderResultGUI extends xlvoResultGUI {
 		           == $vote->getFreeInput()) ? $this->pl->txt("common_correct_order") : $this->pl->txt("common_incorrect_order");
 		$return .= ": ";
 		foreach (json_decode($vote->getFreeInput()) as $option_id) {
-			$strings[] = $this->options[$option_id]->getTextForPresentation();
+			$xlvoOption = $this->options[$option_id];
+			if ($xlvoOption instanceof xlvoOption) {
+				$strings[] = $xlvoOption->getTextForPresentation();
+			} else {
+				$strings[] = $this->pl->txt("common_option_no_longer_available");
+			}
 		}
 
 		return $return . implode(", ", $strings);

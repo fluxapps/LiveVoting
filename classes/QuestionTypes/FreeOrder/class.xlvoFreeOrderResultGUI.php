@@ -1,5 +1,7 @@
 <?php
 
+use LiveVoting\Option\xlvoOption;
+
 /**
  * Class xlvoFreeOrderResultGUI
  *
@@ -10,7 +12,7 @@ class xlvoFreeOrderResultGUI extends xlvoResultGUI {
 	/**
 	 * @param \LiveVoting\Vote\xlvoVote[] $votes
 	 *
-	 * @return string
+	 * @return string|xlvoOption
 	 */
 	public function getTextRepresentation($votes) {
 		$strings = array();
@@ -24,7 +26,12 @@ class xlvoFreeOrderResultGUI extends xlvoResultGUI {
 			return "";
 		}
 		foreach ($json_decode as $option_id) {
-			$strings[] = $this->options[$option_id]->getTextForPresentation();
+			$xlvoOption = $this->options[$option_id];
+			if ($xlvoOption instanceof xlvoOption) {
+				$strings[] = $xlvoOption->getTextForPresentation();
+			} else {
+				$strings[] = $this->pl->txt("common_option_no_longer_available");
+			}
 		}
 
 		return implode(", ", $strings);

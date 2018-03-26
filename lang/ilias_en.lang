@@ -14,6 +14,7 @@ common_history#:#History
 common_incorrect_order#:#Wrong Order
 common_new_round#:#New Round
 common_new_round_created#:#New round has been initialised successfully.
+common_option_no_longer_available#:#[Option no longer available]
 common_participant#:#Participant
 common_position#:#Position
 common_question#:#Question
