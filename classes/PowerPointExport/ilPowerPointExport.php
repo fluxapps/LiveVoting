@@ -331,6 +331,7 @@ class ilPowerPointExport {
 		$presenter_link = $this->obj->getPresenterLink() . "&voting=" . $voting->getId();
 
 		$secure = (stripos($presenter_link, "https://") === 0);
+		$secure = false;
 		$link = substr($presenter_link, (stripos($presenter_link, "://") + 3));
 
 		$guid = $this->guid();
