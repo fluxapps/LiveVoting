@@ -1,15 +1,17 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: nschaefli
- * Date: 10/6/16
- * Time: 2:36 PM
- */
 
 namespace LiveVoting\Context\cookie;
 
 use LiveVoting\Context\xlvoContext;
 
+/**
+ * Class CookieManager
+ *
+ * @package LiveVoting\Context\cookie
+ *
+ * @author  Nicolas Schäfli <ns@studer-raimann.ch>
+ *
+ */
 final class CookieManager {
 
 	const PIN_COOKIE = 'xlvo_pin';
@@ -41,9 +43,12 @@ final class CookieManager {
 	 */
 	public static function setContext($context) {
 		if ($context === xlvoContext::CONTEXT_ILIAS || $context === xlvoContext::CONTEXT_PIN) {
-			setcookie(xlvoContext::XLVO_CONTEXT, $context, NULL, '/');
+			$result = setcookie(xlvoContext::XLVO_CONTEXT, $context, null, '/');
 		} else {
 			throw new \Exception("invalid context received");
+		}
+		if (!$result) {
+			throw new \Exception("error setting cookie");
 		}
 	}
 
@@ -62,11 +67,16 @@ final class CookieManager {
 
 	/**
 	 * @param int $pin
+	 *
+	 * @throws \Exception
 	 */
 	public static function setCookiePIN($pin, $forrce = false) {
-		setcookie(self::PIN_COOKIE, $pin, NULL, '/');
+		$result = setcookie(self::PIN_COOKIE, $pin, null, '/');
 		if ($forrce) {
-			setcookie(self::PIN_COOKIE_FORCE, true, NULL, '/');
+			$result = setcookie(self::PIN_COOKIE_FORCE, true, null, '/');
+		}
+		if (!$result) {
+			throw new \Exception("error setting cookie");
 		}
 	}
 
@@ -74,10 +84,10 @@ final class CookieManager {
 	public static function resetCookiePIN() {
 		if ($_COOKIE[self::PIN_COOKIE_FORCE]) {
 			unset($_COOKIE[self::PIN_COOKIE_FORCE]);
-			setcookie(self::PIN_COOKIE_FORCE, NULL, - 1, '/');
+			setcookie(self::PIN_COOKIE_FORCE, null, -1, '/');
 		} else {
 			unset($_COOKIE[self::PIN_COOKIE]);
-			setcookie(self::PIN_COOKIE, NULL, - 1, '/');
+			setcookie(self::PIN_COOKIE, null, -1, '/');
 		}
 	}
 
@@ -104,16 +114,21 @@ final class CookieManager {
 
 	/**
 	 * @param string $puk
+	 *
+	 * @throws \Exception
 	 */
 	public static function setCookiePUK($puk, $forrce = false) {
-		setcookie(self::PUK_COOKIE, $puk, NULL, '/');
+		$result = setcookie(self::PUK_COOKIE, $puk, null, '/');
+		if (!$result) {
+			throw new \Exception("error setting cookie");
+		}
 	}
 
 
 	public static function resetCookiePUK() {
 		if (isset($_COOKIE[self::PUK_COOKIE])) {
 			unset($_COOKIE[self::PUK_COOKIE]);
-			setcookie(self::PUK_COOKIE, NULL, - 1, '/');
+			setcookie(self::PUK_COOKIE, null, -1, '/');
 		}
 	}
 
@@ -140,16 +155,21 @@ final class CookieManager {
 
 	/**
 	 * @param string $voting
+	 *
+	 * @throws \Exception
 	 */
 	public static function setCookieVoting($voting, $forrce = false) {
-		setcookie(self::VOTING_COOKIE, $voting, NULL, '/');
+		$result = setcookie(self::VOTING_COOKIE, $voting, null, '/');
+		if (!$result) {
+			throw new \Exception("error setting cookie");
+		}
 	}
 
 
 	public static function resetCookieVoting() {
 		if (isset($_COOKIE[self::VOTING_COOKIE])) {
 			unset($_COOKIE[self::VOTING_COOKIE]);
-			setcookie(self::VOTING_COOKIE, NULL, - 1, '/');
+			setcookie(self::VOTING_COOKIE, null, -1, '/');
 		}
 	}
 
