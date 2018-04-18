@@ -90,6 +90,7 @@ class xlvoBasicInitialisation {
 		$this->initNavigationHistory();
 		$this->initHelp();
 		$this->initMainMenu();
+		$this->initAppEventHandler();
 		//$this->setCookieParams();
 	}
 
@@ -726,5 +727,14 @@ class xlvoBasicInitialisation {
 	private function initMainMenu() {
 		require_once('Services/MainMenu/classes/class.ilMainMenuGUI.php');
 		$this->makeGlobal('ilMainMenu', new \ilMainMenuGUI());
+	}
+
+
+	/**
+	 *
+	 */
+	private function initAppEventHandler() {
+		require_once('Services/EventHandling/classes/class.ilAppEventHandler.php');
+		$this->makeGlobal("ilAppEventHandler", new \ilAppEventHandler());
 	}
 }
