@@ -437,7 +437,8 @@ var xlvoPlayer = {
         }
 
         toolbar_inner.append(custom_toolbar_inner.html());
-        toolbar_inner.find('.xlvo_custom_button').on("click", function () {
+        toolbar_inner.find('.xlvo_custom_button').on("click", function (e) {
+	        e.preventDefault();
             xlvoPlayer.callButton($(this).attr('id'), true);
 
         });
