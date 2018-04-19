@@ -304,7 +304,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 			$cd = ilLinkButton::getInstance();
 			$cd->setUrl('#');
 			$cd->setCaption($seconds . ' ' . $this->pl->txt('player_seconds'), false);
-			$cd->setOnClick("xlvoPlayer.countdown($seconds);");
+			$cd->setOnClick("xlvoPlayer.countdown(event, $seconds);");
 			$ilSplitButtonMenuItem = new ilButtonToSplitButtonMenuItemAdapter($cd);
 			$split->addMenuItem($ilSplitButtonMenuItem);
 		}

@@ -448,9 +448,11 @@ var xlvoPlayer = {
     },
     /**
      * Startes the counter
+     * @param e
      * @param seconds
      */
-    countdown: function (seconds) {
+    countdown: function (e, seconds) {
+        e.preventDefault();
         xlvoPlayer.countdown_running = true;
         xlvoPlayer.log('Countdown started: ' + seconds);
         xlvoPlayer.callPlayer('countdown', {seconds: seconds});
