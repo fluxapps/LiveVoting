@@ -42,8 +42,8 @@ config_open_result_api#:#API-Link öffnen (mit neustem Voting)
 config_use_global_cache#:#Cache aktivieren
 config_use_global_cache_info#:#Aktiviert die Verwendung der globalen Cache Mechanik von ILIAS. Der zugrundeliegende cache muss in einem Setup mit mehreren ILIAS installation synchron sein, da das Plugin ansonsten unvorhersehbare Werte produzieren wird.
 config_presenter_link#:#Moderator-Link
-config_ppt_export#:#Powerpoint-Export
-config_ppt_export_info#:#Powerpoint-Export aktivieren: Dieses Feature funktioniert nur mit installierten PowerPoint-WebView-Plugin und wenn die ILIAS Installation unter HTTPS betrieben wird.
+config_ppt_export#:#PowerPoint-Export
+config_ppt_export_info#:#PowerPoint-Export aktivieren: Dieses Feature funktioniert nur mit installierten PowerPoint-WebView-Plugin und wenn die ILIAS Installation unter HTTPS betrieben wird.
 correct_order#:#Korrekte Reihenfolge
 crs_create_xlvo#:#LiveVoting erstellen
 fikd_create_xlvo#:#LiveVoting erstellen
@@ -253,7 +253,7 @@ voting_update_and_stay#:#Speichern
 voting_type_6#:#Zahl schätzen
 voting_type_6_info#:#User können eine Zahl zwischen X und Y schätzen.
 voting_powerpoint_export#:#Als PowerPoint exportieren
-voting_confirm_ppt_export_msg#:#Eine Powerpoint-Präsentation mit einer Folie pro Frage wird erstellt, welche den jeweiligen Presenter-Link nutzen. Bitte beachten Sie, dass das Powepoint-WebView-Plugin installiert sein muss.
+voting_confirm_ppt_export_msg#:#Eine PowerPoint-Präsentation mit einer Folie pro Frage wird erstellt, welche den jeweiligen Presenter-Link nutzen. Bitte beachten Sie, dass das Powepoint-WebView-Plugin installiert sein muss.
 xlvo_add#:#Hinzufügen
 xlvo_delete#:#LiveVoting löschen
 xlvo_edit#:#Bearbeiten
@@ -262,3 +262,6 @@ xlvo_new#:#Neues LiveVoting anlegen
 xlvo_read#:#Leserecht (nur im nicht-anonymen Modus verwendet
 xlvo_visible#:#LiveVoting sichtbar
 xlvo_write#:#LiveVoting präsentieren und bearbeiten
+cat_create_xlobj_results_behaviour#:#MISSING
+rminable_select_start_time#:#MISSING
+vqtype_1_options#:#MISSING

@@ -33,16 +33,16 @@ config_cancel#:#Mégsem
 config_msg_success#:#Mentve
 config_update#:#Módosítás
 config_result_api#:#MISSING
-config_result_api_info#:#Results of a Voting can be accessed as JSON via Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/api.php?pin=XXXX?token=XXXXX
-config_api_token#:#API-Token
-config_api_type#:#Type
-config_regenerate_token#:#Regenerate Token
-config_open_result_api#:#Open API-Link (with latest Voting)
+config_result_api_info#:#MISSING
+config_api_token#:#MISSING
+config_api_type#:#MISSING
+config_regenerate_token#:#MISSING
+config_open_result_api#:#MISSING
 config_use_global_cache#:#aktiválása caching
 config_use_global_cache_info#:#Lehetővé teszi a LiveVoting plugint használni a globális cache mechanizmus, amely biztosítja ILIAS. Az alapul szolgáló cache szinkronizálni kell egy multi veszi a telepítést, egyébként a plugin megjósolhatatlan eredményeket.
 config_presenter_link#:#MISSING
-config_ppt_export#:#Powerpoint-Export
-config_ppt_export_info#:#Activate Powerpoint-Export: This features needs the Powerpoint-WebView-Plugin installed and will only work if you ILIAS runs on HTTPS.
+config_ppt_export#:#MISSING
+config_ppt_export_info#:#MISSING
 correct_order#:#Helyes sorrend
 crs_create_xlvo#:#Élőszavazás létrehozása
 fikd_create_xlvo#:#Élőszavazás létrehozása
@@ -68,8 +68,8 @@ obj_info_online#:#Objektum online és elérhető
 obj_info_reuse_status#:#Az élőszavazás pillanatnyi állapotának megőrzése amikor a következőre váltunk (szüneteltetett / nem szüneteltetett).
 obj_info_terminable#:#Az előszavazás csak a meghatározott időtartam alatt érhető el
 obj_msg_properties_form_saved#:#Beállításokat sikeresen mentette.
-obj_offline#:#Offline
-obj_online#:#Online
+obj_offline#:#MISSING
+obj_online#:#MISSING
 obj_results_alway_off#:#Szavazatállás sohasem látható
 obj_results_alway_off_info#:#Kérdésváltás után a pillanatnyi szavazatállás nem jelenik meg.
 obj_results_alway_on#:#Szavazatállás mindig látható
@@ -98,14 +98,14 @@ player_msg_no_start_2#:#Ez az élőszavazás nem indítható, mert nincsenek el�
 player_msg_no_votings#:#Ez az élőszavazás nem indítható, mert nincs benne kérdés
 player_msg_voting_not_available#:#A kijelölt élőszavazás nem érhető el
 player_player_countdown#:#Visszaszámlálás
-player_reset#:#Reset
+player_reset#:#MISSING
 player_seconds#:#mp
 player_show_results#:#Szavazatállás megjelenítése
 player_start_voting#:#Élőszavazás indítása
 player_start_voting_and_unfreeze#:#Élőszavazás indítása és a szavazás azonnali megkezdése
 player_terminate#:#Megszakítás
 player_unfreeze#:#Szavazz
-player_voters_online#:#Online
+player_voters_online#:#MISSING
 player_voting_countdown#:#Visszaszámlálás
 player_voting_list#:#Kérdések
 player_voters_description#:#Választók
@@ -114,7 +114,7 @@ qtype_1_info_latex#:#LaTeX részt [tex] ... [/tex] közé kell írni.
 qtype_1_multi_selection#:#Többszörös kijelölés
 qtype_1_multi_selection_info#:#Válaszadó több, mint egy válaszlehetőséget jelölhet meg
 qtype_1_options#:#Lehetőségek
-qtype_1_option_text#:#Option-Text
+qtype_1_option_text#:#MISSING
 qtype_1_total_voters#:#Összes szavazó
 qtype_1_total_votes#:#Összes szavazó
 qtype_1_unvote#:#Szavazat visszavonása
@@ -168,9 +168,9 @@ qtype_4_option_randomise_option_after_save_inf#:#Véletlenszerűen választja ki
 qtype_6_option_alternative_result_display_mode#:#Képviselete a válaszokat
 qtype_6_option_alternative_result_display_mode_info#:#Alternatív képviselete a válaszokat. Ezeket mutatja lehajló csoportosítva szövegként.
 qtype_4_option_randomise_option_after_save_info#:#Véletlenszerűen választja ki a mentési beállításokat anélkül, hogy a megfelelő választ generálná.
-qtype_6_display_mode_nr_0#:#Grouped Text TBD
-qtype_6_display_mode_nr_1#:#Bars TBD
-qtype_6_display_mode_nr_2#:#Grouped Text Extended TBD
+qtype_6_display_mode_nr_0#:#MISSING
+qtype_6_display_mode_nr_1#:#MISSING
+qtype_6_display_mode_nr_2#:#MISSING
 results_title#:#Eredmények
 rminable_select_start_time#:#Indítás
 root_create_xlvo#:#Élőszavazás létrehozása
@@ -223,7 +223,7 @@ voting_import#:#Importálás
 voting_msg_duplicated#:#Kérdést sikeresen duplikálta
 voting_msg_sorting_saved#:#Sorrend mentése
 voting_question#:#Kérdés
-voting_reset#:#Reset
+voting_reset#:#MISSING
 voting_reset_all#:#Összes szavazat resetelése
 voting_save_sorting#:#Sorrend mentése
 voting_select_type#:#Típus mentése
@@ -247,7 +247,7 @@ voting_update_and_stay#:#Mentés
 voting_type_6#:#Számtartomány
 voting_type_6_info#:#A felhasználók kitalálni egy számot X és Y között.
 voting_powerpoint_export#:#MISSING
-voting_confirm_ppt_export_msg#:#A Powerpoint-Slideshow will be created with one slide per voting using the Presenter-Shortlink. Please note that this slides will require the Powerpoint-WebView-Plugin installed.
+voting_confirm_ppt_export_msg#:#MISSING
 vqtype_1_options#:#Beállítások
 xlvo_add#:#Létrehozása
 xlvo_delete#:#Élőszavazás törlése
@@ -257,3 +257,9 @@ xlvo_new#:#Új Élőszavazás létrehozása
 xlvo_read#:#Olvasás (csak nem-anonim módban használható)
 xlvo_visible#:#Élőszavazások látható
 xlvo_write#:#Élőszavazás indítása és módosítása
+qtype_1_total_obj_results_alway_on_info#:#MISSING
+config_request_frequency#:#MISSING
+obj_frozen_alway_ofxlvo_edit#:#MISSING
+playplayer_msg_no_start_2#:#MISSING
+show_attendees#:#MISSING
+show_attendees_info#:#MISSING
