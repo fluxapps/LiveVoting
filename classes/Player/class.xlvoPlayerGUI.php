@@ -158,8 +158,10 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$xlvoVotingConfig = xlvoVotingConfig::find($this->manager->getObjId());
 
 		if ($xlvoVotingConfig === NULL
-			|| $xlvoVotingConfig->getPuk() !== $puk /*|| !ilObjLiveVotingAccess::hasWriteAccess($this->manager->getObjId())*/) {
-			die("Wrong PUK!");
+			|| $xlvoVotingConfig->getPuk() !== $puk
+			|| $this->manager->getObjId()
+			!= ilObject2::_lookupObjId(filter_input(INPUT_GET, "ref_id"))/* || !ilObjLiveVotingAccess::hasWriteAccess($this->manager->getObjId())*/) {
+			throw new ilException("Wrong PUK!");
 		}
 
 		$this->ctrl->saveParameter($this, "ref_id");
