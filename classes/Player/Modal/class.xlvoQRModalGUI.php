@@ -15,6 +15,7 @@ class xlvoQRModalGUI extends \ilModalGUI {
 
 	/**
 	 * @param xlvoVotingConfig $xlvoVotingConfig
+	 *
 	 * @return xlvoQRModalGUI
 	 */
 	public static function getInstanceFromVotingConfig(xlvoVotingConfig $xlvoVotingConfig) {
@@ -23,7 +24,7 @@ class xlvoQRModalGUI extends \ilModalGUI {
 		$ilModalGUI->setId('QRModal');
 		$ilModalGUI->setHeading('PIN: ' . $xlvoVotingConfig->getPin());
 
-		$short_link = xlvoConf::getShortLinkURL() . $xlvoVotingConfig->getPin();
+		$short_link = $xlvoVotingConfig->getShortLinkURL();
 
 		$modal_body = '<span class="label label-default xlvo-label-url resize">' . $short_link . '</span>';
 		$modal_body .= '<img id="xlvo-modal-qr" src="' . xlvoQR::getImageDataString($short_link, 1200) . '">';

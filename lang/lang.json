@@ -176,7 +176,7 @@
                 "translations": {
                     "de": "[Option nicht mehr vorhanden]",
                     "en": "[Option no longer available]",
-                    "hu": "[Option no longer available]"
+                    "hu": "MISSING"
                 }
             },
             "ok": {
@@ -1801,7 +1801,7 @@
                 "translations": {
                     "de": "Zurücksetzen",
                     "en": "Reset",
-                    "hu": "Reset"
+                    "hu": "MISSING"
                 },
                 "last_used": "26.03.2018"
             },
@@ -1994,6 +1994,22 @@
                     "de": "Eine PowerPoint-Präsentation mit einer Folie pro Frage wird erstellt, welche den jeweiligen Presenter-Link nutzen. Bitte beachten Sie, dass das Powepoint-WebView-Plugin installiert sein muss."
                 },
                 "last_used": "26.03.2018"
+            },
+            "short_link": {
+                "translations": {
+                    "de": "Kurz-URL",
+                    "en": "Short URL",
+                    "hu": "Rövid URL"
+                },
+                "last_used": "19.04.2018"
+            },
+            "permanent_link": {
+                "translations": {
+                    "de": "Permanenter-Link",
+                    "en": "Permanent-Link",
+                    "hu": "MISSING"
+                },
+                "last_used": "19.04.2018"
             }
         },
         "vqtype": {

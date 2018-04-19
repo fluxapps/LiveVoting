@@ -457,7 +457,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 		$values[xlvoVotingConfig::F_RESULTS_BEHAVIOUR] = $config->getResultsBehaviour();
 		$values[xlvoVotingConfig::F_VOTING_HISTORY] = $config->getVotingHistory();
 		$values[xlvoVotingConfig::F_SHOW_ATTENDEES] = $config->isShowAttendees();
-		$values[self::F_PRESENTER_LINK] = $this->object->getPresenterLink();
+		$values[self::F_PRESENTER_LINK] = $config->getPresenterLink();
 
 		$this->form->setValuesByArray($values);
 	}

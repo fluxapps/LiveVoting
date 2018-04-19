@@ -100,7 +100,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$xlvoVotingConfig = $this->manager->getVotingConfig();
 		$template->setVariable('PIN', $xlvoVotingConfig->getPin());
 
-		$short_link = xlvoConf::getShortLinkURL() . $xlvoVotingConfig->getPin();
+		$short_link = $xlvoVotingConfig->getShortLinkURL();
 		$template->setVariable('QR-CODE', xlvoQR::getImageDataString($short_link, 180));
 		$template->setVariable('SHORTLINK', $short_link);
 		$template->setVariable('MODAL', xlvoQRModalGUI::getInstanceFromVotingConfig($xlvoVotingConfig)->getHTML());
@@ -488,7 +488,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 	protected function handlePreview() {
 		if ($this->manager->getVotingConfig()->isSelfVote()) {
 			$preview = $this->pl->getTemplate('default/Player/tpl.preview.html', true, false);
-			$preview->setVariable('URL', xlvoConf::getShortLinkURL() . $this->manager->getVotingConfig()->getPin());
+			$preview->setVariable('URL', $this->manager->getVotingConfig()->getShortLinkURL());
 			$this->tpl->setRightContent($preview->get());
 		}
 	}

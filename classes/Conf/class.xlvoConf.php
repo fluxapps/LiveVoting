@@ -43,25 +43,6 @@ class xlvoConf extends CachingActiveRecord {
 
 
 	/**
-	 * @return string
-	 */
-	public static function getShortLinkURL() {
-		$pl = \ilLiveVotingPlugin::getInstance();
-		$url = null;
-		$shortLinkEnabled = intval(self::getConfig(self::F_ALLOW_SHORTLINK));
-
-		if ($shortLinkEnabled === 1) {
-			$url = self::getConfig(self::F_ALLOW_SHORTLINK_LINK);
-			$url = rtrim($url, "/") . "/";
-		} else {
-			$url = ILIAS_HTTP_PATH . substr($pl->getDirectory(), 1) . '/pin.php?pin=';
-		}
-
-		return $url;
-	}
-
-
-	/**
 	 * @return bool
 	 */
 	public static function isLatexEnabled() {
@@ -171,7 +152,7 @@ class xlvoConf extends CachingActiveRecord {
 		$obj = new self($name);
 		$obj->setValue(json_encode($value));
 
-		if (self::where(array('name' => $name))->hasSets()) {
+		if (self::where(array( 'name' => $name ))->hasSets()) {
 			$obj->update();
 		} else {
 			$obj->create();

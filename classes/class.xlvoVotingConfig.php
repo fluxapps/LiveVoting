@@ -1,6 +1,7 @@
 <?php
 
 use LiveVoting\Cache\CachingActiveRecord;
+use LiveVoting\Conf\xlvoConf;
 
 /**
  * Class xlvoVotingConfig
@@ -182,6 +183,37 @@ class xlvoVotingConfig extends CachingActiveRecord {
 		}
 
 		return $available;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getShortLinkURL() {
+		$pl = \ilLiveVotingPlugin::getInstance();
+		$url = NULL;
+		$shortLinkEnabled = intval(xlvoConf::getConfig(xlvoConf::F_ALLOW_SHORTLINK));
+
+		if ($shortLinkEnabled === 1) {
+			$url = xlvoConf::getConfig(xlvoConf::F_ALLOW_SHORTLINK_LINK);
+			$url = rtrim($url, "/") . "/";
+		} else {
+			$url = ILIAS_HTTP_PATH . substr($pl->getDirectory(), 1) . '/pin.php?pin=';
+		}
+
+		$url .= $this->getPin();
+
+		return $url;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getPresenterLink() {
+		$pl = \ilLiveVotingPlugin::getInstance();
+
+		return ILIAS_HTTP_PATH . substr($pl->getDirectory(), 1) . '/presenter.php?pin=' . $this->getPin() . "&puk=" . $this->getPuk();
 	}
 
 

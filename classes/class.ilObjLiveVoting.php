@@ -59,10 +59,6 @@ class ilObjLiveVoting extends \ilObjectPlugin {
 			$this->doRead();
 		}*/
 		global $DIC;
-		/**
-		 * @var $ilDB   \ilDB
-		 * @var $by_oid int
-		 */
 		$this->db = $DIC->database();
 	}
 
@@ -257,18 +253,5 @@ class ilObjLiveVoting extends \ilObjectPlugin {
 		foreach ($media_object_ids as $media_object_id) {
 			\ilObjMediaObject::_saveUsage($media_object_id, 'dcl:html', $new_obj->getId());
 		}
-	}
-
-
-	/**
-	 * @return string
-	 */
-	public function getPresenterLink() {
-		/**
-		 * @var $config xlvoVotingConfig
-		 */
-		$config = xlvoVotingConfig::find($this->id);
-
-		return ILIAS_HTTP_PATH . substr($this->plugin->getDirectory(), 1) . '/presenter.php?pin=' . $config->getPin() . "&puk=" . $config->getPuk();
 	}
 }

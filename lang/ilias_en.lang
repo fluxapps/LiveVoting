@@ -264,3 +264,5 @@ xlvo_write#:#Present and edit LiveVoting
 qtype_1_total_obj_results_alway_on_info#:#MISSING
 obj_frozen_alway_ofxlvo_edit#:#MISSING
 playplayer_msg_no_start_2#:#MISSING
+voting_short_link#:#Short URL
+voting_permanent_link#:#Permanent-Link
