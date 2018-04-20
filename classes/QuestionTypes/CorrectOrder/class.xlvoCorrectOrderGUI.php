@@ -2,6 +2,7 @@
 
 use LiveVoting\Js\xlvoJs;
 use LiveVoting\Option\xlvoOption;
+use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\Vote\xlvoVote;
 
 /**
@@ -27,7 +28,8 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 
 
 	public function initJS() {
-		xlvoJs::getInstance()->api($this)->name('CorrectOrder')->category('QuestionTypes')->addLibToHeader('jquery.ui.touch-punch.min.js')->init();
+		xlvoJs::getInstance()->api($this)->name(xlvoQuestionTypes::CORRECT_ORDER)->category('QuestionTypes')
+			->addLibToHeader('jquery.ui.touch-punch.min.js')->init();
 	}
 
 

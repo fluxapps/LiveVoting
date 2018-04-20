@@ -1,6 +1,7 @@
 <?php
 
 use LiveVoting\Js\xlvoJs;
+use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\Vote\xlvoVote;
 
 /**
@@ -30,7 +31,8 @@ class xlvoNumberRangeGUI extends xlvoQuestionTypesGUI {
 
 
 	public function initJS() {
-		xlvoJs::getInstance()->api($this)->name('NumberRange')->category('QuestionTypes')->addLibToHeader('bootstrap-slider.min.js')->init();
+		xlvoJs::getInstance()->api($this)->name(xlvoQuestionTypes::NUMBER_RANGE)->category('QuestionTypes')->addLibToHeader('bootstrap-slider.min.js')
+			->init();
 	}
 
 

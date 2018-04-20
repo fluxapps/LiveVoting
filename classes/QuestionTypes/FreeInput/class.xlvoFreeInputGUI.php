@@ -1,6 +1,7 @@
 <?php
 
 use LiveVoting\Js\xlvoJs;
+use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\Vote\xlvoVote;
 
 /**
@@ -26,7 +27,7 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 	public function initJS() {
 		$xlvoMultiLineInputGUI = new xlvoMultiLineInputGUI();
 		$xlvoMultiLineInputGUI->initCSSandJS();
-		xlvoJs::getInstance()->api($this)->name('CorrectOrder')->category('FreeInput')->init();
+		xlvoJs::getInstance()->api($this)->name(xlvoQuestionTypes::CORRECT_ORDER)->category(xlvoQuestionTypes::FREE_INPUT)->init();
 	}
 
 

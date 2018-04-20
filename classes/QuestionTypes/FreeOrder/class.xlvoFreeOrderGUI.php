@@ -1,6 +1,7 @@
 <?php
 
 use LiveVoting\Js\xlvoJs;
+use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 
 /**
  * Class xlvoFreeOrderGUI
@@ -22,7 +23,8 @@ class xlvoFreeOrderGUI extends xlvoCorrectOrderGUI {
 
 
 	public function initJS() {
-		xlvoJs::getInstance()->api($this)->name('FreeOrder')->category('QuestionTypes')->addLibToHeader('jquery.ui.touch-punch.min.js')->init();
+		xlvoJs::getInstance()->api($this)->name(xlvoQuestionTypes::FREE_ORDER)->category('QuestionTypes')
+			->addLibToHeader('jquery.ui.touch-punch.min.js')->init();
 	}
 
 
