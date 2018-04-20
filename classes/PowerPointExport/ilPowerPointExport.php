@@ -90,6 +90,8 @@ class ilPowerPointExport {
 
 		$this->unzip();
 
+		$this->addDefaultSlideLayouts();
+
 		$this->addVotings();
 
 		$this->zip();
@@ -196,6 +198,42 @@ class ilPowerPointExport {
 	/**
 	 *
 	 */
+	protected function addDefaultSlideLayouts() {
+		$slideLayouts = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ];
+		$slideLayoutRel = file_get_contents(__DIR__ . "/../../templates/PowerPointExport/slideLayouts/_rels/slideLayout.xml.rels");
+
+		$file = $this->temp_folder . "/[Content_Types].xml";
+
+		$xml = new DOMDocument();
+
+		$xml->load($file);
+
+		$types = $xml->getElementsByTagName("Types")->item(0);
+
+		$node = $xml->createDocumentFragment();
+		foreach ($slideLayouts as $num) {
+			if ($num > 1) {
+				$node->appendXML('<Override PartName="/ppt/slideLayouts/slideLayout' . $num
+					. '.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml"/>');
+			}
+
+			copy(__DIR__ . "/../../templates/PowerPointExport/slideLayouts/slideLayout" . $num . ".xml", $this->temp_folder
+				. "/ppt/slideLayouts/slideLayout" . $num . ".xml");
+
+			file_put_contents($this->temp_folder . "/ppt/slideLayouts/_rels/slideLayout" . $num . ".xml.rels", $slideLayoutRel);
+		}
+
+		$types->appendChild($node);
+
+		$xml->save($file);
+
+		// TODO add slideLayouts to slideMaster
+	}
+
+
+	/**
+	 *
+	 */
 	protected function addVotings() {
 		ilUtil::makeDirParents($this->temp_folder . "/ppt/webextensions/_rels");
 		ilUtil::makeDirParents($this->temp_folder . "/ppt/media");
@@ -211,7 +249,7 @@ class ilPowerPointExport {
 	 * @param int        $num
 	 */
 	protected function addVoting(xlvoVoting $voting, $num) {
-		copy(__DIR__ . "/../../templates/images/thumbnail.png", $this->temp_folder . "/ppt/media/image" . $num . ".png");
+		copy(__DIR__ . "/../../templates/PowerPointExport/thumbnail.png", $this->temp_folder . "/ppt/media/image" . $num . ".png");
 
 		$this->updateContentTypes($voting, $num);
 		$this->updateSlide($voting, $num);
