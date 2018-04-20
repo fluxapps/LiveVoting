@@ -52,9 +52,8 @@ class xlvoConfFormGUI extends \ilPropertyFormGUI {
 		$this->initButtons();
 
 		$use_shortlink = new \ilCheckboxInputGUI($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK), xlvoConf::F_ALLOW_SHORTLINK);
-		$use_shortlink->setInfo(
-			$this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK . '_info') . '<br><br><span class="label label-default">' . xlvoConf::REWRITE_RULE . '</span><br><br>'
-		);
+		$use_shortlink->setInfo($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK . '_info') . '<br><br><span class="label label-default">'
+			. xlvoConf::REWRITE_RULE . '</span><br><br>');
 
 		$shortlink = new \ilTextInputGUI($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_LINK), xlvoConf::F_ALLOW_SHORTLINK_LINK);
 		$shortlink->setInfo($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_LINK . '_info'));
@@ -65,11 +64,7 @@ class xlvoConfFormGUI extends \ilPropertyFormGUI {
 		$use_shortlink->addSubItem($base_url);
 
 		$request_frequency = new \ilNumberInputGUI($this->parent_gui->txt(xlvoConf::F_REQUEST_FREQUENCY), xlvoConf::F_REQUEST_FREQUENCY);
-		$request_frequency->setInfo(
-			$this->parent_gui->txt(
-				xlvoConf::F_REQUEST_FREQUENCY . '_info'
-			)
-		);
+		$request_frequency->setInfo($this->parent_gui->txt(xlvoConf::F_REQUEST_FREQUENCY . '_info'));
 		$request_frequency->allowDecimals(true);
 		$request_frequency->setMinValue(xlvoConf::MIN_CLIENT_UPDATE_FREQUENCY, false);
 		$request_frequency->setMaxValue(xlvoConf::MAX_CLIENT_UPDATE_FREQUENCY, false);
@@ -83,11 +78,10 @@ class xlvoConfFormGUI extends \ilPropertyFormGUI {
 		$result_api->setInfo($this->parent_gui->txt(xlvoConf::F_RESULT_API . '_info'));
 
 		$api_type = new ilSelectInputGUI($this->parent_gui->txt(xlvoConf::F_API_TYPE), xlvoConf::F_API_TYPE);
-		$api_type->setOptions(
-			array(
-				xlvoApi::TYPE_JSON => 'JSON', xlvoApi::TYPE_XML => 'XML',
-			)
-		);
+		$api_type->setOptions(array(
+			xlvoApi::TYPE_JSON => 'JSON',
+			xlvoApi::TYPE_XML => 'XML',
+		));
 		$result_api->addSubItem($api_type);
 
 		$api_token = new ilNonEditableValueGUI();
@@ -97,7 +91,10 @@ class xlvoConfFormGUI extends \ilPropertyFormGUI {
 
 		// PPT Export
 		$ppt_export = new ilCheckboxInputGUI($this->parent_gui->txt(xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT), xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT);
-		$ppt_export->setInfo($this->parent_gui->txt(xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . '_info'));
+		$ppt_export->setInfo(htmlspecialchars($this->parent_gui->txt(xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . '_info')) . '<br><br><i>'
+			. htmlspecialchars($this->parent_gui->txt("ppt_export_manual")) . '</i><ol>' . implode("", array_map(function ($step) {
+				return '<li>' . htmlspecialchars($this->parent_gui->txt("ppt_export_manual_" . $step)) . '</li>';
+			}, [ 1, 2, 3, 4 ])) . '</ol>');
 
 		//add items to GUI
 		$this->addItem($use_shortlink);

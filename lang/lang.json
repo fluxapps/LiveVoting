@@ -363,6 +363,46 @@
                     "de": "PowerPoint-Export aktivieren: Dieses Feature funktioniert nur mit installierten PowerPoint-WebView-Plugin und wenn die ILIAS Installation unter HTTPS betrieben wird."
                 },
                 "last_used": "26.03.2018"
+            },
+            "ppt_export_manual": {
+                "translations": {
+                    "en": "Embedding LiveVotings in PowerPoint:",
+                    "hu": "MISSING",
+                    "de": "LiveVotings in PowerPoint einbetten:"
+                },
+                "last_used": "20.04.2018"
+            },
+            "ppt_export_manual_1": {
+                "translations": {
+                    "en": "Download the Microsoft Web Viewer Add-In for PowerPoint",
+                    "hu": "MISSING",
+                    "de": "Das Microsoft Web Viewer Add-In für PowerPoint herunterladen"
+                },
+                "last_used": "20.04.2018"
+            },
+            "ppt_export_manual_2": {
+                "translations": {
+                    "en": "Start PowerPoint",
+                    "hu": "MISSING",
+                    "de": "PowerPoint starten"
+                },
+                "last_used": "20.04.2018"
+            },
+            "ppt_export_manual_3": {
+                "translations": {
+                    "en": "Search for \"Web Viewer\" in the Office-Add-Ins Store (Insert > My Apps)",
+                    "hu": "MISSING",
+                    "de": "Nach \"Web Viewer\" im Office-Add-Ins Store suchen (Einfügen > Meine Apps)"
+                },
+                "last_used": "20.04.2018"
+            },
+            "ppt_export_manual_4": {
+                "translations": {
+                    "en": "Copy the Presenter link from this LiveVoting and paste the link in the Web Viewer-form in your presentation",
+                    "hu": "MISSING",
+                    "de": "Den Moderator-Link dieses LiveVotings kopieren und den Link im Web Viewer-Formular in Ihrer Präsentation einfügen"
+                },
+                "last_used": "20.04.2018"
             }
         },
         "correct": {

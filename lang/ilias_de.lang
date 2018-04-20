@@ -267,3 +267,8 @@ rminable_select_start_time#:#MISSING
 vqtype_1_options#:#MISSING
 voting_short_link#:#Kurz-URL
 voting_permanent_link#:#Permanenter-Link
+config_ppt_export_manual#:#LiveVotings in PowerPoint einbetten:
+config_ppt_export_manual_1#:#Das Microsoft Web-Viewer Add-In für PowerPoint herunterladen
+config_ppt_export_manual_2#:#PowerPoint starten
+config_ppt_export_manual_3#:#Nach "Web Viewer" im Office-Add-Ins Store suchen (Einfügen > Meine Apps)
+config_ppt_export_manual_4#:#Den Moderator-Link dieses LiveVotings kopieren und den Link im Web Viewer-Formular in Ihrer Präsentation einfügen
