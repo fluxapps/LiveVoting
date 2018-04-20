@@ -145,6 +145,9 @@ class xlvoPlayerGUI extends xlvoGUI {
 	}
 
 
+	/**
+	 *
+	 */
 	protected function startPresenter() {
 		$pin = CookieManager::getCookiePIN();
 		$this->manager = new xlvoVotingManager2($pin);

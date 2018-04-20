@@ -133,7 +133,7 @@ class xlvoBasicInitialisation {
 		$ilias = new xlvoILIAS();
 		$this->makeGlobal("ilias", $ilias);
 
-		$tpl = $this->pl->getTemplate("default/tpl.main.html");
+		$tpl = $pl->getTemplate("default/tpl.main.html");
 		$tpl->touchBlock("navbar");
 		$tpl->addCss('./templates/default/delos.css');
 		$tpl->addBlockFile("CONTENT", "content", "tpl.main_voter.html", $pl->getDirectory());
