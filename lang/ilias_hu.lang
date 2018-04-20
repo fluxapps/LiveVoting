@@ -23,7 +23,7 @@ common_time#:#Időbélyeg
 common_user#:#Felhasználó
 common_option_no_longer_available#:#MISSING
 common_ok#:#OK
-config_allow_shortlink#:#Rövid URL aktiválása
+config_allow_shortlink#:#MISSING
 config_allow_shortlink_info#:#Rövid URL (pl. /vote) használatához adja a RewriteRule szabályt .htaccess fájljához:
 config_allow_shortlink_link#:#Rövid URL
 config_allow_shortlink_link_info#:#Telepítése teljes rövid URL-je , pl. https://ilias.domain.hu/vote
@@ -265,8 +265,12 @@ show_attendees#:#MISSING
 show_attendees_info#:#MISSING
 voting_short_link#:#Rövid URL
 voting_permanent_link#:#MISSING
-config_ppt_export_manual#:#MISSING
-config_ppt_export_manual_1#:#MISSING
-config_ppt_export_manual_2#:#MISSING
-config_ppt_export_manual_3#:#MISSING
-config_ppt_export_manual_4#:#MISSING
+config_ppt_export_info_manual#:#MISSING
+config_ppt_export_info_manual_1#:#MISSING
+config_ppt_export_info_manual_2#:#MISSING
+config_ppt_export_info_manual_3#:#MISSING
+config_ppt_export_info_manual_4#:#MISSING
+config_allow_shortlink_presenter#:#MISSING
+config_allow_shortlink_presenter_info#:#MISSING
+config_allow_shortlink_link_presenter#:#MISSING
+config_allow_shortlink_link_presenter_info#:#MISSING

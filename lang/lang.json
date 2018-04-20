@@ -191,11 +191,11 @@
         "config": {
             "allow_shortlink": {
                 "translations": {
-                    "de": "Kurz-URL einschalten",
-                    "en": "Activate Short URL",
-                    "hu": "Rövid URL aktiválása"
+                    "de": "Kurz-URL für Voter einschalten",
+                    "en": "Activate Short URL for Voter",
+                    "hu": "MISSING"
                 },
-                "last_used": "26.03.2018"
+                "last_used": "20.04.2018"
             },
             "allow_shortlink_info": {
                 "translations": {
@@ -215,7 +215,7 @@
             },
             "allow_shortlink_link_info": {
                 "translations": {
-                    "de": "Ganze Kurz-URL ihrer Installation, bspw. https://ilias.domain.com/vote",
+                    "de": "Ganze Kurz-URL Ihrer Installation, bspw. https://ilias.domain.com/vote",
                     "en": "Full Short URL of your Installation , e.g. https://ilias.domain.com/vote",
                     "hu": "Telepítése teljes rövid URL-je , pl. https://ilias.domain.hu/vote"
                 },
@@ -364,7 +364,7 @@
                 },
                 "last_used": "26.03.2018"
             },
-            "ppt_export_manual": {
+            "ppt_export_info_manual": {
                 "translations": {
                     "en": "Embedding LiveVotings in PowerPoint:",
                     "hu": "MISSING",
@@ -372,7 +372,7 @@
                 },
                 "last_used": "20.04.2018"
             },
-            "ppt_export_manual_1": {
+            "ppt_export_info_manual_1": {
                 "translations": {
                     "en": "Download the Microsoft Web Viewer Add-In for PowerPoint",
                     "hu": "MISSING",
@@ -380,7 +380,7 @@
                 },
                 "last_used": "20.04.2018"
             },
-            "ppt_export_manual_2": {
+            "ppt_export_info_manual_2": {
                 "translations": {
                     "en": "Start PowerPoint",
                     "hu": "MISSING",
@@ -388,7 +388,7 @@
                 },
                 "last_used": "20.04.2018"
             },
-            "ppt_export_manual_3": {
+            "ppt_export_info_manual_3": {
                 "translations": {
                     "en": "Search for \"Web Viewer\" in the Office-Add-Ins Store (Insert > My Apps)",
                     "hu": "MISSING",
@@ -396,11 +396,43 @@
                 },
                 "last_used": "20.04.2018"
             },
-            "ppt_export_manual_4": {
+            "ppt_export_info_manual_4": {
                 "translations": {
                     "en": "Copy the Presenter link from this LiveVoting and paste the link in the Web Viewer-form in your presentation",
                     "hu": "MISSING",
                     "de": "Den Moderator-Link dieses LiveVotings kopieren und den Link im Web Viewer-Formular in Ihrer Präsentation einfügen"
+                },
+                "last_used": "20.04.2018"
+            },
+            "allow_shortlink_presenter": {
+                "translations": {
+                    "de": "Kurz-URL für Moderator einschalten",
+                    "en": "Activate Short URL for Presenter",
+                    "hu": "MISSING"
+                },
+                "last_used": "20.04.2018"
+            },
+            "allow_shortlink_presenter_info": {
+                "translations": {
+                    "de": "Eine Kurz-URL kann bspw. durch hinzufügen einer RewriteRule in der .htaccess erstellt werden, dadurch kann auf https://ilias.domain.com/presenter angestimmt werden:",
+                    "en": "Use a Short URL like /vote by adding the following RewriteRule to your .htaccess:",
+                    "hu": "MISSING"
+                },
+                "last_used": "20.04.2018"
+            },
+            "allow_shortlink_link_presenter": {
+                "translations": {
+                    "de": "Kurz-URL",
+                    "en": "Short URL",
+                    "hu": "MISSING"
+                },
+                "last_used": "20.04.2018"
+            },
+            "allow_shortlink_link_presenter_info": {
+                "translations": {
+                    "de": "Ganze Kurz-URL Ihrer Installation, bspw. https://ilias.domain.com/presenter",
+                    "en": "Full Short URL of your Installation , e.g. https://ilias.domain.com/presenter",
+                    "hu": "MISSING"
                 },
                 "last_used": "20.04.2018"
             }

@@ -192,10 +192,10 @@ class xlvoVotingConfig extends CachingActiveRecord {
 	public function getShortLinkURL() {
 		$pl = \ilLiveVotingPlugin::getInstance();
 		$url = NULL;
-		$shortLinkEnabled = intval(xlvoConf::getConfig(xlvoConf::F_ALLOW_SHORTLINK));
+		$shortLinkEnabled = boolval(xlvoConf::getConfig(xlvoConf::F_ALLOW_SHORTLINK_VOTE));
 
-		if ($shortLinkEnabled === 1) {
-			$url = xlvoConf::getConfig(xlvoConf::F_ALLOW_SHORTLINK_LINK);
+		if ($shortLinkEnabled) {
+			$url = xlvoConf::getConfig(xlvoConf::F_ALLOW_SHORTLINK_VOTE_LINK);
 			$url = rtrim($url, "/") . "/";
 		} else {
 			$url = ILIAS_HTTP_PATH . substr($pl->getDirectory(), 1) . '/pin.php?pin=';
@@ -208,12 +208,30 @@ class xlvoVotingConfig extends CachingActiveRecord {
 
 
 	/**
+	 * @param int|null $vvoting_id
+	 *
 	 * @return string
 	 */
-	public function getPresenterLink() {
+	public function getPresenterLink($voting_id = NULL) {
 		$pl = \ilLiveVotingPlugin::getInstance();
+		$url = NULL;
+		$shortLinkEnabled = boolval(xlvoConf::getConfig(xlvoConf::F_ALLOW_SHORTLINK_PRESENTER));
 
-		return ILIAS_HTTP_PATH . substr($pl->getDirectory(), 1) . '/presenter.php?pin=' . $this->getPin() . "&puk=" . $this->getPuk();
+		if ($shortLinkEnabled) {
+			$url = xlvoConf::getConfig(xlvoConf::F_ALLOW_SHORTLINK_PRESENTER_LINK);
+			$url = rtrim($url, "/") . "/";
+			$url .= $this->getPin() . "/" . $this->getPuk();
+			if ($voting_id !== NULL) {
+				$url .= "/" . $voting_id;
+			}
+		} else {
+			$url = ILIAS_HTTP_PATH . substr($pl->getDirectory(), 1) . '/presenter.php?pin=' . $this->getPin() . "&puk=" . $this->getPuk();
+			if ($voting_id !== NULL) {
+				$url .= "&voting=" . $voting_id;
+			}
+		}
+
+		return $url;
 	}
 
 

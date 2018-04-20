@@ -23,7 +23,7 @@ common_time#:#Timestamp
 common_user#:#User
 common_option_no_longer_available#:#[Option no longer available]
 common_ok#:#OK
-config_allow_shortlink#:#Activate Short URL
+config_allow_shortlink#:#Activate Short URL for Voter
 config_allow_shortlink_info#:#Use a Short URL like /vote by adding the following RewriteRule to your .htaccess:
 config_allow_shortlink_link#:#Short URL
 config_allow_shortlink_link_info#:#Full Short URL of your Installation , e.g. https://ilias.domain.com/vote
@@ -266,8 +266,12 @@ obj_frozen_alway_ofxlvo_edit#:#MISSING
 playplayer_msg_no_start_2#:#MISSING
 voting_short_link#:#Short URL
 voting_permanent_link#:#Permanent-Link
-config_ppt_export_manual#:#Embedding LiveVotings in PowerPoint:
-config_ppt_export_manual_1#:#Download the Microsoft Web Viewer Add-In for PowerPoint
-config_ppt_export_manual_2#:#Start PowerPoint
-config_ppt_export_manual_3#:#Search for "Web Viewer" in the Office-Add-Ins Store (Insert > My Apps)
-config_ppt_export_manual_4#:#Copy the Presenter link from this LiveVoting and paste the link in the Web Viewer-form in your presentation
+config_ppt_export_info_manual#:#Embedding LiveVotings in PowerPoint:
+config_ppt_export_info_manual_1#:#Download the Microsoft Web Viewer Add-In for PowerPoint
+config_ppt_export_info_manual_2#:#Start PowerPoint
+config_ppt_export_info_manual_3#:#Search for "Web Viewer" in the Office-Add-Ins Store (Insert > My Apps)
+config_ppt_export_info_manual_4#:#Copy the Presenter link from this LiveVoting and paste the link in the Web Viewer-form in your presentation
+config_allow_shortlink_presenter#:#Activate Short URL for Presenter
+config_allow_shortlink_presenter_info#:#Use a Short URL like /vote by adding the following RewriteRule to your .htaccess:
+config_allow_shortlink_link_presenter#:#Short URL
+config_allow_shortlink_link_presenter_info#:#Full Short URL of your Installation , e.g. https://ilias.domain.com/presenter

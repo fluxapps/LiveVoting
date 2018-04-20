@@ -51,17 +51,25 @@ class xlvoConfFormGUI extends \ilPropertyFormGUI {
 		$this->setFormAction($this->ctrl->getFormAction($this->parent_gui));
 		$this->initButtons();
 
-		$use_shortlink = new \ilCheckboxInputGUI($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK), xlvoConf::F_ALLOW_SHORTLINK);
-		$use_shortlink->setInfo($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK . '_info') . '<br><br><span class="label label-default">'
-			. xlvoConf::REWRITE_RULE . '</span><br><br>');
+		$use_shortlink_vote = new \ilCheckboxInputGUI($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_VOTE), xlvoConf::F_ALLOW_SHORTLINK_VOTE);
+		$use_shortlink_vote->setInfo($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_VOTE . '_info') . '<br><br><span class="label label-default">'
+			. xlvoConf::REWRITE_RULE_VOTE . '</span><br><br>');
 
-		$shortlink = new \ilTextInputGUI($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_LINK), xlvoConf::F_ALLOW_SHORTLINK_LINK);
-		$shortlink->setInfo($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_LINK . '_info'));
-		$use_shortlink->addSubItem($shortlink);
+		$shortlink_vote = new \ilTextInputGUI($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_VOTE_LINK), xlvoConf::F_ALLOW_SHORTLINK_VOTE_LINK);
+		$shortlink_vote->setInfo($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_VOTE_LINK . '_info'));
+		$use_shortlink_vote->addSubItem($shortlink_vote);
 
-		$base_url = new \ilTextInputGUI($this->parent_gui->txt(xlvoConf::F_BASE_URL), xlvoConf::F_BASE_URL);
-		$base_url->setInfo($this->parent_gui->txt(xlvoConf::F_BASE_URL . '_info'));
-		$use_shortlink->addSubItem($base_url);
+		$base_url_vote = new \ilTextInputGUI($this->parent_gui->txt(xlvoConf::F_BASE_URL_VOTE), xlvoConf::F_BASE_URL_VOTE);
+		$base_url_vote->setInfo($this->parent_gui->txt(xlvoConf::F_BASE_URL_VOTE . '_info'));
+		$use_shortlink_vote->addSubItem($base_url_vote);
+		
+		$use_shortlink_presenter = new \ilCheckboxInputGUI($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_PRESENTER), xlvoConf::F_ALLOW_SHORTLINK_PRESENTER);
+		$use_shortlink_presenter->setInfo($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_PRESENTER . '_info') . '<br><br><span class="label label-default">'
+			. xlvoConf::REWRITE_RULE_PRESENTER . '</span><br><br>');
+
+		$shortlink_presenter = new \ilTextInputGUI($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_PRESENTER_LINK), xlvoConf::F_ALLOW_SHORTLINK_PRESENTER_LINK);
+		$shortlink_presenter->setInfo($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_PRESENTER_LINK . '_info'));
+		$use_shortlink_presenter->addSubItem($shortlink_presenter);
 
 		$request_frequency = new \ilNumberInputGUI($this->parent_gui->txt(xlvoConf::F_REQUEST_FREQUENCY), xlvoConf::F_REQUEST_FREQUENCY);
 		$request_frequency->setInfo($this->parent_gui->txt(xlvoConf::F_REQUEST_FREQUENCY . '_info'));
@@ -92,12 +100,13 @@ class xlvoConfFormGUI extends \ilPropertyFormGUI {
 		// PPT Export
 		$ppt_export = new ilCheckboxInputGUI($this->parent_gui->txt(xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT), xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT);
 		$ppt_export->setInfo(htmlspecialchars($this->parent_gui->txt(xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . '_info')) . '<br><br><i>'
-			. htmlspecialchars($this->parent_gui->txt("ppt_export_manual")) . '</i><ol>' . implode("", array_map(function ($step) {
-				return '<li>' . htmlspecialchars($this->parent_gui->txt("ppt_export_manual_" . $step)) . '</li>';
+			. htmlspecialchars($this->parent_gui->txt(xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT ."_info_manual")) . '</i><ol>' . implode("", array_map(function ($step) {
+				return '<li>' . htmlspecialchars($this->parent_gui->txt(xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT ."_info_manual_" . $step)) . '</li>';
 			}, [ 1, 2, 3, 4 ])) . '</ol>');
 
 		//add items to GUI
-		$this->addItem($use_shortlink);
+		$this->addItem($use_shortlink_vote);
+		$this->addItem($use_shortlink_presenter);
 		$this->addItem($request_frequency);
 		$this->addItem($result_api);
 		$this->addItem($global_cache_enabled);

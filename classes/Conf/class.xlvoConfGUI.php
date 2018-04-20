@@ -33,7 +33,7 @@ class xlvoConfGUI extends xlvoGUI {
 			$b = ilLinkButton::getInstance();
 			$xlvoVoting = xlvoVoting::last();
 			$xlvoVoting = $xlvoVoting ? $xlvoVoting : new xlvoVoting();
-			$url = xlvoConf::getBaseURL() . xlvoConf::RESULT_API_URL . '?token=%s&type=%s&pin=%s';
+			$url = xlvoConf::getBaseVoteURL() . xlvoConf::RESULT_API_URL . '?token=%s&type=%s&pin=%s';
 			$url = sprintf($url, xlvoConf::getApiToken(), xlvoConf::getConfig(xlvoConf::F_API_TYPE), xlvoPin::lookupPin($xlvoVoting->getObjId()));
 			$b->setUrl($url);
 			$b->setTarget('_blank');

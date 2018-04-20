@@ -22,10 +22,10 @@ common_time#:#Zeitpunkt
 common_user#:#Benutzer
 common_option_no_longer_available#:#[Option nicht mehr vorhanden]
 common_ok#:#OK
-config_allow_shortlink#:#Kurz-URL einschalten
+config_allow_shortlink#:#Kurz-URL für Voter einschalten
 config_allow_shortlink_info#:#Eine Kurz-URL kann bspw. durch hinzufügen einer RewriteRule in der .htaccess erstellt werden, dadurch kann auf https://ilias.domain.com/vote angestimmt werden:
 config_allow_shortlink_link#:#Kurz-URL
-config_allow_shortlink_link_info#:#Ganze Kurz-URL ihrer Installation, bspw. https://ilias.domain.com/vote
+config_allow_shortlink_link_info#:#Ganze Kurz-URL Ihrer Installation, bspw. https://ilias.domain.com/vote
 config_base_url#:#Basis-URL
 config_base_url_info#:#URL Ihrer ILIAS-Installation inkl. Unterverzeichnis, bspw. https://www.domain.com/ilias
 config_cancel#:#Abbrechen
@@ -267,8 +267,12 @@ rminable_select_start_time#:#MISSING
 vqtype_1_options#:#MISSING
 voting_short_link#:#Kurz-URL
 voting_permanent_link#:#Permanenter-Link
-config_ppt_export_manual#:#LiveVotings in PowerPoint einbetten:
-config_ppt_export_manual_1#:#Das Microsoft Web-Viewer Add-In für PowerPoint herunterladen
-config_ppt_export_manual_2#:#PowerPoint starten
-config_ppt_export_manual_3#:#Nach "Web Viewer" im Office-Add-Ins Store suchen (Einfügen > Meine Apps)
-config_ppt_export_manual_4#:#Den Moderator-Link dieses LiveVotings kopieren und den Link im Web Viewer-Formular in Ihrer Präsentation einfügen
+config_ppt_export_info_manual#:#LiveVotings in PowerPoint einbetten:
+config_ppt_export_info_manual_1#:#Das Microsoft Web-Viewer Add-In für PowerPoint herunterladen
+config_ppt_export_info_manual_2#:#PowerPoint starten
+config_ppt_export_info_manual_3#:#Nach "Web Viewer" im Office-Add-Ins Store suchen (Einfügen > Meine Apps)
+config_ppt_export_info_manual_4#:#Den Moderator-Link dieses LiveVotings kopieren und den Link im Web Viewer-Formular in Ihrer Präsentation einfügen
+config_allow_shortlink_presenter#:#Kurz-URL für Moderator einschalten
+config_allow_shortlink_presenter_info#:#Eine Kurz-URL kann bspw. durch hinzufügen einer RewriteRule in der .htaccess erstellt werden, dadurch kann auf https://ilias.domain.com/presenter angestimmt werden:
+config_allow_shortlink_link_presenter#:#Kurz-URL
+config_allow_shortlink_link_presenter_info#:#Ganze Kurz-URL Ihrer Installation, bspw. https://ilias.domain.com/presenter

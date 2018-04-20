@@ -139,7 +139,7 @@ class xlvoBasicInitialisation {
 		}
 		$tpl->addCss('./templates/default/delos.css');
 		$tpl->addBlockFile("CONTENT", "content", "tpl.main_voter.html", $pl->getDirectory());
-		$tpl->setVariable('BASE', xlvoConf::getBaseURL());
+		$tpl->setVariable('BASE', xlvoConf::getBaseVoteURL());
 		$this->makeGlobal("tpl", $tpl);
 
 		include_once("./Services/jQuery/classes/class.iljQueryUtil.php");

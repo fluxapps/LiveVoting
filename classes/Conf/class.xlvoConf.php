@@ -15,13 +15,13 @@ class xlvoConf extends CachingActiveRecord {
 	const F_CONFIG_VERSION = 'config_version';
 	const F_ALLOW_FREEZE = 'allow_freeze';
 	const F_ALLOW_FULLSCREEN = 'allow_fullscreen';
-	const F_ALLOW_SHORTLINK = 'allow_shortlink';
-	const F_ALLOW_SHORTLINK_LINK = 'allow_shortlink_link';
-	const F_BASE_URL = 'base_url';
+	const F_ALLOW_SHORTLINK_VOTE = 'allow_shortlink';
+	const F_ALLOW_SHORTLINK_VOTE_LINK = 'allow_shortlink_link';
+	const F_BASE_URL_VOTE = 'base_url';
 	const F_ALLOW_GLOBAL_ANONYMOUS = 'global_anonymous';
 	const F_REGENERATE_TOKEN = 'regenerate_token';
 	const F_USE_QR = 'use_qr';
-	const REWRITE_RULE = "RewriteRule ^vote(/[\\w]*|) Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?pin=$1 [L]";
+	const REWRITE_RULE_VOTE = "RewriteRule ^vote(/[\\w]*|) Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?pin=$1 [L]";
 	const API_URL = './Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/ilias.php';
 	const RESULT_API_URL = './Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/api.php';
 	const F_REQUEST_FREQUENCY = 'request_frequency';
@@ -30,6 +30,9 @@ class xlvoConf extends CachingActiveRecord {
 	const F_API_TOKEN = 'api_token';
 	const F_USE_GLOBAL_CACHE = 'use_global_cache';
 	const F_ACTIVATE_POWERPOINT_EXPORT = 'ppt_export';
+	const F_ALLOW_SHORTLINK_PRESENTER = 'allow_shortlink_presenter';
+	const F_ALLOW_SHORTLINK_PRESENTER_LINK = 'allow_shortlink_link_presenter';
+	const REWRITE_RULE_PRESENTER = "RewriteRule ^presenter(/\\w*)(/\\w*)(/\\w*)? Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/presenter.php?pin=$1&puk=$2&voting=$3 [L]";
 	/**
 	 * Min client update frequency in seconds.
 	 * This value should never be set bellow 1 second.
@@ -70,9 +73,9 @@ class xlvoConf extends CachingActiveRecord {
 	/**
 	 * @return string
 	 */
-	public static function getBaseURL() {
-		if (self::getConfig(self::F_ALLOW_SHORTLINK)) {
-			$url = self::getConfig(self::F_BASE_URL);
+	public static function getBaseVoteURL() {
+		if (self::getConfig(self::F_ALLOW_SHORTLINK_VOTE)) {
+			$url = self::getConfig(self::F_BASE_URL_VOTE);
 			$url = rtrim($url, "/") . "/";
 		} else {
 			$str = strstr(ILIAS_HTTP_PATH, 'Customizing', true);
@@ -82,12 +85,11 @@ class xlvoConf extends CachingActiveRecord {
 		return $url;
 	}
 
-
 	/**
 	 * @return string
 	 */
 	public static function getFullApiURL() {
-		return self::getBaseURL() . ltrim(self::API_URL, "./");
+		return self::getBaseVoteURL() . ltrim(self::API_URL, "./");
 	}
 
 

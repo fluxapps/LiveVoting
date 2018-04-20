@@ -366,7 +366,7 @@ class ilPowerPointExport {
 	 * @param int        $num
 	 */
 	protected function updateWebExtension(xlvoVoting $voting, $num) {
-		$presenter_link = $this->config->getPresenterLink() . "&voting=" . $voting->getId();
+		$presenter_link = $this->config->getPresenterLink($voting->getId());
 
 		$secure = (stripos($presenter_link, "https://") === 0);
 		$link = substr($presenter_link, (stripos($presenter_link, "://") + 3));

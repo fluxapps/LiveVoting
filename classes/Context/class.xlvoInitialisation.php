@@ -149,7 +149,7 @@ class xlvoInitialisation extends \ilInitialisation {
 			$tpl->getStandardTemplate();
 		}
 		require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Conf/class.xlvoConf.php');
-		$tpl->setVariable('BASE', xlvoConf::getBaseURL());
+		$tpl->setVariable('BASE', xlvoConf::getBaseVoteURL());
 		if (self::USE_OWN_GLOBAL_TPL) {
 			include_once("./Services/jQuery/classes/class.iljQueryUtil.php");
 			\iljQueryUtil::initjQuery();
