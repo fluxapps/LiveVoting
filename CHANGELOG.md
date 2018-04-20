@@ -23,8 +23,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 - Fix no wrap if the shortlink URL is too long
-- Fix no preventDefault on fullscreen button which caused unwanted redirects
+- Fix no preventDefault on some button which caused unwanted redirects
 - Fixed filtering by participant for anonymous participants
+- FreeInput now don't allows empty inputs anymore
+- CorrectOrder now immediately display result without reloading page
 
 ### Improved
 - Refactoring
