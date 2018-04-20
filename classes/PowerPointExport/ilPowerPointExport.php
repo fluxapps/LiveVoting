@@ -180,7 +180,6 @@ class ilPowerPointExport {
 		}, array_keys($data), $data)));
 
 		$slide->setNote($note);
-		// TODO Alternative Text (Title, Description)
 	}
 
 
@@ -253,6 +252,8 @@ class ilPowerPointExport {
 
 		$guid = $this->guid();
 		$rand = rand(1000000000, 9999999999);
+		$title = $voting->getTitle();
+		$question = strip_tags($voting->getQuestion());
 
 		$xml = file_get_contents($file);
 
@@ -262,7 +263,8 @@ class ilPowerPointExport {
 	<mc:Choice xmlns:we="http://schemas.microsoft.com/office/webextensions/webextension/2010/11" xmlns:pca="http://schemas.microsoft.com/office/powerpoint/2013/contentapp" Requires="we pca">
 		<p:graphicFrame>
 			<p:nvGraphicFramePr>
-				<p:cNvPr id="' . ($num * 2 - 1) . '" name="Add-In ' . $num . '" title="Webviewer">
+				<p:cNvPr id="' . ($num * 2 - 1) . '" descr="' . htmlspecialchars($question) . '" name="Add-In ' . $num . '" title="'
+			. htmlspecialchars($title) . '">
 					<a:extLst>
 						<a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
 							<a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="' . $guid . '"/>
@@ -288,7 +290,8 @@ class ilPowerPointExport {
 	<mc:Fallback>
 		<p:pic>
 			<p:nvPicPr>
-				<p:cNvPr id="' . ($num * 2) . '" name="Add-In" title="Webviewer">
+				<p:cNvPr id="' . ($num * 2) . '" descr="' . htmlspecialchars($question) . '" name="Add-In ' . $num . '" title="'
+			. htmlspecialchars($title) . '">
 					<a:extLst>
 						<a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
 							<a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="' . $guid . '"/>
