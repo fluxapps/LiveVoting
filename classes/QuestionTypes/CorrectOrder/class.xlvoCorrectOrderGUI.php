@@ -81,12 +81,12 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 
 		if ($this->isShowCorrectOrder()) {
 			$correct_order = $this->getCorrectOrder();
-			$solution_html = $this->txt('correct_solution');
+			$solution_html = '<p>' . $this->txt('correct_solution');
 
 			foreach ($correct_order as $item) {
 				$solution_html .= ' <span class="label label-primary">' . $item->getCipher() . '</span>';
 			}
-
+			$solution_html .= '</p>';
 			$tpl->setVariable('YOUR_SOLUTION', $solution_html);
 		}
 
