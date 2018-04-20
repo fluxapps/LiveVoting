@@ -26,7 +26,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Fix no preventDefault on some button which caused unwanted redirects
 - Fixed filtering by participant for anonymous participants
 - FreeInput now don't allows empty inputs anymore
-- CorrectOrder now immediately display result without reloading page
+- CorrectOrder now immediately displays result without reloading page
 
 ### Improved
 - Refactoring
