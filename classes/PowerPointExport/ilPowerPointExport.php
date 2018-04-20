@@ -463,7 +463,7 @@ class ilPowerPointExport {
 	 */
 	protected function guid() {
 		if (function_exists('com_create_guid')) {
-			return trim(com_create_guid(), '{}');
+			return "{" . trim(com_create_guid(), '{}') . "}";
 		}
 
 		return "{"
