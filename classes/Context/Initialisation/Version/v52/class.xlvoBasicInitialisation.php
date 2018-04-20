@@ -135,6 +135,7 @@ class xlvoBasicInitialisation {
 
 		$tpl = $pl->getTemplate("default/tpl.main.html");
 		$tpl->touchBlock("navbar");
+		$tpl->addCss($pl->getDirectory() . '/templates/default/default.css');
 		$tpl->addCss('./templates/default/delos.css');
 		$tpl->addBlockFile("CONTENT", "content", "tpl.main_voter.html", $pl->getDirectory());
 		$tpl->setVariable('BASE', xlvoConf::getBaseVoteURL());
