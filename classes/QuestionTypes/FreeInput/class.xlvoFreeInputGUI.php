@@ -34,21 +34,25 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 	 * @description Vote
 	 */
 	protected function submit() {
+		$this->manager->unvoteAll();
 		if ($this->manager->getVoting()->isMultiFreeInput()) {
-			$this->manager->unvoteAll();
 			$array = array();
 			foreach ($_POST[self::F_VOTE_MULTI_LINE_INPUT] as $item) {
-				$array[] = array(
-					"input" => $item[self::F_FREE_INPUT],
-					"vote_id" => $item[self::F_VOTE_ID],
-				);
+				if ($item[self::F_FREE_INPUT] != "") {
+					$array[] = array(
+						"input" => $item[self::F_FREE_INPUT],
+						"vote_id" => $item[self::F_VOTE_ID],
+					);
+				}
 			}
 			$this->manager->inputAll($array);
 		} else {
-			$this->manager->inputOne(array(
-				"input" => $_POST[self::F_FREE_INPUT],
-				"vote_id" => $_POST[self::F_VOTE_ID],
-			));
+			if ($_POST[self::F_FREE_INPUT] != "") {
+				$this->manager->inputOne(array(
+					"input" => $_POST[self::F_FREE_INPUT],
+					"vote_id" => $_POST[self::F_VOTE_ID],
+				));
+			}
 		}
 	}
 
