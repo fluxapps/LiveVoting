@@ -27,16 +27,10 @@ class xlvoVoteHistoryTableGUI extends \ilTable2GUI {
 	protected $tabs;
 
 	public function __construct($a_parent_obj, $a_parent_cmd) {
-		global $ilCtrl, $ilTabs;
-		/**
-		 * @var $tpl       \ilTemplate
-		 * @var $ilCtrl    \ilCtrl
-		 * @var $ilTabs    \ilTabsGUI
-		 * @var $ilToolbar \ilToolbarGUI
-		 */
+		global $DIC;
 		$this->pl = ilLiveVotingPlugin::getInstance();
-		$this->ctrl = $ilCtrl;
-		$this->tabs = $ilTabs;
+		$this->ctrl = $DIC->ctrl();
+		$this->tabs = $DIC->tabs();
 
 		$this->setId('xlvo_results');
 		parent::__construct($a_parent_obj, $a_parent_cmd);

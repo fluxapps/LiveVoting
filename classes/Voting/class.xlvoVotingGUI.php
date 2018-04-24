@@ -40,6 +40,8 @@ class xlvoVotingGUI {
 	const CMD_RESET_ALL = 'resetAll';
 	const CMD_CANCEL = 'cancel';
 	const CMD_BACK = 'back';
+	const CMD_EXPORT = 'export';
+	const CMD_IMPORT = 'import';
 	const F_TYPE = 'type';
 	/**
 	 * @var \ilTemplate
@@ -80,20 +82,13 @@ class xlvoVotingGUI {
 
 
 	public function __construct() {
-		global $tpl, $ilCtrl, $ilTabs, $ilUser, $ilToolbar;
+		global $DIC;
 
-		/**
-		 * @var $tpl       \ilTemplate
-		 * @var $ilCtrl    \ilCtrl
-		 * @var $ilTabs    \ilTabsGUI
-		 * @var $ilUser    \ilObjUser
-		 * @var $ilToolbar \ilToolbarGUI
-		 */
-		$this->tpl = $tpl;
-		$this->ctrl = $ilCtrl;
-		$this->tabs = $ilTabs;
-		$this->usr = $ilUser;
-		$this->toolbar = $ilToolbar;
+		$this->tpl = $DIC->ui()->mainTemplate();
+		$this->ctrl = $DIC->ctrl();
+		$this->tabs = $DIC->tabs();
+		$this->usr = $DIC->user();
+		$this->toolbar = $DIC->toolbar();
 		$this->access = new ilObjLiveVotingAccess();
 		$this->pl = ilLiveVotingPlugin::getInstance();
 		$this->obj_id = \ilObject2::_lookupObjId($_GET['ref_id']);
@@ -141,13 +136,16 @@ class xlvoVotingGUI {
 				if ($_GET['import']) {
 					$b = \ilLinkButton::getInstance();
 					$b->setCaption($this->txt('export'), false);
-					$b->setUrl($this->ctrl->getLinkTarget(new xlvoVotingGUI(), 'export'));
+					$b->setUrl($this->ctrl->getLinkTarget(new xlvoVotingGUI(), self::CMD_EXPORT));
 					$this->toolbar->addButtonInstance($b);
 
-					$this->toolbar->setFormAction($this->ctrl->getLinkTarget($this, 'import'), true);
+					$this->toolbar->setFormAction($this->ctrl->getLinkTarget($this, self::CMD_IMPORT), true);
 					$import = new \ilFileInputGUI('xlvo_import', 'xlvo_import');
 					$this->toolbar->addInputItem($import);
-					$this->toolbar->addFormButton($this->txt('import'), 'import');
+					$button = ilSubmitButton::getInstance();
+					$button->setCaption($this->txt('import'), false);
+					$button->setCommand(self::CMD_IMPORT);
+					$this->toolbar->addButtonInstance($button);
 				}
 
 				$xlvoVotingTableGUI = new xlvoVotingTableGUI($this, self::CMD_STANDARD);

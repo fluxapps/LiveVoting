@@ -11,6 +11,8 @@ use LiveVoting\Cache\CachingActiveRecord;
  */
 class xlvoVoteHistoryObject extends CachingActiveRecord {
 
+	const TABLE_NAME = 'rep_robj_xlvo_votehist';
+
 	/**
 	 * @var string
 	 *
@@ -201,6 +203,6 @@ class xlvoVoteHistoryObject extends CachingActiveRecord {
 	 * @return string
 	 */
 	public static function returnDbTableName() {
-		return 'rep_robj_xlvo_votehist';
+		return self::TABLE_NAME;
 	}
 }

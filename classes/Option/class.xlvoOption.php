@@ -15,13 +15,14 @@ class xlvoOption extends CachingActiveRecord {
 
 	const STAT_INACTIVE = 0;
 	const STAT_ACTIVE = 1;
+	const TABLE_NAME = 'rep_robj_xlvo_option_n';
 
 
 	/**
 	 * @return string
 	 */
 	public static function returnDbTableName() {
-		return 'rep_robj_xlvo_option_n';
+		return self::TABLE_NAME;
 	}
 
 

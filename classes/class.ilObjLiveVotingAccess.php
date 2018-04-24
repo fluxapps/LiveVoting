@@ -59,16 +59,16 @@ class ilObjLiveVotingAccess extends \ilObjectPluginAccess {
 	 * @return    boolean        true, if everything is ok
 	 */
 	public function _checkAccess($a_cmd, $a_permission, $a_ref_id, $a_obj_id, $a_user_id = "") {
-		global $ilUser, $ilAccess;
+		global $DIC;
 
 		if ($a_user_id == "") {
-			$a_user_id = $ilUser->getId();
+			$a_user_id = $DIC->user()->getId();
 		}
 
 		switch ($a_permission) {
 			case "read":
 				if (!ilObjLiveVotingAccess::checkOnline($a_obj_id)
-				    && !$ilAccess->checkAccessOfUser($a_user_id, "write", "", $a_ref_id)
+				    && !$DIC->access()->checkAccessOfUser($a_user_id, "write", "", $a_ref_id)
 				) {
 					return false;
 				}
@@ -170,16 +170,14 @@ class ilObjLiveVotingAccess extends \ilObjectPluginAccess {
 	 * @return bool
 	 */
 	protected static function hasAccess($permission, $ref_id = null, $user_id = null) {
-		global $ilUser, $ilAccess, $ilLog;
-		/**
-		 * @var $ilAccess \ilAccessHandler
-		 */
+		global $DIC;
 		$ref_id = $ref_id ? $ref_id : $_GET['ref_id'];
-		$user_id = $user_id ? $user_id : $ilUser->getId();
+		$user_id = $user_id ? $user_id : $DIC->user()->getId();
 		//		if (! $user_id) {
 		//			try {
 		//				throw new Exception();
 		//			} catch (Exception $e) {
+		//              $ilLog = $DIC["ilLog"];
 		//				$ilLog->write('XLVO ##########################');
 		//				$ilLog->write('XLVO ' . xlvoInitialisation::getContext());
 		//				$ilLog->write('XLVO ' . $e->getTraceAsString());
@@ -190,7 +188,7 @@ class ilObjLiveVotingAccess extends \ilObjectPluginAccess {
 
 		//		$ilLog->write('XLVO check permission ' . $permission . ' for user ' . $user_id . ' on ref_id ' . $ref_id);
 
-		return $ilAccess->checkAccessOfUser($user_id, $permission, '', $ref_id);
+		return $DIC->access()->checkAccessOfUser($user_id, $permission, '', $ref_id);
 	}
 
 

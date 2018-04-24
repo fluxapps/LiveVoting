@@ -37,11 +37,11 @@ class xlvoConfFormGUI extends \ilPropertyFormGUI {
 	 * @param xlvoConfGUI $parent_gui
 	 */
 	public function __construct(xlvoConfGUI $parent_gui) {
-		global $ilCtrl, $lng;
+		global $DIC;
 		$this->parent_gui = $parent_gui;
-		$this->ctrl = $ilCtrl;
+		$this->ctrl = $DIC->ctrl();
 		$this->pl = ilLiveVotingPlugin::getInstance();
-		$this->lng = $lng;
+		$this->lng = $DIC->language();
 		$this->initForm();
 	}
 

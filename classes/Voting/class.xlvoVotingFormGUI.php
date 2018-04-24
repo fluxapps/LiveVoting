@@ -53,13 +53,10 @@ class xlvoVotingFormGUI extends \ilPropertyFormGUI {
 	public function __construct(xlvoVotingGUI $parent_gui, xlvoVoting $xlvoVoting) {
 		parent::__construct();
 
-		global $ilCtrl;
-		/**
-		 * @var $ilCtrl \ilCtrl
-		 */
+		global $DIC;
 		$this->voting = $xlvoVoting;
 		$this->parent_gui = $parent_gui;
-		$this->ctrl = $ilCtrl;
+		$this->ctrl = $DIC->ctrl();
 		$this->pl = ilLiveVotingPlugin::getInstance();
 		$this->ctrl->saveParameter($parent_gui, xlvoVotingGUI::IDENTIFIER);
 		$this->is_new = ($this->voting->getId() == '');

@@ -22,6 +22,7 @@ class xlvoVote extends CachingActiveRecord {
 	const STAT_ACTIVE = 1;
 	const USER_ILIAS = 0;
 	const USER_ANONYMOUS = 1;
+	const TABLE_NAME = 'rep_robj_xlvo_vote_n';
 
 
 	/**
@@ -216,7 +217,7 @@ class xlvoVote extends CachingActiveRecord {
 	 * @return string
 	 */
 	public static function returnDbTableName() {
-		return 'rep_robj_xlvo_vote_n';
+		return self::TABLE_NAME;
 	}
 
 

@@ -13,6 +13,7 @@ require_once('./Services/AccessControl/classes/class.ilPermissionGUI.php');
 require_once('./Services/InfoScreen/classes/class.ilInfoScreenGUI.php');
 require_once('./Services/UIComponent/Button/classes/class.ilLinkButton.php');
 require_once('./Services/Form/classes/class.ilDateDurationInputGUI.php');
+require_once('./Services/PersonalDesktop/interfaces/interface.ilDesktopItemHandling.php');
 
 /**
  * Class ilObjLiveVotingGUI
@@ -29,7 +30,7 @@ require_once('./Services/Form/classes/class.ilDateDurationInputGUI.php');
  * @version           1.0.0
  *
  */
-class ilObjLiveVotingGUI extends \ilObjectPluginGUI {
+class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHandling {
 
 	const XLVO = 'xlvo';
 	const CMD_STANDARD = 'showContent';
@@ -42,6 +43,8 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI {
 	const SUBTAB_EDIT = 'subtab_edit';
 	const TAB_CONTENT = 'tab_content';
 	const TAB_RESULTS = 'tab_results';
+	const TAB_PERMISSIONS = 'perm_settings';
+	const TAB_LEARNING_PROGRESS = 'learning_progress';
 	const F_TITLE = 'title';
 	const F_DESCRIPTION = 'description';
 	/**
@@ -61,7 +64,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI {
 	 */
 	protected $toolbar;
 	/**
-	 * @var ilObjLiveVotingAccess
+	 * @var ilAccess
 	 */
 	protected $access;
 	/**
@@ -72,24 +75,32 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI {
 	 * @var \ilObjUser
 	 */
 	protected $usr;
+	/**
+	 * @var ilLanguage
+	 */
+	public $lng;
+	/**
+	 * @var ilNavigationHistory
+	 */
+	protected $history;
+	/**
+	 * @var ilPropertyFormGUI
+	 */
+	protected $form;
 
 
 	protected function afterConstructor() {
-		global $tpl, $ilCtrl, $ilTabs, $ilUser, $ilToolbar;
+		global $DIC;
 
-		/**
-		 * @var $tpl       \ilTemplate
-		 * @var $ilCtrl    \ilCtrl
-		 * @var $ilTabs    \ilTabsGUI
-		 * @var $ilUser    \ilObjUser
-		 * @var $ilToolbar \ilToolbarGUI
-		 */
-		$this->tpl = $tpl;
-		$this->ctrl = $ilCtrl;
-		$this->tabs = $ilTabs;
-		$this->usr = $ilUser;
-		$this->toolbar = $ilToolbar;
+		$this->tpl = $DIC->ui()->mainTemplate();
+		$this->ctrl = $DIC->ctrl();
+		$this->tabs = $DIC->tabs();
+		$this->usr = $DIC->user();
+		$this->toolbar = $DIC->toolbar();
+		$this->lng = $DIC->language();
 		$this->pl = ilLiveVotingPlugin::getInstance();
+		$this->history = $DIC["ilNavigationHistory"];
+		$this->access = $DIC->access();
 	}
 
 
@@ -102,8 +113,6 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI {
 
 
 	protected function initHeaderAndLocator() {
-		global $ilNavigationHistory;
-
 		// get standard template (includes main menu and general layout)
 		$this->tpl->getStandardTemplate();
 		$this->setTitleAndDescription();
@@ -111,10 +120,10 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI {
 		if (!$this->getCreationMode()) {
 			$this->tpl->setTitle($this->object->getTitle());
 			$this->tpl->setTitleIcon(\ilObject::_getIcon($this->object->getId()));
-			$this->ctrl->saveParameterByClass('xlvoresultsgui', 'round_id');
+			$this->ctrl->saveParameterByClass(xlvoResultsGUI::class, 'round_id');
 
 			// set tabs
-			if (strtolower($_GET['baseClass']) != 'iladministrationgui') {
+			if (strcasecmp($_GET['baseClass'], ilAdministrationGUI::class) != 0) {
 				$this->setTabs();
 				$this->setLocator();
 			} else {
@@ -123,16 +132,15 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI {
 				$this->setAdminTabs();
 			}
 
-			global $ilAccess;
 			// add entry to navigation history
-			if ($ilAccess->checkAccess('read', '', $_GET['ref_id'])) {
-				$ilNavigationHistory->addItem($_GET['ref_id'], $this->ctrl->getLinkTarget($this, $this->getStandardCmd()), $this->getType());
+			if ($this->access->checkAccess('read', '', $this->ref_id)) {
+				$this->history->addItem($this->ref_id, $this->ctrl->getLinkTarget($this, $this->getStandardCmd()), $this->getType());
 			}
 		} else {
 			// show info of parent
-			$this->tpl->setTitle(\ilObject::_lookupTitle(\ilObject::_lookupObjId($_GET['ref_id'])));
-			$this->tpl->setTitleIcon(\ilObject::_getIcon(\ilObject::_lookupObjId($_GET['ref_id']), 'big'), $this->pl->txt('obj_'
-			                                                                                                              . \ilObject::_lookupType($_GET['ref_id'], true)));
+			$this->tpl->setTitle(\ilObject::_lookupTitle(\ilObject::_lookupObjId($this->ref_id)));
+			$this->tpl->setTitleIcon(\ilObject::_getIcon(\ilObject::_lookupObjId($this->ref_id), 'big'), $this->pl->txt('obj_'
+			                                                                                                              . \ilObject::_lookupType($this->ref_id, true)));
 			$this->setLocator();
 		}
 	}
@@ -144,7 +152,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI {
 	public function executeCommand() {
 		$this->initHeaderAndLocator();
 
-		$this->tpl->setPermanentLink('xlvo', $_GET['ref_id']);
+		$this->tpl->setPermanentLink('xlvo', $this->ref_id);
 
 		$next_class = $this->ctrl->getNextClass($this);
 		$cmd = $this->ctrl->getCmd();
@@ -174,7 +182,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI {
 
 			case 'xlvoresultsgui':
 				$xlvoResultsGUI = new xlvoResultsGUI($this->obj_id);
-				$this->tabs->setTabActive(self::TAB_RESULTS);
+				$this->tabs->activateTab(self::TAB_RESULTS);
 				$this->ctrl->forwardCommand($xlvoResultsGUI);
 				break;
 
@@ -192,7 +200,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI {
 			case 'ilpermissiongui':
 				include_once("Services/AccessControl/classes/class.ilPermissionGUI.php");
 				$perm_gui = new \ilPermissionGUI($this);
-				$this->tabs->setTabActive("perm_settings");
+				$this->tabs->activateTab(self::TAB_PERMISSIONS);
 				$ret = $this->ctrl->forwardCommand($perm_gui);
 				break;
 
@@ -204,7 +212,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI {
 				break;
 
 			case 'illearningprogressgui':
-				$this->tabs->setTabActive("learning_progress");
+				$this->tabs->activateTab(self::TAB_PERMISSIONS);
 				include_once './Services/Tracking/classes/class.ilLearningProgressGUI.php';
 				$new_gui = new \ilLearningProgressGUI(\ilLearningProgressGUI::LP_CONTEXT_REPOSITORY, $this->object->getRefId(), $_GET['user_id'] ? $_GET['user_id'] : $GLOBALS['ilUser']->getId());
 				$this->ctrl->forwardCommand($new_gui);
@@ -216,7 +224,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI {
 				break;
 
 			default:
-				if (strtolower($_GET['baseClass']) == 'iladministrationgui') {
+				if (strcasecmp($_GET['baseClass'], ilAdministrationGUI::class) == 0) {
 					$this->viewObject();
 
 					return;
@@ -226,7 +234,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI {
 				}
 				if ($cmd == 'infoScreen') {
 					$this->ctrl->setCmd('showSummary');
-					$this->ctrl->setCmdClass('ilinfoscreengui');
+					$this->ctrl->setCmdClass(ilInfoScreenGUI::class);
 					$this->infoScreen();
 				} else {
 					if ($this->getCreationMode()) {
@@ -275,11 +283,11 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI {
 
 
 	protected function setTabs() {
-		$this->tabs->addTab(self::TAB_CONTENT, $this->pl->txt(self::TAB_CONTENT), $this->ctrl->getLinkTargetByClass('xlvoplayergui', xlvoPlayerGUI::CMD_STANDARD));
+		$this->tabs->addTab(self::TAB_CONTENT, $this->pl->txt(self::TAB_CONTENT), $this->ctrl->getLinkTargetByClass(xlvoPlayerGUI::class, xlvoPlayerGUI::CMD_STANDARD));
 		$this->addInfoTab();
 		if (ilObjLiveVotingAccess::hasWriteAccess()) {
-			$this->tabs->addTab(self::TAB_EDIT, $this->pl->txt(self::TAB_EDIT), $this->ctrl->getLinkTargetByClass('ilobjlivevotinggui', self::CMD_EDIT));
-			$this->tabs->addTab(self::TAB_RESULTS, $this->pl->txt(self::TAB_RESULTS), $this->ctrl->getLinkTargetByClass('xlvoResultsGUI', xlvoResultsGUI::CMD_SHOW));
+			$this->tabs->addTab(self::TAB_EDIT, $this->pl->txt(self::TAB_EDIT), $this->ctrl->getLinkTargetByClass(ilObjLiveVotingGUI::class, self::CMD_EDIT));
+			$this->tabs->addTab(self::TAB_RESULTS, $this->pl->txt(self::TAB_RESULTS), $this->ctrl->getLinkTargetByClass(xlvoResultsGUI::class, xlvoResultsGUI::CMD_SHOW));
 		}
 		parent::setTabs();
 
@@ -291,12 +299,12 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI {
 	 * @param $tab
 	 */
 	protected function setSubTabs($tab, $active_subtab = null) {
-		$this->tabs->setTabActive($tab);
+		$this->tabs->activateTab($tab);
 		switch ($tab) {
 			case self::TAB_CONTENT:
-				$this->tabs->addSubTab(self::SUBTAB_SHOW, $this->pl->txt(self::SUBTAB_SHOW), $this->ctrl->getLinkTargetByClass('xlvoplayergui', xlvoPlayerGUI::CMD_STANDARD));
+				$this->tabs->addSubTab(self::SUBTAB_SHOW, $this->pl->txt(self::SUBTAB_SHOW), $this->ctrl->getLinkTargetByClass(xlvoPlayerGUI::class, xlvoPlayerGUI::CMD_STANDARD));
 				if (ilObjLiveVotingAccess::hasWriteAccess()) {
-					$this->tabs->addSubTab(self::SUBTAB_EDIT, $this->pl->txt(self::SUBTAB_EDIT), $this->ctrl->getLinkTargetByClass('xlvovotinggui', xlvoVotingGUI::CMD_STANDARD));
+					$this->tabs->addSubTab(self::SUBTAB_EDIT, $this->pl->txt(self::SUBTAB_EDIT), $this->ctrl->getLinkTargetByClass(xlvoVotingGUI::class, xlvoVotingGUI::CMD_STANDARD));
 				}
 				break;
 		}
@@ -307,12 +315,12 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI {
 
 
 	public function showContent() {
-		$this->ctrl->redirectByClass('xlvoplayergui', xlvoPlayerGUI::CMD_STANDARD);
+		$this->ctrl->redirectByClass(xlvoPlayerGUI::class, xlvoPlayerGUI::CMD_STANDARD);
 	}
 
 
 	public function showContentAfterCreation() {
-		$this->ctrl->redirectByClass('xlvovotinggui', xlvoVotingGUI::CMD_STANDARD);
+		$this->ctrl->redirectByClass(xlvoVotingGUI::class, xlvoVotingGUI::CMD_STANDARD);
 	}
 
 
@@ -321,7 +329,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI {
 			\ilUtil::sendFailure($this->pl->txt('obj_permission_denied'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
-			$this->tabs->setTabActive(self::TAB_EDIT);
+			$this->tabs->activateTab(self::TAB_EDIT);
 			$this->initPropertiesForm();
 			$this->fillPropertiesForm();
 			$this->tpl->setContent($this->form->getHTML());
@@ -451,7 +459,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI {
 		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
 			\ilUtil::sendFailure(ilLiveVotingPlugin::getInstance()->txt('obj_permission_denied_write'), true);
 		} else {
-			$this->tabs->setTabActive(self::TAB_EDIT);
+			$this->tabs->activateTab(self::TAB_EDIT);
 			$this->initPropertiesForm();
 
 			if ($this->form->checkInput()) {
@@ -521,19 +529,17 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI {
 	 * Goto redirection
 	 */
 	public static function _goto($a_target) {
+		global $DIC;
+		$ilCtrl = $DIC->ctrl();
 		if (preg_match("/[\\d]*_pin_([\\w]*)/", $a_target[0], $matches)) {
 			xlvoInitialisation::saveContext(xlvoInitialisation::CONTEXT_ILIAS);
 			xlvoInitialisation::setCookiePIN($matches[1], true);
 
-			global $ilCtrl;
-			/**
-			 * @var \ilCtrl $ilCtrl
-			 */
-			$ilCtrl->initBaseClass('ilUIPluginRouterGUI');
+			$ilCtrl->initBaseClass(ilUIPluginRouterGUI::class);
 			$ilCtrl->setTargetScript(ltrim(xlvoConf::getFullApiURL(), './'));
 			$ilCtrl->redirectByClass(array(
-				'ilUIPluginRouterGUI',
-				'xlvoVoter2GUI',
+				ilUIPluginRouterGUI::class,
+				xlvoVoter2GUI::class,
 			), xlvoVoter2GUI::CMD_START_VOTER_PLAYER);
 		}
 
@@ -552,5 +558,19 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI {
 			ilUIPluginRouterGUI::class,
 			xlvoVoter2GUI::class,
 		));
+	}
+
+
+	public function addToDeskObject() {
+		include_once './Services/PersonalDesktop/classes/class.ilDesktopItemGUI.php';
+		ilDesktopItemGUI::addToDesktop();
+		ilUtil::sendSuccess($this->lng->txt("added_to_desktop"));
+	}
+
+
+	public function removeFromDeskObject() {
+		include_once './Services/PersonalDesktop/classes/class.ilDesktopItemGUI.php';
+		ilDesktopItemGUI::removeFromDesktop();
+		ilUtil::sendSuccess($this->lng->txt("removed_from_desktop"));
 	}
 }

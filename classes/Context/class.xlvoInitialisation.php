@@ -24,6 +24,10 @@ class xlvoInitialisation extends \ilInitialisation {
 	const PIN_COOKIE = 'xlvo_pin';
 	const PIN_COOKIE_FORCE = 'xlvo_force';
 	/**
+	 * @var \ilTree
+	 */
+	protected static $tree;
+	/**
 	 * @var int
 	 */
 	protected static $context = self::CONTEXT_PIN;
@@ -53,7 +57,7 @@ class xlvoInitialisation extends \ilInitialisation {
 				//				self::initILIAS();
 				break;
 			case self::CONTEXT_PIN:
-				xlvoContext::init('xlvoContextLiveVoting');
+				xlvoContext::init(xlvoContextLiveVoting::class);
 				self::initILIAS2();
 				break;
 		}
@@ -105,25 +109,23 @@ class xlvoInitialisation extends \ilInitialisation {
 
 
 	public static function initILIAS2() {
-		global $tree;
+		global $DIC;
 		require_once("./include/inc.ilias_version.php");
-		if (version_compare(ILIAS_VERSION_NUMERIC, '5.2.00', '>=')) {
-			self::initDependencyInjection();
-		}
+		self::initDependencyInjection();
 		self::initCore();
 		self::initClient();
 		self::initUser();
 		self::initLanguage();
-		$tree->initLangCode();
+		self::$tree->initLangCode();
 		self::initHTML2();
-		global $objDefinition;
-		$objDefinition = new xlvoObjectDefinition();
+		$GLOBALS["objDefinition"] = $DIC["objDefinition"] = new xlvoObjectDefinition();
 	}
 
 
 	public static function initDependencyInjection() {
-		$GLOBALS["DIC"] = new \ILIAS\DI\Container();
-		$GLOBALS["DIC"]["ilLoggerFactory"] = function ($c) {
+		global $DIC;
+		$DIC = new \ILIAS\DI\Container();
+		$DIC["ilLoggerFactory"] = function ($c) {
 			return ilLoggerFactory::getInstance();
 		};
 	}
@@ -136,9 +138,13 @@ class xlvoInitialisation extends \ilInitialisation {
 			$tpl->addCss('./templates/default/delos.css');
 			$tpl->addBlockFile("CONTENT", "content", "tpl.main_voter.html", 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting');
 
+			global $DIC;
+			if ($DIC->offsetExists('tpl')) {
+				$DIC->offsetUnset('tpl');
+			}
+
 			self::initGlobal("tpl", $tpl);
 		}
-		global $tpl;
 		if (!self::USE_OWN_GLOBAL_TPL) {
 			$tpl->getStandardTemplate();
 		}
@@ -154,8 +160,6 @@ class xlvoInitialisation extends \ilInitialisation {
 
 
 	protected static function initClient() {
-		global $https;
-
 		self::determineClient();
 		self::initClientIniFile();
 		self::initDatabase();
@@ -174,9 +178,9 @@ class xlvoInitialisation extends \ilInitialisation {
 
 		self::initGlobal("ilObjDataCache", "ilObjectDataCache", "./Services/Object/classes/class.ilObjectDataCache.php");
 		require_once "./Services/Tree/classes/class.ilTree.php";
-		$tree = new \ilTree(ROOT_FOLDER_ID);
-		self::initGlobal("tree", $tree);
-		unset($tree);
+		self::$tree = new \ilTree(ROOT_FOLDER_ID);
+		self::initGlobal("tree", self::$tree);
+		//unset(self::$tree);
 		self::initGlobal("ilCtrl", "ilCtrl", "./Services/UICore/classes/class.ilCtrl.php");
 		$GLOBALS['COOKIE_PATH'] = '/';
 		self::setCookieParams();

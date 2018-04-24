@@ -57,12 +57,12 @@ class ilObjLiveVoting extends \ilObjectPlugin {
 			$this->id = $a_ref_id;
 			$this->doRead();
 		}
-		global $ilDB;
+		global $DIC;
 		/**
 		 * @var $ilDB   \ilDB
 		 * @var $by_oid int
 		 */
-		$this->db = $ilDB;
+		$this->db = $DIC->database();
 	}
 
 

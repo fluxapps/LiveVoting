@@ -20,22 +20,45 @@ class xlvoGUI {
 	const CMD_DELETE = 'delete';
 	const CMD_CANCEL = 'cancel';
 	const CMD_VIEW = 'view';
+	/**
+	 * @var ilTemplate $tpl
+	 */
+	protected $tpl;
+	/**
+	 * @var ilTabsGUI $tabs
+	 */
+	protected $tabs;
+	/**
+	 * @var ilCtrl $ctrl
+	 */
+	protected $ctrl;
+	/**
+	 * @var ilToolbarGUI $toolbar
+	 */
+	protected $toolbar;
+	/**
+	 * @var ilLiveVotingPlugin $pl
+	 */
+	protected $pl;
+	/**
+	 * @var bool $is_api_call
+	 */
+	protected $is_api_call;
+	/**
+	 * @var ilObjUser
+	 */
+	protected $usr;
 
 
 	public function __construct() {
-		global $tpl, $ilCtrl, $ilTabs, $ilToolbar;
-		/**
-		 * @var $ilCtrl    \ilCtrl
-		 * @var $ilTabs    \ilTabsGUI
-		 * @var $tpl       |ilTemplate
-		 * @var $ilToolbar |ilToolbarGUI
-		 */
-		$this->tpl = $tpl;
-		$this->tabs = $ilTabs;
-		$this->ctrl = $ilCtrl;
-		$this->toolbar = $ilToolbar;
+		global $DIC;
+		$this->tpl = $DIC->ui()->mainTemplate();
+		$this->tabs = $DIC->tabs();
+		$this->ctrl = $DIC->ctrl();
+		$this->toolbar = $DIC->toolbar();
 		$this->pl = ilLiveVotingPlugin::getInstance();
 		$this->is_api_call = ($this->ctrl->getTargetScript() == xlvoConf::getFullApiURL());
+		$this->usr = $DIC->user();
 	}
 
 

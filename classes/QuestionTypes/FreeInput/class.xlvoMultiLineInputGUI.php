@@ -70,6 +70,14 @@ class xlvoMultiLineInputGUI extends \ilFormPropertyGUI {
 	 * @var bool
 	 */
 	protected $show_info = false;
+	/**
+	 * @var ilLanguage
+	 */
+	protected $lng;
+	/**
+	 * @var ilTemplate
+	 */
+	protected $tpl;
 
 
 	/**
@@ -80,6 +88,9 @@ class xlvoMultiLineInputGUI extends \ilFormPropertyGUI {
 	 */
 	public function __construct($a_title = "", $a_postvar = "") {
 		parent::__construct($a_title, $a_postvar);
+		global $DIC;
+		$this->lng = $DIC->language();
+		$this->tpl = $DIC->ui()->mainTemplate();
 		$this->setType("line_select");
 		$this->setMulti(true);
 		$this->initCSSandJS();
@@ -236,7 +247,6 @@ class xlvoMultiLineInputGUI extends \ilFormPropertyGUI {
 	 * @return    boolean        Input ok, true/false
 	 */
 	public function checkInput() {
-		global $lng;
 		$valid = true;
 		// escape data
 		$out_array = array();
@@ -258,7 +268,7 @@ class xlvoMultiLineInputGUI extends \ilFormPropertyGUI {
 			}
 		}
 		if (!$valid) {
-			$this->setAlert($lng->txt("msg_input_is_required"));
+			$this->setAlert($this->lng->txt("msg_input_is_required"));
 
 			return false;
 		}
@@ -430,9 +440,8 @@ class xlvoMultiLineInputGUI extends \ilFormPropertyGUI {
 
 
 	public function initCSSandJS() {
-		global $tpl;
-		$tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/multi_line_input.css');
-		$tpl->addJavascript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/js/libs/multi_line_input.min.js');
+		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/multi_line_input.css');
+		$this->tpl->addJavascript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/js/libs/multi_line_input.min.js');
 	}
 
 

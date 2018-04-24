@@ -43,13 +43,24 @@ class xlvoJs {
 	 * @var xlvoJsSettings
 	 */
 	protected $settings;
+	/**
+	 * @var \ilCtrl
+	 */
+	protected $ctrl;
+	/**
+	 * @var \ilTemplate
+	 */
+	protected $tpl;
 
 
 	/**
 	 * xlvoJs constructor.
 	 */
 	protected function __construct() {
+		global $DIC;
 		$this->settings = new xlvoJsSettings();
+		$this->ctrl = $DIC->ctrl();
+		$this->tpl = $DIC->ui()->mainTemplate();
 	}
 
 
@@ -91,17 +102,12 @@ class xlvoJs {
 	 * @return $this
 	 */
 	public function api(xlvoGUI $xlvoGUI, array $additional_classes = array(), $cmd = '') {
-
-		global $ilCtrl;
-		/**
-		 * @var \ilCtrl $ilCtrl
-		 */
-		$ilCtrl2 = clone($ilCtrl);
-		$ilCtrl->initBaseClass('ilUIPluginRouterGUI');
+		$ilCtrl2 = clone($this->ctrl);
+		$this->ctrl->initBaseClass(\ilUIPluginRouterGUI::class);
 		$ilCtrl2->setTargetScript(self::API_URL);
 		$additional_classes[] = get_class($xlvoGUI);
 
-		$this->settings->addSetting(self::BASE_URL_SETTING, $ilCtrl->getLinkTargetByClass($additional_classes, $cmd, null, true));
+		$this->settings->addSetting(self::BASE_URL_SETTING, $this->ctrl->getLinkTargetByClass($additional_classes, $cmd, null, true));
 
 		return $this;
 	}
@@ -135,11 +141,7 @@ class xlvoJs {
 	 * @return $this
 	 */
 	public function ilias($xlvoGUI, $cmd = '') {
-		global $ilCtrl;
-		/**
-		 * @var $ilCtrl \ilCtrl
-		 */
-		$this->settings->addSetting(self::BASE_URL_SETTING, $ilCtrl->getLinkTarget($xlvoGUI, $cmd, '', true));
+		$this->settings->addSetting(self::BASE_URL_SETTING, $this->ctrl->getLinkTarget($xlvoGUI, $cmd, '', true));
 
 		return $this;
 	}
@@ -188,8 +190,7 @@ class xlvoJs {
 	 * @return $this
 	 */
 	public function addOnLoadCode($code) {
-		global $tpl;
-		$tpl->addOnLoadCode($code);
+		$this->tpl->addOnLoadCode($code);
 
 		return $this;
 	}
@@ -204,8 +205,7 @@ class xlvoJs {
 		if (!$this->init) {
 			return $this;
 		}
-		global $tpl;
-		$tpl->addOnLoadCode($this->getCallCode($method, $params));
+		$this->tpl->addOnLoadCode($this->getCallCode($method, $params));
 
 		return $this;
 	}
@@ -235,11 +235,10 @@ class xlvoJs {
 	 * @return $this
 	 */
 	public function addLibToHeader($name_of_lib, $external = true) {
-		global $tpl;
 		if ($external) {
-			$tpl->addJavaScript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/js/libs/' . $name_of_lib);
+			$this->tpl->addJavaScript('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/js/libs/' . $name_of_lib);
 		} else {
-			$tpl->addJavaScript($name_of_lib);
+			$this->tpl->addJavaScript($name_of_lib);
 		}
 
 		return $this;

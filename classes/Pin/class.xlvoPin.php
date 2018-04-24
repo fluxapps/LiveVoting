@@ -74,7 +74,7 @@ class xlvoPin {
 	private static function checkPinWithCache($pin, $safe_mode = true)
     {
         //use cache to speed up pin fetch operation
-        $key = xlvoVotingConfig::returnDbTableName() . '_pin_' . $pin;
+        $key = xlvoVotingConfig::TABLE_NAME . '_pin_' . $pin;
         $cache = xlvoCacheFactory::getInstance();
 
         $config = $cache->get($key);
@@ -105,18 +105,18 @@ class xlvoPin {
         if ($xlvoVotingConfig instanceof xlvoVotingConfig) {
             if (!$xlvoVotingConfig->isObjOnline()) {
                 if ($safe_mode) {
-                    throw new xlvoVoterException('', xlvoVoterException::VOTING_OFFLINE);
+                    throw new xlvoVoterException('The voting is currently offline.', xlvoVoterException::VOTING_OFFLINE);
                 }
             }
             if (!$xlvoVotingConfig->isAnonymous() && xlvoUser::getInstance()->isPINUser()) {
                 if ($safe_mode) {
-                    throw new xlvoVoterException('', xlvoVoterException::VOTING_NOT_ANONYMOUS);
+                    throw new xlvoVoterException('The voting is not available for anonymous users.', xlvoVoterException::VOTING_NOT_ANONYMOUS);
                 }
             }
 
             if (!$xlvoVotingConfig->isAvailableForUser() && xlvoUser::getInstance()->isPINUser()) {
                 if ($safe_mode) {
-                    throw new xlvoVoterException('', xlvoVoterException::VOTING_UNAVAILABLE);
+                    throw new xlvoVoterException('The voting is currently unavailable.', xlvoVoterException::VOTING_UNAVAILABLE);
                 }
             }
 
@@ -224,7 +224,7 @@ class xlvoPin {
 
 	private function getLastAccessWithCache()
     {
-        $key = xlvoVotingConfig::returnDbTableName() . '_pin_' . $this->getPin();
+        $key = xlvoVotingConfig::TABLE_NAME . '_pin_' . $this->getPin();
         /**
          * @var $xlvoVotingConfig \stdClass
          */

@@ -66,7 +66,7 @@ class ilObjLiveVotingListGUI extends \ilObjectPluginListGUI {
 		$this->delete_enabled = true;
 		$this->cut_enabled = true;
 		$this->copy_enabled = true;
-		$this->subscribe_enabled = false;
+		$this->subscribe_enabled = true;
 		$this->link_enabled = true;
 		$this->payment_enabled = false;
 		$this->info_screen_enabled = true;
@@ -117,17 +117,11 @@ class ilObjLiveVotingListGUI extends \ilObjectPluginListGUI {
 	public function getProperties() {
 		$props = array();
 
-		//		$props[] = array(
-		//			"alert"    => false,
-		//			"property" => 'Online',
-		//			"value"    => xlvoVoter::count(xlvoPlayer::getInstanceForObjId($this->obj_id)),
-		//		);
-		//
-		//		$props[] = array(
-		//			"alert"    => false,
-		//			"property" => 'PIN',
-		//			"value"    => xlvoPin::lookupPin($this->obj_id),
-		//		);
+		$props[] = array(
+			"alert" => false,
+			"property" => 'PIN',
+			"value" => LiveVoting\Pin\xlvoPin::lookupPin($this->obj_id),
+		);
 
 		require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilObjLiveVotingAccess.php');
 		if (!ilObjLiveVotingAccess::checkOnline($this->obj_id)) {

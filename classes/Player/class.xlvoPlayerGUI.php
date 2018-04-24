@@ -242,34 +242,28 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 * Set Toolbar Content and Buttons for the Player.
 	 */
 	protected function initToolbarDuringVoting() {
-		$ilias_51 = version_compare(ILIAS_VERSION_NUMERIC, '5.1.00', '>');
-		if ($ilias_51) {
-			require_once('./Services/UIComponent/SplitButton/classes/class.ilButtonToSplitButtonMenuItemAdapter.php');
-			require_once('./Services/UIComponent/SplitButton/classes/class.ilSplitButtonGUI.php');
-		}
+		require_once('./Services/UIComponent/SplitButton/classes/class.ilButtonToSplitButtonMenuItemAdapter.php');
+		require_once('./Services/UIComponent/SplitButton/classes/class.ilSplitButtonGUI.php');
 
 		// Freeze
-		$b = xlvoLinkButton::getInstance();
-		$b->clearClasses();
-		$b->addCSSClass('btn-warning');
-		$b->setCaption(xlvoGlyphGUI::get('pause') . $this->txt('freeze'), false);
-		$b->setUrl('#');
-		$b->setId('btn-freeze');
-		if (method_exists($this->toolbar, 'addStickyItem')) { // Only ILIAS 5.1
-			$this->toolbar->addStickyItem($b);
-		} else {
-			$this->toolbar->addButtonInstance($b);
-		}
+		$suspendButton = xlvoLinkButton::getInstance();
+		$suspendButton->clearClasses();
+		$suspendButton->addCSSClass('btn-warning');
+		$suspendButton->setCaption(xlvoGlyphGUI::get('pause') . $this->txt('freeze'), false);
+		$suspendButton->setUrl('#');
+		$suspendButton->setId('btn-freeze');
+		$this->addStickyButtonToToolbar($suspendButton);
 
 		// Unfreeze
-		$unfreeze = ilLinkButton::getInstance();
-		$unfreeze->setPrimary(true);
-		$unfreeze->setCaption(xlvoGlyphGUI::get('play') . $this->txt('unfreeze'), false);
-		$unfreeze->setUrl('#');
-		$unfreeze->setId('btn-unfreeze');
-		if ($ilias_51) {
+		$playButton = xlvoLinkButton::getInstance();
+		$playButton->clearClasses();
+		$playButton->setPrimary(true);
+		$playButton->setCaption(xlvoGlyphGUI::get('play') . $this->txt('unfreeze'), false);
+		$playButton->setUrl('#');
+		$playButton->setId('btn-unfreeze');
+
 			$split = ilSplitButtonGUI::getInstance();
-			$split->setDefaultButton($unfreeze);
+			$split->setDefaultButton($playButton);
 			foreach (array( 10, 30, 90, 120, 180, 240, 300 ) as $seconds) {
 				$cd = ilLinkButton::getInstance();
 				$cd->setUrl('#');
@@ -278,43 +272,29 @@ class xlvoPlayerGUI extends xlvoGUI {
 				$ilSplitButtonMenuItem = new ilButtonToSplitButtonMenuItemAdapter($cd);
 				$split->addMenuItem($ilSplitButtonMenuItem);
 			}
-			$this->toolbar->addButtonInstance($split);
-		} else {
-			$current_selection_list = new ilAdvancedSelectionListGUI();
-			$current_selection_list->setListTitle($this->txt('player_countdown'));
-			$current_selection_list->setId('xlvo_cd');
-			$current_selection_list->setTriggerEvent('player_countdown');
-			$current_selection_list->setUseImages(false);
-			/**
-			 * @var xlvoVoting[] $votings
-			 */
-			foreach (array( 10, 30, 90, 120, 180, 240, 300 ) as $seconds) {
-				$str = $seconds . ' ' . $this->pl->txt('player_seconds');
-				$current_selection_list->addItem($str, $seconds, '#', '', '', '', '', false, 'xlvoPlayer.countdown(' . $seconds . ')');
-			}
-			$this->toolbar->addButtonInstance($unfreeze);
-			$this->toolbar->addText($current_selection_list->getHTML());
-		}
+
+			$this->addStickyButtonToToolbar($split);
+
 		// Hide
-		$b = ilLinkButton::getInstance();
-		$b->setCaption($this->txt('hide_results'), false);
-		$b->setUrl('#');
-		$b->setId('btn-hide-results');
-		$this->toolbar->addButtonInstance($b);
+		$suspendButton = ilLinkButton::getInstance();
+		$suspendButton->setCaption($this->txt('hide_results'), false);
+		$suspendButton->setUrl('#');
+		$suspendButton->setId('btn-hide-results');
+		$this->toolbar->addButtonInstance($suspendButton);
 
 		// Show
-		$b = ilLinkButton::getInstance();
-		$b->setCaption($this->txt('show_results'), false);
-		$b->setUrl('#');
-		$b->setId('btn-show-results');
-		$this->toolbar->addButtonInstance($b);
+		$suspendButton = ilLinkButton::getInstance();
+		$suspendButton->setCaption($this->txt('show_results'), false);
+		$suspendButton->setUrl('#');
+		$suspendButton->setId('btn-show-results');
+		$this->toolbar->addButtonInstance($suspendButton);
 
 		// Reset
-		$b = ilLinkButton::getInstance();
-		$b->setCaption(xlvoGlyphGUI::get('remove') . $this->txt('reset'), false);
-		$b->setUrl('#');
-		$b->setId('btn-reset');
-		$this->toolbar->addButtonInstance($b);
+		$suspendButton = ilLinkButton::getInstance();
+		$suspendButton->setCaption(xlvoGlyphGUI::get('remove') . $this->txt('reset'), false);
+		$suspendButton->setUrl('#');
+		$suspendButton->setId('btn-reset');
+		$this->toolbar->addButtonInstance($suspendButton);
 
 		//
 		//
@@ -323,20 +303,20 @@ class xlvoPlayerGUI extends xlvoGUI {
 		//
 
 		// PREV
-		$b = ilLinkButton::getInstance();
-		$b->setDisabled(true);
-		$b->setUrl($this->ctrl->getLinkTarget($this, self::CMD_PREVIOUS));
-		$b->setCaption(xlvoGlyphGUI::get(xlvoGlyphGUI::PREVIOUS), false);
-		$b->setId('btn-previous');
-		$this->toolbar->addButtonInstance($b);
+		$suspendButton = ilLinkButton::getInstance();
+		$suspendButton->setDisabled(true);
+		$suspendButton->setUrl($this->ctrl->getLinkTarget($this, self::CMD_PREVIOUS));
+		$suspendButton->setCaption(xlvoGlyphGUI::get(xlvoGlyphGUI::PREVIOUS), false);
+		$suspendButton->setId('btn-previous');
+		$this->toolbar->addButtonInstance($suspendButton);
 
 		// NEXT
-		$b = ilLinkButton::getInstance();
-		$b->setDisabled(true);
-		$b->setCaption(xlvoGlyphGUI::get(xlvoGlyphGUI::NEXT), false);
-		$b->setUrl($this->ctrl->getLinkTarget($this, self::CMD_NEXT));
-		$b->setId('btn-next');
-		$this->toolbar->addButtonInstance($b);
+		$suspendButton = ilLinkButton::getInstance();
+		$suspendButton->setDisabled(true);
+		$suspendButton->setCaption(xlvoGlyphGUI::get(xlvoGlyphGUI::NEXT), false);
+		$suspendButton->setUrl($this->ctrl->getLinkTarget($this, self::CMD_NEXT));
+		$suspendButton->setId('btn-next');
+		$this->toolbar->addButtonInstance($suspendButton);
 
 		// Votings
 		$current_selection_list = $this->getVotingSelectionList();
@@ -350,34 +330,55 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 		// Fullscreen
 		if ($this->manager->getVotingConfig()->isFullScreen()) {
-			$b = ilLinkButton::getInstance();
-			$b->setCaption(xlvoGlyphGUI::get('fullscreen'), false);
-			$b->setUrl('#');
-			$b->setId('btn-start-fullscreen');
-			$this->toolbar->addButtonInstance($b);
+			$suspendButton = ilLinkButton::getInstance();
+			$suspendButton->setCaption(xlvoGlyphGUI::get('fullscreen'), false);
+			$suspendButton->setUrl('#');
+			$suspendButton->setId('btn-start-fullscreen');
+			$this->toolbar->addButtonInstance($suspendButton);
 
-			$b = ilLinkButton::getInstance();
-			$b->setCaption(xlvoGlyphGUI::get('resize-small'), false);
-			$b->setUrl('#');
-			$b->setId('btn-close-fullscreen');
-			$this->toolbar->addButtonInstance($b);
+			$suspendButton = ilLinkButton::getInstance();
+			$suspendButton->setCaption(xlvoGlyphGUI::get('resize-small'), false);
+			$suspendButton->setUrl('#');
+			$suspendButton->setId('btn-close-fullscreen');
+			$this->toolbar->addButtonInstance($suspendButton);
 		}
 
 		// END
-		$b = ilLinkButton::getInstance();
-		$b->setCaption(xlvoGlyphGUI::get('stop') . $this->txt('terminate'), false);
-		$b->setUrl($this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_TERMINATE));
-		$b->setId('btn-terminate');
-		$this->toolbar->addButtonInstance($b);
+		$suspendButton = ilLinkButton::getInstance();
+		$suspendButton->setCaption(xlvoGlyphGUI::get('stop') . $this->txt('terminate'), false);
+		$suspendButton->setUrl($this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_TERMINATE));
+		$suspendButton->setId('btn-terminate');
+		$this->toolbar->addButtonInstance($suspendButton);
 		if (self::DEBUG) {
 
 			// PAUSE PULL
-			$b = ilLinkButton::getInstance();
-			$b->setCaption('Toogle Pulling', false);
-			$b->setUrl('#');
-			$b->setId('btn-toggle-pull');
-			$this->toolbar->addButtonInstance($b);
+			$suspendButton = ilLinkButton::getInstance();
+			$suspendButton->setCaption('Toogle Pulling', false);
+			$suspendButton->setUrl('#');
+			$suspendButton->setId('btn-toggle-pull');
+			$this->toolbar->addButtonInstance($suspendButton);
 		}
+	}
+
+
+	/**
+	 * Adds a button to the toolbar and make it stick to it,
+	 * which means that the button is also visible if the mobile size of the website is used.
+	 *
+	 * @param ilButtonBase $button Button which should be added sticky to the toolbar.
+	 *
+	 * @return void
+	 */
+	private function addStickyButtonToToolbar(ilButtonBase $button) {
+
+		//check if the new methods are usable
+		if (method_exists($this->toolbar, 'addStickyItem')) {
+			$this->toolbar->addStickyItem($button);
+		} else {
+			// ILIAS 5.1 fallback
+			$this->toolbar->addButtonInstance($button);
+		}
+		
 	}
 
 
@@ -415,11 +416,8 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$subversion = (int)explode('.', ILIAS_VERSION_NUMERIC)[1];
 
 		switch ($subversion) {
-			case \LiveVoting\Context\ILIASVersionEnum::ILIAS_VERSION_5_1:
-				$util = new ilUtil();
-				$util->includeMathjax();
-				break;
 			case \LiveVoting\Context\ILIASVersionEnum::ILIAS_VERSION_5_2:
+			case \LiveVoting\Context\ILIASVersionEnum::ILIAS_VERSION_5_3:
 				include_once './Services/MathJax/classes/class.ilMathJax.php';
 				ilMathJax::getInstance()->includeMathJax();
 				break;
@@ -433,8 +431,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 			'status_running' => xlvoPlayer::STAT_RUNNING,
 			'identifier'     => self::IDENTIFIER,
 			'use_mathjax'    => (bool)$mathJaxSetting->get("enable"),
-			'debug'          => self::DEBUG,
-			'ilias_51'       => version_compare(ILIAS_VERSION_NUMERIC, '5.1.00', '>'),
+			'debug'          => self::DEBUG
 		);
 		$keyboard = new stdClass();
 		$keyboard->active = $this->manager->getVotingConfig()->isKeyboardActive();
@@ -452,9 +449,8 @@ class xlvoPlayerGUI extends xlvoGUI {
 			'player_voters_online',
 			'voting_confirm_reset',
 		))->init()->call('run');
-		global $tpl;
-		$tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Player/player.css');
-		$tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Display/Bar/bar.css');
+		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Player/player.css');
+		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Display/Bar/bar.css');
 	}
 
 

@@ -11,6 +11,7 @@ use LiveVoting\Context\xlvoDummyUser;
 use LiveVoting\Context\xlvoILIAS;
 use LiveVoting\Context\xlvoObjectDefinition;
 use LiveVoting\Context\xlvoRbacReview;
+use LiveVoting\Context\xlvoRbacSystem;
 use LiveVoting\xlvoSessionHandler;
 
 /**
@@ -23,11 +24,21 @@ use LiveVoting\xlvoSessionHandler;
 class xlvoBasicInitialisation {
 
 	/**
+	 * @var \ilIniFile
+	 */
+	protected $iliasIniFile;
+	/**
+	 * @var \ilSetting
+	 */
+	protected $settings;
+
+
+	/**
 	 * xlvoInitialisation constructor.
 	 *
 	 * @param int $context
 	 */
-	protected function __construct($context = null) {
+	protected function __construct($context = NULL) {
 		if ($context) {
 			CookieManager::setContext($context);
 		}
@@ -41,7 +52,7 @@ class xlvoBasicInitialisation {
 	 *
 	 * @return xlvoBasicInitialisation
 	 */
-	public static function init($context = null) {
+	public static function init($context = NULL) {
 		return new self($context);
 	}
 
@@ -71,7 +82,15 @@ class xlvoBasicInitialisation {
 		$this->initControllFlow();
 		$this->initUser();
 		$this->initPluginAdmin();
+		$this->initAccess();
+		$this->initTree();
 		$this->initTemplate();
+		$this->initHTTPServices();
+		$this->initTabs();
+		$this->initNavigationHistory();
+		$this->initHelp();
+		$this->initMainMenu();
+		$this->initAppEventHandler();
 		//$this->setCookieParams();
 	}
 
@@ -106,7 +125,7 @@ class xlvoBasicInitialisation {
 
 
 	private function initTemplate() {
-		$styleDefinition = new xlvoStyleDefinition();
+		$styleDefinition = new \LiveVoting\Context\Initialisation\Version\v52\xlvoStyleDefinition();
 		$this->makeGlobal('styleDefinition', $styleDefinition);
 
 		$ilias = new xlvoILIAS();
@@ -151,52 +170,52 @@ class xlvoBasicInitialisation {
 	 */
 	private function loadIniFile() {
 		require_once("./Services/Init/classes/class.ilIniFile.php");
-		$ilIliasIniFile = new \ilIniFile("./ilias.ini.php");
-		$ilIliasIniFile->read();
-		$this->makeGlobal('ilIliasIniFile', $ilIliasIniFile);
+		$this->iliasIniFile = new \ilIniFile("./ilias.ini.php");
+		$this->iliasIniFile->read();
+		$this->makeGlobal('ilIliasIniFile', $this->iliasIniFile);
 
 		// initialize constants
-		define("ILIAS_DATA_DIR", $ilIliasIniFile->readVariable("clients", "datadir"));
-		define("ILIAS_WEB_DIR", $ilIliasIniFile->readVariable("clients", "path"));
-		define("ILIAS_ABSOLUTE_PATH", $ilIliasIniFile->readVariable('server', 'absolute_path'));
+		define("ILIAS_DATA_DIR", $this->iliasIniFile->readVariable("clients", "datadir"));
+		define("ILIAS_WEB_DIR", $this->iliasIniFile->readVariable("clients", "path"));
+		define("ILIAS_ABSOLUTE_PATH", $this->iliasIniFile->readVariable('server', 'absolute_path'));
 
 		// logging
-		define("ILIAS_LOG_DIR", $ilIliasIniFile->readVariable("log", "path"));
-		define("ILIAS_LOG_FILE", $ilIliasIniFile->readVariable("log", "file"));
-		define("ILIAS_LOG_ENABLED", $ilIliasIniFile->readVariable("log", "enabled"));
-		define("ILIAS_LOG_LEVEL", $ilIliasIniFile->readVariable("log", "level"));
-		define("SLOW_REQUEST_TIME", $ilIliasIniFile->readVariable("log", "slow_request_time"));
+		define("ILIAS_LOG_DIR", $this->iliasIniFile->readVariable("log", "path"));
+		define("ILIAS_LOG_FILE", $this->iliasIniFile->readVariable("log", "file"));
+		define("ILIAS_LOG_ENABLED", $this->iliasIniFile->readVariable("log", "enabled"));
+		define("ILIAS_LOG_LEVEL", $this->iliasIniFile->readVariable("log", "level"));
+		define("SLOW_REQUEST_TIME", $this->iliasIniFile->readVariable("log", "slow_request_time"));
 
 		// read path + command for third party tools from ilias.ini
-		define("PATH_TO_CONVERT", $ilIliasIniFile->readVariable("tools", "convert"));
-		define("PATH_TO_FFMPEG", $ilIliasIniFile->readVariable("tools", "ffmpeg"));
-		define("PATH_TO_ZIP", $ilIliasIniFile->readVariable("tools", "zip"));
-		define("PATH_TO_MKISOFS", $ilIliasIniFile->readVariable("tools", "mkisofs"));
-		define("PATH_TO_UNZIP", $ilIliasIniFile->readVariable("tools", "unzip"));
-		define("PATH_TO_GHOSTSCRIPT", $ilIliasIniFile->readVariable("tools", "ghostscript"));
-		define("PATH_TO_JAVA", $ilIliasIniFile->readVariable("tools", "java"));
-		define("PATH_TO_HTMLDOC", $ilIliasIniFile->readVariable("tools", "htmldoc"));
-		define("URL_TO_LATEX", $ilIliasIniFile->readVariable("tools", "latex"));
-		define("PATH_TO_FOP", $ilIliasIniFile->readVariable("tools", "fop"));
+		define("PATH_TO_CONVERT", $this->iliasIniFile->readVariable("tools", "convert"));
+		define("PATH_TO_FFMPEG", $this->iliasIniFile->readVariable("tools", "ffmpeg"));
+		define("PATH_TO_ZIP", $this->iliasIniFile->readVariable("tools", "zip"));
+		define("PATH_TO_MKISOFS", $this->iliasIniFile->readVariable("tools", "mkisofs"));
+		define("PATH_TO_UNZIP", $this->iliasIniFile->readVariable("tools", "unzip"));
+		define("PATH_TO_GHOSTSCRIPT", $this->iliasIniFile->readVariable("tools", "ghostscript"));
+		define("PATH_TO_JAVA", $this->iliasIniFile->readVariable("tools", "java"));
+		define("PATH_TO_HTMLDOC", $this->iliasIniFile->readVariable("tools", "htmldoc"));
+		define("URL_TO_LATEX", $this->iliasIniFile->readVariable("tools", "latex"));
+		define("PATH_TO_FOP", $this->iliasIniFile->readVariable("tools", "fop"));
 
 		// read virus scanner settings
-		switch ($ilIliasIniFile->readVariable("tools", "vscantype")) {
+		switch ($this->iliasIniFile->readVariable("tools", "vscantype")) {
 			case "sophos":
 				define("IL_VIRUS_SCANNER", "Sophos");
-				define("IL_VIRUS_SCAN_COMMAND", $ilIliasIniFile->readVariable("tools", "scancommand"));
-				define("IL_VIRUS_CLEAN_COMMAND", $ilIliasIniFile->readVariable("tools", "cleancommand"));
+				define("IL_VIRUS_SCAN_COMMAND", $this->iliasIniFile->readVariable("tools", "scancommand"));
+				define("IL_VIRUS_CLEAN_COMMAND", $this->iliasIniFile->readVariable("tools", "cleancommand"));
 				break;
 
 			case "antivir":
 				define("IL_VIRUS_SCANNER", "AntiVir");
-				define("IL_VIRUS_SCAN_COMMAND", $ilIliasIniFile->readVariable("tools", "scancommand"));
-				define("IL_VIRUS_CLEAN_COMMAND", $ilIliasIniFile->readVariable("tools", "cleancommand"));
+				define("IL_VIRUS_SCAN_COMMAND", $this->iliasIniFile->readVariable("tools", "scancommand"));
+				define("IL_VIRUS_CLEAN_COMMAND", $this->iliasIniFile->readVariable("tools", "cleancommand"));
 				break;
 
 			case "clamav":
 				define("IL_VIRUS_SCANNER", "ClamAV");
-				define("IL_VIRUS_SCAN_COMMAND", $ilIliasIniFile->readVariable("tools", "scancommand"));
-				define("IL_VIRUS_CLEAN_COMMAND", $ilIliasIniFile->readVariable("tools", "cleancommand"));
+				define("IL_VIRUS_SCAN_COMMAND", $this->iliasIniFile->readVariable("tools", "scancommand"));
+				define("IL_VIRUS_CLEAN_COMMAND", $this->iliasIniFile->readVariable("tools", "cleancommand"));
 				break;
 
 			default:
@@ -205,7 +224,7 @@ class xlvoBasicInitialisation {
 		}
 
 		include_once './Services/Calendar/classes/class.ilTimeZone.php';
-		$tz = \ilTimeZone::initDefaultTimeZone($ilIliasIniFile);
+		$tz = \ilTimeZone::initDefaultTimeZone($this->iliasIniFile);
 		define("IL_TIMEZONE", $tz);
 		define('IL_INITIAL_WD', getcwd());
 	}
@@ -217,8 +236,6 @@ class xlvoBasicInitialisation {
 	 * @return bool
 	 */
 	private function loadClientIniFile() {
-		global $ilIliasIniFile;
-
 		$ini_file = "./" . ILIAS_WEB_DIR . "/" . CLIENT_ID . "/client.ini.php";
 
 		// get settings from ini file
@@ -228,7 +245,7 @@ class xlvoBasicInitialisation {
 
 		// invalid client id / client ini
 		if ($ilClientIniFile->ERROR != "") {
-			$default_client = $ilIliasIniFile->readVariable("clients", "default");
+			$default_client = $this->iliasIniFile->readVariable("clients", "default");
 			\ilUtil::setCookie("ilClientId", $default_client);
 		}
 
@@ -311,14 +328,13 @@ class xlvoBasicInitialisation {
 	 * Init the ioc container. (DI)
 	 */
 	private function initDependencyInjection() {
-		if (version_compare(ILIAS_VERSION_NUMERIC, '5.2.00', '>=')) {
-			require_once("libs/composer/vendor/autoload.php");
-			//			require_once('./src/DI/Container.php');
-			$GLOBALS["DIC"] = new \ILIAS\DI\Container();
-			$GLOBALS["DIC"]["ilLoggerFactory"] = function ($c) {
-				return ilLoggerFactory::getInstance();
-			};
-		}
+		global $DIC;
+		require_once("libs/composer/vendor/autoload.php");
+		//			require_once('./src/DI/Container.php');
+		$DIC = new \ILIAS\DI\Container();
+		$DIC["ilLoggerFactory"] = function ($c) {
+			return \ilLoggerFactory::getInstance();
+		};
 	}
 
 
@@ -326,27 +342,26 @@ class xlvoBasicInitialisation {
 	 * Init some ilias settings (required for locale)
 	 */
 	private function initSettings() {
-		global $ilSetting;
-
 		require_once "Services/Administration/classes/class.ilSetting.php";
-		$this->makeGlobal("ilSetting", new \ilSetting());
+		$this->settings = new \ilSetting();
+		$this->makeGlobal("ilSetting", $this->settings);
 
 		// set anonymous user & role id and system role id
-		define("ANONYMOUS_USER_ID", $ilSetting->get("anonymous_user_id"));
-		define("ANONYMOUS_ROLE_ID", $ilSetting->get("anonymous_role_id"));
-		define("SYSTEM_USER_ID", $ilSetting->get("system_user_id"));
-		define("SYSTEM_ROLE_ID", $ilSetting->get("system_role_id"));
+		define("ANONYMOUS_USER_ID", $this->settings->get("anonymous_user_id"));
+		define("ANONYMOUS_ROLE_ID", $this->settings->get("anonymous_role_id"));
+		define("SYSTEM_USER_ID", $this->settings->get("system_user_id"));
+		define("SYSTEM_ROLE_ID", $this->settings->get("system_role_id"));
 		define("USER_FOLDER_ID", 7);
 
 		// recovery folder
-		define("RECOVERY_FOLDER_ID", $ilSetting->get("recovery_folder_id"));
+		define("RECOVERY_FOLDER_ID", $this->settings->get("recovery_folder_id"));
 
 		// installation id
-		define("IL_INST_ID", $ilSetting->get("inst_id", 0));
+		define("IL_INST_ID", $this->settings->get("inst_id", 0));
 
 		// define default suffix replacements
 		define("SUFFIX_REPL_DEFAULT", "php,php3,php4,inc,lang,phtml,htaccess");
-		define("SUFFIX_REPL_ADDITIONAL", $ilSetting->get("suffix_repl_additional"));
+		define("SUFFIX_REPL_ADDITIONAL", $this->settings->get("suffix_repl_additional"));
 
 		// payment setting
 		define('IS_PAYMENT_ENABLED', false);
@@ -379,10 +394,8 @@ class xlvoBasicInitialisation {
 	 * Init Locale
 	 */
 	private function initLocale() {
-		global $ilSetting;
-
-		if (trim($ilSetting->get("locale") != "")) {
-			$larr = explode(",", trim($ilSetting->get("locale")));
+		if (trim($this->settings->get("locale") != "")) {
+			$larr = explode(",", trim($this->settings->get("locale")));
 			$ls = array();
 			$first = $larr[0];
 			foreach ($larr as $l) {
@@ -463,8 +476,7 @@ class xlvoBasicInitialisation {
 		$https->enableSecureCookies();
 		$https->checkPort();
 
-		return define('ILIAS_HTTP_PATH', \ilUtil::removeTrailingPathSeparators($protocol . $host
-		                                                                       . $uri));
+		return define('ILIAS_HTTP_PATH', \ilUtil::removeTrailingPathSeparators($protocol . $host . $uri));
 	}
 
 
@@ -472,8 +484,6 @@ class xlvoBasicInitialisation {
 	 * Init ilias error handling
 	 */
 	private function initErrorHandling() {
-		global $ilErr;
-
 		// error_reporting(((ini_get("error_reporting")) & ~E_DEPRECATED) & ~E_STRICT); // removed reading ini since notices lead to a non working livevoting in 5.2 when E_NOTICE is enabled
 		error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_NOTICE);
 
@@ -485,7 +495,8 @@ class xlvoBasicInitialisation {
 			define('DEVMODE', false);
 		}
 		require_once "./Services/Init/classes/class.ilErrorHandling.php";
-		$this->makeGlobal("ilErr", new \ilErrorHandling());
+		$ilErr = new \ilErrorHandling();
+		$this->makeGlobal("ilErr", $ilErr);
 		$ilErr->setErrorHandling(PEAR_ERROR_CALLBACK, array( $ilErr, 'errorHandler' ));
 	}
 
@@ -536,8 +547,6 @@ class xlvoBasicInitialisation {
 	 * set session cookie params for path, domain, etc.
 	 */
 	private function setCookieParams() {
-		global $ilSetting;
-
 		$GLOBALS['COOKIE_PATH'] = '/';
 		$cookie_path = '/';
 
@@ -553,7 +562,7 @@ class xlvoBasicInitialisation {
 		}
 
 		include_once './Services/Http/classes/class.ilHTTPS.php';
-		$cookie_secure = !$ilSetting->get('https', 0) && \ilHTTPS::getInstance()->isDetected();
+		$cookie_secure = !$this->settings->get('https', 0) && \ilHTTPS::getInstance()->isDetected();
 
 		define('IL_COOKIE_EXPIRE', 0);
 		define('IL_COOKIE_PATH', $cookie_path);
@@ -570,10 +579,8 @@ class xlvoBasicInitialisation {
 	 * constant CLIENT_ID.
 	 */
 	private function determineClient() {
-		global $ilIliasIniFile;
-
 		// check whether ini file object exists
-		if (!is_object($ilIliasIniFile)) {
+		if (!is_object($this->iliasIniFile)) {
 			throw new \Exception("Fatal Error: ilInitialisation::determineClient called without initialisation of ILIAS ini file object.");
 		}
 
@@ -586,7 +593,7 @@ class xlvoBasicInitialisation {
 		} else {
 			if (!$_COOKIE["ilClientId"]) {
 				// to do: ilias ini raus nehmen
-				$client_id = $ilIliasIniFile->readVariable("clients", "default");
+				$client_id = $this->iliasIniFile->readVariable("clients", "default");
 				\ilUtil::setCookie("ilClientId", $client_id);
 			}
 		}
@@ -601,12 +608,13 @@ class xlvoBasicInitialisation {
 	/**
 	 * Create or override a global variable.
 	 *
-	 * @param string $name The name of the global variable.
+	 * @param string $name  The name of the global variable.
 	 * @param object $value The value where the global variable should point at.
 	 */
 	private function makeGlobal($name, $value) {
+		global $DIC;
 		$GLOBALS[$name] = $value;
-		$GLOBALS["DIC"][$name] = function ($c) use ($name) {
+		$DIC[$name] = function ($c) use ($name) {
 			return $GLOBALS[$name];
 		};
 	}
@@ -632,12 +640,98 @@ class xlvoBasicInitialisation {
 		// thisone we can mock
 		$this->makeGlobal('rbacreview', new xlvoRbacReview());
 
-		// Rbac Review needs the logger... but doesn't include it itself so we do it for him.
-		require_once("./Services/Logging/classes/public/class.ilLoggerFactory.php");
-
-		// Finally our initialization needs the rbacsystem. Overhead much....
-		require_once "./Services/AccessControl/classes/class.ilRbacSystem.php";
-		$rbacsystem = \ilRbacSystem::getInstance();
+		$rbacsystem = new xlvoRbacSystem();
 		$this->makeGlobal("rbacsystem", $rbacsystem);
+	}
+
+
+	/**
+	 * Initialise a fake access service to satisfy the help system module.
+	 */
+	private function initAccess() {
+		require_once("Services/AccessControl/classes/class.ilAccessHandler.php");
+		$this->makeGlobal('ilAccess', new \ilAccessHandler());
+	}
+
+
+	/**
+	 * Initialise a fake three service to satisfy the help system module.
+	 */
+	private function initTree() {
+		require_once('Services/Tree/classes/class.ilTree.php');
+		$this->makeGlobal('tree', new \ilTree(ROOT_FOLDER_ID));
+	}
+
+
+	/**
+	 * Initialise a fake http services to satisfy the help system module.
+	 */
+	private static function initHTTPServices() {
+		global $DIC;
+
+		$DIC['http.request_factory'] = function ($c) {
+			return new \ILIAS\HTTP\Request\RequestFactoryImpl();
+		};
+
+		$DIC['http.response_factory'] = function ($c) {
+			return new \ILIAS\HTTP\Response\ResponseFactoryImpl();
+		};
+
+		$DIC['http.cookie_jar_factory'] = function ($c) {
+			return new \ILIAS\HTTP\Cookies\CookieJarFactoryImpl();
+		};
+
+		$DIC['http.response_sender_strategy'] = function ($c) {
+			return new \ILIAS\HTTP\Response\Sender\DefaultResponseSenderStrategy();
+		};
+
+		$DIC['http'] = function ($c) {
+			return new \ILIAS\DI\HTTPServices($c['http.response_sender_strategy'], $c['http.cookie_jar_factory'], $c['http.request_factory'], $c['http.response_factory']);
+		};
+	}
+
+
+	/**
+	 * Initialise a fake tabs service to satisfy the help system module.
+	 */
+	private function initTabs() {
+		require_once('Services/UIComponent/Tabs/classes/class.ilTabsGUI.php');
+		$this->makeGlobal('ilTabs', new \ilTabsGUI());
+	}
+
+
+	/**
+	 * Initialise a fake NavigationHistory service to satisfy the help system module.
+	 */
+	private function initNavigationHistory() {
+		require_once('Services/Navigation/classes/class.ilNavigationHistory.php');
+		$this->makeGlobal('ilNavigationHistory', new \ilNavigationHistory());
+	}
+
+
+	/**
+	 * Initialise a fake help service to satisfy the help system module.
+	 */
+	private function initHelp() {
+		require_once('Services/Help/classes/class.ilHelp.php');
+		$this->makeGlobal('ilHelp', new \ilHelp());
+	}
+
+
+	/**
+	 * Initialise a fake MainMenu service to satisfy the help system module.
+	 */
+	private function initMainMenu() {
+		require_once('Services/MainMenu/classes/class.ilMainMenuGUI.php');
+		$this->makeGlobal('ilMainMenu', new \ilMainMenuGUI());
+	}
+
+
+	/**
+	 *
+	 */
+	private function initAppEventHandler() {
+		require_once('Services/EventHandling/classes/class.ilAppEventHandler.php');
+		$this->makeGlobal("ilAppEventHandler", new \ilAppEventHandler());
 	}
 }

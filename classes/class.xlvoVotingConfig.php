@@ -26,13 +26,14 @@ class xlvoVotingConfig extends CachingActiveRecord  {
 	const F_TERMINABLE_SELECT = "terminable_select";
 	const F_VOTING_HISTORY = "voting_history";
     const F_SHOW_ATTENDEES = "show_attendees";
+    const TABLE_NAME = 'rep_robj_xlvo_config_n';
 
 
 	/**
 	 * @return string
 	 */
 	public static function returnDbTableName() {
-		return 'rep_robj_xlvo_config_n';
+		return self::TABLE_NAME;
 	}
 
 

@@ -39,8 +39,7 @@ var xlvoPlayer = {
         },
         status_running: -1,
         use_mathjax: false,
-        debug: false,
-        ilias_51: true
+        debug: false
     },
     player: {
         is_first: true,
@@ -124,11 +123,7 @@ var xlvoPlayer = {
         this.btn_previous = $('#btn-previous');
         this.btn_next = $('#btn-next');
         this.btn_unfreeze = $('#btn-unfreeze');
-        if (xlvoPlayer.config.ilias_51) {
-            this.btn_unfreeze.closest('.btn-group').hide();
-        } else {
-            this.btn_unfreeze.parent().hide();
-        }
+        this.btn_unfreeze.closest('.btn-group').hide();
         this.btn_reset = $('#btn-reset');
         this.btn_terminate = $('#btn-terminate');
         this.btn_terminate.parent().hide();
@@ -189,22 +184,14 @@ var xlvoPlayer = {
         if (this.player.frozen) {
             this.btn_freeze.parent().hide();
 
-            if (xlvoPlayer.config.ilias_51) {
-                this.btn_unfreeze.closest('.btn-group').show();
-            } else {
-                this.btn_unfreeze.parent().show();
-            }
+            this.btn_unfreeze.closest('.btn-group').show();
             if (this.player.votes > 0) {
                 this.btn_reset.removeAttr('disabled');
             } else {
                 this.btn_reset.attr('disabled', 'disabled');
             }
         } else {
-            if (xlvoPlayer.config.ilias_51) {
-                this.btn_unfreeze.closest('.btn-group').hide();
-            } else {
-                this.btn_unfreeze.parent().hide();
-            }
+            this.btn_unfreeze.closest('.btn-group').hide();
             this.btn_freeze.parent().show();
             this.btn_reset.attr('disabled', 'disabled');
 
@@ -265,10 +252,10 @@ var xlvoPlayer = {
         $.get(xlvoPlayer.config.base_url, {cmd: 'getPlayerData'}).done(function (data) {
             xlvoPlayer.counter++;
             if ((xlvoPlayer.counter > xlvoPlayer.forced_update_interval) // Forced update of HTML
-                || (data.player.last_update != xlvoPlayer.player.last_update) // Player is out of sync
-                || (data.player.show_results != xlvoPlayer.player.show_results) // Show Results has changed
-                || (data.player.status != xlvoPlayer.player.status) // player status has changed
-                || (data.player.active_voting_id != xlvoPlayer.player.active_voting_id) //Voting has changed
+                || (data.player.last_update !== xlvoPlayer.player.last_update) // Player is out of sync
+                || (data.player.show_results !== xlvoPlayer.player.show_results) // Show Results has changed
+                || (data.player.status !== xlvoPlayer.player.status) // player status has changed
+                || (data.player.active_voting_id !== xlvoPlayer.player.active_voting_id) //Voting has changed
                 || xlvoPlayer.player.has_countdown) // countdown is running
             {
 

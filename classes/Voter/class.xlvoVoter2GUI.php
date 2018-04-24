@@ -29,7 +29,6 @@ class xlvoVoter2GUI extends xlvoGUI {
 	const CMD_START_VOTER_PLAYER = 'startVoterPlayer';
 	const CMD_GET_VOTING_DATA = 'loadVotingData';
 	const DEBUG = false;
-	const ILIAS_VERSION_5_2 = "5.2.0";
 	/**
 	 * @var string
 	 */
@@ -50,13 +49,12 @@ class xlvoVoter2GUI extends xlvoGUI {
 
 
 	public function executeCommand() {
-		global $ilUser;
 		$this->pin = xlvoInitialisation::getCookiePIN();
-		$this->manager = new xlvoVotingManager2($this->pin, true);
+		$this->manager = new xlvoVotingManager2($this->pin);
 		$nextClass = $this->ctrl->getNextClass();
 		switch ($nextClass) {
 			case '':
-				if (!$this->manager->getVotingConfig()->isAnonymous() && (is_null($ilUser) || $ilUser->getId() == 13 || $ilUser->getId() == 0)) {
+				if (!$this->manager->getVotingConfig()->isAnonymous() && (is_null($this->usr) || $this->usr->getId() == 13 || $this->usr->getId() == 0)) {
 					//remove plugin path to get "real" web root otherwise we break installations with context paths -> http://demo.ilias.ch/test/goto.php
 					$plugin_path = "Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting";
 					$ilias_base_path = str_replace($plugin_path, '', ILIAS_HTTP_PATH);
@@ -152,16 +150,9 @@ class xlvoVoter2GUI extends xlvoGUI {
 		$this->tpl->addCss('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/QuestionTypes/NumberRange/number_range.css');
 		\iljQueryUtil::initjQueryUI();
 
-		if(version_compare(ILIAS_VERSION_NUMERIC, self::ILIAS_VERSION_5_2) >= 0)
-		{
-			require_once './Services/MathJax/classes/class.ilMathJax.php';
-			ilMathJax::getInstance()->includeMathJax();
-		}
-		else
-		{
-			$util = new ilUtil();
-			$util->includeMathjax();
-		}
+		require_once './Services/MathJax/classes/class.ilMathJax.php';
+		ilMathJax::getInstance()->includeMathJax();
+
 		$t = array( 'player_seconds' );
 
 		$mathJaxSetting = new ilSetting("MathJax");
@@ -181,11 +172,10 @@ class xlvoVoter2GUI extends xlvoGUI {
 		$settings = array(
 			'use_mathjax' => (bool)$mathJaxSetting->get("enable"),
 			'debug'       => self::DEBUG,
-			'ilias_51'    => version_compare(ILIAS_VERSION_NUMERIC, '5.1.00', '>'),
 			'delay'       => $delay,
 		);
 
-		xlvoJs::getInstance()->api($this, array( 'ilUIPluginRouterGUI' ))->addSettings($settings)->name('Voter')->addTranslations($t)->init()
+		xlvoJs::getInstance()->api($this, array( ilUIPluginRouterGUI::class ))->addSettings($settings)->name('Voter')->addTranslations($t)->init()
 		      ->call('run');
 		foreach (xlvoQuestionTypes::getActiveTypes() as $type) {
 			xlvoQuestionTypesGUI::getInstance($this->manager, $type)->initJS();

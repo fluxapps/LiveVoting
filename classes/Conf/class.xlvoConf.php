@@ -38,6 +38,7 @@ class xlvoConf extends CachingActiveRecord {
 	 * Max client update frequency in seconds.
 	 */
 	const MAX_CLIENT_UPDATE_FREQUENCY = 60;
+	const TABLE_NAME = 'xlvo_config';
 
 
 	/**
@@ -116,7 +117,7 @@ class xlvoConf extends CachingActiveRecord {
 	 * @deprecated
 	 */
 	static function returnDbTableName() {
-		return 'xlvo_config';
+		return self::TABLE_NAME;
 	}
 
 
