@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<p:sldLayout xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main" type="titleOnly" preserve="1">
+	<p:cSld name="Nur Titel">
+		<p:spTree>
+			<p:nvGrpSpPr>
+				<p:cNvPr id="1" name="" />
+				<p:cNvGrpSpPr />
+				<p:nvPr />
+			</p:nvGrpSpPr>
+			<p:grpSpPr>
+				<a:xfrm>
+					<a:off x="0" y="0" />
+					<a:ext cx="0" cy="0" />
+					<a:chOff x="0" y="0" />
+					<a:chExt cx="0" cy="0" />
+				</a:xfrm>
+			</p:grpSpPr>
+			<p:sp>
+				<p:nvSpPr>
+					<p:cNvPr id="2" name="Titel 1">
+						<a:extLst>
+							<a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+								<a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{56B581FC-B165-498F-BEC5-8604FD987450}" />
+							</a:ext>
+						</a:extLst>
+					</p:cNvPr>
+					<p:cNvSpPr>
+						<a:spLocks noGrp="1" />
+					</p:cNvSpPr>
+					<p:nvPr>
+						<p:ph type="title" />
+					</p:nvPr>
+				</p:nvSpPr>
+				<p:spPr />
+				<p:txBody>
+					<a:bodyPr />
+					<a:lstStyle />
+					<a:p>
+						<a:r>
+							<a:rPr lang="de-DE" />
+							<a:t>Mastertitelformat bearbeiten</a:t>
+						</a:r>
+						<a:endParaRPr lang="de-CH" />
+					</a:p>
+				</p:txBody>
+			</p:sp>
+			<p:sp>
+				<p:nvSpPr>
+					<p:cNvPr id="3" name="Datumsplatzhalter 2">
+						<a:extLst>
+							<a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+								<a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{451723AC-6312-4D13-81B6-0D16523B0091}" />
+							</a:ext>
+						</a:extLst>
+					</p:cNvPr>
+					<p:cNvSpPr>
+						<a:spLocks noGrp="1" />
+					</p:cNvSpPr>
+					<p:nvPr>
+						<p:ph type="dt" sz="half" idx="10" />
+					</p:nvPr>
+				</p:nvSpPr>
+				<p:spPr />
+				<p:txBody>
+					<a:bodyPr />
+					<a:lstStyle />
+					<a:p>
+						<a:fld id="{876C19DC-0B70-4255-8A5D-C36442A83BB8}" type="datetimeFigureOut">
+							<a:rPr lang="de-CH" smtClean="0" />
+							<a:t></a:t>
+						</a:fld>
+						<a:endParaRPr lang="de-CH" />
+					</a:p>
+				</p:txBody>
+			</p:sp>
+			<p:sp>
+				<p:nvSpPr>
+					<p:cNvPr id="4" name="Fußzeilenplatzhalter 3">
+						<a:extLst>
+							<a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+								<a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{8237897F-058E-4A06-9DBA-F437F81F1591}" />
+							</a:ext>
+						</a:extLst>
+					</p:cNvPr>
+					<p:cNvSpPr>
+						<a:spLocks noGrp="1" />
+					</p:cNvSpPr>
+					<p:nvPr>
+						<p:ph type="ftr" sz="quarter" idx="11" />
+					</p:nvPr>
+				</p:nvSpPr>
+				<p:spPr />
+				<p:txBody>
+					<a:bodyPr />
+					<a:lstStyle />
+					<a:p>
+						<a:endParaRPr lang="de-CH" />
+					</a:p>
+				</p:txBody>
+			</p:sp>
+			<p:sp>
+				<p:nvSpPr>
+					<p:cNvPr id="5" name="Foliennummernplatzhalter 4">
+						<a:extLst>
+							<a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+								<a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{9BFE38D6-A43D-4FC6-A8D5-E86793E74979}" />
+							</a:ext>
+						</a:extLst>
+					</p:cNvPr>
+					<p:cNvSpPr>
+						<a:spLocks noGrp="1" />
+					</p:cNvSpPr>
+					<p:nvPr>
+						<p:ph type="sldNum" sz="quarter" idx="12" />
+					</p:nvPr>
+				</p:nvSpPr>
+				<p:spPr />
+				<p:txBody>
+					<a:bodyPr />
+					<a:lstStyle />
+					<a:p>
+						<a:fld id="{54DB3863-465B-456F-B47F-D171B8DCDCD9}" type="slidenum">
+							<a:rPr lang="de-CH" smtClean="0" />
+							<a:t>‹Nr.›</a:t>
+						</a:fld>
+						<a:endParaRPr lang="de-CH" />
+					</a:p>
+				</p:txBody>
+			</p:sp>
+		</p:spTree>
+		<p:extLst>
+			<p:ext uri="{BB962C8B-B14F-4D97-AF65-F5344CB8AC3E}">
+				<p14:creationId xmlns:p14="http://schemas.microsoft.com/office/powerpoint/2010/main" val="304342400" />
+			</p:ext>
+		</p:extLst>
+	</p:cSld>
+	<p:clrMapOvr>
+		<a:masterClrMapping />
+	</p:clrMapOvr>
+</p:sldLayout>

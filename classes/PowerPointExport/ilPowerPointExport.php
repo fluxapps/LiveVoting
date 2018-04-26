@@ -213,8 +213,6 @@ class ilPowerPointExport {
 			$title = $voting->getTitle();
 			$question = strip_tags($voting->getQuestion());
 
-			$creation_id = rand(1000000000, 9999999999);
-
 			$slide_tpl = new ilTemplate($this->temp_folder . "/ppt/slides/slide.xml", false, true);
 			$slide_rels_tpl = new ilTemplate($this->temp_folder . "/ppt/slides/_rels/slide.xml.rels", false, true);
 
@@ -229,8 +227,6 @@ class ilPowerPointExport {
 			$slide_tpl->setVariable("TITLE", htmlspecialchars($title));
 
 			$slide_tpl->setVariable("QUESTION", htmlspecialchars($question));
-
-			$slide_tpl->setVariable("CREATION_ID", $creation_id);
 
 			file_put_contents($this->temp_folder . "/ppt/slides/slide{$num}.xml", $slide_tpl->get());
 			file_put_contents($this->temp_folder . "/ppt/slides/_rels/slide{$num}.xml.rels", $slide_rels_tpl->get());
@@ -302,8 +298,6 @@ class ilPowerPointExport {
 				}
 			}, array_keys($data), $data));
 
-			$creation_id = rand(1000000000, 9999999999);
-
 			$notesslide_tpl = new ilTemplate($this->temp_folder . "/ppt/notesSlides/notesSlide.xml", false, true);
 			$notesslide_rels_tpl = new ilTemplate($this->temp_folder . "/ppt/notesSlides/_rels/notesSlide.xml.rels", false, true);
 
@@ -311,8 +305,6 @@ class ilPowerPointExport {
 			$notesslide_rels_tpl->setVariable("NUM", $num);
 
 			$notesslide_tpl->setVariable("NOTE", htmlspecialchars($note));
-
-			$notesslide_tpl->setVariable("CREATION_ID", $creation_id);
 
 			file_put_contents($this->temp_folder . "/ppt/notesSlides/notesSlide{$num}.xml", $notesslide_tpl->get());
 			file_put_contents($this->temp_folder . "/ppt/notesSlides/_rels/notesSlide{$num}.xml.rels", $notesslide_rels_tpl->get());

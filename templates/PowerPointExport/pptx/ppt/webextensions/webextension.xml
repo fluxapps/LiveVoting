@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<we:webextension xmlns:we="http://schemas.microsoft.com/office/webextensions/webextension/2010/11" id="{GUID}">
+	<we:reference id="wa104295828" version="1.6.0.0" store="de-CH" storeType="OMEX" />
+	<we:alternateReferences>
+		<we:reference id="wa104295828" version="1.6.0.0" store="wa104295828" storeType="OMEX" />
+	</we:alternateReferences>
+	<we:properties>
+		<we:property name="__labs__" value="{&quot;configuration&quot;:{&quot;appVersion&quot;:{&quot;major&quot;:1,&quot;minor&quot;:0},&quot;components&quot;:[{&quot;type&quot;:&quot;Labs.Components.ActivityComponent&quot;,&quot;name&quot;:&quot;{LINK}&quot;,&quot;values&quot;:{},&quot;data&quot;:{&quot;uri&quot;:&quot;{LINK}&quot;},&quot;secure&quot;:{SECURE}}],&quot;name&quot;:&quot;{LINK}&quot;,&quot;timeline&quot;:null,&quot;analytics&quot;:null},&quot;hostVersion&quot;:{&quot;major&quot;:0,&quot;minor&quot;:1}}" />
+	</we:properties>
+	<we:bindings />
+	<we:snapshot xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" r:embed="rId1" />
+</we:webextension>
