@@ -37,6 +37,7 @@ var xlvoVoter = {
 	counter: 0,
 	forced_update: 300,
 	timeout: null,
+	data: null,
 	run: function () {
 		this.loadVotingData();
 		this.initElements();
@@ -81,15 +82,17 @@ var xlvoVoter = {
 		success = success ? success : function () {
 		};
 		$.get(xlvoVoter.config.base_url, {cmd: 'getHTML'}).done(function (data) {
-			xlvoVoter.player_element.replaceWith('<div id="xlvo_voter_player">' + data + '</div>');
-			if (xlvoVoter.config.use_mathjax && !!MathJax) {
-				MathJax.Hub.Queue(
-					["Typeset", MathJax.Hub, 'xlvo_voter_player']
-				);
+			if (xlvoVoter.data !== data) { // Only change html if changed (Try prevent blinking images) (Not work because countdown text and/or token links)
+				xlvoVoter.player_element.replaceWith('<div id="xlvo_voter_player">' + data + '</div>');
+				if (xlvoVoter.config.use_mathjax && !!MathJax) {
+					MathJax.Hub.Queue(
+						["Typeset", MathJax.Hub, 'xlvo_voter_player']
+					);
+				}
+				xlvoVoter.counter = 0;
+				xlvoVoter.player_element = $('#xlvo_voter_player');
+				xlvoVoter.countdown_element = $('#xlvo_countdown');
 			}
-			xlvoVoter.counter = 0;
-			xlvoVoter.player_element = $('#xlvo_voter_player');
-			xlvoVoter.countdown_element = $('#xlvo_countdown');
 			success();
 		});
 	},
