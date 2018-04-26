@@ -10,26 +10,24 @@
  */
 
 require_once __DIR__ . '/vendor/autoload.php';
-require_once('dir.php');
+require_once 'dir.php';
 
 use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Context\cookie\CookieManager;
 use LiveVoting\Context\InitialisationManager;
 use LiveVoting\Context\xlvoBasicInitialisation;
 use LiveVoting\Context\xlvoContext;
-use LiveVoting\Context\xlvoInitialisation;
-use LiveVoting\User\xlvoUser;
 
 $context = CookieManager::getContext();
 switch ($context) {
-    case xlvoContext::CONTEXT_PIN:
-        InitialisationManager::startMinimal();
-        break;
+	case xlvoContext::CONTEXT_PIN:
+		InitialisationManager::startMinimal();
+		break;
 
-    case xlvoContext::CONTEXT_ILIAS:
-        InitialisationManager::startLight();
-        //TODO: catch error if user used the go to link but has no ilias authentication. Atm the error handling page is shown.
-        break;
+	case xlvoContext::CONTEXT_ILIAS:
+		InitialisationManager::startLight();
+		//TODO: catch error if user used the go to link but has no ilias authentication. Atm the error handling page is shown.
+		break;
 }
 
 xlvoConf::load();

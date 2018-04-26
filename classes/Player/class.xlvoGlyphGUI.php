@@ -1,7 +1,5 @@
 <?php
 
-require_once('./Services/UIComponent/Glyph/classes/class.ilGlyphGUI.php');
-
 /**
  * Class xlvoGlyphGUI
  *
@@ -14,6 +12,7 @@ class xlvoGlyphGUI extends \ilGlyphGUI {
 	 *
 	 * @param string $a_glyph glyph constant
 	 * @param string $a_text  text representation
+	 *
 	 * @return string html
 	 */
 	static function get($a_glyph, $a_text = "") {
@@ -30,6 +29,7 @@ class xlvoGlyphGUI extends \ilGlyphGUI {
 
 	/**
 	 * @param $a_glyph
+	 *
 	 * @return string
 	 */
 	static function gets($a_glyph) {

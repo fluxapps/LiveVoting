@@ -11,6 +11,7 @@ class xlvoFreeInputResultGUI extends xlvoResultGUI {
 
 	/**
 	 * @param xlvoVote[] $votes
+	 *
 	 * @return string
 	 */
 	public function getTextRepresentation($votes) {
@@ -25,6 +26,7 @@ class xlvoFreeInputResultGUI extends xlvoResultGUI {
 
 	/**
 	 * @param \LiveVoting\Vote\xlvoVote[] $votes
+	 *
 	 * @return string
 	 */
 	public function getAPIRepresentation($votes) {

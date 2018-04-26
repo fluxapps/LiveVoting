@@ -10,7 +10,7 @@
  */
 
 require_once __DIR__ . '/vendor/autoload.php';
-require_once('dir.php');
+require_once 'dir.php';
 
 use LiveVoting\Context\cookie\CookieManager;
 use LiveVoting\Context\InitialisationManager;

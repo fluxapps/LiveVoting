@@ -1,7 +1,6 @@
 <?php
 
 require_once __DIR__ . '/../vendor/autoload.php';
-include_once('./Services/Repository/classes/class.ilRepositoryObjectPlugin.php');
 
 /**
  * LiveVoting repository object plugin
@@ -90,7 +89,7 @@ class ilLiveVotingPlugin extends \ilRepositoryObjectPlugin {
 	//		 * @throws \ilException
 	//		 */
 	//		public function txt($key) {
-	//			require_once('./Customizing/global/plugins/Libraries/PluginTranslator/class.sragPluginTranslator.php');
+	//			require_once 'Customizing/global/plugins/Libraries/PluginTranslator/class.sragPluginTranslator.php;
 	//
 	//			return sragPluginTranslator::getInstance($this)->active()->write()->txt($key);
 	//		}

@@ -1,4 +1,5 @@
 <?php
+
 namespace LiveVoting\Context;
 
 /**
@@ -12,6 +13,7 @@ class xlvoRbacReview {
 
 	/**
 	 * @param $a_rol_id
+	 *
 	 * @return array
 	 */
 	public function assignedUsers($a_rol_id) {
@@ -21,6 +23,7 @@ class xlvoRbacReview {
 
 	/**
 	 * @param $user_id
+	 *
 	 * @return array
 	 */
 	public function assignedGlobalRoles($user_id) {
@@ -30,12 +33,14 @@ class xlvoRbacReview {
 
 	/**
 	 * get all assigned roles to a given user
-	 * @access	public
-	 * @param	integer		usr_id
-	 * @return	array		all roles (id) the user have
+	 *
+	 * @access    public
+	 *
+	 * @param    integer        usr_id
+	 *
+	 * @return    array        all roles (id) the user have
 	 */
-	public function assignedRoles($a_usr_id)
-	{
+	public function assignedRoles($a_usr_id) {
 		return [];
 	}
 }

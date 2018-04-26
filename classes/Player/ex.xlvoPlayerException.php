@@ -17,7 +17,7 @@ class xlvoPlayerException extends \ilException {
 	 * xlvoPlayerException constructor.
 	 *
 	 * @param string $a_message
-	 * @param int $a_code
+	 * @param int    $a_code
 	 */
 	public function __construct($a_message, $a_code) {
 		parent::__construct($a_message, $a_code);

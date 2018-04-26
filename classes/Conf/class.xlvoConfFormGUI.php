@@ -3,8 +3,6 @@
 use LiveVoting\Api\xlvoApi;
 use LiveVoting\Conf\xlvoConf;
 
-require_once('./Services/Form/classes/class.ilPropertyFormGUI.php');
-
 /**
  * Class xlvoConfFormGUI
  *
@@ -62,10 +60,10 @@ class xlvoConfFormGUI extends \ilPropertyFormGUI {
 		$base_url_vote = new \ilTextInputGUI($this->parent_gui->txt(xlvoConf::F_BASE_URL_VOTE), xlvoConf::F_BASE_URL_VOTE);
 		$base_url_vote->setInfo($this->parent_gui->txt(xlvoConf::F_BASE_URL_VOTE . '_info'));
 		$use_shortlink_vote->addSubItem($base_url_vote);
-		
+
 		$use_shortlink_presenter = new \ilCheckboxInputGUI($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_PRESENTER), xlvoConf::F_ALLOW_SHORTLINK_PRESENTER);
-		$use_shortlink_presenter->setInfo($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_PRESENTER . '_info') . '<br><br><span class="label label-default">'
-			. xlvoConf::REWRITE_RULE_PRESENTER . '</span><br><br>');
+		$use_shortlink_presenter->setInfo($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_PRESENTER . '_info')
+			. '<br><br><span class="label label-default">' . xlvoConf::REWRITE_RULE_PRESENTER . '</span><br><br>');
 
 		$shortlink_presenter = new \ilTextInputGUI($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_PRESENTER_LINK), xlvoConf::F_ALLOW_SHORTLINK_PRESENTER_LINK);
 		$shortlink_presenter->setInfo($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_PRESENTER_LINK . '_info'));
@@ -100,8 +98,9 @@ class xlvoConfFormGUI extends \ilPropertyFormGUI {
 		// PPT Export
 		$ppt_export = new ilCheckboxInputGUI($this->parent_gui->txt(xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT), xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT);
 		$ppt_export->setInfo(htmlspecialchars($this->parent_gui->txt(xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . '_info')) . '<br><br><i>'
-			. htmlspecialchars($this->parent_gui->txt(xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT ."_info_manual")) . '</i><ol>' . implode("", array_map(function ($step) {
-				return '<li>' . htmlspecialchars($this->parent_gui->txt(xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT ."_info_manual_" . $step)) . '</li>';
+			. htmlspecialchars($this->parent_gui->txt(xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . "_info_manual")) . '</i><ol>'
+			. implode("", array_map(function ($step) {
+				return '<li>' . htmlspecialchars($this->parent_gui->txt(xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . "_info_manual_" . $step)) . '</li>';
 			}, [ 1, 2, 3, 4 ])) . '</ol>');
 
 		//add items to GUI

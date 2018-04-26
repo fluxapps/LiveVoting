@@ -2,8 +2,6 @@
 
 namespace LiveVoting\Context;
 
-include_once "Services/Context/classes/class.ilContext.php";
-
 /**
  * Class xlvoContext
  *
@@ -27,7 +25,6 @@ class xlvoContext extends \ilContext {
 	 * @return bool|void
 	 */
 	public static function init($context) {
-		//include_once('class.xlvoContextLiveVoting.php');
 		\ilContext::$class_name = 'LiveVoting\Context\xlvoContextLiveVoting';
 		\ilContext::$type = - 1;
 

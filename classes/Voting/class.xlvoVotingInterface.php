@@ -1,6 +1,7 @@
 <?php
 
 namespace LiveVoting\Voting;
+
 use LiveVoting\Vote\xlvoVote;
 
 /**
@@ -18,5 +19,4 @@ interface xlvoVotingInterface {
 	 * @return bool
 	 */
 	public function vote(xlvoVote $vote);
-
 }

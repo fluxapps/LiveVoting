@@ -24,7 +24,7 @@ class xlvoFreeOrderResultsGUI extends xlvoCorrectOrderResultsGUI {
 		foreach ($this->manager->getVotesOfVoting() as $xlvoVote) {
 			$option_amount2 = $option_amount;
 			$json_decode = json_decode($xlvoVote->getFreeInput(), true);
-			if(is_array($json_decode)) {
+			if (is_array($json_decode)) {
 				foreach ($json_decode as $option_id) {
 					$option_weight[$option_id] = $option_weight[$option_id] + $option_amount2;
 					$option_amount2 --;
@@ -55,8 +55,7 @@ class xlvoFreeOrderResultsGUI extends xlvoCorrectOrderResultsGUI {
 			if ($total_voters == 0) {
 				$xlvoBarPercentageGUI->setVotes($total_voters);
 			} else {
-				$xlvoBarPercentageGUI->setVotes($option_weight[$xlvoOption->getId()]
-				                                / $total_voters);
+				$xlvoBarPercentageGUI->setVotes($option_weight[$xlvoOption->getId()] / $total_voters);
 			}
 			$xlvoBarPercentageGUI->setOptionLetter($xlvoOption->getCipher());
 

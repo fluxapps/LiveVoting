@@ -1,4 +1,5 @@
 <?php
+
 use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Pin\xlvoPin;
 use LiveVoting\Voting\xlvoVoting;
@@ -13,6 +14,7 @@ use LiveVoting\Voting\xlvoVoting;
 class xlvoConfGUI extends xlvoGUI {
 
 	const CMD_RESET_TOKEN = 'resetToken';
+
 
 	/**
 	 * @param $key
@@ -48,7 +50,7 @@ class xlvoConfGUI extends xlvoGUI {
 
 
 	protected function resetToken() {
-		xlvoConf::set(xlvoConf::F_API_TOKEN, null);
+		xlvoConf::set(xlvoConf::F_API_TOKEN, NULL);
 		xlvoConf::getConfig(xlvoConf::F_API_TOKEN);
 		$this->cancel();
 	}

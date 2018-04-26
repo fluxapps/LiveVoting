@@ -170,8 +170,6 @@ class xlvoVotingConfig extends CachingActiveRecord {
 			return false;
 		}
 		$available = true;
-		require_once('./Services/Object/classes/class.ilObject2.php');
-		require_once('./Services/Object/classes/class.ilObjectActivation.php');
 		$ref_ids = \ilObject2::_getAllReferences($this->getObjId());
 		foreach ($ref_ids as $ref_id) {
 			$item_data = \ilObjectActivation::getItem($ref_id);

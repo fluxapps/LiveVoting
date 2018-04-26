@@ -12,11 +12,6 @@ use LiveVoting\Voting\xlvoVoting;
 use LiveVoting\Voting\xlvoVotingManager2;
 use LiveVoting\xlvoLinkButton;
 
-require_once('./Services/Administration/classes/class.ilSetting.php');
-require_once('./Services/UIComponent/AdvancedSelectionList/classes/class.ilAdvancedSelectionListGUI.php');
-require_once("./include/inc.ilias_version.php");
-require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Context/class.ILIASVersionEnum.php");
-
 /**
  * Class xlvoPlayerGUI
  *
@@ -283,9 +278,6 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 * Set Toolbar Content and Buttons for the Player.
 	 */
 	protected function initToolbarDuringVoting() {
-		require_once('./Services/UIComponent/SplitButton/classes/class.ilButtonToSplitButtonMenuItemAdapter.php');
-		require_once('./Services/UIComponent/SplitButton/classes/class.ilSplitButtonGUI.php');
-
 		// Freeze
 		$suspendButton = xlvoLinkButton::getInstance();
 		$suspendButton->clearClasses();
@@ -452,7 +444,6 @@ class xlvoPlayerGUI extends xlvoGUI {
 		switch ($subversion) {
 			case \LiveVoting\Context\ILIASVersionEnum::ILIAS_VERSION_5_2:
 			case \LiveVoting\Context\ILIASVersionEnum::ILIAS_VERSION_5_3:
-				include_once './Services/MathJax/classes/class.ilMathJax.php';
 				ilMathJax::getInstance()->includeMathJax();
 				break;
 			default:

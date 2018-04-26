@@ -14,48 +14,53 @@ use LiveVoting\Player\xlvoPlayer;
  * A voting can go for several rounds. This active Record tracks these rounds
  *
  */
-class xlvoRound extends CachingActiveRecord  {
+class xlvoRound extends CachingActiveRecord {
 
 	const TABLE_NAME = 'rep_robj_xlvo_round_n';
 
-    /**
-     * @param $obj_id
-     * @return int
-     */
-    public static function getLatestRoundId($obj_id)
-    {
-        global $DIC;
-        $ilDB = $DIC->database();
-        /**
-         * @var $ilDB \ilDB
-         */
-        $q = "SELECT result.id FROM (SELECT id FROM " . self::TABLE_NAME . " WHERE " . self::TABLE_NAME . ".obj_id = %s) AS result ORDER BY result.id DESC LIMIT 1";
-        //$q = "SELECT MAX(id) FROM " . self::TABLE_NAME . " WHERE obj_id = %s";
-        $result = $ilDB->queryF($q, array('integer'), array($obj_id));
-        $data = $ilDB->fetchObject($result);
 
-        if (!isset($data->id)) {
-            $round = self::createFirstRound($obj_id);
+	/**
+	 * @param $obj_id
+	 *
+	 * @return int
+	 */
+	public static function getLatestRoundId($obj_id) {
+		global $DIC;
+		$ilDB = $DIC->database();
+		/**
+		 * @var $ilDB \ilDB
+		 */
+		$q = "SELECT result.id FROM (SELECT id FROM " . self::TABLE_NAME . " WHERE " . self::TABLE_NAME
+			. ".obj_id = %s) AS result ORDER BY result.id DESC LIMIT 1";
+		//$q = "SELECT MAX(id) FROM " . self::TABLE_NAME . " WHERE obj_id = %s";
+		$result = $ilDB->queryF($q, array( 'integer' ), array( $obj_id ));
+		$data = $ilDB->fetchObject($result);
 
-            return $round->getId();
-        }
+		if (!isset($data->id)) {
+			$round = self::createFirstRound($obj_id);
 
-        return $data->id;
-    }
+			return $round->getId();
+		}
+
+		return $data->id;
+	}
+
 
 	/**
 	 * Gets you the latest round for this object. creates the first one if there is no round yet.
 	 *
 	 * @param $obj_id int
+	 *
 	 * @return xlvoRound
 	 */
 	public static function getLatestRound($obj_id) {
-        return xlvoRound::find(self::getLatestRoundId($obj_id));
+		return xlvoRound::find(self::getLatestRoundId($obj_id));
 	}
 
 
 	/**
 	 * @param $obj_id int
+	 *
 	 * @return xlvoRound
 	 */
 	public static function createFirstRound($obj_id) {

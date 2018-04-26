@@ -1,13 +1,6 @@
 <?php
 
-use LiveVoting\User\xlvoParticipant;
-use LiveVoting\User\xlvoParticipants;
-use LiveVoting\Vote\xlvoVote;
-use LiveVoting\Voting\xlvoVoting;
 use LiveVoting\Results\xlvoResults;
-
-require_once("./Services/Table/classes/class.ilTable2GUI.php");
-require_once("./Services/Form/classes/class.ilSelectInputGUI.php");
 
 /**
  * Class xlvoResultsTableGUI
@@ -45,9 +38,9 @@ class xlvoResultsTableGUI extends ilTable2GUI {
 	/**
 	 * xlvoResultsTableGUI constructor.
 	 *
-	 * @param $a_parent_obj
+	 * @param        $a_parent_obj
 	 * @param string $a_parent_cmd
-	 * @param bool $show_history
+	 * @param bool   $show_history
 	 */
 	public function __construct(xlvoResultsGUI $a_parent_obj, $a_parent_cmd, $show_history = false) {
 		global $DIC;
@@ -141,10 +134,11 @@ class xlvoResultsTableGUI extends ilTable2GUI {
 
 	/**
 	 * @param object $a_csv
+	 *
 	 * @return null
 	 */
 	protected function fillHeaderCSV($a_csv) {
-		return null;
+		return NULL;
 	}
 
 
@@ -154,16 +148,16 @@ class xlvoResultsTableGUI extends ilTable2GUI {
 	protected function getCSVCols() {
 		return array(
 			'participant' => 'participant',
-			'title'       => 'title',
-			'question'    => 'question',
-			'answer'      => 'answer',
+			'title' => 'title',
+			'question' => 'question',
+			'answer' => 'answer',
 		);
 	}
 
 
 	/**
 	 * @param object $a_csv
-	 * @param array $a_set
+	 * @param array  $a_set
 	 */
 	protected function fillRowCSV($a_csv, $a_set) {
 		$a_set = array_intersect_key($a_set, $this->getCSVCols());
@@ -178,8 +172,9 @@ class xlvoResultsTableGUI extends ilTable2GUI {
 
 
 	/**
-	 * @param $question
+	 * @param     $question
 	 * @param int $length
+	 *
 	 * @return string
 	 */
 	protected function shorten($question, $length = xlvoResultsGUI::LENGTH) {

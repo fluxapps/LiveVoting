@@ -28,6 +28,7 @@ abstract class xlvoQuestionTypesGUI extends xlvoGUI {
 
 	/**
 	 * @param $key
+	 *
 	 * @return string
 	 */
 	protected function txt($key) {
@@ -37,35 +38,37 @@ abstract class xlvoQuestionTypesGUI extends xlvoGUI {
 
 	/**
 	 * @param xlvoVotingManager2 $manager
-	 * @param null $override_type
+	 * @param null               $override_type
+	 *
 	 * @return xlvoQuestionTypesGUI
-     * @throws \ilException                 Throws an \ilException if no gui class was found.
+	 * @throws \ilException                 Throws an \ilException if no gui class was found.
 	 */
-	public static function getInstance(xlvoVotingManager2 $manager, $override_type = null) {
+	public static function getInstance(xlvoVotingManager2 $manager, $override_type = NULL) {
 		$class = xlvoQuestionTypes::getClassName($override_type ? $override_type : $manager->getVoting()->getVotingType());
 
-        $gui = null;
-        switch ($class) {
-            case xlvoQuestionTypes::CORRECT_ORDER:
-                $gui = new xlvoCorrectOrderGUI();
-                break;
-	        case xlvoQuestionTypes::FREE_INPUT:
-                $gui = new xlvoFreeInputGUI();
-                break;
-	        case xlvoQuestionTypes::FREE_ORDER:
-                $gui = new xlvoFreeOrderGUI();
-                break;
-	        case xlvoQuestionTypes::SINGLE_VOTE:
-                $gui = new xlvoSingleVoteGUI();
-                break;
-	        case xlvoQuestionTypes::NUMBER_RANGE:
-	        	$gui = new xlvoNumberRangeGUI();
-	        	break;
-            default:
-                throw new \ilException("Could not find the gui for the current voting.");
-        }
+		$gui = NULL;
+		switch ($class) {
+			case xlvoQuestionTypes::CORRECT_ORDER:
+				$gui = new xlvoCorrectOrderGUI();
+				break;
+			case xlvoQuestionTypes::FREE_INPUT:
+				$gui = new xlvoFreeInputGUI();
+				break;
+			case xlvoQuestionTypes::FREE_ORDER:
+				$gui = new xlvoFreeOrderGUI();
+				break;
+			case xlvoQuestionTypes::SINGLE_VOTE:
+				$gui = new xlvoSingleVoteGUI();
+				break;
+			case xlvoQuestionTypes::NUMBER_RANGE:
+				$gui = new xlvoNumberRangeGUI();
+				break;
+			default:
+				throw new \ilException("Could not find the gui for the current voting.");
+		}
 
 		$gui->setManager($manager);
+
 		return $gui;
 	}
 

@@ -26,6 +26,7 @@ class xlvoObjectDefinition {
 		return ''; //"sys"
 	}
 
+
 	public function getOrgUnitPermissionTypes() {
 		return [];
 	}

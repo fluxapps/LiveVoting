@@ -23,7 +23,6 @@
 */
 
 require_once __DIR__ . '/../vendor/autoload.php';
-require_once('./Services/Repository/classes/class.ilObjectPluginListGUI.php');
 
 /**
  * ListGUI implementation for LiveVoting object plugin. This one
@@ -124,7 +123,6 @@ class ilObjLiveVotingListGUI extends \ilObjectPluginListGUI {
 			"value" => LiveVoting\Pin\xlvoPin::lookupPin($this->obj_id),
 		);
 
-		require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilObjLiveVotingAccess.php');
 		if (!ilObjLiveVotingAccess::checkOnline($this->obj_id)) {
 			$props[] = array(
 				"alert" => true,

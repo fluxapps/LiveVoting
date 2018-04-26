@@ -2,8 +2,6 @@
 
 use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Context\cookie\CookieManager;
-use LiveVoting\Context\xlvoContext;
-use LiveVoting\Context\xlvoInitialisation;
 use LiveVoting\Js\xlvoJs;
 use LiveVoting\Js\xlvoJsResponse;
 use LiveVoting\Pin\xlvoPin;
@@ -12,8 +10,6 @@ use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\Voter\xlvoVoter;
 use LiveVoting\Voter\xlvoVoterException;
 use LiveVoting\Voting\xlvoVotingManager2;
-
-require_once('./Services/Form/classes/class.ilPropertyFormGUI.php');
 
 /**
  * Class xlvoVoter2GUI
@@ -73,7 +69,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 				break;
 			default:
 				// Question-types
-				require_once($this->ctrl->lookupClassPath($nextClass));
+				require_once $this->ctrl->lookupClassPath($nextClass);
 				$gui = new $nextClass();
 				if ($gui instanceof xlvoQuestionTypesGUI) {
 					$gui->setManager($this->manager);
@@ -149,13 +145,11 @@ class xlvoVoter2GUI extends xlvoGUI {
 
 
 	protected function initJsAndCss() {
-		require_once('./Services/jQuery/classes/class.iljQueryUtil.php');
 		$this->tpl->addCss($this->pl->getDirectory() . '/templates/default/Voter/voter.css');
 		$this->tpl->addCss($this->pl->getDirectory() . '/templates/default/QuestionTypes/NumberRange/bootstrap-slider.min.css');
 		$this->tpl->addCss($this->pl->getDirectory() . '/templates/default/QuestionTypes/NumberRange/number_range.css');
 		\iljQueryUtil::initjQueryUI();
 
-		require_once './Services/MathJax/classes/class.ilMathJax.php';
 		ilMathJax::getInstance()->includeMathJax();
 
 		$t = array( 'player_seconds' );

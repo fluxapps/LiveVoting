@@ -26,6 +26,7 @@ class xlvoParticipants {
 
 	/**
 	 * @param $obj_id
+	 *
 	 * @return xlvoParticipants
 	 */
 	public static function getInstance($obj_id) {
@@ -40,14 +41,16 @@ class xlvoParticipants {
 	/**
 	 * @param $round_id int
 	 * @param $filter   string what's the participant id or identifier you're looking for?
+	 *
 	 * @return xlvoParticipant[]
 	 */
-	public function getParticipantsForRound($round_id, $filter = null) {
+	public function getParticipantsForRound($round_id, $filter = NULL) {
 		global $DIC;
 		$ilDB = $DIC->database();
 
 		if ($filter) {
-			$query = "SELECT DISTINCT user_identifier, user_id FROM " . \LiveVoting\Vote\xlvoVote::TABLE_NAME . " WHERE round_id = %s AND (user_identifier LIKE %s OR user_id = %s)";
+			$query = "SELECT DISTINCT user_identifier, user_id FROM " . \LiveVoting\Vote\xlvoVote::TABLE_NAME
+				. " WHERE round_id = %s AND (user_identifier LIKE %s OR user_id = %s)";
 			$result = $ilDB->queryF($query, array( "integer", "text", "integer" ), array( $round_id, $filter, $filter ));
 		} else {
 			$query = "SELECT DISTINCT user_identifier, user_id FROM " . \LiveVoting\Vote\xlvoVote::TABLE_NAME . " WHERE round_id = %s";

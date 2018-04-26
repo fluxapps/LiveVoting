@@ -22,14 +22,13 @@
 	+-----------------------------------------------------------------------------+
 */
 
+require_once __DIR__ . '/../vendor/autoload.php';
+
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\Pin\xlvoPin;
 use LiveVoting\Player\xlvoPlayer;
 use LiveVoting\Vote\xlvoVote;
 use LiveVoting\Voting\xlvoVoting;
-
-require_once __DIR__ . '/../vendor/autoload.php';
-require_once('./Services/Repository/classes/class.ilObjectPlugin.php');
 
 /**
  * Class ilObjLiveVoting
@@ -214,7 +213,6 @@ class ilObjLiveVoting extends \ilObjectPlugin {
 
 			$voting_id = $voting->getId();
 			$voting_id_clone = $voting_clone->getId();
-			require_once('./Services/RTE/classes/class.ilRTE.php');
 			$media_objects = \ilRTE::_getMediaObjects($voting_clone->getQuestion());
 			if (count($media_objects) > 0) {
 				$media_object_ids = array_merge($media_object_ids, array_values($media_objects));

@@ -4,8 +4,6 @@ namespace LiveVoting\User;
 
 use ilLiveVotingPlugin;
 
-require_once("./Services/Table/classes/class.ilTable2GUI.php");
-
 /**
  * Class xlvoVoteHistoryTableGUI
  *
@@ -26,6 +24,7 @@ class xlvoVoteHistoryTableGUI extends \ilTable2GUI {
 	 */
 	protected $tabs;
 
+
 	public function __construct($a_parent_obj, $a_parent_cmd) {
 		global $DIC;
 		$this->pl = ilLiveVotingPlugin::getInstance();
@@ -41,20 +40,23 @@ class xlvoVoteHistoryTableGUI extends \ilTable2GUI {
 		$this->buildColumns();
 	}
 
+
 	protected function buildColumns() {
 		$this->addColumn($this->pl->txt('common_answer'), 'answer', '80%');
 		$this->addColumn($this->pl->txt('common_time'), 'time', '20%');
 	}
 
+
 	public function parseData($user_id, $user_identifier, $voting_id, $round_id) {
 		$data = xlvoVoteHistoryObject::where(array(
-			"user_id" => $user_id?$user_id:null,
-			"user_identifier" => $user_identifier?$user_identifier:null,
+			"user_id" => $user_id ? $user_id : NULL,
+			"user_identifier" => $user_identifier ? $user_identifier : NULL,
 			"voting_id" => $voting_id,
 			"round_id" => $round_id
-		))->orderBy("timestamp", "DESC")->getArray(null, array("answer", "timestamp"));
+		))->orderBy("timestamp", "DESC")->getArray(NULL, array( "answer", "timestamp" ));
 		$this->setData($data);
 	}
+
 
 	public function fillRow($set) {
 		$this->tpl->setVariable("ANSWER", $set['answer']);

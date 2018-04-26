@@ -170,12 +170,13 @@ class xlvoVoting extends CachingActiveRecord {
 	/**
 	 * @var xlvoOption
 	 */
-	protected $first_voting_option = null;
+	protected $first_voting_option = NULL;
 
 
 	/**
 	 * @param       $primary_key
 	 * @param array $add_constructor_args
+	 *
 	 * @return xlvoVoting
 	 */
 	public static function findOrGetInstance($primary_key, array $add_constructor_args = array()) {
@@ -208,6 +209,7 @@ class xlvoVoting extends CachingActiveRecord {
 
 	/**
 	 * @param bool $change_name
+	 *
 	 * @return xlvoVoting
 	 * @throws \Exception
 	 * @throws \arException
@@ -221,8 +223,8 @@ class xlvoVoting extends CachingActiveRecord {
 		if ($change_name) {
 
 			$count = 1;
-			while (xlvoVoting::where(array( 'title' => $this->getTitle() . ' (' . $count . ')' ))
-			                 ->where(array( 'obj_id' => $this->getObjId() ))->count()) {
+			while (xlvoVoting::where(array( 'title' => $this->getTitle() . ' (' . $count . ')' ))->where(array( 'obj_id' => $this->getObjId() ))
+				->count()) {
 				$count ++;
 			}
 
@@ -245,8 +247,7 @@ class xlvoVoting extends CachingActiveRecord {
 	public function create() {
 		global $DIC;
 		$ilDB = $DIC->database();
-		$res = $ilDB->query('SELECT MAX(position) AS max FROM ' . self::TABLE_NAME. ' WHERE obj_id = '
-		                    . $ilDB->quote($this->getObjId(), 'integer'));
+		$res = $ilDB->query('SELECT MAX(position) AS max FROM ' . self::TABLE_NAME . ' WHERE obj_id = ' . $ilDB->quote($this->getObjId(), 'integer'));
 		$data = $ilDB->fetchObject($res);
 		$this->setPosition($data->max + 1);
 		parent::create();
@@ -258,7 +259,7 @@ class xlvoVoting extends CachingActiveRecord {
 	 */
 	protected function getFirstLastList($order) {
 		return self::where(array( 'obj_id' => $this->getObjId() ))->orderBy('position', $order)
-		           ->where(array( 'voting_type' => xlvoQuestionTypes::getActiveTypes() ));
+			->where(array( 'voting_type' => xlvoQuestionTypes::getActiveTypes() ));
 	}
 
 
@@ -354,13 +355,11 @@ class xlvoVoting extends CachingActiveRecord {
 	public function afterObjectLoad() {
 		/**
 		 * @var xlvoOption[] $xlvoOptions
-		 * @var xlvoOption $first_voting_option
+		 * @var xlvoOption   $first_voting_option
 		 */
-		$xlvoOptions = xlvoOption::where(array( 'voting_id' => $this->id ))->orderBy('position')
-		                         ->get();
+		$xlvoOptions = xlvoOption::where(array( 'voting_id' => $this->id ))->orderBy('position')->get();
 		$this->setVotingOptions($xlvoOptions);
-		$first_voting_option = xlvoOption::where(array( 'voting_id' => $this->id ))
-		                                 ->orderBy('position')->first();
+		$first_voting_option = xlvoOption::where(array( 'voting_id' => $this->id ))->orderBy('position')->first();
 		$this->setFirstVotingOption($first_voting_option);
 	}
 
@@ -633,7 +632,7 @@ class xlvoVoting extends CachingActiveRecord {
 	 *
 	 * @return xlvoVoting
 	 */
-	public function setEndRange($end_range){
+	public function setEndRange($end_range) {
 		$this->end_range = $end_range;
 
 		return $this;
@@ -653,7 +652,7 @@ class xlvoVoting extends CachingActiveRecord {
 	 *
 	 * @return xlvoVoting
 	 */
-	public function setAltResultDisplayMode($alt_result_display_mode){
+	public function setAltResultDisplayMode($alt_result_display_mode) {
 		$this->alt_result_display_mode = $alt_result_display_mode;
 
 		return $this;

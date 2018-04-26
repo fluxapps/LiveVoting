@@ -134,7 +134,7 @@ class xlvoOption extends CachingActiveRecord {
 	 * @db_fieldtype        integer
 	 * @db_length           8
 	 */
-	protected $correct_position = null;
+	protected $correct_position = NULL;
 
 
 	/**

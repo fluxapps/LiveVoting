@@ -10,7 +10,6 @@ use LiveVoting\Vote\xlvoVote;
 class xlvoNumberRangeResultsGUI extends xlvoInputResultsGUI {
 
 	const BAR_COUNT = 5;
-
 	const DISPLAY_MODE_GROUPED_TEXT = 0;
 	const DISPLAY_MODE_BARS = 1;
 	const DISPLAY_MODE_GROUPED_TEXT_EXTENDED = 2;
@@ -66,7 +65,7 @@ class xlvoNumberRangeResultsGUI extends xlvoInputResultsGUI {
 		array_walk($votes, function (xlvoVote $vote) use (&$vote_sum, &$values, &$modes) {
 			$value = (int)$vote->getFreeInput();
 			$values[] = $value;
-			$modes[$value]++;
+			$modes[$value] ++;
 			$vote_sum = $vote_sum + $value;
 		});
 		$relevant_modes = [];
@@ -181,7 +180,7 @@ class xlvoNumberRangeResultsGUI extends xlvoInputResultsGUI {
 		 */
 		foreach ($votes as $vote) {
 			$value = (int)$vote->getFreeInput();
-			$values[$value]++;
+			$values[$value] ++;
 		}
 
 		//Create 10 slices and sum each slice

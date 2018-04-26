@@ -43,7 +43,7 @@ final class CookieManager {
 	 */
 	public static function setContext($context) {
 		if ($context === xlvoContext::CONTEXT_ILIAS || $context === xlvoContext::CONTEXT_PIN) {
-			$result = setcookie(xlvoContext::XLVO_CONTEXT, $context, null, '/');
+			$result = setcookie(xlvoContext::XLVO_CONTEXT, $context, NULL, '/');
 		} else {
 			throw new \Exception("invalid context received");
 		}
@@ -71,9 +71,9 @@ final class CookieManager {
 	 * @throws \Exception
 	 */
 	public static function setCookiePIN($pin, $forrce = false) {
-		$result = setcookie(self::PIN_COOKIE, $pin, null, '/');
+		$result = setcookie(self::PIN_COOKIE, $pin, NULL, '/');
 		if ($forrce) {
-			$result = setcookie(self::PIN_COOKIE_FORCE, true, null, '/');
+			$result = setcookie(self::PIN_COOKIE_FORCE, true, NULL, '/');
 		}
 		if (!$result) {
 			throw new \Exception("error setting cookie");
@@ -84,10 +84,10 @@ final class CookieManager {
 	public static function resetCookiePIN() {
 		if ($_COOKIE[self::PIN_COOKIE_FORCE]) {
 			unset($_COOKIE[self::PIN_COOKIE_FORCE]);
-			setcookie(self::PIN_COOKIE_FORCE, null, -1, '/');
+			setcookie(self::PIN_COOKIE_FORCE, NULL, - 1, '/');
 		} else {
 			unset($_COOKIE[self::PIN_COOKIE]);
-			setcookie(self::PIN_COOKIE, null, -1, '/');
+			setcookie(self::PIN_COOKIE, NULL, - 1, '/');
 		}
 	}
 
@@ -118,7 +118,7 @@ final class CookieManager {
 	 * @throws \Exception
 	 */
 	public static function setCookiePUK($puk, $forrce = false) {
-		$result = setcookie(self::PUK_COOKIE, $puk, null, '/');
+		$result = setcookie(self::PUK_COOKIE, $puk, NULL, '/');
 		if (!$result) {
 			throw new \Exception("error setting cookie");
 		}
@@ -128,7 +128,7 @@ final class CookieManager {
 	public static function resetCookiePUK() {
 		if (isset($_COOKIE[self::PUK_COOKIE])) {
 			unset($_COOKIE[self::PUK_COOKIE]);
-			setcookie(self::PUK_COOKIE, null, -1, '/');
+			setcookie(self::PUK_COOKIE, NULL, - 1, '/');
 		}
 	}
 
@@ -159,7 +159,7 @@ final class CookieManager {
 	 * @throws \Exception
 	 */
 	public static function setCookieVoting($voting, $forrce = false) {
-		$result = setcookie(self::VOTING_COOKIE, $voting, null, '/');
+		$result = setcookie(self::VOTING_COOKIE, $voting, NULL, '/');
 		if (!$result) {
 			throw new \Exception("error setting cookie");
 		}
@@ -169,7 +169,7 @@ final class CookieManager {
 	public static function resetCookieVoting() {
 		if (isset($_COOKIE[self::VOTING_COOKIE])) {
 			unset($_COOKIE[self::VOTING_COOKIE]);
-			setcookie(self::VOTING_COOKIE, null, -1, '/');
+			setcookie(self::VOTING_COOKIE, NULL, - 1, '/');
 		}
 	}
 

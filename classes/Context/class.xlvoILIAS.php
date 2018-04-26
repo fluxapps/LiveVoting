@@ -1,9 +1,11 @@
 <?php
+
 namespace LiveVoting\Context;
 
 /**
  * Class xlvoILIAS
  *
+ * @author  nschaefli
  * @package LiveVoting\Context
  */
 class xlvoILIAS {
@@ -13,6 +15,7 @@ class xlvoILIAS {
 	 */
 	protected $settings;
 
+
 	public function __construct() {
 		global $DIC;
 		$this->settings = $DIC["ilSetting"];
@@ -21,6 +24,7 @@ class xlvoILIAS {
 
 	/**
 	 * @param $key
+	 *
 	 * @return mixed
 	 */
 	public function getSetting($key) {

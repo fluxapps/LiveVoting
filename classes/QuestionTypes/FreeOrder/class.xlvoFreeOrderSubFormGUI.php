@@ -38,7 +38,8 @@ class xlvoFreeOrderSubFormGUI extends xlvoSubFormGUI {
 
 	/**
 	 * @param \ilFormPropertyGUI $element
-	 * @param $value
+	 * @param                    $value
+	 *
 	 * @return void
 	 */
 	protected function handleField(\ilFormPropertyGUI $element, $value) {
@@ -66,6 +67,7 @@ class xlvoFreeOrderSubFormGUI extends xlvoSubFormGUI {
 
 	/**
 	 * @param \ilFormPropertyGUI $element
+	 *
 	 * @return array
 	 */
 	protected function getFieldValue(\ilFormPropertyGUI $element) {
@@ -78,10 +80,10 @@ class xlvoFreeOrderSubFormGUI extends xlvoSubFormGUI {
 				$options = $this->getXlvoVoting()->getVotingOptions();
 				foreach ($options as $option) {
 					$array[] = array(
-						self::F_ID       => $option->getId(),
-						self::F_TEXT     => $option->getTextForEditor(),
+						self::F_ID => $option->getId(),
+						self::F_TEXT => $option->getTextForEditor(),
 						self::F_POSITION => $option->getPosition(),
-						self::F_WEIGHT   => $option->getCorrectPosition(),
+						self::F_WEIGHT => $option->getCorrectPosition(),
 					);
 				}
 

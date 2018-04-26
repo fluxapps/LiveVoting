@@ -1,6 +1,7 @@
 <?php
 
 namespace LiveVoting\Player\QR;
+
 use Endroid\QrCode\QrCode;
 
 /**
@@ -13,6 +14,7 @@ class xlvoQR {
 	/**
 	 * @param $content
 	 * @param $size
+	 *
 	 * @return string
 	 */
 	public static function getImageDataString($content, $size) {

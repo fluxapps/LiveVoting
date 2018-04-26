@@ -1,6 +1,7 @@
 <?php
 
 namespace LiveVoting\Pin;
+
 use LiveVoting\Cache\xlvoCacheFactory;
 use LiveVoting\Cache\xlvoCacheService;
 use LiveVoting\User\xlvoUser;
@@ -34,17 +35,16 @@ class xlvoPin {
 	 * @var int
 	 */
 	protected $pin_length = 4;
-
-    /**
-     * @var $cache xlvoCacheService
-     */
-    private $cache;
-
-    const CACHE_TTL_SECONDS = 1800;
+	/**
+	 * @var $cache xlvoCacheService
+	 */
+	private $cache;
+	const CACHE_TTL_SECONDS = 1800;
 
 
 	/**
 	 * @param $obj_id
+	 *
 	 * @return int
 	 */
 	public static function lookupPin($obj_id) {
@@ -59,102 +59,101 @@ class xlvoPin {
 
 	/**
 	 * @param $pin
+	 *
 	 * @return int
 	 * @throws xlvoVoterException
 	 */
 	public static function checkPin($pin, $safe_mode = true) {
-        $cache = xlvoCacheFactory::getInstance();
+		$cache = xlvoCacheFactory::getInstance();
 
-        if($cache->isActive())
-            return self::checkPinWithCache($pin, $safe_mode);
-        else
-            return self::checkPinWithoutCache($pin, $safe_mode);
+		if ($cache->isActive()) {
+			return self::checkPinWithCache($pin, $safe_mode);
+		} else {
+			return self::checkPinWithoutCache($pin, $safe_mode);
+		}
 	}
 
-	private static function checkPinWithCache($pin, $safe_mode = true)
-    {
-        //use cache to speed up pin fetch operation
-        $key = xlvoVotingConfig::TABLE_NAME . '_pin_' . $pin;
-        $cache = xlvoCacheFactory::getInstance();
 
-        $config = $cache->get($key);
-        $xlvoVotingConfig = null;
+	private static function checkPinWithCache($pin, $safe_mode = true) {
+		//use cache to speed up pin fetch operation
+		$key = xlvoVotingConfig::TABLE_NAME . '_pin_' . $pin;
+		$cache = xlvoCacheFactory::getInstance();
+
+		$config = $cache->get($key);
+		$xlvoVotingConfig = NULL;
+
+		if (!$config instanceof \stdClass) {
+			//save obj id for a later cache fetch
+			//if we store the object a second time we would have some consistency problems because we don't know when the data are updated.
+			$xlvoVotingConfig = xlvoVotingConfig::where(array( 'pin' => $pin ))->first();
+			$config = new \stdClass();
+
+			//if the object is not gone
+			if ($xlvoVotingConfig instanceof xlvoVotingConfig) {
+				$config->id = $xlvoVotingConfig->getPrimaryFieldValue();
+				$cache->set($key, $config, self::CACHE_TTL_SECONDS);
+			}
+		}
+
+		if (!($xlvoVotingConfig instanceof xlvoVotingConfig)) {
+			$xlvoVotingConfig = xlvoVotingConfig::find($config->id); //relay on ar connector cache
+		}
+
+		//check pin
+		if ($xlvoVotingConfig instanceof xlvoVotingConfig) {
+			if (!$xlvoVotingConfig->isObjOnline()) {
+				if ($safe_mode) {
+					throw new xlvoVoterException('The voting is currently offline.', xlvoVoterException::VOTING_OFFLINE);
+				}
+			}
+			if (!$xlvoVotingConfig->isAnonymous() && xlvoUser::getInstance()->isPINUser()) {
+				if ($safe_mode) {
+					throw new xlvoVoterException('The voting is not available for anonymous users.', xlvoVoterException::VOTING_NOT_ANONYMOUS);
+				}
+			}
+
+			if (!$xlvoVotingConfig->isAvailableForUser() && xlvoUser::getInstance()->isPINUser()) {
+				if ($safe_mode) {
+					throw new xlvoVoterException('The voting is currently unavailable.', xlvoVoterException::VOTING_UNAVAILABLE);
+				}
+			}
+
+			return $xlvoVotingConfig->getObjId();
+		}
+		if ($safe_mode) {
+			throw new xlvoVoterException('', xlvoVoterException::VOTING_PIN_NOT_FOUND);
+		}
+	}
 
 
-        if(!$config instanceof \stdClass)
-        {
-            //save obj id for a later cache fetch
-            //if we store the object a second time we would have some consistency problems because we don't know when the data are updated.
-            $xlvoVotingConfig = xlvoVotingConfig::where(array( 'pin' => $pin ))->first();
-            $config = new \stdClass();
+	private static function checkPinWithoutCache($pin, $safe_mode = true) {
+		$xlvoVotingConfig = xlvoVotingConfig::where(array( 'pin' => $pin ))->first();
 
-            //if the object is not gone
-            if($xlvoVotingConfig instanceof xlvoVotingConfig)
-            {
-                $config->id = $xlvoVotingConfig->getPrimaryFieldValue();
-                $cache->set($key, $config, self::CACHE_TTL_SECONDS);
-            }
-        }
+		//check pin
+		if ($xlvoVotingConfig instanceof xlvoVotingConfig) {
+			if (!$xlvoVotingConfig->isObjOnline()) {
+				if ($safe_mode) {
+					throw new xlvoVoterException('', xlvoVoterException::VOTING_OFFLINE);
+				}
+			}
+			if (!$xlvoVotingConfig->isAnonymous() && xlvoUser::getInstance()->isPINUser()) {
+				if ($safe_mode) {
+					throw new xlvoVoterException('', xlvoVoterException::VOTING_NOT_ANONYMOUS);
+				}
+			}
 
-        if(!($xlvoVotingConfig instanceof xlvoVotingConfig))
-        {
-            $xlvoVotingConfig = xlvoVotingConfig::find($config->id); //relay on ar connector cache
-        }
+			if (!$xlvoVotingConfig->isAvailableForUser() && xlvoUser::getInstance()->isPINUser()) {
+				if ($safe_mode) {
+					throw new xlvoVoterException('', xlvoVoterException::VOTING_UNAVAILABLE);
+				}
+			}
 
-        //check pin
-        if ($xlvoVotingConfig instanceof xlvoVotingConfig) {
-            if (!$xlvoVotingConfig->isObjOnline()) {
-                if ($safe_mode) {
-                    throw new xlvoVoterException('The voting is currently offline.', xlvoVoterException::VOTING_OFFLINE);
-                }
-            }
-            if (!$xlvoVotingConfig->isAnonymous() && xlvoUser::getInstance()->isPINUser()) {
-                if ($safe_mode) {
-                    throw new xlvoVoterException('The voting is not available for anonymous users.', xlvoVoterException::VOTING_NOT_ANONYMOUS);
-                }
-            }
-
-            if (!$xlvoVotingConfig->isAvailableForUser() && xlvoUser::getInstance()->isPINUser()) {
-                if ($safe_mode) {
-                    throw new xlvoVoterException('The voting is currently unavailable.', xlvoVoterException::VOTING_UNAVAILABLE);
-                }
-            }
-
-            return $xlvoVotingConfig->getObjId();
-        }
-        if ($safe_mode) {
-            throw new xlvoVoterException('', xlvoVoterException::VOTING_PIN_NOT_FOUND);
-        }
-    }
-    private static function checkPinWithoutCache($pin, $safe_mode = true)
-    {
-        $xlvoVotingConfig = xlvoVotingConfig::where(array( 'pin' => $pin ))->first();
-
-        //check pin
-        if ($xlvoVotingConfig instanceof xlvoVotingConfig) {
-            if (!$xlvoVotingConfig->isObjOnline()) {
-                if ($safe_mode) {
-                    throw new xlvoVoterException('', xlvoVoterException::VOTING_OFFLINE);
-                }
-            }
-            if (!$xlvoVotingConfig->isAnonymous() && xlvoUser::getInstance()->isPINUser()) {
-                if ($safe_mode) {
-                    throw new xlvoVoterException('', xlvoVoterException::VOTING_NOT_ANONYMOUS);
-                }
-            }
-
-            if (!$xlvoVotingConfig->isAvailableForUser() && xlvoUser::getInstance()->isPINUser()) {
-                if ($safe_mode) {
-                    throw new xlvoVoterException('', xlvoVoterException::VOTING_UNAVAILABLE);
-                }
-            }
-
-            return $xlvoVotingConfig->getObjId();
-        }
-        if ($safe_mode) {
-            throw new xlvoVoterException('', xlvoVoterException::VOTING_PIN_NOT_FOUND);
-        }
-    }
+			return $xlvoVotingConfig->getObjId();
+		}
+		if ($safe_mode) {
+			throw new xlvoVoterException('', xlvoVoterException::VOTING_PIN_NOT_FOUND);
+		}
+	}
 
 
 	/**
@@ -167,7 +166,7 @@ class xlvoPin {
 			$this->setPin($pin);
 		}
 
-        $this->cache = xlvoCacheFactory::getInstance();
+		$this->cache = xlvoCacheFactory::getInstance();
 	}
 
 
@@ -216,53 +215,56 @@ class xlvoPin {
 	 * @return bool|string
 	 */
 	public function getLastAccess() {
-	    if($this->cache->isActive())
-	        return $this->getLastAccessWithCache();
-        else
-            return $this->getLastAccessWithoutCache();
+		if ($this->cache->isActive()) {
+			return $this->getLastAccessWithCache();
+		} else {
+			return $this->getLastAccessWithoutCache();
+		}
 	}
 
-	private function getLastAccessWithCache()
-    {
-        $key = xlvoVotingConfig::TABLE_NAME . '_pin_' . $this->getPin();
-        /**
-         * @var $xlvoVotingConfig \stdClass
-         */
-        $xlvoVotingConfig = $this->cache->get($key);
 
-        if(!($xlvoVotingConfig instanceof \stdClass))
-        {
-            $xlvoVotingConfig = xlvoVotingConfig::where(array( 'pin' => $this->getPin() ))->first();
-            $config = new \stdClass();
+	private function getLastAccessWithCache() {
+		$key = xlvoVotingConfig::TABLE_NAME . '_pin_' . $this->getPin();
+		/**
+		 * @var $xlvoVotingConfig \stdClass
+		 */
+		$xlvoVotingConfig = $this->cache->get($key);
 
-            //if the object is not gone
-            if($xlvoVotingConfig instanceof xlvoVotingConfig)
-            {
-                $config->id = $xlvoVotingConfig->getPrimaryFieldValue();
-                $this->cache->set($key, $config, self::CACHE_TTL_SECONDS);
-                return $xlvoVotingConfig->getLastAccess();
-            }
+		if (!($xlvoVotingConfig instanceof \stdClass)) {
+			$xlvoVotingConfig = xlvoVotingConfig::where(array( 'pin' => $this->getPin() ))->first();
+			$config = new \stdClass();
 
-            if (!($xlvoVotingConfig instanceof xlvoVotingConfig)) {
-                return false;
-            }
-        }
+			//if the object is not gone
+			if ($xlvoVotingConfig instanceof xlvoVotingConfig) {
+				$config->id = $xlvoVotingConfig->getPrimaryFieldValue();
+				$this->cache->set($key, $config, self::CACHE_TTL_SECONDS);
 
-        /**
-         * @var xlvoVotingConfig $xlvoVotingConfigObject
-         */
-        $xlvoVotingConfigObject = xlvoVotingConfig::find($xlvoVotingConfig->id);
-        return $xlvoVotingConfigObject->getLastAccess();
-    }
-    private function getLastAccessWithoutCache()
-    {
-        $xlvoVotingConfig = xlvoVotingConfig::where(array( 'pin' => $this->getPin() ))->first();
+				return $xlvoVotingConfig->getLastAccess();
+			}
 
-        if (!($xlvoVotingConfig instanceof xlvoVotingConfig)) {
-            return false;
-        }
-        return $xlvoVotingConfig->getLastAccess();
-    }
+			if (!($xlvoVotingConfig instanceof xlvoVotingConfig)) {
+				return false;
+			}
+		}
+
+		/**
+		 * @var xlvoVotingConfig $xlvoVotingConfigObject
+		 */
+		$xlvoVotingConfigObject = xlvoVotingConfig::find($xlvoVotingConfig->id);
+
+		return $xlvoVotingConfigObject->getLastAccess();
+	}
+
+
+	private function getLastAccessWithoutCache() {
+		$xlvoVotingConfig = xlvoVotingConfig::where(array( 'pin' => $this->getPin() ))->first();
+
+		if (!($xlvoVotingConfig instanceof xlvoVotingConfig)) {
+			return false;
+		}
+
+		return $xlvoVotingConfig->getLastAccess();
+	}
 
 
 	/**

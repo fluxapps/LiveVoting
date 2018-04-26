@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: nschaefli
- * Date: 9/30/16
- * Time: 5:11 PM
- */
 
 namespace LiveVoting\Cache\Version\v52;
 
@@ -12,13 +6,11 @@ use LiveVoting\Cache\Initialisable;
 use LiveVoting\Cache\xlvoCacheService;
 use LiveVoting\Conf\xlvoConf;
 use RuntimeException;
-use Whoops\Exception\ErrorException;
-
-require_once('./Services/GlobalCache/classes/class.ilGlobalCache.php');
 
 /**
  * Class xoctCache
  *
+ * @author  nschaefli
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version 1.0.0
  */

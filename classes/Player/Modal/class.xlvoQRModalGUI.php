@@ -1,10 +1,7 @@
 <?php
 
-use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Js\xlvoJs;
 use LiveVoting\Player\QR\xlvoQR;
-
-require_once('./Services/UIComponent/Modal/classes/class.ilModalGUI.php');
 
 /**
  * Class xlvoQRModalGUI

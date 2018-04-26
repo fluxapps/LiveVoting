@@ -2,7 +2,7 @@
 
 namespace LiveVoting\Context\Initialisation\Version\v53;
 
-require_once("./include/inc.ilias_version.php");
+require_once 'include/inc.ilias_version.php';
 
 use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Context\cookie\CookieManager;
@@ -20,6 +20,8 @@ use LiveVoting\xlvoSessionHandler;
  * @author      Nicolas Schaefli <ns@studer-raimann.ch>
  *
  * @description Initializes a minimal ILIAS environment.
+ *
+ * TODO Refactoring Realy need so mutch ILIAS core code?
  */
 class xlvoBasicInitialisation {
 
@@ -143,13 +145,8 @@ class xlvoBasicInitialisation {
 		$tpl->setVariable('BASE', xlvoConf::getBaseVoteURL());
 		$this->makeGlobal("tpl", $tpl);
 
-		include_once("./Services/jQuery/classes/class.iljQueryUtil.php");
 		\iljQueryUtil::initjQuery();
-		include_once("./Services/UICore/classes/class.ilUIFramework.php");
 		\ilUIFramework::init();
-
-		require_once "./Services/User/classes/class.ilObjUser.php";
-		require_once "./Services/UIComponent/Toolbar/classes/class.ilToolbarGUI.php";
 
 		$ilToolbar = new \ilToolbarGUI();
 		$this->makeGlobal("ilToolbar", $ilToolbar);
@@ -162,7 +159,6 @@ class xlvoBasicInitialisation {
 	 */
 	private function initDatabase() {
 		// build dsn of database connection and connect
-		require_once("./Services/Database/classes/class.ilDBWrapperFactory.php");
 		$ilDB = \ilDBWrapperFactory::getWrapper(IL_DB_TYPE);
 		$ilDB->initFromIniFile();
 		$ilDB->connect();
@@ -175,7 +171,6 @@ class xlvoBasicInitialisation {
 	 * Load ilias ini.
 	 */
 	private function loadIniFile() {
-		require_once("./Services/Init/classes/class.ilIniFile.php");
 		$this->iliasIniFile = new \ilIniFile("./ilias.ini.php");
 		$this->iliasIniFile->read();
 		$this->makeGlobal('ilIliasIniFile', $this->iliasIniFile);
@@ -229,7 +224,6 @@ class xlvoBasicInitialisation {
 				break;
 		}
 
-		include_once './Services/Calendar/classes/class.ilTimeZone.php';
 		$tz = \ilTimeZone::initDefaultTimeZone($this->iliasIniFile);
 		define("IL_TIMEZONE", $tz);
 		define('IL_INITIAL_WD', getcwd());
@@ -245,7 +239,6 @@ class xlvoBasicInitialisation {
 		$ini_file = "./" . ILIAS_WEB_DIR . "/" . CLIENT_ID . "/client.ini.php";
 
 		// get settings from ini file
-		require_once("./Services/Init/classes/class.ilIniFile.php");
 		$ilClientIniFile = new \ilIniFile($ini_file);
 		$ilClientIniFile->read();
 
@@ -290,7 +283,6 @@ class xlvoBasicInitialisation {
 			define("IL_DB_TYPE", $val);
 		}
 
-		require_once('./Services/GlobalCache/classes/Settings/class.ilGlobalCacheSettings.php');
 		$ilGlobalCacheSettings = new \ilGlobalCacheSettings();
 		$ilGlobalCacheSettings->readFromIniFile($ilClientIniFile);
 		\ilGlobalCache::setup($ilGlobalCacheSettings);
@@ -326,7 +318,6 @@ class xlvoBasicInitialisation {
 		));
 
 		session_start();
-		require_once('./Services/Authentication/classes/class.ilSession.php');
 	}
 
 
@@ -335,8 +326,8 @@ class xlvoBasicInitialisation {
 	 */
 	private function initDependencyInjection() {
 		global $DIC;
-		require_once("libs/composer/vendor/autoload.php");
-		//			require_once('./src/DI/Container.php');
+		require_once 'libs/composer/vendor/autoload.php';
+		//			require_once 'src/DI/Container.php';
 		$DIC = new \ILIAS\DI\Container();
 		$DIC["ilLoggerFactory"] = function ($c) {
 			return \ilLoggerFactory::getInstance();
@@ -348,7 +339,6 @@ class xlvoBasicInitialisation {
 	 * Init some ilias settings (required for locale)
 	 */
 	private function initSettings() {
-		require_once "Services/Administration/classes/class.ilSetting.php";
 		$this->settings = new \ilSetting();
 		$this->makeGlobal("ilSetting", $this->settings);
 
@@ -378,20 +368,10 @@ class xlvoBasicInitialisation {
 	 * Include the required stuff for ilias.
 	 */
 	private function requireCommonIncludes() {
-		require_once "Services/Component/classes/class.ilComponent.php";
-
-		// ilTemplate
-		if (\ilContext::usesTemplate()) {
-			require_once "./Services/UICore/classes/class.ilTemplate.php";
-		}
-
 		// really always required?
-		require_once "./Services/Utilities/classes/class.ilUtil.php";
-		//		require_once "./Services/Utilities/classes/class.ilFormat.php";
-		require_once "./Services/Calendar/classes/class.ilDatePresentation.php";
-		require_once "include/inc.ilias_version.php";
+		//		require_once 'Services/Utilities/classes/class.ilFormat.php';
+		require_once 'include/inc.ilias_version.php';
 
-		require_once './Services/Utilities/classes/class.ilBenchmark.php';
 		$this->makeGlobal("ilBench", new \ilBenchmark());
 	}
 
@@ -427,7 +407,6 @@ class xlvoBasicInitialisation {
 	 * $lng initialisation
 	 */
 	private function initLanguage() {
-		require_once 'Services/Language/classes/class.ilLanguage.php';
 		$this->makeGlobal('lng', \ilLanguage::getGlobalInstance());
 	}
 
@@ -438,7 +417,6 @@ class xlvoBasicInitialisation {
 	 * @return mixed
 	 */
 	private function buildHTTPPath() {
-		include_once './Services/Http/classes/class.ilHTTPS.php';
 		$https = new \ilHTTPS();
 		$this->makeGlobal("https", $https);
 
@@ -500,7 +478,6 @@ class xlvoBasicInitialisation {
 		if (!defined('DEVMODE')) {
 			define('DEVMODE', false);
 		}
-		require_once "./Services/Init/classes/class.ilErrorHandling.php";
 		$ilErr = new \ilErrorHandling();
 		$this->makeGlobal("ilErr", $ilErr);
 		$ilErr->setErrorHandling(PEAR_ERROR_CALLBACK, array( $ilErr, 'errorHandler' ));
@@ -511,7 +488,6 @@ class xlvoBasicInitialisation {
 	 * Init ilias data cache.
 	 */
 	private function initDataCache() {
-		require_once "./Services/Object/classes/class.ilObjectDataCache.php";
 		$this->makeGlobal("ilObjDataCache", new \ilObjectDataCache());
 	}
 
@@ -525,13 +501,11 @@ class xlvoBasicInitialisation {
 
 
 	private function initControllFlow() {
-		require_once "./Services/UICore/classes/class.ilCtrl.php";
 		$this->makeGlobal("ilCtrl", new \ilCtrl());
 	}
 
 
 	private function initPluginAdmin() {
-		require_once "./Services/Component/classes/class.ilPluginAdmin.php";
 		$this->makeGlobal("ilPluginAdmin", new \ilPluginAdmin());
 	}
 
@@ -540,7 +514,6 @@ class xlvoBasicInitialisation {
 	 * Init log instance
 	 */
 	private function initLog() {
-		include_once './Services/Logging/classes/public/class.ilLoggerFactory.php';
 		$log = \ilLoggerFactory::getRootLogger();
 
 		$this->makeGlobal("ilLog", $log);
@@ -567,7 +540,6 @@ class xlvoBasicInitialisation {
 			$cookie_path = '/';
 		}
 
-		include_once './Services/Http/classes/class.ilHTTPS.php';
 		$cookie_secure = !$this->settings->get('https', 0) && \ilHTTPS::getInstance()->isDetected();
 
 		define('IL_COOKIE_EXPIRE', 0);

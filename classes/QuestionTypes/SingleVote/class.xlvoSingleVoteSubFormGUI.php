@@ -49,7 +49,8 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 
 	/**
 	 * @param \ilFormPropertyGUI $element
-	 * @param $value
+	 * @param                    $value
+	 *
 	 * @return mixed
 	 */
 	protected function handleField(\ilFormPropertyGUI $element, $value) {
@@ -82,6 +83,7 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 
 	/**
 	 * @param \ilFormPropertyGUI $element
+	 *
 	 * @return mixed
 	 */
 	protected function getFieldValue(\ilFormPropertyGUI $element) {
@@ -97,7 +99,7 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 				$options = $this->getXlvoVoting()->getVotingOptions();
 				foreach ($options as $option) {
 					$array[] = array(
-						self::F_ID   => $option->getId(),
+						self::F_ID => $option->getId(),
 						self::F_TEXT => $option->getTextForEditor(),
 					);
 				}

@@ -69,7 +69,7 @@ final class xlvoBarGroupingCollectionGUI extends \xlvoBarCollectionGUI {
 
 		$this->renderVotersAndVotes();
 
-		$bars = null;
+		$bars = NULL;
 		if ($this->sorted) {
 			$bars = $this->sortBarsByFrequency($this->bars);
 		} else {

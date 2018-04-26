@@ -1,7 +1,6 @@
 <?php
 
 require_once __DIR__ . '/../vendor/autoload.php';
-require_once('./Services/Component/classes/class.ilPluginConfigGUI.php');
 
 /**
  * ilLiveVotingConfigGUI
@@ -28,10 +27,11 @@ class ilLiveVotingConfigGUI extends \ilPluginConfigGUI {
 	 * @var ilTemplate
 	 */
 	protected $tpl;
-	
-	public function __construct() { 
+
+
+	public function __construct() {
 		global $DIC;
-		
+
 		$this->ctrl = $DIC->ctrl();
 		$this->tabs = $DIC->tabs();
 		$this->lng = $DIC->language();
@@ -40,6 +40,7 @@ class ilLiveVotingConfigGUI extends \ilPluginConfigGUI {
 
 
 	public function executeCommand() {
+		// TODO Refactoring
 		$this->ctrl->setParameterByClass(\ilObjComponentSettingsGUI::class, "ctype", $_GET["ctype"]);
 		$this->ctrl->setParameterByClass(\ilObjComponentSettingsGUI::class, "cname", $_GET["cname"]);
 		$this->ctrl->setParameterByClass(\ilObjComponentSettingsGUI::class, "slot_id", $_GET["slot_id"]);

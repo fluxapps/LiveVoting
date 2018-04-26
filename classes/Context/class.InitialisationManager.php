@@ -11,7 +11,7 @@
 
 namespace LiveVoting\Context;
 
-require_once("./include/inc.ilias_version.php");
+require_once 'include/inc.ilias_version.php';
 
 use LiveVoting\Context\cookie\CookieManager;
 use LiveVoting\User\xlvoUser;

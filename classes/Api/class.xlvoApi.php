@@ -1,4 +1,5 @@
 <?php
+
 namespace LiveVoting\Api;
 
 use LiveVoting\Conf\xlvoConf;
@@ -39,7 +40,7 @@ class xlvoApi {
 	 * xlvoApi constructor.
 	 *
 	 * @param \LiveVoting\Pin\xlvoPin $pin
-	 * @param string $token
+	 * @param string                  $token
 	 */
 	public function __construct(xlvoPin $pin, $token) {
 		$this->pin = $pin;
@@ -95,8 +96,9 @@ class xlvoApi {
 
 	/**
 	 * @param \DOMElement|\DOMNode $dom
-	 * @param $key
-	 * @param $data
+	 * @param                      $key
+	 * @param                      $data
+	 *
 	 * @return mixed
 	 */
 	protected function appendXMLElement($dom, $key, $data) {

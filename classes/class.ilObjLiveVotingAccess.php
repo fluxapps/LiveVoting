@@ -23,9 +23,6 @@
 */
 
 require_once __DIR__ . '/../vendor/autoload.php';
-require_once('./Services/Repository/classes/class.ilObjectPluginAccess.php');
-require_once('./Services/Object/classes/class.ilObject2.php');
-require_once('./Services/ActiveRecord/class.ActiveRecord.php');
 
 /**
  *
@@ -68,8 +65,7 @@ class ilObjLiveVotingAccess extends \ilObjectPluginAccess {
 		switch ($a_permission) {
 			case "read":
 				if (!ilObjLiveVotingAccess::checkOnline($a_obj_id)
-				    && !$DIC->access()->checkAccessOfUser($a_user_id, "write", "", $a_ref_id)
-				) {
+					&& !$DIC->access()->checkAccessOfUser($a_user_id, "write", "", $a_ref_id)) {
 					return false;
 				}
 				break;
@@ -85,7 +81,7 @@ class ilObjLiveVotingAccess extends \ilObjectPluginAccess {
 	 *
 	 * @return bool
 	 */
-	public static function hasReadAccess($ref_id = null, $user_id = null) {
+	public static function hasReadAccess($ref_id = NULL, $user_id = NULL) {
 		return self::hasAccess('read', $ref_id, $user_id);
 	}
 
@@ -96,7 +92,7 @@ class ilObjLiveVotingAccess extends \ilObjectPluginAccess {
 	 *
 	 * @return bool
 	 */
-	public static function hasWriteAccess($ref_id = null, $user_id = null) {
+	public static function hasWriteAccess($ref_id = NULL, $user_id = NULL) {
 		return self::hasAccess('write', $ref_id, $user_id);
 	}
 
@@ -146,7 +142,7 @@ class ilObjLiveVotingAccess extends \ilObjectPluginAccess {
 	 *
 	 * @return bool
 	 */
-	public static function hasDeleteAccess($ref_id = null, $user_id = null) {
+	public static function hasDeleteAccess($ref_id = NULL, $user_id = NULL) {
 		return self::hasAccess('delete', $ref_id, $user_id);
 	}
 
@@ -157,7 +153,7 @@ class ilObjLiveVotingAccess extends \ilObjectPluginAccess {
 	 *
 	 * @return bool
 	 */
-	public static function hasCreateAccess($ref_id = null, $user_id = null) {
+	public static function hasCreateAccess($ref_id = NULL, $user_id = NULL) {
 		return self::hasAccess('create_xlvo', $ref_id, $user_id);
 	}
 
@@ -169,7 +165,7 @@ class ilObjLiveVotingAccess extends \ilObjectPluginAccess {
 	 *
 	 * @return bool
 	 */
-	protected static function hasAccess($permission, $ref_id = null, $user_id = null) {
+	protected static function hasAccess($permission, $ref_id = NULL, $user_id = NULL) {
 		global $DIC;
 		$ref_id = $ref_id ? $ref_id : $_GET['ref_id'];
 		$user_id = $user_id ? $user_id : $DIC->user()->getId();
@@ -195,7 +191,7 @@ class ilObjLiveVotingAccess extends \ilObjectPluginAccess {
 	/**
 	 * Check online status of example object
 	 */
-	public static function checkOnline($a_id = null) {
+	public static function checkOnline($a_id = NULL) {
 		/**
 		 * @var $config xlvoVotingConfig
 		 */

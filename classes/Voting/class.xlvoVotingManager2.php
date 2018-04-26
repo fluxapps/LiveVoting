@@ -1,6 +1,7 @@
 <?php
 
 namespace LiveVoting\Voting;
+
 use LiveVoting\Exceptions\xlvoVotingManagerException;
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\Pin\xlvoPin;
@@ -47,13 +48,12 @@ class xlvoVotingManager2 {
 		$obj_id = xlvoPin::checkPin($pin, false);
 		$this->obj_id = $obj_id;
 		$this->player = xlvoPlayer::getInstanceForObjId($this->obj_id);
-        $round_id = $this->player->getRoundId();
+		$round_id = $this->player->getRoundId();
 		$this->player->setRoundId(xlvoRound::getLatestRoundId($this->obj_id));
 
-        if($round_id !== $this->player->getRoundId())
-        {
-            $this->player->store();
-        }
+		if ($round_id !== $this->player->getRoundId()) {
+			$this->player->store();
+		}
 
 		$this->initVoting();
 	}
@@ -61,6 +61,7 @@ class xlvoVotingManager2 {
 
 	/**
 	 * @param $pin
+	 *
 	 * @throws xlvoVoterException
 	 */
 	public function checkPIN($pin) {
@@ -70,6 +71,7 @@ class xlvoVotingManager2 {
 
 	/**
 	 * @param $obj_id
+	 *
 	 * @return xlvoVotingManager2
 	 */
 	public static function getInstanceFromObjId($obj_id) {
@@ -89,7 +91,7 @@ class xlvoVotingManager2 {
 	/**
 	 * @param null $option
 	 */
-	public function vote($option = null) {
+	public function vote($option = NULL) {
 		$xlvoOption = xlvoOption::findOrGetInstance($option);
 		if ($this->hasUserVotedForOption($xlvoOption)) {
 			$this->unvote($option);
@@ -124,6 +126,7 @@ class xlvoVotingManager2 {
 	/**
 	 * @param $input
 	 * @param $vote_id
+	 *
 	 * @throws xlvoVotingManagerException
 	 */
 	protected function input($input, $vote_id) {
@@ -162,19 +165,21 @@ class xlvoVotingManager2 {
 
 	/**
 	 * @param $option_id
+	 *
 	 * @return int
 	 */
 	public function countVotesOfOption($option_id) {
 		return xlvoVote::where(array(
 			'option_id' => $option_id,
-			'status'    => xlvoVote::STAT_ACTIVE,
-			'round_id'  => $this->player->getRoundId(),
+			'status' => xlvoVote::STAT_ACTIVE,
+			'round_id' => $this->player->getRoundId(),
 		))->count();
 	}
 
 
 	/**
 	 * @param $option_id
+	 *
 	 * @return xlvoVote[]
 	 */
 	public function getVotesOfOption($option_id) {
@@ -183,8 +188,8 @@ class xlvoVotingManager2 {
 		 */
 		return xlvoVote::where(array(
 			'option_id' => $option_id,
-			'status'    => xlvoVote::STAT_ACTIVE,
-			'round_id'  => $this->player->getRoundId(),
+			'status' => xlvoVote::STAT_ACTIVE,
+			'round_id' => $this->player->getRoundId(),
 		))->get();
 	}
 
@@ -192,7 +197,7 @@ class xlvoVotingManager2 {
 	/**
 	 * @param null $option
 	 */
-	public function unvote($option = null) {
+	public function unvote($option = NULL) {
 		xlvoVote::unvote(xlvoUser::getInstance(), $this->getVoting()->getId(), $option);
 	}
 
@@ -200,7 +205,7 @@ class xlvoVotingManager2 {
 	/**
 	 * @param null $except_vote_id
 	 */
-	public function unvoteAll($except_vote_id = null) {
+	public function unvoteAll($except_vote_id = NULL) {
 		foreach ($this->getVotesOfUser() as $xlvoVote) {
 			if ($except_vote_id && $xlvoVote->getId() == $except_vote_id) {
 				continue;
@@ -223,6 +228,7 @@ class xlvoVotingManager2 {
 
 	/**
 	 * @param bool $incl_inactive
+	 *
 	 * @return xlvoVote
 	 */
 	public function getFirstVoteOfUser($incl_inactive = false) {
@@ -235,6 +241,7 @@ class xlvoVotingManager2 {
 
 	/**
 	 * @param xlvoOption $xlvoOption
+	 *
 	 * @return bool
 	 */
 	public function hasUserVotedForOption(xlvoOption $xlvoOption) {
@@ -249,6 +256,7 @@ class xlvoVotingManager2 {
 
 	/**
 	 * @param $option_id
+	 *
 	 * @return array
 	 */
 	public function getVotesOfUserOfOption($option_id) {
@@ -355,8 +363,8 @@ class xlvoVotingManager2 {
 	public function countVotes() {
 		return xlvoVote::where(array(
 			'voting_id' => $this->getVoting()->getId(),
-			'round_id'  => $this->getPlayer()->getRoundId(),
-			'status'    => xlvoVote::STAT_ACTIVE,
+			'round_id' => $this->getPlayer()->getRoundId(),
+			'status' => xlvoVote::STAT_ACTIVE,
 		))->count();
 	}
 
@@ -365,7 +373,8 @@ class xlvoVotingManager2 {
 	 * @return int
 	 */
 	public function countVoters() {
-		$q = 'SELECT user_id_type, user_identifier, user_id FROM ' . xlvoVote::TABLE_NAME . ' WHERE voting_id = %s AND status = %s AND round_id = %s GROUP BY user_id_type, user_identifier, user_id';
+		$q = 'SELECT user_id_type, user_identifier, user_id FROM ' . xlvoVote::TABLE_NAME
+			. ' WHERE voting_id = %s AND status = %s AND round_id = %s GROUP BY user_id_type, user_identifier, user_id';
 
 		global $DIC;
 		$ilDB = $DIC->database();
@@ -414,7 +423,7 @@ class xlvoVotingManager2 {
 		 * @var $xlvoVote xlvoVote
 		 */
 		foreach (xlvoVote::where(array( 'voting_id' => $this->getVoting()->getId(), 'round_id' => $this->getPlayer()->getRoundId() ))
-		                 ->get() as $xlvoVote) {
+			         ->get() as $xlvoVote) {
 			$xlvoVote->delete();
 		}
 	}
@@ -473,8 +482,8 @@ class xlvoVotingManager2 {
 		 */
 		return xlvoVote::where(array(
 			'voting_id' => $this->getVoting()->getId(),
-			'status'    => xlvoOption::STAT_ACTIVE,
-			'round_id'  => $this->player->getRoundId(),
+			'status' => xlvoOption::STAT_ACTIVE,
+			'round_id' => $this->player->getRoundId(),
 		))->get();
 	}
 
@@ -489,6 +498,7 @@ class xlvoVotingManager2 {
 
 	/**
 	 * @param $option_id
+	 *
 	 * @return xlvoVote
 	 */
 	public function getFirstVoteOfUserOfOption($option_id) {
@@ -570,11 +580,12 @@ class xlvoVotingManager2 {
 
 	/**
 	 * @param string $order
+	 *
 	 * @return \ActiveRecordList
 	 */
 	protected function getVotingsList($order = 'ASC') {
 		return xlvoVoting::where(array(
-			'obj_id'        => $this->getObjId(),
+			'obj_id' => $this->getObjId(),
 			'voting_status' => xlvoVoting::STAT_ACTIVE,
 		))->where(array( 'voting_type' => xlvoQuestionTypes::getActiveTypes() ))->orderBy('position', $order);
 	}

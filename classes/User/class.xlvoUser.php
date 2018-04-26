@@ -38,6 +38,7 @@ class xlvoUser {
 		if (!isset(self::$instance)) {
 			self::$instance = new self();
 		}
+
 		return self::$instance;
 	}
 
@@ -68,10 +69,12 @@ class xlvoUser {
 
 	/**
 	 * @param $type
+	 *
 	 * @return $this
 	 */
 	public function setType($type) {
 		$this->type = $type;
+
 		return $this;
 	}
 
@@ -86,10 +89,12 @@ class xlvoUser {
 
 	/**
 	 * @param $identifier
+	 *
 	 * @return $this
 	 */
 	public function setIdentifier($identifier) {
 		$this->identifier = $identifier;
+
 		return $this;
 	}
 }

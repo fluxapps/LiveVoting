@@ -1,4 +1,5 @@
 <?php
+
 namespace LiveVoting\Results;
 
 use LiveVoting\Voting\xlvoVoting;
@@ -38,11 +39,12 @@ class xlvoResults {
 
 
 	/**
-	 * @param array|null $filter
+	 * @param array|null    $filter
 	 * @param callable|null $formatParticipantCallable
+	 *
 	 * @return array
 	 */
-	public function getData(array $filter = null, callable $formatParticipantCallable = null, callable $concatVotesCallable = null) {
+	public function getData(array $filter = NULL, callable $formatParticipantCallable = NULL, callable $concatVotesCallable = NULL) {
 		if (!$formatParticipantCallable) {
 			$formatParticipantCallable = $this->getFormatParticipantCallable();
 		}
@@ -66,32 +68,31 @@ class xlvoResults {
 		 */
 		$votings = $votingRecords->get();
 		$round_id = $this->getRoundId();
-		$participants = xlvoParticipants::getInstance($obj_id)
-		                                ->getParticipantsForRound($round_id, $filter['participant']);
+		$participants = xlvoParticipants::getInstance($obj_id)->getParticipantsForRound($round_id, $filter['participant']);
 		$data = array();
 		foreach ($participants as $participant) {
 			foreach ($votings as $voting) {
 				$votes = xlvoVote::where(array(
-					"round_id"        => $round_id,
-					"voting_id"       => $voting->getId(),
-					"user_id"         => $participant->getUserId(),
+					"round_id" => $round_id,
+					"voting_id" => $voting->getId(),
+					"user_id" => $participant->getUserId(),
 					"user_identifier" => $participant->getUserIdentifier(),
-					"status"          => xlvoVote::STAT_ACTIVE,
+					"status" => xlvoVote::STAT_ACTIVE,
 				))->get();
 				$vote = array_shift(array_values($votes));
 				$vote_ids = array_keys($votes);
 				$data[] = array(
-					"position"        => (int)$voting->getPosition(),
-					"participant"     => $formatParticipantCallable($participant),
-					"user_id"         => $participant->getUserId(),
+					"position" => (int)$voting->getPosition(),
+					"participant" => $formatParticipantCallable($participant),
+					"user_id" => $participant->getUserId(),
 					"user_identifier" => $participant->getUserIdentifier(),
-					"title"           => $voting->getTitle(),
-					"question"        => $voting->getRawQuestion(),
-					"answer"          => $concatVotesCallable($voting, $votes),
-					"answer_ids"      => $vote_ids,
-					"voting_id"       => $voting->getId(),
-					"round_id"        => $round_id,
-					"id"              => ($vote instanceof xlvoVote ? $vote->getId() : ''),
+					"title" => $voting->getTitle(),
+					"question" => $voting->getRawQuestion(),
+					"answer" => $concatVotesCallable($voting, $votes),
+					"answer_ids" => $vote_ids,
+					"voting_id" => $voting->getId(),
+					"round_id" => $round_id,
+					"id" => ($vote instanceof xlvoVote ? $vote->getId() : ''),
 				);
 			}
 		}

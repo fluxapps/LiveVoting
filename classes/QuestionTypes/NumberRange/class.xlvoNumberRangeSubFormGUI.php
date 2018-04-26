@@ -21,9 +21,9 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 	const START_RANGE_INVALID_INFO = 'qtype_6_invalid_start_range';
 	const END_RANGE_INVALID_INFO = 'qtype_6_invalid_end_range';
 	const END_RANGE_MAX = 2147483646;  //2^31 - 1       (int is always signed in php)
-	const END_RANGE_MIN = -2147483647; //-2^31 + 1      (int is always signed in php)
+	const END_RANGE_MIN = - 2147483647; //-2^31 + 1      (int is always signed in php)
 	const START_RANGE_MAX = 2147483645; //2^31 - 2      (int is always signed in php)
-	const START_RANGE_MIN = -2147483646; //-2^31 + 2    (int is always signed in php)
+	const START_RANGE_MIN = - 2147483646; //-2^31 + 2    (int is always signed in php)
 
 
 	/**
@@ -37,19 +37,17 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 		$percentageCheckBox->setChecked(((int)$this->getXlvoVoting()->getStartRange()) === 1);
 
 		//create badge box option for the result display
-		$alternativeResultDisplayModeCheckBox = new \ilCheckboxInputGUI($this->txt(self::OPTION_ALTERNATIVE_RESULT_DISPLAY_MODE),
-			self::OPTION_ALTERNATIVE_RESULT_DISPLAY_MODE);
+		$alternativeResultDisplayModeCheckBox = new \ilCheckboxInputGUI($this->txt(self::OPTION_ALTERNATIVE_RESULT_DISPLAY_MODE), self::OPTION_ALTERNATIVE_RESULT_DISPLAY_MODE);
 		$alternativeResultDisplayModeCheckBox->setInfo($this->txt(self::OPTION_ALTERNATIVE_RESULT_DISPLAY_MODE_INFO));
 		$alternativeResultDisplayModeCheckBox->setChecked(((int)$this->getXlvoVoting()->getAltResultDisplayMode()) === 1);
 
-		$displayMode = new ilRadioGroupInputGUI($this->txt(self::OPTION_ALTERNATIVE_RESULT_DISPLAY_MODE),
-			self::OPTION_ALTERNATIVE_RESULT_DISPLAY_MODE);
-		$displayMode->addOption(new ilRadioOption($this->txt('display_mode_nr_' . xlvoNumberRangeResultsGUI::DISPLAY_MODE_GROUPED_TEXT),
-			xlvoNumberRangeResultsGUI::DISPLAY_MODE_GROUPED_TEXT));
-		$displayMode->addOption(new ilRadioOption($this->txt('display_mode_nr_' . xlvoNumberRangeResultsGUI::DISPLAY_MODE_BARS),
-			xlvoNumberRangeResultsGUI::DISPLAY_MODE_BARS));
-		$displayMode->addOption(new ilRadioOption($this->txt('display_mode_nr_' . xlvoNumberRangeResultsGUI::DISPLAY_MODE_GROUPED_TEXT_EXTENDED),
-			xlvoNumberRangeResultsGUI::DISPLAY_MODE_GROUPED_TEXT_EXTENDED));
+		$displayMode = new ilRadioGroupInputGUI($this->txt(self::OPTION_ALTERNATIVE_RESULT_DISPLAY_MODE), self::OPTION_ALTERNATIVE_RESULT_DISPLAY_MODE);
+		$displayMode->addOption(new ilRadioOption($this->txt('display_mode_nr_'
+			. xlvoNumberRangeResultsGUI::DISPLAY_MODE_GROUPED_TEXT), xlvoNumberRangeResultsGUI::DISPLAY_MODE_GROUPED_TEXT));
+		$displayMode->addOption(new ilRadioOption($this->txt('display_mode_nr_'
+			. xlvoNumberRangeResultsGUI::DISPLAY_MODE_BARS), xlvoNumberRangeResultsGUI::DISPLAY_MODE_BARS));
+		$displayMode->addOption(new ilRadioOption($this->txt('display_mode_nr_'
+			. xlvoNumberRangeResultsGUI::DISPLAY_MODE_GROUPED_TEXT_EXTENDED), xlvoNumberRangeResultsGUI::DISPLAY_MODE_GROUPED_TEXT_EXTENDED));
 		$displayMode->setValue($this->getXlvoVoting()->getAltResultDisplayMode());
 
 		//create start range number input

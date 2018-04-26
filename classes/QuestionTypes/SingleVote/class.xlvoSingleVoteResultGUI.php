@@ -12,6 +12,7 @@ class xlvoSingleVoteResultGUI extends xlvoResultGUI {
 
 	/**
 	 * @param xlvoVote[] $votes
+	 *
 	 * @return string|xlvoOption
 	 */
 	public function getTextRepresentation($votes) {
@@ -34,6 +35,7 @@ class xlvoSingleVoteResultGUI extends xlvoResultGUI {
 
 	/**
 	 * @param \LiveVoting\Vote\xlvoVote[] $votes
+	 *
 	 * @return string
 	 */
 	public function getAPIRepresentation($votes) {

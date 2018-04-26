@@ -8,6 +8,6 @@
 class xlvoToolbarGUI extends \ilToolbarGUI {
 
 	protected function applyAutoStickyToSingleElement() {
-		return null;
+		return NULL;
 	}
 }

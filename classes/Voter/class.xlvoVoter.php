@@ -11,13 +11,14 @@ use LiveVoting\User\xlvoUser;
  *
  * @author Fabian Schmid <fs@studer-raimann.ch>
  */
-class xlvoVoter extends CachingActiveRecord  {
+class xlvoVoter extends CachingActiveRecord {
 
-    /**
-     * Default client update delay in seconds
-     */
-    const DEFAULT_CLIENT_UPDATE_DELAY = 1;
-    const TABLE_NAME = 'xlvo_voter';
+	/**
+	 * Default client update delay in seconds
+	 */
+	const DEFAULT_CLIENT_UPDATE_DELAY = 1;
+	const TABLE_NAME = 'xlvo_voter';
+
 
 	/**
 	 * @return string
@@ -27,6 +28,7 @@ class xlvoVoter extends CachingActiveRecord  {
 	static function returnDbTableName() {
 		return self::TABLE_NAME;
 	}
+
 
 	/**
 	 * @param $player_id
@@ -50,24 +52,25 @@ class xlvoVoter extends CachingActiveRecord  {
 
 	/**
 	 * @param $player_id
+	 *
 	 * @return int
 	 */
 	public static function countVoters($player_id) {
-        /**
-         * @var $delay float
-         */
-        $delay = xlvoConf::getConfig(xlvoConf::F_REQUEST_FREQUENCY);
+		/**
+		 * @var $delay float
+		 */
+		$delay = xlvoConf::getConfig(xlvoConf::F_REQUEST_FREQUENCY);
 
-        //check if we get some valid settings otherwise fall back to default value.
-        if(is_numeric($delay))
-        {
-            $delay = ((float)$delay);
-        }
-        else
-        {
-            $delay = self::DEFAULT_CLIENT_UPDATE_DELAY;
-        }
-		return self::where(array( 'player_id' => $player_id ))->where(array( 'last_access' => date(DATE_ATOM, time() - ($delay + $delay * 0.5)) ), '>')->count();
+		//check if we get some valid settings otherwise fall back to default value.
+		if (is_numeric($delay)) {
+			$delay = ((float)$delay);
+		} else {
+			$delay = self::DEFAULT_CLIENT_UPDATE_DELAY;
+		}
+
+		return self::where(array( 'player_id' => $player_id ))->where(array(
+			'last_access' => date(DATE_ATOM, time() - ($delay + $delay * 0.5))
+		), '>')->count();
 	}
 
 
@@ -81,9 +84,11 @@ class xlvoVoter extends CachingActiveRecord  {
 			if (!$this->last_access instanceof \DateTime) {
 				$this->last_access = new \DateTime();
 			}
+
 			return $this->last_access->format(\DateTime::ATOM);
 		}
-		return null;
+
+		return NULL;
 	}
 
 
@@ -97,7 +102,8 @@ class xlvoVoter extends CachingActiveRecord  {
 		if ($field_name == 'last_access') {
 			return new \DateTime($field_value);
 		}
-		return null;
+
+		return NULL;
 	}
 
 
@@ -106,7 +112,7 @@ class xlvoVoter extends CachingActiveRecord  {
 	 *
 	 * @con_is_primary true
 	 * @con_is_unique  true
-	 * @con_sequence  true
+	 * @con_sequence   true
 	 * @con_has_field  true
 	 * @con_fieldtype  integer
 	 * @con_length     8

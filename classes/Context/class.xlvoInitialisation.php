@@ -6,8 +6,6 @@ use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Context\cookie\CookieManager;
 use LiveVoting\xlvoSessionHandler;
 
-require_once('./Services/Init/classes/class.ilInitialisation.php');
-
 /**
  * Class xlvoInitialisation
  *
@@ -50,7 +48,7 @@ class xlvoInitialisation extends \ilInitialisation {
 		//		$this->setContext(self::CONTEXT_ILIAS);
 		switch (self::getContext()) {
 			case self::CONTEXT_ILIAS:
-				require_once('./include/inc.header.php');
+				require_once 'include/inc.header.php';
 				self::initHTML2();
 				//				self::initILIAS();
 				break;
@@ -108,7 +106,7 @@ class xlvoInitialisation extends \ilInitialisation {
 
 	public static function initILIAS2() {
 		global $DIC;
-		require_once("./include/inc.ilias_version.php");
+		require_once 'include/inc.ilias_version.php';
 		self::initDependencyInjection();
 		self::initCore();
 		self::initClient();
@@ -148,12 +146,10 @@ class xlvoInitialisation extends \ilInitialisation {
 		if (!self::USE_OWN_GLOBAL_TPL) {
 			$tpl->getStandardTemplate();
 		}
-		require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/Conf/class.xlvoConf.php');
+
 		$tpl->setVariable('BASE', xlvoConf::getBaseVoteURL());
 		if (self::USE_OWN_GLOBAL_TPL) {
-			include_once("./Services/jQuery/classes/class.iljQueryUtil.php");
 			\iljQueryUtil::initjQuery();
-			include_once("./Services/UICore/classes/class.ilUIFramework.php");
 			\ilUIFramework::init();
 		}
 	}
@@ -177,7 +173,6 @@ class xlvoInitialisation extends \ilInitialisation {
 		//		}
 
 		self::initGlobal("ilObjDataCache", "ilObjectDataCache", "./Services/Object/classes/class.ilObjectDataCache.php");
-		require_once "./Services/Tree/classes/class.ilTree.php";
 		self::$tree = new \ilTree(ROOT_FOLDER_ID);
 		self::initGlobal("tree", self::$tree);
 		//unset(self::$tree);

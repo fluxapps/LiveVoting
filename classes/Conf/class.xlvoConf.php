@@ -49,7 +49,6 @@ class xlvoConf extends CachingActiveRecord {
 	 * @return bool
 	 */
 	public static function isLatexEnabled() {
-		include_once "./Services/Administration/classes/class.ilSetting.php";
 		$mathJaxSetting = new \ilSetting("MathJax");
 
 		return (bool)$mathJaxSetting->get("enable");
@@ -84,6 +83,7 @@ class xlvoConf extends CachingActiveRecord {
 
 		return $url;
 	}
+
 
 	/**
 	 * @return string

@@ -27,12 +27,13 @@ class xlvoVote extends CachingActiveRecord {
 
 	/**
 	 * @param xlvoUser $xlvoUser
-	 * @param $voting_id
-	 * @param $round_id
-	 * @param null $option_id
+	 * @param          $voting_id
+	 * @param          $round_id
+	 * @param null     $option_id
+	 *
 	 * @return string
 	 */
-	public static function vote(xlvoUser $xlvoUser, $voting_id, $round_id, $option_id = null) {
+	public static function vote(xlvoUser $xlvoUser, $voting_id, $round_id, $option_id = NULL) {
 		$obj = self::getUserInstance($xlvoUser, $voting_id, $option_id);
 		$obj->setStatus(self::STAT_ACTIVE);
 		$obj->setRoundId($round_id);
@@ -52,11 +53,12 @@ class xlvoVote extends CachingActiveRecord {
 
 	/**
 	 * @param xlvoUser $xlvoUser
-	 * @param $voting_id
-	 * @param null $option_id
+	 * @param          $voting_id
+	 * @param null     $option_id
+	 *
 	 * @return string
 	 */
-	public static function unvote(xlvoUser $xlvoUser, $voting_id, $option_id = null) {
+	public static function unvote(xlvoUser $xlvoUser, $voting_id, $option_id = NULL) {
 		$obj = self::getUserInstance($xlvoUser, $voting_id, $option_id);
 		$obj->setStatus(self::STAT_INACTIVE);
 		$obj->store();
@@ -97,6 +99,7 @@ class xlvoVote extends CachingActiveRecord {
 
 	/**
 	 * @param $field_name
+	 *
 	 * @return mixed
 	 */
 	public function sleep($field_name) {
@@ -111,14 +114,15 @@ class xlvoVote extends CachingActiveRecord {
 
 	/**
 	 * @param xlvoUser $xlvoUser
-	 * @param $voting_id
+	 * @param          $voting_id
+	 *
 	 * @return xlvoVote[]
 	 */
 	public static function getVotesOfUser(xlvoUser $xlvoUser, $voting_id, $round_id, $incl_inactive = false) {
 		$where = array(
 			'voting_id' => $voting_id,
-			'status'    => self::STAT_ACTIVE,
-			'round_id'  => $round_id,
+			'status' => self::STAT_ACTIVE,
+			'round_id' => $round_id,
 		);
 		if ($incl_inactive) {
 			$where['status'] = array(
@@ -138,8 +142,9 @@ class xlvoVote extends CachingActiveRecord {
 
 	/**
 	 * @param xlvoUser $xlvoUser
-	 * @param $voting_id
-	 * @param $option_id
+	 * @param          $voting_id
+	 * @param          $option_id
+	 *
 	 * @return \ActiveRecord|xlvoVote
 	 */
 	protected static function getUserInstance(xlvoUser $xlvoUser, $voting_id, $option_id) {
@@ -183,23 +188,22 @@ class xlvoVote extends CachingActiveRecord {
 		if ($xlvoUser->isILIASUser()) {
 			$historyObject->setUserIdType(xlvoVote::USER_ILIAS);
 			$historyObject->setUserId($xlvoUser->getIdentifier());
-			$historyObject->setUserIdentifier(null);
+			$historyObject->setUserIdentifier(NULL);
 		} else {
 			$historyObject->setUserIdType(xlvoVote::USER_ANONYMOUS);
-			$historyObject->setUserId(null);
+			$historyObject->setUserId(NULL);
 			$historyObject->setUserIdentifier($xlvoUser->getIdentifier());
 		}
 
 		$historyObject->setVotingId($voting_id);
 		$historyObject->setRoundId($round_id);
 		$historyObject->setTimestamp(time());
-		require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/QuestionTypes/class.xlvoResultGUI.php');
 		$gui = \xlvoResultGUI::getInstance(xlvoVoting::find($voting_id));
 
 		$votes = xlvoVote::where(array(
 			'voting_id' => $voting_id,
-			'status'    => xlvoOption::STAT_ACTIVE,
-			'round_id'  => $round_id,
+			'status' => xlvoOption::STAT_ACTIVE,
+			'round_id' => $round_id,
 		));
 		if ($xlvoUser->isILIASUser()) {
 			$votes->where(array( "user_id" => $xlvoUser->getIdentifier() ));

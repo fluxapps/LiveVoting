@@ -95,6 +95,7 @@ class xlvoSingleVoteResultsGUI extends xlvoInputResultsGUI {
 
 	/**
 	 * @param $votes xlvoVote[]
+	 *
 	 * @return string
 	 */
 	public function getTextRepresentationForVotes($votes) {

@@ -2,8 +2,6 @@
 
 namespace LiveVoting\Context;
 
-require_once('Services/Context/interfaces/interface.ilContextTemplate.php');
-
 /**
  * Class xlvoContextLiveVoting
  *

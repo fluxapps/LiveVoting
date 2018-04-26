@@ -1,7 +1,5 @@
 <?php
 
-require_once('./Services/Form/classes/class.ilTextAreaInputGUI.php');
-
 /**
  * Class xlvoTextAreaInputGUI
  *

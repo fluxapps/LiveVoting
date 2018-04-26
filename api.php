@@ -5,14 +5,14 @@
  *         User starts here. Use a RewriteRule to access this page a bit simpler
  */
 
+require_once __DIR__ . '/vendor/autoload.php';
+require_once 'dir.php';
+
 use LiveVoting\Api\xlvoApi;
 use LiveVoting\Pin\xlvoPin;
 use LiveVoting\Context\cookie\CookieManager;
 use LiveVoting\Context\InitialisationManager;
 use LiveVoting\Context\xlvoContext;
-
-require_once __DIR__ . '/vendor/autoload.php';
-require_once('dir.php');
 
 InitialisationManager::startMinimal();
 CookieManager::setContext(xlvoContext::CONTEXT_PIN);

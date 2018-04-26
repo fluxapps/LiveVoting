@@ -8,14 +8,6 @@ use LiveVoting\Context\xlvoContext;
 use LiveVoting\Context\xlvoInitialisation;
 use LiveVoting\Voting\xlvoVotingManager2;
 
-require_once('./Services/Form/classes/class.ilPropertyFormGUI.php');
-require_once('./Services/Repository/classes/class.ilObjectPluginGUI.php');
-require_once('./Services/AccessControl/classes/class.ilPermissionGUI.php');
-require_once('./Services/InfoScreen/classes/class.ilInfoScreenGUI.php');
-require_once('./Services/UIComponent/Button/classes/class.ilLinkButton.php');
-require_once('./Services/Form/classes/class.ilDateDurationInputGUI.php');
-require_once('./Services/PersonalDesktop/interfaces/interface.ilDesktopItemHandling.php');
-
 /**
  * Class ilObjLiveVotingGUI
  *
@@ -173,6 +165,7 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 	 * @param $cmd
 	 */
 	protected function triageCmdClass($next_class, $cmd) {
+		// TODO Refactoring
 		switch ($next_class) {
 			case 'xlvovotinggui':
 				$xlvoVotingGUI = new xlvoVotingGUI();
@@ -198,14 +191,12 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 				break;
 
 			case 'ilpermissiongui':
-				include_once("Services/AccessControl/classes/class.ilPermissionGUI.php");
 				$perm_gui = new \ilPermissionGUI($this);
 				$this->tabs->activateTab(self::TAB_PERMISSIONS);
 				$ret = $this->ctrl->forwardCommand($perm_gui);
 				break;
 
 			case 'ilobjectcopygui':
-				include_once './Services/Object/classes/class.ilObjectCopyGUI.php';
 				$cp = new \ilObjectCopyGUI($this);
 				$cp->setType($this->getType());
 				$this->ctrl->forwardCommand($cp);
@@ -213,12 +204,10 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 
 			case 'illearningprogressgui':
 				$this->tabs->activateTab(self::TAB_PERMISSIONS);
-				include_once './Services/Tracking/classes/class.ilLearningProgressGUI.php';
 				$new_gui = new \ilLearningProgressGUI(\ilLearningProgressGUI::LP_CONTEXT_REPOSITORY, $this->object->getRefId(), $_GET['user_id'] ? $_GET['user_id'] : $GLOBALS['ilUser']->getId());
 				$this->ctrl->forwardCommand($new_gui);
 				break;
 			case 'ilcommonactiondispatchergui':
-				include_once("Services/Object/classes/class.ilCommonActionDispatcherGUI.php");
 				$gui = \ilCommonActionDispatcherGUI::getInstanceFromAjaxCall();
 				$this->ctrl->forwardCommand($gui);
 				break;
@@ -518,7 +507,6 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 	 * @return int
 	 */
 	protected function getDateTimeFromArray($a_field) {
-		require_once('./Services/Calendar/classes/class.ilDateTime.php');
 		$dt['year'] = (int)$a_field['date']['y'];
 		$dt['mon'] = (int)$a_field['date']['m'];
 		$dt['mday'] = (int)$a_field['date']['d'];
@@ -570,14 +558,12 @@ class ilObjLiveVotingGUI extends \ilObjectPluginGUI implements ilDesktopItemHand
 
 
 	public function addToDeskObject() {
-		include_once './Services/PersonalDesktop/classes/class.ilDesktopItemGUI.php';
 		ilDesktopItemGUI::addToDesktop();
 		ilUtil::sendSuccess($this->lng->txt("added_to_desktop"));
 	}
 
 
 	public function removeFromDeskObject() {
-		include_once './Services/PersonalDesktop/classes/class.ilDesktopItemGUI.php';
 		ilDesktopItemGUI::removeFromDesktop();
 		ilUtil::sendSuccess($this->lng->txt("removed_from_desktop"));
 	}

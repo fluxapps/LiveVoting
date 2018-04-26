@@ -20,17 +20,17 @@ namespace LiveVoting\Cache;
  * the cache afterwards.
  *
  * @package LiveVoting\Cache
- * @author Nicolas Schaefli <ns@studer-raimann.ch>
+ * @author  Nicolas Schaefli <ns@studer-raimann.ch>
  *
  * @version 1
  */
-interface Initialisable
-{
-    /**
-     * Initialise the cache.
-     *
-     * @return void
-     * @internal
-     */
-    public function init();
+interface Initialisable {
+
+	/**
+	 * Initialise the cache.
+	 *
+	 * @return void
+	 * @internal
+	 */
+	public function init();
 }

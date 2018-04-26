@@ -6,9 +6,6 @@ use LiveVoting\Round\xlvoRound;
 use LiveVoting\Vote\xlvoVote;
 use LiveVoting\Voting\xlvoVoting;
 
-require_once('./Services/Object/classes/class.ilObject2.php');
-require_once('./Services/Utilities/classes/class.ilConfirmationGUI.php');
-
 /**
  *
  * Class xlvoVotingGUI
@@ -108,10 +105,10 @@ class xlvoVotingGUI {
 	public function executeCommand() {
 		$nextClass = $this->ctrl->getNextClass();
 		switch ($nextClass) {
-		default:
-			$cmd = $this->ctrl->getCmd(self::CMD_STANDARD);
-			$this->{$cmd}();
-			break;
+			default:
+				$cmd = $this->ctrl->getCmd(self::CMD_STANDARD);
+				$this->{$cmd}();
+				break;
 		}
 	}
 
@@ -133,14 +130,13 @@ class xlvoVotingGUI {
 				$this->toolbar->addButtonInstance($powerpoint_export);
 			}
 
-			$voting_ids = xlvoVoting::where(array('obj_id' => $this->obj_id))->getArray(null, 'id');
+			$voting_ids = xlvoVoting::where(array( 'obj_id' => $this->obj_id ))->getArray(NULL, 'id');
 			$has_votes = false;
 			if (count($voting_ids) > 0) {
-				$has_votes = xlvoVote::where(
-					array(
-						'voting_id' => $voting_ids, 'round_id' => $this->round->getId(),
-					)
-				)->hasSets();
+				$has_votes = xlvoVote::where(array(
+					'voting_id' => $voting_ids,
+					'round_id' => $this->round->getId(),
+				))->hasSets();
 			}
 
 			$b = \ilLinkButton::getInstance();
@@ -237,11 +233,10 @@ class xlvoVotingGUI {
 			 */
 			$xlvoVoting = xlvoVoting::find($_GET[self::IDENTIFIER]);
 			// PREV
-			$prev_id = xlvoVoting::where(
-				array(
-					'obj_id' => $xlvoVoting->getObjId(), 'voting_status' => xlvoVoting::STAT_ACTIVE,
-				)
-			)->orderBy('position', 'DESC')->where(array('position' => $xlvoVoting->getPosition()), '<')->limit(0, 1)->getArray('id', 'id');
+			$prev_id = xlvoVoting::where(array(
+				'obj_id' => $xlvoVoting->getObjId(),
+				'voting_status' => xlvoVoting::STAT_ACTIVE,
+			))->orderBy('position', 'DESC')->where(array( 'position' => $xlvoVoting->getPosition() ), '<')->limit(0, 1)->getArray('id', 'id');
 			$prev_id = array_shift(array_values($prev_id));
 
 			if ($prev_id) {
@@ -253,11 +248,10 @@ class xlvoVotingGUI {
 			}
 
 			// NEXT
-			$next_id = xlvoVoting::where(
-				array(
-					'obj_id' => $xlvoVoting->getObjId(), 'voting_status' => xlvoVoting::STAT_ACTIVE,
-				)
-			)->orderBy('position', 'ASC')->where(array('position' => $xlvoVoting->getPosition()), '>')->limit(0, 1)->getArray('id', 'id');
+			$next_id = xlvoVoting::where(array(
+				'obj_id' => $xlvoVoting->getObjId(),
+				'voting_status' => xlvoVoting::STAT_ACTIVE,
+			))->orderBy('position', 'ASC')->where(array( 'position' => $xlvoVoting->getPosition() ), '>')->limit(0, 1)->getArray('id', 'id');
 			$next_id = array_shift(array_values($next_id));
 
 			if ($next_id) {
@@ -342,14 +336,14 @@ class xlvoVotingGUI {
 				/**
 				 * @var $options xlvoOption[]
 				 */
-				$options = xlvoOption::where(array('voting_id' => $xlvoVoting->getId()))->get();
+				$options = xlvoOption::where(array( 'voting_id' => $xlvoVoting->getId() ))->get();
 				foreach ($options as $option) {
 					$option->delete();
 				}
 				/**
 				 * @var $votes xlvoVote[]
 				 */
-				$votes = xlvoVote::where(array('voting_id' => $xlvoVoting->getId()))->get();
+				$votes = xlvoVote::where(array( 'voting_id' => $xlvoVoting->getId() ))->get();
 				foreach ($votes as $vote) {
 					$vote->delete();
 				}
@@ -406,7 +400,7 @@ class xlvoVotingGUI {
 				/**
 				 * @var $votes xlvoVote[]
 				 */
-				$votes = xlvoVote::where(array('voting_id' => $xlvoVoting->getId()))->get();
+				$votes = xlvoVote::where(array( 'voting_id' => $xlvoVoting->getId() ))->get();
 				foreach ($votes as $vote) {
 					$vote->delete();
 				}
@@ -429,10 +423,10 @@ class xlvoVotingGUI {
 			/**
 			 * @var $votings xlvoVoting[]
 			 */
-			$votings = xlvoVoting::where(array('obj_id' => $this->getObjId()))->get();
+			$votings = xlvoVoting::where(array( 'obj_id' => $this->getObjId() ))->get();
 			$num_votes = 0;
 			foreach ($votings as $voting) {
-				$num_votes += xlvoVote::where(array('voting_id' => $voting->getId()))->count();
+				$num_votes += xlvoVote::where(array( 'voting_id' => $voting->getId() ))->count();
 			}
 			$confirm->addItem(self::IDENTIFIER, 0, $this->txt('confirm_number_of_votes') . " " . $num_votes);
 			$confirm->setFormAction($this->ctrl->getFormAction($this));
@@ -452,12 +446,12 @@ class xlvoVotingGUI {
 			/**
 			 * @var $votings xlvoVoting[]
 			 */
-			$votings = xlvoVoting::where(array('obj_id' => $this->getObjId()))->get();
+			$votings = xlvoVoting::where(array( 'obj_id' => $this->getObjId() ))->get();
 			foreach ($votings as $voting) {
 				/**
 				 * @var $votes xlvoVote[]
 				 */
-				$votes = xlvoVote::where(array('voting_id' => $voting->getId()))->get();
+				$votes = xlvoVote::where(array( 'voting_id' => $voting->getId() ))->get();
 				foreach ($votes as $vote) {
 					$vote->delete();
 				}
@@ -562,7 +556,7 @@ class xlvoVotingGUI {
 		 * @var $xlvoVoting xlvoVoting
 		 * @var $xlvoOption xlvoOption
 		 */
-		foreach (xlvoVoting::where(array('obj_id' => $this->getObjId()))->get() as $xlvoVoting) {
+		foreach (xlvoVoting::where(array( 'obj_id' => $this->getObjId() ))->get() as $xlvoVoting) {
 			$xml_voting = $xml_votings->appendChild(new \DOMElement('voting'));
 			$xml_voting->appendChild(new \DOMElement('title'))->appendChild(new \DOMCdataSection($xlvoVoting->getTitle()));
 			$xml_voting->appendChild(new \DOMElement('description'))->appendChild(new \DOMCdataSection($xlvoVoting->getDescription()));
@@ -577,8 +571,10 @@ class xlvoVotingGUI {
 			$xml_voting->appendChild(new \DOMElement('percentage'))->appendChild(new \DOMCdataSection($xlvoVoting->getPercentage()));
 			$xml_voting->appendChild(new \DOMElement('start_range'))->appendChild(new \DOMCdataSection($xlvoVoting->getStartRange()));
 			$xml_voting->appendChild(new \DOMElement('end_range'))->appendChild(new \DOMCdataSection($xlvoVoting->getEndRange()));
-			$xml_voting->appendChild(new \DOMElement('alt_result_display_mode'))->appendChild(new \DOMCdataSection($xlvoVoting->getAltResultDisplayMode()));
-			$xml_voting->appendChild(new \DOMElement('randomise_option_sequence'))->appendChild(new \DOMCdataSection($xlvoVoting->getRandomiseOptionSequence()));
+			$xml_voting->appendChild(new \DOMElement('alt_result_display_mode'))
+				->appendChild(new \DOMCdataSection($xlvoVoting->getAltResultDisplayMode()));
+			$xml_voting->appendChild(new \DOMElement('randomise_option_sequence'))
+				->appendChild(new \DOMCdataSection($xlvoVoting->getRandomiseOptionSequence()));
 
 			$xml_options = $xml_voting->appendChild(new \DOMElement('options'));
 			foreach ($xlvoVoting->getVotingOptions() as $xlvoOption) {

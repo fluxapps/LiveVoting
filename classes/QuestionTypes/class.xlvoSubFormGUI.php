@@ -19,34 +19,35 @@ abstract class xlvoSubFormGUI {
 
 	/**
 	 * @param xlvoVoting $xlvoVoting
+	 *
 	 * @return xlvoSubFormGUI
-     * @throws \ilException                 Throws an \ilException if no sub form gui class was found.
+	 * @throws \ilException                 Throws an \ilException if no sub form gui class was found.
 	 */
 	public static function getInstance(xlvoVoting $xlvoVoting) {
 		if (!self::$instance instanceof self) {
 
 			$class = xlvoQuestionTypes::getClassName($xlvoVoting->getVotingType());
 
-            $gui = null;
-            switch ($class) {
-	            case xlvoQuestionTypes::CORRECT_ORDER:
-                    $gui = new xlvoCorrectOrderSubFormGUI($xlvoVoting);
-                    break;
-	            case xlvoQuestionTypes::FREE_INPUT:
-                    $gui = new xlvoFreeInputSubFormGUI($xlvoVoting);
-                    break;
-	            case xlvoQuestionTypes::FREE_ORDER:
-                    $gui = new xlvoFreeOrderSubFormGUI($xlvoVoting);
-                    break;
-	            case xlvoQuestionTypes::SINGLE_VOTE:
-                    $gui = new xlvoSingleVoteSubFormGUI($xlvoVoting);
-                    break;
-	            case xlvoQuestionTypes::NUMBER_RANGE:
-	            	$gui = new xlvoNumberRangeSubFormGUI($xlvoVoting);
-	            	break;
-                default:
-                    throw new \ilException("Could not find the sub form gui for the given voting.");
-            }
+			$gui = NULL;
+			switch ($class) {
+				case xlvoQuestionTypes::CORRECT_ORDER:
+					$gui = new xlvoCorrectOrderSubFormGUI($xlvoVoting);
+					break;
+				case xlvoQuestionTypes::FREE_INPUT:
+					$gui = new xlvoFreeInputSubFormGUI($xlvoVoting);
+					break;
+				case xlvoQuestionTypes::FREE_ORDER:
+					$gui = new xlvoFreeOrderSubFormGUI($xlvoVoting);
+					break;
+				case xlvoQuestionTypes::SINGLE_VOTE:
+					$gui = new xlvoSingleVoteSubFormGUI($xlvoVoting);
+					break;
+				case xlvoQuestionTypes::NUMBER_RANGE:
+					$gui = new xlvoNumberRangeSubFormGUI($xlvoVoting);
+					break;
+				default:
+					throw new \ilException("Could not find the sub form gui for the given voting.");
+			}
 
 			self::$instance = $gui;
 		}
@@ -80,6 +81,7 @@ abstract class xlvoSubFormGUI {
 
 	/**$
 	 * @param $key
+	 *
 	 * @return string
 	 */
 	protected function txt($key) {
@@ -164,6 +166,7 @@ abstract class xlvoSubFormGUI {
 
 	/**
 	 * @param array $existing
+	 *
 	 * @return array
 	 */
 	public function appendValues(array $existing) {
@@ -190,7 +193,8 @@ abstract class xlvoSubFormGUI {
 
 	/**
 	 * @param \ilFormPropertyGUI $element
-	 * @param $value
+	 * @param                    $value
+	 *
 	 * @return mixed
 	 */
 	abstract protected function handleField(\ilFormPropertyGUI $element, $value);
@@ -198,6 +202,7 @@ abstract class xlvoSubFormGUI {
 
 	/**
 	 * @param \ilFormPropertyGUI $element
+	 *
 	 * @return mixed
 	 */
 	abstract protected function getFieldValue(\ilFormPropertyGUI $element);

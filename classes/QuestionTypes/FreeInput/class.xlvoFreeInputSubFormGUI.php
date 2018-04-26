@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * Class xlvoFreeInputSubFormGUI
  *
@@ -20,7 +19,8 @@ class xlvoFreeInputSubFormGUI extends xlvoSubFormGUI {
 
 	/**
 	 * @param \ilFormPropertyGUI $element
-	 * @param $value
+	 * @param                    $value
+	 *
 	 * @return mixed
 	 */
 	protected function handleField(\ilFormPropertyGUI $element, $value) {
@@ -34,6 +34,7 @@ class xlvoFreeInputSubFormGUI extends xlvoSubFormGUI {
 
 	/**
 	 * @param \ilFormPropertyGUI $element
+	 *
 	 * @return mixed
 	 */
 	protected function getFieldValue(\ilFormPropertyGUI $element) {

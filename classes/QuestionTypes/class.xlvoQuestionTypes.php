@@ -1,6 +1,7 @@
 <?php
 
 namespace LiveVoting\QuestionTypes;
+
 use LiveVoting\Exceptions\xlvoVotingManagerException;
 
 /**
@@ -18,13 +19,11 @@ class xlvoQuestionTypes {
 	const TYPE_CORRECT_ORDER = 4;
 	const TYPE_FREE_ORDER = 5;
 	const TYPE_NUMBER_RANGE = 6;
-
 	const SINGLE_VOTE = 'SingleVote';
 	const FREE_INPUT = 'FreeInput';
 	const CORRECT_ORDER = 'CorrectOrder';
 	const FREE_ORDER = 'FreeOrder';
 	const NUMBER_RANGE = 'NumberRange';
-
 	/**
 	 * @var array
 	 */
@@ -39,11 +38,11 @@ class xlvoQuestionTypes {
 	 * @var array
 	 */
 	protected static $class_map = array(
-		self::TYPE_SINGLE_VOTE   => self::SINGLE_VOTE,
-		self::TYPE_FREE_INPUT    => self::FREE_INPUT,
+		self::TYPE_SINGLE_VOTE => self::SINGLE_VOTE,
+		self::TYPE_FREE_INPUT => self::FREE_INPUT,
 		self::TYPE_CORRECT_ORDER => self::CORRECT_ORDER,
-		self::TYPE_FREE_ORDER    => self::FREE_ORDER,
-		self::TYPE_NUMBER_RANGE  => self::NUMBER_RANGE
+		self::TYPE_FREE_ORDER => self::FREE_ORDER,
+		self::TYPE_NUMBER_RANGE => self::NUMBER_RANGE
 	);
 
 
@@ -65,6 +64,7 @@ class xlvoQuestionTypes {
 
 	/**
 	 * @param $type
+	 *
 	 * @return mixed
 	 * @throws xlvoVotingManagerException
 	 */

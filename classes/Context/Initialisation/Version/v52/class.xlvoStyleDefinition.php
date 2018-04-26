@@ -1,4 +1,5 @@
 <?php
+
 namespace LiveVoting\Context\Initialisation\Version\v52;
 
 /**

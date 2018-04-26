@@ -12,7 +12,6 @@ use LiveVoting\Cache\CachingActiveRecord;
 class xlvoVoteHistoryObject extends CachingActiveRecord {
 
 	const TABLE_NAME = 'rep_robj_xlvo_votehist';
-
 	/**
 	 * @var string
 	 *
@@ -23,7 +22,6 @@ class xlvoVoteHistoryObject extends CachingActiveRecord {
 	 * @con_sequence        true
 	 */
 	protected $id;
-
 	/**
 	 * @var int
 	 *
@@ -32,7 +30,6 @@ class xlvoVoteHistoryObject extends CachingActiveRecord {
 	 * @db_length           4
 	 */
 	protected $user_id_type;
-
 	/**
 	 * @var int
 	 *
@@ -41,7 +38,6 @@ class xlvoVoteHistoryObject extends CachingActiveRecord {
 	 * @db_length           8
 	 */
 	protected $user_id;
-
 	/**
 	 * @var string
 	 *
@@ -50,7 +46,6 @@ class xlvoVoteHistoryObject extends CachingActiveRecord {
 	 * @db_length           256
 	 */
 	protected $user_identifier = 0;
-
 	/**
 	 * @var int
 	 *
@@ -59,7 +54,6 @@ class xlvoVoteHistoryObject extends CachingActiveRecord {
 	 * @db_length           8
 	 */
 	protected $voting_id;
-
 	/**
 	 * @var int
 	 *
@@ -68,7 +62,6 @@ class xlvoVoteHistoryObject extends CachingActiveRecord {
 	 * @db_length           8
 	 */
 	protected $timestamp;
-
 	/**
 	 * @var int
 	 *
@@ -77,7 +70,6 @@ class xlvoVoteHistoryObject extends CachingActiveRecord {
 	 * @db_length           8
 	 */
 	protected $round_id = 0;
-
 	/**
 	 * @var string
 	 *
@@ -87,12 +79,14 @@ class xlvoVoteHistoryObject extends CachingActiveRecord {
 	 */
 	protected $answer = "";
 
+
 	/**
 	 * @return string
 	 */
 	public function getId() {
 		return $this->id;
 	}
+
 
 	/**
 	 * @param string $id
@@ -101,12 +95,14 @@ class xlvoVoteHistoryObject extends CachingActiveRecord {
 		$this->id = $id;
 	}
 
+
 	/**
 	 * @return int
 	 */
 	public function getUserIdType() {
 		return $this->user_id_type;
 	}
+
 
 	/**
 	 * @param int $user_id_type
@@ -115,12 +111,14 @@ class xlvoVoteHistoryObject extends CachingActiveRecord {
 		$this->user_id_type = $user_id_type;
 	}
 
+
 	/**
 	 * @return int
 	 */
 	public function getUserId() {
 		return $this->user_id;
 	}
+
 
 	/**
 	 * @param int $user_id
@@ -129,12 +127,14 @@ class xlvoVoteHistoryObject extends CachingActiveRecord {
 		$this->user_id = $user_id;
 	}
 
+
 	/**
 	 * @return string
 	 */
 	public function getUserIdentifier() {
 		return $this->user_identifier;
 	}
+
 
 	/**
 	 * @param string $user_identifier
@@ -143,12 +143,14 @@ class xlvoVoteHistoryObject extends CachingActiveRecord {
 		$this->user_identifier = $user_identifier;
 	}
 
+
 	/**
 	 * @return int
 	 */
 	public function getVotingId() {
 		return $this->voting_id;
 	}
+
 
 	/**
 	 * @param int $voting_id
@@ -157,12 +159,14 @@ class xlvoVoteHistoryObject extends CachingActiveRecord {
 		$this->voting_id = $voting_id;
 	}
 
+
 	/**
 	 * @return int
 	 */
 	public function getTimestamp() {
 		return $this->timestamp;
 	}
+
 
 	/**
 	 * @param int $timestamp
@@ -171,12 +175,14 @@ class xlvoVoteHistoryObject extends CachingActiveRecord {
 		$this->timestamp = $timestamp;
 	}
 
+
 	/**
 	 * @return int
 	 */
 	public function getRoundId() {
 		return $this->round_id;
 	}
+
 
 	/**
 	 * @param int $round_id
@@ -185,6 +191,7 @@ class xlvoVoteHistoryObject extends CachingActiveRecord {
 		$this->round_id = $round_id;
 	}
 
+
 	/**
 	 * @return string
 	 */
@@ -192,12 +199,14 @@ class xlvoVoteHistoryObject extends CachingActiveRecord {
 		return $this->answer;
 	}
 
+
 	/**
 	 * @param string $answer
 	 */
 	public function setAnswer($answer) {
 		$this->answer = $answer;
 	}
+
 
 	/**
 	 * @return string

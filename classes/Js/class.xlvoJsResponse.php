@@ -17,6 +17,7 @@ class xlvoJsResponse {
 
 	/**
 	 * xlvoJsResponse constructor.
+	 *
 	 * @param mixed $data
 	 */
 	protected function __construct($data) { $this->data = $data; }
@@ -24,6 +25,7 @@ class xlvoJsResponse {
 
 	/**
 	 * @param $data
+	 *
 	 * @return xlvoJsResponse
 	 */
 	public static function getInstance($data) {

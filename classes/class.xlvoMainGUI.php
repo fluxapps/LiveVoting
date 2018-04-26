@@ -15,6 +15,7 @@ class xlvoMainGUI extends xlvoGUI {
 	const TAB_PUBLICATION_USAGE = 'publication_usage';
 	const TAB_EXPORT = 'export';
 
+
 	/**
 	 * @return void
 	 */

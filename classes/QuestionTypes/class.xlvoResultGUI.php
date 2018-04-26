@@ -1,4 +1,5 @@
 <?php
+
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\Vote\xlvoVote;
@@ -39,6 +40,7 @@ abstract class xlvoResultGUI {
 
 	/**
 	 * @param $votes xlvoVote[]
+	 *
 	 * @return string
 	 */
 	public abstract function getTextRepresentation($votes);
@@ -46,6 +48,7 @@ abstract class xlvoResultGUI {
 
 	/**
 	 * @param $votes xlvoVote[]
+	 *
 	 * @return string
 	 */
 	public abstract function getAPIRepresentation($votes);
@@ -55,6 +58,7 @@ abstract class xlvoResultGUI {
 	 * Creates an instance of the result gui.
 	 *
 	 * @param $voting               xlvoVoting    Finished or ongoing voting.
+	 *
 	 * @return xlvoResultGUI        Result GUI to display the voting results.
 	 * @throws \ilException         Throws an \ilException if no result gui class was found for the
 	 *                              given voting type.

@@ -3,9 +3,6 @@
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\Voting\xlvoVoting;
 
-require_once('./Services/Form/classes/class.ilPropertyFormGUI.php');
-require_once('./Services/Form/classes/class.ilAdvSelectInputGUI.php');
-
 /**
  * Class xlvoVotingFormGUI
  *

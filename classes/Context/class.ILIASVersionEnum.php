@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: nschaefli
- * Date: 10/12/16
- * Time: 9:19 AM
- */
 
 namespace LiveVoting\Context;
 
