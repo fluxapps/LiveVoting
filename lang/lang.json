@@ -435,6 +435,14 @@
                     "hu": "MISSING"
                 },
                 "last_used": "20.04.2018"
+            },
+            "ppt_export_info_manual_5": {
+                "translations": {
+                    "en": "IMPORTANT: Please note that after inserting you must remove the https:// at the beginning of the link, as it will already automatically dictate from PowerPoint and thus would not work if it exists twice",
+                    "hu": "MISSING",
+                    "de": "WICHTIG: Bitte beachten Sie, dass Sie nach dem Einfügen das https:// am Anfang des Links entfernen müssen, da es bereits automatisch von PowerPoint vorgeben wird und somit nicht funktionieren würde, wenn es 2x vorhanden ist"
+                },
+                "last_used": "27.04.2018"
             }
         },
         "correct": {

@@ -275,3 +275,4 @@ config_allow_shortlink_presenter#:#Activate Short URL for Presenter
 config_allow_shortlink_presenter_info#:#Use a Short URL like /vote by adding the following RewriteRule to your .htaccess:
 config_allow_shortlink_link_presenter#:#Short URL
 config_allow_shortlink_link_presenter_info#:#Full Short URL of your Installation , e.g. https://ilias.domain.com/presenter
+config_ppt_export_info_manual_5#:#IMPORTANT: Please note that after inserting you must remove the https:// at the beginning of the link, as it will already automatically dictate from PowerPoint and thus would not work if it exists twice

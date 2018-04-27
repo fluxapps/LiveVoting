@@ -276,3 +276,4 @@ config_allow_shortlink_presenter#:#Kurz-URL für Moderator einschalten
 config_allow_shortlink_presenter_info#:#Eine Kurz-URL kann bspw. durch hinzufügen einer RewriteRule in der .htaccess erstellt werden, dadurch kann auf https://ilias.domain.com/presenter angestimmt werden:
 config_allow_shortlink_link_presenter#:#Kurz-URL
 config_allow_shortlink_link_presenter_info#:#Ganze Kurz-URL Ihrer Installation, bspw. https://ilias.domain.com/presenter
+config_ppt_export_info_manual_5#:#WICHTIG: Bitte beachten Sie, dass Sie nach dem Einfügen das https:// am Anfang des Links entfernen müssen, da es bereits automatisch von PowerPoint vorgeben wird und somit nicht funktionieren würde, wenn es 2x vorhanden ist

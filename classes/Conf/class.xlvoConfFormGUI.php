@@ -101,7 +101,7 @@ class xlvoConfFormGUI extends \ilPropertyFormGUI {
 			. htmlspecialchars($this->parent_gui->txt(xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . "_info_manual")) . '</i><ol>'
 			. implode("", array_map(function ($step) {
 				return '<li>' . htmlspecialchars($this->parent_gui->txt(xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . "_info_manual_" . $step)) . '</li>';
-			}, [ 1, 2, 3, 4 ])) . '</ol>');
+			}, [ 1, 2, 3, 4, 5 ])) . '</ol>');
 
 		//add items to GUI
 		$this->addItem($use_shortlink_vote);
