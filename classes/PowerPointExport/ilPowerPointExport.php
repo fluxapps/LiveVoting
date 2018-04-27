@@ -249,7 +249,7 @@ class ilPowerPointExport {
 
 			$guid = $this->guid();
 
-			$presenter_link = $this->config->getPresenterLink($voting->getId());
+			$presenter_link = $this->config->getPresenterLink($voting->getId(), true);
 			$secure = (stripos($presenter_link, "https://") === 0);
 			$link = substr($presenter_link, (stripos($presenter_link, "://") + 3));
 

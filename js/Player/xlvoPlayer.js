@@ -99,28 +99,30 @@ var xlvoPlayer = {
 		}
 
 	}, registerElements: function () {
-		$(document).keydown(function (e) {
-			switch (e.which) {
-				case xlvoPlayer.config.keyboard.toggle_results:
-					xlvoPlayer.callPlayer('toggle_results');
-					break;
-				case xlvoPlayer.config.keyboard.toggle_freeze:
-				case 66:
-					xlvoPlayer.callPlayer('toggle_freeze');
-					break;
-				case 33:
-				case xlvoPlayer.config.keyboard.previous:
-					xlvoPlayer.callPlayer('previous');
-					break;
-				case 34:
-				case xlvoPlayer.config.keyboard.next:
-					xlvoPlayer.callPlayer('next');
-					break;
-				default:
-					return;
-			}
-			e.preventDefault();
-		});
+		if (!document.cookie.includes("xlvo_ppt=1")) {
+			$(document).keydown(function (e) {
+				switch (e.which) {
+					case xlvoPlayer.config.keyboard.toggle_results:
+						xlvoPlayer.callPlayer('toggle_results');
+						break;
+					case xlvoPlayer.config.keyboard.toggle_freeze:
+					case 66:
+						xlvoPlayer.callPlayer('toggle_freeze');
+						break;
+					case 33:
+					case xlvoPlayer.config.keyboard.previous:
+						xlvoPlayer.callPlayer('previous');
+						break;
+					case 34:
+					case xlvoPlayer.config.keyboard.next:
+						xlvoPlayer.callPlayer('next');
+						break;
+					default:
+						return;
+				}
+				e.preventDefault();
+			});
+		}
 
 		this.btn_freeze = $('#btn-freeze');
 		this.btn_previous = $('#btn-previous');

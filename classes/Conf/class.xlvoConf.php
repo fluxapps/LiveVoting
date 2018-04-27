@@ -32,7 +32,7 @@ class xlvoConf extends CachingActiveRecord {
 	const F_ACTIVATE_POWERPOINT_EXPORT = 'ppt_export';
 	const F_ALLOW_SHORTLINK_PRESENTER = 'allow_shortlink_presenter';
 	const F_ALLOW_SHORTLINK_PRESENTER_LINK = 'allow_shortlink_link_presenter';
-	const REWRITE_RULE_PRESENTER = "RewriteRule ^presenter(/\\w*)(/\\w*)(/\\w*)? Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/presenter.php?pin=$1&puk=$2&voting=$3 [L]";
+	const REWRITE_RULE_PRESENTER = "RewriteRule ^presenter(/\\w*)(/\\w*)(/\\w*)?(/\\w*)? Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/presenter.php?pin=$1&puk=$2&voting=$3&ppt=$4 [L]";
 	/**
 	 * Min client update frequency in seconds.
 	 * This value should never be set bellow 1 second.

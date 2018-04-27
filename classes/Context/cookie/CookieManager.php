@@ -18,6 +18,7 @@ final class CookieManager {
 	const PIN_COOKIE_FORCE = 'xlvo_force';
 	const PUK_COOKIE = 'xlvo_puk';
 	const VOTING_COOKIE = 'xlvo_voting';
+	const PPT_COOKIE = 'xlvo_ppt';
 
 
 	/**
@@ -66,13 +67,14 @@ final class CookieManager {
 
 
 	/**
-	 * @param int $pin
+	 * @param int  $pin
+	 * @param bool $force
 	 *
 	 * @throws \Exception
 	 */
-	public static function setCookiePIN($pin, $forrce = false) {
+	public static function setCookiePIN($pin, $force = false) {
 		$result = setcookie(self::PIN_COOKIE, $pin, NULL, '/');
-		if ($forrce) {
+		if ($force) {
 			$result = setcookie(self::PIN_COOKIE_FORCE, true, NULL, '/');
 		}
 		if (!$result) {
@@ -81,6 +83,9 @@ final class CookieManager {
 	}
 
 
+	/**
+	 *
+	 */
 	public static function resetCookiePIN() {
 		if ($_COOKIE[self::PIN_COOKIE_FORCE]) {
 			unset($_COOKIE[self::PIN_COOKIE_FORCE]);
@@ -114,10 +119,11 @@ final class CookieManager {
 
 	/**
 	 * @param string $puk
+	 * @param bool   $force
 	 *
 	 * @throws \Exception
 	 */
-	public static function setCookiePUK($puk, $forrce = false) {
+	public static function setCookiePUK($puk, $force = false) {
 		$result = setcookie(self::PUK_COOKIE, $puk, NULL, '/');
 		if (!$result) {
 			throw new \Exception("error setting cookie");
@@ -125,6 +131,9 @@ final class CookieManager {
 	}
 
 
+	/**
+	 *
+	 */
 	public static function resetCookiePUK() {
 		if (isset($_COOKIE[self::PUK_COOKIE])) {
 			unset($_COOKIE[self::PUK_COOKIE]);
@@ -155,10 +164,11 @@ final class CookieManager {
 
 	/**
 	 * @param string $voting
+	 * @param bool   $force
 	 *
 	 * @throws \Exception
 	 */
-	public static function setCookieVoting($voting, $forrce = false) {
+	public static function setCookieVoting($voting, $force = false) {
 		$result = setcookie(self::VOTING_COOKIE, $voting, NULL, '/');
 		if (!$result) {
 			throw new \Exception("error setting cookie");
@@ -166,6 +176,9 @@ final class CookieManager {
 	}
 
 
+	/**
+	 *
+	 */
 	public static function resetCookieVoting() {
 		if (isset($_COOKIE[self::VOTING_COOKIE])) {
 			unset($_COOKIE[self::VOTING_COOKIE]);
@@ -179,5 +192,54 @@ final class CookieManager {
 	 */
 	public static function hasCookieVoting() {
 		return isset($_COOKIE[self::VOTING_COOKIE]);
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public static function getCookiePpt() {
+		if (!self::hasCookiePpt()) {
+			return false;
+		}
+
+		return $_COOKIE[self::PPT_COOKIE];
+	}
+
+
+	/**
+	 * @param string $ppt
+	 * @param bool   $force
+	 *
+	 * @throws \Exception
+	 */
+	public static function setCookiePpt($ppt, $force = false) {
+		// Fix short url
+		if ($ppt === "ppt") {
+			$ppt = "1";
+		}
+		$result = setcookie(self::PPT_COOKIE, $ppt, NULL, '/');
+		if (!$result) {
+			throw new \Exception("error setting cookie");
+		}
+	}
+
+
+	/**
+	 *
+	 */
+	public static function resetCookiePpt() {
+		if (isset($_COOKIE[self::PPT_COOKIE])) {
+			unset($_COOKIE[self::PPT_COOKIE]);
+			setcookie(self::PPT_COOKIE, NULL, - 1, '/');
+		}
+	}
+
+
+	/**
+	 * @return bool
+	 */
+	public static function hasCookiePpt() {
+		return isset($_COOKIE[self::PPT_COOKIE]);
 	}
 }

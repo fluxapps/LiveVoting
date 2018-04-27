@@ -207,10 +207,11 @@ class xlvoVotingConfig extends CachingActiveRecord {
 
 	/**
 	 * @param int|null $vvoting_id
+	 * @param bool     $power_point
 	 *
 	 * @return string
 	 */
-	public function getPresenterLink($voting_id = NULL) {
+	public function getPresenterLink($voting_id = NULL, $power_point = false) {
 		$pl = \ilLiveVotingPlugin::getInstance();
 		$url = NULL;
 		$shortLinkEnabled = boolval(xlvoConf::getConfig(xlvoConf::F_ALLOW_SHORTLINK_PRESENTER));
@@ -222,10 +223,16 @@ class xlvoVotingConfig extends CachingActiveRecord {
 			if ($voting_id !== NULL) {
 				$url .= "/" . $voting_id;
 			}
+			if ($power_point) {
+				$url .= "/ppt";
+			}
 		} else {
 			$url = ILIAS_HTTP_PATH . substr($pl->getDirectory(), 1) . '/presenter.php?pin=' . $this->getPin() . "&puk=" . $this->getPuk();
 			if ($voting_id !== NULL) {
 				$url .= "&voting=" . $voting_id;
+			}
+			if ($power_point) {
+				$url .= "&ppt=1";
 			}
 		}
 

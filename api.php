@@ -19,6 +19,7 @@ CookieManager::setContext(xlvoContext::CONTEXT_PIN);
 CookieManager::resetCookiePIN();
 CookieManager::resetCookiePUK();
 CookieManager::resetCookieVoting();
+CookieManager::resetCookiePpt();
 
 $existing_pin = trim($_REQUEST['pin'], '/');
 if ($existing_pin !== "") {

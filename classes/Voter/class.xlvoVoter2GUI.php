@@ -116,6 +116,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 		}
 		CookieManager::resetCookiePUK();
 		CookieManager::resetCookieVoting();
+		CookieManager::resetCookiePpt();
 		if ($redirect) {
 			CookieManager::setCookiePIN($_POST[self::F_PIN_INPUT]);
 			$this->ctrl->redirect($this, self::CMD_START_VOTER_PLAYER);
