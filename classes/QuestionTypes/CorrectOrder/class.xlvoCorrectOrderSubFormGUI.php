@@ -159,7 +159,7 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI {
 	private function randomiseOptionPosition(array &$options) {
 
 		//reorder only if there is something to reorder
-		if (count($options) < 1) {
+		if (count($options) < 2) {
 			return;
 		}
 
