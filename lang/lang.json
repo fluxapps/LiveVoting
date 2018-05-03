@@ -1062,7 +1062,7 @@
             },
             "1_unvote": {
                 "translations": {
-                    "de": "Zurücketzen",
+                    "de": "Zurücksetzen",
                     "en": "Discard",
                     "hu": "Szavazat visszavonása"
                 }

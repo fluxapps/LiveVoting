@@ -122,7 +122,7 @@ qtype_1_optmsg_success_voting_updated#:#Voting wurde gespeichert
 qtype_1_total_obj_results_alway_on_info#:#Die Resultate werden nach einem Wechsel der Frage automatisch eingeblendet.
 qtype_1_total_voters#:#Anzahl Abstimmende
 qtype_1_total_votes#:#Anzahl Stimmen
-qtype_1_unvote#:#Zurücketzen
+qtype_1_unvote#:#Zurücksetzen
 qtype_1_vote#:#Senden
 qtype_2_answers#:#Eingaben
 qtype_2_clear#:#Verwerfen
