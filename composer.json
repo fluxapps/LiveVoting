@@ -112,7 +112,9 @@
       "../../../../../../../Services/User/classes/class.ilObjUser.php",
       "../../../../../../../Services/Utilities/classes/class.ilBenchmark.php",
       "../../../../../../../Services/Utilities/classes/class.ilConfirmationGUI.php",
-      "../../../../../../../Services/Utilities/classes/class.ilUtil.php"
+      "../../../../../../../Services/Utilities/classes/class.ilUtil.php",
+      "../../../../../../../Services/Form/classes/class.ilFormPropertyGUI.php",
+      "../../../../../../../Services/Form/classes/class.ilTextInputGUI.php"
     ]
   },
   "config": {
