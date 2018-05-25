@@ -1,2166 +1,2168 @@
 {
-    "plugin_prefix": "rep_robj_xlvo",
-    "languages": [
-        "en",
-        "hu",
-        "de"
-    ],
-    "entries": {
-        "cat": {
-            "create_xlobj_results_behaviour": {
-                "translations": {
-                    "de": "MISSING",
-                    "en": "Show Results",
-                    "hu": "Eredmények megjelenítése"
-                }
-            },
-            "create_xlvo": {
-                "translations": {
-                    "de": "LiveVoting erstellen",
-                    "en": "Create LiveVoting",
-                    "hu": "Élőszavazás létrehozása"
-                }
-            }
-        },
-        "common": {
-            "actions": {
-                "translations": {
-                    "de": "Aktionen",
-                    "en": "Actions",
-                    "hu": "Műveletek"
-                }
-            },
-            "all": {
-                "translations": {
-                    "de": "Alle",
-                    "en": "All",
-                    "hu": "Összes"
-                }
-            },
-            "all2": {
-                "translations": {
-                    "de": "MISSING",
-                    "en": "MISSING",
-                    "hu": "HIÁNYZIK"
-                }
-            },
-            "answer": {
-                "translations": {
-                    "de": "Antwort",
-                    "en": "Answer",
-                    "hu": "Válasz"
-                }
-            },
-            "back": {
-                "translations": {
-                    "de": "Zurück",
-                    "en": "Back",
-                    "hu": "Vissza"
-                }
-            },
-            "cancel": {
-                "translations": {
-                    "de": "Abbrechen",
-                    "en": "Cancel",
-                    "hu": "Mégsem"
-                },
-                "last_used": "26.03.2018"
-            },
-            "change": {
-                "translations": {
-                    "de": "Wechseln",
-                    "en": "Change",
-                    "hu": "Módosítás"
-                }
-            },
-            "common_new_round_created": {
-                "translations": {
-                    "de": "Neuer Durchgang wurde erfolgreich gestartet.",
-                    "en": "New round has been initialised successfully.",
-                    "hu": "Új kört sikeresen inicializálta."
-                }
-            },
-            "confirm_new_round": {
-                "translations": {
-                    "de": "Wenn Sie den Durchgang beenden, können die Antworten der bisherigen Durchgänge nicht mehr geändert werden. Sind Sie sicher, dass Sie einen neuen Durchgang starten wollen?",
-                    "en": "If you create a new round the current round is finished and can't be continued. Are you sure you want to start a new round?",
-                    "hu": "Új kör indításakor a jelenlegi kör leáll, nem folytatható tovább. Biztos, hogy elindít egy új kört?"
-                }
-            },
-            "correct_order": {
-                "translations": {
-                    "de": "Richtige Reihenfolge",
-                    "en": "Correct order",
-                    "hu": "Helyes sorrend"
-                }
-            },
-            "history": {
-                "translations": {
-                    "de": "Verlauf",
-                    "en": "History",
-                    "hu": "Történelem"
-                }
-            },
-            "incorrect_order": {
-                "translations": {
-                    "de": "Falsche Reihenfolge",
-                    "en": "Wrong Order",
-                    "hu": "Hibás sorrend"
-                },
-                "last_used": "17.03.2017"
-            },
-            "new_round": {
-                "translations": {
-                    "de": "Neuer Durchgang",
-                    "en": "New Round",
-                    "hu": "Új kör"
-                }
-            },
-            "new_round_created": {
-                "translations": {
-                    "de": "Neuer Durchgang wurde erfolgreich gestartet.",
-                    "en": "New round has been initialised successfully.",
-                    "hu": "Új kört sikeresen inaktiválta."
-                }
-            },
-            "participant": {
-                "translations": {
-                    "de": "Teilnehmer",
-                    "en": "Participant",
-                    "hu": "Válaszadó"
-                }
-            },
-            "position": {
-                "translations": {
-                    "de": "Position",
-                    "en": "Position",
-                    "hu": "Pozíció"
-                }
-            },
-            "question": {
-                "translations": {
-                    "de": "Frage",
-                    "en": "Question",
-                    "hu": "Kérdés"
-                }
-            },
-            "round": {
-                "translations": {
-                    "de": "Durchgang",
-                    "en": "Round",
-                    "hu": "Kör"
-                }
-            },
-            "show_history": {
-                "translations": {
-                    "de": "Verlauf",
-                    "en": "History",
-                    "hu": "Történelem"
-                }
-            },
-            "time": {
-                "translations": {
-                    "de": "Zeitpunkt",
-                    "en": "Timestamp",
-                    "hu": "Időbélyeg"
-                }
-            },
-            "user": {
-                "translations": {
-                    "de": "Benutzer",
-                    "en": "User",
-                    "hu": "Felhasználó"
-                }
-            },
-            "option_no_longer_available": {
-                "translations": {
-                    "de": "[Option nicht mehr vorhanden]",
-                    "en": "[Option no longer available]",
-                    "hu": "MISSING"
-                }
-            },
-            "ok": {
-                "translations": {
-                    "en": "OK",
-                    "hu": "OK",
-                    "de": "OK"
-                },
-                "last_used": "26.03.2018"
-            }
-        },
-        "config": {
-            "allow_shortlink": {
-                "translations": {
-                    "de": "Kurz-URL für Voter einschalten",
-                    "en": "Activate Short URL for Voter",
-                    "hu": "MISSING"
-                },
-                "last_used": "20.04.2018"
-            },
-            "allow_shortlink_info": {
-                "translations": {
-                    "de": "Eine Kurz-URL kann bspw. durch hinzufügen einer RewriteRule in der .htaccess erstellt werden, dadurch kann auf https://ilias.domain.com/vote angestimmt werden:",
-                    "en": "Use a Short URL like /vote by adding the following RewriteRule to your .htaccess:",
-                    "hu": "Rövid URL (pl. /vote) használatához adja a RewriteRule szabályt .htaccess fájljához:"
-                },
-                "last_used": "26.03.2018"
-            },
-            "allow_shortlink_link": {
-                "translations": {
-                    "de": "Kurz-URL",
-                    "en": "Short URL",
-                    "hu": "Rövid URL"
-                },
-                "last_used": "26.03.2018"
-            },
-            "allow_shortlink_link_info": {
-                "translations": {
-                    "de": "Ganze Kurz-URL Ihrer Installation, bspw. https://ilias.domain.com/vote",
-                    "en": "Full Short URL of your Installation , e.g. https://ilias.domain.com/vote",
-                    "hu": "Telepítése teljes rövid URL-je , pl. https://ilias.domain.hu/vote"
-                },
-                "last_used": "26.03.2018"
-            },
-            "base_url": {
-                "translations": {
-                    "de": "Basis-URL",
-                    "en": "Base URL",
-                    "hu": "Alap URL"
-                },
-                "last_used": "26.03.2018"
-            },
-            "base_url_info": {
-                "translations": {
-                    "de": "URL Ihrer ILIAS-Installation inkl. Unterverzeichnis, bspw. https://www.domain.com/ilias",
-                    "en": "URL of yout ILIAS-Installation incl. Subfolders, e.g. https://www.domain.com/ilias",
-                    "hu": "Telepítése URL-je (alkönyvtárat is beleértve), pl. https://www.domain.hu/ilias"
-                },
-                "last_used": "26.03.2018"
-            },
-            "cancel": {
-                "translations": {
-                    "de": "Abbrechen",
-                    "en": "Cancel",
-                    "hu": "Mégsem"
-                },
-                "last_used": "26.03.2018"
-            },
-            "msg_success": {
-                "translations": {
-                    "de": "Gespeichert",
-                    "en": "Saved",
-                    "hu": "Mentve"
-                },
-                "last_used": "26.03.2018"
-            },
-            "request_frequency": {
-                "translations": {
-                    "de": "Klienten aktualisierungs Frequenz",
-                    "en": "Client update frequency",
-                    "hu": "MISSING"
-                },
-                "last_used": "26.03.2018"
-            },
-            "request_frequency_info": {
-                "translations": {
-                    "de": "Die aktualisierungs Frequenz der LiveVoting Klienten, angegeben in Sekunden. Umso kleiner die Zahl ist umso schneller reagieren die Clients (z.B. Smartphones der Benutzer) während eines LiveVotings, allerdings erhöht sich die Last auf den Server merklich. Richtwert 2-5 Sekunden.",
-                    "en": "The client side live voting data update frequency measured in seconds. The lower the number the faster the clients react to changes by the tutor but the load on the server increases. We recommend 2 - 5 seconds."
-                },
-                "last_used": "26.03.2018"
-            },
-            "update": {
-                "translations": {
-                    "de": "Speichern",
-                    "en": "Update",
-                    "hu": "Módosítás"
-                },
-                "last_used": "26.03.2018"
-            },
-            "result_api": {
-                "translations": {
-                    "en": "Activate Results-API",
-                    "hu": "MISSING",
-                    "de": "Resultate-API aktivieren"
-                },
-                "last_used": "26.03.2018"
-            },
-            "result_api_info": {
-                "translations": {
-                    "en": "Results of a Voting can be accessed as JSON via Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/api.php?pin=XXXX?token=XXXXX",
-                    "hu": "MISSING",
-                    "de": "Resultate eines Votings können als JSON via Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/api.php?pin=XXXX?token=XXXXX abgerufen werden"
-                },
-                "last_used": "26.03.2018"
-            },
-            "api_token": {
-                "translations": {
-                    "en": "API-Token",
-                    "hu": "MISSING",
-                    "de": "API-Token"
-                },
-                "last_used": "26.03.2018"
-            },
-            "api_type": {
-                "translations": {
-                    "en": "Type",
-                    "hu": "MISSING",
-                    "de": "Typ"
-                },
-                "last_used": "26.03.2018"
-            },
-            "regenerate_token": {
-                "translations": {
-                    "en": "Regenerate Token",
-                    "hu": "MISSING",
-                    "de": "Token neu generieren"
-                },
-                "last_used": "17.03.2017"
-            },
-            "open_result_api": {
-                "translations": {
-                    "en": "Open API-Link (with latest Voting)",
-                    "hu": "MISSING",
-                    "de": "API-Link öffnen (mit neustem Voting)"
-                },
-                "last_used": "17.03.2017"
-            },
-            "use_global_cache": {
-                "translations": {
-                    "en": "Activate caching",
-                    "de": "Cache aktivieren",
-                    "hu": "aktiválása caching"
-                },
-                "last_used": "26.03.2018"
-            },
-            "use_global_cache_info": {
-                "translations": {
-                    "en": "Enables the LiveVoting plugin to use the global caching mechanism, which is provided by ILIAS. The underlying cache must be synchronised within a multi note setup, otherwise the plugin produces unpredictable results.",
-                    "de": "Aktiviert die Verwendung der globalen Cache Mechanik von ILIAS. Der zugrundeliegende cache muss in einem Setup mit mehreren ILIAS installation synchron sein, da das Plugin ansonsten unvorhersehbare Werte produzieren wird.",
-                    "hu": "Lehetővé teszi a LiveVoting plugint használni a globális cache mechanizmus, amely biztosítja ILIAS. Az alapul szolgáló cache szinkronizálni kell egy multi veszi a telepítést, egyébként a plugin megjósolhatatlan eredményeket."
-                },
-                "last_used": "26.03.2018"
-            },
-            "presenter_link": {
-                "translations": {
-                    "en": "Presenter link",
-                    "de": "Moderator-Link",
-                    "hu": "MISSING"
-                },
-                "last_used": "01.03.2018"
-            },
-            "ppt_export": {
-                "translations": {
-                    "en": "PowerPoint-Export",
-                    "hu": "MISSING",
-                    "de": "PowerPoint-Export"
-                },
-                "last_used": "26.03.2018"
-            },
-            "ppt_export_info": {
-                "translations": {
-                    "en": "Activate PowerPoint-Export: This features needs the PowerPoint-WebView-Plugin installed and will only work if you ILIAS runs on HTTPS.",
-                    "hu": "MISSING",
-                    "de": "PowerPoint-Export aktivieren: Dieses Feature funktioniert nur mit installierten PowerPoint-WebView-Plugin und wenn die ILIAS Installation unter HTTPS betrieben wird."
-                },
-                "last_used": "26.03.2018"
-            },
-            "ppt_export_info_manual": {
-                "translations": {
-                    "en": "Embedding LiveVotings in PowerPoint:",
-                    "hu": "MISSING",
-                    "de": "LiveVotings in PowerPoint einbetten:"
-                },
-                "last_used": "20.04.2018"
-            },
-            "ppt_export_info_manual_1": {
-                "translations": {
-                    "en": "Download the Microsoft Web Viewer Add-In for PowerPoint",
-                    "hu": "MISSING",
-                    "de": "Das Microsoft Web Viewer Add-In für PowerPoint herunterladen"
-                },
-                "last_used": "20.04.2018"
-            },
-            "ppt_export_info_manual_2": {
-                "translations": {
-                    "en": "Start PowerPoint",
-                    "hu": "MISSING",
-                    "de": "PowerPoint starten"
-                },
-                "last_used": "20.04.2018"
-            },
-            "ppt_export_info_manual_3": {
-                "translations": {
-                    "en": "Search for \"Web Viewer\" in the Office-Add-Ins Store (Insert > My Apps)",
-                    "hu": "MISSING",
-                    "de": "Nach \"Web Viewer\" im Office-Add-Ins Store suchen (Einfügen > Meine Apps)"
-                },
-                "last_used": "20.04.2018"
-            },
-            "ppt_export_info_manual_4": {
-                "translations": {
-                    "en": "Copy the Presenter link from this LiveVoting and paste the link in the Web Viewer-form in your presentation",
-                    "hu": "MISSING",
-                    "de": "Den Moderator-Link dieses LiveVotings kopieren und den Link im Web Viewer-Formular in Ihrer Präsentation einfügen"
-                },
-                "last_used": "20.04.2018"
-            },
-            "allow_shortlink_presenter": {
-                "translations": {
-                    "de": "Kurz-URL für Moderator einschalten",
-                    "en": "Activate Short URL for Presenter",
-                    "hu": "MISSING"
-                },
-                "last_used": "20.04.2018"
-            },
-            "allow_shortlink_presenter_info": {
-                "translations": {
-                    "de": "Eine Kurz-URL kann bspw. durch hinzufügen einer RewriteRule in der .htaccess erstellt werden, dadurch kann auf https://ilias.domain.com/presenter angestimmt werden:",
-                    "en": "Use a Short URL like /vote by adding the following RewriteRule to your .htaccess:",
-                    "hu": "MISSING"
-                },
-                "last_used": "20.04.2018"
-            },
-            "allow_shortlink_link_presenter": {
-                "translations": {
-                    "de": "Kurz-URL",
-                    "en": "Short URL",
-                    "hu": "MISSING"
-                },
-                "last_used": "20.04.2018"
-            },
-            "allow_shortlink_link_presenter_info": {
-                "translations": {
-                    "de": "Ganze Kurz-URL Ihrer Installation, bspw. https://ilias.domain.com/presenter",
-                    "en": "Full Short URL of your Installation , e.g. https://ilias.domain.com/presenter",
-                    "hu": "MISSING"
-                },
-                "last_used": "20.04.2018"
-            },
-            "ppt_export_info_manual_5": {
-                "translations": {
-                    "en": "IMPORTANT: Please note that after inserting you must remove the https:// at the beginning of the link, as it will already automatically dictate from PowerPoint and thus would not work if it exists twice",
-                    "hu": "MISSING",
-                    "de": "WICHTIG: Bitte beachten Sie, dass Sie nach dem Einfügen das https:// am Anfang des Links entfernen müssen, da es bereits automatisch von PowerPoint vorgeben wird und somit nicht funktionieren würde, wenn es 2x vorhanden ist"
-                },
-                "last_used": "27.04.2018"
-            }
-        },
-        "correct": {
-            "order": {
-                "translations": {
-                    "de": "Korrekte Reihenfolge",
-                    "en": "Correct Order",
-                    "hu": "Helyes sorrend"
-                }
-            }
-        },
-        "crs": {
-            "create_xlvo": {
-                "translations": {
-                    "de": "LiveVoting erstellen",
-                    "en": "Create LiveVoting",
-                    "hu": "Élőszavazás létrehozása"
-                }
-            }
-        },
-        "fikd": {
-            "create_xlvo": {
-                "translations": {
-                    "de": "LiveVoting erstellen",
-                    "en": "Create LiveVoting",
-                    "hu": "Élőszavazás létrehozása"
-                }
-            }
-        },
-        "grp": {
-            "create_xlvo": {
-                "translations": {
-                    "de": "LiveVoting erstellen",
-                    "en": "Create LiveVoting",
-                    "hu": "Élőszavazás létrehozása"
-                }
-            }
-        },
-        "incorrect": {
-            "order": {
-                "translations": {
-                    "de": "Falsche Reihenfolge",
-                    "en": "Incorrect Order",
-                    "hu": "Hibás sorrend"
-                }
-            }
-        },
-        "msg": {
-            "success_voting_created": {
-                "translations": {
-                    "de": "Voting wurde erstellt",
-                    "en": "Voting has been created",
-                    "hu": "Szavazást sikeresen létrehozta"
-                }
-            },
-            "success_voting_updated": {
-                "translations": {
-                    "de": "Voting wurde gespeichert",
-                    "en": "Voting has been udpated",
-                    "hu": "Szavazást sikeresen módosította"
-                },
-                "last_used": "28.06.2017"
-            }
-        },
-        "new": {
-            "round": {
-                "translations": {
-                    "de": "Neuer Durchgang",
-                    "en": "New Round",
-                    "hu": "Új kör"
-                }
-            }
-        },
-        "obj": {
-            "anonymous": {
-                "translations": {
-                    "de": "Abstimmung ohne Login",
-                    "en": "Vote without Login",
-                    "hu": "Szavazás bejelentkezés nélkül"
-                },
-                "last_used": "26.03.2018"
-            },
-            "crs": {
-                "translations": {
-                    "de": "Kurs",
-                    "en": "Course",
-                    "hu": "Kurzus"
-                }
-            },
-            "description": {
-                "translations": {
-                    "de": "Beschreibung",
-                    "en": "Description",
-                    "hu": "Leírás"
-                },
-                "last_used": "26.03.2018"
-            },
-            "edit_properties": {
-                "translations": {
-                    "de": "Einstellungen bearbeiten",
-                    "en": "Edit Properties",
-                    "hu": "Tulajdonságok módosítása"
-                },
-                "last_used": "26.03.2018"
-            },
-            "formtitle_change_vote": {
-                "translations": {
-                    "de": "Verhalten bei Wechsel der Frage",
-                    "en": "Behaviour while navigating",
-                    "hu": "Navigáció közbeni viselkedés"
-                },
-                "last_used": "26.03.2018"
-            },
-            "frozen_alway_off": {
-                "translations": {
-                    "de": "nach Wechsel immer ausgeschaltet",
-                    "en": "Question is always inactive after changing",
-                    "hu": "Kérdés mindig inaktív váltás után"
-                },
-                "last_used": "26.03.2018"
-            },
-            "frozen_alway_off_info": {
-                "translations": {
-                    "de": "Benutzer können erst abstimmen, wenn die Frage freigegeben wird.",
-                    "en": "Users can vote after the presenter presses the Vote-Button of the question.",
-                    "hu": "Kérdésváltás után a felhasználók azután szavazhatnak, miután az előadó megnyomta a Szavazz gombot."
-                },
-                "last_used": "26.03.2018"
-            },
-            "frozen_alway_ofxlvo_edit": {
-                "translations": {
-                    "de": "Bearbeiten",
-                    "en": "MISSING",
-                    "hu": "MISSING"
-                }
-            },
-            "frozen_alway_on": {
-                "translations": {
-                    "de": "nach Wechsel immer eingeschaltet",
-                    "en": "Question is always active after changing",
-                    "hu": "Kérdés mindig aktív váltás után"
-                },
-                "last_used": "26.03.2018"
-            },
-            "frozen_alway_on_info": {
-                "translations": {
-                    "de": "Benutzer können nach einem Wechsel der Frage sofort abstimmen.",
-                    "en": "Users can vote directly after switching question.",
-                    "hu": "Kérdésváltás után a felhasználók rögtön szavazhatnak."
-                },
-                "last_used": "26.03.2018"
-            },
-            "frozen_behaviour": {
-                "translations": {
-                    "de": "Abstimmen",
-                    "en": "Frozen-State",
-                    "hu": "Szüneteltetés állapota"
-                },
-                "last_used": "26.03.2018"
-            },
-            "frozen_reuse": {
-                "translations": {
-                    "de": "Status beibehalten",
-                    "en": "Reuse Status",
-                    "hu": "Előző állapot használata"
-                },
-                "last_used": "26.03.2018"
-            },
-            "frozen_reuse_info": {
-                "translations": {
-                    "de": "Der Status wird beim Wechseln beibehalten.",
-                    "en": "Frozen-State is consistent after switching question.",
-                    "hu": "Kérdésváltás után a szüneteltetés állapota nem változik."
-                },
-                "last_used": "26.03.2018"
-            },
-            "info_anonymous": {
-                "translations": {
-                    "de": "Die Teilnahme am LiveVoting ohne Login erfordert kein ILIAS Benutzerkonto. Alle Personen im Besitz des entsprechenden PINs können am LiveVoting teilnehmen.",
-                    "en": "The LiveVoting can be used for the voters without authentication, even when the Object is in a secured Space like a Course. Voters access the LiveVoting with a PIN",
-                    "hu": "Az élőszavazás bejelentkezés nélkül használható, akkor is, ha az objektum védett, biztonságos helyen van, pl. egy kurzusban. A szavazók egy PIN kóddal érik el az élőszavazást."
-                },
-                "last_used": "26.03.2018"
-            },
-            "info_online": {
-                "translations": {
-                    "de": "Nur wenn das LiveVoting online geschaltet ist, können Benutzer das LiveVoting sehen und benutzen.",
-                    "en": "Object is online and available",
-                    "hu": "Objektum online és elérhető"
-                },
-                "last_used": "26.03.2018"
-            },
-            "info_reuse_status": {
-                "translations": {
-                    "de": "Beim Wechseln zwischen Voting wird jeweils übernommen, ob das nächste Voting freigegeben werden soll, oder nicht.",
-                    "en": "Re-use the state of the current Voting when switching to the next (frozen / not frozen).",
-                    "hu": "Az élőszavazás pillanatnyi állapotának megőrzése amikor a következőre váltunk (szüneteltetett / nem szüneteltetett)."
-                }
-            },
-            "info_terminable": {
-                "translations": {
-                    "de": "Das LiveVoting kann nur innerhalb der definierten Zeit zum Abstimmen genutzt werden",
-                    "en": "The LiveVoting only can be used in the definied period of time",
-                    "hu": "Az előszavazás csak a meghatározott időtartam alatt érhető el"
-                }
-            },
-            "msg_properties_form_saved": {
-                "translations": {
-                    "de": "Einstellungen gespeichert",
-                    "en": "Settings saved",
-                    "hu": "Beállításokat sikeresen mentette."
-                }
-            },
-            "offline": {
-                "translations": {
-                    "de": "Offline",
-                    "en": "Offline",
-                    "hu": "MISSING"
-                }
-            },
-            "online": {
-                "translations": {
-                    "de": "Online",
-                    "en": "Online",
-                    "hu": "MISSING"
-                },
-                "last_used": "26.03.2018"
-            },
-            "results_alway_off": {
-                "translations": {
-                    "de": "nach Wechsel immer ausgeblendet",
-                    "en": "Results are always hidden",
-                    "hu": "Szavazatállás sohasem látható"
-                },
-                "last_used": "26.03.2018"
-            },
-            "results_alway_off_info": {
-                "translations": {
-                    "de": "Administratoren müssen das Einblenden der Resultate manuell starten.",
-                    "en": "Results are always hidden after switching question.",
-                    "hu": "Kérdésváltás után a pillanatnyi szavazatállás nem jelenik meg."
-                },
-                "last_used": "26.03.2018"
-            },
-            "results_alway_on": {
-                "translations": {
-                    "de": "nach Wechsel immer eingeblendet",
-                    "en": "Results are always visible",
-                    "hu": "Szavazatállás mindig látható"
-                },
-                "last_used": "26.03.2018"
-            },
-            "results_alway_on_info": {
-                "translations": {
-                    "de": "Nach einem Wechsel der Frage sind die Resultate immer sichtbar.",
-                    "en": "Results are always visible after switching question.",
-                    "hu": "Kérdésváltás után a pillanatnyi szavazatállás jelenik meg."
-                },
-                "last_used": "26.03.2018"
-            },
-            "results_behaviour": {
-                "translations": {
-                    "de": "Resultate einblenden",
-                    "en": "Show Results",
-                    "hu": "Szavazatállás megjelenítése"
-                },
-                "last_used": "26.03.2018"
-            },
-            "results_reuse": {
-                "translations": {
-                    "de": "Status beibehalten",
-                    "en": "Reuse state",
-                    "hu": "Előző állapot használata"
-                },
-                "last_used": "26.03.2018"
-            },
-            "results_reuse_info": {
-                "translations": {
-                    "de": "Der Status wird beim Wechsel der Frage beibehalten.",
-                    "en": "The State is consistent after switching question.",
-                    "hu": "Kérdésváltás után a szavazatállás láthatósága nem változik."
-                },
-                "last_used": "26.03.2018"
-            },
-            "reuse_status": {
-                "translations": {
-                    "de": "Player-Status übernehmen",
-                    "en": "Re-use Player State",
-                    "hu": "Válaszadók állapotának újbóli felhasználása"
-                }
-            },
-            "save": {
-                "translations": {
-                    "de": "Speichern",
-                    "en": "Save",
-                    "hu": "Mentés"
-                },
-                "last_used": "26.03.2018"
-            },
-            "status": {
-                "translations": {
-                    "de": "Status",
-                    "en": "Status",
-                    "hu": "Állapot"
-                }
-            },
-            "terminable": {
-                "translations": {
-                    "de": "Abstimmung zeitlich beschränken",
-                    "en": "Limit voting time",
-                    "hu": "Szavazás idejének korlátozása"
-                }
-            },
-            "terminable_select": {
-                "translations": {
-                    "de": "Zeitraum",
-                    "en": "Time range",
-                    "hu": "Időtartam"
-                }
-            },
-            "terminable_select_end_time": {
-                "translations": {
-                    "de": "Ende",
-                    "en": "End",
-                    "hu": "Záró idő"
-                }
-            },
-            "terminable_select_start_time": {
-                "translations": {
-                    "de": "Start",
-                    "en": "Start",
-                    "hu": "Kezdő idő"
-                }
-            },
-            "title": {
-                "translations": {
-                    "de": "Titel",
-                    "en": "Title",
-                    "hu": "Cím"
-                },
-                "last_used": "26.03.2018"
-            },
-            "xlvo": {
-                "translations": {
-                    "de": "LiveVoting",
-                    "en": "LiveVoting",
-                    "hu": "Élőszavazás"
-                },
-                "last_used": "26.03.2018"
-            },
-            "xlvo_duplicate": {
-                "translations": {
-                    "de": "Bestehendes LiveVoting kopieren",
-                    "en": "Clone existing LiveVoting",
-                    "hu": "Meglévő élőszavazás duplikálása"
-                }
-            },
-            "": {
-                "translations": {
-                    "en": "MISSING",
-                    "hu": "MISSING",
-                    "de": "MISSING"
-                }
-            }
-        },
-        "objs": {
-            "xlvo": {
-                "translations": {
-                    "de": "LiveVotings",
-                    "en": "LiveVotings",
-                    "hu": "Élőszavazás"
-                }
-            },
-            "xlvo_duplicate": {
-                "translations": {
-                    "de": "Bestehendes LiveVoting kopieren",
-                    "en": "Clone existing LiveVoting",
-                    "hu": "Meglévő élőszavazás klónozása"
-                },
-                "last_used": "23.03.2018"
-            }
-        },
-        "player": {
-            "close_modal": {
-                "translations": {
-                    "de": "Schliessen",
-                    "en": "Close",
-                    "hu": "Bezárás"
-                }
-            },
-            "freeze": {
-                "translations": {
-                    "de": "Pausieren",
-                    "en": "Pause",
-                    "hu": "Szüneteltetés"
-                },
-                "last_used": "23.03.2018"
-            },
-            "hide_results": {
-                "translations": {
-                    "de": "Resultate ausblenden",
-                    "en": "Hide Results",
-                    "hu": "Szavazatállás elrejtése"
-                },
-                "last_used": "23.03.2018"
-            },
-            "msg_no_start_1": {
-                "translations": {
-                    "de": "Sie können das LiveVoting nicht starten! Das LiveVoting ist offline.",
-                    "en": "This LiveVoting can't be started since it is offline.",
-                    "hu": "Ez az élőszavazás nem indítható, mert jelenleg offline"
-                }
-            },
-            "msg_no_start_2": {
-                "translations": {
-                    "de": "Das LiveVoting kann nicht gestartet werden, da noch keine Votings vorhanden sind.",
-                    "en": "This LiveVoting can't be started since there are no Votings available yet.",
-                    "hu": "Ez az élőszavazás nem indítható, mert nincsenek elérhető szavazatok"
-                },
-                "last_used": "16.01.2017"
-            },
-            "msg_no_votings": {
-                "translations": {
-                    "de": "Es sind keine Fragen vorhanden, das Voting kann nicht gestartet werden.",
-                    "en": "There are no Questions, the LiveVoting can be started.",
-                    "hu": "Ez az élőszavazás nem indítható, mert nincs benne kérdés"
-                }
-            },
-            "msg_voting_not_available": {
-                "translations": {
-                    "de": "Das ausgewählte Voting ist nicht vorhanden",
-                    "en": "The selected Voting is not available",
-                    "hu": "A kijelölt élőszavazás nem érhető el"
-                }
-            },
-            "player_countdown": {
-                "translations": {
-                    "de": "Countdown",
-                    "en": "Countdown",
-                    "hu": "Visszaszámlálás"
-                }
-            },
-            "reset": {
-                "translations": {
-                    "de": "Zurücksetzen",
-                    "en": "Reset",
-                    "hu": "MISSING"
-                },
-                "last_used": "23.03.2018"
-            },
-            "seconds": {
-                "translations": {
-                    "de": "s",
-                    "en": "sec",
-                    "hu": "mp"
-                },
-                "last_used": "23.03.2018"
-            },
-            "show_results": {
-                "translations": {
-                    "de": "Resultate einblenden",
-                    "en": "Show Results",
-                    "hu": "Szavazatállás megjelenítése"
-                },
-                "last_used": "23.03.2018"
-            },
-            "start_voting": {
-                "translations": {
-                    "de": "LiveVoting beginnen",
-                    "en": "Start LiveVoting",
-                    "hu": "Élőszavazás indítása"
-                },
-                "last_used": "26.03.2018"
-            },
-            "start_voting_and_unfreeze": {
-                "translations": {
-                    "de": "LiveVoting beginnen und direkt freigeben",
-                    "en": "Start LiveVoting and start voting directly",
-                    "hu": "Élőszavazás indítása és a szavazás azonnali megkezdése"
-                },
-                "last_used": "26.03.2018"
-            },
-            "terminate": {
-                "translations": {
-                    "de": "Beenden",
-                    "en": "Terminate",
-                    "hu": "Megszakítás"
-                },
-                "last_used": "23.03.2018"
-            },
-            "unfreeze": {
-                "translations": {
-                    "de": "Abstimmen",
-                    "en": "Vote",
-                    "hu": "Szavazz"
-                },
-                "last_used": "23.03.2018"
-            },
-            "voters_online": {
-                "translations": {
-                    "de": "Online",
-                    "en": "Online",
-                    "hu": "MISSING"
-                },
-                "last_used": "23.03.2018"
-            },
-            "voting_countdown": {
-                "translations": {
-                    "de": "Countdown",
-                    "en": "Countdown",
-                    "hu": "Visszaszámlálás"
-                }
-            },
-            "voting_list": {
-                "translations": {
-                    "de": "Fragen",
-                    "en": "Questions",
-                    "hu": "Kérdések"
-                },
-                "last_used": "26.03.2018"
-            },
-            "voters_description": {
-                "translations": {
-                    "en": "Voters",
-                    "hu": "Választók",
-                    "de": "Abstimmende"
-                },
-                "last_used": "23.03.2018"
-            }
-        },
-        "playplayer": {
-            "msg_no_start_2": {
-                "translations": {
-                    "de": "Das LiveVoting kann nicht gestartet werden, da noch keine Votings vorhanden sind.",
-                    "en": "MISSING",
-                    "hu": "MISSING"
-                }
-            }
-        },
-        "qtype": {
-            "1_colors": {
-                "translations": {
-                    "de": "Unterschiedliche Farben",
-                    "en": "Different Colors",
-                    "hu": "Különböző színek"
-                },
-                "last_used": "28.06.2017"
-            },
-            "1_info_latex": {
-                "translations": {
-                    "de": "LaTeX kann mit [tex] ... [/tex] formatiert werden.",
-                    "en": "LaTeX can be surrounded with [tex] ... [/tex]",
-                    "hu": "LaTeX részt [tex] ... [/tex] közé kell írni."
-                },
-                "last_used": "28.06.2017"
-            },
-            "1_multi_selection": {
-                "translations": {
-                    "de": "Mehrfachauswahl",
-                    "en": "Multiple Selection",
-                    "hu": "Többszörös kijelölés"
-                },
-                "last_used": "28.06.2017"
-            },
-            "1_multi_selection_info": {
-                "translations": {
-                    "de": "Ein Nutzer kann mehrere Antworten wählen. Beim Einblenden der Resultate wird für jede Antwortmöglichkeit das Verhältnis separat berechnet (Anzahl erhaltener Stimmen / Anzahl Abstimmende).",
-                    "en": "User can select more than one Option",
-                    "hu": "Válaszadó több, mint egy válaszlehetőséget jelölhet meg"
-                },
-                "last_used": "28.06.2017"
-            },
-            "1_options": {
-                "translations": {
-                    "de": "Mögliche Antworten",
-                    "en": "Options",
-                    "hu": "Lehetőségek"
-                },
-                "last_used": "28.06.2017"
-            },
-            "1_option_text": {
-                "translations": {
-                    "de": "Options-Text",
-                    "en": "Option-Text",
-                    "hu": "MISSING"
-                },
-                "last_used": "28.06.2017"
-            },
-            "1_optmsg_success_voting_updated": {
-                "translations": {
-                    "de": "Voting wurde gespeichert",
-                    "en": "MISSING",
-                    "hu": "MISSING"
-                }
-            },
-            "1_total_obj_results_alway_on_info": {
-                "translations": {
-                    "de": "Die Resultate werden nach einem Wechsel der Frage automatisch eingeblendet.",
-                    "en": "MISSING",
-                    "hu": "MISSING"
-                }
-            },
-            "1_total_voters": {
-                "translations": {
-                    "de": "Anzahl Abstimmende",
-                    "en": "Total Voters",
-                    "hu": "Összes szavazó"
-                }
-            },
-            "1_total_votes": {
-                "translations": {
-                    "de": "Anzahl Stimmen",
-                    "en": "Total Votes",
-                    "hu": "Összes szavazó"
-                },
-                "last_used": "28.06.2017"
-            },
-            "1_unvote": {
-                "translations": {
-                    "de": "Zurücksetzen",
-                    "en": "Discard",
-                    "hu": "Szavazat visszavonása"
-                }
-            },
-            "1_vote": {
-                "translations": {
-                    "de": "Senden",
-                    "en": "Send",
-                    "hu": "Szavazás"
-                }
-            },
-            "2_answers": {
-                "translations": {
-                    "de": "Eingaben",
-                    "en": "Inputs",
-                    "hu": "Válaszok"
-                }
-            },
-            "2_clear": {
-                "translations": {
-                    "de": "Verwerfen",
-                    "en": "Discard",
-                    "hu": "Kezdőállapotba"
-                }
-            },
-            "2_delete_all": {
-                "translations": {
-                    "de": "Alle verwerfen",
-                    "en": "Discard all",
-                    "hu": "Összes törlése"
-                }
-            },
-            "2_input": {
-                "translations": {
-                    "de": "Eingabe",
-                    "en": "Input",
-                    "hu": "Válasz"
-                }
-            },
-            "2_multi_free_input": {
-                "translations": {
-                    "de": "Mehrfache Eingaben",
-                    "en": "Multiple Inputs",
-                    "hu": "Többszörös válasz"
-                }
-            },
-            "2_multi_free_input_info": {
-                "translations": {
-                    "de": "Ein Nutzer kann mehr als einen Text eingeben",
-                    "en": "A User can hand in multiple Texts",
-                    "hu": "Több válasz is adható"
-                }
-            },
-            "2_send": {
-                "translations": {
-                    "de": "Senden",
-                    "en": "Send",
-                    "hu": "Mentés"
-                }
-            },
-            "2_text": {
-                "translations": {
-                    "de": "Text",
-                    "en": "Text",
-                    "hu": "Szöveg"
-                }
-            },
-            "2_your_input": {
-                "translations": {
-                    "de": "Ihre gespeicherte Eingabe:",
-                    "en": "Your saved input:",
-                    "hu": "Jelenleg mentett válasza:"
-                }
-            },
-            "4_clear": {
-                "translations": {
-                    "de": "Verwerfen",
-                    "en": "Discard",
-                    "hu": "Kezdőállapotba"
-                }
-            },
-            "4_correct": {
-                "translations": {
-                    "de": "Richtig",
-                    "en": "Correct",
-                    "hu": "Helyes"
-                }
-            },
-            "4_correct_solution": {
-                "translations": {
-                    "de": "Korrekte Reihenfolge:",
-                    "en": "Correct order:",
-                    "hu": "Helyes sorrend:"
-                }
-            },
-            "4_display_correct_order": {
-                "translations": {
-                    "de": "Show correct order",
-                    "en": "Korrekte Reihenfolge anzeigen",
-                    "hu": "Rendezés irányának megjelenítése"
-                }
-            },
-            "4_display_std_order": {
-                "translations": {
-                    "de": "Show standard order",
-                    "en": "View default order",
-                    "hu": "Alapértelmezett sorrend megjelenítése"
-                }
-            },
-            "4_hide_correct_order": {
-                "translations": {
-                    "de": "Hide correct order",
-                    "en": "Korrekte Reihenfolge verbergen",
-                    "hu": "Rendezés irányának elrejtése"
-                }
-            },
-            "4_id": {
-                "translations": {
-                    "de": "ID",
-                    "en": "ID",
-                    "hu": "ID"
-                }
-            },
-            "4_options": {
-                "translations": {
-                    "de": "Optionen",
-                    "en": "Options",
-                    "hu": "Lehetőségek"
-                },
-                "last_used": "28.06.2017"
-            },
-            "4_option_correct_position": {
-                "translations": {
-                    "de": "Korrekte Position",
-                    "en": "Correct Position",
-                    "hu": "Helyes sorrend"
-                },
-                "last_used": "28.06.2017"
-            },
-            "4_option_position": {
-                "translations": {
-                    "de": "Position",
-                    "en": "Position",
-                    "hu": "Pozíció"
-                }
-            },
-            "4_option_text": {
-                "translations": {
-                    "de": "Begriff",
-                    "en": "Term",
-                    "hu": "Kifejezés"
-                },
-                "last_used": "28.06.2017"
-            },
-            "4_save": {
-                "translations": {
-                    "de": "Senden",
-                    "en": "Send",
-                    "hu": "Mentés"
-                }
-            },
-            "4_wrong": {
-                "translations": {
-                    "de": "Falsch",
-                    "en": "Wrong",
-                    "hu": "Hibás"
-                }
-            },
-            "4_your_order": {
-                "translations": {
-                    "de": "Ihre gespeicherte Eingabe:",
-                    "en": "Your Submission:",
-                    "hu": "Az Ön válasza:"
-                }
-            },
-            "5_correct_solution": {
-                "translations": {
-                    "de": "Richtige Lösung",
-                    "en": "Correct Solution",
-                    "hu": "HIÁNYZIK"
-                }
-            },
-            "5_display_correct_order": {
-                "translations": {
-                    "de": "Sortieren",
-                    "en": "Sort",
-                    "hu": "Sorrend"
-                }
-            },
-            "5_hide_correct_order": {
-                "translations": {
-                    "de": "Sortieren aufheben",
-                    "en": "Revert Sorting",
-                    "hu": "Fordított sorrend"
-                }
-            },
-            "5_options": {
-                "translations": {
-                    "de": "Optionen",
-                    "en": "Options",
-                    "hu": "Lehetőségek"
-                },
-                "last_used": "28.06.2017"
-            },
-            "5_option_text": {
-                "translations": {
-                    "de": "Text",
-                    "en": "Text",
-                    "hu": "Szöveg"
-                },
-                "last_used": "28.06.2017"
-            },
-            "5_option_weight": {
-                "translations": {
-                    "de": "Gewichtung",
-                    "en": "Weight",
-                    "hu": "Szélesség"
-                }
-            },
-            "form_header": {
-                "translations": {
-                    "de": "Antworten",
-                    "en": "Answers",
-                    "hu": "Válaszok"
-                },
-                "last_used": "20.03.2018"
-            },
-            "multi_free_input": {
-                "translations": {
-                    "de": "Mehrfache Eingaben",
-                    "en": "Multiple Inputs",
-                    "hu": "Többszörös válasz"
-                }
-            },
-            "6_range_start": {
-                "translations": {
-                    "en": "Start",
-                    "de": "Start",
-                    "hu": "Rajt"
-                },
-                "last_used": "28.06.2017"
-            },
-            "6_voter_start_button_vote": {
-                "translations": {
-                    "en": "Send",
-                    "de": "Senden",
-                    "hu": "Szavazás"
-                }
-            },
-            "6_voter_clear": {
-                "translations": {
-                    "en": "Discard",
-                    "de": "Verwerfen",
-                    "hu": "Kezdőállapotba"
-                }
-            },
-            "6_voter_start_button_unvote": {
-                "translations": {
-                    "en": "Discard",
-                    "de": "Verwerfen",
-                    "hu": "Megválni"
-                }
-            },
-            "6_invalid_end_range": {
-                "translations": {
-                    "en": "The end of the range must be greater than the start. Please note that the end range must be between 2147483646 and -2147483647.",
-                    "de": "Das Ende des Bereichs muss größer sein als der Start. Bitte beachten Sie, dass der Endbereich zwischen 2147483646 und -2147483647 liegen muss.",
-                    "hu": "A végén a tartomány nagyobbnak kell lennie, mint a kezdés. Felhívjuk figyelmét, hogy a végén tartomány között kell lennie 2147483646 és -2147483647."
-                }
-            },
-            "6_invalid_start_range": {
-                "translations": {
-                    "en": "The start of the range must be less than the end. Please note that the start range must be between 2147483645 and -2147483646.",
-                    "de": "Der Anfang des Bereichs muss kleiner sein als das Ende. Bitte beachten Sie, dass der Startbereich zwischen 2147483645 und -2147483646 liegen muss.",
-                    "hu": "A start a tartományban kisebbnek kell lennie a végén. Felhívjuk figyelmét, hogy a start tartomány között kell lennie 2147483645 és -2147483646."
-                }
-            },
-            "6_range_end": {
-                "translations": {
-                    "en": "End",
-                    "de": "Ende",
-                    "hu": "Vég"
-                },
-                "last_used": "28.06.2017"
-            },
-            "6_option_percentage": {
-                "translations": {
-                    "en": "Percentage",
-                    "de": "Prozentual",
-                    "hu": "Százalék"
-                },
-                "last_used": "20.03.2018"
-            },
-            "6_option_range_start": {
-                "translations": {
-                    "en": "Start",
-                    "de": "Start",
-                    "hu": "Kezdet"
-                },
-                "last_used": "20.03.2018"
-            },
-            "6_option_range_end": {
-                "translations": {
-                    "en": "End",
-                    "de": "Ende",
-                    "hu": "Vég"
-                },
-                "last_used": "20.03.2018"
-            },
-            "6_option_percentage_info": {
-                "translations": {
-                    "en": "Shows the number range with a percentage sign. There are no calculations done, this is only an visual option.",
-                    "de": "Blendet ein Prozentzeichen neben der Start und Endzahl ein.",
-                    "hu": "Kijelzők százalék jelek mellett a kezdő és záró szám."
-                },
-                "last_used": "20.03.2018"
-            },
-            "6_option_range_start_info": {
-                "translations": {
-                    "en": "The start of the number range.",
-                    "de": "Start des Zahlenbereichs.",
-                    "hu": "Kezdje a szám tartományban."
-                },
-                "last_used": "20.03.2018"
-            },
-            "6_option_range_end_info": {
-                "translations": {
-                    "en": "The end of the number range.",
-                    "de": "Ende des Zahlenbereichs.",
-                    "hu": "Vége a fordulatszám-tartományban."
-                },
-                "last_used": "20.03.2018"
-            },
-            "4_option_randomise_option_after_save": {
-                "translations": {
-                    "en": "Randomise options",
-                    "de": "Zufallsreihenfolge",
-                    "hu": "Randomize opciók"
-                },
-                "last_used": "28.06.2017"
-            },
-            "4_option_randomise_option_after_save_inf": {
-                "translations": {
-                    "en": "Shuffles the options on save without generating the right answer.",
-                    "de": "Bestimmt die Reihenfolge der Optionen zufällig wenn diese gesichert werden. Die Generierung einer korrekten Antwort ist jedoch ausgeschlossen.",
-                    "hu": "Véletlenszerűen választja ki a mentési beállításokat anélkül, hogy a megfelelő választ generálná."
-                }
-            },
-            "6_option_alternative_result_display_mode": {
-                "translations": {
-                    "en": "Display-Mode",
-                    "de": "Darstellungsart der Antworten",
-                    "hu": "Képviselete a válaszokat"
-                },
-                "last_used": "20.03.2018"
-            },
-            "6_option_alternative_result_display_mode_info": {
-                "translations": {
-                    "en": "Alternative mode which displays the result as text grouped together. The answers are sorted descending by quantity.",
-                    "de": "Alternative Darstellungsart der Antworten. Diese werden als Text absteigend gruppiert dargestellt.",
-                    "hu": "Alternatív képviselete a válaszokat. Ezeket mutatja lehajló csoportosítva szövegként."
-                },
-                "last_used": "20.03.2018"
-            },
-            "4_option_randomise_option_after_save_info": {
-                "translations": {
-                    "en": "Shuffles the options on save without generating the right answer.",
-                    "hu": "Véletlenszerűen választja ki a mentési beállításokat anélkül, hogy a megfelelő választ generálná.",
-                    "de": "Bestimmt die Reihenfolge der Optionen zufällig wenn diese gesichert werden. Die Generierung einer korrekten Antwort ist jedoch ausgeschlossen."
-                },
-                "last_used": "28.06.2017"
-            },
-            "6_display_mode_nr_0": {
-                "translations": {
-                    "en": "Grouped Text TBD",
-                    "hu": "MISSING",
-                    "de": "Grouped Text TBD"
-                },
-                "last_used": "20.03.2018"
-            },
-            "6_display_mode_nr_1": {
-                "translations": {
-                    "en": "Bars TBD",
-                    "hu": "MISSING",
-                    "de": "Bars TBD"
-                },
-                "last_used": "20.03.2018"
-            },
-            "6_display_mode_nr_2": {
-                "translations": {
-                    "en": "Grouped Text Extended TBD",
-                    "hu": "MISSING",
-                    "de": "Grouped Text Extended TBD"
-                },
-                "last_used": "20.03.2018"
-            }
-        },
-        "results": {
-            "title": {
-                "translations": {
-                    "de": "Resultate",
-                    "en": "Results",
-                    "hu": "Eredmények"
-                }
-            }
-        },
-        "rminable": {
-            "select_start_time": {
-                "translations": {
-                    "de": "MISSING",
-                    "en": "Start",
-                    "hu": "Indítás"
-                }
-            }
-        },
-        "root": {
-            "create_xlvo": {
-                "translations": {
-                    "de": "LiveVoting erstellen",
-                    "en": "Create LiveVoting",
-                    "hu": "Élőszavazás létrehozása"
-                }
-            }
-        },
-        "show": {
-            "attendees": {
-                "translations": {
-                    "de": "Anzahl Teilnehmende (Online)",
-                    "en": "Show Attendees (Online)",
-                    "hu": "MISSING"
-                },
-                "last_used": "26.03.2018"
-            },
-            "attendees_info": {
-                "translations": {
-                    "de": "Die Anzahl der aktuell teilnehmenden Personen wird im Präsentationsmodus angezeigt. Diese Funktion hat einen Einfluss auf die Geschwindigkeit des Systems und sollte nur bei LiveVotings mit geringer Anzahl Teilnehmenden (Abhängig von der Installationsgrösse) verwendet werden.",
-                    "en": "Show the count of attendees, this has an impact on performance and should only be activated for a small live voting.",
-                    "hu": "MISSING"
-                },
-                "last_used": "26.03.2018"
-            }
-        },
-        "subtab": {
-            "edit": {
-                "translations": {
-                    "de": "Verwalten",
-                    "en": "Manage",
-                    "hu": "Kezelés"
-                },
-                "last_used": "26.03.2018"
-            },
-            "show": {
-                "translations": {
-                    "de": "Zeigen",
-                    "en": "Show",
-                    "hu": "Megjelenítés"
-                },
-                "last_used": "26.03.2018"
-            }
-        },
-        "tab": {
-            "content": {
-                "translations": {
-                    "de": "Inhalt",
-                    "en": "Content",
-                    "hu": "Tartalom"
-                },
-                "last_used": "26.03.2018"
-            },
-            "edit": {
-                "translations": {
-                    "de": "Einstellungen",
-                    "en": "Settings",
-                    "hu": "Beállítások"
-                },
-                "last_used": "26.03.2018"
-            },
-            "results": {
-                "translations": {
-                    "de": "Resultate",
-                    "en": "Results",
-                    "hu": "Eredmények"
-                },
-                "last_used": "26.03.2018"
-            }
-        },
-        "voter": {
-            "answer": {
-                "translations": {
-                    "de": "Eingabe",
-                    "en": "Input",
-                    "hu": "Válasz"
-                }
-            },
-            "delete": {
-                "translations": {
-                    "de": "Löschen",
-                    "en": "Delete",
-                    "hu": "Törlés"
-                }
-            },
-            "header_frozen": {
-                "translations": {
-                    "de": "Abstimmung noch nicht freigegeben",
-                    "en": "Voting frozen",
-                    "hu": "A szavazás szünetel"
-                }
-            },
-            "header_start": {
-                "translations": {
-                    "de": "Bitte auf Start warten",
-                    "en": "Please wait for presenter",
-                    "hu": "Kérem, várjon az indulásra..."
-                }
-            },
-            "header_stopped": {
-                "translations": {
-                    "de": "Abstimmung gestoppt",
-                    "en": "Voting stopped",
-                    "hu": "Élőszavazás inaktív"
-                }
-            },
-            "info_frozen": {
-                "translations": {
-                    "de": "Diese Frage ist noch nicht aktiv, bitte warten...",
-                    "en": "This question is not yet active, please wait...",
-                    "hu": "Ez a kérdés még nem aktív, kérem várjon..."
-                }
-            },
-            "info_start": {
-                "translations": {
-                    "de": "Dieses LiveVoting wurde vom Präsentator nicht gestartet, bitte warten...",
-                    "en": "This LiveVoting has not yet been started by the presenter...",
-                    "hu": "Azt az élőszavazást még nem indította el az előadó..."
-                }
-            },
-            "info_stopped": {
-                "translations": {
-                    "de": "Das LiveVoting wurde gestoppt.",
-                    "en": "This LiveVoting has been stopped",
-                    "hu": "Ez az élőszavazás jelenleg nem aktív, szavazatot nem adhat le."
-                }
-            },
-            "msg_access_screen": {
-                "translations": {
-                    "de": "PIN-Eingabe",
-                    "en": "PIN-Access",
-                    "hu": "PIN-hozzáférés"
-                }
-            },
-            "msg_end_of_voting_screen": {
-                "translations": {
-                    "de": "Das LiveVoting wurde beendet, vielen Dank für Ihre Teilnahme",
-                    "en": "This LiveVoting has been terminated. Thanks for your participation.",
-                    "hu": "Ez a élőszavazás véget ért. Köszönjük résztvételét."
-                }
-            },
-            "msg_not_running_screen": {
-                "translations": {
-                    "de": "Dieses LiveVoting ist zur Zeit nicht aktiv.",
-                    "en": "This LiveVoting is currently not active.",
-                    "hu": "Ez az élőszavazás jelenleg nem aktív."
-                }
-            },
-            "msg_start_of_voting_screen": {
-                "translations": {
-                    "de": "Bitte warten, bis der Präsentator das Voting freigibt",
-                    "en": "Please wait until the presenter starts the Voting",
-                    "hu": "Kérem, várjon amíg elindul az élőszavazás"
-                }
-            },
-            "msg_validation_error_pin_1": {
-                "translations": {
-                    "de": "Dieses LiveVoting ist zur Zeit nicht online",
-                    "en": "This LiveVoting is not online",
-                    "hu": "Ez az élőszavazás nem online"
-                }
-            },
-            "msg_validation_error_pin_2": {
-                "translations": {
-                    "de": "Bitte Logen Sie sich ein, um dieses LiveVoting verwendet zu können",
-                    "en": "Please log in to use this LiveVoting",
-                    "hu": "Jelentkezzen be, hogy szavazhasson"
-                }
-            },
-            "msg_validation_error_pin_3": {
-                "translations": {
-                    "de": "Zu diesem PIN wurde keine LiveVoting gefunden",
-                    "en": "No LiveVoting with this PIN found",
-                    "hu": "Ehhez a PIN-hez nincs élőszavazás"
-                }
-            },
-            "msg_validation_error_pin_4": {
-                "translations": {
-                    "de": "Dieses LiveVoting ist zum aktuellen Zeitpunkt nicht verfügbar",
-                    "en": "This LiveVoting is not available at the moment",
-                    "hu": "Ez az élőszavazás jelenleg nem érhető el"
-                }
-            },
-            "msg_waiting_screen": {
-                "translations": {
-                    "de": "Bitte warten",
-                    "en": "Please wait",
-                    "hu": "Kérem, várjon..."
-                }
-            },
-            "pin_form_title": {
-                "translations": {
-                    "de": "LiveVoting starten",
-                    "en": "Start LiveVoting",
-                    "hu": "Belépés élőszavazásba"
-                }
-            },
-            "pin_input": {
-                "translations": {
-                    "de": "PIN zum LiveVoting",
-                    "en": "PIN",
-                    "hu": "PIN"
-                }
-            },
-            "save": {
-                "translations": {
-                    "de": "Speichern",
-                    "en": "Save",
-                    "hu": "Mentés"
-                }
-            },
-            "send": {
-                "translations": {
-                    "de": "Abschicken",
-                    "en": "Send",
-                    "hu": "Mehet"
-                }
-            },
-            "text": {
-                "translations": {
-                    "de": "Eingabe",
-                    "en": "Input",
-                    "hu": "Válasz"
-                }
-            }
-        },
-        "voting": {
-            "actions": {
-                "translations": {
-                    "de": "Aktionen",
-                    "en": "Actions",
-                    "hu": "Művelet"
-                },
-                "last_used": "26.03.2018"
-            },
-            "add": {
-                "translations": {
-                    "de": "Frage hinzufügen",
-                    "en": "Add Question",
-                    "hu": "Kérdés létrehozása"
-                },
-                "last_used": "26.03.2018"
-            },
-            "cancel": {
-                "translations": {
-                    "de": "Abbrechen",
-                    "en": "Cancel",
-                    "hu": "Mégsem"
-                },
-                "last_used": "20.03.2018"
-            },
-            "columns": {
-                "translations": {
-                    "de": "Spalten für Antwortmöglichkeiten",
-                    "en": "Colums for possible answers",
-                    "hu": "A válaszlehetőségeket ennyi oszlopba rendezzük az előadó képernyőjén"
-                },
-                "last_used": "20.03.2018"
-            },
-            "confirm_number_of_votes": {
-                "translations": {
-                    "de": "Anzahl Benutzer-Eingaben:",
-                    "en": "Amount of User-Inputs:",
-                    "hu": "Felhasználói válaszok száma:"
-                }
-            },
-            "confirm_reset": {
-                "translations": {
-                    "de": "Möchten Sie die Resultate dieser Frage zurücksetzen? Alle Benutzer-Eingaben werden gelöscht.",
-                    "en": "Do you like to reset this Voting? All User-Inputs will be deleted.",
-                    "hu": "Biztos, hogy reseteli ezt a szavazás? Az összes választ töröljük."
-                },
-                "last_used": "23.03.2018"
-            },
-            "confirm_reset_all": {
-                "translations": {
-                    "de": "Möchten Sie die Resultate aller Fragen zurücksetzen? Alle Benutzer-Eingaben werden gelöscht.",
-                    "en": "Do you like to reset all results of this LiveVoting? All User-Inputs will be deleted.",
-                    "hu": "Biztos, hogy reseteli ezt a szavazás összes eredményét? Az összes választ töröljük."
-                }
-            },
-            "create": {
-                "translations": {
-                    "de": "Erstellen",
-                    "en": "Create",
-                    "hu": "Létrehozás"
-                },
-                "last_used": "16.01.2017"
-            },
-            "delete": {
-                "translations": {
-                    "de": "Löschen",
-                    "en": "Delete",
-                    "hu": "Törlés"
-                },
-                "last_used": "26.03.2018"
-            },
-            "delete_confirm": {
-                "translations": {
-                    "de": "Möchsten Sie die Abstimmung wirklich löschen?",
-                    "en": "Do you really want to delete the Voting?",
-                    "hu": "Biztos, hogy törli a szavazatot?"
-                }
-            },
-            "description": {
-                "translations": {
-                    "de": "Beschreibung",
-                    "en": "Description",
-                    "hu": "Leírás"
-                },
-                "last_used": "20.03.2018"
-            },
-            "duplicate": {
-                "translations": {
-                    "de": "Duplizieren",
-                    "en": "Clone",
-                    "hu": "Duplikálás"
-                },
-                "last_used": "26.03.2018"
-            },
-            "edit": {
-                "translations": {
-                    "de": "Bearbeiten",
-                    "en": "Edit",
-                    "hu": "Módosítás"
-                },
-                "last_used": "26.03.2018"
-            },
-            "export": {
-                "translations": {
-                    "de": "Export",
-                    "en": "Export",
-                    "hu": "Exportálás"
-                },
-                "last_used": "23.03.2018"
-            },
-            "form_title_create": {
-                "translations": {
-                    "de": "Frage",
-                    "en": "Question",
-                    "hu": "Kérdése"
-                },
-                "last_used": "16.01.2017"
-            },
-            "form_title_update": {
-                "translations": {
-                    "de": "Frage",
-                    "en": "Question",
-                    "hu": "Kérdése"
-                },
-                "last_used": "20.03.2018"
-            },
-            "history": {
-                "translations": {
-                    "de": "Antworten Historisieren",
-                    "en": "Voting History",
-                    "hu": "Szavazástörténelem"
-                },
-                "last_used": "26.03.2018"
-            },
-            "history_info": {
-                "translations": {
-                    "de": "Alle Antworten werden gespeichert, auch wenn sie später geändert werden. Dadurch kann das Antwortverhalten beobachtet werden.",
-                    "en": "All answers the participants give are saved even if they change their opinion later. You can analyze the voting behaviour of your users.",
-                    "hu": "A válaszadók összes szavazatát mentjük, akkor is, ha később azt módosítják. Így a válaszadók szavazási viselkedését is elemezheti."
-                },
-                "last_used": "26.03.2018"
-            },
-            "import": {
-                "translations": {
-                    "de": "Import",
-                    "en": "Import",
-                    "hu": "Importálás"
-                },
-                "last_used": "23.03.2018"
-            },
-            "msg_duplicated": {
-                "translations": {
-                    "de": "Frage wurde dupliziert",
-                    "en": "Question has been duplicated",
-                    "hu": "Kérdést sikeresen duplikálta"
-                }
-            },
-            "msg_sorting_saved": {
-                "translations": {
-                    "de": "Reihenfolge gespeichert",
-                    "en": "Order saved",
-                    "hu": "Sorrend mentése"
-                }
-            },
-            "question": {
-                "translations": {
-                    "de": "Frage",
-                    "en": "Question",
-                    "hu": "Kérdés"
-                },
-                "last_used": "26.03.2018"
-            },
-            "reset": {
-                "translations": {
-                    "de": "Zurücksetzen",
-                    "en": "Reset",
-                    "hu": "MISSING"
-                },
-                "last_used": "26.03.2018"
-            },
-            "reset_all": {
-                "translations": {
-                    "de": "Alle Resultate zurücksetzen",
-                    "en": "Reset all Votings",
-                    "hu": "Összes szavazat resetelése"
-                },
-                "last_used": "26.03.2018"
-            },
-            "save_sorting": {
-                "translations": {
-                    "de": "Reihenfolge speichern",
-                    "en": "Save Order",
-                    "hu": "Sorrend mentése"
-                },
-                "last_used": "26.03.2018"
-            },
-            "select_type": {
-                "translations": {
-                    "de": "Typ auswählen",
-                    "en": "Select Type",
-                    "hu": "Típus mentése"
-                },
-                "last_used": "16.01.2017"
-            },
-            "status": {
-                "translations": {
-                    "de": "Status",
-                    "en": "Status",
-                    "hu": "Állapot"
-                },
-                "last_used": "26.03.2018"
-            },
-            "status_1": {
-                "translations": {
-                    "de": "Inaktiv",
-                    "en": "Inactive",
-                    "hu": "Inaktív"
-                },
-                "last_used": "26.03.2018"
-            },
-            "status_2": {
-                "translations": {
-                    "de": "Unvollständig",
-                    "en": "Incomplete",
-                    "hu": "Befejezetlen"
-                },
-                "last_used": "26.03.2018"
-            },
-            "status_5": {
-                "translations": {
-                    "de": "Aktiv",
-                    "en": "Active",
-                    "hu": "Aktív"
-                },
-                "last_used": "26.03.2018"
-            },
-            "title": {
-                "translations": {
-                    "de": "Titel",
-                    "en": "Title",
-                    "hu": "Cím"
-                },
-                "last_used": "26.03.2018"
-            },
-            "type": {
-                "translations": {
-                    "de": "Typ",
-                    "en": "Type",
-                    "hu": "Típus"
-                },
-                "last_used": "26.03.2018"
-            },
-            "type_1": {
-                "translations": {
-                    "de": "Single/Multiple Choice",
-                    "en": "Single/Multiple Choice",
-                    "hu": "Egyszeres/többszörös választás"
-                },
-                "last_used": "26.03.2018"
-            },
-            "type_1_info": {
-                "translations": {
-                    "de": "User können eine resp. mehrere Auswahlmöglichkeit(en) auswählen",
-                    "en": "A User can vote for different options",
-                    "hu": "Lehetőségek közül lehet választani."
-                },
-                "last_used": "16.01.2017"
-            },
-            "type_2": {
-                "translations": {
-                    "de": "Freitext eingeben",
-                    "en": "Free Input",
-                    "hu": "Szabadszöveges"
-                },
-                "last_used": "26.03.2018"
-            },
-            "type_2_info": {
-                "translations": {
-                    "de": "User können Stichworte oder kurze Sätze eingeben",
-                    "en": "User can hand in free text",
-                    "hu": "Szöveges válasz adható."
-                },
-                "last_used": "16.01.2017"
-            },
-            "type_3": {
-                "translations": {
-                    "de": "Bereich",
-                    "en": "Range",
-                    "hu": "Tartomány"
-                }
-            },
-            "type_4": {
-                "translations": {
-                    "de": "Korrekte Reihenfolge",
-                    "en": "Correct Order",
-                    "hu": "Helyes sorrend"
-                },
-                "last_used": "26.03.2018"
-            },
-            "type_4_info": {
-                "translations": {
-                    "de": "User müssen Begriffe in die richtige Reihenfolge bringen",
-                    "en": "Terms must be sorted in the correct order.",
-                    "hu": "A kifejezéseket a helyes sorrendbe kell rendezni."
-                },
-                "last_used": "16.01.2017"
-            },
-            "type_5": {
-                "translations": {
-                    "de": "Prioritäten",
-                    "en": "Priorities",
-                    "hu": "Sorrendbe rendezés"
-                },
-                "last_used": "26.03.2018"
-            },
-            "type_5_info": {
-                "translations": {
-                    "de": "User können Begriffe nach Prioritäten anordnen",
-                    "en": "Terms can be sorted after Priorities",
-                    "hu": "A kifejezések a kérdésben meghatározott szempont szerint sorrendbe kell rakni."
-                },
-                "last_used": "16.01.2017"
-            },
-            "update": {
-                "translations": {
-                    "de": "Speichern und zurückkehren",
-                    "en": "Update and return",
-                    "hu": "Mentés és vissza"
-                },
-                "last_used": "20.03.2018"
-            },
-            "update_and_stay": {
-                "translations": {
-                    "de": "Speichern",
-                    "en": "Update",
-                    "hu": "Mentés"
-                },
-                "last_used": "20.03.2018"
-            },
-            "type_6": {
-                "translations": {
-                    "en": "Number Range",
-                    "de": "Zahl schätzen",
-                    "hu": "Számtartomány"
-                },
-                "last_used": "26.03.2018"
-            },
-            "type_6_info": {
-                "translations": {
-                    "en": "Users can guess a number between X and Y.",
-                    "de": "User können eine Zahl zwischen X und Y schätzen.",
-                    "hu": "A felhasználók kitalálni egy számot X és Y között."
-                }
-            },
-            "powerpoint_export": {
-                "translations": {
-                    "en": "Export as PowerPoint",
-                    "de": "Als PowerPoint exportieren",
-                    "hu": "MISSING"
-                },
-                "last_used": "26.03.2018"
-            },
-            "confirm_ppt_export_msg": {
-                "translations": {
-                    "en": "A PowerPoint-Slideshow will be created with one slide per voting using the Presenter-Shortlink. Please note that this slides will require the PowerPoint-WebView-Plugin installed.",
-                    "hu": "MISSING",
-                    "de": "Eine PowerPoint-Präsentation mit einer Folie pro Frage wird erstellt, welche den jeweiligen Presenter-Link nutzen. Bitte beachten Sie, dass das Powepoint-WebView-Plugin installiert sein muss."
-                },
-                "last_used": "26.03.2018"
-            },
-            "short_link": {
-                "translations": {
-                    "de": "Kurz-URL",
-                    "en": "Short URL",
-                    "hu": "Rövid URL"
-                },
-                "last_used": "19.04.2018"
-            },
-            "permanent_link": {
-                "translations": {
-                    "de": "Permanenter-Link",
-                    "en": "Permanent-Link",
-                    "hu": "MISSING"
-                },
-                "last_used": "19.04.2018"
-            }
-        },
-        "vqtype": {
-            "1_options": {
-                "translations": {
-                    "en": "Options",
-                    "hu": "Beállítások",
-                    "de": "MISSING"
-                }
-            }
-        },
-        "xlvo": {
-            "add": {
-                "translations": {
-                    "de": "Hinzufügen",
-                    "en": "Add",
-                    "hu": "Létrehozása"
-                },
-                "last_used": "23.03.2018"
-            },
-            "delete": {
-                "translations": {
-                    "de": "LiveVoting löschen",
-                    "en": "Delete LiveVoting",
-                    "hu": "Élőszavazás törlése"
-                }
-            },
-            "edit": {
-                "translations": {
-                    "de": "Bearbeiten",
-                    "en": "Edit",
-                    "hu": "Módosítás"
-                },
-                "last_used": "26.03.2018"
-            },
-            "edit_permission": {
-                "translations": {
-                    "de": "Rechte bearbeiten",
-                    "en": "Edit Permissions",
-                    "hu": "Jogosultságok módosítása"
-                }
-            },
-            "new": {
-                "translations": {
-                    "de": "Neues LiveVoting anlegen",
-                    "en": "Add new LiveVoting",
-                    "hu": "Új Élőszavazás létrehozása"
-                },
-                "last_used": "23.03.2018"
-            },
-            "read": {
-                "translations": {
-                    "de": "Leserecht (nur im nicht-anonymen Modus verwendet",
-                    "en": "Read (used only in non-anonymous-mode)",
-                    "hu": "Olvasás (csak nem-anonim módban használható)"
-                }
-            },
-            "visible": {
-                "translations": {
-                    "de": "LiveVoting sichtbar",
-                    "en": "LiveVotings visible",
-                    "hu": "Élőszavazások látható"
-                }
-            },
-            "write": {
-                "translations": {
-                    "de": "LiveVoting präsentieren und bearbeiten",
-                    "en": "Present and edit LiveVoting",
-                    "hu": "Élőszavazás indítása és módosítása"
-                }
-            }
+  "plugin_prefix": "rep_robj_xlvo",
+  "languages": [
+    "en",
+    "hu",
+    "de"
+  ],
+  "entries": {
+    "cat": {
+      "create_xlobj_results_behaviour": {
+        "translations": {
+          "de": "MISSING",
+          "en": "Show Results",
+          "hu": "Eredmények megjelenítése"
         }
+      },
+      "create_xlvo": {
+        "translations": {
+          "de": "LiveVoting erstellen",
+          "en": "Create LiveVoting",
+          "hu": "Élőszavazás létrehozása"
+        }
+      }
+    },
+    "common": {
+      "actions": {
+        "translations": {
+          "de": "Aktionen",
+          "en": "Actions",
+          "hu": "Műveletek"
+        }
+      },
+      "all": {
+        "translations": {
+          "de": "Alle",
+          "en": "All",
+          "hu": "Összes"
+        }
+      },
+      "all2": {
+        "translations": {
+          "de": "MISSING",
+          "en": "MISSING",
+          "hu": "HIÁNYZIK"
+        }
+      },
+      "answer": {
+        "translations": {
+          "de": "Antwort",
+          "en": "Answer",
+          "hu": "Válasz"
+        }
+      },
+      "back": {
+        "translations": {
+          "de": "Zurück",
+          "en": "Back",
+          "hu": "Vissza"
+        }
+      },
+      "cancel": {
+        "translations": {
+          "de": "Abbrechen",
+          "en": "Cancel",
+          "hu": "Mégsem"
+        },
+        "last_used": "26.03.2018"
+      },
+      "change": {
+        "translations": {
+          "de": "Wechseln",
+          "en": "Change",
+          "hu": "Módosítás"
+        }
+      },
+      "common_new_round_created": {
+        "translations": {
+          "de": "Neuer Durchgang wurde erfolgreich gestartet.",
+          "en": "New round has been initialised successfully.",
+          "hu": "Új kört sikeresen inicializálta."
+        }
+      },
+      "confirm_new_round": {
+        "translations": {
+          "de": "Wenn Sie den Durchgang beenden, können die Antworten der bisherigen Durchgänge nicht mehr geändert werden. Sind Sie sicher, dass Sie einen neuen Durchgang starten wollen?",
+          "en": "If you create a new round the current round is finished and can't be continued. Are you sure you want to start a new round?",
+          "hu": "Új kör indításakor a jelenlegi kör leáll, nem folytatható tovább. Biztos, hogy elindít egy új kört?"
+        }
+      },
+      "correct_order": {
+        "translations": {
+          "de": "Richtige Reihenfolge",
+          "en": "Correct order",
+          "hu": "Helyes sorrend"
+        }
+      },
+      "history": {
+        "translations": {
+          "de": "Verlauf",
+          "en": "History",
+          "hu": "Történelem"
+        }
+      },
+      "incorrect_order": {
+        "translations": {
+          "de": "Falsche Reihenfolge",
+          "en": "Wrong Order",
+          "hu": "Hibás sorrend"
+        },
+        "last_used": "17.03.2017"
+      },
+      "new_round": {
+        "translations": {
+          "de": "Neuer Durchgang",
+          "en": "New Round",
+          "hu": "Új kör"
+        }
+      },
+      "new_round_created": {
+        "translations": {
+          "de": "Neuer Durchgang wurde erfolgreich gestartet.",
+          "en": "New round has been initialised successfully.",
+          "hu": "Új kört sikeresen inaktiválta."
+        }
+      },
+      "participant": {
+        "translations": {
+          "de": "Teilnehmer",
+          "en": "Participant",
+          "hu": "Válaszadó"
+        }
+      },
+      "position": {
+        "translations": {
+          "de": "Position",
+          "en": "Position",
+          "hu": "Pozíció"
+        }
+      },
+      "question": {
+        "translations": {
+          "de": "Frage",
+          "en": "Question",
+          "hu": "Kérdés"
+        }
+      },
+      "round": {
+        "translations": {
+          "de": "Durchgang",
+          "en": "Round",
+          "hu": "Kör"
+        }
+      },
+      "show_history": {
+        "translations": {
+          "de": "Verlauf",
+          "en": "History",
+          "hu": "Történelem"
+        }
+      },
+      "time": {
+        "translations": {
+          "de": "Zeitpunkt",
+          "en": "Timestamp",
+          "hu": "Időbélyeg"
+        }
+      },
+      "user": {
+        "translations": {
+          "de": "Benutzer",
+          "en": "User",
+          "hu": "Felhasználó"
+        }
+      },
+      "option_no_longer_available": {
+        "translations": {
+          "de": "[Option nicht mehr vorhanden]",
+          "en": "[Option no longer available]",
+          "hu": "MISSING"
+        }
+      },
+      "ok": {
+        "translations": {
+          "en": "OK",
+          "hu": "OK",
+          "de": "OK"
+        },
+        "last_used": "26.03.2018"
+      }
+    },
+    "config": {
+      "allow_shortlink": {
+        "translations": {
+          "de": "Kurz-URL für Voter einschalten",
+          "en": "Activate Short URL for Voter",
+          "hu": "MISSING"
+        },
+        "last_used": "20.04.2018"
+      },
+      "allow_shortlink_info": {
+        "translations": {
+          "de": "Eine Kurz-URL kann bspw. durch hinzufügen einer RewriteRule in der .htaccess erstellt werden, dadurch kann auf https://ilias.domain.com/vote angestimmt werden:",
+          "en": "Use a Short URL like /vote by adding the following RewriteRule to your .htaccess:",
+          "hu": "Rövid URL (pl. /vote) használatához adja a RewriteRule szabályt .htaccess fájljához:"
+        },
+        "last_used": "26.03.2018"
+      },
+      "allow_shortlink_link": {
+        "translations": {
+          "de": "Kurz-URL",
+          "en": "Short URL",
+          "hu": "Rövid URL"
+        },
+        "last_used": "26.03.2018"
+      },
+      "allow_shortlink_link_info": {
+        "translations": {
+          "de": "Ganze Kurz-URL Ihrer Installation, bspw. https://ilias.domain.com/vote",
+          "en": "Full Short URL of your Installation , e.g. https://ilias.domain.com/vote",
+          "hu": "Telepítése teljes rövid URL-je , pl. https://ilias.domain.hu/vote"
+        },
+        "last_used": "26.03.2018"
+      },
+      "base_url": {
+        "translations": {
+          "de": "Basis-URL",
+          "en": "Base URL",
+          "hu": "Alap URL"
+        },
+        "last_used": "26.03.2018"
+      },
+      "base_url_info": {
+        "translations": {
+          "de": "URL Ihrer ILIAS-Installation inkl. Unterverzeichnis, bspw. https://www.domain.com/ilias",
+          "en": "URL of yout ILIAS-Installation incl. Subfolders, e.g. https://www.domain.com/ilias",
+          "hu": "Telepítése URL-je (alkönyvtárat is beleértve), pl. https://www.domain.hu/ilias"
+        },
+        "last_used": "26.03.2018"
+      },
+      "cancel": {
+        "translations": {
+          "de": "Abbrechen",
+          "en": "Cancel",
+          "hu": "Mégsem"
+        },
+        "last_used": "26.03.2018"
+      },
+      "msg_success": {
+        "translations": {
+          "de": "Gespeichert",
+          "en": "Saved",
+          "hu": "Mentve"
+        },
+        "last_used": "26.03.2018"
+      },
+      "request_frequency": {
+        "translations": {
+          "de": "Klienten aktualisierungs Frequenz",
+          "en": "Client update frequency",
+          "hu": "MISSING"
+        },
+        "last_used": "26.03.2018"
+      },
+      "request_frequency_info": {
+        "translations": {
+          "de": "Die aktualisierungs Frequenz der LiveVoting Klienten, angegeben in Sekunden. Umso kleiner die Zahl ist umso schneller reagieren die Clients (z.B. Smartphones der Benutzer) während eines LiveVotings, allerdings erhöht sich die Last auf den Server merklich. Richtwert 2-5 Sekunden.",
+          "en": "The client side live voting data update frequency measured in seconds. The lower the number the faster the clients react to changes by the tutor but the load on the server increases. We recommend 2 - 5 seconds."
+        },
+        "last_used": "26.03.2018"
+      },
+      "update": {
+        "translations": {
+          "de": "Speichern",
+          "en": "Update",
+          "hu": "Módosítás"
+        },
+        "last_used": "26.03.2018"
+      },
+      "result_api": {
+        "translations": {
+          "en": "Activate Results-API",
+          "hu": "MISSING",
+          "de": "Resultate-API aktivieren"
+        },
+        "last_used": "26.03.2018"
+      },
+      "result_api_info": {
+        "translations": {
+          "en": "Results of a Voting can be accessed as JSON via Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/api.php?pin=XXXX?token=XXXXX",
+          "hu": "MISSING",
+          "de": "Resultate eines Votings können als JSON via Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/api.php?pin=XXXX?token=XXXXX abgerufen werden"
+        },
+        "last_used": "26.03.2018"
+      },
+      "api_token": {
+        "translations": {
+          "en": "API-Token",
+          "hu": "MISSING",
+          "de": "API-Token"
+        },
+        "last_used": "26.03.2018"
+      },
+      "api_type": {
+        "translations": {
+          "en": "Type",
+          "hu": "MISSING",
+          "de": "Typ"
+        },
+        "last_used": "26.03.2018"
+      },
+      "regenerate_token": {
+        "translations": {
+          "en": "Regenerate Token",
+          "hu": "MISSING",
+          "de": "Token neu generieren"
+        },
+        "last_used": "17.03.2017"
+      },
+      "open_result_api": {
+        "translations": {
+          "en": "Open API-Link (with latest Voting)",
+          "hu": "MISSING",
+          "de": "API-Link öffnen (mit neustem Voting)"
+        },
+        "last_used": "17.03.2017"
+      },
+      "use_global_cache": {
+        "translations": {
+          "en": "Activate caching",
+          "de": "Cache aktivieren",
+          "hu": "aktiválása caching"
+        },
+        "last_used": "26.03.2018"
+      },
+      "use_global_cache_info": {
+        "translations": {
+          "en": "Enables the LiveVoting plugin to use the global caching mechanism, which is provided by ILIAS. The underlying cache must be synchronised within a multi note setup, otherwise the plugin produces unpredictable results.",
+          "de": "Aktiviert die Verwendung der globalen Cache Mechanik von ILIAS. Der zugrundeliegende cache muss in einem Setup mit mehreren ILIAS installation synchron sein, da das Plugin ansonsten unvorhersehbare Werte produzieren wird.",
+          "hu": "Lehetővé teszi a LiveVoting plugint használni a globális cache mechanizmus, amely biztosítja ILIAS. Az alapul szolgáló cache szinkronizálni kell egy multi veszi a telepítést, egyébként a plugin megjósolhatatlan eredményeket."
+        },
+        "last_used": "26.03.2018"
+      },
+      "presenter_link": {
+        "translations": {
+          "en": "Presenter link",
+          "de": "Moderator-Link",
+          "hu": "MISSING"
+        },
+        "last_used": "01.03.2018"
+      },
+      "ppt_export": {
+        "translations": {
+          "en": "PowerPoint-Export",
+          "hu": "MISSING",
+          "de": "PowerPoint-Export"
+        },
+        "last_used": "26.03.2018"
+      },
+      "ppt_export_info": {
+        "translations": {
+          "en": "Activate PowerPoint-Export: This features needs the PowerPoint-WebView-Plugin installed and will only work if you ILIAS runs on HTTPS.",
+          "hu": "MISSING",
+          "de": "PowerPoint-Export aktivieren: Dieses Feature funktioniert nur mit installierten PowerPoint-WebView-Plugin und wenn die ILIAS Installation unter HTTPS betrieben wird."
+        },
+        "last_used": "26.03.2018"
+      },
+      "ppt_export_info_manual": {
+        "translations": {
+          "en": "Embedding LiveVotings in PowerPoint:",
+          "hu": "MISSING",
+          "de": "LiveVotings in PowerPoint einbetten:"
+        },
+        "last_used": "20.04.2018"
+      },
+      "ppt_export_info_manual_1": {
+        "translations": {
+          "en": "Start PowerPoint",
+          "hu": "MISSING",
+          "de": "PowerPoint starten"
+        },
+        "last_used": "25.05.2018"
+      },
+      "ppt_export_info_manual_2": {
+        "translations": {
+          "en": "Search for \"Web Viewer\" in the Office-Add-Ins Store (Insert > My Add-Ins)",
+          "hu": "MISSING",
+          "de": "Nach \"Web Viewer\" im Office-Add-Ins Store suchen (Einfügen > Meine Add-Ins)"
+        },
+        "last_used": "25.05.2018"
+      },
+      "ppt_export_info_manual_3": {
+        "translations": {
+          "en": "Copy the Presenter link from this LiveVoting and paste the link in the Web Viewer-form in your presentation",
+          "hu": "MISSING",
+          "de": "Den Moderator-Link dieses LiveVotings kopieren und den Link im Web Viewer-Formular in Ihrer Präsentation einfügen"
+        },
+        "last_used": "25.05.2018"
+      },
+      "ppt_export_info_manual_4": {
+        "translations": {
+          "en": "IMPORTANT: Please note that after inserting you must remove the https:// at the beginning of the link, as it will already automatically dictate from PowerPoint and thus would not work if it exists twice",
+          "hu": "MISSING",
+          "de": "WICHTIG: Bitte beachten Sie, dass Sie nach dem Einfügen das https:// am Anfang des Links entfernen müssen, da es bereits automatisch von PowerPoint vorgeben wird und somit nicht funktionieren würde, wenn es 2x vorhanden ist"
+        },
+        "last_used": "25.05.2018"
+      },
+      "allow_shortlink_presenter": {
+        "translations": {
+          "de": "Kurz-URL für Moderator einschalten",
+          "en": "Activate Short URL for Presenter",
+          "hu": "MISSING"
+        },
+        "last_used": "20.04.2018"
+      },
+      "allow_shortlink_presenter_info": {
+        "translations": {
+          "de": "Eine Kurz-URL kann bspw. durch hinzufügen einer RewriteRule in der .htaccess erstellt werden, dadurch kann auf https://ilias.domain.com/presenter angestimmt werden:",
+          "en": "Use a Short URL like /vote by adding the following RewriteRule to your .htaccess:",
+          "hu": "MISSING"
+        },
+        "last_used": "20.04.2018"
+      },
+      "allow_shortlink_link_presenter": {
+        "translations": {
+          "de": "Kurz-URL",
+          "en": "Short URL",
+          "hu": "MISSING"
+        },
+        "last_used": "20.04.2018"
+      },
+      "allow_shortlink_link_presenter_info": {
+        "translations": {
+          "de": "Ganze Kurz-URL Ihrer Installation, bspw. https://ilias.domain.com/presenter",
+          "en": "Full Short URL of your Installation , e.g. https://ilias.domain.com/presenter",
+          "hu": "MISSING"
+        },
+        "last_used": "20.04.2018"
+      }
+    },
+    "correct": {
+      "order": {
+        "translations": {
+          "de": "Korrekte Reihenfolge",
+          "en": "Correct Order",
+          "hu": "Helyes sorrend"
+        }
+      }
+    },
+    "crs": {
+      "create_xlvo": {
+        "translations": {
+          "de": "LiveVoting erstellen",
+          "en": "Create LiveVoting",
+          "hu": "Élőszavazás létrehozása"
+        }
+      }
+    },
+    "fikd": {
+      "create_xlvo": {
+        "translations": {
+          "de": "LiveVoting erstellen",
+          "en": "Create LiveVoting",
+          "hu": "Élőszavazás létrehozása"
+        }
+      }
+    },
+    "grp": {
+      "create_xlvo": {
+        "translations": {
+          "de": "LiveVoting erstellen",
+          "en": "Create LiveVoting",
+          "hu": "Élőszavazás létrehozása"
+        }
+      }
+    },
+    "incorrect": {
+      "order": {
+        "translations": {
+          "de": "Falsche Reihenfolge",
+          "en": "Incorrect Order",
+          "hu": "Hibás sorrend"
+        }
+      }
+    },
+    "msg": {
+      "success_voting_created": {
+        "translations": {
+          "de": "Voting wurde erstellt",
+          "en": "Voting has been created",
+          "hu": "Szavazást sikeresen létrehozta"
+        }
+      },
+      "success_voting_updated": {
+        "translations": {
+          "de": "Voting wurde gespeichert",
+          "en": "Voting has been udpated",
+          "hu": "Szavazást sikeresen módosította"
+        },
+        "last_used": "28.06.2017"
+      }
+    },
+    "new": {
+      "round": {
+        "translations": {
+          "de": "Neuer Durchgang",
+          "en": "New Round",
+          "hu": "Új kör"
+        }
+      }
+    },
+    "obj": {
+      "anonymous": {
+        "translations": {
+          "de": "Abstimmung ohne Login",
+          "en": "Vote without Login",
+          "hu": "Szavazás bejelentkezés nélkül"
+        },
+        "last_used": "26.03.2018"
+      },
+      "crs": {
+        "translations": {
+          "de": "Kurs",
+          "en": "Course",
+          "hu": "Kurzus"
+        }
+      },
+      "description": {
+        "translations": {
+          "de": "Beschreibung",
+          "en": "Description",
+          "hu": "Leírás"
+        },
+        "last_used": "26.03.2018"
+      },
+      "edit_properties": {
+        "translations": {
+          "de": "Einstellungen bearbeiten",
+          "en": "Edit Properties",
+          "hu": "Tulajdonságok módosítása"
+        },
+        "last_used": "26.03.2018"
+      },
+      "formtitle_change_vote": {
+        "translations": {
+          "de": "Verhalten bei Wechsel der Frage",
+          "en": "Behaviour while navigating",
+          "hu": "Navigáció közbeni viselkedés"
+        },
+        "last_used": "26.03.2018"
+      },
+      "frozen_alway_off": {
+        "translations": {
+          "de": "nach Wechsel immer ausgeschaltet",
+          "en": "Question is always inactive after changing",
+          "hu": "Kérdés mindig inaktív váltás után"
+        },
+        "last_used": "26.03.2018"
+      },
+      "frozen_alway_off_info": {
+        "translations": {
+          "de": "Benutzer können erst abstimmen, wenn die Frage freigegeben wird.",
+          "en": "Users can vote after the presenter presses the Vote-Button of the question.",
+          "hu": "Kérdésváltás után a felhasználók azután szavazhatnak, miután az előadó megnyomta a Szavazz gombot."
+        },
+        "last_used": "26.03.2018"
+      },
+      "frozen_alway_ofxlvo_edit": {
+        "translations": {
+          "de": "Bearbeiten",
+          "en": "MISSING",
+          "hu": "MISSING"
+        }
+      },
+      "frozen_alway_on": {
+        "translations": {
+          "de": "nach Wechsel immer eingeschaltet",
+          "en": "Question is always active after changing",
+          "hu": "Kérdés mindig aktív váltás után"
+        },
+        "last_used": "26.03.2018"
+      },
+      "frozen_alway_on_info": {
+        "translations": {
+          "de": "Benutzer können nach einem Wechsel der Frage sofort abstimmen.",
+          "en": "Users can vote directly after switching question.",
+          "hu": "Kérdésváltás után a felhasználók rögtön szavazhatnak."
+        },
+        "last_used": "26.03.2018"
+      },
+      "frozen_behaviour": {
+        "translations": {
+          "de": "Abstimmen",
+          "en": "Frozen-State",
+          "hu": "Szüneteltetés állapota"
+        },
+        "last_used": "26.03.2018"
+      },
+      "frozen_reuse": {
+        "translations": {
+          "de": "Status beibehalten",
+          "en": "Reuse Status",
+          "hu": "Előző állapot használata"
+        },
+        "last_used": "26.03.2018"
+      },
+      "frozen_reuse_info": {
+        "translations": {
+          "de": "Der Status wird beim Wechseln beibehalten.",
+          "en": "Frozen-State is consistent after switching question.",
+          "hu": "Kérdésváltás után a szüneteltetés állapota nem változik."
+        },
+        "last_used": "26.03.2018"
+      },
+      "info_anonymous": {
+        "translations": {
+          "de": "Die Teilnahme am LiveVoting ohne Login erfordert kein ILIAS Benutzerkonto. Alle Personen im Besitz des entsprechenden PINs können am LiveVoting teilnehmen.",
+          "en": "The LiveVoting can be used for the voters without authentication, even when the Object is in a secured Space like a Course. Voters access the LiveVoting with a PIN",
+          "hu": "Az élőszavazás bejelentkezés nélkül használható, akkor is, ha az objektum védett, biztonságos helyen van, pl. egy kurzusban. A szavazók egy PIN kóddal érik el az élőszavazást."
+        },
+        "last_used": "26.03.2018"
+      },
+      "info_online": {
+        "translations": {
+          "de": "Nur wenn das LiveVoting online geschaltet ist, können Benutzer das LiveVoting sehen und benutzen.",
+          "en": "Object is online and available",
+          "hu": "Objektum online és elérhető"
+        },
+        "last_used": "26.03.2018"
+      },
+      "info_reuse_status": {
+        "translations": {
+          "de": "Beim Wechseln zwischen Voting wird jeweils übernommen, ob das nächste Voting freigegeben werden soll, oder nicht.",
+          "en": "Re-use the state of the current Voting when switching to the next (frozen / not frozen).",
+          "hu": "Az élőszavazás pillanatnyi állapotának megőrzése amikor a következőre váltunk (szüneteltetett / nem szüneteltetett)."
+        }
+      },
+      "info_terminable": {
+        "translations": {
+          "de": "Das LiveVoting kann nur innerhalb der definierten Zeit zum Abstimmen genutzt werden",
+          "en": "The LiveVoting only can be used in the definied period of time",
+          "hu": "Az előszavazás csak a meghatározott időtartam alatt érhető el"
+        }
+      },
+      "msg_properties_form_saved": {
+        "translations": {
+          "de": "Einstellungen gespeichert",
+          "en": "Settings saved",
+          "hu": "Beállításokat sikeresen mentette."
+        }
+      },
+      "offline": {
+        "translations": {
+          "de": "Offline",
+          "en": "Offline",
+          "hu": "MISSING"
+        }
+      },
+      "online": {
+        "translations": {
+          "de": "Online",
+          "en": "Online",
+          "hu": "MISSING"
+        },
+        "last_used": "26.03.2018"
+      },
+      "results_alway_off": {
+        "translations": {
+          "de": "nach Wechsel immer ausgeblendet",
+          "en": "Results are always hidden",
+          "hu": "Szavazatállás sohasem látható"
+        },
+        "last_used": "26.03.2018"
+      },
+      "results_alway_off_info": {
+        "translations": {
+          "de": "Administratoren müssen das Einblenden der Resultate manuell starten.",
+          "en": "Results are always hidden after switching question.",
+          "hu": "Kérdésváltás után a pillanatnyi szavazatállás nem jelenik meg."
+        },
+        "last_used": "26.03.2018"
+      },
+      "results_alway_on": {
+        "translations": {
+          "de": "nach Wechsel immer eingeblendet",
+          "en": "Results are always visible",
+          "hu": "Szavazatállás mindig látható"
+        },
+        "last_used": "26.03.2018"
+      },
+      "results_alway_on_info": {
+        "translations": {
+          "de": "Nach einem Wechsel der Frage sind die Resultate immer sichtbar.",
+          "en": "Results are always visible after switching question.",
+          "hu": "Kérdésváltás után a pillanatnyi szavazatállás jelenik meg."
+        },
+        "last_used": "26.03.2018"
+      },
+      "results_behaviour": {
+        "translations": {
+          "de": "Resultate einblenden",
+          "en": "Show Results",
+          "hu": "Szavazatállás megjelenítése"
+        },
+        "last_used": "26.03.2018"
+      },
+      "results_reuse": {
+        "translations": {
+          "de": "Status beibehalten",
+          "en": "Reuse state",
+          "hu": "Előző állapot használata"
+        },
+        "last_used": "26.03.2018"
+      },
+      "results_reuse_info": {
+        "translations": {
+          "de": "Der Status wird beim Wechsel der Frage beibehalten.",
+          "en": "The State is consistent after switching question.",
+          "hu": "Kérdésváltás után a szavazatállás láthatósága nem változik."
+        },
+        "last_used": "26.03.2018"
+      },
+      "reuse_status": {
+        "translations": {
+          "de": "Player-Status übernehmen",
+          "en": "Re-use Player State",
+          "hu": "Válaszadók állapotának újbóli felhasználása"
+        }
+      },
+      "save": {
+        "translations": {
+          "de": "Speichern",
+          "en": "Save",
+          "hu": "Mentés"
+        },
+        "last_used": "26.03.2018"
+      },
+      "status": {
+        "translations": {
+          "de": "Status",
+          "en": "Status",
+          "hu": "Állapot"
+        }
+      },
+      "terminable": {
+        "translations": {
+          "de": "Abstimmung zeitlich beschränken",
+          "en": "Limit voting time",
+          "hu": "Szavazás idejének korlátozása"
+        }
+      },
+      "terminable_select": {
+        "translations": {
+          "de": "Zeitraum",
+          "en": "Time range",
+          "hu": "Időtartam"
+        }
+      },
+      "terminable_select_end_time": {
+        "translations": {
+          "de": "Ende",
+          "en": "End",
+          "hu": "Záró idő"
+        }
+      },
+      "terminable_select_start_time": {
+        "translations": {
+          "de": "Start",
+          "en": "Start",
+          "hu": "Kezdő idő"
+        }
+      },
+      "title": {
+        "translations": {
+          "de": "Titel",
+          "en": "Title",
+          "hu": "Cím"
+        },
+        "last_used": "26.03.2018"
+      },
+      "xlvo": {
+        "translations": {
+          "de": "LiveVoting",
+          "en": "LiveVoting",
+          "hu": "Élőszavazás"
+        },
+        "last_used": "26.03.2018"
+      },
+      "xlvo_duplicate": {
+        "translations": {
+          "de": "Bestehendes LiveVoting kopieren",
+          "en": "Clone existing LiveVoting",
+          "hu": "Meglévő élőszavazás duplikálása"
+        }
+      },
+      "": {
+        "translations": {
+          "en": "MISSING",
+          "hu": "MISSING",
+          "de": "MISSING"
+        }
+      }
+    },
+    "objs": {
+      "xlvo": {
+        "translations": {
+          "de": "LiveVotings",
+          "en": "LiveVotings",
+          "hu": "Élőszavazás"
+        }
+      },
+      "xlvo_duplicate": {
+        "translations": {
+          "de": "Bestehendes LiveVoting kopieren",
+          "en": "Clone existing LiveVoting",
+          "hu": "Meglévő élőszavazás klónozása"
+        },
+        "last_used": "23.03.2018"
+      }
+    },
+    "player": {
+      "close_modal": {
+        "translations": {
+          "de": "Schliessen",
+          "en": "Close",
+          "hu": "Bezárás"
+        }
+      },
+      "freeze": {
+        "translations": {
+          "de": "Pausieren",
+          "en": "Pause",
+          "hu": "Szüneteltetés"
+        },
+        "last_used": "23.03.2018"
+      },
+      "hide_results": {
+        "translations": {
+          "de": "Resultate ausblenden",
+          "en": "Hide Results",
+          "hu": "Szavazatállás elrejtése"
+        },
+        "last_used": "23.03.2018"
+      },
+      "msg_no_start_1": {
+        "translations": {
+          "de": "Sie können das LiveVoting nicht starten! Das LiveVoting ist offline.",
+          "en": "This LiveVoting can't be started since it is offline.",
+          "hu": "Ez az élőszavazás nem indítható, mert jelenleg offline"
+        }
+      },
+      "msg_no_start_2": {
+        "translations": {
+          "de": "Das LiveVoting kann nicht gestartet werden, da noch keine Votings vorhanden sind.",
+          "en": "This LiveVoting can't be started since there are no Votings available yet.",
+          "hu": "Ez az élőszavazás nem indítható, mert nincsenek elérhető szavazatok"
+        },
+        "last_used": "16.01.2017"
+      },
+      "msg_no_votings": {
+        "translations": {
+          "de": "Es sind keine Fragen vorhanden, das Voting kann nicht gestartet werden.",
+          "en": "There are no Questions, the LiveVoting can be started.",
+          "hu": "Ez az élőszavazás nem indítható, mert nincs benne kérdés"
+        }
+      },
+      "msg_voting_not_available": {
+        "translations": {
+          "de": "Das ausgewählte Voting ist nicht vorhanden",
+          "en": "The selected Voting is not available",
+          "hu": "A kijelölt élőszavazás nem érhető el"
+        }
+      },
+      "player_countdown": {
+        "translations": {
+          "de": "Countdown",
+          "en": "Countdown",
+          "hu": "Visszaszámlálás"
+        }
+      },
+      "reset": {
+        "translations": {
+          "de": "Zurücksetzen",
+          "en": "Reset",
+          "hu": "MISSING"
+        },
+        "last_used": "23.03.2018"
+      },
+      "seconds": {
+        "translations": {
+          "de": "s",
+          "en": "sec",
+          "hu": "mp"
+        },
+        "last_used": "23.03.2018"
+      },
+      "show_results": {
+        "translations": {
+          "de": "Resultate einblenden",
+          "en": "Show Results",
+          "hu": "Szavazatállás megjelenítése"
+        },
+        "last_used": "23.03.2018"
+      },
+      "start_voting": {
+        "translations": {
+          "de": "LiveVoting beginnen",
+          "en": "Start LiveVoting",
+          "hu": "Élőszavazás indítása"
+        },
+        "last_used": "26.03.2018"
+      },
+      "start_voting_and_unfreeze": {
+        "translations": {
+          "de": "LiveVoting beginnen und direkt freigeben",
+          "en": "Start LiveVoting and start voting directly",
+          "hu": "Élőszavazás indítása és a szavazás azonnali megkezdése"
+        },
+        "last_used": "26.03.2018"
+      },
+      "terminate": {
+        "translations": {
+          "de": "Beenden",
+          "en": "Terminate",
+          "hu": "Megszakítás"
+        },
+        "last_used": "23.03.2018"
+      },
+      "unfreeze": {
+        "translations": {
+          "de": "Abstimmen",
+          "en": "Vote",
+          "hu": "Szavazz"
+        },
+        "last_used": "23.03.2018"
+      },
+      "voters_online": {
+        "translations": {
+          "de": "Online",
+          "en": "Online",
+          "hu": "MISSING"
+        },
+        "last_used": "23.03.2018"
+      },
+      "voting_countdown": {
+        "translations": {
+          "de": "Countdown",
+          "en": "Countdown",
+          "hu": "Visszaszámlálás"
+        }
+      },
+      "voting_list": {
+        "translations": {
+          "de": "Fragen",
+          "en": "Questions",
+          "hu": "Kérdések"
+        },
+        "last_used": "26.03.2018"
+      },
+      "voters_description": {
+        "translations": {
+          "en": "Voters",
+          "hu": "Választók",
+          "de": "Abstimmende"
+        },
+        "last_used": "23.03.2018"
+      }
+    },
+    "playplayer": {
+      "msg_no_start_2": {
+        "translations": {
+          "de": "Das LiveVoting kann nicht gestartet werden, da noch keine Votings vorhanden sind.",
+          "en": "MISSING",
+          "hu": "MISSING"
+        }
+      }
+    },
+    "qtype": {
+      "1_colors": {
+        "translations": {
+          "de": "Unterschiedliche Farben",
+          "en": "Different Colors",
+          "hu": "Különböző színek"
+        },
+        "last_used": "28.06.2017"
+      },
+      "1_info_latex": {
+        "translations": {
+          "de": "LaTeX kann mit [tex] ... [/tex] formatiert werden.",
+          "en": "LaTeX can be surrounded with [tex] ... [/tex]",
+          "hu": "LaTeX részt [tex] ... [/tex] közé kell írni."
+        },
+        "last_used": "28.06.2017"
+      },
+      "1_multi_selection": {
+        "translations": {
+          "de": "Mehrfachauswahl",
+          "en": "Multiple Selection",
+          "hu": "Többszörös kijelölés"
+        },
+        "last_used": "28.06.2017"
+      },
+      "1_multi_selection_info": {
+        "translations": {
+          "de": "Ein Nutzer kann mehrere Antworten wählen. Beim Einblenden der Resultate wird für jede Antwortmöglichkeit das Verhältnis separat berechnet (Anzahl erhaltener Stimmen / Anzahl Abstimmende).",
+          "en": "User can select more than one Option",
+          "hu": "Válaszadó több, mint egy válaszlehetőséget jelölhet meg"
+        },
+        "last_used": "28.06.2017"
+      },
+      "1_options": {
+        "translations": {
+          "de": "Mögliche Antworten",
+          "en": "Options",
+          "hu": "Lehetőségek"
+        },
+        "last_used": "28.06.2017"
+      },
+      "1_option_text": {
+        "translations": {
+          "de": "Options-Text",
+          "en": "Option-Text",
+          "hu": "MISSING"
+        },
+        "last_used": "28.06.2017"
+      },
+      "1_optmsg_success_voting_updated": {
+        "translations": {
+          "de": "Voting wurde gespeichert",
+          "en": "MISSING",
+          "hu": "MISSING"
+        }
+      },
+      "1_total_obj_results_alway_on_info": {
+        "translations": {
+          "de": "Die Resultate werden nach einem Wechsel der Frage automatisch eingeblendet.",
+          "en": "MISSING",
+          "hu": "MISSING"
+        }
+      },
+      "1_total_voters": {
+        "translations": {
+          "de": "Anzahl Abstimmende",
+          "en": "Total Voters",
+          "hu": "Összes szavazó"
+        }
+      },
+      "1_total_votes": {
+        "translations": {
+          "de": "Anzahl Stimmen",
+          "en": "Total Votes",
+          "hu": "Összes szavazó"
+        },
+        "last_used": "28.06.2017"
+      },
+      "1_unvote": {
+        "translations": {
+          "de": "Zurücksetzen",
+          "en": "Discard",
+          "hu": "Szavazat visszavonása"
+        }
+      },
+      "1_vote": {
+        "translations": {
+          "de": "Senden",
+          "en": "Send",
+          "hu": "Szavazás"
+        }
+      },
+      "2_answers": {
+        "translations": {
+          "de": "Eingaben",
+          "en": "Inputs",
+          "hu": "Válaszok"
+        }
+      },
+      "2_clear": {
+        "translations": {
+          "de": "Verwerfen",
+          "en": "Discard",
+          "hu": "Kezdőállapotba"
+        }
+      },
+      "2_delete_all": {
+        "translations": {
+          "de": "Alle verwerfen",
+          "en": "Discard all",
+          "hu": "Összes törlése"
+        }
+      },
+      "2_input": {
+        "translations": {
+          "de": "Eingabe",
+          "en": "Input",
+          "hu": "Válasz"
+        }
+      },
+      "2_multi_free_input": {
+        "translations": {
+          "de": "Mehrfache Eingaben",
+          "en": "Multiple Inputs",
+          "hu": "Többszörös válasz"
+        }
+      },
+      "2_multi_free_input_info": {
+        "translations": {
+          "de": "Ein Nutzer kann mehr als einen Text eingeben",
+          "en": "A User can hand in multiple Texts",
+          "hu": "Több válasz is adható"
+        }
+      },
+      "2_send": {
+        "translations": {
+          "de": "Senden",
+          "en": "Send",
+          "hu": "Mentés"
+        }
+      },
+      "2_text": {
+        "translations": {
+          "de": "Text",
+          "en": "Text",
+          "hu": "Szöveg"
+        }
+      },
+      "2_your_input": {
+        "translations": {
+          "de": "Ihre gespeicherte Eingabe:",
+          "en": "Your saved input:",
+          "hu": "Jelenleg mentett válasza:"
+        }
+      },
+      "4_clear": {
+        "translations": {
+          "de": "Verwerfen",
+          "en": "Discard",
+          "hu": "Kezdőállapotba"
+        }
+      },
+      "4_correct": {
+        "translations": {
+          "de": "Richtig",
+          "en": "Correct",
+          "hu": "Helyes"
+        }
+      },
+      "4_correct_solution": {
+        "translations": {
+          "de": "Korrekte Reihenfolge:",
+          "en": "Correct order:",
+          "hu": "Helyes sorrend:"
+        }
+      },
+      "4_display_correct_order": {
+        "translations": {
+          "de": "Show correct order",
+          "en": "Korrekte Reihenfolge anzeigen",
+          "hu": "Rendezés irányának megjelenítése"
+        }
+      },
+      "4_display_std_order": {
+        "translations": {
+          "de": "Show standard order",
+          "en": "View default order",
+          "hu": "Alapértelmezett sorrend megjelenítése"
+        }
+      },
+      "4_hide_correct_order": {
+        "translations": {
+          "de": "Hide correct order",
+          "en": "Korrekte Reihenfolge verbergen",
+          "hu": "Rendezés irányának elrejtése"
+        }
+      },
+      "4_id": {
+        "translations": {
+          "de": "ID",
+          "en": "ID",
+          "hu": "ID"
+        }
+      },
+      "4_options": {
+        "translations": {
+          "de": "Optionen",
+          "en": "Options",
+          "hu": "Lehetőségek"
+        },
+        "last_used": "28.06.2017"
+      },
+      "4_option_correct_position": {
+        "translations": {
+          "de": "Korrekte Position",
+          "en": "Correct Position",
+          "hu": "Helyes sorrend"
+        },
+        "last_used": "28.06.2017"
+      },
+      "4_option_position": {
+        "translations": {
+          "de": "Position",
+          "en": "Position",
+          "hu": "Pozíció"
+        }
+      },
+      "4_option_text": {
+        "translations": {
+          "de": "Begriff",
+          "en": "Term",
+          "hu": "Kifejezés"
+        },
+        "last_used": "28.06.2017"
+      },
+      "4_save": {
+        "translations": {
+          "de": "Senden",
+          "en": "Send",
+          "hu": "Mentés"
+        }
+      },
+      "4_wrong": {
+        "translations": {
+          "de": "Falsch",
+          "en": "Wrong",
+          "hu": "Hibás"
+        }
+      },
+      "4_your_order": {
+        "translations": {
+          "de": "Ihre gespeicherte Eingabe:",
+          "en": "Your Submission:",
+          "hu": "Az Ön válasza:"
+        }
+      },
+      "5_correct_solution": {
+        "translations": {
+          "de": "Richtige Lösung",
+          "en": "Correct Solution",
+          "hu": "HIÁNYZIK"
+        }
+      },
+      "5_display_correct_order": {
+        "translations": {
+          "de": "Sortieren",
+          "en": "Sort",
+          "hu": "Sorrend"
+        }
+      },
+      "5_hide_correct_order": {
+        "translations": {
+          "de": "Sortieren aufheben",
+          "en": "Revert Sorting",
+          "hu": "Fordított sorrend"
+        }
+      },
+      "5_options": {
+        "translations": {
+          "de": "Optionen",
+          "en": "Options",
+          "hu": "Lehetőségek"
+        },
+        "last_used": "28.06.2017"
+      },
+      "5_option_text": {
+        "translations": {
+          "de": "Text",
+          "en": "Text",
+          "hu": "Szöveg"
+        },
+        "last_used": "28.06.2017"
+      },
+      "5_option_weight": {
+        "translations": {
+          "de": "Gewichtung",
+          "en": "Weight",
+          "hu": "Szélesség"
+        }
+      },
+      "form_header": {
+        "translations": {
+          "de": "Antworten",
+          "en": "Answers",
+          "hu": "Válaszok"
+        },
+        "last_used": "20.03.2018"
+      },
+      "multi_free_input": {
+        "translations": {
+          "de": "Mehrfache Eingaben",
+          "en": "Multiple Inputs",
+          "hu": "Többszörös válasz"
+        }
+      },
+      "6_range_start": {
+        "translations": {
+          "en": "Start",
+          "de": "Start",
+          "hu": "Rajt"
+        },
+        "last_used": "28.06.2017"
+      },
+      "6_voter_start_button_vote": {
+        "translations": {
+          "en": "Send",
+          "de": "Senden",
+          "hu": "Szavazás"
+        }
+      },
+      "6_voter_clear": {
+        "translations": {
+          "en": "Discard",
+          "de": "Verwerfen",
+          "hu": "Kezdőállapotba"
+        }
+      },
+      "6_voter_start_button_unvote": {
+        "translations": {
+          "en": "Discard",
+          "de": "Verwerfen",
+          "hu": "Megválni"
+        }
+      },
+      "6_invalid_end_range": {
+        "translations": {
+          "en": "The end of the range must be greater than the start. Please note that the end range must be between 2147483646 and -2147483647.",
+          "de": "Das Ende des Bereichs muss größer sein als der Start. Bitte beachten Sie, dass der Endbereich zwischen 2147483646 und -2147483647 liegen muss.",
+          "hu": "A végén a tartomány nagyobbnak kell lennie, mint a kezdés. Felhívjuk figyelmét, hogy a végén tartomány között kell lennie 2147483646 és -2147483647."
+        }
+      },
+      "6_invalid_start_range": {
+        "translations": {
+          "en": "The start of the range must be less than the end. Please note that the start range must be between 2147483645 and -2147483646.",
+          "de": "Der Anfang des Bereichs muss kleiner sein als das Ende. Bitte beachten Sie, dass der Startbereich zwischen 2147483645 und -2147483646 liegen muss.",
+          "hu": "A start a tartományban kisebbnek kell lennie a végén. Felhívjuk figyelmét, hogy a start tartomány között kell lennie 2147483645 és -2147483646."
+        }
+      },
+      "6_range_end": {
+        "translations": {
+          "en": "End",
+          "de": "Ende",
+          "hu": "Vég"
+        },
+        "last_used": "28.06.2017"
+      },
+      "6_option_percentage": {
+        "translations": {
+          "en": "Percentage",
+          "de": "Prozentual",
+          "hu": "Százalék"
+        },
+        "last_used": "20.03.2018"
+      },
+      "6_option_range_start": {
+        "translations": {
+          "en": "Start",
+          "de": "Start",
+          "hu": "Kezdet"
+        },
+        "last_used": "20.03.2018"
+      },
+      "6_option_range_end": {
+        "translations": {
+          "en": "End",
+          "de": "Ende",
+          "hu": "Vég"
+        },
+        "last_used": "20.03.2018"
+      },
+      "6_option_percentage_info": {
+        "translations": {
+          "en": "Shows the number range with a percentage sign. There are no calculations done, this is only an visual option.",
+          "de": "Blendet ein Prozentzeichen neben der Start und Endzahl ein.",
+          "hu": "Kijelzők százalék jelek mellett a kezdő és záró szám."
+        },
+        "last_used": "20.03.2018"
+      },
+      "6_option_range_start_info": {
+        "translations": {
+          "en": "The start of the number range.",
+          "de": "Start des Zahlenbereichs.",
+          "hu": "Kezdje a szám tartományban."
+        },
+        "last_used": "20.03.2018"
+      },
+      "6_option_range_end_info": {
+        "translations": {
+          "en": "The end of the number range.",
+          "de": "Ende des Zahlenbereichs.",
+          "hu": "Vége a fordulatszám-tartományban."
+        },
+        "last_used": "20.03.2018"
+      },
+      "4_option_randomise_option_after_save": {
+        "translations": {
+          "en": "Randomise options",
+          "de": "Zufallsreihenfolge",
+          "hu": "Randomize opciók"
+        },
+        "last_used": "28.06.2017"
+      },
+      "4_option_randomise_option_after_save_inf": {
+        "translations": {
+          "en": "Shuffles the options on save without generating the right answer.",
+          "de": "Bestimmt die Reihenfolge der Optionen zufällig wenn diese gesichert werden. Die Generierung einer korrekten Antwort ist jedoch ausgeschlossen.",
+          "hu": "Véletlenszerűen választja ki a mentési beállításokat anélkül, hogy a megfelelő választ generálná."
+        }
+      },
+      "6_option_alternative_result_display_mode": {
+        "translations": {
+          "en": "Display-Mode",
+          "de": "Darstellungsart der Antworten",
+          "hu": "Képviselete a válaszokat"
+        },
+        "last_used": "20.03.2018"
+      },
+      "6_option_alternative_result_display_mode_info": {
+        "translations": {
+          "en": "Alternative mode which displays the result as text grouped together. The answers are sorted descending by quantity.",
+          "de": "Alternative Darstellungsart der Antworten. Diese werden als Text absteigend gruppiert dargestellt.",
+          "hu": "Alternatív képviselete a válaszokat. Ezeket mutatja lehajló csoportosítva szövegként."
+        },
+        "last_used": "20.03.2018"
+      },
+      "4_option_randomise_option_after_save_info": {
+        "translations": {
+          "en": "Shuffles the options on save without generating the right answer.",
+          "hu": "Véletlenszerűen választja ki a mentési beállításokat anélkül, hogy a megfelelő választ generálná.",
+          "de": "Bestimmt die Reihenfolge der Optionen zufällig wenn diese gesichert werden. Die Generierung einer korrekten Antwort ist jedoch ausgeschlossen."
+        },
+        "last_used": "28.06.2017"
+      },
+      "6_display_mode_nr_0": {
+        "translations": {
+          "en": "Grouped Text TBD",
+          "hu": "MISSING",
+          "de": "Grouped Text TBD"
+        },
+        "last_used": "20.03.2018"
+      },
+      "6_display_mode_nr_1": {
+        "translations": {
+          "en": "Bars TBD",
+          "hu": "MISSING",
+          "de": "Bars TBD"
+        },
+        "last_used": "20.03.2018"
+      },
+      "6_display_mode_nr_2": {
+        "translations": {
+          "en": "Grouped Text Extended TBD",
+          "hu": "MISSING",
+          "de": "Grouped Text Extended TBD"
+        },
+        "last_used": "20.03.2018"
+      }
+    },
+    "results": {
+      "title": {
+        "translations": {
+          "de": "Resultate",
+          "en": "Results",
+          "hu": "Eredmények"
+        }
+      }
+    },
+    "rminable": {
+      "select_start_time": {
+        "translations": {
+          "de": "MISSING",
+          "en": "Start",
+          "hu": "Indítás"
+        }
+      }
+    },
+    "root": {
+      "create_xlvo": {
+        "translations": {
+          "de": "LiveVoting erstellen",
+          "en": "Create LiveVoting",
+          "hu": "Élőszavazás létrehozása"
+        }
+      }
+    },
+    "show": {
+      "attendees": {
+        "translations": {
+          "de": "Anzahl Teilnehmende (Online)",
+          "en": "Show Attendees (Online)",
+          "hu": "MISSING"
+        },
+        "last_used": "26.03.2018"
+      },
+      "attendees_info": {
+        "translations": {
+          "de": "Die Anzahl der aktuell teilnehmenden Personen wird im Präsentationsmodus angezeigt. Diese Funktion hat einen Einfluss auf die Geschwindigkeit des Systems und sollte nur bei LiveVotings mit geringer Anzahl Teilnehmenden (Abhängig von der Installationsgrösse) verwendet werden.",
+          "en": "Show the count of attendees, this has an impact on performance and should only be activated for a small live voting.",
+          "hu": "MISSING"
+        },
+        "last_used": "26.03.2018"
+      }
+    },
+    "subtab": {
+      "edit": {
+        "translations": {
+          "de": "Verwalten",
+          "en": "Manage",
+          "hu": "Kezelés"
+        },
+        "last_used": "26.03.2018"
+      },
+      "show": {
+        "translations": {
+          "de": "Zeigen",
+          "en": "Show",
+          "hu": "Megjelenítés"
+        },
+        "last_used": "26.03.2018"
+      }
+    },
+    "tab": {
+      "content": {
+        "translations": {
+          "de": "Inhalt",
+          "en": "Content",
+          "hu": "Tartalom"
+        },
+        "last_used": "26.03.2018"
+      },
+      "edit": {
+        "translations": {
+          "de": "Einstellungen",
+          "en": "Settings",
+          "hu": "Beállítások"
+        },
+        "last_used": "26.03.2018"
+      },
+      "results": {
+        "translations": {
+          "de": "Resultate",
+          "en": "Results",
+          "hu": "Eredmények"
+        },
+        "last_used": "26.03.2018"
+      }
+    },
+    "voter": {
+      "answer": {
+        "translations": {
+          "de": "Eingabe",
+          "en": "Input",
+          "hu": "Válasz"
+        }
+      },
+      "delete": {
+        "translations": {
+          "de": "Löschen",
+          "en": "Delete",
+          "hu": "Törlés"
+        }
+      },
+      "header_frozen": {
+        "translations": {
+          "de": "Abstimmung noch nicht freigegeben",
+          "en": "Voting frozen",
+          "hu": "A szavazás szünetel"
+        }
+      },
+      "header_start": {
+        "translations": {
+          "de": "Bitte auf Start warten",
+          "en": "Please wait for presenter",
+          "hu": "Kérem, várjon az indulásra..."
+        }
+      },
+      "header_stopped": {
+        "translations": {
+          "de": "Abstimmung gestoppt",
+          "en": "Voting stopped",
+          "hu": "Élőszavazás inaktív"
+        }
+      },
+      "info_frozen": {
+        "translations": {
+          "de": "Diese Frage ist noch nicht aktiv, bitte warten...",
+          "en": "This question is not yet active, please wait...",
+          "hu": "Ez a kérdés még nem aktív, kérem várjon..."
+        }
+      },
+      "info_start": {
+        "translations": {
+          "de": "Dieses LiveVoting wurde vom Präsentator nicht gestartet, bitte warten...",
+          "en": "This LiveVoting has not yet been started by the presenter...",
+          "hu": "Azt az élőszavazást még nem indította el az előadó..."
+        }
+      },
+      "info_stopped": {
+        "translations": {
+          "de": "Das LiveVoting wurde gestoppt.",
+          "en": "This LiveVoting has been stopped",
+          "hu": "Ez az élőszavazás jelenleg nem aktív, szavazatot nem adhat le."
+        }
+      },
+      "msg_access_screen": {
+        "translations": {
+          "de": "PIN-Eingabe",
+          "en": "PIN-Access",
+          "hu": "PIN-hozzáférés"
+        }
+      },
+      "msg_end_of_voting_screen": {
+        "translations": {
+          "de": "Das LiveVoting wurde beendet, vielen Dank für Ihre Teilnahme",
+          "en": "This LiveVoting has been terminated. Thanks for your participation.",
+          "hu": "Ez a élőszavazás véget ért. Köszönjük résztvételét."
+        }
+      },
+      "msg_not_running_screen": {
+        "translations": {
+          "de": "Dieses LiveVoting ist zur Zeit nicht aktiv.",
+          "en": "This LiveVoting is currently not active.",
+          "hu": "Ez az élőszavazás jelenleg nem aktív."
+        }
+      },
+      "msg_start_of_voting_screen": {
+        "translations": {
+          "de": "Bitte warten, bis der Präsentator das Voting freigibt",
+          "en": "Please wait until the presenter starts the Voting",
+          "hu": "Kérem, várjon amíg elindul az élőszavazás"
+        }
+      },
+      "msg_validation_error_pin_1": {
+        "translations": {
+          "de": "Dieses LiveVoting ist zur Zeit nicht online",
+          "en": "This LiveVoting is not online",
+          "hu": "Ez az élőszavazás nem online"
+        }
+      },
+      "msg_validation_error_pin_2": {
+        "translations": {
+          "de": "Bitte Logen Sie sich ein, um dieses LiveVoting verwendet zu können",
+          "en": "Please log in to use this LiveVoting",
+          "hu": "Jelentkezzen be, hogy szavazhasson"
+        }
+      },
+      "msg_validation_error_pin_3": {
+        "translations": {
+          "de": "Zu diesem PIN wurde keine LiveVoting gefunden",
+          "en": "No LiveVoting with this PIN found",
+          "hu": "Ehhez a PIN-hez nincs élőszavazás"
+        }
+      },
+      "msg_validation_error_pin_4": {
+        "translations": {
+          "de": "Dieses LiveVoting ist zum aktuellen Zeitpunkt nicht verfügbar",
+          "en": "This LiveVoting is not available at the moment",
+          "hu": "Ez az élőszavazás jelenleg nem érhető el"
+        }
+      },
+      "msg_waiting_screen": {
+        "translations": {
+          "de": "Bitte warten",
+          "en": "Please wait",
+          "hu": "Kérem, várjon..."
+        }
+      },
+      "pin_form_title": {
+        "translations": {
+          "de": "LiveVoting starten",
+          "en": "Start LiveVoting",
+          "hu": "Belépés élőszavazásba"
+        }
+      },
+      "pin_input": {
+        "translations": {
+          "de": "PIN zum LiveVoting",
+          "en": "PIN",
+          "hu": "PIN"
+        }
+      },
+      "save": {
+        "translations": {
+          "de": "Speichern",
+          "en": "Save",
+          "hu": "Mentés"
+        }
+      },
+      "send": {
+        "translations": {
+          "de": "Abschicken",
+          "en": "Send",
+          "hu": "Mehet"
+        }
+      },
+      "text": {
+        "translations": {
+          "de": "Eingabe",
+          "en": "Input",
+          "hu": "Válasz"
+        }
+      }
+    },
+    "voting": {
+      "actions": {
+        "translations": {
+          "de": "Aktionen",
+          "en": "Actions",
+          "hu": "Művelet"
+        },
+        "last_used": "26.03.2018"
+      },
+      "add": {
+        "translations": {
+          "de": "Frage hinzufügen",
+          "en": "Add Question",
+          "hu": "Kérdés létrehozása"
+        },
+        "last_used": "26.03.2018"
+      },
+      "cancel": {
+        "translations": {
+          "de": "Abbrechen",
+          "en": "Cancel",
+          "hu": "Mégsem"
+        },
+        "last_used": "20.03.2018"
+      },
+      "columns": {
+        "translations": {
+          "de": "Spalten für Antwortmöglichkeiten",
+          "en": "Colums for possible answers",
+          "hu": "A válaszlehetőségeket ennyi oszlopba rendezzük az előadó képernyőjén"
+        },
+        "last_used": "20.03.2018"
+      },
+      "confirm_number_of_votes": {
+        "translations": {
+          "de": "Anzahl Benutzer-Eingaben:",
+          "en": "Amount of User-Inputs:",
+          "hu": "Felhasználói válaszok száma:"
+        }
+      },
+      "confirm_reset": {
+        "translations": {
+          "de": "Möchten Sie die Resultate dieser Frage zurücksetzen? Alle Benutzer-Eingaben werden gelöscht.",
+          "en": "Do you like to reset this Voting? All User-Inputs will be deleted.",
+          "hu": "Biztos, hogy reseteli ezt a szavazás? Az összes választ töröljük."
+        },
+        "last_used": "23.03.2018"
+      },
+      "confirm_reset_all": {
+        "translations": {
+          "de": "Möchten Sie die Resultate aller Fragen zurücksetzen? Alle Benutzer-Eingaben werden gelöscht.",
+          "en": "Do you like to reset all results of this LiveVoting? All User-Inputs will be deleted.",
+          "hu": "Biztos, hogy reseteli ezt a szavazás összes eredményét? Az összes választ töröljük."
+        }
+      },
+      "create": {
+        "translations": {
+          "de": "Erstellen",
+          "en": "Create",
+          "hu": "Létrehozás"
+        },
+        "last_used": "16.01.2017"
+      },
+      "delete": {
+        "translations": {
+          "de": "Löschen",
+          "en": "Delete",
+          "hu": "Törlés"
+        },
+        "last_used": "26.03.2018"
+      },
+      "delete_confirm": {
+        "translations": {
+          "de": "Möchsten Sie die Abstimmung wirklich löschen?",
+          "en": "Do you really want to delete the Voting?",
+          "hu": "Biztos, hogy törli a szavazatot?"
+        }
+      },
+      "description": {
+        "translations": {
+          "de": "Beschreibung",
+          "en": "Description",
+          "hu": "Leírás"
+        },
+        "last_used": "20.03.2018"
+      },
+      "duplicate": {
+        "translations": {
+          "de": "Duplizieren",
+          "en": "Clone",
+          "hu": "Duplikálás"
+        },
+        "last_used": "26.03.2018"
+      },
+      "edit": {
+        "translations": {
+          "de": "Bearbeiten",
+          "en": "Edit",
+          "hu": "Módosítás"
+        },
+        "last_used": "26.03.2018"
+      },
+      "export": {
+        "translations": {
+          "de": "Export",
+          "en": "Export",
+          "hu": "Exportálás"
+        },
+        "last_used": "23.03.2018"
+      },
+      "form_title_create": {
+        "translations": {
+          "de": "Frage",
+          "en": "Question",
+          "hu": "Kérdése"
+        },
+        "last_used": "16.01.2017"
+      },
+      "form_title_update": {
+        "translations": {
+          "de": "Frage",
+          "en": "Question",
+          "hu": "Kérdése"
+        },
+        "last_used": "20.03.2018"
+      },
+      "history": {
+        "translations": {
+          "de": "Antworten Historisieren",
+          "en": "Voting History",
+          "hu": "Szavazástörténelem"
+        },
+        "last_used": "26.03.2018"
+      },
+      "history_info": {
+        "translations": {
+          "de": "Alle Antworten werden gespeichert, auch wenn sie später geändert werden. Dadurch kann das Antwortverhalten beobachtet werden.",
+          "en": "All answers the participants give are saved even if they change their opinion later. You can analyze the voting behaviour of your users.",
+          "hu": "A válaszadók összes szavazatát mentjük, akkor is, ha később azt módosítják. Így a válaszadók szavazási viselkedését is elemezheti."
+        },
+        "last_used": "26.03.2018"
+      },
+      "import": {
+        "translations": {
+          "de": "Import",
+          "en": "Import",
+          "hu": "Importálás"
+        },
+        "last_used": "23.03.2018"
+      },
+      "msg_duplicated": {
+        "translations": {
+          "de": "Frage wurde dupliziert",
+          "en": "Question has been duplicated",
+          "hu": "Kérdést sikeresen duplikálta"
+        }
+      },
+      "msg_sorting_saved": {
+        "translations": {
+          "de": "Reihenfolge gespeichert",
+          "en": "Order saved",
+          "hu": "Sorrend mentése"
+        }
+      },
+      "question": {
+        "translations": {
+          "de": "Frage",
+          "en": "Question",
+          "hu": "Kérdés"
+        },
+        "last_used": "26.03.2018"
+      },
+      "reset": {
+        "translations": {
+          "de": "Zurücksetzen",
+          "en": "Reset",
+          "hu": "MISSING"
+        },
+        "last_used": "26.03.2018"
+      },
+      "reset_all": {
+        "translations": {
+          "de": "Alle Resultate zurücksetzen",
+          "en": "Reset all Votings",
+          "hu": "Összes szavazat resetelése"
+        },
+        "last_used": "26.03.2018"
+      },
+      "save_sorting": {
+        "translations": {
+          "de": "Reihenfolge speichern",
+          "en": "Save Order",
+          "hu": "Sorrend mentése"
+        },
+        "last_used": "26.03.2018"
+      },
+      "select_type": {
+        "translations": {
+          "de": "Typ auswählen",
+          "en": "Select Type",
+          "hu": "Típus mentése"
+        },
+        "last_used": "16.01.2017"
+      },
+      "status": {
+        "translations": {
+          "de": "Status",
+          "en": "Status",
+          "hu": "Állapot"
+        },
+        "last_used": "26.03.2018"
+      },
+      "status_1": {
+        "translations": {
+          "de": "Inaktiv",
+          "en": "Inactive",
+          "hu": "Inaktív"
+        },
+        "last_used": "26.03.2018"
+      },
+      "status_2": {
+        "translations": {
+          "de": "Unvollständig",
+          "en": "Incomplete",
+          "hu": "Befejezetlen"
+        },
+        "last_used": "26.03.2018"
+      },
+      "status_5": {
+        "translations": {
+          "de": "Aktiv",
+          "en": "Active",
+          "hu": "Aktív"
+        },
+        "last_used": "26.03.2018"
+      },
+      "title": {
+        "translations": {
+          "de": "Titel",
+          "en": "Title",
+          "hu": "Cím"
+        },
+        "last_used": "26.03.2018"
+      },
+      "type": {
+        "translations": {
+          "de": "Typ",
+          "en": "Type",
+          "hu": "Típus"
+        },
+        "last_used": "26.03.2018"
+      },
+      "type_1": {
+        "translations": {
+          "de": "Single/Multiple Choice",
+          "en": "Single/Multiple Choice",
+          "hu": "Egyszeres/többszörös választás"
+        },
+        "last_used": "26.03.2018"
+      },
+      "type_1_info": {
+        "translations": {
+          "de": "User können eine resp. mehrere Auswahlmöglichkeit(en) auswählen",
+          "en": "A User can vote for different options",
+          "hu": "Lehetőségek közül lehet választani."
+        },
+        "last_used": "16.01.2017"
+      },
+      "type_2": {
+        "translations": {
+          "de": "Freitext eingeben",
+          "en": "Free Input",
+          "hu": "Szabadszöveges"
+        },
+        "last_used": "26.03.2018"
+      },
+      "type_2_info": {
+        "translations": {
+          "de": "User können Stichworte oder kurze Sätze eingeben",
+          "en": "User can hand in free text",
+          "hu": "Szöveges válasz adható."
+        },
+        "last_used": "16.01.2017"
+      },
+      "type_3": {
+        "translations": {
+          "de": "Bereich",
+          "en": "Range",
+          "hu": "Tartomány"
+        }
+      },
+      "type_4": {
+        "translations": {
+          "de": "Korrekte Reihenfolge",
+          "en": "Correct Order",
+          "hu": "Helyes sorrend"
+        },
+        "last_used": "26.03.2018"
+      },
+      "type_4_info": {
+        "translations": {
+          "de": "User müssen Begriffe in die richtige Reihenfolge bringen",
+          "en": "Terms must be sorted in the correct order.",
+          "hu": "A kifejezéseket a helyes sorrendbe kell rendezni."
+        },
+        "last_used": "16.01.2017"
+      },
+      "type_5": {
+        "translations": {
+          "de": "Prioritäten",
+          "en": "Priorities",
+          "hu": "Sorrendbe rendezés"
+        },
+        "last_used": "26.03.2018"
+      },
+      "type_5_info": {
+        "translations": {
+          "de": "User können Begriffe nach Prioritäten anordnen",
+          "en": "Terms can be sorted after Priorities",
+          "hu": "A kifejezések a kérdésben meghatározott szempont szerint sorrendbe kell rakni."
+        },
+        "last_used": "16.01.2017"
+      },
+      "update": {
+        "translations": {
+          "de": "Speichern und zurückkehren",
+          "en": "Update and return",
+          "hu": "Mentés és vissza"
+        },
+        "last_used": "20.03.2018"
+      },
+      "update_and_stay": {
+        "translations": {
+          "de": "Speichern",
+          "en": "Update",
+          "hu": "Mentés"
+        },
+        "last_used": "20.03.2018"
+      },
+      "type_6": {
+        "translations": {
+          "en": "Number Range",
+          "de": "Zahl schätzen",
+          "hu": "Számtartomány"
+        },
+        "last_used": "26.03.2018"
+      },
+      "type_6_info": {
+        "translations": {
+          "en": "Users can guess a number between X and Y.",
+          "de": "User können eine Zahl zwischen X und Y schätzen.",
+          "hu": "A felhasználók kitalálni egy számot X és Y között."
+        }
+      },
+      "powerpoint_export": {
+        "translations": {
+          "en": "Export as PowerPoint",
+          "de": "Als PowerPoint exportieren",
+          "hu": "MISSING"
+        },
+        "last_used": "26.03.2018"
+      },
+      "confirm_ppt_export_msg": {
+        "translations": {
+          "en": "A PowerPoint-Slideshow will be created with one slide per voting using the Presenter-Shortlink. Please note that this slides will require the PowerPoint-WebView-Plugin installed.",
+          "hu": "MISSING",
+          "de": "Eine PowerPoint-Präsentation mit einer Folie pro Frage wird erstellt, welche den jeweiligen Presenter-Link nutzen. Bitte beachten Sie, dass das Powepoint-WebView-Plugin installiert sein muss."
+        },
+        "last_used": "26.03.2018"
+      },
+      "short_link": {
+        "translations": {
+          "de": "Kurz-URL",
+          "en": "Short URL",
+          "hu": "Rövid URL"
+        },
+        "last_used": "19.04.2018"
+      },
+      "permanent_link": {
+        "translations": {
+          "de": "Permanenter-Link",
+          "en": "Permanent-Link",
+          "hu": "MISSING"
+        },
+        "last_used": "19.04.2018"
+      }
+    },
+    "vqtype": {
+      "1_options": {
+        "translations": {
+          "en": "Options",
+          "hu": "Beállítások",
+          "de": "MISSING"
+        }
+      }
+    },
+    "xlvo": {
+      "add": {
+        "translations": {
+          "de": "Hinzufügen",
+          "en": "Add",
+          "hu": "Létrehozása"
+        },
+        "last_used": "23.03.2018"
+      },
+      "delete": {
+        "translations": {
+          "de": "LiveVoting löschen",
+          "en": "Delete LiveVoting",
+          "hu": "Élőszavazás törlése"
+        }
+      },
+      "edit": {
+        "translations": {
+          "de": "Bearbeiten",
+          "en": "Edit",
+          "hu": "Módosítás"
+        },
+        "last_used": "26.03.2018"
+      },
+      "edit_permission": {
+        "translations": {
+          "de": "Rechte bearbeiten",
+          "en": "Edit Permissions",
+          "hu": "Jogosultságok módosítása"
+        }
+      },
+      "new": {
+        "translations": {
+          "de": "Neues LiveVoting anlegen",
+          "en": "Add new LiveVoting",
+          "hu": "Új Élőszavazás létrehozása"
+        },
+        "last_used": "23.03.2018"
+      },
+      "read": {
+        "translations": {
+          "de": "Leserecht (nur im nicht-anonymen Modus verwendet",
+          "en": "Read (used only in non-anonymous-mode)",
+          "hu": "Olvasás (csak nem-anonim módban használható)"
+        }
+      },
+      "visible": {
+        "translations": {
+          "de": "LiveVoting sichtbar",
+          "en": "LiveVotings visible",
+          "hu": "Élőszavazások látható"
+        }
+      },
+      "write": {
+        "translations": {
+          "de": "LiveVoting präsentieren und bearbeiten",
+          "en": "Present and edit LiveVoting",
+          "hu": "Élőszavazás indítása és módosítása"
+        }
+      }
+    },
+    "rbac": {
+      "create_xlvo":{
+        "translations": {
+          "de": "LiveVoting anlegen",
+          "en": "Add",
+          "hu": "Create LiveVoting"
+        },
+        "last_used": "25.05.2018"
+      }
     }
+  }
 }

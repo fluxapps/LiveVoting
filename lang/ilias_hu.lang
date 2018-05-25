@@ -274,4 +274,4 @@ config_allow_shortlink_presenter#:#MISSING
 config_allow_shortlink_presenter_info#:#MISSING
 config_allow_shortlink_link_presenter#:#MISSING
 config_allow_shortlink_link_presenter_info#:#MISSING
-config_ppt_export_info_manual_5#:#MISSING
+rbac_create_xlvo#:#MISSING
