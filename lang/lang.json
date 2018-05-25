@@ -382,9 +382,9 @@
       },
       "ppt_export_info_manual_2": {
         "translations": {
-          "en": "Search for \"Web Viewer\" in the Office-Add-Ins Store (Insert > My Add-Ins)",
+          "en": "Search for \"Web Viewer\" in the Office-Add-Ins Store (Insert > Add-Ins > My Add-Ins)",
           "hu": "MISSING",
-          "de": "Nach \"Web Viewer\" im Office-Add-Ins Store suchen (Einfügen > Meine Add-Ins)"
+          "de": "Nach \"Web Viewer\" im Office-Add-Ins Store suchen (Einfügen > Add-Ins > Meine Add-Ins)"
         },
         "last_used": "25.05.2018"
       },
