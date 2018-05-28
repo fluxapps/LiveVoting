@@ -26,6 +26,23 @@ class xlvoVote extends CachingActiveRecord {
 
 
 	/**
+	 * @return string
+	 */
+	public function getConnectorContainerName() {
+		return self::TABLE_NAME;
+	}
+
+
+	/**
+	 * @return string
+	 * @deprecated
+	 */
+	public static function returnDbTableName() {
+		return self::TABLE_NAME;
+	}
+
+
+	/**
 	 * @param xlvoUser $xlvoUser
 	 * @param          $voting_id
 	 * @param          $round_id
@@ -214,14 +231,6 @@ class xlvoVote extends CachingActiveRecord {
 		$historyObject->setAnswer($gui->getTextRepresentation($votes));
 
 		$historyObject->create();
-	}
-
-
-	/**
-	 * @return string
-	 */
-	public static function returnDbTableName() {
-		return self::TABLE_NAME;
 	}
 
 

@@ -22,10 +22,17 @@ class xlvoVoter extends CachingActiveRecord {
 
 	/**
 	 * @return string
-	 * @description Return the Name of your Database Table
+	 */
+	public function getConnectorContainerName() {
+		return self::TABLE_NAME;
+	}
+
+
+	/**
+	 * @return string
 	 * @deprecated
 	 */
-	static function returnDbTableName() {
+	public static function returnDbTableName() {
 		return self::TABLE_NAME;
 	}
 

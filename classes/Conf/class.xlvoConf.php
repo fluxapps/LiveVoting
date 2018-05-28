@@ -46,6 +46,23 @@ class xlvoConf extends CachingActiveRecord {
 
 
 	/**
+	 * @return string
+	 */
+	public function getConnectorContainerName() {
+		return self::TABLE_NAME;
+	}
+
+
+	/**
+	 * @return string
+	 * @deprecated
+	 */
+	public static function returnDbTableName() {
+		return self::TABLE_NAME;
+	}
+
+
+	/**
 	 * @return bool
 	 */
 	public static function isLatexEnabled() {
@@ -90,16 +107,6 @@ class xlvoConf extends CachingActiveRecord {
 	 */
 	public static function getFullApiURL() {
 		return self::getBaseVoteURL() . ltrim(self::API_URL, "./");
-	}
-
-
-	/**
-	 * @return string
-	 * @description Return the Name of your Database Table
-	 * @deprecated
-	 */
-	static function returnDbTableName() {
-		return self::TABLE_NAME;
 	}
 
 

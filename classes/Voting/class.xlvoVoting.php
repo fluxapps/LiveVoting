@@ -21,6 +21,25 @@ class xlvoVoting extends CachingActiveRecord {
 	const STAT_INCOMPLETE = 2;
 	const ROWS_DEFAULT = 1;
 	const TABLE_NAME = 'rep_robj_xlvo_voting_n';
+
+
+	/**
+	 * @return string
+	 */
+	public function getConnectorContainerName() {
+		return self::TABLE_NAME;
+	}
+
+
+	/**
+	 * @return string
+	 * @deprecated
+	 */
+	public static function returnDbTableName() {
+		return self::TABLE_NAME;
+	}
+
+
 	/**
 	 * @var int
 	 *
@@ -293,14 +312,6 @@ class xlvoVoting extends CachingActiveRecord {
 		}
 
 		return $first->getId() == $this->getId();
-	}
-
-
-	/**
-	 * @return string
-	 */
-	public static function returnDbTableName() {
-		return self::TABLE_NAME;
 	}
 
 

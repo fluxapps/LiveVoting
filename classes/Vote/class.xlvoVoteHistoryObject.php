@@ -12,6 +12,25 @@ use LiveVoting\Cache\CachingActiveRecord;
 class xlvoVoteHistoryObject extends CachingActiveRecord {
 
 	const TABLE_NAME = 'rep_robj_xlvo_votehist';
+
+
+	/**
+	 * @return string
+	 */
+	public function getConnectorContainerName() {
+		return self::TABLE_NAME;
+	}
+
+
+	/**
+	 * @return string
+	 * @deprecated
+	 */
+	public static function returnDbTableName() {
+		return self::TABLE_NAME;
+	}
+
+
 	/**
 	 * @var string
 	 *
@@ -205,13 +224,5 @@ class xlvoVoteHistoryObject extends CachingActiveRecord {
 	 */
 	public function setAnswer($answer) {
 		$this->answer = $answer;
-	}
-
-
-	/**
-	 * @return string
-	 */
-	public static function returnDbTableName() {
-		return self::TABLE_NAME;
 	}
 }

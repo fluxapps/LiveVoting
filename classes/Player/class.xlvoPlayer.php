@@ -29,18 +29,29 @@ class xlvoPlayer extends CachingActiveRecord {
 	const SECONDS_TO_SLEEP = 30;
 	const CACHE_TTL_SECONDS = 1800;
 	const TABLE_NAME = 'rep_robj_xlvo_player_n';
-	/**
-	 * @var array
-	 */
-	protected static $instance_cache = array();
 
 
 	/**
 	 * @return string
 	 */
+	public function getConnectorContainerName() {
+		return self::TABLE_NAME;
+	}
+
+
+	/**
+	 * @return string
+	 * @deprecated
+	 */
 	public static function returnDbTableName() {
 		return self::TABLE_NAME;
 	}
+
+
+	/**
+	 * @var array
+	 */
+	protected static $instance_cache = array();
 
 
 	/**
