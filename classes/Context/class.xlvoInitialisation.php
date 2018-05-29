@@ -132,7 +132,7 @@ class xlvoInitialisation extends \ilInitialisation {
 
 
 	protected static function initHTML2() {
-		parent::initHTML();
+		# parent::initHTML();
 		if (self::USE_OWN_GLOBAL_TPL) {
 			$tpl = new \ilTemplate("tpl.main.html", true, true, 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting');
 			$tpl->addCss('./templates/default/delos.css');
