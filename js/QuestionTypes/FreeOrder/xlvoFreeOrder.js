@@ -10,19 +10,35 @@ var xlvoFreeOrder = {
 		this.config = config;
 		this.ready = true;
 
-		setTimeout(function () {
-			alert();
-			$('input[name^="vote_multi_line_input["][name$="][free_input]"]').each(function (i, input) {
-				alert();
-				$(input).on("keyup", function (e) {
-					if (e.keyCode === 13) {alert();
-						e.preventDefault();
+		new MutationObserver(function () { // Detect html changes
+			$('input[name^="vote_multi_line_input["][name$="][free_input]"]:not([data-has_auto_submit])').each(
+				/**
+				 * @param {number} i
+				 * @param {HTMLInputElement} input
+				 */
+				function (i, input) {
+					input.dataset.has_auto_submit = "true"; // Only new input fields
 
-						input.form.submit();
-					}
+					$(input).on("keydown", function (e) {
+						if (e.keyCode === 13) {
+							e.preventDefault(); // Prevent some browsers auto submit if only one input field
+						}
+					});
+
+					$(input).on("keyup", function (e) {
+						if (e.keyCode === 13) {
+							e.preventDefault();
+
+							$('input[type="submit"][name="cmd[submit]"]', input.form).click(); // Find submit button of form and submit it
+						}
+					});
 				});
-			});
-		}, 500);
+		}).observe($("#xlvo_voter_player").parent()[0], {
+			attributes: false,
+			childList: true,
+			characterData: false,
+			subtree: true
+		});
 	},
 	config: {},
 	base_url: '',
