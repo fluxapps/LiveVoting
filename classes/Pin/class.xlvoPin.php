@@ -6,6 +6,7 @@ use LiveVoting\Cache\xlvoCacheFactory;
 use LiveVoting\Cache\xlvoCacheService;
 use LiveVoting\User\xlvoUser;
 use LiveVoting\Voter\xlvoVoterException;
+use stdClass;
 use xlvoVotingConfig;
 
 /**
@@ -82,11 +83,11 @@ class xlvoPin {
 		$config = $cache->get($key);
 		$xlvoVotingConfig = NULL;
 
-		if (!$config instanceof \stdClass) {
+		if (!$config instanceof stdClass) {
 			//save obj id for a later cache fetch
 			//if we store the object a second time we would have some consistency problems because we don't know when the data are updated.
 			$xlvoVotingConfig = xlvoVotingConfig::where(array( 'pin' => $pin ))->first();
-			$config = new \stdClass();
+			$config = new stdClass();
 
 			//if the object is not gone
 			if ($xlvoVotingConfig instanceof xlvoVotingConfig) {
@@ -126,6 +127,13 @@ class xlvoPin {
 	}
 
 
+	/**
+	 * @param string $pin
+	 * @param bool   $safe_mode
+	 *
+	 * @return int
+	 * @throws xlvoVoterException
+	 */
 	private static function checkPinWithoutCache($pin, $safe_mode = true) {
 		$xlvoVotingConfig = xlvoVotingConfig::where(array( 'pin' => $pin ))->first();
 
@@ -170,6 +178,9 @@ class xlvoPin {
 	}
 
 
+	/**
+	 *
+	 */
 	protected function generatePIN() {
 		$array = array();
 
@@ -223,16 +234,19 @@ class xlvoPin {
 	}
 
 
+	/**
+	 * @return bool|string
+	 */
 	private function getLastAccessWithCache() {
 		$key = xlvoVotingConfig::TABLE_NAME . '_pin_' . $this->getPin();
 		/**
-		 * @var $xlvoVotingConfig \stdClass
+		 * @var $xlvoVotingConfig stdClass
 		 */
 		$xlvoVotingConfig = $this->cache->get($key);
 
-		if (!($xlvoVotingConfig instanceof \stdClass)) {
+		if (!($xlvoVotingConfig instanceof stdClass)) {
 			$xlvoVotingConfig = xlvoVotingConfig::where(array( 'pin' => $this->getPin() ))->first();
-			$config = new \stdClass();
+			$config = new stdClass();
 
 			//if the object is not gone
 			if ($xlvoVotingConfig instanceof xlvoVotingConfig) {
@@ -256,6 +270,9 @@ class xlvoPin {
 	}
 
 
+	/**
+	 * @return bool|string
+	 */
 	private function getLastAccessWithoutCache() {
 		$xlvoVotingConfig = xlvoVotingConfig::where(array( 'pin' => $this->getPin() ))->first();
 

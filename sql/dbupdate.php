@@ -493,6 +493,8 @@ require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/Li
 <?php
 require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
+use LiveVoting\Pin\xlvoPuk;
+
 xlvoVotingConfig::updateDB();
 
 foreach (xlvoVotingConfig::get() as $xlvoVotingConfig) {
@@ -501,8 +503,30 @@ foreach (xlvoVotingConfig::get() as $xlvoVotingConfig) {
 	 */
 
 	if (empty($xlvoVotingConfig->getPuk())) {
-		$xlvoPuk = new LiveVoting\Pin\xlvoPin();
+		$xlvoPuk = new xlvoPuk();
 
+		$xlvoVotingConfig->setPuk($xlvoPuk->getPin());
+
+		$xlvoVotingConfig->update();
+	}
+}
+?>
+<#37>
+<?php
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
+
+use LiveVoting\Pin\xlvoPuk;
+
+xlvoVotingConfig::updateDB();
+
+foreach (xlvoVotingConfig::get() as $xlvoVotingConfig) {
+	/**
+	 * @var xlvoVotingConfig $xlvoVotingConfig
+	 */
+
+	$xlvoPuk = new xlvoPuk();
+
+	if (empty($xlvoVotingConfig->getPuk()) || strlen($xlvoVotingConfig->getPuk()) < $xlvoPuk->getPinLength()) {
 		$xlvoVotingConfig->setPuk($xlvoPuk->getPin());
 
 		$xlvoVotingConfig->update();

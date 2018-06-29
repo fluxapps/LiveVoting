@@ -26,6 +26,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\Pin\xlvoPin;
+use LiveVoting\Pin\xlvoPuk;
 use LiveVoting\Player\xlvoPlayer;
 use LiveVoting\Vote\xlvoVote;
 use LiveVoting\Voting\xlvoVoting;
@@ -75,7 +76,7 @@ class ilObjLiveVoting extends \ilObjectPlugin {
 	 */
 	function doCreate() {
 		$xlvoPin = new xlvoPin();
-		$xlvoPuk = new xlvoPin();
+		$xlvoPuk = new xlvoPuk();
 		$config = new xlvoVotingConfig();
 		$config->setObjId($this->getId());
 		$config->setPin($xlvoPin->getPin());
@@ -179,7 +180,7 @@ class ilObjLiveVoting extends \ilObjectPlugin {
 			// set unique pin for cloned object
 			$xlvoPin = new xlvoPin();
 			$config_clone->setPin($xlvoPin->getPin());
-			$xlvoPuk = new xlvoPin();
+			$xlvoPuk = new xlvoPuk();
 			$config_clone->setPuk($xlvoPuk->getPin());
 			$config_clone->update();
 		}
