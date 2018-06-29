@@ -99,7 +99,7 @@ var xlvoPlayer = {
 		}
 
 	}, registerElements: function () {
-		if (!document.cookie.includes("xlvo_ppt=1")) {
+		if (document.cookie.indexOf("xlvo_ppt=1") === -1) {
 			$(document).keydown(function (e) {
 				switch (e.which) {
 					case xlvoPlayer.config.keyboard.toggle_results:
