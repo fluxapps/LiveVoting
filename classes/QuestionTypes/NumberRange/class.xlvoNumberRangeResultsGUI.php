@@ -169,8 +169,8 @@ class xlvoNumberRangeResultsGUI extends xlvoInputResultsGUI {
 		//generate array which is equal in its length to the range from start to end
 		$start = $this->manager->getVoting()->getStartRange();
 		$end = $this->manager->getVoting()->getEndRange();
-		$count = ($end - $start) + 1;
-		$values = array_fill($start, $count, 0);
+		$count = ($end - $start);
+		$values = array_fill($start, ($count + 1), 0);
 
 		$votes = $this->manager->getVotesOfVoting();
 
@@ -189,7 +189,7 @@ class xlvoNumberRangeResultsGUI extends xlvoInputResultsGUI {
 
 		for ($i = 0; $i < $count; $i += $sliceWidth) {
 			//create a slice
-			$slice = array_slice($values, $i, $sliceWidth, true);
+			$slice = array_slice($values, $i, $sliceWidth + (($i === 0 || ($i + $sliceWidth >= $count)) ? 1 : 0), true);
 
 			//sum slice values
 			$sum = array_sum($slice);
