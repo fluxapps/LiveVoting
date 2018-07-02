@@ -1,6 +1,8 @@
 <?php
 
-namespace LiveVoting\Pin;
+namespace LiveVoting\Puk;
+
+use LiveVoting\Pin\xlvoPin;
 
 /**
  *

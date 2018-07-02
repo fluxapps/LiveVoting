@@ -10,11 +10,12 @@ use LiveVoting\Voting\xlvoVoting;
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version 1.0.0
  */
-class xlvoVotingFormGUI extends \ilPropertyFormGUI {
+class xlvoVotingFormGUI extends ilPropertyFormGUI {
 
 	const F_COLUMNS = 'columns';
+	const USE_F_COLUMNS = true;
 	/**
-	 * @var  xlvoVoting
+	 * @var xlvoVoting
 	 */
 	protected $voting;
 	/**
@@ -22,7 +23,7 @@ class xlvoVotingFormGUI extends \ilPropertyFormGUI {
 	 */
 	protected $parent_gui;
 	/**
-	 * @var  \ilCtrl
+	 * @var ilCtrl
 	 */
 	protected $ctrl;
 	/**
@@ -46,6 +47,26 @@ class xlvoVotingFormGUI extends \ilPropertyFormGUI {
 	/**
 	 * @param xlvoVotingGUI $parent_gui
 	 * @param xlvoVoting    $xlvoVoting
+	 *
+	 * @return xlvoVotingFormGUI
+	 */
+	public static function get(xlvoVotingGUI $parent_gui, xlvoVoting $xlvoVoting) {
+		switch ($xlvoVoting->getVotingType()) {
+			case xlvoQuestionTypes::TYPE_FREE_INPUT:
+				return new xlvoFreeInputVotingFormGUI($parent_gui, $xlvoVoting);
+
+			case xlvoQuestionTypes::TYPE_NUMBER_RANGE:
+				return new xlvoNumberRangeVotingFormGUI($parent_gui, $xlvoVoting);
+
+			default:
+				return new self($parent_gui, $xlvoVoting);
+		}
+	}
+
+
+	/**
+	 * @param xlvoVotingGUI $parent_gui
+	 * @param xlvoVoting    $xlvoVoting
 	 */
 	public function __construct(xlvoVotingGUI $parent_gui, xlvoVoting $xlvoVoting) {
 		parent::__construct();
@@ -62,29 +83,32 @@ class xlvoVotingFormGUI extends \ilPropertyFormGUI {
 	}
 
 
+	/**
+	 *
+	 */
 	protected function initForm() {
-		$h = new \ilHiddenInputGUI('type');
+		$h = new ilHiddenInputGUI('type');
 		$this->addItem($h);
 
 		$this->setTarget('_top');
 		$this->setFormAction($this->ctrl->getFormAction($this->parent_gui));
 		$this->initButtons();
 
-		$te = new \ilTextInputGUI($this->parent_gui->txt('title'), 'title');
+		$te = new ilTextInputGUI($this->parent_gui->txt('title'), 'title');
 		//		$te->setInfo($this->parent_gui->txt('info_voting_title'));
 		$te->setRequired(true);
 		$this->addItem($te);
 
-		$ta = new \ilTextAreaInputGUI($this->parent_gui->txt('description'), 'description');
+		$ta = new ilTextAreaInputGUI($this->parent_gui->txt('description'), 'description');
 		//		$ta->setInfo($this->parent_gui->txt('info_voting_description'));
 		//		$this->addItem($ta);
 
-		$te = new \ilTextAreaInputGUI($this->parent_gui->txt('question'), 'question');
+		$te = new ilTextAreaInputGUI($this->parent_gui->txt('question'), 'question');
 		$te->addPlugin('latex');
 		$te->addButton('latex');
 		$te->addButton('pastelatex');
 		$te->setRequired(true);
-		$te->setRTESupport(\ilObject::_lookupObjId($_GET['ref_id']), "dcl", ilLiveVotingPlugin::PLUGIN_ID, NULL, false); // We have to prepend that this is a datacollection
+		$te->setRTESupport(ilObject::_lookupObjId($_GET['ref_id']), "dcl", ilLiveVotingPlugin::PLUGIN_ID, NULL, false); // We have to prepend that this is a datacollection
 		$te->setUseRte(true);
 		$te->setRteTags(array(
 			'p',
@@ -125,9 +149,9 @@ class xlvoVotingFormGUI extends \ilPropertyFormGUI {
 		$this->addItem($te);
 
 		// Columns
-		if ($this->voting->getVotingType() != xlvoQuestionTypes::TYPE_FREE_INPUT) {
-			$columns = new \ilSelectInputGUI($this->txt(self::F_COLUMNS), self::F_COLUMNS);
-			$columns->setOptions(array( 1 => 1, 2 => 2, 3 => 3, 4 => 4 ));
+		if (static::USE_F_COLUMNS) {
+			$columns = new ilSelectInputGUI($this->txt(self::F_COLUMNS), self::F_COLUMNS);
+			$columns->setOptions(range(1, 4));
 			$this->addItem($columns);
 		}
 
@@ -145,6 +169,9 @@ class xlvoVotingFormGUI extends \ilPropertyFormGUI {
 	}
 
 
+	/**
+	 *
+	 */
 	public function fillForm() {
 		$array = array(
 			'type' => $this->voting->getVotingType(),
@@ -152,15 +179,17 @@ class xlvoVotingFormGUI extends \ilPropertyFormGUI {
 			'description' => $this->voting->getDescription(),
 			'question' => $this->voting->getQuestionForEditor(),
 			'voting_type' => $this->voting->getVotingType(),
-			'voting_status' => ($this->voting->getVotingStatus() == xlvoVoting::STAT_ACTIVE),
-			self::F_COLUMNS => $this->voting->getColumns(),
+			'voting_status' => ($this->voting->getVotingStatus() == xlvoVoting::STAT_ACTIVE)
 		);
+		if (static::USE_F_COLUMNS) {
+			$array[self::F_COLUMNS] = ($this->voting->getColumns() - 1);
+		}
 
 		$array = xlvoSubFormGUI::getInstance($this->getVoting())->appendValues($array);
 
 		$this->setValuesByArray($array);
 		if ($this->voting->getVotingStatus() == xlvoVoting::STAT_INCOMPLETE) {
-			\ilUtil::sendInfo($this->parent_gui->txt('msg_voting_not_complete'), false);
+			ilUtil::sendInfo($this->parent_gui->txt('msg_voting_not_complete'), false);
 		}
 	}
 
@@ -178,7 +207,9 @@ class xlvoVotingFormGUI extends \ilPropertyFormGUI {
 		$this->voting->setDescription($this->getInput('description'));
 		$this->voting->setQuestion(ilRTE::_replaceMediaObjectImageSrc($this->getInput('question'), 0));
 		$this->voting->setObjId($this->parent_gui->getObjId());
-		$this->voting->setColumns($this->getInput(self::F_COLUMNS));
+		if (static::USE_F_COLUMNS) {
+			$this->voting->setColumns(intval($this->getInput(self::F_COLUMNS)) + 1);
+		}
 
 		xlvoSubFormGUI::getInstance($this->getVoting())->handleAfterSubmit($this);
 
@@ -198,7 +229,7 @@ class xlvoVotingFormGUI extends \ilPropertyFormGUI {
 			$this->voting->store();
 			xlvoSubFormGUI::getInstance($this->getVoting())->handleAfterCreation($this->voting);
 		} else {
-			\ilUtil::sendFailure($this->parent_gui->txt('permission_denied_object'), true);
+			ilUtil::sendFailure($this->parent_gui->txt('permission_denied_object'), true);
 			$this->ctrl->redirect($this->parent_gui, xlvoVotingGUI::CMD_STANDARD);
 		}
 
@@ -206,6 +237,9 @@ class xlvoVotingFormGUI extends \ilPropertyFormGUI {
 	}
 
 
+	/**
+	 *
+	 */
 	protected function initButtons() {
 		if ($this->is_new) {
 			$this->setTitle($this->parent_gui->txt('form_title_create'));
