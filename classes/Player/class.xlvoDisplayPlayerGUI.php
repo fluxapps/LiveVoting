@@ -19,7 +19,7 @@ use LiveVoting\Voting\xlvoVotingManager2;
 class xlvoDisplayPlayerGUI {
 
 	/**
-	 * @var \ilTemplate
+	 * @var ilTemplate
 	 */
 	protected $tpl;
 	/**
@@ -65,8 +65,8 @@ class xlvoDisplayPlayerGUI {
 		} else {
 			//add options to player
 			$xlvoOptions = $this->manager->getVoting()->getVotingOptions();
-			usort($xlvoOptions, function ($option1, $option2) {
-				return $option1->getPosition() > $option2->getPosition();
+			usort($xlvoOptions, function (xlvoOption $option1, xlvoOption $option2) {
+				return ($option1->getPosition() - $option2->getPosition());
 			});
 
 			foreach ($xlvoOptions as $item) {

@@ -15,6 +15,9 @@ class xlvoNumberRangeResultsGUI extends xlvoInputResultsGUI {
 	const DISPLAY_MODE_GROUPED_TEXT_EXTENDED = 2;
 
 
+	/**
+	 * @return string
+	 */
 	public function getHTML() {
 		switch ($this->voting->getAltResultDisplayMode()) {
 			case self::DISPLAY_MODE_BARS:
@@ -131,6 +134,9 @@ class xlvoNumberRangeResultsGUI extends xlvoInputResultsGUI {
 		$bars = new xlvoBarGroupingCollectionGUI();
 		$bars->sorted(true);
 		$votes = $this->manager->getVotesOfVoting();
+		usort($votes, function (xlvoVote $v1, xlvoVote $v2) {
+			return ($v1->getFreeInput() - $v2->getFreeInput());
+		});
 		foreach ($votes as $value) {
 			$bar = new xlvoBarFreeInputsGUI($this->voting, $value);
 			$bar->setBig(true);

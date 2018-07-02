@@ -22,6 +22,8 @@
 	+-----------------------------------------------------------------------------+
 */
 
+use LiveVoting\Pin\xlvoPin;
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
 /**
@@ -33,7 +35,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
  * ...Access class to get DB data and keep it small.
  *
  */
-class ilObjLiveVotingListGUI extends \ilObjectPluginListGUI {
+class ilObjLiveVotingListGUI extends ilObjectPluginListGUI {
 
 	/**
 	 * @var array
@@ -71,20 +73,20 @@ class ilObjLiveVotingListGUI extends \ilObjectPluginListGUI {
 		$this->info_screen_enabled = true;
 		$this->timings_enabled = false;
 
-		$this->gui_class_name = "ilobjlivevotinggui";
+		$this->gui_class_name = $this->getGuiClass();
 
 		// general commands array
 		$this->commands = array(
 			array(
 				"permission" => "read",
-				"cmd" => "showContent",
-				"default" => true,
+				"cmd" => ilObjLiveVotingGUI::CMD_SHOW_CONTENT,
+				"default" => true
 			),
 			array(
 				"permission" => "write",
-				"cmd" => "editProperties",
+				"cmd" => ilObjLiveVotingGUI::CMD_EDIT,
 				"txt" => $this->txt("xlvo_edit"),
-				"default" => false,
+				"default" => false
 			),
 		);
 
@@ -119,15 +121,15 @@ class ilObjLiveVotingListGUI extends \ilObjectPluginListGUI {
 
 		$props[] = array(
 			"alert" => false,
-			"property" => 'PIN',
-			"value" => LiveVoting\Pin\xlvoPin::lookupPin($this->obj_id),
+			"property" => $this->txt("voter_pin_input"),
+			"value" => xlvoPin::lookupPin($this->obj_id)
 		);
 
 		if (!ilObjLiveVotingAccess::checkOnline($this->obj_id)) {
 			$props[] = array(
 				"alert" => true,
 				"property" => $this->txt("obj_status"),
-				"value" => $this->txt("obj_offline"),
+				"value" => $this->txt("obj_offline")
 			);
 		}
 

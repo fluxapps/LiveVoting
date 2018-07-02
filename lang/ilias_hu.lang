@@ -275,3 +275,4 @@ config_allow_shortlink_presenter_info#:#MISSING
 config_allow_shortlink_link_presenter#:#MISSING
 config_allow_shortlink_link_presenter_info#:#MISSING
 rbac_create_xlvo#:#MISSING
+player_pin#:#MISSING

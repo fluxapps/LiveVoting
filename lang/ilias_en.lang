@@ -276,3 +276,4 @@ config_allow_shortlink_presenter_info#:#Use a Short URL like /vote by adding the
 config_allow_shortlink_link_presenter#:#Short URL
 config_allow_shortlink_link_presenter_info#:#Full Short URL of your Installation , e.g. https://ilias.domain.com/presenter
 rbac_create_xlvo#:#Create LiveVoting
+player_pin#:#PIN: %s

@@ -203,7 +203,7 @@ voter_msg_validation_error_pin_3#:#Zu diesem PIN wurde keine LiveVoting gefunden
 voter_msg_validation_error_pin_4#:#Dieses LiveVoting ist zum aktuellen Zeitpunkt nicht verfügbar
 voter_msg_waiting_screen#:#Bitte warten
 voter_pin_form_title#:#LiveVoting starten
-voter_pin_input#:#PIN zum LiveVoting
+voter_pin_input#:#PIN
 voter_save#:#Speichern
 voter_send#:#Abschicken
 voter_text#:#Eingabe
@@ -277,3 +277,4 @@ config_allow_shortlink_presenter_info#:#Eine Kurz-URL kann bspw. durch hinzufüg
 config_allow_shortlink_link_presenter#:#Kurz-URL
 config_allow_shortlink_link_presenter_info#:#Ganze Kurz-URL Ihrer Installation, bspw. https://ilias.domain.com/presenter
 rbac_create_xlvo#:#LiveVoting anlegen
+player_pin#:#PIN: %s

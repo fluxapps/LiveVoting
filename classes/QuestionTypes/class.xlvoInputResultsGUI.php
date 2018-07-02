@@ -49,7 +49,7 @@ abstract class xlvoInputResultsGUI {
 	 * @param xlvoVotingManager2 $manager
 	 *
 	 * @return xlvoInputResultsGUI
-	 * @throws \ilException         Throws an \ilException if no results gui class was found.
+	 * @throws ilException         Throws an \ilException if no results gui class was found.
 	 */
 	public static function getInstance(xlvoVotingManager2 $manager) {
 		$class = xlvoQuestionTypes::getClassName($manager->getVoting()->getVotingType());
@@ -65,11 +65,14 @@ abstract class xlvoInputResultsGUI {
 			case xlvoQuestionTypes::NUMBER_RANGE:
 				return new xlvoNumberRangeResultsGUI($manager, $manager->getVoting());
 			default:
-				throw new \ilException('Could not find the results gui for the given voting.');
+				throw new ilException('Could not find the results gui for the given voting.');
 		}
 	}
 
 
+	/**
+	 * @return string
+	 */
 	abstract public function getHTML();
 
 

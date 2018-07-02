@@ -87,12 +87,19 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 	 *
 	 */
 	protected function initForm() {
-		$h = new ilHiddenInputGUI('type');
-		$this->addItem($h);
+		if ($this->is_new) {
+			$h = new ilHiddenInputGUI('type');
+			$this->addItem($h);
+		}
 
 		$this->setTarget('_top');
 		$this->setFormAction($this->ctrl->getFormAction($this->parent_gui));
 		$this->initButtons();
+
+		$te = new ilNonEditableValueGUI($this->parent_gui->txt('type'));
+		$te->setValue($this->txt('type_' . $this->voting->getVotingType()));
+		$te->setInfo($this->txt('type_' . $this->voting->getVotingType() . "_info"));
+		$this->addItem($te);
 
 		$te = new ilTextInputGUI($this->parent_gui->txt('title'), 'title');
 		//		$te->setInfo($this->parent_gui->txt('info_voting_title'));
@@ -174,13 +181,15 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 	 */
 	public function fillForm() {
 		$array = array(
-			'type' => $this->voting->getVotingType(),
 			'title' => $this->voting->getTitle(),
 			'description' => $this->voting->getDescription(),
 			'question' => $this->voting->getQuestionForEditor(),
-			'voting_type' => $this->voting->getVotingType(),
 			'voting_status' => ($this->voting->getVotingStatus() == xlvoVoting::STAT_ACTIVE)
 		);
+		if ($this->is_new) {
+			$array['type'] = $this->voting->getVotingType();
+			$array['voting_type'] = $this->voting->getVotingType();
+		}
 		if (static::USE_F_COLUMNS) {
 			$array[self::F_COLUMNS] = ($this->voting->getColumns() - 1);
 		}
@@ -202,7 +211,9 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 			return false;
 		}
 
-		$this->voting->setVotingType($this->getInput('type'));
+		if ($this->is_new) {
+			$this->voting->setVotingType($this->getInput('type'));
+		}
 		$this->voting->setTitle($this->getInput('title'));
 		$this->voting->setDescription($this->getInput('description'));
 		$this->voting->setQuestion(ilRTE::_replaceMediaObjectImageSrc($this->getInput('question'), 0));

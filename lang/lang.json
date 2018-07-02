@@ -963,6 +963,13 @@
           "de": "Abstimmende"
         },
         "last_used": "23.03.2018"
+      },
+      "pin": {
+        "translations": {
+          "de": "PIN: %s",
+          "en": "PIN: %s",
+          "hu": "MISSING"
+        }
       }
     },
     "playplayer": {
@@ -1670,7 +1677,7 @@
       },
       "pin_input": {
         "translations": {
-          "de": "PIN zum LiveVoting",
+          "de": "PIN",
           "en": "PIN",
           "hu": "PIN"
         }
