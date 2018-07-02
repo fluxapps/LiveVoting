@@ -128,3 +128,6 @@
 .xlvo-fullscreen #xlvo-display-player {
   font-size: 150%;
 }
+.panel-title > .label[data-toggle] {
+  cursor: pointer;
+}
