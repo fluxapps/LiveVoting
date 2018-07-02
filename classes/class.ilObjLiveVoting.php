@@ -26,8 +26,8 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\Pin\xlvoPin;
-use LiveVoting\Pin\xlvoPuk;
 use LiveVoting\Player\xlvoPlayer;
+use LiveVoting\Puk\xlvoPuk;
 use LiveVoting\Vote\xlvoVote;
 use LiveVoting\Voting\xlvoVoting;
 

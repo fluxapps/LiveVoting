@@ -493,7 +493,7 @@ require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/Li
 <?php
 require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
-use LiveVoting\Pin\xlvoPuk;
+use LiveVoting\Puk\xlvoPuk;
 
 xlvoVotingConfig::updateDB();
 
@@ -515,7 +515,7 @@ foreach (xlvoVotingConfig::get() as $xlvoVotingConfig) {
 <?php
 require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
-use LiveVoting\Pin\xlvoPuk;
+use LiveVoting\Puk\xlvoPuk;
 
 xlvoVotingConfig::updateDB();
 
