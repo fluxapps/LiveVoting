@@ -20,10 +20,10 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 	const OPTION_RANGE_END_INFO = 'option_range_end_info';
 	const START_RANGE_INVALID_INFO = 'qtype_6_invalid_start_range';
 	const END_RANGE_INVALID_INFO = 'qtype_6_invalid_end_range';
-	const END_RANGE_MAX = 2147483646;  //2^31 - 1       (int is always signed in php)
-	const END_RANGE_MIN = - 2147483647; //-2^31 + 1      (int is always signed in php)
-	const START_RANGE_MAX = 2147483645; //2^31 - 2      (int is always signed in php)
-	const START_RANGE_MIN = - 2147483646; //-2^31 + 2    (int is always signed in php)
+	const END_RANGE_MAX = 1000000;
+	const END_RANGE_MIN = - 1000000;
+	const START_RANGE_MAX = 1000000;
+	const START_RANGE_MIN = - 1000000;
 
 
 	/**
