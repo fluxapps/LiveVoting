@@ -27,7 +27,7 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 	public function initJS() {
 		$xlvoMultiLineInputGUI = new xlvoMultiLineInputGUI();
 		$xlvoMultiLineInputGUI->initCSSandJS();
-		xlvoJs::getInstance()->api($this)->name(xlvoQuestionTypes::CORRECT_ORDER)->category(xlvoQuestionTypes::FREE_INPUT)->init();
+		xlvoJs::getInstance()->api($this)->name(xlvoQuestionTypes::FREE_INPUT)->category('QuestionTypes')->init();
 	}
 
 

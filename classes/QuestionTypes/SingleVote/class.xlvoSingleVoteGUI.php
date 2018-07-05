@@ -16,7 +16,7 @@ class xlvoSingleVoteGUI extends xlvoQuestionTypesGUI {
 	 * @description add JS to the HEAD
 	 */
 	public function initJS() {
-		// TODO: Implement initJS() method.
+
 	}
 
 
