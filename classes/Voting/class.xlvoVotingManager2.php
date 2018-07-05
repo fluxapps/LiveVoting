@@ -2,6 +2,7 @@
 
 namespace LiveVoting\Voting;
 
+use ActiveRecordList;
 use LiveVoting\Exceptions\xlvoVotingManagerException;
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\Pin\xlvoPin;
@@ -77,7 +78,7 @@ class xlvoVotingManager2 {
 	public static function getInstanceFromObjId($obj_id) {
 		if (!isset(self::$instances[$obj_id])) {
 			/**
-			 * @var $xlvoVotingConfig xlvoVotingConfig
+			 * @var xlvoVotingConfig $xlvoVotingConfig
 			 */
 			$xlvoVotingConfig = xlvoVotingConfig::findOrGetInstance($obj_id);
 
@@ -136,7 +137,7 @@ class xlvoVotingManager2 {
 			throw new xlvoVotingManagerException('No Option given');
 		}
 		/**
-		 * @var $xlvoVote xlvoVote
+		 * @var xlvoVote $xlvoVote
 		 */
 		$xlvoVote = xlvoVote::find($vote_id);
 		if (!$xlvoVote instanceof xlvoVote) {
@@ -420,7 +421,7 @@ class xlvoVotingManager2 {
 		$this->player->setButtonStates(array());
 		$this->player->update();
 		/**
-		 * @var $xlvoVote xlvoVote
+		 * @var xlvoVote $xlvoVote
 		 */
 		foreach (xlvoVote::where(array( 'voting_id' => $this->getVoting()->getId(), 'round_id' => $this->getPlayer()->getRoundId() ))
 			         ->get() as $xlvoVote) {
@@ -581,7 +582,7 @@ class xlvoVotingManager2 {
 	/**
 	 * @param string $order
 	 *
-	 * @return \ActiveRecordList
+	 * @return ActiveRecordList
 	 */
 	protected function getVotingsList($order = 'ASC') {
 		return xlvoVoting::where(array(

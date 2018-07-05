@@ -1,5 +1,18 @@
 <?php
 
+use LiveVoting\Conf\xlvoConf;
+use LiveVoting\Conf\xlvoConfOld;
+use LiveVoting\Option\xlvoData;
+use LiveVoting\Option\xlvoOption;
+use LiveVoting\Option\xlvoOptionOld;
+use LiveVoting\Player\xlvoPlayer;
+use LiveVoting\Round\xlvoRound;
+use LiveVoting\User\xlvoVoteHistoryObject;
+use LiveVoting\Vote\xlvoVote;
+use LiveVoting\Vote\xlvoVoteOld;
+use LiveVoting\Voter\xlvoVoter;
+use LiveVoting\Voting\xlvoVoting;
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
 /**
@@ -9,7 +22,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
  * @version $Id$
  *
  */
-class ilLiveVotingPlugin extends \ilRepositoryObjectPlugin {
+class ilLiveVotingPlugin extends ilRepositoryObjectPlugin {
 
 	const PLUGIN_ID = 'xlvo';
 	const PLUGIN_NAME = 'LiveVoting';
@@ -61,19 +74,19 @@ class ilLiveVotingPlugin extends \ilRepositoryObjectPlugin {
 	 * @return bool
 	 */
 	protected function uninstallCustom() {
-		$this->db->dropTable(\LiveVoting\Conf\xlvoConfOld::TABLE_NAME, false);
+		$this->db->dropTable(xlvoConfOld::TABLE_NAME, false);
 		$this->db->dropTable(xlvoVotingConfig::TABLE_NAME, false);
-		$this->db->dropTable(\LiveVoting\Option\xlvoData::TABLE_NAME, false);
-		$this->db->dropTable(\LiveVoting\Option\xlvoOption::TABLE_NAME, false);
-		$this->db->dropTable(\LiveVoting\Option\xlvoOptionOld::TABLE_NAME, false);
-		$this->db->dropTable(\LiveVoting\Player\xlvoPlayer::TABLE_NAME, false);
-		$this->db->dropTable(\LiveVoting\Round\xlvoRound::TABLE_NAME, false);
-		$this->db->dropTable(\LiveVoting\Vote\xlvoVote::TABLE_NAME, false);
-		$this->db->dropTable(\LiveVoting\Vote\xlvoVoteOld::TABLE_NAME, false);
-		$this->db->dropTable(\LiveVoting\User\xlvoVoteHistoryObject::TABLE_NAME, false);
-		$this->db->dropTable(\LiveVoting\Voting\xlvoVoting::TABLE_NAME, false);
-		$this->db->dropTable(\LiveVoting\Conf\xlvoConf::TABLE_NAME, false);
-		$this->db->dropTable(\LiveVoting\Voter\xlvoVoter::TABLE_NAME, false);
+		$this->db->dropTable(xlvoData::TABLE_NAME, false);
+		$this->db->dropTable(xlvoOption::TABLE_NAME, false);
+		$this->db->dropTable(xlvoOptionOld::TABLE_NAME, false);
+		$this->db->dropTable(xlvoPlayer::TABLE_NAME, false);
+		$this->db->dropTable(xlvoRound::TABLE_NAME, false);
+		$this->db->dropTable(xlvoVote::TABLE_NAME, false);
+		$this->db->dropTable(xlvoVoteOld::TABLE_NAME, false);
+		$this->db->dropTable(xlvoVoteHistoryObject::TABLE_NAME, false);
+		$this->db->dropTable(xlvoVoting::TABLE_NAME, false);
+		$this->db->dropTable(xlvoConf::TABLE_NAME, false);
+		$this->db->dropTable(xlvoVoter::TABLE_NAME, false);
 
 		return true;
 	}
@@ -82,7 +95,7 @@ class ilLiveVotingPlugin extends \ilRepositoryObjectPlugin {
 	//		/**
 	//		 * @param $key
 	//		 * @return mixed|string
-	//		 * @throws \ilException
+	//		 * @throws ilException
 	//		 */
 	//		public function txt($key) {
 	//			require_once 'Customizing/global/plugins/Libraries/PluginTranslator/class.sragPluginTranslator.php;

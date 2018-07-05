@@ -34,7 +34,7 @@ class xlvoSingleVoteResultGUI extends xlvoResultGUI {
 
 
 	/**
-	 * @param \LiveVoting\Vote\xlvoVote[] $votes
+	 * @param xlvoVote[] $votes
 	 *
 	 * @return string
 	 */

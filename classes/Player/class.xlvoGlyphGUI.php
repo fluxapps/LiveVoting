@@ -5,7 +5,7 @@
  *
  * @author Fabian Schmid <fs@studer-raimann.ch>
  */
-class xlvoGlyphGUI extends \ilGlyphGUI {
+class xlvoGlyphGUI extends ilGlyphGUI {
 
 	/**
 	 * Get glyph html

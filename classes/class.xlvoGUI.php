@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use LiveVoting\Conf\xlvoConf;
+use LiveVoting\Js\xlvoJs;
 
 /**
  * Class xlvoGUI
@@ -65,7 +66,7 @@ class xlvoGUI {
 
 	public function executeCommand() {
 		$nextClass = $this->ctrl->getNextClass();
-		\LiveVoting\Js\xlvoJs::getInstance()->name('Main')->init();
+		xlvoJs::getInstance()->name('Main')->init();
 		switch ($nextClass) {
 			default:
 				$cmd = $this->ctrl->getCmd(self::CMD_STANDARD);
@@ -82,5 +83,3 @@ class xlvoGUI {
 		$this->ctrl->redirect($this, self::CMD_STANDARD);
 	}
 }
-
-?>

@@ -1,7 +1,7 @@
 <?php
 
-use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Context\cookie\CookieManager;
+use LiveVoting\Context\ILIASVersionEnum;
 use LiveVoting\Js\xlvoJs;
 use LiveVoting\Js\xlvoJsResponse;
 use LiveVoting\Player\QR\xlvoQR;
@@ -43,7 +43,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 	public function __construct() {
 		parent::__construct();
-		$this->manager = xlvoVotingManager2::getInstanceFromObjId(\ilObject2::_lookupObjId($_GET['ref_id']));
+		$this->manager = xlvoVotingManager2::getInstanceFromObjId(ilObject2::_lookupObjId($_GET['ref_id']));
 		$this->tpl->addCss($this->pl->getDirectory() . '/templates/default/default.css');
 	}
 
@@ -65,12 +65,12 @@ class xlvoPlayerGUI extends xlvoGUI {
 		try {
 			$this->manager->prepareStart();
 		} catch (xlvoPlayerException $e) {
-			\ilUtil::sendFailure($this->txt('msg_no_start_' . $e->getCode()));
+			ilUtil::sendFailure($this->txt('msg_no_start_' . $e->getCode()));
 
 			return true;
 		}
 
-		$b = \ilLinkButton::getInstance();
+		$b = ilLinkButton::getInstance();
 		$b->setCaption($this->txt('start_voting'), false);
 		$b->addCSSClass('xlvo-preview');
 		$b->setUrl($this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_START_PLAYER));
@@ -78,7 +78,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$b->setPrimary(true);
 		$this->toolbar->addButtonInstance($b);
 
-		$b = \ilLinkButton::getInstance();
+		$b = ilLinkButton::getInstance();
 		$b->setCaption($this->txt('start_voting_and_unfreeze'), false);
 		$b->addCSSClass('xlvo-preview');
 		$b->setUrl($this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_START_PLAYER_AND_UNFREEZE));
@@ -206,7 +206,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 			$toolbar = new xlvoToolbarGUI();
 
 			foreach ($xlvoQuestionTypesGUI->getButtonInstances() as $buttonInstance) {
-				if ($buttonInstance instanceof \ilButton || $buttonInstance instanceof \ilButtonBase) {
+				if ($buttonInstance instanceof ilButton || $buttonInstance instanceof ilButtonBase) {
 					$toolbar->addButtonInstance($buttonInstance);
 				}
 			}
@@ -266,7 +266,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 				 */
 				$xlvoQuestionTypesGUI = xlvoQuestionTypesGUI::getInstance($this->manager);
 				$xlvoQuestionTypesGUI->handleButtonCall($_POST['button_id'], $_POST['button_data']);
-				$return_value = new \stdClass();
+				$return_value = new stdClass();
 				$return_value->buttons_html = $this->getButtonsHTML();
 				break;
 		}
@@ -413,7 +413,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 * @return ilAdvancedSelectionListGUI
 	 */
 	protected function getVotingSelectionList($async = true) {
-		$current_selection_list = new \ilAdvancedSelectionListGUI();
+		$current_selection_list = new ilAdvancedSelectionListGUI();
 		$current_selection_list->setItemLinkClass('xlvo-preview');
 		$current_selection_list->setListTitle($this->txt('voting_list'));
 		$current_selection_list->setId('xlvo_select');
@@ -442,8 +442,8 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$subversion = (int)explode('.', ILIAS_VERSION_NUMERIC)[1];
 
 		switch ($subversion) {
-			case \LiveVoting\Context\ILIASVersionEnum::ILIAS_VERSION_5_2:
-			case \LiveVoting\Context\ILIASVersionEnum::ILIAS_VERSION_5_3:
+			case ILIASVersionEnum::ILIAS_VERSION_5_2:
+			case ILIASVersionEnum::ILIAS_VERSION_5_3:
 				ilMathJax::getInstance()->includeMathJax();
 				break;
 			default:
@@ -468,7 +468,6 @@ class xlvoPlayerGUI extends xlvoGUI {
 		}
 		$settings['keyboard'] = $keyboard;
 		iljQueryUtil::initjQuery();
-		xlvoJs::getInstance()->addLibToHeader('screenfull.min.js');
 		xlvoJs::getInstance()->addLibToHeader('screenfull.min.js');
 		xlvoJs::getInstance()->ilias($this)->addSettings($settings)->name('Player')->addTranslations(array(
 			'player_voters_online',

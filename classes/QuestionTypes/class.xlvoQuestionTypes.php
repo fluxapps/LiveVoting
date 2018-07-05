@@ -3,6 +3,7 @@
 namespace LiveVoting\QuestionTypes;
 
 use LiveVoting\Exceptions\xlvoVotingManagerException;
+use ReflectionClass;
 
 /**
  * Class xlvoQuestionTypes
@@ -50,7 +51,7 @@ class xlvoQuestionTypes {
 	 * @return array
 	 */
 	public static function getActiveTypes() {
-		$f = new \ReflectionClass('LiveVoting\QuestionTypes\xlvoQuestionTypes');
+		$f = new ReflectionClass('LiveVoting\QuestionTypes\xlvoQuestionTypes');
 		$types = array();
 		foreach ($f->getConstants() as $constant_name => $constant) {
 			if (strpos($constant_name, 'TYPE_') === 0 && in_array($constant, self::$active_types)) {

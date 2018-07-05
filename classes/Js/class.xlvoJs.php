@@ -2,6 +2,10 @@
 
 namespace LiveVoting\Js;
 
+use ilCtrl;
+use ilLiveVotingPlugin;
+use ilTemplate;
+use ilUIPluginRouterGUI;
 use LiveVoting\Conf\xlvoConf;
 use xlvoGUI;
 
@@ -45,15 +49,15 @@ class xlvoJs {
 	 */
 	protected $settings;
 	/**
-	 * @var \ilCtrl
+	 * @var ilCtrl
 	 */
 	protected $ctrl;
 	/**
-	 * @var \ilTemplate
+	 * @var ilTemplate
 	 */
 	protected $tpl;
 	/**
-	 * @var \ilLiveVotingPlugin
+	 * @var ilLiveVotingPlugin
 	 */
 	protected $pl;
 
@@ -66,7 +70,7 @@ class xlvoJs {
 		$this->settings = new xlvoJsSettings();
 		$this->ctrl = $DIC->ctrl();
 		$this->tpl = $DIC->ui()->mainTemplate();
-		$this->pl = \ilLiveVotingPlugin::getInstance();
+		$this->pl = ilLiveVotingPlugin::getInstance();
 	}
 
 
@@ -112,7 +116,7 @@ class xlvoJs {
 	 */
 	public function api(xlvoGUI $xlvoGUI, array $additional_classes = array(), $cmd = '') {
 		$ilCtrl2 = clone($this->ctrl);
-		$this->ctrl->initBaseClass(\ilUIPluginRouterGUI::class);
+		$this->ctrl->initBaseClass(ilUIPluginRouterGUI::class);
 		$ilCtrl2->setTargetScript(self::API_URL);
 		$additional_classes[] = get_class($xlvoGUI);
 
@@ -162,8 +166,8 @@ class xlvoJs {
 	protected function resolveLib() {
 		$base_path = self::BASE_PATH;
 		$category = ($this->category ? $this->category . '/' : '') . $this->name . '/';
-		$file_name = \ilLiveVotingPlugin::PLUGIN_ID . $this->name . '.js';
-		$file_name_min = \ilLiveVotingPlugin::PLUGIN_ID . $this->name . '.min.js';
+		$file_name = ilLiveVotingPlugin::PLUGIN_ID . $this->name . '.js';
+		$file_name_min = ilLiveVotingPlugin::PLUGIN_ID . $this->name . '.min.js';
 		$full_path_min = $base_path . $category . $file_name_min;
 		$full_path = $base_path . $category . $file_name;
 		if (is_file($full_path_min) && !self::DEVELOP) {
@@ -229,7 +233,7 @@ class xlvoJs {
 	 * @return string
 	 */
 	public function getInitCode() {
-		return \ilLiveVotingPlugin::PLUGIN_ID . $this->name . '.init(\'' . $this->settings->asJson() . '\');';
+		return ilLiveVotingPlugin::PLUGIN_ID . $this->name . '.init(\'' . $this->settings->asJson() . '\');';
 	}
 
 
@@ -240,7 +244,7 @@ class xlvoJs {
 	 * @return string
 	 */
 	public function getCallCode($method, $params = '') {
-		return \ilLiveVotingPlugin::PLUGIN_ID . $this->name . '.' . $method . '(' . $params . ');';
+		return ilLiveVotingPlugin::PLUGIN_ID . $this->name . '.' . $method . '(' . $params . ');';
 	}
 
 

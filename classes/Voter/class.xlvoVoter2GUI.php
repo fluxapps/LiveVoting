@@ -87,13 +87,13 @@ class xlvoVoter2GUI extends xlvoGUI {
 
 		$tpl = $this->pl->getTemplate('default/Voter/tpl.pin.html', true, false);
 		$this->tpl->addCss($this->pl->getDirectory() . '/templates/default/Voter/pin.css');
-		$pin_form = new \ilPropertyFormGUI();
+		$pin_form = new ilPropertyFormGUI();
 		$pin_form->setFormAction($this->ctrl->getLinkTarget($this, self::CMD_CHECK_PIN));
 		$pin_form->addCommandButton(self::CMD_CHECK_PIN, $this->txt('send'));
 
 		$xlvoPin = new xlvoPin();
 
-		$te = new \ilTextInputGUI($this->txt(self::F_PIN_INPUT), self::F_PIN_INPUT);
+		$te = new ilTextInputGUI($this->txt(self::F_PIN_INPUT), self::F_PIN_INPUT);
 		$te->setMaxLength($xlvoPin->getPinLength());
 		$pin_form->addItem($te);
 
@@ -110,7 +110,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 			xlvoPin::checkPin($_POST[self::F_PIN_INPUT]);
 		} catch (xlvoVoterException $e) {
 			CookieManager::resetCookiePIN();
-			\ilUtil::sendFailure($this->txt('msg_validation_error_pin_' . $e->getCode()));
+			ilUtil::sendFailure($this->txt('msg_validation_error_pin_' . $e->getCode()));
 			$this->index();
 			$redirect = false;
 		}
@@ -134,7 +134,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 
 	protected function getVotingData() {
 		/**
-		 * @var $showAttendees xlvoVotingConfig
+		 * @var xlvoVotingConfig $showAttendees
 		 */
 		$showAttendees = xlvoVotingConfig::find($this->manager->getVoting()->getObjId());
 		if ($showAttendees->isShowAttendees()) {
@@ -149,7 +149,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 		$this->tpl->addCss($this->pl->getDirectory() . '/templates/default/Voter/voter.css');
 		$this->tpl->addCss($this->pl->getDirectory() . '/templates/default/QuestionTypes/NumberRange/bootstrap-slider.min.css');
 		$this->tpl->addCss($this->pl->getDirectory() . '/templates/default/QuestionTypes/NumberRange/number_range.css');
-		\iljQueryUtil::initjQueryUI();
+		iljQueryUtil::initjQueryUI();
 
 		ilMathJax::getInstance()->includeMathJax();
 
@@ -158,7 +158,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 		$mathJaxSetting = new ilSetting("MathJax");
 
 		/**
-		 * @var $delay string
+		 * @var string $delay
 		 */
 		$delay = xlvoConf::getConfig(xlvoConf::F_REQUEST_FREQUENCY);
 

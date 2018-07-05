@@ -5,7 +5,7 @@
  *
  * @author Fabian Schmid <fs@studer-raimann.ch>
  */
-class xlvoTextAreaInputGUI extends \ilTextAreaInputGUI {
+class xlvoTextAreaInputGUI extends ilTextAreaInputGUI {
 
 	/**
 	 * @var string

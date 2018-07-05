@@ -2,6 +2,7 @@
 
 namespace LiveVoting\Context\cookie;
 
+use Exception;
 use LiveVoting\Context\xlvoContext;
 
 /**
@@ -40,16 +41,16 @@ final class CookieManager {
 	 *
 	 * @param int $context CONTEXT_ILIAS or CONTEXT_PIN are valid options.
 	 *
-	 * @throws \Exception Throws exception when the given context is invalid.
+	 * @throws Exception Throws exception when the given context is invalid.
 	 */
 	public static function setContext($context) {
 		if ($context === xlvoContext::CONTEXT_ILIAS || $context === xlvoContext::CONTEXT_PIN) {
 			$result = setcookie(xlvoContext::XLVO_CONTEXT, $context, NULL, '/');
 		} else {
-			throw new \Exception("invalid context received");
+			throw new Exception("invalid context received");
 		}
 		if (!$result) {
-			throw new \Exception("error setting cookie");
+			throw new Exception("error setting cookie");
 		}
 	}
 
@@ -70,7 +71,7 @@ final class CookieManager {
 	 * @param int  $pin
 	 * @param bool $force
 	 *
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	public static function setCookiePIN($pin, $force = false) {
 		$result = setcookie(self::PIN_COOKIE, $pin, NULL, '/');
@@ -78,7 +79,7 @@ final class CookieManager {
 			$result = setcookie(self::PIN_COOKIE_FORCE, true, NULL, '/');
 		}
 		if (!$result) {
-			throw new \Exception("error setting cookie");
+			throw new Exception("error setting cookie");
 		}
 	}
 
@@ -121,12 +122,12 @@ final class CookieManager {
 	 * @param string $puk
 	 * @param bool   $force
 	 *
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	public static function setCookiePUK($puk, $force = false) {
 		$result = setcookie(self::PUK_COOKIE, $puk, NULL, '/');
 		if (!$result) {
-			throw new \Exception("error setting cookie");
+			throw new Exception("error setting cookie");
 		}
 	}
 
@@ -166,12 +167,12 @@ final class CookieManager {
 	 * @param string $voting
 	 * @param bool   $force
 	 *
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	public static function setCookieVoting($voting, $force = false) {
 		$result = setcookie(self::VOTING_COOKIE, $voting, NULL, '/');
 		if (!$result) {
-			throw new \Exception("error setting cookie");
+			throw new Exception("error setting cookie");
 		}
 	}
 
@@ -211,7 +212,7 @@ final class CookieManager {
 	 * @param string $ppt
 	 * @param bool   $force
 	 *
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	public static function setCookiePpt($ppt, $force = false) {
 		// Fix short url
@@ -220,7 +221,7 @@ final class CookieManager {
 		}
 		$result = setcookie(self::PPT_COOKIE, $ppt, NULL, '/');
 		if (!$result) {
-			throw new \Exception("error setting cookie");
+			throw new Exception("error setting cookie");
 		}
 	}
 

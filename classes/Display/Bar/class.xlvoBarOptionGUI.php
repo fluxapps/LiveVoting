@@ -28,7 +28,7 @@ class xlvoBarOptionGUI implements xlvoGeneralBarGUI {
 	 */
 	protected $option_letter;
 	/**
-	 * @var \ilTemplate
+	 * @var ilTemplate
 	 */
 	protected $tpl;
 	/**
@@ -77,7 +77,7 @@ class xlvoBarOptionGUI implements xlvoGeneralBarGUI {
 
 	private function getActiveBar() {
 		/**
-		 * @var $vote xlvoVote
+		 * @var xlvoVote $vote
 		 */
 		$vote = $this->voting_manager->getVotesOfUserOfOption($this->voting->getId(), $this->option->getId())->first();
 		if ($vote instanceof xlvoVote) {
@@ -94,7 +94,7 @@ class xlvoBarOptionGUI implements xlvoGeneralBarGUI {
 
 	private function getVoteId() {
 		/**
-		 * @var $vote xlvoVote
+		 * @var xlvoVote $vote
 		 */
 		$vote = $this->voting_manager->getVotesOfUserOfOption($this->voting->getId(), $this->option->getId())->first();
 		if ($vote instanceof xlvoVote) {

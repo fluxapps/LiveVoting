@@ -2,12 +2,14 @@
 
 namespace LiveVoting\Context;
 
+use ilContext;
+
 /**
  * Class xlvoContext
  *
  * @author Fabian Schmid <fs@studer-raimann.ch>
  */
-class xlvoContext extends \ilContext {
+class xlvoContext extends ilContext {
 
 	const XLVO_CONTEXT = 'xlvo_context';
 	const CONTEXT_PIN = 1;
@@ -22,11 +24,11 @@ class xlvoContext extends \ilContext {
 	/**
 	 * @param int $context
 	 *
-	 * @return bool|void
+	 * @return bool
 	 */
 	public static function init($context) {
-		\ilContext::$class_name = 'LiveVoting\Context\xlvoContextLiveVoting';
-		\ilContext::$type = - 1;
+		ilContext::$class_name = 'LiveVoting\Context\xlvoContextLiveVoting';
+		ilContext::$type = - 1;
 
 		return true;
 	}

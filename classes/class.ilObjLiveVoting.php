@@ -40,10 +40,10 @@ use LiveVoting\Voting\xlvoVoting;
  *
  * @version $Id$
  */
-class ilObjLiveVoting extends \ilObjectPlugin {
+class ilObjLiveVoting extends ilObjectPlugin {
 
 	/**
-	 * @var \ilDB
+	 * @var ilDB
 	 */
 	protected $db;
 
@@ -102,7 +102,7 @@ class ilObjLiveVoting extends \ilObjectPlugin {
 	public function doDelete() {
 
 		/**
-		 * @var $players xlvoPlayer[]
+		 * @var xlvoPlayer[] $players
 		 */
 		$players = xlvoPlayer::where(array( 'obj_id' => $this->getId() ))->get();
 		foreach ($players as $player) {
@@ -110,14 +110,14 @@ class ilObjLiveVoting extends \ilObjectPlugin {
 		}
 
 		/**
-		 * @var $votings xlvoVoting[]
+		 * @var xlvoVoting[] $votings
 		 */
 		$votings = xlvoVoting::where(array( 'obj_id' => $this->getId() ))->get();
 		foreach ($votings as $voting) {
 			$voting_id = $voting->getId();
 
 			/**
-			 * @var $votes xlvoVote[]
+			 * @var xlvoVote[] $votes
 			 */
 			$votes = xlvoVote::where(array( 'voting_id' => $voting_id ))->get();
 			foreach ($votes as $vote) {
@@ -125,7 +125,7 @@ class ilObjLiveVoting extends \ilObjectPlugin {
 			}
 
 			/**
-			 * @var $options xlvoOption[]
+			 * @var xlvoOption[] $options
 			 */
 			$options = xlvoOption::where(array( 'voting_id' => $voting_id ))->get();
 			foreach ($options as $option) {
@@ -136,7 +136,7 @@ class ilObjLiveVoting extends \ilObjectPlugin {
 		}
 
 		/**
-		 * @var $config xlvoVotingConfig
+		 * @var xlvoVotingConfig $config
 		 */
 		$config = xlvoVotingConfig::find($this->getId());
 		if ($config instanceof xlvoVotingConfig) {
@@ -148,7 +148,7 @@ class ilObjLiveVoting extends \ilObjectPlugin {
 	public function renegerateVotingSorting() {
 		$i = 1;
 		/**
-		 * @var $votings xlvoVoting[]
+		 * @var xlvoVoting[] $votings
 		 */
 		$votings = xlvoVoting::where(array( 'obj_id' => $this->getId() ))->orderBy('position', 'ASC')->get();
 
@@ -168,12 +168,12 @@ class ilObjLiveVoting extends \ilObjectPlugin {
 	public function doCloneObject($new_obj, $a_target_id, $a_copy_id = NULL) {
 
 		/**
-		 * @var $config xlvoVotingConfig
+		 * @var xlvoVotingConfig $config
 		 */
 		$config = xlvoVotingConfig::find($this->getId());
 		if ($config instanceof xlvoVotingConfig) {
 			/**
-			 * @var $config_clone xlvoVotingConfig
+			 * @var xlvoVotingConfig $config_clone
 			 */
 			$config_clone = $config->copy();
 			$config_clone->setObjId($new_obj->getId());
@@ -186,8 +186,8 @@ class ilObjLiveVoting extends \ilObjectPlugin {
 		}
 
 		/**
-		 * @var $player       xlvoPlayer
-		 * @var $player_clone xlvoPlayer
+		 * @var xlvoPlayer $player
+		 * @var xlvoPlayer $player_clone
 		 */
 		$player = xlvoPlayer::where(array( 'obj_id' => $this->getId() ))->first();
 		if ($player instanceof xlvoPlayer) {
@@ -199,14 +199,14 @@ class ilObjLiveVoting extends \ilObjectPlugin {
 		}
 
 		/**
-		 * @var $votings xlvoVoting[]
+		 * @var xlvoVoting[] $votings
 		 */
 		$votings = xlvoVoting::where(array( 'obj_id' => $this->getId() ))->get();
 		$media_object_ids = array();
 		foreach ($votings as $voting) {
 
 			/**
-			 * @var $voting_clone xlvoVoting
+			 * @var xlvoVoting $voting_clone
 			 */
 			$voting_clone = $voting->fullClone(false, false);
 			$voting_clone->setObjId($new_obj->getId());
@@ -214,18 +214,18 @@ class ilObjLiveVoting extends \ilObjectPlugin {
 
 			$voting_id = $voting->getId();
 			$voting_id_clone = $voting_clone->getId();
-			$media_objects = \ilRTE::_getMediaObjects($voting_clone->getQuestion());
+			$media_objects = ilRTE::_getMediaObjects($voting_clone->getQuestion());
 			if (count($media_objects) > 0) {
 				$media_object_ids = array_merge($media_object_ids, array_values($media_objects));
 			}
 
 			/**
-			 * @var $options xlvoOption[]
+			 * @var xlvoOption[] $options
 			 */
 			$options = xlvoOption::where(array( 'voting_id' => $voting_id ))->get();
 			foreach ($options as $option) {
 				/**
-				 * @var $option_clone xlvoOption
+				 * @var xlvoOption $option_clone
 				 */
 				$option_clone = $option->copy();
 				$option_clone->setVotingId($voting_id_clone);
@@ -234,12 +234,12 @@ class ilObjLiveVoting extends \ilObjectPlugin {
 				$option_id_clone = xlvoOption::where(array( 'voting_id' => $voting_id_clone ))->last()->getId();
 
 				/**
-				 * @var $votes xlvoVote[]
+				 * @var xlvoVote[] $votes
 				 */
 				$votes = xlvoVote::where(array( 'voting_id' => $voting_id ))->get();
 				foreach ($votes as $vote) {
 					/**
-					 * @var $vote_clone xlvoVote
+					 * @var xlvoVote $vote_clone
 					 */
 					$vote_clone = $vote->copy();
 					$vote_clone->setVotingId($voting_id_clone);
@@ -250,7 +250,7 @@ class ilObjLiveVoting extends \ilObjectPlugin {
 		}
 		$new_obj->renegerateVotingSorting();
 		foreach ($media_object_ids as $media_object_id) {
-			\ilObjMediaObject::_saveUsage($media_object_id, 'dcl:html', $new_obj->getId());
+			ilObjMediaObject::_saveUsage($media_object_id, 'dcl:html', $new_obj->getId());
 		}
 	}
 }

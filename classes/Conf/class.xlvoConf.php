@@ -2,6 +2,7 @@
 
 namespace LiveVoting\Conf;
 
+use ilSetting;
 use LiveVoting\Cache\CachingActiveRecord;
 
 /**
@@ -66,7 +67,7 @@ class xlvoConf extends CachingActiveRecord {
 	 * @return bool
 	 */
 	public static function isLatexEnabled() {
-		$mathJaxSetting = new \ilSetting("MathJax");
+		$mathJaxSetting = new ilSetting("MathJax");
 
 		return (bool)$mathJaxSetting->get("enable");
 	}

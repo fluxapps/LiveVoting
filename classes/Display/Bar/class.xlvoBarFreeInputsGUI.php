@@ -20,11 +20,11 @@ class xlvoBarFreeInputsGUI extends xlvoAbstractBarGUI implements xlvoGeneralBarG
 	 */
 	protected $vote;
 	/**
-	 * @var \ilTemplate
+	 * @var ilTemplate
 	 */
 	protected $tpl;
 	/**
-	 * @var int $occurrences
+	 * @var int
 	 */
 	private $occurrences;
 	/**

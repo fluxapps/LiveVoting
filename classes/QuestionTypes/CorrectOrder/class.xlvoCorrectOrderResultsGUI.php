@@ -61,7 +61,7 @@ class xlvoCorrectOrderResultsGUI extends xlvoSingleVoteResultsGUI {
 		if ($this->isShowCorrectOrder()) {
 			$solution_html = $this->txt('correct_solution') . '<br>';
 			/**
-			 * @var $item xlvoOption
+			 * @var xlvoOption $item
 			 */
 			foreach ($correct_order as $item) {
 				$solution_html .= ' <p><h1 class="xlvo-option"><span class="label label-primary xlvo-option">' . $item->getCipher() . '</span> '

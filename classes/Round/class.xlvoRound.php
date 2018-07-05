@@ -2,9 +2,8 @@
 
 namespace LiveVoting\Round;
 
+use ilDB;
 use LiveVoting\Cache\CachingActiveRecord;
-use LiveVoting\Cache\xlvoCacheFactory;
-use LiveVoting\Player\xlvoPlayer;
 
 /**
  * Class xlvoRound
@@ -45,7 +44,7 @@ class xlvoRound extends CachingActiveRecord {
 		global $DIC;
 		$ilDB = $DIC->database();
 		/**
-		 * @var $ilDB \ilDB
+		 * @var ilDB $ilDB
 		 */
 		$q = "SELECT result.id FROM (SELECT id FROM " . self::TABLE_NAME . " WHERE " . self::TABLE_NAME
 			. ".obj_id = %s) AS result ORDER BY result.id DESC LIMIT 1";

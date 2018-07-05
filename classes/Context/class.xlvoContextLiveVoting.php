@@ -2,13 +2,15 @@
 
 namespace LiveVoting\Context;
 
+use ilContextTemplate;
+
 /**
  * Class xlvoContextLiveVoting
  *
  * @author Fabian Schmid <fs@studer-raimann.ch>
  *
  */
-class xlvoContextLiveVoting implements \ilContextTemplate {
+class xlvoContextLiveVoting implements ilContextTemplate {
 
 	/**
 	 * @return bool

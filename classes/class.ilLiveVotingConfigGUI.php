@@ -9,7 +9,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
  *
  * @ilCtrl_IsCalledBy  ilLiveVotingConfigGUI: ilObjComponentSettingsGUIs
  */
-class ilLiveVotingConfigGUI extends \ilPluginConfigGUI {
+class ilLiveVotingConfigGUI extends ilPluginConfigGUI {
 
 	/**
 	 * @var ilCtrl
@@ -41,11 +41,11 @@ class ilLiveVotingConfigGUI extends \ilPluginConfigGUI {
 
 	public function executeCommand() {
 		// TODO Refactoring
-		$this->ctrl->setParameterByClass(\ilObjComponentSettingsGUI::class, "ctype", $_GET["ctype"]);
-		$this->ctrl->setParameterByClass(\ilObjComponentSettingsGUI::class, "cname", $_GET["cname"]);
-		$this->ctrl->setParameterByClass(\ilObjComponentSettingsGUI::class, "slot_id", $_GET["slot_id"]);
-		$this->ctrl->setParameterByClass(\ilObjComponentSettingsGUI::class, "plugin_id", $_GET["plugin_id"]);
-		$this->ctrl->setParameterByClass(\ilObjComponentSettingsGUI::class, "pname", $_GET["pname"]);
+		$this->ctrl->setParameterByClass(ilObjComponentSettingsGUI::class, "ctype", $_GET["ctype"]);
+		$this->ctrl->setParameterByClass(ilObjComponentSettingsGUI::class, "cname", $_GET["cname"]);
+		$this->ctrl->setParameterByClass(ilObjComponentSettingsGUI::class, "slot_id", $_GET["slot_id"]);
+		$this->ctrl->setParameterByClass(ilObjComponentSettingsGUI::class, "plugin_id", $_GET["plugin_id"]);
+		$this->ctrl->setParameterByClass(ilObjComponentSettingsGUI::class, "pname", $_GET["pname"]);
 
 		$this->tpl->setTitle($this->lng->txt("cmps_plugin") . ": " . $_GET["pname"]);
 		$this->tpl->setDescription("");
@@ -53,9 +53,9 @@ class ilLiveVotingConfigGUI extends \ilPluginConfigGUI {
 		$this->tabs->clearTargets();
 
 		if ($_GET["plugin_id"]) {
-			$this->tabs->setBackTarget($this->lng->txt("cmps_plugin"), $this->ctrl->getLinkTargetByClass(\ilObjComponentSettingsGUI::class, "showPlugin"));
+			$this->tabs->setBackTarget($this->lng->txt("cmps_plugin"), $this->ctrl->getLinkTargetByClass(ilObjComponentSettingsGUI::class, "showPlugin"));
 		} else {
-			$this->tabs->setBackTarget($this->lng->txt("cmps_plugins"), $this->ctrl->getLinkTargetByClass(\ilObjComponentSettingsGUI::class, "listPlugins"));
+			$this->tabs->setBackTarget($this->lng->txt("cmps_plugins"), $this->ctrl->getLinkTargetByClass(ilObjComponentSettingsGUI::class, "listPlugins"));
 		}
 
 		$nextClass = $this->ctrl->getNextClass();

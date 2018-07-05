@@ -37,15 +37,15 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI {
 			$randomiseOptionSequenceAfterSave->setChecked(false);
 		}
 
-		$h = new \ilHiddenInputGUI(self::F_ID);
+		$h = new ilHiddenInputGUI(self::F_ID);
 		$xlvoMultiLineInputGUI->addInput($h);
 
-		$position = new \ilNumberInputGUI($this->txt('option_correct_position'), self::F_CORRECT_POSITION);
+		$position = new ilNumberInputGUI($this->txt('option_correct_position'), self::F_CORRECT_POSITION);
 		$position->setSize(2);
 		$position->setMaxLength(2);
 		$xlvoMultiLineInputGUI->addInput($position);
 
-		$te = new \ilTextInputGUI($this->txt('option_text'), self::F_TEXT);
+		$te = new ilTextInputGUI($this->txt('option_text'), self::F_TEXT);
 		$xlvoMultiLineInputGUI->addInput($te);
 
 		$this->addFormElement($randomiseOptionSequenceAfterSave);
@@ -54,19 +54,19 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI {
 
 
 	/**
-	 * @param \ilFormPropertyGUI $element
+	 * @param ilFormPropertyGUI  $element
 	 * @param                    $value
 	 *
 	 * @return void
 	 * @throws ilException  If the postvar of the gui element is not recognised.
 	 */
-	protected function handleField(\ilFormPropertyGUI $element, $value) {
+	protected function handleField(ilFormPropertyGUI $element, $value) {
 		switch ($element->getPostVar()) {
 			case self::F_OPTIONS:
 				$pos = 1;
 				foreach ($value as $item) {
 					/**
-					 * @var $xlvoOption xlvoOption
+					 * @var xlvoOption $xlvoOption
 					 */
 					$xlvoOption = xlvoOption::findOrGetInstance($item[self::F_ID]);
 					$xlvoOption->setText($item[self::F_TEXT]);
@@ -90,16 +90,16 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI {
 
 
 	/**
-	 * @param \ilFormPropertyGUI $element
+	 * @param ilFormPropertyGUI $element
 	 *
 	 * @return array|int
 	 */
-	protected function getFieldValue(\ilFormPropertyGUI $element) {
+	protected function getFieldValue(ilFormPropertyGUI $element) {
 		switch ($element->getPostVar()) {
 			case self::F_OPTIONS:
 				$array = [];
 				/**
-				 * @var $option xlvoOption
+				 * @var xlvoOption $option
 				 */
 				$options = $this->getXlvoVoting()->getVotingOptions();
 				foreach ($options as $option) {

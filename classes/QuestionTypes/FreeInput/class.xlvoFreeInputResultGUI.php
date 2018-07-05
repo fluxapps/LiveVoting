@@ -25,7 +25,7 @@ class xlvoFreeInputResultGUI extends xlvoResultGUI {
 
 
 	/**
-	 * @param \LiveVoting\Vote\xlvoVote[] $votes
+	 * @param xlvoVote[] $votes
 	 *
 	 * @return string
 	 */

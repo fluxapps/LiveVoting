@@ -60,7 +60,7 @@ class xlvoConfGUI extends xlvoGUI {
 		$xlvoConfFormGUI = new xlvoConfFormGUI($this);
 		$xlvoConfFormGUI->setValuesByPost();
 		if ($xlvoConfFormGUI->saveObject()) {
-			\ilUtil::sendSuccess($this->txt('msg_success'), true);
+			ilUtil::sendSuccess($this->txt('msg_success'), true);
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		}
 		$this->tpl->setContent($xlvoConfFormGUI->getHTML());

@@ -49,7 +49,7 @@ abstract class xlvoInputResultsGUI {
 	 * @param xlvoVotingManager2 $manager
 	 *
 	 * @return xlvoInputResultsGUI
-	 * @throws ilException         Throws an \ilException if no results gui class was found.
+	 * @throws ilException         Throws an ilException if no results gui class was found.
 	 */
 	public static function getInstance(xlvoVotingManager2 $manager) {
 		$class = xlvoQuestionTypes::getClassName($manager->getVoting()->getVotingType());

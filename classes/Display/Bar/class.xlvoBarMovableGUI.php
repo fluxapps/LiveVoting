@@ -11,7 +11,7 @@ use LiveVoting\Option\xlvoOption;
 class xlvoBarMovableGUI implements xlvoGeneralBarGUI {
 
 	/**
-	 * @var \ilTemplate
+	 * @var ilTemplate
 	 */
 	protected $tpl;
 	/**

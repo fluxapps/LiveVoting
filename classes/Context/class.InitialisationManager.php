@@ -13,6 +13,8 @@ namespace LiveVoting\Context;
 
 require_once 'include/inc.ilias_version.php';
 
+use Exception;
+use ilObjUser;
 use LiveVoting\Context\cookie\CookieManager;
 use LiveVoting\User\xlvoUser;
 
@@ -23,7 +25,7 @@ final class InitialisationManager {
 	 * Languages, templates, error handling and database are fully loaded.
 	 *
 	 * @return void
-	 * @throws \Exception   Thrown if no compatible ILIAS version could be found.
+	 * @throws Exception   Thrown if no compatible ILIAS version could be found.
 	 */
 	public static final function startMinimal() {
 		CookieManager::setContext(xlvoContext::CONTEXT_PIN);
@@ -36,7 +38,7 @@ final class InitialisationManager {
 				Initialisation\Version\v53\xlvoBasicInitialisation::init();
 				break;
 			default:
-				throw new \Exception("Can't find bootstrap code for the given ILIAS version.");
+				throw new Exception("Can't find bootstrap code for the given ILIAS version.");
 		}
 		xlvoUser::getInstance()->setIdentifier(session_id())->setType(xlvoUser::TYPE_PIN);
 	}
@@ -45,7 +47,7 @@ final class InitialisationManager {
 	/**
 	 * Optimised ILIAS start with user management.
 	 *
-	 * @throws \Exception When the user object is invalid.
+	 * @throws Exception When the user object is invalid.
 	 */
 	public static final function startLight() {
 		xlvoInitialisation::init();
@@ -53,12 +55,12 @@ final class InitialisationManager {
 		global $DIC;
 		$ilUser = $DIC->user();
 
-		if ($ilUser instanceof \ilObjUser && $ilUser->getId()) {
+		if ($ilUser instanceof ilObjUser && $ilUser->getId()) {
 			xlvoUser::getInstance()->setIdentifier($ilUser->getId())->setType(xlvoUser::TYPE_ILIAS);
 
 			return;
 		}
 
-		throw new \Exception("ILIAS light start failed because the user management returned an invalid user object.");
+		throw new Exception("ILIAS light start failed because the user management returned an invalid user object.");
 	}
 }

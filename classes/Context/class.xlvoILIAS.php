@@ -2,6 +2,9 @@
 
 namespace LiveVoting\Context;
 
+use ilException;
+use ilSetting;
+
 /**
  * Class xlvoILIAS
  *
@@ -11,7 +14,7 @@ namespace LiveVoting\Context;
 class xlvoILIAS {
 
 	/**
-	 * @var \ilSetting
+	 * @var ilSetting
 	 */
 	protected $settings;
 
@@ -34,8 +37,10 @@ class xlvoILIAS {
 
 	/**
 	 * wrapper for downward compability
+	 *
+	 * @throws ilException
 	 */
 	public function raiseError($a_msg, $a_err_obj) {
-		throw new \ilException($a_msg);
+		throw new ilException($a_msg);
 	}
 }

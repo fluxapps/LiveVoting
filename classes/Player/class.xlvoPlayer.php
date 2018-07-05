@@ -9,6 +9,7 @@ use LiveVoting\Round\xlvoRound;
 use LiveVoting\Vote\xlvoVote;
 use LiveVoting\Voter\xlvoVoter;
 use LiveVoting\Voting\xlvoVoting;
+use stdClass;
 use xlvoCorrectOrderGUI;
 
 /**
@@ -82,7 +83,7 @@ class xlvoPlayer extends CachingActiveRecord {
 		$cache = xlvoCacheFactory::getInstance();
 		$instance = $cache->get($key);
 
-		if ($instance instanceof \stdClass) {
+		if ($instance instanceof stdClass) {
 			$player = self::find($instance->id); //relay on the ar connector cache
 
 			self::$instance_cache[$obj_id] = $player;
@@ -95,7 +96,7 @@ class xlvoPlayer extends CachingActiveRecord {
 			$obj = new self();
 			$obj->setObjId($obj_id);
 		} else {
-			$player = new \stdClass();
+			$player = new stdClass();
 			$player->id = $obj->getPrimaryFieldValue();
 			$cache->set($key, $player, self::CACHE_TTL_SECONDS);
 		}
@@ -218,10 +219,10 @@ class xlvoPlayer extends CachingActiveRecord {
 
 
 	/**
-	 * @return \stdClass
+	 * @return stdClass
 	 */
 	public function getStdClassForVoter() {
-		$obj = new \stdClass();
+		$obj = new stdClass();
 		$obj->status = (int)$this->getStatus(true);
 		$obj->force_reload = false;
 		$obj->active_voting_id = (int)$this->getActiveVotingId();
@@ -241,10 +242,10 @@ class xlvoPlayer extends CachingActiveRecord {
 
 
 	/**
-	 * @return \stdClass
+	 * @return stdClass
 	 */
 	public function getStdClassForPlayer() {
-		$obj = new \stdClass();
+		$obj = new stdClass();
 		$obj->is_first = (bool)$this->getCurrentVotingObject()->isFirst();
 		$obj->is_last = (bool)$this->getCurrentVotingObject()->isLast();
 		$obj->status = (int)$this->getStatus(true);

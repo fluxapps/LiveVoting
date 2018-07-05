@@ -36,7 +36,7 @@ class xlvoSingleVoteGUI extends xlvoQuestionTypesGUI {
 			return array();
 		}
 		$states = $this->getButtonsStates();
-		$t = \ilLinkButton::getInstance();
+		$t = ilLinkButton::getInstance();
 		$t->setId(self::BUTTON_TOGGLE_PERCENTAGE);
 		if ($states[self::BUTTON_TOGGLE_PERCENTAGE]) {
 			$t->setCaption('%', false);

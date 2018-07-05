@@ -2,12 +2,17 @@
 
 namespace LiveVoting\Api;
 
+use DOMCdataSection;
+use DOMDocument;
+use DOMElement;
+use ilObject2;
 use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Pin\xlvoPin;
-use LiveVoting\Results\xlvoResults;
 use LiveVoting\Player\xlvoPlayerException;
+use LiveVoting\Results\xlvoResults;
 use LiveVoting\Round\xlvoRound;
 use LiveVoting\Voting\xlvoVotingManager2;
+use stdClass;
 
 /**
  * Class xlvoApi
@@ -31,7 +36,7 @@ class xlvoApi {
 	 */
 	protected $pin;
 	/**
-	 * @var \stdClass
+	 * @var stdClass
 	 */
 	protected $data;
 
@@ -39,8 +44,8 @@ class xlvoApi {
 	/**
 	 * xlvoApi constructor.
 	 *
-	 * @param \LiveVoting\Pin\xlvoPin $pin
-	 * @param string                  $token
+	 * @param xlvoPin $pin
+	 * @param string  $token
 	 */
 	public function __construct(xlvoPin $pin, $token) {
 		$this->pin = $pin;
@@ -49,9 +54,9 @@ class xlvoApi {
 		$this->check();
 
 		$manager = new xlvoVotingManager2($this->pin->getPin());
-		$title = \ilObject2::_lookupTitle($manager->getObjId());
-		$data = new \stdClass();
-		$data->Info = new \stdClass();
+		$title = ilObject2::_lookupTitle($manager->getObjId());
+		$data = new stdClass();
+		$data->Info = new stdClass();
 		$data->Info->Title = $title;
 		$latestRound = xlvoRound::getLatestRound($manager->getObjId());
 		$data->Info->Round = $latestRound->getRoundNumber();
@@ -67,7 +72,7 @@ class xlvoApi {
 			$stdClass->Voters = array();
 
 			foreach ($xlvoResults->getData(array( 'voting' => $xlvoVoting->getId() )) as $item) {
-				$Voter = new \stdClass();
+				$Voter = new stdClass();
 				$Voter->Identifier = $item['participant'];
 				$Voter->AnswerIds = $item['answer_ids'];
 				$Voter->AnswerText = $item['answer'];
@@ -95,7 +100,7 @@ class xlvoApi {
 
 
 	/**
-	 * @param \DOMElement|\DOMNode $dom
+	 * @param DOMElement|\DOMNode  $dom
 	 * @param                      $key
 	 * @param                      $data
 	 *
@@ -104,20 +109,20 @@ class xlvoApi {
 	protected function appendXMLElement($dom, $key, $data) {
 		$return = $dom;
 		switch (true) {
-			case ($data instanceof \stdClass):
-				$newdom = $dom->appendChild(new \DOMElement($key));
+			case ($data instanceof stdClass):
+				$newdom = $dom->appendChild(new DOMElement($key));
 				foreach ($data as $k => $v) {
 					$this->appendXMLElement($newdom, $k, $v);
 				}
 				break;
 			case (is_array($data));
-				$newdom = $dom->appendChild(new \DOMElement($key));
+				$newdom = $dom->appendChild(new DOMElement($key));
 				foreach ($data as $k => $v) {
 					$this->appendXMLElement($newdom, rtrim($key, "s"), $v);
 				}
 				break;
 			default:
-				$dom->appendChild(new \DOMElement($key))->appendChild(new \DOMCdataSection($data));
+				$dom->appendChild(new DOMElement($key))->appendChild(new DOMCdataSection($data));
 				break;
 		}
 
@@ -132,7 +137,7 @@ class xlvoApi {
 				echo json_encode($this->data);
 				break;
 			case self::TYPE_XML;
-				$domxml = new \DOMDocument('1.0', 'UTF-8');
+				$domxml = new DOMDocument('1.0', 'UTF-8');
 				$domxml->preserveWhiteSpace = false;
 				$domxml->formatOutput = true;
 				$this->appendXMLElement($domxml, 'LiveVotingResults', $this->data);
@@ -161,7 +166,7 @@ class xlvoApi {
 
 
 	/**
-	 * @return \LiveVoting\Pin\xlvoPin
+	 * @return xlvoPin
 	 */
 	public function getPin() {
 		return $this->pin;
@@ -169,7 +174,7 @@ class xlvoApi {
 
 
 	/**
-	 * @param \LiveVoting\Pin\xlvoPin $pin
+	 * @param xlvoPin $pin
 	 */
 	public function setPin($pin) {
 		$this->pin = $pin;
@@ -193,7 +198,7 @@ class xlvoApi {
 
 
 	/**
-	 * @return \stdClass
+	 * @return stdClass
 	 */
 	public function getData() {
 		return $this->data;
@@ -201,7 +206,7 @@ class xlvoApi {
 
 
 	/**
-	 * @param \stdClass $data
+	 * @param stdClass $data
 	 */
 	public function setData($data) {
 		$this->data = $data;

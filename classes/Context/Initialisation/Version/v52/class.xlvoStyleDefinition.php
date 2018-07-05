@@ -10,7 +10,7 @@ namespace LiveVoting\Context\Initialisation\Version\v52;
 class xlvoStyleDefinition {
 
 	/**
-	 * @var \LiveVoting\Context\Initialisation\Version\v52\xlvoSkin
+	 * @var xlvoSkin
 	 */
 	protected $skin;
 

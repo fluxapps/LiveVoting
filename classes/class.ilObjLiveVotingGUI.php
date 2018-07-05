@@ -464,7 +464,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 	protected function fillPropertiesForm() {
 
 		/**
-		 * @var $config xlvoVotingConfig
+		 * @var xlvoVotingConfig $config
 		 */
 		$config = xlvoVotingConfig::find($this->obj_id);
 

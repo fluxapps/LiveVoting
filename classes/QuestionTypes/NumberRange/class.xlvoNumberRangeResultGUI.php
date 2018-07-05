@@ -1,5 +1,7 @@
 <?php
 
+use LiveVoting\Vote\xlvoVote;
+
 /**
  * Class xlvoNumberRangeResultGUI
  *
@@ -11,7 +13,7 @@ class xlvoNumberRangeResultGUI extends xlvoResultGUI {
 	 * Creates a text representation from the given votes.
 	 * This method is used by the history object to create a readable history.
 	 *
-	 * @param \LiveVoting\Vote\xlvoVote[] $votes The votes which should be transformed into a text representation.
+	 * @param xlvoVote[] $votes The votes which should be transformed into a text representation.
 	 *
 	 * @return string
 	 */

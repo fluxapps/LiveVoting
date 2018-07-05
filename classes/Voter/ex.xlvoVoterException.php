@@ -2,12 +2,14 @@
 
 namespace LiveVoting\Voter;
 
+use ilException;
+
 /**
  * Class xlvoVoterException
  *
  * @author Fabian Schmid <fs@studer-raimann.ch>
  */
-class xlvoVoterException extends \ilException {
+class xlvoVoterException extends ilException {
 
 	const VOTING_OFFLINE = 1;
 	const VOTING_NOT_ANONYMOUS = 2;

@@ -2,6 +2,14 @@
 
 namespace LiveVoting\Cache\Version\v52;
 
+use Exception;
+use ilApc;
+use ilGlobalCache;
+use ilGlobalCacheService;
+use ilLiveVotingPlugin;
+use ilMemcache;
+use ilStaticCache;
+use ilXcache;
 use LiveVoting\Cache\Initialisable;
 use LiveVoting\Cache\xlvoCacheService;
 use LiveVoting\Conf\xlvoConf;
@@ -14,7 +22,7 @@ use RuntimeException;
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version 1.0.0
  */
-class xlvoCache extends \ilGlobalCache implements xlvoCacheService, Initialisable {
+class xlvoCache extends ilGlobalCache implements xlvoCacheService, Initialisable {
 
 	/**
 	 * @var bool
@@ -24,14 +32,14 @@ class xlvoCache extends \ilGlobalCache implements xlvoCacheService, Initialisabl
 	 * @var array
 	 */
 	protected static $active_components = array(
-		\ilLiveVotingPlugin::PLUGIN_ID,
+		ilLiveVotingPlugin::PLUGIN_ID,
 	);
 
 
 	/**
 	 * @param null $component
 	 *
-	 * @return \LiveVoting\Cache\Version\v52\xlvoCache
+	 * @return xlvoCache
 	 */
 	public static function getInstance($component) {
 		$service_type = self::getSettings()->getService();
@@ -57,10 +65,10 @@ class xlvoCache extends \ilGlobalCache implements xlvoCacheService, Initialisabl
 
 	protected function initCachingService() {
 		/**
-		 * @var $ilGlobalCacheService \ilGlobalCacheService
+		 * @var ilGlobalCacheService $ilGlobalCacheService
 		 */
 		if (!$this->getComponent()) {
-			$this->setComponent(\ilLiveVotingPlugin::PLUGIN_NAME);
+			$this->setComponent(ilLiveVotingPlugin::PLUGIN_NAME);
 		}
 
 		$ilGlobalCacheService = NULL;
@@ -88,7 +96,7 @@ class xlvoCache extends \ilGlobalCache implements xlvoCacheService, Initialisabl
 	private function isLiveVotingCacheEnabled() {
 		try {
 			return (int)xlvoConf::getConfig(xlvoConf::F_USE_GLOBAL_CACHE) === 1;
-		} catch (\Exception $exceptione) //catch exception while dbupdate is running. (xlvoConf is not ready at that time).
+		} catch (Exception $exceptione) //catch exception while dbupdate is running. (xlvoConf is not ready at that time).
 		{
 			return false;
 		}
@@ -103,19 +111,19 @@ class xlvoCache extends \ilGlobalCache implements xlvoCacheService, Initialisabl
 	public static function lookupServiceClassName($service_type) {
 		switch ($service_type) {
 			case self::TYPE_APC:
-				return \ilApc::class;
+				return ilApc::class;
 				break;
 			case self::TYPE_MEMCACHED:
-				return \ilMemcache::class;
+				return ilMemcache::class;
 				break;
 			case self::TYPE_XCACHE:
-				return \ilXcache::class;
+				return ilXcache::class;
 				break;
 			case self::TYPE_STATIC:
-				return \ilStaticCache::class;
+				return ilStaticCache::class;
 				break;
 			default:
-				return \ilStaticCache::class;
+				return ilStaticCache::class;
 				break;
 		}
 	}
@@ -136,7 +144,7 @@ class xlvoCache extends \ilGlobalCache implements xlvoCacheService, Initialisabl
 	 * @throws RuntimeException
 	 */
 	public function flush($complete = false) {
-		if (!$this->global_cache instanceof \ilGlobalCacheService || !$this->isActive()) {
+		if (!$this->global_cache instanceof ilGlobalCacheService || !$this->isActive()) {
 			return false;
 		}
 
@@ -153,7 +161,7 @@ class xlvoCache extends \ilGlobalCache implements xlvoCacheService, Initialisabl
 	 * @return bool
 	 */
 	public function delete($key) {
-		if (!$this->global_cache instanceof \ilGlobalCacheService || !$this->isActive()) {
+		if (!$this->global_cache instanceof ilGlobalCacheService || !$this->isActive()) {
 			return false;
 		}
 
@@ -194,7 +202,7 @@ class xlvoCache extends \ilGlobalCache implements xlvoCacheService, Initialisabl
 	 */
 	public function set($key, $value, $ttl = NULL) {
 		//		$ttl = $ttl ? $ttl : 480;
-		if (!$this->global_cache instanceof \ilGlobalCacheService || !$this->isActive()) {
+		if (!$this->global_cache instanceof ilGlobalCacheService || !$this->isActive()) {
 			return false;
 		}
 
@@ -208,7 +216,7 @@ class xlvoCache extends \ilGlobalCache implements xlvoCacheService, Initialisabl
 	 * @return bool|mixed|null
 	 */
 	public function get($key) {
-		if (!$this->global_cache instanceof \ilGlobalCacheService || !$this->isActive()) {
+		if (!$this->global_cache instanceof ilGlobalCacheService || !$this->isActive()) {
 			return false;
 		}
 		$unserialized_return = $this->global_cache->unserialize($this->global_cache->get($key));

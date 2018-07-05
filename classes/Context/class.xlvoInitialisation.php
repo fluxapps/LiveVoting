@@ -2,6 +2,12 @@
 
 namespace LiveVoting\Context;
 
+use ILIAS\DI\Container;
+use ilInitialisation;
+use iljQueryUtil;
+use ilLiveVotingPlugin;
+use ilTree;
+use ilUIFramework;
 use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Context\cookie\CookieManager;
 use LiveVoting\xlvoSessionHandler;
@@ -13,14 +19,16 @@ use LiveVoting\xlvoSessionHandler;
  *
  * @description Initializes a ILIAS environment depending on Context (PIN or ILIAS).
  *              This is used in every entry-point for users and AJAX requests
+ *
+ * TODO Refactoring Realy need so mutch ILIAS core code?
  */
-class xlvoInitialisation extends \ilInitialisation {
+class xlvoInitialisation extends ilInitialisation {
 
 	const USE_OWN_GLOBAL_TPL = true;
 	const CONTEXT_PIN = 1;
 	const CONTEXT_ILIAS = 2;
 	/**
-	 * @var \ilTree
+	 * @var ilTree
 	 */
 	protected static $tree;
 	/**
@@ -120,7 +128,7 @@ class xlvoInitialisation extends \ilInitialisation {
 
 	public static function initDependencyInjection() {
 		global $DIC;
-		$DIC = new \ILIAS\DI\Container();
+		$DIC = new Container();
 		$DIC["ilLoggerFactory"] = function ($c) {
 			return ilLoggerFactory::getInstance();
 		};
@@ -129,7 +137,7 @@ class xlvoInitialisation extends \ilInitialisation {
 
 	protected static function initHTML2() {
 		parent::initHTML();
-		$pl = \ilLiveVotingPlugin::getInstance();
+		$pl = ilLiveVotingPlugin::getInstance();
 		if (self::USE_OWN_GLOBAL_TPL) {
 			$tpl = $pl->getTemplate("default/tpl.main.html");
 			$tpl->touchBlock("navbar");
@@ -149,8 +157,8 @@ class xlvoInitialisation extends \ilInitialisation {
 
 		$tpl->setVariable('BASE', xlvoConf::getBaseVoteURL());
 		if (self::USE_OWN_GLOBAL_TPL) {
-			\iljQueryUtil::initjQuery();
-			\ilUIFramework::init();
+			iljQueryUtil::initjQuery();
+			ilUIFramework::init();
 		}
 	}
 
@@ -173,7 +181,7 @@ class xlvoInitialisation extends \ilInitialisation {
 		//		}
 
 		self::initGlobal("ilObjDataCache", "ilObjectDataCache", "./Services/Object/classes/class.ilObjectDataCache.php");
-		self::$tree = new \ilTree(ROOT_FOLDER_ID);
+		self::$tree = new ilTree(ROOT_FOLDER_ID);
 		self::initGlobal("tree", self::$tree);
 		//unset(self::$tree);
 		self::initGlobal("ilCtrl", "ilCtrl", "./Services/UICore/classes/class.ilCtrl.php");

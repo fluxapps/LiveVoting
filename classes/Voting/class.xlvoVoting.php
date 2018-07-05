@@ -2,10 +2,16 @@
 
 namespace LiveVoting\Voting;
 
-use LiveVoting\Cache\arConnectorCache;
+use ActiveRecordList;
+use arException;
+use Exception;
+use ilObjectTypeMismatchException;
+use ilRTE;
+use ilUtil;
 use LiveVoting\Cache\CachingActiveRecord;
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
+use stdClass;
 
 /**
  * Class xlvoVoting
@@ -230,13 +236,13 @@ class xlvoVoting extends CachingActiveRecord {
 	 * @param bool $change_name
 	 *
 	 * @return xlvoVoting
-	 * @throws \Exception
-	 * @throws \arException
+	 * @throws Exception
+	 * @throws arException
 	 */
 	public function fullClone($change_name = true, $clone_options = true) {
 		/**
-		 * @var $newObj          xlvoVoting
-		 * @var $votingOptionNew xlvoOption
+		 * @var xlvoVoting $newObj
+		 * @var xlvoOption $votingOptionNew
 		 */
 		$newObj = $this->copy();
 		if ($change_name) {
@@ -274,7 +280,7 @@ class xlvoVoting extends CachingActiveRecord {
 
 
 	/**
-	 * @return \ActiveRecordList
+	 * @return ActiveRecordList
 	 */
 	protected function getFirstLastList($order) {
 		return self::where(array( 'obj_id' => $this->getObjId() ))->orderBy('position', $order)
@@ -287,7 +293,7 @@ class xlvoVoting extends CachingActiveRecord {
 	 */
 	public function isFirst() {
 		/**
-		 * @var $first xlvoVoting
+		 * @var xlvoVoting $first
 		 */
 		$first = $this->getFirstLastList('ASC')->first();
 		if (!$first instanceof self) {
@@ -303,7 +309,7 @@ class xlvoVoting extends CachingActiveRecord {
 	 */
 	public function isLast() {
 		/**
-		 * @var $first xlvoVoting
+		 * @var xlvoVoting $first
 		 */
 		$first = $this->getFirstLastList('DESC')->first();
 
@@ -460,7 +466,7 @@ class xlvoVoting extends CachingActiveRecord {
 	 * @return string
 	 */
 	public function getQuestionForPresentation() {
-		return \ilUtil::prepareTextareaOutput($this->getQuestionForEditor(), true);
+		return ilUtil::prepareTextareaOutput($this->getQuestionForEditor(), true);
 	}
 
 
@@ -477,8 +483,8 @@ class xlvoVoting extends CachingActiveRecord {
 	 */
 	public function getQuestionForEditor() {
 		try {
-			$prepared = \ilRTE::_replaceMediaObjectImageSrc($this->question, 1);
-		} catch (\ilObjectTypeMismatchException $e) {
+			$prepared = ilRTE::_replaceMediaObjectImageSrc($this->question, 1);
+		} catch (ilObjectTypeMismatchException $e) {
 			return $this->question;
 		}
 
@@ -691,10 +697,10 @@ class xlvoVoting extends CachingActiveRecord {
 
 
 	/**
-	 * @return \stdClass
+	 * @return stdClass
 	 */
 	public function _toJson() {
-		$class = new \stdClass();
+		$class = new stdClass();
 		$class->Id = (int)$this->getId();
 		$class->Title = (string)$this->getTitle();
 		$class->QuestionType = (string)xlvoQuestionTypes::getClassName($this->getVotingType());

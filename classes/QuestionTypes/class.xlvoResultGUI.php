@@ -60,7 +60,7 @@ abstract class xlvoResultGUI {
 	 * @param $voting               xlvoVoting    Finished or ongoing voting.
 	 *
 	 * @return xlvoResultGUI        Result GUI to display the voting results.
-	 * @throws \ilException         Throws an \ilException if no result gui class was found for the
+	 * @throws ilException         Throws an ilException if no result gui class was found for the
 	 *                              given voting type.
 	 */
 	public static function getInstance(xlvoVoting $voting) {
@@ -78,7 +78,7 @@ abstract class xlvoResultGUI {
 			case xlvoQuestionTypes::NUMBER_RANGE:
 				return new xlvoNumberRangeResultGUI($voting);
 			default:
-				throw new \ilException('Could not find the result gui for the given voting.');
+				throw new ilException('Could not find the result gui for the given voting.');
 		}
 	}
 }

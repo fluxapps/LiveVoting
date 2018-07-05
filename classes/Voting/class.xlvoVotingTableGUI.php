@@ -11,7 +11,7 @@ use LiveVoting\Voting\xlvoVoting;
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version 1.0.0
  */
-class xlvoVotingTableGUI extends \ilTable2GUI {
+class xlvoVotingTableGUI extends ilTable2GUI {
 
 	const TBL_ID = 'tbl_xlvo';
 	const LENGTH = 100;
@@ -32,7 +32,7 @@ class xlvoVotingTableGUI extends \ilTable2GUI {
 	 */
 	protected $filter = array();
 	/**
-	 * @var \ilCtrl
+	 * @var ilCtrl
 	 */
 	protected $ctrl;
 	/**
@@ -81,13 +81,13 @@ class xlvoVotingTableGUI extends \ilTable2GUI {
 
 
 	protected function addFilterItems() {
-		$title = new \ilTextInputGUI($this->txt('title'), 'title');
+		$title = new ilTextInputGUI($this->txt('title'), 'title');
 		$this->addAndReadFilterItem($title);
 
-		$question = new \ilTextInputGUI($this->txt('question'), 'question');
+		$question = new ilTextInputGUI($this->txt('question'), 'question');
 		$this->addAndReadFilterItem($question);
 
-		$status = new \ilSelectInputGUI($this->txt('status'), 'voting_status');
+		$status = new ilSelectInputGUI($this->txt('status'), 'voting_status');
 		$status_options = array(
 			- 1 => '',
 			xlvoVoting::STAT_INACTIVE => $this->txt('status_' . xlvoVoting::STAT_INACTIVE),
@@ -97,7 +97,7 @@ class xlvoVotingTableGUI extends \ilTable2GUI {
 		$status->setOptions($status_options);
 		//		$this->addAndReadFilterItem($status); deativated at the moment
 
-		$type = new \ilSelectInputGUI($this->txt('type'), 'voting_type');
+		$type = new ilSelectInputGUI($this->txt('type'), 'voting_type');
 		$type_options = array(
 			- 1 => '',
 		);
@@ -112,12 +112,12 @@ class xlvoVotingTableGUI extends \ilTable2GUI {
 
 
 	/**
-	 * @param $item
+	 * @param ilFormPropertyGUI $item
 	 */
-	protected function addAndReadFilterItem(\ilFormPropertyGUI $item) {
+	protected function addAndReadFilterItem(ilFormPropertyGUI $item) {
 		$this->addFilterItem($item);
 		$item->readFromSession();
-		if ($item instanceof \ilCheckboxInputGUI) {
+		if ($item instanceof ilCheckboxInputGUI) {
 			$this->filter[$item->getPostVar()] = $item->getChecked();
 		} else {
 			$this->filter[$item->getPostVar()] = $item->getValue();
@@ -165,7 +165,7 @@ class xlvoVotingTableGUI extends \ilTable2GUI {
 	 * @param xlvoVoting $xlvoVoting
 	 */
 	protected function addActionMenu(xlvoVoting $xlvoVoting) {
-		$current_selection_list = new \ilAdvancedSelectionListGUI();
+		$current_selection_list = new ilAdvancedSelectionListGUI();
 		$current_selection_list->setListTitle($this->txt('actions'));
 		$current_selection_list->setId('xlvo_actions_' . $xlvoVoting->getId());
 		$current_selection_list->setUseImages(false);

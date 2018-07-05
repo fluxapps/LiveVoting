@@ -80,7 +80,7 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 	 * @return string
 	 */
 	protected function renderForm() {
-		$form = new \ilPropertyFormGUI();
+		$form = new ilPropertyFormGUI();
 		$form->setFormAction($this->ctrl->getFormAction($this));
 		$form->setId('xlvo_free_input');
 
@@ -111,22 +111,22 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 	 * @return string
 	 */
 	protected function renderMultiForm() {
-		$form = new \ilPropertyFormGUI();
+		$form = new ilPropertyFormGUI();
 		$form->setFormAction($this->ctrl->getFormAction($this));
 
 		$xlvoVotes = $this->manager->getVotesOfUser();
 		if (count($xlvoVotes) > 0) {
-			$te = new \ilNonEditableValueGUI();
+			$te = new ilNonEditableValueGUI();
 			$te->setValue($this->txt('your_input'));
 			$form->addItem($te);
 			$form->addCommandButton(self::CMD_CLEAR, $this->txt('delete_all'));
 		}
 
 		$mli = new xlvoMultiLineInputGUI($this->txt('answers'), self::F_VOTE_MULTI_LINE_INPUT);
-		$te = new \ilTextInputGUI($this->txt('text'), self::F_FREE_INPUT);
+		$te = new ilTextInputGUI($this->txt('text'), self::F_FREE_INPUT);
 		$te->setMaxLength(45);
 
-		$hi2 = new \ilHiddenInputGUI(self::F_VOTE_ID);
+		$hi2 = new ilHiddenInputGUI(self::F_VOTE_ID);
 		$mli->addInput($te);
 		$mli->addInput($hi2);
 

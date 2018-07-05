@@ -2,8 +2,8 @@
 
 use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Option\xlvoOption;
-use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\PowerPointExport\ilPowerPointExport;
+use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\Round\xlvoRound;
 use LiveVoting\Vote\xlvoVote;
 use LiveVoting\Voting\xlvoVoting;
@@ -252,7 +252,7 @@ class xlvoVotingGUI {
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
 			/**
-			 * @var $xlvoVoting xlvoVoting
+			 * @var xlvoVoting $xlvoVoting
 			 */
 			$xlvoVoting = xlvoVoting::find($_GET[self::IDENTIFIER]);
 			// PREV
@@ -329,7 +329,7 @@ class xlvoVotingGUI {
 		} else {
 
 			/**
-			 * @var $xlvoVoting xlvoVoting
+			 * @var xlvoVoting $xlvoVoting
 			 */
 			$xlvoVoting = xlvoVoting::find($_GET[self::IDENTIFIER]);
 
@@ -360,20 +360,20 @@ class xlvoVotingGUI {
 		} else {
 
 			/**
-			 * @var $xlvoVoting xlvoVoting
+			 * @var xlvoVoting $xlvoVoting
 			 */
 			$xlvoVoting = xlvoVoting::find($_POST[self::IDENTIFIER]);
 
 			if ($xlvoVoting->getObjId() == $this->getObjId()) {
 				/**
-				 * @var $options xlvoOption[]
+				 * @var xlvoOption[] $options
 				 */
 				$options = xlvoOption::where(array( 'voting_id' => $xlvoVoting->getId() ))->get();
 				foreach ($options as $option) {
 					$option->delete();
 				}
 				/**
-				 * @var $votes xlvoVote[]
+				 * @var xlvoVote[] $votes
 				 */
 				$votes = xlvoVote::where(array( 'voting_id' => $xlvoVoting->getId() ))->get();
 				foreach ($votes as $vote) {
@@ -399,7 +399,7 @@ class xlvoVotingGUI {
 		} else {
 
 			/**
-			 * @var $xlvoVoting xlvoVoting
+			 * @var xlvoVoting $xlvoVoting
 			 */
 			$xlvoVoting = xlvoVoting::find($_GET[self::IDENTIFIER]);
 
@@ -429,14 +429,14 @@ class xlvoVotingGUI {
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
 			/**
-			 * @var $xlvoVoting xlvoVoting
+			 * @var xlvoVoting $xlvoVoting
 			 */
 			$xlvoVoting = xlvoVoting::find($_POST[self::IDENTIFIER]);
 
 			if ($xlvoVoting->getObjId() == $this->getObjId()) {
 
 				/**
-				 * @var $votes xlvoVote[]
+				 * @var xlvoVote[] $votes
 				 */
 				$votes = xlvoVote::where(array( 'voting_id' => $xlvoVoting->getId() ))->get();
 				foreach ($votes as $vote) {
@@ -462,7 +462,7 @@ class xlvoVotingGUI {
 			ilUtil::sendQuestion($this->txt('confirm_reset_all'), true);
 			$confirm = new ilConfirmationGUI();
 			/**
-			 * @var $votings xlvoVoting[]
+			 * @var xlvoVoting[] $votings
 			 */
 			$votings = xlvoVoting::where(array( 'obj_id' => $this->getObjId() ))->get();
 			$num_votes = 0;
@@ -488,12 +488,12 @@ class xlvoVotingGUI {
 			$this->ctrl->redirect($this, self::CMD_STANDARD);
 		} else {
 			/**
-			 * @var $votings xlvoVoting[]
+			 * @var xlvoVoting[] $votings
 			 */
 			$votings = xlvoVoting::where(array( 'obj_id' => $this->getObjId() ))->get();
 			foreach ($votings as $voting) {
 				/**
-				 * @var $votes xlvoVote[]
+				 * @var xlvoVote[] $votes
 				 */
 				$votes = xlvoVote::where(array( 'voting_id' => $voting->getId() ))->get();
 				foreach ($votes as $vote) {
@@ -511,7 +511,7 @@ class xlvoVotingGUI {
 	 */
 	protected function duplicate() {
 		/**
-		 * @var $xlvoVoting xlvoVoting
+		 * @var xlvoVoting $xlvoVoting
 		 */
 		$xlvoVoting = xlvoVoting::find($_GET[self::IDENTIFIER]);
 		$xlvoVoting->fullClone(true, true);
@@ -538,7 +538,7 @@ class xlvoVotingGUI {
 			if (is_array($_POST['position'])) {
 				foreach ($_POST['position'] as $k => $v) {
 					/**
-					 * @var $xlvoVoting xlvoVoting
+					 * @var xlvoVoting $xlvoVoting
 					 */
 					$xlvoVoting = xlvoVoting::find($v);
 					$xlvoVoting->setPosition($k + 1);
@@ -615,8 +615,8 @@ class xlvoVotingGUI {
 		$xml_votings = $config->appendChild(new DOMElement('votings'));
 
 		/**
-		 * @var $xlvoVoting xlvoVoting
-		 * @var $xlvoOption xlvoOption
+		 * @var xlvoVoting $xlvoVoting
+		 * @var xlvoOption $xlvoOption
 		 */
 		foreach (xlvoVoting::where(array( 'obj_id' => $this->getObjId() ))->get() as $xlvoVoting) {
 			$xml_voting = $xml_votings->appendChild(new DOMElement('voting'));
@@ -664,7 +664,7 @@ class xlvoVotingGUI {
 		$domxml->loadXML(file_get_contents($_FILES['xlvo_import']['tmp_name']));
 
 		/**
-		 * @var $node DOMElement
+		 * @var DOMElement $node
 		 */
 		$xoct_confs = $domxml->getElementsByTagName('voting');
 		foreach ($xoct_confs as $node) {
@@ -707,7 +707,7 @@ class xlvoVotingGUI {
 			$options = $node->getElementsByTagName('option');
 			$xlvoOptions = array();
 			/**
-			 * @var $option DOMElement
+			 * @var DOMElement $option
 			 */
 			foreach ($options as $option) {
 				$text = $option->getElementsByTagName('text')->item(0)->nodeValue;

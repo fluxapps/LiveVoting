@@ -2,12 +2,14 @@
 
 namespace LiveVoting\Player;
 
+use ilException;
+
 /**
  * Class xlvoPlayerException
  *
  * @author Fabian Schmid <fs@studer-raimann.ch>
  */
-class xlvoPlayerException extends \ilException {
+class xlvoPlayerException extends ilException {
 
 	const OBJ_OFFLINE = 1;
 	const NO_VTOTINGS = 2;

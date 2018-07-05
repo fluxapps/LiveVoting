@@ -2,11 +2,13 @@
 
 namespace LiveVoting\Vote;
 
+use ActiveRecord;
 use LiveVoting\Cache\CachingActiveRecord;
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\User\xlvoUser;
 use LiveVoting\User\xlvoVoteHistoryObject;
 use LiveVoting\Voting\xlvoVoting;
+use xlvoResultGUI;
 
 /**
  * Class xlvoVote
@@ -162,7 +164,7 @@ class xlvoVote extends CachingActiveRecord {
 	 * @param          $voting_id
 	 * @param          $option_id
 	 *
-	 * @return \ActiveRecord|xlvoVote
+	 * @return ActiveRecord|xlvoVote
 	 */
 	protected static function getUserInstance(xlvoUser $xlvoUser, $voting_id, $option_id) {
 		$where = array( 'voting_id' => $voting_id );
@@ -215,7 +217,7 @@ class xlvoVote extends CachingActiveRecord {
 		$historyObject->setVotingId($voting_id);
 		$historyObject->setRoundId($round_id);
 		$historyObject->setTimestamp(time());
-		$gui = \xlvoResultGUI::getInstance(xlvoVoting::find($voting_id));
+		$gui = xlvoResultGUI::getInstance(xlvoVoting::find($voting_id));
 
 		$votes = xlvoVote::where(array(
 			'voting_id' => $voting_id,

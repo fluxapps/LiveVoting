@@ -1,6 +1,7 @@
 <?php
 
 use LiveVoting\Option\xlvoOption;
+use LiveVoting\Vote\xlvoVote;
 
 /**
  * Class xlvoFreeOrderResultGUI
@@ -10,7 +11,7 @@ use LiveVoting\Option\xlvoOption;
 class xlvoFreeOrderResultGUI extends xlvoResultGUI {
 
 	/**
-	 * @param \LiveVoting\Vote\xlvoVote[] $votes
+	 * @param xlvoVote[] $votes
 	 *
 	 * @return string
 	 */
@@ -39,7 +40,7 @@ class xlvoFreeOrderResultGUI extends xlvoResultGUI {
 
 
 	/**
-	 * @param \LiveVoting\Vote\xlvoVote[] $votes
+	 * @param xlvoVote[] $votes
 	 *
 	 * @return string
 	 */

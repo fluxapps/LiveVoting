@@ -104,7 +104,7 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 			return array();
 		}
 		$states = $this->getButtonsStates();
-		$b = \ilLinkButton::getInstance();
+		$b = ilLinkButton::getInstance();
 		$b->setId(self::BUTTON_TOTTLE_DISPLAY_CORRECT_ORDER);
 		if ($states[self::BUTTON_TOTTLE_DISPLAY_CORRECT_ORDER]) {
 			$b->setCaption(xlvoGlyphGUI::get('eye-close'), false);
@@ -112,7 +112,7 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 			$b->setCaption(xlvoGlyphGUI::get('eye-open'), false);
 		}
 
-		$t = \ilLinkButton::getInstance();
+		$t = ilLinkButton::getInstance();
 		$t->setId(self::BUTTON_TOGGLE_PERCENTAGE);
 		if ($states[self::BUTTON_TOGGLE_PERCENTAGE]) {
 			$t->setCaption('%', false);

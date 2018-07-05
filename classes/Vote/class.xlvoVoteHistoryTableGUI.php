@@ -2,25 +2,29 @@
 
 namespace LiveVoting\User;
 
+use ilCtrl;
+use ilDateTime;
 use ilLiveVotingPlugin;
+use ilTable2GUI;
+use ilTabsGUI;
 
 /**
  * Class xlvoVoteHistoryTableGUI
  *
  * @author Oskar Truffer <ot@studer-raimann.ch>
  */
-class xlvoVoteHistoryTableGUI extends \ilTable2GUI {
+class xlvoVoteHistoryTableGUI extends ilTable2GUI {
 
 	/**
 	 * @var ilLiveVotingPlugin
 	 */
 	protected $pl;
 	/**
-	 * @var \ilCtrl
+	 * @var ilCtrl
 	 */
 	protected $ctrl;
 	/**
-	 * @var \ilTabsGUI
+	 * @var ilTabsGUI
 	 */
 	protected $tabs;
 
@@ -60,7 +64,7 @@ class xlvoVoteHistoryTableGUI extends \ilTable2GUI {
 
 	public function fillRow($set) {
 		$this->tpl->setVariable("ANSWER", $set['answer']);
-		$date = new \ilDateTime($set['timestamp'], IL_CAL_UNIX);
+		$date = new ilDateTime($set['timestamp'], IL_CAL_UNIX);
 		$this->tpl->setVariable("TIMESTAMP", $date->get(IL_CAL_DATETIME));
 	}
 }

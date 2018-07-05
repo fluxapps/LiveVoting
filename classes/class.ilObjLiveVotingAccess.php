@@ -38,7 +38,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
  *
  * @version $Id$
  */
-class ilObjLiveVotingAccess extends \ilObjectPluginAccess {
+class ilObjLiveVotingAccess extends ilObjectPluginAccess {
 
 	/**
 	 * Checks wether a user may invoke a command or not
@@ -104,7 +104,7 @@ class ilObjLiveVotingAccess extends \ilObjectPluginAccess {
 	 * @return bool
 	 */
 	public static function hasReadAccessForObject($obj_id, $user_id) {
-		$refs = \ilObject2::_getAllReferences($obj_id);
+		$refs = ilObject2::_getAllReferences($obj_id);
 		foreach ($refs as $ref_id) {
 			if (self::hasReadAccess($ref_id, $user_id)) {
 				return true;
@@ -123,7 +123,7 @@ class ilObjLiveVotingAccess extends \ilObjectPluginAccess {
 	 * @return bool
 	 */
 	public static function hasWriteAccessForObject($obj_id, $user_id) {
-		$refs = \ilObject2::_getAllReferences($obj_id);
+		$refs = ilObject2::_getAllReferences($obj_id);
 
 		foreach ($refs as $ref_id) {
 			if (self::hasWriteAccess($ref_id, $user_id)) {
@@ -193,9 +193,9 @@ class ilObjLiveVotingAccess extends \ilObjectPluginAccess {
 	 */
 	public static function checkOnline($a_id = NULL) {
 		/**
-		 * @var $config xlvoVotingConfig
+		 * @var xlvoVotingConfig $config
 		 */
-		$obj_id = $a_id ? $a_id : \ilObject2::_lookupObjId($_GET['ref_id']);
+		$obj_id = $a_id ? $a_id : ilObject2::_lookupObjId($_GET['ref_id']);
 		$config = xlvoVotingConfig::find($obj_id);
 		if ($config instanceof xlvoVotingConfig) {
 			return $config->isObjOnline();

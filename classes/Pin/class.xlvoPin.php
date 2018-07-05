@@ -37,7 +37,7 @@ class xlvoPin {
 	 */
 	protected $pin_length = 4;
 	/**
-	 * @var $cache xlvoCacheService
+	 * @var xlvoCacheService $cache
 	 */
 	private $cache;
 	const CACHE_TTL_SECONDS = 1800;
@@ -50,7 +50,7 @@ class xlvoPin {
 	 */
 	public static function lookupPin($obj_id) {
 		/**
-		 * @var $xlvoVotingConfig xlvoVotingConfig
+		 * @var xlvoVotingConfig $xlvoVotingConfig
 		 */
 		$xlvoVotingConfig = xlvoVotingConfig::findOrGetInstance($obj_id);
 
@@ -240,7 +240,7 @@ class xlvoPin {
 	private function getLastAccessWithCache() {
 		$key = xlvoVotingConfig::TABLE_NAME . '_pin_' . $this->getPin();
 		/**
-		 * @var $xlvoVotingConfig stdClass
+		 * @var stdClass $xlvoVotingConfig
 		 */
 		$xlvoVotingConfig = $this->cache->get($key);
 

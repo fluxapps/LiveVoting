@@ -24,7 +24,7 @@ class xlvoBarPercentageGUI implements xlvoGeneralBarGUI {
 	 */
 	protected $option_letter = '';
 	/**
-	 * @var \ilTemplate
+	 * @var ilTemplate
 	 */
 	protected $tpl;
 	/**
@@ -132,7 +132,7 @@ class xlvoBarPercentageGUI implements xlvoGeneralBarGUI {
 
 
 	/**
-	 * @return \ilTemplate
+	 * @return ilTemplate
 	 */
 	public function getTpl() {
 		return $this->tpl;
@@ -140,7 +140,7 @@ class xlvoBarPercentageGUI implements xlvoGeneralBarGUI {
 
 
 	/**
-	 * @param \ilTemplate $tpl
+	 * @param ilTemplate $tpl
 	 */
 	public function setTpl($tpl) {
 		$this->tpl = $tpl;

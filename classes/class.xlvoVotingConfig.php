@@ -179,10 +179,10 @@ class xlvoVotingConfig extends CachingActiveRecord {
 			return false;
 		}
 		$available = true;
-		$ref_ids = \ilObject2::_getAllReferences($this->getObjId());
+		$ref_ids = ilObject2::_getAllReferences($this->getObjId());
 		foreach ($ref_ids as $ref_id) {
-			$item_data = \ilObjectActivation::getItem($ref_id);
-			if ($item_data['timing_type'] == \ilObjectActivation::TIMINGS_ACTIVATION) {
+			$item_data = ilObjectActivation::getItem($ref_id);
+			if ($item_data['timing_type'] == ilObjectActivation::TIMINGS_ACTIVATION) {
 				if ($item_data['timing_start'] > time() || $item_data['timing_end'] < time()) {
 					$available = false;
 				}
@@ -197,7 +197,7 @@ class xlvoVotingConfig extends CachingActiveRecord {
 	 * @return string
 	 */
 	public function getShortLinkURL() {
-		$pl = \ilLiveVotingPlugin::getInstance();
+		$pl = ilLiveVotingPlugin::getInstance();
 		$url = NULL;
 		$shortLinkEnabled = boolval(xlvoConf::getConfig(xlvoConf::F_ALLOW_SHORTLINK_VOTE));
 
@@ -221,7 +221,7 @@ class xlvoVotingConfig extends CachingActiveRecord {
 	 * @return string
 	 */
 	public function getPresenterLink($voting_id = NULL, $power_point = false) {
-		$pl = \ilLiveVotingPlugin::getInstance();
+		$pl = ilLiveVotingPlugin::getInstance();
 		$url = NULL;
 		$shortLinkEnabled = boolval(xlvoConf::getConfig(xlvoConf::F_ALLOW_SHORTLINK_PRESENTER));
 

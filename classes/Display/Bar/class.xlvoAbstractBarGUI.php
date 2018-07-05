@@ -1,8 +1,6 @@
 <?php
 
 use LiveVoting\Display\Bar\xlvoGeneralBarGUI;
-use LiveVoting\Vote\xlvoVote;
-use LiveVoting\Voting\xlvoVoting;
 
 /**
  * Class xlvoAbstractBarGUI
@@ -12,7 +10,7 @@ use LiveVoting\Voting\xlvoVoting;
 abstract class xlvoAbstractBarGUI implements xlvoGeneralBarGUI {
 
 	/**
-	 * @var \ilTemplate
+	 * @var ilTemplate
 	 */
 	protected $tpl;
 	/**

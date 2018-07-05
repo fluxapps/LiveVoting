@@ -5,7 +5,7 @@
  *
  * @author Michael Herren <mh@studer-raimann.ch>
  */
-class xlvoMultiLineInputGUI extends \ilFormPropertyGUI {
+class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 
 	const HOOK_IS_LINE_REMOVABLE = "hook_is_line_removable";
 	const HOOK_IS_INPUT_DISABLED = "hook_is_disabled";
@@ -138,7 +138,7 @@ class xlvoMultiLineInputGUI extends \ilFormPropertyGUI {
 	 * @param       $input
 	 * @param array $options
 	 */
-	public function addInput(\ilFormPropertyGUI $input, $options = array()) {
+	public function addInput(ilFormPropertyGUI $input, $options = array()) {
 		$this->inputs[$input->getPostVar()] = $input;
 		$this->input_options[$input->getPostVar()] = $options;
 		$this->counter ++;
@@ -204,8 +204,8 @@ class xlvoMultiLineInputGUI extends \ilFormPropertyGUI {
 		foreach ($this->inputs as $key => $item) {
 			if (method_exists($item, 'setValue')) {
 				$item->setValue($a_value[$key]);
-			} elseif ($item instanceof \ilDateTimeInputGUI) {
-				$item->setDate(new \ilDate($a_value[$key]['date'], IL_CAL_DATE));
+			} elseif ($item instanceof ilDateTimeInputGUI) {
+				$item->setDate(new ilDate($a_value[$key]['date'], IL_CAL_DATE));
 			}
 		}
 		$this->value = $a_value;
@@ -254,7 +254,7 @@ class xlvoMultiLineInputGUI extends \ilFormPropertyGUI {
 		foreach ($_POST[$this->getPostVar()] as $item_num => $item) {
 			foreach ($this->inputs as $input_key => $input) {
 				if (isset($item[$input_key])) {
-					$out_array[$item_num][$input_key] = (is_string($item[$input_key])) ? \ilUtil::stripSlashes($item[$input_key]) : $item[$input_key];
+					$out_array[$item_num][$input_key] = (is_string($item[$input_key])) ? ilUtil::stripSlashes($item[$input_key]) : $item[$input_key];
 				}
 			}
 		}
@@ -302,11 +302,11 @@ class xlvoMultiLineInputGUI extends \ilFormPropertyGUI {
 
 	/**
 	 * @param                    $iterator_id
-	 * @param \ilFormPropertyGUI $input
+	 * @param ilFormPropertyGUI  $input
 	 *
 	 * @return string
 	 */
-	protected function createInputPostVar($iterator_id, \ilFormPropertyGUI $input) {
+	protected function createInputPostVar($iterator_id, ilFormPropertyGUI $input) {
 		if ($this->getMulti()) {
 			return $this->getPostVar() . '[' . $iterator_id . '][' . $input->getPostVar() . ']';
 		} else {
@@ -321,7 +321,7 @@ class xlvoMultiLineInputGUI extends \ilFormPropertyGUI {
 	 * @param int $iterator_id
 	 *
 	 * @return string
-	 * @throws \ilException
+	 * @throws ilException
 	 */
 	public function render($iterator_id = 0, $clean_render = false) {
 		$first_label = true;
@@ -341,14 +341,14 @@ class xlvoMultiLineInputGUI extends \ilFormPropertyGUI {
 			$is_ta = false;
 			if (!method_exists($input, 'render')) {
 				switch (true) {
-					case ($input instanceof \ilHiddenInputGUI):
+					case ($input instanceof ilHiddenInputGUI):
 						$is_hidden = true;
 						break;
-					case ($input instanceof \ilTextAreaInputGUI):
+					case ($input instanceof ilTextAreaInputGUI):
 						$is_ta = true;
 						break;
 					default:
-						throw new \ilException("Method " . get_class($input)
+						throw new ilException("Method " . get_class($input)
 							. "::render() does not exists! You cannot use this input-type in ilMultiLineInputGUI");
 				}
 			}
@@ -376,7 +376,7 @@ class xlvoMultiLineInputGUI extends \ilFormPropertyGUI {
 				case $is_hidden:
 					$tpl->setCurrentBlock('hidden');
 					$tpl->setVariable('NAME', $post_var);
-					$tpl->setVariable('VALUE', \ilUtil::prepareFormOutput($input->getValue()));
+					$tpl->setVariable('VALUE', ilUtil::prepareFormOutput($input->getValue()));
 					break;
 				case $is_ta:
 					if ($this->isShowLabel() || ($this->isShowLabelOnce() && $first_label)) {

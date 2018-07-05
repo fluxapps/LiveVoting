@@ -14,11 +14,11 @@ class xlvoResultsTableGUI extends ilTable2GUI {
 	 */
 	protected $pl;
 	/**
-	 * @var \ilCtrl
+	 * @var ilCtrl
 	 */
 	protected $ctrl;
 	/**
-	 * @var \ilTabsGUI
+	 * @var ilTabsGUI
 	 */
 	protected $tabs;
 	/**

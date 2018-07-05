@@ -1,6 +1,6 @@
 <?php
 
-use \LiveVoting\Display\Bar\xlvoGeneralBarGUI;
+use LiveVoting\Display\Bar\xlvoGeneralBarGUI;
 
 /**
  * Class xlvoBarGroupingCollectionGUI
@@ -14,7 +14,7 @@ use \LiveVoting\Display\Bar\xlvoGeneralBarGUI;
  * @version 1.0.0
  * @since   3.5.0
  */
-final class xlvoBarGroupingCollectionGUI extends \xlvoBarCollectionGUI {
+final class xlvoBarGroupingCollectionGUI extends xlvoBarCollectionGUI {
 
 	const TEMPLATE_BLOCK_NAME = 'bar';
 	/**

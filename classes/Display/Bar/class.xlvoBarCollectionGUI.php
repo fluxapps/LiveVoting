@@ -12,7 +12,7 @@ use LiveVoting\Display\Bar\xlvoGeneralBarGUI;
 class xlvoBarCollectionGUI {
 
 	/**
-	 * @var \ilTemplate
+	 * @var ilTemplate
 	 */
 	protected $tpl;
 	/**

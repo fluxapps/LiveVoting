@@ -2,6 +2,7 @@
 
 namespace LiveVoting\Voter;
 
+use DateTime;
 use LiveVoting\Cache\CachingActiveRecord;
 use LiveVoting\Conf\xlvoConf;
 use LiveVoting\User\xlvoUser;
@@ -52,7 +53,7 @@ class xlvoVoter extends CachingActiveRecord {
 			$obj->setPlayerId($player_id);
 			$obj->create();
 		}
-		$obj->setLastAccess(new \DateTime());
+		$obj->setLastAccess(new DateTime());
 		$obj->update();
 	}
 
@@ -64,7 +65,7 @@ class xlvoVoter extends CachingActiveRecord {
 	 */
 	public static function countVoters($player_id) {
 		/**
-		 * @var $delay float
+		 * @var float $delay
 		 */
 		$delay = xlvoConf::getConfig(xlvoConf::F_REQUEST_FREQUENCY);
 
@@ -88,11 +89,11 @@ class xlvoVoter extends CachingActiveRecord {
 	 */
 	public function sleep($field_name) {
 		if ($field_name == 'last_access') {
-			if (!$this->last_access instanceof \DateTime) {
-				$this->last_access = new \DateTime();
+			if (!$this->last_access instanceof DateTime) {
+				$this->last_access = new DateTime();
 			}
 
-			return $this->last_access->format(\DateTime::ATOM);
+			return $this->last_access->format(DateTime::ATOM);
 		}
 
 		return NULL;
@@ -107,7 +108,7 @@ class xlvoVoter extends CachingActiveRecord {
 	 */
 	public function wakeUp($field_name, $field_value) {
 		if ($field_name == 'last_access') {
-			return new \DateTime($field_value);
+			return new DateTime($field_value);
 		}
 
 		return NULL;
@@ -142,7 +143,7 @@ class xlvoVoter extends CachingActiveRecord {
 	 */
 	protected $user_identifier;
 	/**
-	 * @var \DateTime
+	 * @var DateTime
 	 *
 	 * @con_has_field  true
 	 * @con_fieldtype  timestamp
@@ -199,7 +200,7 @@ class xlvoVoter extends CachingActiveRecord {
 
 
 	/**
-	 * @return \DateTime
+	 * @return DateTime
 	 */
 	public function getLastAccess() {
 		return $this->last_access;
@@ -207,7 +208,7 @@ class xlvoVoter extends CachingActiveRecord {
 
 
 	/**
-	 * @param \DateTime $last_access
+	 * @param DateTime $last_access
 	 */
 	public function setLastAccess($last_access) {
 		$this->last_access = $last_access;

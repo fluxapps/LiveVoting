@@ -41,7 +41,7 @@ abstract class xlvoQuestionTypesGUI extends xlvoGUI {
 	 * @param null               $override_type
 	 *
 	 * @return xlvoQuestionTypesGUI
-	 * @throws \ilException                 Throws an \ilException if no gui class was found.
+	 * @throws ilException                 Throws an ilException if no gui class was found.
 	 */
 	public static function getInstance(xlvoVotingManager2 $manager, $override_type = NULL) {
 		$class = xlvoQuestionTypes::getClassName($override_type ? $override_type : $manager->getVoting()->getVotingType());
@@ -64,7 +64,7 @@ abstract class xlvoQuestionTypesGUI extends xlvoGUI {
 				$gui = new xlvoNumberRangeGUI();
 				break;
 			default:
-				throw new \ilException("Could not find the gui for the current voting.");
+				throw new ilException("Could not find the gui for the current voting.");
 		}
 
 		$gui->setManager($manager);
@@ -171,7 +171,7 @@ abstract class xlvoQuestionTypesGUI extends xlvoGUI {
 
 
 	/**
-	 * @return \ilButtonBase[]
+	 * @return ilButtonBase[]
 	 */
 	public function getButtonInstances() {
 		return array();

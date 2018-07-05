@@ -2,11 +2,11 @@
 
 namespace LiveVoting\Results;
 
-use LiveVoting\Voting\xlvoVoting;
-use LiveVoting\User\xlvoParticipants;
+use Closure;
 use LiveVoting\User\xlvoParticipant;
-use LiveVoting\User\xlvoUser;
+use LiveVoting\User\xlvoParticipants;
 use LiveVoting\Vote\xlvoVote;
+use LiveVoting\Voting\xlvoVoting;
 use xlvoResultGUI;
 
 /**
@@ -62,9 +62,9 @@ class xlvoResults {
 			$votingRecords->where(array( "id" => $filter['voting_title'] ));
 		}
 		/**
-		 * @var $votings      xlvoVoting[]
-		 * @var $voting       xlvoVoting
-		 * @var $participants xlvoParticipant[]
+		 * @var xlvoVoting[]      $votings
+		 * @var xlvoVoting        $voting
+		 * @var xlvoParticipant[] $participants
 		 */
 		$votings = $votingRecords->get();
 		$round_id = $this->getRoundId();
@@ -102,7 +102,7 @@ class xlvoResults {
 
 
 	/**
-	 * @return \Closure
+	 * @return Closure
 	 */
 	protected function getConcatVotesCallable() {
 		return function (xlvoVoting $voting, $votes) {
@@ -114,7 +114,7 @@ class xlvoResults {
 
 
 	/**
-	 * @return \Closure
+	 * @return Closure
 	 */
 	protected function getFormatParticipantCallable() {
 		return function (xlvoParticipant $participant) {

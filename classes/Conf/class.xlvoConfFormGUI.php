@@ -9,10 +9,10 @@ use LiveVoting\Conf\xlvoConf;
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version 1.0.0
  */
-class xlvoConfFormGUI extends \ilPropertyFormGUI {
+class xlvoConfFormGUI extends ilPropertyFormGUI {
 
 	/**
-	 * @var  xlvoConf
+	 * @var xlvoConf
 	 */
 	protected $object;
 	/**
@@ -20,7 +20,7 @@ class xlvoConfFormGUI extends \ilPropertyFormGUI {
 	 */
 	protected $parent_gui;
 	/**
-	 * @var  \ilCtrl
+	 * @var ilCtrl
 	 */
 	protected $ctrl;
 	/**
@@ -35,6 +35,7 @@ class xlvoConfFormGUI extends \ilPropertyFormGUI {
 	 * @param xlvoConfGUI $parent_gui
 	 */
 	public function __construct(xlvoConfGUI $parent_gui) {
+		parent::__construct();
 		global $DIC;
 		$this->parent_gui = $parent_gui;
 		$this->ctrl = $DIC->ctrl();
@@ -49,38 +50,38 @@ class xlvoConfFormGUI extends \ilPropertyFormGUI {
 		$this->setFormAction($this->ctrl->getFormAction($this->parent_gui));
 		$this->initButtons();
 
-		$use_shortlink_vote = new \ilCheckboxInputGUI($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_VOTE), xlvoConf::F_ALLOW_SHORTLINK_VOTE);
+		$use_shortlink_vote = new ilCheckboxInputGUI($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_VOTE), xlvoConf::F_ALLOW_SHORTLINK_VOTE);
 		$use_shortlink_vote->setInfo($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_VOTE . '_info') . '<br><br><span class="label label-default">'
 			. xlvoConf::REWRITE_RULE_VOTE . '</span><br><br>');
 
-		$shortlink_vote = new \ilTextInputGUI($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_VOTE_LINK), xlvoConf::F_ALLOW_SHORTLINK_VOTE_LINK);
+		$shortlink_vote = new ilTextInputGUI($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_VOTE_LINK), xlvoConf::F_ALLOW_SHORTLINK_VOTE_LINK);
 		$shortlink_vote->setInfo($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_VOTE_LINK . '_info'));
 		$use_shortlink_vote->addSubItem($shortlink_vote);
 
-		$base_url_vote = new \ilTextInputGUI($this->parent_gui->txt(xlvoConf::F_BASE_URL_VOTE), xlvoConf::F_BASE_URL_VOTE);
+		$base_url_vote = new ilTextInputGUI($this->parent_gui->txt(xlvoConf::F_BASE_URL_VOTE), xlvoConf::F_BASE_URL_VOTE);
 		$base_url_vote->setInfo($this->parent_gui->txt(xlvoConf::F_BASE_URL_VOTE . '_info'));
 		$use_shortlink_vote->addSubItem($base_url_vote);
 
-		$use_shortlink_presenter = new \ilCheckboxInputGUI($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_PRESENTER), xlvoConf::F_ALLOW_SHORTLINK_PRESENTER);
+		$use_shortlink_presenter = new ilCheckboxInputGUI($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_PRESENTER), xlvoConf::F_ALLOW_SHORTLINK_PRESENTER);
 		$use_shortlink_presenter->setInfo($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_PRESENTER . '_info')
 			. '<br><br><span class="label label-default">' . xlvoConf::REWRITE_RULE_PRESENTER . '</span><br><br>');
 
-		$shortlink_presenter = new \ilTextInputGUI($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_PRESENTER_LINK), xlvoConf::F_ALLOW_SHORTLINK_PRESENTER_LINK);
+		$shortlink_presenter = new ilTextInputGUI($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_PRESENTER_LINK), xlvoConf::F_ALLOW_SHORTLINK_PRESENTER_LINK);
 		$shortlink_presenter->setInfo($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_PRESENTER_LINK . '_info'));
 		$use_shortlink_presenter->addSubItem($shortlink_presenter);
 
-		$request_frequency = new \ilNumberInputGUI($this->parent_gui->txt(xlvoConf::F_REQUEST_FREQUENCY), xlvoConf::F_REQUEST_FREQUENCY);
+		$request_frequency = new ilNumberInputGUI($this->parent_gui->txt(xlvoConf::F_REQUEST_FREQUENCY), xlvoConf::F_REQUEST_FREQUENCY);
 		$request_frequency->setInfo($this->parent_gui->txt(xlvoConf::F_REQUEST_FREQUENCY . '_info'));
 		$request_frequency->allowDecimals(true);
 		$request_frequency->setMinValue(xlvoConf::MIN_CLIENT_UPDATE_FREQUENCY, false);
 		$request_frequency->setMaxValue(xlvoConf::MAX_CLIENT_UPDATE_FREQUENCY, false);
 
 		//global cache setting
-		$global_cache_enabled = new \ilCheckboxInputGUI($this->parent_gui->txt(xlvoConf::F_USE_GLOBAL_CACHE), xlvoConf::F_USE_GLOBAL_CACHE);
+		$global_cache_enabled = new ilCheckboxInputGUI($this->parent_gui->txt(xlvoConf::F_USE_GLOBAL_CACHE), xlvoConf::F_USE_GLOBAL_CACHE);
 		$global_cache_enabled->setInfo($this->parent_gui->txt(xlvoConf::F_USE_GLOBAL_CACHE . '_info'));
 
 		// Results API
-		$result_api = new \ilCheckboxInputGUI($this->parent_gui->txt(xlvoConf::F_RESULT_API), xlvoConf::F_RESULT_API);
+		$result_api = new ilCheckboxInputGUI($this->parent_gui->txt(xlvoConf::F_RESULT_API), xlvoConf::F_RESULT_API);
 		$result_api->setInfo($this->parent_gui->txt(xlvoConf::F_RESULT_API . '_info'));
 
 		$api_type = new ilSelectInputGUI($this->parent_gui->txt(xlvoConf::F_API_TYPE), xlvoConf::F_API_TYPE);
@@ -185,7 +186,7 @@ class xlvoConfFormGUI extends \ilPropertyFormGUI {
 	 * @return bool
 	 */
 	public static function checkForSubItem($item) {
-		return !$item instanceof \ilFormSectionHeaderGUI AND !$item instanceof \ilMultiSelectInputGUI;
+		return !$item instanceof ilFormSectionHeaderGUI AND !$item instanceof ilMultiSelectInputGUI;
 	}
 
 
@@ -195,6 +196,6 @@ class xlvoConfFormGUI extends \ilPropertyFormGUI {
 	 * @return bool
 	 */
 	public static function checkItem($item) {
-		return !$item instanceof \ilFormSectionHeaderGUI && !$item instanceof ilNonEditableValueGUI;
+		return !$item instanceof ilFormSectionHeaderGUI && !$item instanceof ilNonEditableValueGUI;
 	}
 }

@@ -36,7 +36,7 @@ class xlvoFreeOrderGUI extends xlvoCorrectOrderGUI {
 			return array();
 		}
 		$states = $this->getButtonsStates();
-		$b = \ilLinkButton::getInstance();
+		$b = ilLinkButton::getInstance();
 		$b->setId(self::BUTTON_TOTTLE_DISPLAY_CORRECT_ORDER);
 		if ($states[self::BUTTON_TOTTLE_DISPLAY_CORRECT_ORDER]) {
 			$b->setCaption(xlvoGlyphGUI::get('align-left'), false);

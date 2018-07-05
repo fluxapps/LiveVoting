@@ -2,7 +2,10 @@
 
 namespace LiveVoting\Option;
 
+use ilRTE;
+use ilUtil;
 use LiveVoting\Cache\CachingActiveRecord;
+use stdClass;
 
 /**
  * Class xlvoOption
@@ -57,7 +60,7 @@ class xlvoOption extends CachingActiveRecord {
 	 * @return string
 	 */
 	public function getTextForPresentation() {
-		return \ilUtil::prepareTextareaOutput($this->getTextForEditor(), true);
+		return ilUtil::prepareTextareaOutput($this->getTextForEditor(), true);
 	}
 
 
@@ -65,7 +68,7 @@ class xlvoOption extends CachingActiveRecord {
 	 * @return string
 	 */
 	public function getTextForEditor() {
-		return \ilRTE::_replaceMediaObjectImageSrc($this->text, 1);
+		return ilRTE::_replaceMediaObjectImageSrc($this->text, 1);
 	}
 
 
@@ -243,10 +246,10 @@ class xlvoOption extends CachingActiveRecord {
 
 
 	/**
-	 * @return \stdClass
+	 * @return stdClass
 	 */
 	public function _toJson() {
-		$class = new \stdClass();
+		$class = new stdClass();
 		$class->Id = (int)$this->getId();
 		$class->Text = (string)$this->getText();
 		$class->Position = (int)$this->getPosition();
