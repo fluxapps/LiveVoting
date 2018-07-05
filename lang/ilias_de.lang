@@ -278,3 +278,5 @@ config_allow_shortlink_link_presenter#:#Kurz-URL
 config_allow_shortlink_link_presenter_info#:#Ganze Kurz-URL Ihrer Installation, bspw. https://ilias.domain.com/presenter
 rbac_create_xlvo#:#LiveVoting anlegen
 player_pin#:#PIN: %s
+qtype_6_option_range_step#:#Schrittweite
+qtype_6_option_range_step_info#:#Anzahl Schrittweite des Zahlenbereichs.

@@ -23,16 +23,22 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 	 * @return string
 	 */
 	public function getMobileHTML() {
-		return $this->getFormContent();
+		return $this->getFormContent() . xlvoJs::getInstance()->name(xlvoQuestionTypes::CORRECT_ORDER)->category('QuestionTypes')->getRunCode();
 	}
 
 
-	public function initJS() {
+	/**
+	 * @param bool $current
+	 */
+	public function initJS($current = false) {
 		xlvoJs::getInstance()->api($this)->name(xlvoQuestionTypes::CORRECT_ORDER)->category('QuestionTypes')
 			->addLibToHeader('jquery.ui.touch-punch.min.js')->init();
 	}
 
 
+	/**
+	 *
+	 */
 	protected function submit() {
 		$this->manager->inputOne(array(
 			"input" => json_encode($_POST['id']),
@@ -41,6 +47,9 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 	}
 
 
+	/**
+	 *
+	 */
 	protected function clear() {
 		$this->manager->unvoteAll();
 		$this->afterSubmit();

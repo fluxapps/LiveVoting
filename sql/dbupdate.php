@@ -533,3 +533,19 @@ foreach (xlvoVotingConfig::get() as $xlvoVotingConfig) {
 	}
 }
 ?>
+<#38>
+<?php
+require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
+
+use LiveVoting\Voting\xlvoVoting;
+
+xlvoVoting::updateDB();
+
+foreach (xlvoVoting::where([ "step_range" => NULL ])->get() as $voting) {
+	/**
+	 * @var xlvoVoting $voting
+	 */
+	$voting->setStepRange(intval(floor(abs($voting->getEndRange() - $voting->getStartRange())))); // Calculate 1 step like before
+	$voting->store();
+}
+?>

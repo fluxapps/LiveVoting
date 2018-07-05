@@ -54,7 +54,7 @@ use LiveVoting\xlvoSessionHandler;
  *
  * @author      Nicolas Schaefli <ns@studer-raimann.ch>
  *
- * @description Initializes a minimal ILIAS environment.
+ * Initializes a minimal ILIAS environment.
  *
  * TODO Refactoring Realy need so mutch ILIAS core code?
  */

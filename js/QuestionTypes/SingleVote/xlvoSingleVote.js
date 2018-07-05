@@ -1,8 +1,8 @@
 /**
- * Class xlvoFreeOrder
+ * Class xlvoSingleVote
  * @type {{}}
  */
-var xlvoFreeOrder = {
+var xlvoSingleVote = {
 	init: function (json) {
 		var config = json;
 		var replacer = new RegExp('amp;', 'g');
@@ -19,5 +19,6 @@ var xlvoFreeOrder = {
 	 * @param button_data
 	 */
 	handleButtonPress: function (button_id, button_data) {
+
 	}
 };

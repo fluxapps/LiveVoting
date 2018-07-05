@@ -276,3 +276,5 @@ config_allow_shortlink_link_presenter#:#MISSING
 config_allow_shortlink_link_presenter_info#:#MISSING
 rbac_create_xlvo#:#MISSING
 player_pin#:#MISSING
+qtype_6_option_range_step#:#MISSING
+qtype_6_option_range_step_info#:#MISSING

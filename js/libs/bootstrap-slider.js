@@ -1,5 +1,5 @@
 /*! =======================================================
-                      VERSION  9.7.3              
+                      VERSION  10.0.2              
 ========================================================= */
 "use strict";
 
@@ -296,6 +296,9 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 					var min = this.options.min === 0 ? 0 : Math.log(this.options.min);
 					var max = Math.log(this.options.max);
 					var value = Math.exp(min + (max - min) * percentage / 100);
+					if (Math.round(value) === this.options.max) {
+						return this.options.max;
+					}
 					value = this.options.min + Math.round((value - this.options.min) / this.options.step) * this.options.step;
 					/* Rounding to the nearest step could exceed the min or
       * max, so clip to those values. */
@@ -460,12 +463,12 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 
 				/* Create highlight range elements */
 				this.rangeHighlightElements = [];
-				if (Array.isArray(this.options.rangeHighlights) && this.options.rangeHighlights.length > 0) {
-					for (var j = 0; j < this.options.rangeHighlights.length; j++) {
-
+				var rangeHighlightsOpts = this.options.rangeHighlights;
+				if (Array.isArray(rangeHighlightsOpts) && rangeHighlightsOpts.length > 0) {
+					for (var j = 0; j < rangeHighlightsOpts.length; j++) {
 						var rangeHighlightElement = document.createElement("div");
-						rangeHighlightElement.className = "slider-rangeHighlight slider-selection";
-
+						var customClassString = rangeHighlightsOpts[j].class || "";
+						rangeHighlightElement.className = "slider-rangeHighlight slider-selection " + customClassString;
 						this.rangeHighlightElements.push(rangeHighlightElement);
 						sliderTrack.appendChild(rangeHighlightElement);
 					}
@@ -634,9 +637,6 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 					this._removeProperty(tooltip, 'left');
 					this._removeProperty(tooltip, 'right');
 					this._removeProperty(tooltip, 'top');
-					this._removeProperty(tooltip, 'margin-left');
-					this._removeProperty(tooltip, 'margin-right');
-					this._removeProperty(tooltip, 'margin-top');
 
 					this._removeClass(tooltip, 'right');
 					this._removeClass(tooltip, 'left');
@@ -658,7 +658,7 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 				} else {
 					this.stylePos = 'left';
 				}
-				this.mousePos = 'pageX';
+				this.mousePos = 'clientX';
 				this.sizePos = 'offsetWidth';
 			}
 			// specific rtl class
@@ -1113,11 +1113,6 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 				this._setText(this.tooltipInner, formattedTooltipVal);
 
 				this.tooltip.style[this.stylePos] = positionPercentages[0] + "%";
-				if (this.options.orientation === 'vertical') {
-					this._css(this.tooltip, "margin-" + this.stylePos, -this.tooltip.offsetHeight / 2 + "px");
-				} else {
-					this._css(this.tooltip, "margin-" + this.stylePos, -this.tooltip.offsetWidth / 2 + "px");
-				}
 
 				function getPositionPercentages(state, reversed) {
 					if (reversed) {
@@ -1287,12 +1282,6 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 					this._setText(this.tooltipInner, formattedTooltipVal);
 					this.tooltip.style[this.stylePos] = (positionPercentages[1] + positionPercentages[0]) / 2 + "%";
 
-					if (this.options.orientation === 'vertical') {
-						this._css(this.tooltip, "margin-" + this.stylePos, -this.tooltip.offsetHeight / 2 + "px");
-					} else {
-						this._css(this.tooltip, "margin-" + this.stylePos, -this.tooltip.offsetWidth / 2 + "px");
-					}
-
 					var innerTooltipMinText = this.options.formatter(this._state.value[0]);
 					this._setText(this.tooltipInner_min, innerTooltipMinText);
 
@@ -1301,29 +1290,12 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 
 					this.tooltip_min.style[this.stylePos] = positionPercentages[0] + "%";
 
-					if (this.options.orientation === 'vertical') {
-						this._css(this.tooltip_min, "margin-" + this.stylePos, -this.tooltip_min.offsetHeight / 2 + "px");
-					} else {
-						this._css(this.tooltip_min, "margin-" + this.stylePos, -this.tooltip_min.offsetWidth / 2 + "px");
-					}
-
 					this.tooltip_max.style[this.stylePos] = positionPercentages[1] + "%";
-
-					if (this.options.orientation === 'vertical') {
-						this._css(this.tooltip_max, "margin-" + this.stylePos, -this.tooltip_max.offsetHeight / 2 + "px");
-					} else {
-						this._css(this.tooltip_max, "margin-" + this.stylePos, -this.tooltip_max.offsetWidth / 2 + "px");
-					}
 				} else {
 					formattedTooltipVal = this.options.formatter(this._state.value[0]);
 					this._setText(this.tooltipInner, formattedTooltipVal);
 
 					this.tooltip.style[this.stylePos] = positionPercentages[0] + "%";
-					if (this.options.orientation === 'vertical') {
-						this._css(this.tooltip, "margin-" + this.stylePos, -this.tooltip.offsetHeight / 2 + "px");
-					} else {
-						this._css(this.tooltip, "margin-" + this.stylePos, -this.tooltip.offsetWidth / 2 + "px");
-					}
 				}
 
 				if (this.options.orientation === 'vertical') {
@@ -1417,6 +1389,10 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 			_mousedown: function _mousedown(ev) {
 				if (!this._state.enabled) {
 					return false;
+				}
+
+				if (ev.preventDefault) {
+					ev.preventDefault();
 				}
 
 				this._state.offset = this._offset(this.sliderElem);

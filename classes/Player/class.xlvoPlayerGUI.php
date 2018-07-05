@@ -2,6 +2,7 @@
 
 use LiveVoting\Context\cookie\CookieManager;
 use LiveVoting\Context\ILIASVersionEnum;
+use LiveVoting\Exceptions\xlvoVotingManagerException;
 use LiveVoting\Js\xlvoJs;
 use LiveVoting\Js\xlvoJsResponse;
 use LiveVoting\Player\QR\xlvoQR;
@@ -41,6 +42,9 @@ class xlvoPlayerGUI extends xlvoGUI {
 	protected $manager;
 
 
+	/**
+	 *
+	 */
 	public function __construct() {
 		parent::__construct();
 		$this->manager = xlvoVotingManager2::getInstanceFromObjId(ilObject2::_lookupObjId($_GET['ref_id']));
@@ -59,7 +63,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 
 	/**
-	 * @return bool
+	 *
 	 */
 	protected function index() {
 		try {
@@ -111,11 +115,17 @@ class xlvoPlayerGUI extends xlvoGUI {
 	}
 
 
+	/**
+	 *
+	 */
 	protected function getAttendees() {
 		xlvoJsResponse::getInstance(xlvoVoter::countVoters($this->manager->getPlayer()->getId()))->send();
 	}
 
 
+	/**
+	 *
+	 */
 	protected function startPlayerAnUnfreeze() {
 		$this->initJSandCss();
 		$this->initToolbarDuringVoting();
@@ -127,6 +137,9 @@ class xlvoPlayerGUI extends xlvoGUI {
 	}
 
 
+	/**
+	 *
+	 */
 	protected function startPlayer() {
 		if ($_GET[self::IDENTIFIER]) {
 			$this->manager->open($_GET[self::IDENTIFIER]);
@@ -173,6 +186,9 @@ class xlvoPlayerGUI extends xlvoGUI {
 	}
 
 
+	/**
+	 *
+	 */
 	protected function getPlayerData() {
 		$this->manager->attend();
 		$results = array(
@@ -218,24 +234,36 @@ class xlvoPlayerGUI extends xlvoGUI {
 	}
 
 
+	/**
+	 *
+	 */
 	protected function next() {
 		$this->manager->next();
 		$this->ctrl->redirect($this, self::CMD_START_PLAYER);
 	}
 
 
+	/**
+	 *
+	 */
 	protected function previous() {
 		$this->manager->previous();
 		$this->ctrl->redirect($this, self::CMD_START_PLAYER);
 	}
 
 
+	/**
+	 *
+	 */
 	protected function terminate() {
 		$this->manager->terminate();
 		$this->ctrl->redirect($this, self::CMD_STANDARD);
 	}
 
 
+	/**
+	 * @throws ilException
+	 */
 	protected function apiCall() {
 		$return_value = true;
 		switch ($_POST['call']) {
@@ -438,6 +466,10 @@ class xlvoPlayerGUI extends xlvoGUI {
 	}
 
 
+	/**
+	 * @throws ilException
+	 * @throws xlvoVotingManagerException
+	 */
 	protected function initJSandCss() {
 		$subversion = (int)explode('.', ILIAS_VERSION_NUMERIC)[1];
 
@@ -472,12 +504,15 @@ class xlvoPlayerGUI extends xlvoGUI {
 		xlvoJs::getInstance()->ilias($this)->addSettings($settings)->name('Player')->addTranslations(array(
 			'player_voters_online',
 			'voting_confirm_reset',
-		))->init()->call('run');
+		))->init()->setRunCode();
 		$this->tpl->addCss($this->pl->getDirectory() . '/templates/default/Player/player.css');
 		$this->tpl->addCss($this->pl->getDirectory() . '/LiveVoting/templates/default/Display/Bar/bar.css');
 	}
 
 
+	/**
+	 * @throws xlvoVotingManagerException
+	 */
 	protected function handlePreview() {
 		if ($this->manager->getVotingConfig()->isSelfVote()) {
 			$preview = $this->pl->getTemplate('default/Player/tpl.preview.html', true, false);

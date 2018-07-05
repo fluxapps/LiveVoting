@@ -74,6 +74,9 @@ class xlvoJs {
 	}
 
 
+	/**
+	 * @return xlvoJs
+	 */
 	public static function getInstance() {
 		return new self();
 	}
@@ -127,7 +130,7 @@ class xlvoJs {
 
 
 	/**
-	 * @param $name
+	 * @param string $name
 	 *
 	 * @return $this
 	 */
@@ -139,7 +142,7 @@ class xlvoJs {
 
 
 	/**
-	 * @param $category
+	 * @param string $category
 	 *
 	 * @return $this
 	 */
@@ -156,13 +159,16 @@ class xlvoJs {
 	 *
 	 * @return $this
 	 */
-	public function ilias($xlvoGUI, $cmd = '') {
+	public function ilias(xlvoGUI $xlvoGUI, $cmd = '') {
 		$this->settings->addSetting(self::BASE_URL_SETTING, $this->ctrl->getLinkTarget($xlvoGUI, $cmd, '', true));
 
 		return $this;
 	}
 
 
+	/**
+	 *
+	 */
 	protected function resolveLib() {
 		$base_path = self::BASE_PATH;
 		$category = ($this->category ? $this->category . '/' : '') . $this->name . '/';
@@ -195,14 +201,14 @@ class xlvoJs {
 		$this->init = true;
 		$this->resolveLib();
 		$this->addLibToHeader($this->lib, false);
-		$this->addOnLoadCode($this->getInitCode());
+		$this->setInitCode();
 
 		return $this;
 	}
 
 
 	/**
-	 * @param $code
+	 * @param string $code
 	 *
 	 * @return $this
 	 */
@@ -214,7 +220,7 @@ class xlvoJs {
 
 
 	/**
-	 * @param        $method
+	 * @param string $method
 	 * @param string $params
 	 *
 	 * @return $this
@@ -223,23 +229,39 @@ class xlvoJs {
 		if (!$this->init) {
 			return $this;
 		}
-		$this->tpl->addOnLoadCode($this->getCallCode($method, $params));
+		$this->addOnLoadCode($this->getCallCode($method, $params));
 
 		return $this;
 	}
 
 
 	/**
-	 * @return string
+	 * @return $this
 	 */
-	public function getInitCode() {
-		return ilLiveVotingPlugin::PLUGIN_ID . $this->name . '.init(\'' . $this->settings->asJson() . '\');';
+	public function setInitCode() {
+		return $this->call("init", $this->settings->asJson());
 	}
 
 
 	/**
-	 * @param $method
-	 * @param $params
+	 * @return string
+	 */
+	public function getRunCode() {
+		return '<script>' . $this->getCallCode("run") . '</script>';
+	}
+
+
+	/**
+	 * @return $thiss
+	 */
+	public function setRunCode() {
+		return $this->call("run");
+	}
+
+
+	/**
+	 * @param string $method
+	 * @param string $params
 	 *
 	 * @return string
 	 */
@@ -249,8 +271,8 @@ class xlvoJs {
 
 
 	/**
-	 * @param      $name_of_lib
-	 * @param bool $external
+	 * @param string $name_of_lib
+	 * @param bool   $external
 	 *
 	 * @return $this
 	 */

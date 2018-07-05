@@ -125,17 +125,22 @@ abstract class xlvoQuestionTypesGUI extends xlvoGUI {
 
 
 	/**
-	 * @description add JS to the HEAD
+	 * add JS to the HEAD
+	 *
+	 * @param bool $current
 	 */
-	abstract public function initJS();
+	public abstract function initJS($current = false);
 
 
 	/**
-	 * @description Vote
+	 * Vote
 	 */
 	abstract protected function submit();
 
 
+	/**
+	 *
+	 */
 	protected function afterSubmit() {
 		$this->ctrl->redirect(new xlvoVoter2GUI(), xlvoVoter2GUI::CMD_START_VOTER_PLAYER);
 	}

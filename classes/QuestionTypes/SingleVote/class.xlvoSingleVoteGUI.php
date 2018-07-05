@@ -1,5 +1,8 @@
 <?php
 
+use LiveVoting\Js\xlvoJs;
+use LiveVoting\QuestionTypes\xlvoQuestionTypes;
+
 /**
  * Class xlvoSingleVoteGUI
  *
@@ -13,15 +16,16 @@ class xlvoSingleVoteGUI extends xlvoQuestionTypesGUI {
 
 
 	/**
-	 * @description add JS to the HEAD
+	 * @param bool $current
 	 */
-	public function initJS() {
-
+	public function initJS($current = false) {
+		xlvoJs::getInstance()->api($this)->name(xlvoQuestionTypes::SINGLE_VOTE)->category('QuestionTypes')
+			->addLibToHeader('jquery.ui.touch-punch.min.js')->init();
 	}
 
 
 	/**
-	 * @description Vote
+	 * Vote
 	 */
 	protected function submit() {
 		$this->manager->vote($_GET['option_id']);
@@ -81,6 +85,6 @@ class xlvoSingleVoteGUI extends xlvoQuestionTypesGUI {
 			$tpl->parseCurrentBlock();
 		}
 
-		return $tpl->get();
+		return $tpl->get() . xlvoJs::getInstance()->name(xlvoQuestionTypes::SINGLE_VOTE)->category('QuestionTypes')->getRunCode();
 	}
 }

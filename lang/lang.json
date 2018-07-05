@@ -1457,6 +1457,22 @@
           "de": "Grouped Text Extended TBD"
         },
         "last_used": "20.03.2018"
+      },
+      "6_option_range_step": {
+        "translations": {
+          "de": "Schrittweite",
+          "en": "Step",
+          "hu": "MISSING"
+        },
+        "last_used": "20.03.2018"
+      },
+      "6_option_range_step_info": {
+        "translations": {
+          "de": "Anzahl Schrittweite des Zahlenbereichs.",
+          "en": "The step count of the number range.",
+          "hu": "MISSING"
+        },
+        "last_used": "20.03.2018"
       }
     },
     "results": {

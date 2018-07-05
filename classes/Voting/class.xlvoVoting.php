@@ -12,6 +12,7 @@ use LiveVoting\Cache\CachingActiveRecord;
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use stdClass;
+use xlvoNumberRangeSubFormGUI;
 
 /**
  * Class xlvoVoting
@@ -172,6 +173,14 @@ class xlvoVoting extends CachingActiveRecord {
 	 * @db_length           8
 	 */
 	protected $end_range = 100;
+	/**
+	 * @var int
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           8
+	 */
+	protected $step_range = xlvoNumberRangeSubFormGUI::STEP_RANGE_DEFAULT_VALUE;
 	/**
 	 * @var int
 	 *
@@ -651,6 +660,26 @@ class xlvoVoting extends CachingActiveRecord {
 	 */
 	public function setEndRange($end_range) {
 		$this->end_range = $end_range;
+
+		return $this;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getStepRange() {
+		return $this->step_range;
+	}
+
+
+	/**
+	 * @param int $end_range
+	 *
+	 * @return xlvoVoting
+	 */
+	public function setStepRange($step_range) {
+		$this->step_range = $step_range;
 
 		return $this;
 	}

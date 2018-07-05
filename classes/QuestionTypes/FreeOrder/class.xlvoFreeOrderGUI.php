@@ -22,7 +22,18 @@ class xlvoFreeOrderGUI extends xlvoCorrectOrderGUI {
 	}
 
 
-	public function initJS() {
+	/**
+	 * @return string
+	 */
+	public function getMobileHTML() {
+		return $this->getFormContent() . xlvoJs::getInstance()->name(xlvoQuestionTypes::FREE_ORDER)->category('QuestionTypes')->getRunCode();
+	}
+
+
+	/**
+	 * @param bool $current
+	 */
+	public function initJS($current = false) {
 		xlvoJs::getInstance()->api($this)->name(xlvoQuestionTypes::FREE_ORDER)->category('QuestionTypes')
 			->addLibToHeader('jquery.ui.touch-punch.min.js')->init();
 	}

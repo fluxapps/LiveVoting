@@ -25,14 +25,17 @@ class xlvoJsSettings {
 	protected $pl;
 
 
+	/**
+	 *
+	 */
 	public function __construct() {
 		$this->pl = ilLiveVotingPlugin::getInstance();
 	}
 
 
 	/**
-	 * @param $name
-	 * @param $value
+	 * @param string $name
+	 * @param mixed  $value
 	 */
 	public function addSetting($name, $value) {
 		$this->settings[$name] = $value;
@@ -40,7 +43,7 @@ class xlvoJsSettings {
 
 
 	/**
-	 * @param $key
+	 * @param string $key
 	 */
 	public function addTranslation($key) {
 		$this->translations[$key] = $this->pl->txt($key);

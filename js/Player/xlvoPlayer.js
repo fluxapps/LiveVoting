@@ -4,7 +4,7 @@
  */
 var xlvoPlayer = {
 	init: function (json) {
-		var config = JSON.parse(json),
+		var config = json,
 			replacer = new RegExp('amp;', 'g');
 		config.base_url = config.base_url.replace(replacer, '');
 		this.config = config;

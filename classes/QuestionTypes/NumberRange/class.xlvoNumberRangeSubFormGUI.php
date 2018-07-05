@@ -20,12 +20,17 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 	const OPTION_RANGE_START_INFO = 'option_range_start_info';
 	const OPTION_RANGE_END = 'option_range_end';
 	const OPTION_RANGE_END_INFO = 'option_range_end_info';
+	const OPTION_RANGE_STEP = 'option_range_step';
+	const OPTION_RANGE_STEP_INFO = 'option_range_step_info';
 	const START_RANGE_INVALID_INFO = 'qtype_6_invalid_start_range';
 	const END_RANGE_INVALID_INFO = 'qtype_6_invalid_end_range';
-	const END_RANGE_MAX = 1000000;
-	const END_RANGE_MIN = - 1000000;
-	const START_RANGE_MAX = 1000000;
 	const START_RANGE_MIN = - 1000000;
+	const START_RANGE_MAX = 1000000;
+	const END_RANGE_MIN = - 1000000;
+	const END_RANGE_MAX = 1000000;
+	const STEP_RANGE_MIN = 0;
+	const STEP_RANGE_MAX = 1000000;
+	const STEP_RANGE_DEFAULT_VALUE = 100;
 
 
 	/**
@@ -55,17 +60,24 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 		//create start range number input
 		$startRange = new ilNumberInputGUI($this->txt(self::OPTION_RANGE_START), self::OPTION_RANGE_START);
 		$startRange->setInfo($this->txt(self::OPTION_RANGE_START_INFO));
-		$startRange->setMaxValue(self::START_RANGE_MAX);
 		$startRange->setMinValue(self::START_RANGE_MIN);
+		$startRange->setMaxValue(self::START_RANGE_MAX);
 		$startRange->setValue($this->getXlvoVoting()->getStartRange());
 		$startRange->allowDecimals(false);
 
 		//create end range number input
 		$endRange = new ilNumberInputGUI($this->txt(self::OPTION_RANGE_END), self::OPTION_RANGE_END);
 		$endRange->setInfo($this->txt(self::OPTION_RANGE_END_INFO));
-		$endRange->setMaxValue(self::END_RANGE_MAX);
 		$endRange->setMinValue(self::END_RANGE_MIN);
+		$endRange->setMaxValue(self::END_RANGE_MAX);
 		$endRange->setValue($this->getXlvoVoting()->getEndRange());
+
+		//create end range number input
+		$stepRange = new ilNumberInputGUI($this->txt(self::OPTION_RANGE_STEP), self::OPTION_RANGE_STEP);
+		$stepRange->setInfo($this->txt(self::OPTION_RANGE_STEP_INFO));
+		$stepRange->setMinValue(self::STEP_RANGE_MIN);
+		$stepRange->setMaxValue(self::STEP_RANGE_MAX);
+		$stepRange->setValue($this->getXlvoVoting()->getEndRange());
 
 		//add elements to gui
 		$this->addFormElement($percentageCheckBox);
@@ -73,6 +85,7 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 		//		$this->addFormElement($alternativeResultDisplayModeCheckBox);
 		$this->addFormElement($startRange);
 		$this->addFormElement($endRange);
+		$this->addFormElement($stepRange);
 	}
 
 
@@ -96,6 +109,8 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 				return $this->setStartRange($value);
 			case self::OPTION_RANGE_END:
 				return $this->setEndRange($value);
+			case self::OPTION_RANGE_STEP:
+				return $this->setStepRange($value);
 			case self::OPTION_ALTERNATIVE_RESULT_DISPLAY_MODE:
 				return $this->getXlvoVoting()->setAltResultDisplayMode((int)$value); //if the value is 1 set 1 or else 0.
 			default:
@@ -122,6 +137,8 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 				return (int)$this->getXlvoVoting()->getStartRange();
 			case self::OPTION_RANGE_END:
 				return (int)$this->getXlvoVoting()->getEndRange();
+			case self::OPTION_RANGE_STEP:
+				return (int)$this->getXlvoVoting()->getStepRange();
 			case self::OPTION_ALTERNATIVE_RESULT_DISPLAY_MODE:
 				return (int)$this->getXlvoVoting()->getAltResultDisplayMode();
 			default:
@@ -167,5 +184,15 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 		ilUtil::sendFailure($this->pl->txt(self::END_RANGE_INVALID_INFO));
 
 		return $this->getXlvoVoting();
+	}
+
+
+	/**
+	 * @param int $step
+	 *
+	 * @return xlvoVoting
+	 */
+	private function setStepRange($step) {
+		return $this->getXlvoVoting()->setStepRange($step);
 	}
 }

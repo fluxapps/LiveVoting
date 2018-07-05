@@ -52,6 +52,9 @@ class xlvoGUI {
 	protected $usr;
 
 
+	/**
+	 *
+	 */
 	public function __construct() {
 		global $DIC;
 		$this->tpl = $DIC->ui()->mainTemplate();
@@ -64,9 +67,12 @@ class xlvoGUI {
 	}
 
 
+	/**
+	 *
+	 */
 	public function executeCommand() {
 		$nextClass = $this->ctrl->getNextClass();
-		xlvoJs::getInstance()->name('Main')->init();
+		xlvoJs::getInstance()->name('Main')->init()->setRunCode();
 		switch ($nextClass) {
 			default:
 				$cmd = $this->ctrl->getCmd(self::CMD_STANDARD);
@@ -79,6 +85,9 @@ class xlvoGUI {
 	}
 
 
+	/**
+	 *
+	 */
 	protected function cancel() {
 		$this->ctrl->redirect($this, self::CMD_STANDARD);
 	}

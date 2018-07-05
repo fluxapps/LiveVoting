@@ -2,6 +2,7 @@
 
 use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Context\cookie\CookieManager;
+use LiveVoting\Exceptions\xlvoVotingManagerException;
 use LiveVoting\Js\xlvoJs;
 use LiveVoting\Js\xlvoJsResponse;
 use LiveVoting\Pin\xlvoPin;
@@ -36,7 +37,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 
 
 	/**
-	 * @param $key
+	 * @param string $key
 	 *
 	 * @return string
 	 */
@@ -45,6 +46,10 @@ class xlvoVoter2GUI extends xlvoGUI {
 	}
 
 
+	/**
+	 * @throws ilCtrlException
+	 * @throws xlvoVotingManagerException
+	 */
 	public function executeCommand() {
 		$this->pin = CookieManager::getCookiePIN();
 		$this->manager = new xlvoVotingManager2($this->pin);
@@ -80,6 +85,9 @@ class xlvoVoter2GUI extends xlvoGUI {
 	}
 
 
+	/**
+	 *
+	 */
 	protected function index() {
 		if ($this->manager->getObjId() > 0) {
 			$this->ctrl->redirect($this, self::CMD_START_VOTER_PLAYER);
@@ -104,6 +112,9 @@ class xlvoVoter2GUI extends xlvoGUI {
 	}
 
 
+	/**
+	 * @throws Exception
+	 */
 	protected function checkPin() {
 		$redirect = true;
 		try {
@@ -124,6 +135,9 @@ class xlvoVoter2GUI extends xlvoGUI {
 	}
 
 
+	/**
+	 * @throws ilException
+	 */
 	protected function startVoterPlayer() {
 		$this->initJsAndCss();
 		$this->tpl->addCss($this->pl->getDirectory() . '/templates/default/default.css');
@@ -132,6 +146,9 @@ class xlvoVoter2GUI extends xlvoGUI {
 	}
 
 
+	/**
+	 *
+	 */
 	protected function getVotingData() {
 		/**
 		 * @var xlvoVotingConfig $showAttendees
@@ -145,9 +162,12 @@ class xlvoVoter2GUI extends xlvoGUI {
 	}
 
 
+	/**
+	 * @throws ilException
+	 */
 	protected function initJsAndCss() {
 		$this->tpl->addCss($this->pl->getDirectory() . '/templates/default/Voter/voter.css');
-		$this->tpl->addCss($this->pl->getDirectory() . '/templates/default/QuestionTypes/NumberRange/bootstrap-slider.min.css');
+		$this->tpl->addCss($this->pl->getDirectory() . '/templates/default/libs/bootstrap-slider.min.css');
 		$this->tpl->addCss($this->pl->getDirectory() . '/templates/default/QuestionTypes/NumberRange/number_range.css');
 		iljQueryUtil::initjQueryUI();
 
@@ -164,10 +184,11 @@ class xlvoVoter2GUI extends xlvoGUI {
 
 		//check if we get some valid settings otherwise fall back to default value.
 		if (is_numeric($delay)) {
-			$delay = ((float)$delay) * 1000;
+			$delay = ((float)$delay);
 		} else {
-			$delay = xlvoVoter::DEFAULT_CLIENT_UPDATE_DELAY * 1000;
+			$delay = xlvoVoter::DEFAULT_CLIENT_UPDATE_DELAY;
 		}
+		$delay *= 1000;
 
 		$settings = array(
 			'use_mathjax' => (bool)$mathJaxSetting->get("enable"),
@@ -176,13 +197,17 @@ class xlvoVoter2GUI extends xlvoGUI {
 		);
 
 		xlvoJs::getInstance()->api($this, array( ilUIPluginRouterGUI::class ))->addSettings($settings)->name('Voter')->addTranslations($t)->init()
-			->call('run');
+			->setRunCode();
 		foreach (xlvoQuestionTypes::getActiveTypes() as $type) {
-			xlvoQuestionTypesGUI::getInstance($this->manager, $type)->initJS();
+			xlvoQuestionTypesGUI::getInstance($this->manager, $type)->initJS($type == $this->manager->getVoting()->getVotingType());
 		}
 	}
 
 
+	/**
+	 * @throws xlvoVotingManagerException
+	 * @throws ilException
+	 */
 	protected function getHTML() {
 		$tpl = $this->pl->getTemplate('default/Voter/tpl.inner_screen.html');
 		switch ($this->manager->getPlayer()->getStatus(true)) {

@@ -4,7 +4,7 @@
  */
 var xlvoNumberRange = {
 	init: function (json) {
-		var config = JSON.parse(json);
+		var config = json;
 		var replacer = new RegExp('amp;', 'g');
 		config.base_url = config.base_url.replace(replacer, '');
 		this.config = config;
@@ -37,7 +37,7 @@ var xlvoNumberRange = {
 
 			var sliderValue = slider.bootstrapSlider("getValue");
 			if (slider.bootstrapSlider("getAttribute", "min") < sliderValue)
-				slider.bootstrapSlider("setValue", sliderValue - 1, false, true);
+				slider.bootstrapSlider("setValue", sliderValue - thisRef.config.step, false, true);
 
 		}.bind(slider);
 
@@ -47,7 +47,7 @@ var xlvoNumberRange = {
 
 			var sliderValue = slider.bootstrapSlider("getValue");
 			if (slider.bootstrapSlider("getAttribute", "max") > sliderValue)
-				slider.bootstrapSlider("setValue", sliderValue + 1, false, true);
+				slider.bootstrapSlider("setValue", sliderValue + thisRef.config.step, false, true);
 
 		}.bind(slider);
 	},

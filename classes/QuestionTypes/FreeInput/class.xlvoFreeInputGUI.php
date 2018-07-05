@@ -22,9 +22,9 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 
 
 	/**
-	 * @description add JS to the HEAD
+	 * @param bool $current
 	 */
-	public function initJS() {
+	public function initJS($current = false) {
 		$xlvoMultiLineInputGUI = new xlvoMultiLineInputGUI();
 		$xlvoMultiLineInputGUI->initCSSandJS();
 		xlvoJs::getInstance()->api($this)->name(xlvoQuestionTypes::FREE_INPUT)->category('QuestionTypes')->init();
@@ -32,7 +32,7 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 
 
 	/**
-	 * @description Vote
+	 * Vote
 	 */
 	protected function submit() {
 		$this->manager->unvoteAll();
@@ -58,6 +58,9 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 	}
 
 
+	/**
+	 *
+	 */
 	protected function clear() {
 		$this->manager->clear();
 		$this->afterSubmit();
@@ -72,7 +75,7 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 		$this->pl = ilLiveVotingPlugin::getInstance();
 		$this->render();
 
-		return $this->tpl->get();
+		return $this->tpl->get() . xlvoJs::getInstance()->name(xlvoQuestionTypes::FREE_INPUT)->category('QuestionTypes')->getRunCode();
 	}
 
 
@@ -146,6 +149,9 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 	}
 
 
+	/**
+	 *
+	 */
 	protected function render() {
 		if ($this->manager->getVoting()->isMultiFreeInput()) {
 			$form = $this->renderMultiForm();

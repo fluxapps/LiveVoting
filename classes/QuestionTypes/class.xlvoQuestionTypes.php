@@ -51,7 +51,9 @@ class xlvoQuestionTypes {
 	 * @return array
 	 */
 	public static function getActiveTypes() {
-		$f = new ReflectionClass('LiveVoting\QuestionTypes\xlvoQuestionTypes');
+		// TODO return self::$active_types;
+
+		$f = new ReflectionClass(self::class);
 		$types = array();
 		foreach ($f->getConstants() as $constant_name => $constant) {
 			if (strpos($constant_name, 'TYPE_') === 0 && in_array($constant, self::$active_types)) {
@@ -71,7 +73,7 @@ class xlvoQuestionTypes {
 	 */
 	public static function getClassName($type) {
 		if (!isset(self::$class_map[$type])) {
-			//			throw  new xlvoVotingManagerException('Type not available');
+			//			throw new xlvoVotingManagerException('Type not available');
 		}
 
 		return self::$class_map[$type];
