@@ -1,5 +1,7 @@
 <?php
 
+use LiveVoting\Voting\xlvoVoting;
+
 /**
  * Class xlvoNumberRangeSubFormGUI
  *
@@ -32,12 +34,12 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 	protected function initFormElements() {
 
 		//create percentage check box
-		$percentageCheckBox = new \ilCheckboxInputGUI($this->txt(self::OPTION_PERCENTAGE), self::OPTION_PERCENTAGE);
+		$percentageCheckBox = new ilCheckboxInputGUI($this->txt(self::OPTION_PERCENTAGE), self::OPTION_PERCENTAGE);
 		$percentageCheckBox->setInfo($this->txt(self::OPTION_PERCENTAGE_INFO));
 		$percentageCheckBox->setChecked(((int)$this->getXlvoVoting()->getStartRange()) === 1);
 
 		//create badge box option for the result display
-		$alternativeResultDisplayModeCheckBox = new \ilCheckboxInputGUI($this->txt(self::OPTION_ALTERNATIVE_RESULT_DISPLAY_MODE), self::OPTION_ALTERNATIVE_RESULT_DISPLAY_MODE);
+		$alternativeResultDisplayModeCheckBox = new ilCheckboxInputGUI($this->txt(self::OPTION_ALTERNATIVE_RESULT_DISPLAY_MODE), self::OPTION_ALTERNATIVE_RESULT_DISPLAY_MODE);
 		$alternativeResultDisplayModeCheckBox->setInfo($this->txt(self::OPTION_ALTERNATIVE_RESULT_DISPLAY_MODE_INFO));
 		$alternativeResultDisplayModeCheckBox->setChecked(((int)$this->getXlvoVoting()->getAltResultDisplayMode()) === 1);
 
@@ -80,10 +82,10 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 	 * @param ilFormPropertyGUI $element
 	 * @param int               $value The new value for the element. (value will be casted to int)
 	 *
-	 * @return \LiveVoting\Voting\xlvoVoting
+	 * @return xlvoVoting
 	 * @throws ilException  If the element is not recognised by the handle field.
 	 */
-	protected function handleField(\ilFormPropertyGUI $element, $value) {
+	protected function handleField(ilFormPropertyGUI $element, $value) {
 		$postKey = $element->getPostVar();
 		$value = (int)$value;
 
@@ -110,7 +112,7 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 	 * @return int                          The value read with the help of the given element.
 	 * @throws ilException                  Thrown if the element is not recognised.
 	 */
-	protected function getFieldValue(\ilFormPropertyGUI $element) {
+	protected function getFieldValue(ilFormPropertyGUI $element) {
 		$postKey = $element->getPostVar();
 
 		switch ($postKey) {
@@ -133,7 +135,7 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 	 *
 	 * @param int $start The new start range which should be set.
 	 *
-	 * @return \LiveVoting\Voting\xlvoVoting
+	 * @return xlvoVoting
 	 */
 	private function setStartRange($start) {
 		$end = (int)$this->getXlvoVoting()->getEndRange();
@@ -153,7 +155,7 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 	 *
 	 * @param int $end The new end range which should be set.
 	 *
-	 * @return \LiveVoting\Voting\xlvoVoting
+	 * @return xlvoVoting
 	 */
 	private function setEndRange($end) {
 		$start = (int)$this->getXlvoVoting()->getStartRange();
