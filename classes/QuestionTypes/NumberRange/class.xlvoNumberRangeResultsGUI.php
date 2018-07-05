@@ -195,7 +195,7 @@ class xlvoNumberRangeResultsGUI extends xlvoInputResultsGUI {
 
 		for ($i = 0; $i < $count; $i += $sliceWidth) {
 			//create a slice
-			$slice = array_slice($values, $i, $sliceWidth + (($i === 0 || ($i + $sliceWidth >= $count)) ? 1 : 0), true);
+			$slice = array_slice($values, $i, $sliceWidth + ((($i + $sliceWidth >= $count)) ? 1 : 0), true);
 
 			//sum slice values
 			$sum = array_sum($slice);
