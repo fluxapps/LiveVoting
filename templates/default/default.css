@@ -42,6 +42,7 @@ div.xlvo_shortlink {
   line-height: 115px;
   text-align: center;
   vertical-align: middle;
+  /* Fix no wrap if the URL is too long */
   white-space: pre-wrap;
   word-wrap: break-word;
 }
@@ -77,12 +78,12 @@ li.ilToolbarTextonly button {
 }
 .xlvo-option {
   display: inline;
-  font-size: 1.2em;
-  line-height: 1.2em;
+  font-size: 24px;
+  line-height: 24px;
 }
 h1.xlvo-option {
-  font-size: 1.4em;
-  line-height: 1.4em;
+  font-size: 24px;
+  line-height: 24px;
 }
 .ilToolbar li.ilToolbarGroup .navbar-text {
   margin-right: 20px !important;
@@ -136,3 +137,7 @@ span.xlvo-label-url {
   font-size: 30px;
   line-height: 32px;
 }
+.single_vote_question {
+  font-size: 24px;
+}
+/*# sourceMappingURL=default.css.map */

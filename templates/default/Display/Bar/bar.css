@@ -10,7 +10,8 @@
   min-width: 30px;
 }
 .progress-title {
-  margin-bottom: 2px;
+  font-size: 24px;
+  margin-bottom: 5px;
 }
 .well.well-dark {
   background-color: #777777;
