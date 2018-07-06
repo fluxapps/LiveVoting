@@ -415,7 +415,7 @@
       "allow_shortlink_presenter_info": {
         "translations": {
           "de": "Eine Kurz-URL kann bspw. durch hinzufügen einer RewriteRule in der .htaccess erstellt werden, dadurch kann auf https://ilias.domain.com/presenter angestimmt werden:",
-          "en": "Use a Short URL like /vote by adding the following RewriteRule to your .htaccess:",
+          "en": "For example, a short URL can be created by adding a RewriteRule in the .htaccess, which will trigger on https://ilias.domain.com/presenter:",
           "hu": "MISSING"
         },
         "last_used": "20.04.2018"
