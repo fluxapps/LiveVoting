@@ -485,14 +485,14 @@
     "msg": {
       "success_voting_created": {
         "translations": {
-          "de": "Voting wurde erstellt",
+          "de": "Frage wurde erstellt",
           "en": "Voting has been created",
           "hu": "Szavazást sikeresen létrehozta"
         }
       },
       "success_voting_updated": {
         "translations": {
-          "de": "Voting wurde gespeichert",
+          "de": "Frage wurde gespeichert",
           "en": "Voting has been udpated",
           "hu": "Szavazást sikeresen módosította"
         },
@@ -1032,7 +1032,7 @@
       },
       "1_optmsg_success_voting_updated": {
         "translations": {
-          "de": "Voting wurde gespeichert",
+          "de": "Frage wurde gespeichert",
           "en": "MISSING",
           "hu": "MISSING"
         }
@@ -1982,7 +1982,7 @@
       },
       "type_1_info": {
         "translations": {
-          "de": "User können eine resp. mehrere Auswahlmöglichkeit(en) auswählen",
+          "de": "Benutzer können eine resp. mehrere Auswahlmöglichkeit(en) auswählen",
           "en": "A User can vote for different options",
           "hu": "Lehetőségek közül lehet választani."
         },
@@ -1998,7 +1998,7 @@
       },
       "type_2_info": {
         "translations": {
-          "de": "User können Stichworte oder kurze Sätze eingeben",
+          "de": "Benutzer können Stichworte oder kurze Sätze eingeben",
           "en": "User can hand in free text",
           "hu": "Szöveges válasz adható."
         },
@@ -2021,7 +2021,7 @@
       },
       "type_4_info": {
         "translations": {
-          "de": "User müssen Begriffe in die richtige Reihenfolge bringen",
+          "de": "Benutzer müssen Begriffe in die richtige Reihenfolge bringen",
           "en": "Terms must be sorted in the correct order.",
           "hu": "A kifejezéseket a helyes sorrendbe kell rendezni."
         },
@@ -2037,7 +2037,7 @@
       },
       "type_5_info": {
         "translations": {
-          "de": "User können Begriffe nach Prioritäten anordnen",
+          "de": "Benutzer können Begriffe nach Prioritäten anordnen",
           "en": "Terms can be sorted after Priorities",
           "hu": "A kifejezések a kérdésben meghatározott szempont szerint sorrendbe kell rakni."
         },
@@ -2070,7 +2070,7 @@
       "type_6_info": {
         "translations": {
           "en": "Users can guess a number between X and Y.",
-          "de": "User können eine Zahl zwischen X und Y schätzen.",
+          "de": "Benutzer können eine Zahl zwischen X und Y schätzen.",
           "hu": "A felhasználók kitalálni egy számot X és Y között."
         }
       },
