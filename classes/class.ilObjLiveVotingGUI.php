@@ -171,7 +171,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 	 * @param $cmd
 	 */
 	protected function triageCmdClass($next_class, $cmd) {
-		// TODO Refactoring
+		// TODO: Refactoring
 		switch ($next_class) {
 			case 'xlvovotinggui':
 				$xlvoVotingGUI = new xlvoVotingGUI();

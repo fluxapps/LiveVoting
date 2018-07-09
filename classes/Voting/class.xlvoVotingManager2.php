@@ -107,6 +107,9 @@ class xlvoVotingManager2 {
 	}
 
 
+	/**
+	 *
+	 */
 	public function prepare() {
 		$this->getVoting()->renegerateOptionSorting();
 		$this->getPlayer()->freeze();
@@ -285,9 +288,12 @@ class xlvoVotingManager2 {
 	}
 
 
+	/**
+	 *
+	 */
 	public function previous() {
 		if ($this->getVoting()->isFirst()) {
-			return false;
+			return;
 		}
 		$prev_id = $this->getVotingsList('DESC')->where(array( 'position' => $this->voting->getPosition() ), '<')->limit(0, 1)->getArray('id', 'id');
 		$prev_id = array_shift(array_values($prev_id));
@@ -301,9 +307,12 @@ class xlvoVotingManager2 {
 	}
 
 
+	/**
+	 *
+	 */
 	public function next() {
 		if ($this->getVoting()->isLast()) {
-			return false;
+			return;
 		}
 		$next_id = $this->getVotingsList()->where(array( 'position' => $this->voting->getPosition() ), '>')->limit(0, 1)->getArray('id', 'id');
 		$next_id = array_shift(array_values($next_id));
@@ -316,6 +325,9 @@ class xlvoVotingManager2 {
 	}
 
 
+	/**
+	 *
+	 */
 	public function terminate() {
 		$this->player->terminate();
 	}
@@ -329,6 +341,9 @@ class xlvoVotingManager2 {
 	}
 
 
+	/**
+	 *
+	 */
 	public function attend() {
 		$this->getPlayer()->attend();
 	}
@@ -417,6 +432,9 @@ class xlvoVotingManager2 {
 	}
 
 
+	/**
+	 *
+	 */
 	public function reset() {
 		$this->player->setButtonStates(array());
 		$this->player->update();
@@ -457,6 +475,10 @@ class xlvoVotingManager2 {
 	}
 
 
+	/**
+	 * @return xlvoVotingConfig
+	 * @throws xlvoVotingManagerException
+	 */
 	public function getVotingConfig() {
 		/**
 		 * @var xlvoVotingConfig $xlvoVotingConfig
@@ -501,6 +523,8 @@ class xlvoVotingManager2 {
 	 * @param $option_id
 	 *
 	 * @return xlvoVote
+	 *
+	 * TODO: Usage?
 	 */
 	public function getFirstVoteOfUserOfOption($option_id) {
 		foreach ($this->getVotesOfUser() as $xlvoVote) {
@@ -508,6 +532,8 @@ class xlvoVotingManager2 {
 				return $xlvoVote;
 			}
 		}
+
+		return NULL;
 	}
 
 
@@ -592,6 +618,9 @@ class xlvoVotingManager2 {
 	}
 
 
+	/**
+	 * @throws xlvoVotingManagerException
+	 */
 	public function handleQuestionSwitching() {
 		switch ($this->getVotingConfig()->getResultsBehaviour()) {
 			case xlvoVotingConfig::B_RESULTS_ALWAY_ON:
@@ -619,6 +648,9 @@ class xlvoVotingManager2 {
 	}
 
 
+	/**
+	 *
+	 */
 	protected function initVoting() {
 		$this->voting = xlvoVoting::findOrGetInstance($this->getPlayer()->getActiveVotingId());
 	}
@@ -632,12 +664,18 @@ class xlvoVotingManager2 {
 	}
 
 
+	/**
+	 *
+	 */
 	public function clear() {
 		$this->unvoteAll();
 		$this->createHistoryObject();
 	}
 
 
+	/**
+	 * @throws xlvoVotingManagerException
+	 */
 	protected function createHistoryObject() {
 		if ($this->getVotingConfig()->getVotingHistory()) {
 			xlvoVote::createHistoryObject(xlvoUser::getInstance(), $this->getVoting()->getId(), $this->player->getRoundId());

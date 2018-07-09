@@ -64,7 +64,7 @@ class xlvoNumberRangeGUI extends xlvoQuestionTypesGUI {
 		}
 
 		//get all votes of the currents user
-		// $votes = $this->manager->getVotesOfUser(false); TODO ???
+		// $votes = $this->manager->getVotesOfUser(false); TODO: ???
 
 		//check if we voted or unvoted
 

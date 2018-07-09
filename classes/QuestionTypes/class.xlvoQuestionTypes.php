@@ -51,7 +51,7 @@ class xlvoQuestionTypes {
 	 * @return array
 	 */
 	public static function getActiveTypes() {
-		// TODO return self::$active_types;
+		// TODO: return self::$active_types;
 
 		$f = new ReflectionClass(self::class);
 		$types = array();

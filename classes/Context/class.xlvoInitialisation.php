@@ -20,7 +20,7 @@ use LiveVoting\xlvoSessionHandler;
  * Initializes a ILIAS environment depending on Context (PIN or ILIAS).
  * This is used in every entry-point for users and AJAX requests
  *
- * TODO Refactoring Realy need so mutch ILIAS core code?
+ * TODO: Refactoring Realy need so mutch ILIAS core code?
  */
 class xlvoInitialisation extends ilInitialisation {
 

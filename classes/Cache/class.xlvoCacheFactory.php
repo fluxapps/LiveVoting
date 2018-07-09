@@ -2,6 +2,8 @@
 
 namespace LiveVoting\Cache;
 
+use ilException;
+use LiveVoting\Cache\Version\v52\xlvoCache;
 use LiveVoting\Context\ILIASVersionEnum;
 
 /**
@@ -21,13 +23,12 @@ class xlvoCacheFactory {
 	 * @return xlvoCacheService
 	 */
 	public static function getInstance() {
-
 		if (self::$cache_instance === NULL) {
 			$subversion = (int)explode('.', ILIAS_VERSION_NUMERIC)[1];
 			switch ($subversion) {
 				case ILIASVersionEnum::ILIAS_VERSION_5_2:
 				case ILIASVersionEnum::ILIAS_VERSION_5_3:
-					self::$cache_instance = Version\v52\xlvoCache::getInstance('');
+					self::$cache_instance = xlvoCache::getInstance('');
 					break;
 				default:
 					throw new ilException('Can not initialise cache for the installed ILIAS version.');

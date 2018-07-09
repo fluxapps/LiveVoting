@@ -55,7 +55,7 @@ use LiveVoting\xlvoSessionHandler;
  *
  * Initializes a minimal ILIAS environment.
  *
- * TODO Refactoring Realy need so mutch ILIAS core code?
+ * TODO: Refactoring Realy need so mutch ILIAS core code?
  */
 class xlvoBasicInitialisation {
 

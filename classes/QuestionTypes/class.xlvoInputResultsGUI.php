@@ -81,7 +81,7 @@ abstract class xlvoInputResultsGUI {
 	 *
 	 * @return string
 	 *
-	 * TODO Usage?
+	 * TODO: Usage?
 	 */
 	public abstract function getTextRepresentationForVotes(array $votes);
 }

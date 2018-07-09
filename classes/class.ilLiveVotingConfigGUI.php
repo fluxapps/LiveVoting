@@ -40,7 +40,7 @@ class ilLiveVotingConfigGUI extends ilPluginConfigGUI {
 
 
 	public function executeCommand() {
-		// TODO Refactoring
+		// TODO: Refactoring
 		$this->ctrl->setParameterByClass(ilObjComponentSettingsGUI::class, "ctype", $_GET["ctype"]);
 		$this->ctrl->setParameterByClass(ilObjComponentSettingsGUI::class, "cname", $_GET["cname"]);
 		$this->ctrl->setParameterByClass(ilObjComponentSettingsGUI::class, "slot_id", $_GET["slot_id"]);
