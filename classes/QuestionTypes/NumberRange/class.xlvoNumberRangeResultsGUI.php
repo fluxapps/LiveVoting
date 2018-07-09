@@ -135,7 +135,7 @@ class xlvoNumberRangeResultsGUI extends xlvoInputResultsGUI {
 		$bars->sorted(true);
 		$votes = $this->manager->getVotesOfVoting();
 		usort($votes, function (xlvoVote $v1, xlvoVote $v2) {
-			return ($v1->getFreeInput() - $v2->getFreeInput());
+			return (intval($v1->getFreeInput()) - intval($v2->getFreeInput()));
 		});
 		foreach ($votes as $value) {
 			$bar = new xlvoBarFreeInputsGUI($this->voting, $value);
