@@ -42,10 +42,6 @@ Config Rewrite Rule in .htaccess or Apache-Config:
 </IfModule>
 ```
 
-## Browser-Support
-
-LiveVoting is currently not fully supported by Google Chrome.
-
 ## Versioning
 We use SemVer for versioning. For the versions available, see the tags on this repository.
 
