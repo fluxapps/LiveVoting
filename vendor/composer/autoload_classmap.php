@@ -101,6 +101,7 @@ return array(
     'ilContext' => $baseDir . '/../../../../../../../Services/Context/classes/class.ilContext.php',
     'ilContextTemplate' => $baseDir . '/../../../../../../../Services/Context/interfaces/interface.ilContextTemplate.php',
     'ilCtrl' => $baseDir . '/../../../../../../../Services/UICore/classes/class.ilCtrl.php',
+    'ilCustomInputGUI' => $baseDir . '/../../../../../../../Services/Form/classes/class.ilCustomInputGUI.php',
     'ilDBWrapperFactory' => $baseDir . '/../../../../../../../Services/Database/classes/class.ilDBWrapperFactory.php',
     'ilDateDurationInputGUI' => $baseDir . '/../../../../../../../Services/Form/classes/class.ilDateDurationInputGUI.php',
     'ilDatePresentation' => $baseDir . '/../../../../../../../Services/Calendar/classes/class.ilDatePresentation.php',

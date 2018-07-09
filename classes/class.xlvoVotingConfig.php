@@ -2,6 +2,8 @@
 
 use LiveVoting\Cache\CachingActiveRecord;
 use LiveVoting\Conf\xlvoConf;
+use LiveVoting\Pin\xlvoPin;
+use LiveVoting\Puk\xlvoPuk;
 
 /**
  * Class xlvoVotingConfig
@@ -194,9 +196,11 @@ class xlvoVotingConfig extends CachingActiveRecord {
 
 
 	/**
+	 * @param bool $force_not_format
+	 *
 	 * @return string
 	 */
-	public function getShortLinkURL() {
+	public function getShortLinkURL($force_not_format = false) {
 		$pl = ilLiveVotingPlugin::getInstance();
 		$url = NULL;
 		$shortLinkEnabled = boolval(xlvoConf::getConfig(xlvoConf::F_ALLOW_SHORTLINK_VOTE));
@@ -208,7 +212,7 @@ class xlvoVotingConfig extends CachingActiveRecord {
 			$url = ILIAS_HTTP_PATH . substr($pl->getDirectory(), 1) . '/pin.php?pin=';
 		}
 
-		$url .= $this->getPin();
+		$url .= xlvoPin::formatPin($this->getPin(), $force_not_format);
 
 		return $url;
 	}
@@ -217,10 +221,11 @@ class xlvoVotingConfig extends CachingActiveRecord {
 	/**
 	 * @param int|null $vvoting_id
 	 * @param bool     $power_point
+	 * @param bool     $force_not_format
 	 *
 	 * @return string
 	 */
-	public function getPresenterLink($voting_id = NULL, $power_point = false) {
+	public function getPresenterLink($voting_id = NULL, $power_point = false, $force_not_format = false) {
 		$pl = ilLiveVotingPlugin::getInstance();
 		$url = NULL;
 		$shortLinkEnabled = boolval(xlvoConf::getConfig(xlvoConf::F_ALLOW_SHORTLINK_PRESENTER));
@@ -228,7 +233,7 @@ class xlvoVotingConfig extends CachingActiveRecord {
 		if ($shortLinkEnabled) {
 			$url = xlvoConf::getConfig(xlvoConf::F_ALLOW_SHORTLINK_PRESENTER_LINK);
 			$url = rtrim($url, "/") . "/";
-			$url .= $this->getPin() . "/" . $this->getPuk();
+			$url .= xlvoPin::formatPin($this->getPin(), $force_not_format) . "/" . xlvoPuk::formatPin($this->getPuk(), $force_not_format);
 			if ($voting_id !== NULL) {
 				$url .= "/" . $voting_id;
 			}
@@ -236,7 +241,8 @@ class xlvoVotingConfig extends CachingActiveRecord {
 				$url .= "/ppt";
 			}
 		} else {
-			$url = ILIAS_HTTP_PATH . substr($pl->getDirectory(), 1) . '/presenter.php?pin=' . $this->getPin() . "&puk=" . $this->getPuk();
+			$url = ILIAS_HTTP_PATH . substr($pl->getDirectory(), 1) . '/presenter.php?pin=' . xlvoPin::formatPin($this->getPin(), $force_not_format)
+				. "&puk=" . xlvoPuk::formatPin($this->getPuk(), $force_not_format);
 			if ($voting_id !== NULL) {
 				$url .= "&voting=" . $voting_id;
 			}

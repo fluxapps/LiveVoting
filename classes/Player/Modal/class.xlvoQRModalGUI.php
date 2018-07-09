@@ -1,6 +1,7 @@
 <?php
 
 use LiveVoting\Js\xlvoJs;
+use LiveVoting\Pin\xlvoPin;
 use LiveVoting\Player\QR\xlvoQR;
 
 /**
@@ -21,7 +22,7 @@ class xlvoQRModalGUI extends ilModalGUI {
 		xlvoJs::getInstance()->name('Modal')->addSettings(array( 'id' => 'QRModal' ))->category('Player')->init()->setRunCode();
 		$ilModalGUI = new self();
 		$ilModalGUI->setId('QRModal');
-		$ilModalGUI->setHeading(sprintf($pl->txt("player_pin"), $xlvoVotingConfig->getPin()));
+		$ilModalGUI->setHeading(sprintf($pl->txt("player_pin"), xlvoPin::formatPin($xlvoVotingConfig->getPin())));
 
 		$short_link = $xlvoVotingConfig->getShortLinkURL();
 

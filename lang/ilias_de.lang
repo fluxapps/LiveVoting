@@ -280,3 +280,5 @@ rbac_create_xlvo#:#LiveVoting anlegen
 player_pin#:#PIN: %s
 qtype_6_option_range_step#:#Schrittweite
 qtype_6_option_range_step_info#:#Anzahl Schrittweite des Zahlenbereichs.
+config_use_serif_font_for_pins#:#Serifenschrift für PIN's nutzen
+config_use_serif_font_for_pins_info#:#Serifenschrift für PIN's nutzen

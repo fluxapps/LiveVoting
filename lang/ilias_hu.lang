@@ -278,3 +278,5 @@ rbac_create_xlvo#:#MISSING
 player_pin#:#MISSING
 qtype_6_option_range_step#:#MISSING
 qtype_6_option_range_step_info#:#MISSING
+config_use_serif_font_for_pins#:#MISSING
+config_use_serif_font_for_pins_info#:#MISSING

@@ -114,7 +114,8 @@
       "../../../../../../../Services/Utilities/classes/class.ilConfirmationGUI.php",
       "../../../../../../../Services/Utilities/classes/class.ilUtil.php",
       "../../../../../../../Services/Form/classes/class.ilFormPropertyGUI.php",
-      "../../../../../../../Services/Form/classes/class.ilTextInputGUI.php"
+      "../../../../../../../Services/Form/classes/class.ilTextInputGUI.php",
+      "../../../../../../../Services/Form/classes/class.ilCustomInputGUI.php"
     ]
   },
   "config": {

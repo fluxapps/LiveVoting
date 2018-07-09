@@ -1,6 +1,8 @@
 <?php
 
+use LiveVoting\Exceptions\xlvoVotingManagerException;
 use LiveVoting\Option\xlvoOption;
+use LiveVoting\Pin\xlvoPin;
 use LiveVoting\Player\xlvoPlayer;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\Voter\xlvoVoter;
@@ -48,6 +50,10 @@ class xlvoDisplayPlayerGUI {
 	}
 
 
+	/**
+	 * @throws xlvoVotingManagerException
+	 * @throws ilException
+	 */
 	protected function render() {
 		/**
 		 * @var xlvoVotingConfig $config
@@ -79,7 +85,7 @@ class xlvoDisplayPlayerGUI {
 		$this->tpl->setVariable('VOTING_ID', $this->manager->getVoting()->getId());
 		$this->tpl->setVariable('OBJ_ID', $this->manager->getVoting()->getObjId());
 		$this->tpl->setVariable('FROZEN', $player->isFrozen());
-		$this->tpl->setVariable('PIN', $config->getPin());
+		$this->tpl->setVariable('PIN', xlvoPin::formatPin($config->getPin()));
 		if ($this->manager->getVotingConfig()->isShowAttendees()) {
 			$this->tpl->setCurrentBlock('attendees');
 			$this->tpl->setVariable('ATTENDEES', xlvoVoter::countVoters($this->manager->getPlayer()->getId()));

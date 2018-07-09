@@ -122,7 +122,7 @@ class ilObjLiveVotingListGUI extends ilObjectPluginListGUI {
 		$props[] = array(
 			"alert" => false,
 			"property" => $this->txt("voter_pin_input"),
-			"value" => xlvoPin::lookupPin($this->obj_id)
+			"value" => xlvoPin::formatPin(xlvoPin::lookupPin($this->obj_id))
 		);
 
 		if (!ilObjLiveVotingAccess::checkOnline($this->obj_id)) {

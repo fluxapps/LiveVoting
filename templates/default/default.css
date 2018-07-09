@@ -140,4 +140,6 @@ span.xlvo-label-url {
 .single_vote_question {
   font-size: 24px;
 }
-/*# sourceMappingURL=default.css.map */
+.serif_font {
+  font-family: "Times New Roman", Times, serif;
+}

@@ -435,6 +435,20 @@
           "hu": "MISSING"
         },
         "last_used": "20.04.2018"
+      },
+      "use_serif_font_for_pins": {
+        "translations": {
+          "de": "Serifenschrift für PIN's nutzen",
+          "en": "Use serif font for PIN's",
+          "hu": "MISSING"
+        }
+      },
+      "use_serif_font_for_pins_info": {
+        "translations": {
+          "de": "Serifenschrift für PIN's nutzen",
+          "en": "Use serif font for PIN's",
+          "hu": "MISSING"
+        }
       }
     },
     "correct": {
@@ -2178,7 +2192,7 @@
       }
     },
     "rbac": {
-      "create_xlvo":{
+      "create_xlvo": {
         "translations": {
           "de": "LiveVoting anlegen",
           "en": "Add",

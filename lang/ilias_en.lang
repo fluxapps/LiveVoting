@@ -279,3 +279,5 @@ rbac_create_xlvo#:#Create LiveVoting
 player_pin#:#PIN: %s
 qtype_6_option_range_step#:#Step
 qtype_6_option_range_step_info#:#The step count of the number range.
+config_use_serif_font_for_pins#:#Use serif font for PIN's
+config_use_serif_font_for_pins_info#:#Use serif font for PIN's

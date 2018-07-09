@@ -80,7 +80,7 @@ abstract class xlvoSubFormGUI {
 
 
 	/**$
-	 * @param $key
+	 * @param string $key
 	 *
 	 * @return string
 	 */

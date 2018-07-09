@@ -71,7 +71,7 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 
 
 	/**
-	 * @param $key
+	 * @param string $key
 	 *
 	 * @return string
 	 */

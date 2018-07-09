@@ -93,7 +93,7 @@ class ilLiveVotingPlugin extends ilRepositoryObjectPlugin {
 
 
 	//		/**
-	//		 * @param $key
+	//		 * @param string $key
 	//		 * @return mixed|string
 	//		 * @throws ilException
 	//		 */

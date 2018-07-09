@@ -167,7 +167,7 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 
 
 	/**
-	 * @param $key
+	 * @param string $key
 	 *
 	 * @return string
 	 */

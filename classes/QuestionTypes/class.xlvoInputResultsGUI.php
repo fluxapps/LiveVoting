@@ -36,7 +36,7 @@ abstract class xlvoInputResultsGUI {
 
 
 	/**
-	 * @param $key
+	 * @param string $key
 	 *
 	 * @return string
 	 */

@@ -4,6 +4,7 @@ namespace LiveVoting\Pin;
 
 use LiveVoting\Cache\xlvoCacheFactory;
 use LiveVoting\Cache\xlvoCacheService;
+use LiveVoting\Conf\xlvoConf;
 use LiveVoting\User\xlvoUser;
 use LiveVoting\Voter\xlvoVoterException;
 use stdClass;
@@ -44,7 +45,22 @@ class xlvoPin {
 
 
 	/**
-	 * @param $obj_id
+	 * @param string $pin
+	 * @param bool   $force_not_format
+	 *
+	 * @return string
+	 */
+	public static function formatPin($pin, $force_not_format = false) {
+		if (!$force_not_format && xlvoConf::getConfig(xlvoConf::F_USE_SERIF_FONT_FOR_PINS)) {
+			$pin = '<span class="serif_font">' . $pin . '</span>';
+		}
+
+		return $pin;
+	}
+
+
+	/**
+	 * @param int $obj_id
 	 *
 	 * @return int
 	 */
@@ -59,7 +75,7 @@ class xlvoPin {
 
 
 	/**
-	 * @param $pin
+	 * @param string $pin
 	 *
 	 * @return int
 	 * @throws xlvoVoterException
@@ -75,6 +91,13 @@ class xlvoPin {
 	}
 
 
+	/**
+	 * @param string $pin
+	 * @param bool   $safe_mode
+	 *
+	 * @return int
+	 * @throws xlvoVoterException
+	 */
 	private static function checkPinWithCache($pin, $safe_mode = true) {
 		//use cache to speed up pin fetch operation
 		$key = xlvoVotingConfig::TABLE_NAME . '_pin_' . $pin;
@@ -124,6 +147,8 @@ class xlvoPin {
 		if ($safe_mode) {
 			throw new xlvoVoterException('', xlvoVoterException::VOTING_PIN_NOT_FOUND);
 		}
+
+		return 0;
 	}
 
 
@@ -161,11 +186,15 @@ class xlvoPin {
 		if ($safe_mode) {
 			throw new xlvoVoterException('', xlvoVoterException::VOTING_PIN_NOT_FOUND);
 		}
+
+		return 0;
 	}
 
 
 	/**
 	 * xlvoPin constructor.
+	 *
+	 * @param string $pin
 	 */
 	public function __construct($pin = '') {
 		if (!$pin) {

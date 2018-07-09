@@ -27,7 +27,7 @@ abstract class xlvoQuestionTypesGUI extends xlvoGUI {
 
 
 	/**
-	 * @param $key
+	 * @param string $key
 	 *
 	 * @return string
 	 */

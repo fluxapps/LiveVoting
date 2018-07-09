@@ -5,6 +5,7 @@ use LiveVoting\Context\ILIASVersionEnum;
 use LiveVoting\Exceptions\xlvoVotingManagerException;
 use LiveVoting\Js\xlvoJs;
 use LiveVoting\Js\xlvoJsResponse;
+use LiveVoting\Pin\xlvoPin;
 use LiveVoting\Player\QR\xlvoQR;
 use LiveVoting\Player\xlvoPlayer;
 use LiveVoting\Player\xlvoPlayerException;
@@ -53,7 +54,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 
 	/**
-	 * @param $key
+	 * @param string $key
 	 *
 	 * @return string
 	 */
@@ -71,7 +72,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 		} catch (xlvoPlayerException $e) {
 			ilUtil::sendFailure($this->txt('msg_no_start_' . $e->getCode()));
 
-			return true;
+			return;
 		}
 
 		$b = ilLinkButton::getInstance();
@@ -97,7 +98,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 		 * @var xlvoVotingConfig $xlvoVotingConfig
 		 */
 		$xlvoVotingConfig = $this->manager->getVotingConfig();
-		$template->setVariable('PIN', $xlvoVotingConfig->getPin());
+		$template->setVariable('PIN', xlvoPin::formatPin($xlvoVotingConfig->getPin()));
 
 		$short_link = $xlvoVotingConfig->getShortLinkURL();
 		$template->setVariable('QR-CODE', xlvoQR::getImageDataString($short_link, 180));

@@ -17,7 +17,7 @@ class xlvoConfGUI extends xlvoGUI {
 
 
 	/**
-	 * @param $key
+	 * @param string $key
 	 *
 	 * @return string
 	 */

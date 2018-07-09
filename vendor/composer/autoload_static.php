@@ -124,6 +124,7 @@ class ComposerStaticInit2a9f25cb7db537cf8950f4e268186c34
         'ilContext' => __DIR__ . '/../..' . '/../../../../../../../Services/Context/classes/class.ilContext.php',
         'ilContextTemplate' => __DIR__ . '/../..' . '/../../../../../../../Services/Context/interfaces/interface.ilContextTemplate.php',
         'ilCtrl' => __DIR__ . '/../..' . '/../../../../../../../Services/UICore/classes/class.ilCtrl.php',
+        'ilCustomInputGUI' => __DIR__ . '/../..' . '/../../../../../../../Services/Form/classes/class.ilCustomInputGUI.php',
         'ilDBWrapperFactory' => __DIR__ . '/../..' . '/../../../../../../../Services/Database/classes/class.ilDBWrapperFactory.php',
         'ilDateDurationInputGUI' => __DIR__ . '/../..' . '/../../../../../../../Services/Form/classes/class.ilDateDurationInputGUI.php',
         'ilDatePresentation' => __DIR__ . '/../..' . '/../../../../../../../Services/Calendar/classes/class.ilDatePresentation.php',

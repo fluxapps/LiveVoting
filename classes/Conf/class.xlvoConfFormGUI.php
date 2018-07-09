@@ -45,6 +45,9 @@ class xlvoConfFormGUI extends ilPropertyFormGUI {
 	}
 
 
+	/**
+	 *
+	 */
 	protected function initForm() {
 		$this->setTarget('_top');
 		$this->setFormAction($this->ctrl->getFormAction($this->parent_gui));
@@ -104,6 +107,10 @@ class xlvoConfFormGUI extends ilPropertyFormGUI {
 				return '<li>' . htmlspecialchars($this->parent_gui->txt(xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . "_info_manual_" . $step)) . '</li>';
 			}, range(1, 4))) . '</ol>');
 
+		// Use serif font for PIN's
+		$use_serif_font_for_pins = new ilCheckboxInputGUI($this->parent_gui->txt(xlvoConf::F_USE_SERIF_FONT_FOR_PINS), xlvoConf::F_USE_SERIF_FONT_FOR_PINS);
+		$use_serif_font_for_pins->setInfo($this->parent_gui->txt(xlvoConf::F_USE_SERIF_FONT_FOR_PINS . '_info'));
+
 		//add items to GUI
 		$this->addItem($use_shortlink_vote);
 		$this->addItem($use_shortlink_presenter);
@@ -111,15 +118,22 @@ class xlvoConfFormGUI extends ilPropertyFormGUI {
 		$this->addItem($result_api);
 		$this->addItem($global_cache_enabled);
 		$this->addItem($ppt_export);
+		$this->addItem($use_serif_font_for_pins);
 	}
 
 
+	/**
+	 *
+	 */
 	protected function initButtons() {
 		$this->addCommandButton(xlvoConfGUI::CMD_UPDATE, $this->parent_gui->txt(xlvoConfGUI::CMD_UPDATE));
 		$this->addCommandButton(xlvoConfGUI::CMD_CANCEL, $this->parent_gui->txt(xlvoConfGUI::CMD_CANCEL));
 	}
 
 
+	/**
+	 *
+	 */
 	public function fillForm() {
 		$array = array();
 		foreach ($this->getItems() as $item) {

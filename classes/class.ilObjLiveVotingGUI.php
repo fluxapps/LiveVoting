@@ -379,6 +379,11 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 	 *
 	 */
 	protected function initPropertiesForm() {
+		/**
+		 * @var xlvoVotingConfig $config
+		 */
+		$config = xlvoVotingConfig::find($this->obj_id);
+
 		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
 			ilUtil::sendFailure(ilLiveVotingPlugin::getInstance()->txt('obj_permission_denied'), true);
 		} else {
@@ -444,9 +449,9 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 			$h->setTitle("");
 			$this->form->addItem($h);
 
-			$presenter_link = new ilNonEditableValueGUI($this->pl->txt('config_presenter_link'), self::F_PRESENTER_LINK);
-			$presenter_link->setInfo('<i>' . htmlspecialchars($this->txt("config_" . xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . "_info_manual"))
-				. '</i><ol>' . implode("", array_map(function ($step) {
+			$presenter_link = new ilCustomInputGUI($this->pl->txt('config_presenter_link'), self::F_PRESENTER_LINK);
+			$presenter_link->setHtml($config->getPresenterLink() . '<br><br><i>' . htmlspecialchars($this->txt("config_"
+					. xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . "_info_manual")) . '</i><ol>' . implode("", array_map(function ($step) {
 					return '<li>' . htmlspecialchars($this->txt("config_" . xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . "_info_manual_" . $step))
 						. '</li>';
 				}, range(1, 4))) . '</ol>');
@@ -462,7 +467,6 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 	 *
 	 */
 	protected function fillPropertiesForm() {
-
 		/**
 		 * @var xlvoVotingConfig $config
 		 */
@@ -478,7 +482,6 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 		$values[xlvoVotingConfig::F_RESULTS_BEHAVIOUR] = $config->getResultsBehaviour();
 		$values[xlvoVotingConfig::F_VOTING_HISTORY] = $config->getVotingHistory();
 		$values[xlvoVotingConfig::F_SHOW_ATTENDEES] = $config->isShowAttendees();
-		$values[self::F_PRESENTER_LINK] = $config->getPresenterLink();
 
 		$this->form->setValuesByArray($values);
 	}

@@ -589,7 +589,7 @@ class xlvoVotingGUI {
 
 
 	/**
-	 * @param $key
+	 * @param string $key
 	 *
 	 * @return string
 	 */

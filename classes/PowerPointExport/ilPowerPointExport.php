@@ -7,8 +7,8 @@ use ilLiveVotingPlugin;
 use ilObjLiveVoting;
 use ilTemplate;
 use ilUtil;
-use LiveVoting\Voting\xlvoVoting;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
+use LiveVoting\Voting\xlvoVoting;
 use xlvoVotingConfig;
 
 /**
@@ -249,7 +249,7 @@ class ilPowerPointExport {
 
 			$guid = $this->guid();
 
-			$presenter_link = $this->config->getPresenterLink($voting->getId(), true);
+			$presenter_link = $this->config->getPresenterLink($voting->getId(), true, true);
 			$secure = (stripos($presenter_link, "https://") === 0);
 			$link = substr($presenter_link, (stripos($presenter_link, "://") + 3));
 
