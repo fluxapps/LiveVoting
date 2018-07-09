@@ -2,33 +2,45 @@
 /**
  * @author Fabian Schmid <fs@studer-raimann.ch>
  *
- *         User starts here. Use a RewriteRule to access this page a bit simpler
+ * User starts here. Use a RewriteRule to access this page a bit simpler
  */
 
-require_once __DIR__ . '/vendor/autoload.php';
-require_once 'dir.php';
+require_once __DIR__ . "/vendor/autoload.php";
+require_once "dir.php";
 
 use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Context\cookie\CookieManager;
 use LiveVoting\Context\InitialisationManager;
 use LiveVoting\Context\xlvoContext;
+use LiveVoting\Pin\xlvoPin;
 
-InitialisationManager::startMinimal();
-CookieManager::setContext(xlvoContext::CONTEXT_PIN);
-CookieManager::resetCookiePIN();
-CookieManager::resetCookiePUK();
-CookieManager::resetCookieVoting();
-CookieManager::resetCookiePpt();
+try {
 
-$existing_pin = trim($_REQUEST['pin'], '/');
-if ($existing_pin) {
-	CookieManager::setCookiePIN($existing_pin);
+	$pin = trim(filter_input(INPUT_GET, "pin"), "/");
+	if (!empty($pin)) {
+
+		InitialisationManager::startMinimal();
+
+		if (xlvoPin::checkPin($pin)) {
+
+			//CookieManager::resetCookiePIN();
+			CookieManager::resetCookiePUK();
+			CookieManager::resetCookieVoting();
+			CookieManager::resetCookiePpt();
+
+			CookieManager::setContext(xlvoContext::CONTEXT_PIN);
+			CookieManager::setCookiePIN($pin);
+
+			global $DIC;
+			$ilCtrl = $DIC->ctrl();
+			$ilCtrl->initBaseClass(ilUIPluginRouterGUI::class);
+			$ilCtrl->setTargetScript(xlvoConf::getFullApiURL());
+			$ilCtrl->redirectByClass([
+				ilUIPluginRouterGUI::class,
+				xlvoVoter2GUI::class,
+			], xlvoVoter2GUI::CMD_START_VOTER_PLAYER);
+		}
+	}
+} catch (Throwable $ex) {
+
 }
-global $DIC;
-$ilCtrl = $DIC->ctrl();
-$ilCtrl->initBaseClass(ilUIPluginRouterGUI::class);
-$ilCtrl->setTargetScript(xlvoConf::getFullApiURL());
-$ilCtrl->redirectByClass(array(
-	ilUIPluginRouterGUI::class,
-	xlvoVoter2GUI::class,
-), $existing_pin ? xlvoVoter2GUI::CMD_START_VOTER_PLAYER : xlvoVoter2GUI::CMD_STANDARD);

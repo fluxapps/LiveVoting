@@ -116,20 +116,24 @@ class xlvoVoter2GUI extends xlvoGUI {
 	 * @throws Exception
 	 */
 	protected function checkPin() {
+		//CookieManager::resetCookiePIN();
+		CookieManager::resetCookiePUK();
+		CookieManager::resetCookieVoting();
+		CookieManager::resetCookiePpt();
+
 		$redirect = true;
 		try {
-			xlvoPin::checkPin($_POST[self::F_PIN_INPUT]);
+			xlvoPin::checkPin(filter_input(INPUT_POST, self::F_PIN_INPUT));
 		} catch (xlvoVoterException $e) {
 			CookieManager::resetCookiePIN();
 			ilUtil::sendFailure($this->txt('msg_validation_error_pin_' . $e->getCode()));
 			$this->index();
 			$redirect = false;
 		}
-		CookieManager::resetCookiePUK();
-		CookieManager::resetCookieVoting();
-		CookieManager::resetCookiePpt();
+
 		if ($redirect) {
 			CookieManager::setCookiePIN($_POST[self::F_PIN_INPUT]);
+
 			$this->ctrl->redirect($this, self::CMD_START_VOTER_PLAYER);
 		}
 	}
@@ -139,6 +143,12 @@ class xlvoVoter2GUI extends xlvoGUI {
 	 * @throws ilException
 	 */
 	protected function startVoterPlayer() {
+		try {
+			xlvoPin::checkPin($this->pin);
+		} catch (Throwable $e) {
+			throw new ilException("Wrong PIN!");
+		}
+
 		$this->initJsAndCss();
 		$this->tpl->addCss($this->pl->getDirectory() . '/templates/default/default.css');
 		$tpl = $this->pl->getTemplate('default/Voter/tpl.voter_player.html', true, false);

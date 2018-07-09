@@ -156,23 +156,32 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 	/**
 	 *
+	 * @throws ilException
 	 */
 	protected function startPresenter() {
 		$pin = CookieManager::getCookiePIN();
-		$this->manager = new xlvoVotingManager2($pin);
 
-		$puk = CookieManager::getCookiePUK();
+		try {
+			xlvoPin::checkPin($pin);
+		} catch (Throwable $e) {
+			throw new ilException("Wrong PIN!");
+		}
+
+		$this->manager = new xlvoVotingManager2($pin);
 
 		/**
 		 * @var xlvoVotingConfig|null $xlvoVotingConfig
 		 */
-
 		$xlvoVotingConfig = xlvoVotingConfig::find($this->manager->getObjId());
 
 		if ($xlvoVotingConfig === NULL
-			|| $xlvoVotingConfig->getPuk() !== $puk
 			|| $this->manager->getObjId()
 			!= ilObject2::_lookupObjId(filter_input(INPUT_GET, "ref_id"))/* || !ilObjLiveVotingAccess::hasWriteAccess($this->manager->getObjId())*/) {
+			throw new ilException("Wrong PIN!");
+		}
+
+		$puk = CookieManager::getCookiePUK();
+		if ($xlvoVotingConfig->getPuk() !== $puk) {
 			throw new ilException("Wrong PUK!");
 		}
 

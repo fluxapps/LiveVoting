@@ -4,18 +4,16 @@
 /**
  * @author Fabian Schmid <fs@studer-raimann.ch>
  *
- *
- *         Acts as ILIAS entry-point and calls ILIAS-call-structure
- *         Depending on Context, an ILIAS environment or just the pin context is loaded
+ * Acts as ILIAS entry-point and calls ILIAS-call-structure
+ * Depending on Context, an ILIAS environment or just the pin context is loaded
  */
 
-require_once __DIR__ . '/vendor/autoload.php';
-require_once 'dir.php';
+require_once __DIR__ . "/vendor/autoload.php";
+require_once "dir.php";
 
 use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Context\cookie\CookieManager;
 use LiveVoting\Context\InitialisationManager;
-use LiveVoting\Context\xlvoBasicInitialisation;
 use LiveVoting\Context\xlvoContext;
 
 $context = CookieManager::getContext();
@@ -25,6 +23,7 @@ switch ($context) {
 		break;
 
 	case xlvoContext::CONTEXT_ILIAS:
+	default:
 		InitialisationManager::startLight();
 		//TODO: catch error if user used the go to link but has no ilias authentication. Atm the error handling page is shown.
 		break;
