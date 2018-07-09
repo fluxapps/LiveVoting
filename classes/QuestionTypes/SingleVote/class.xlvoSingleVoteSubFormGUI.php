@@ -21,6 +21,9 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 	protected $options = array();
 
 
+	/**
+	 *
+	 */
 	protected function initFormElements() {
 		$cb = new ilCheckboxInputGUI($this->txt(self::F_MULTI_SELECTION), self::F_MULTI_SELECTION);
 		$cb->setInfo($this->txt(self::F_MULTI_SELECTION . '_info'));
@@ -48,10 +51,9 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 
 
 	/**
-	 * @param ilFormPropertyGUI  $element
-	 * @param                    $value
+	 * @param ilFormPropertyGUI $element
+	 * @param string|array      $value
 	 *
-	 * @return mixed
 	 * @throws ilException
 	 */
 	protected function handleField(ilFormPropertyGUI $element, $value) {
@@ -87,7 +89,7 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 	/**
 	 * @param ilFormPropertyGUI $element
 	 *
-	 * @return mixed
+	 * @return string|int|float|array
 	 * @throws ilException
 	 */
 	protected function getFieldValue(ilFormPropertyGUI $element) {
@@ -114,10 +116,14 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 				return $this->getXlvoVoting()->isColors();
 			default:
 				throw new ilException('Unknown element can not get the value.');
+				break;
 		}
 	}
 
 
+	/**
+	 *
+	 */
 	protected function handleOptions() {
 		$ids = array();
 		foreach ($this->options as $i => $xlvoOption) {

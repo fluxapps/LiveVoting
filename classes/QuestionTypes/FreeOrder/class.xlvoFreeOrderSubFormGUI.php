@@ -20,6 +20,9 @@ class xlvoFreeOrderSubFormGUI extends xlvoSubFormGUI {
 	protected $options = array();
 
 
+	/**
+	 *
+	 */
 	protected function initFormElements() {
 		$xlvoMultiLineInputGUI = new xlvoMultiLineInputGUI($this->txt(self::F_OPTIONS), self::F_OPTIONS);
 		$xlvoMultiLineInputGUI->setShowLabel(false);
@@ -37,10 +40,10 @@ class xlvoFreeOrderSubFormGUI extends xlvoSubFormGUI {
 
 
 	/**
-	 * @param ilFormPropertyGUI  $element
-	 * @param                    $value
+	 * @param ilFormPropertyGUI $element
+	 * @param string|array      $value
 	 *
-	 * @return void
+	 * @throws ilException
 	 */
 	protected function handleField(ilFormPropertyGUI $element, $value) {
 		switch ($element->getPostVar()) {
@@ -61,6 +64,8 @@ class xlvoFreeOrderSubFormGUI extends xlvoSubFormGUI {
 					$pos ++;
 				}
 				break;
+			default:
+				throw new ilException('Unknown element can not get the value.');
 		}
 	}
 
@@ -68,7 +73,8 @@ class xlvoFreeOrderSubFormGUI extends xlvoSubFormGUI {
 	/**
 	 * @param ilFormPropertyGUI $element
 	 *
-	 * @return array
+	 * @return string|int|float|array
+	 * @throws ilException
 	 */
 	protected function getFieldValue(ilFormPropertyGUI $element) {
 		switch ($element->getPostVar()) {
@@ -88,12 +94,16 @@ class xlvoFreeOrderSubFormGUI extends xlvoSubFormGUI {
 				}
 
 				return $array;
+			default:
+				throw new ilException('Unknown element can not get the value.');
+				break;
 		}
-
-		return [];
 	}
 
 
+	/**
+	 *
+	 */
 	protected function handleOptions() {
 		$ids = array();
 		foreach ($this->options as $xlvoOption) {

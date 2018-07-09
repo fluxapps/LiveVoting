@@ -10,20 +10,21 @@ use LiveVoting\Vote\xlvoVote;
 class xlvoNumberRangeResultGUI extends xlvoResultGUI {
 
 	/**
-	 * Creates a text representation from the given votes.
-	 * This method is used by the history object to create a readable history.
-	 *
-	 * @param xlvoVote[] $votes The votes which should be transformed into a text representation.
+	 * @param xlvoVote[] $votes
 	 *
 	 * @return string
 	 */
-	public function getTextRepresentation($votes) {
+	public function getTextRepresentation(array $votes) {
 		return $this->createCSV($votes);
 	}
 
 
-	public function getAPIRepresentation($votes) {
-
+	/**
+	 * @param xlvoVote[] $votes
+	 *
+	 * @return string
+	 */
+	public function getAPIRepresentation(array $votes) {
 		return $this->createCSV($votes);
 	}
 

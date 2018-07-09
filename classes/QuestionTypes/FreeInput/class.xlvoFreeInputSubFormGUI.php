@@ -10,6 +10,9 @@ class xlvoFreeInputSubFormGUI extends xlvoSubFormGUI {
 	const F_MULTI_FREE_INPUT = 'multi_free_input';
 
 
+	/**
+	 *
+	 */
 	protected function initFormElements() {
 		$cb = new ilCheckboxInputGUI($this->txt(self::F_MULTI_FREE_INPUT), self::F_MULTI_FREE_INPUT);
 		$cb->setInfo($this->txt(self::F_MULTI_FREE_INPUT . '_info'));
@@ -18,14 +21,18 @@ class xlvoFreeInputSubFormGUI extends xlvoSubFormGUI {
 
 
 	/**
-	 * @param ilFormPropertyGUI  $element
-	 * @param                    $value
+	 * @param ilFormPropertyGUI $element
+	 * @param string|array      $value
+	 *
+	 * @throws ilException
 	 */
 	protected function handleField(ilFormPropertyGUI $element, $value) {
 		switch ($element->getPostVar()) {
 			case self::F_MULTI_FREE_INPUT:
 				$this->getXlvoVoting()->setMultiFreeInput($value);
 				break;
+			default:
+				throw new ilException('Unknown element can not get the value.');
 		}
 	}
 
@@ -33,16 +40,16 @@ class xlvoFreeInputSubFormGUI extends xlvoSubFormGUI {
 	/**
 	 * @param ilFormPropertyGUI $element
 	 *
-	 * @return mixed
+	 * @return string|int|float|array
 	 * @throws ilException
 	 */
 	protected function getFieldValue(ilFormPropertyGUI $element) {
 		switch ($element->getPostVar()) {
 			case self::F_MULTI_FREE_INPUT:
 				return $this->getXlvoVoting()->isMultiFreeInput();
-				break;
 			default:
 				throw new ilException('Unknown element can not get the value.');
+				break;
 		}
 	}
 }

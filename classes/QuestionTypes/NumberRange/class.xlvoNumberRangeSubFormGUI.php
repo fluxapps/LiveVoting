@@ -34,7 +34,7 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 
 
 	/**
-	 * Creates the GUI elements.
+	 *
 	 */
 	protected function initFormElements() {
 
@@ -90,13 +90,10 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 
 
 	/**
-	 * Set a new value by element.
-	 *
 	 * @param ilFormPropertyGUI $element
-	 * @param int               $value The new value for the element. (value will be casted to int)
+	 * @param string|array      $value
 	 *
-	 * @return xlvoVoting
-	 * @throws ilException  If the element is not recognised by the handle field.
+	 * @throws ilException
 	 */
 	protected function handleField(ilFormPropertyGUI $element, $value) {
 		$postKey = $element->getPostVar();
@@ -104,15 +101,20 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 
 		switch ($postKey) {
 			case self::OPTION_PERCENTAGE:
-				return $this->getXlvoVoting()->setPercentage($value === 1 ? 1 : 0); //if the value is 1 set 1 or else 0.
+				$this->getXlvoVoting()->setPercentage($value === 1 ? 1 : 0); //if the value is 1 set 1 or else 0.
+				break;
 			case self::OPTION_RANGE_START:
-				return $this->setStartRange($value);
+				$this->setStartRange($value);
+				break;
 			case self::OPTION_RANGE_END:
-				return $this->setEndRange($value);
+				$this->setEndRange($value);
+				break;
 			case self::OPTION_RANGE_STEP:
-				return $this->setStepRange($value);
+				$this->setStepRange($value);
+				break;
 			case self::OPTION_ALTERNATIVE_RESULT_DISPLAY_MODE:
-				return $this->getXlvoVoting()->setAltResultDisplayMode((int)$value); //if the value is 1 set 1 or else 0.
+				$this->getXlvoVoting()->setAltResultDisplayMode((int)$value); //if the value is 1 set 1 or else 0.
+				break;
 			default:
 				throw new ilException('Unknown element can not set the value.');
 		}
@@ -120,12 +122,10 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 
 
 	/**
-	 * Get a value by element.
+	 * @param ilFormPropertyGUI $element
 	 *
-	 * @param ilFormPropertyGUI $element The element which should be used to fetch the value.
-	 *
-	 * @return int                          The value read with the help of the given element.
-	 * @throws ilException                  Thrown if the element is not recognised.
+	 * @return string|int|float|array
+	 * @throws ilException
 	 */
 	protected function getFieldValue(ilFormPropertyGUI $element) {
 		$postKey = $element->getPostVar();
@@ -143,6 +143,7 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 				return (int)$this->getXlvoVoting()->getAltResultDisplayMode();
 			default:
 				throw new ilException('Unknown element can not get the value.');
+				break;
 		}
 	}
 

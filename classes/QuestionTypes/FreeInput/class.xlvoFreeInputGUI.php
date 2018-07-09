@@ -32,7 +32,7 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 
 
 	/**
-	 * Vote
+	 *
 	 */
 	protected function submit() {
 		$this->manager->unvoteAll();

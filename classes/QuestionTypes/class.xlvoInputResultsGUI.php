@@ -73,13 +73,15 @@ abstract class xlvoInputResultsGUI {
 	/**
 	 * @return string
 	 */
-	abstract public function getHTML();
+	public abstract function getHTML();
 
 
 	/**
-	 * @param $votes xlvoVote[]
+	 * @param xlvoVote[] $votes
 	 *
 	 * @return string
+	 *
+	 * TODO Usage?
 	 */
-	abstract public function getTextRepresentationForVotes($votes);
+	public abstract function getTextRepresentationForVotes(array $votes);
 }

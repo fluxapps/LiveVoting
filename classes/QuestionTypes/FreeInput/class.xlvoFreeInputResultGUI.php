@@ -14,7 +14,7 @@ class xlvoFreeInputResultGUI extends xlvoResultGUI {
 	 *
 	 * @return string
 	 */
-	public function getTextRepresentation($votes) {
+	public function getTextRepresentation(array $votes) {
 		$strings = array();
 		foreach ($votes as $vote) {
 			$strings[] = $vote->getFreeInput();
@@ -29,7 +29,7 @@ class xlvoFreeInputResultGUI extends xlvoResultGUI {
 	 *
 	 * @return string
 	 */
-	public function getAPIRepresentation($votes) {
+	public function getAPIRepresentation(array $votes) {
 		return $this->getTextRepresentation($votes);
 	}
 }

@@ -22,6 +22,9 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI {
 	protected $options = array();
 
 
+	/**
+	 *
+	 */
 	protected function initFormElements() {
 
 		$xlvoMultiLineInputGUI = new xlvoMultiLineInputGUI($this->txt(self::F_OPTIONS), self::F_OPTIONS);
@@ -54,11 +57,10 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI {
 
 
 	/**
-	 * @param ilFormPropertyGUI  $element
-	 * @param                    $value
+	 * @param ilFormPropertyGUI $element
+	 * @param string|array      $value
 	 *
-	 * @return void
-	 * @throws ilException  If the postvar of the gui element is not recognised.
+	 * @throws ilException
 	 */
 	protected function handleField(ilFormPropertyGUI $element, $value) {
 		switch ($element->getPostVar()) {
@@ -92,7 +94,8 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI {
 	/**
 	 * @param ilFormPropertyGUI $element
 	 *
-	 * @return array|int
+	 * @return string|int|float|array
+	 * @throws ilException
 	 */
 	protected function getFieldValue(ilFormPropertyGUI $element) {
 		switch ($element->getPostVar()) {
@@ -114,12 +117,16 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI {
 				return $array;
 			case self::OPTION_RANDOMIZE_OPTIONS_AFTER_SAVE:
 				return (int)$this->getXlvoVoting()->getRandomiseOptionSequence();
+			default:
+				throw new ilException('Unknown element can not get the value.');
+				break;
 		}
-
-		return [];
 	}
 
 
+	/**
+	 *
+	 */
 	protected function handleOptions() {
 		$ids = array();
 		foreach ($this->options as $xlvoOption) {

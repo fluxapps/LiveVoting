@@ -13,9 +13,9 @@ class xlvoSingleVoteResultGUI extends xlvoResultGUI {
 	/**
 	 * @param xlvoVote[] $votes
 	 *
-	 * @return string|xlvoOption
+	 * @return string
 	 */
-	public function getTextRepresentation($votes) {
+	public function getTextRepresentation(array $votes) {
 		if (!count($votes)) {
 			return "";
 		}
@@ -38,7 +38,7 @@ class xlvoSingleVoteResultGUI extends xlvoResultGUI {
 	 *
 	 * @return string
 	 */
-	public function getAPIRepresentation($votes) {
+	public function getAPIRepresentation(array $votes) {
 		if (!count($votes)) {
 			return "";
 		}

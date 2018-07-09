@@ -39,19 +39,19 @@ abstract class xlvoResultGUI {
 
 
 	/**
-	 * @param $votes xlvoVote[]
+	 * @param xlvoVote[] $votes
 	 *
 	 * @return string
 	 */
-	public abstract function getTextRepresentation($votes);
+	public abstract function getTextRepresentation(array $votes);
 
 
 	/**
-	 * @param $votes xlvoVote[]
+	 * @param xlvoVote[] $votes
 	 *
 	 * @return string
 	 */
-	public abstract function getAPIRepresentation($votes);
+	public abstract function getAPIRepresentation(array $votes);
 
 
 	/**

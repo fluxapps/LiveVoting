@@ -149,13 +149,11 @@ class xlvoNumberRangeResultsGUI extends xlvoInputResultsGUI {
 
 
 	/**
-	 * Creates a CSV of the given votes.
+	 * @param xlvoVote[] $votes
 	 *
-	 * @param xlvoVote[] $votes An array of votes which should be parsed into a string representation.
-	 *
-	 * @return string   The string representation of the votes.
+	 * @return string
 	 */
-	public function getTextRepresentationForVotes($votes) {
+	public function getTextRepresentationForVotes(array $votes) {
 		$result = xlvoNumberRangeResultGUI::getInstance($this->voting);
 
 		return $result->getTextRepresentation($votes);

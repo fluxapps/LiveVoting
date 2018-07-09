@@ -36,11 +36,11 @@ class xlvoFreeInputResultsGUI extends xlvoInputResultsGUI {
 
 
 	/**
-	 * @param $votes xlvoVote[]
+	 * @param xlvoVote[] $votes
 	 *
 	 * @return string
 	 */
-	public function getTextRepresentationForVotes($votes) {
+	public function getTextRepresentationForVotes(array $votes) {
 		$string_votes = array();
 		foreach ($votes as $vote) {
 			$string_votes[] = $vote->getFreeInput();

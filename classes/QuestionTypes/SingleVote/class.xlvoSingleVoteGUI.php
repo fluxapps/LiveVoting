@@ -25,7 +25,7 @@ class xlvoSingleVoteGUI extends xlvoQuestionTypesGUI {
 
 
 	/**
-	 * Vote
+	 *
 	 */
 	protected function submit() {
 		$this->manager->vote($_GET['option_id']);

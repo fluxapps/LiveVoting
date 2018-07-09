@@ -661,7 +661,7 @@ class xlvoBasicInitialisation {
 	 */
 	private function initAccess() {
 		require_once 'Services/AccessControl/classes/class.ilAccessHandler.php';
-		$this->makeGlobal('ilAccess', new ilAccessHandler());
+		$this->makeGlobal('ilAccess', new ilAccessHandler()); // In ILIAS 5.2 this is not an exception
 	}
 
 

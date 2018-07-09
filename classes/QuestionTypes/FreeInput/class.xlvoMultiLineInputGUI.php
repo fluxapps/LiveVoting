@@ -83,8 +83,8 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	/**
 	 * Constructor
 	 *
-	 * @param    string $a_title   Title
-	 * @param    string $a_postvar Post Variable
+	 * @param string $a_title   Title
+	 * @param string $a_postvar Post Variable
 	 */
 	public function __construct($a_title = "", $a_postvar = "") {
 		parent::__construct($a_title, $a_postvar);
@@ -119,7 +119,7 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 
 
 	/**
-	 * @param $key
+	 * @param string $key
 	 *
 	 * @return bool
 	 */
@@ -135,8 +135,8 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 
 
 	/**
-	 * @param       $input
-	 * @param array $options
+	 * @param ilFormPropertyGUI $input
+	 * @param array             $options
 	 */
 	public function addInput(ilFormPropertyGUI $input, $options = array()) {
 		$this->inputs[$input->getPostVar()] = $input;
@@ -180,7 +180,7 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	/**
 	 * Get Options.
 	 *
-	 * @return    array    Options. Array ("value" => "option_text")
+	 * @return array Options. Array ("value" => "option_text")
 	 */
 	public function getInputs() {
 		return $this->inputs;
@@ -198,7 +198,7 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	/**
 	 * Set Value.
 	 *
-	 * @param    string $a_value Value
+	 * @param string $a_value Value
 	 */
 	public function setValue($a_value) {
 		foreach ($this->inputs as $key => $item) {
@@ -215,7 +215,7 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	/**
 	 * Get Value.
 	 *
-	 * @return    string    Value
+	 * @return string|array Value
 	 */
 	public function getValue() {
 		$out = array();
@@ -230,7 +230,7 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	/**
 	 * Set value by array
 	 *
-	 * @param    array $a_values value array
+	 * @param array $a_values value array
 	 */
 	public function setValueByArray($a_values) {
 		$data = $a_values[$this->getPostVar()];
@@ -245,7 +245,7 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	/**
 	 * Check input, strip slashes etc. set alert, if input is not ok.
 	 *
-	 * @return    boolean        Input ok, true/false
+	 * @return boolean Input ok, true/false
 	 */
 	public function checkInput() {
 		$valid = true;
@@ -279,8 +279,8 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 
 
 	/**
-	 * @param            $key
-	 * @param            $value
+	 * @param string     $key
+	 * @param mixed      $value
 	 * @param bool|false $override
 	 */
 	public function addCustomAttribute($key, $value, $override = false) {
@@ -301,8 +301,8 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 
 
 	/**
-	 * @param                    $iterator_id
-	 * @param ilFormPropertyGUI  $input
+	 * @param string            $iterator_id
+	 * @param ilFormPropertyGUI $input
 	 *
 	 * @return string
 	 */
@@ -440,6 +440,9 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	}
 
 
+	/**
+	 *
+	 */
 	public function initCSSandJS() {
 		$this->tpl->addCss($this->pl->getDirectory() . '/templates/default/multi_line_input.css');
 		$this->tpl->addJavascript($this->pl->getDirectory() . '/js/libs/multi_line_input.min.js');
@@ -449,7 +452,7 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	/**
 	 * Insert property html
 	 *
-	 * @return    int    Size
+	 * @return int Size
 	 */
 	public function insert(&$a_tpl) {
 		$output = "";

@@ -76,7 +76,10 @@ abstract class xlvoSubFormGUI {
 	}
 
 
-	abstract protected function initFormElements();
+	/**
+	 *
+	 */
+	protected abstract function initFormElements();
 
 
 	/**$
@@ -124,7 +127,7 @@ abstract class xlvoSubFormGUI {
 	/**
 	 * @param ilFormPropertyGUI $element
 	 */
-	public function addFormElement(ilFormPropertyGUI $element) {
+	protected function addFormElement(ilFormPropertyGUI $element) {
 		$this->form_elements[] = $element;
 	}
 
@@ -146,6 +149,8 @@ abstract class xlvoSubFormGUI {
 
 	/**
 	 * @param ilPropertyFormGUI $ilPropertyFormGUI
+	 *
+	 * @throws ilException
 	 */
 	public function handleAfterSubmit(ilPropertyFormGUI $ilPropertyFormGUI) {
 		foreach ($this->getFormElements() as $formElement) {
@@ -168,6 +173,7 @@ abstract class xlvoSubFormGUI {
 	 * @param array $existing
 	 *
 	 * @return array
+	 * @throws ilException
 	 */
 	public function appendValues(array $existing) {
 		foreach ($this->getFormElements() as $formElement) {
@@ -178,6 +184,9 @@ abstract class xlvoSubFormGUI {
 	}
 
 
+	/**
+	 *
+	 */
 	protected function handleOptions() {
 		$xlvoOption = xlvoOption::where(array( 'voting_id' => $this->getXlvoVoting()->getId() ))->first();
 		if (!$xlvoOption instanceof xlvoOption) {
@@ -192,18 +201,19 @@ abstract class xlvoSubFormGUI {
 
 
 	/**
-	 * @param ilFormPropertyGUI  $element
-	 * @param                    $value
+	 * @param ilFormPropertyGUI $element
+	 * @param string|array      $value
 	 *
-	 * @return mixed
+	 * @throws ilException
 	 */
-	abstract protected function handleField(ilFormPropertyGUI $element, $value);
+	protected abstract function handleField(ilFormPropertyGUI $element, $value);
 
 
 	/**
 	 * @param ilFormPropertyGUI $element
 	 *
-	 * @return mixed
+	 * @return string|int|float|array
+	 * @throws ilException
 	 */
-	abstract protected function getFieldValue(ilFormPropertyGUI $element);
+	protected abstract function getFieldValue(ilFormPropertyGUI $element);
 }

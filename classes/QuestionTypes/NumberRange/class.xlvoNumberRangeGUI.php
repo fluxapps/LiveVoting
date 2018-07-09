@@ -56,7 +56,7 @@ class xlvoNumberRangeGUI extends xlvoQuestionTypesGUI {
 
 
 	/**
-	 * @throws ilException
+	 *
 	 */
 	protected function submit() {
 		if ($this->manager === NULL) {

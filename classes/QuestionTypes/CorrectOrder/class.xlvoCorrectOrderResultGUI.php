@@ -15,7 +15,7 @@ class xlvoCorrectOrderResultGUI extends xlvoResultGUI {
 	 *
 	 * @return string
 	 */
-	public function getTextRepresentation($votes) {
+	public function getTextRepresentation(array $votes) {
 		$strings = array();
 		if (!count($votes)) {
 			return "";
@@ -44,7 +44,7 @@ class xlvoCorrectOrderResultGUI extends xlvoResultGUI {
 	 *
 	 * @return string
 	 */
-	public function getAPIRepresentation($votes) {
+	public function getAPIRepresentation(array $votes) {
 		$strings = array();
 		if (!count($votes)) {
 			return "";

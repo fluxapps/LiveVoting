@@ -73,6 +73,9 @@ abstract class xlvoQuestionTypesGUI extends xlvoGUI {
 	}
 
 
+	/**
+	 *
+	 */
 	public function executeCommand() {
 		$nextClass = $this->ctrl->getNextClass();
 
@@ -125,17 +128,15 @@ abstract class xlvoQuestionTypesGUI extends xlvoGUI {
 
 
 	/**
-	 * add JS to the HEAD
-	 *
 	 * @param bool $current
 	 */
 	public abstract function initJS($current = false);
 
 
 	/**
-	 * Vote
+	 *
 	 */
-	abstract protected function submit();
+	protected abstract function submit();
 
 
 	/**
@@ -149,7 +150,7 @@ abstract class xlvoQuestionTypesGUI extends xlvoGUI {
 	/**
 	 * @return string
 	 */
-	abstract public function getMobileHTML();
+	public abstract function getMobileHTML();
 
 
 	//
