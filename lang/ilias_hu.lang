@@ -246,3 +246,5 @@ xlvo_new#:#Új Élőszavazás létrehozása
 xlvo_read#:#Olvasás (csak nem-anonim módban használható)
 xlvo_visible#:#Élőszavazások látható
 xlvo_write#:#Élőszavazás indítása és módosítása
+config_use_serif_font_for_pins#:#MISSING
+config_use_serif_font_for_pins_info#:#MISSING

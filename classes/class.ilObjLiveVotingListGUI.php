@@ -22,6 +22,8 @@
 	+-----------------------------------------------------------------------------+
 */
 
+use LiveVoting\Pin\xlvoPin;
+
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once('./Services/Repository/classes/class.ilObjectPluginListGUI.php');
 
@@ -120,7 +122,7 @@ class ilObjLiveVotingListGUI extends \ilObjectPluginListGUI {
 		$props[] = array(
 			"alert" => false,
 			"property" => 'PIN',
-			"value" => LiveVoting\Pin\xlvoPin::lookupPin($this->obj_id),
+			"value" => xlvoPin::formatPin(xlvoPin::lookupPin($this->obj_id)),
 		);
 
 		require_once('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/classes/class.ilObjLiveVotingAccess.php');

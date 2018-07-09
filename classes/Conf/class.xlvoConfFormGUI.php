@@ -91,11 +91,16 @@ class xlvoConfFormGUI extends \ilPropertyFormGUI {
 		$api_token->setValue(xlvoConf::getApiToken());
 		$result_api->addSubItem($api_token);
 
+		// Use serif font for PIN's
+		$use_serif_font_for_pins = new ilCheckboxInputGUI($this->parent_gui->txt(xlvoConf::F_USE_SERIF_FONT_FOR_PINS), xlvoConf::F_USE_SERIF_FONT_FOR_PINS);
+		$use_serif_font_for_pins->setInfo($this->parent_gui->txt(xlvoConf::F_USE_SERIF_FONT_FOR_PINS . '_info'));
+
 		//add items to GUI
         $this->addItem($use_shortlink);
         $this->addItem($request_frequency);
         $this->addItem($result_api);
         $this->addItem($global_cache_enabled);
+		$this->addItem($use_serif_font_for_pins);
     }
 
 

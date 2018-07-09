@@ -191,14 +191,14 @@ class xlvoVoter2GUI extends xlvoGUI {
 				$tpl->setVariable('DESCRIPTION', $this->txt('info_stopped'));
 				$tpl->setVariable('COUNT', $this->manager->countVotings());
 				$tpl->setVariable('POSITION', $this->manager->getVotingPosition());
-				$tpl->setVariable('PIN', $this->manager->getVotingConfig()->getPin());
+				$tpl->setVariable('PIN', xlvoPin::formatPin($this->manager->getVotingConfig()->getPin()));
 				break;
 			case xlvoPlayer::STAT_RUNNING:
 				$tpl->setVariable('TITLE', $this->manager->getVoting()->getTitle());
 				$tpl->setVariable('DESCRIPTION', $this->manager->getVoting()->getDescription());
 				$tpl->setVariable('COUNT', $this->manager->countVotings());
 				$tpl->setVariable('POSITION', $this->manager->getVotingPosition());
-				$tpl->setVariable('PIN', $this->manager->getVotingConfig()->getPin());
+				$tpl->setVariable('PIN', xlvoPin::formatPin($this->manager->getVotingConfig()->getPin()));
 
 				$xlvoQuestionTypesGUI = xlvoQuestionTypesGUI::getInstance($this->manager);
 				if ($xlvoQuestionTypesGUI->isShowQuestion()) {
@@ -224,7 +224,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 				$tpl->setVariable('DESCRIPTION', $this->txt('info_frozen'));
 				$tpl->setVariable('COUNT', $this->manager->countVotings());
 				$tpl->setVariable('POSITION', $this->manager->getVotingPosition());
-				$tpl->setVariable('PIN', $this->manager->getVotingConfig()->getPin());
+				$tpl->setVariable('PIN', xlvoPin::formatPin($this->manager->getVotingConfig()->getPin()));
 				$tpl->setVariable('GLYPH', xlvoGlyphGUI::get('pause'));
 				break;
 		}

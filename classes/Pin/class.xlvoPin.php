@@ -3,6 +3,7 @@
 namespace LiveVoting\Pin;
 use LiveVoting\Cache\xlvoCacheFactory;
 use LiveVoting\Cache\xlvoCacheService;
+use LiveVoting\Conf\xlvoConf;
 use LiveVoting\User\xlvoUser;
 use LiveVoting\Voter\xlvoVoterException;
 use xlvoVotingConfig;
@@ -41,6 +42,20 @@ class xlvoPin {
     private $cache;
 
     const CACHE_TTL_SECONDS = 1800;
+
+
+	/**
+	 * @param string $pin
+	 *
+	 * @return string
+	 */
+	public static function formatPin($pin) {
+		if (xlvoConf::getConfig(xlvoConf::F_USE_SERIF_FONT_FOR_PINS)) {
+			$pin = '<span class="serif_font"> ' . $pin . "</span>";
+		}
+
+		return $pin;
+	}
 
 
 	/**

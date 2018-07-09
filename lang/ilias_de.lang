@@ -251,3 +251,5 @@ xlvo_new#:#Neues LiveVoting anlegen
 xlvo_read#:#Leserecht (nur im nicht-anonymen Modus verwendet
 xlvo_visible#:#LiveVoting sichtbar
 xlvo_write#:#LiveVoting präsentieren und bearbeiten
+config_use_serif_font_for_pins#:#Serifenschrift für PIN's nutzen
+config_use_serif_font_for_pins_info#:#Serifenschrift für PIN's nutzen
