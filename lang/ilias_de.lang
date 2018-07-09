@@ -173,9 +173,9 @@ qtype_4_option_randomise_option_after_save_inf#:#Bestimmt die Reihenfolge der Op
 qtype_6_option_alternative_result_display_mode#:#Darstellungsart der Antworten
 qtype_6_option_alternative_result_display_mode_info#:#Alternative Darstellungsart der Antworten. Diese werden als Text absteigend gruppiert dargestellt.
 qtype_4_option_randomise_option_after_save_info#:#Bestimmt die Reihenfolge der Optionen zufällig wenn diese gesichert werden. Die Generierung einer korrekten Antwort ist jedoch ausgeschlossen.
-qtype_6_display_mode_nr_0#:#Grouped Text TBD
-qtype_6_display_mode_nr_1#:#Bars TBD
-qtype_6_display_mode_nr_2#:#Grouped Text Extended TBD
+qtype_6_display_mode_nr_0#:#Gruppierter Text TBD
+qtype_6_display_mode_nr_1#:#Barren TBD
+qtype_6_display_mode_nr_2#:#Gruppierter Text erweitert TBD
 results_title#:#Resultate
 root_create_xlvo#:#LiveVoting erstellen
 show_attendees#:#Anzahl Teilnehmende (Online)
