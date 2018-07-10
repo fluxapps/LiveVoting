@@ -18,7 +18,7 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 	const F_VOTE_MULTI_LINE_INPUT = 'vote_multi_line_input';
 	const F_FREE_INPUT = 'free_input';
 	const F_VOTE_ID = 'vote_id';
-	const CMD_CLEAR = 'clear';
+	//const CMD_CLEAR = 'clear';
 
 
 	/**
@@ -58,14 +58,13 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 	}
 
 
-	/**
+	/* *
 	 *
-	 */
+	 * /
 	protected function clear() {
 		$this->manager->clear();
 		$this->afterSubmit();
-	}
-
+	}*/
 
 	/**
 	 * @return string
@@ -99,7 +98,7 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 				$an->setValue($vote->getFreeInput());
 			}
 			$hi2->setValue($vote->getId());
-			$form->addCommandButton(self::CMD_CLEAR, $this->txt(self::CMD_CLEAR));
+			//$form->addCommandButton(self::CMD_CLEAR, $this->txt(self::CMD_CLEAR));
 		}
 
 		$form->addItem($an);
@@ -122,7 +121,7 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 			$te = new ilNonEditableValueGUI();
 			$te->setValue($this->txt('your_input'));
 			$form->addItem($te);
-			$form->addCommandButton(self::CMD_CLEAR, $this->txt('delete_all'));
+			//$form->addCommandButton(self::CMD_CLEAR, $this->txt('delete_all'));
 		}
 
 		$mli = new xlvoMultiLineInputGUI($this->txt('answers'), self::F_VOTE_MULTI_LINE_INPUT);

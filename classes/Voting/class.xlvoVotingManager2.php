@@ -664,14 +664,13 @@ class xlvoVotingManager2 {
 	}
 
 
-	/**
+	/* *
 	 *
-	 */
+	 * /
 	public function clear() {
 		$this->unvoteAll();
 		$this->createHistoryObject();
-	}
-
+	}*/
 
 	/**
 	 * @throws xlvoVotingManagerException
