@@ -198,7 +198,7 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 		$start = (int)$this->getXlvoVoting()->getStartRange();
 		$end = (int)$this->getXlvoVoting()->getEndRange();
 		$range = ($end - $start);
-		if ($step <= $range && $range % $step === 0) {
+		if ($step < $range && $range % $step === 0) {
 			return $this->getXlvoVoting()->setStepRange($step);
 		}
 
