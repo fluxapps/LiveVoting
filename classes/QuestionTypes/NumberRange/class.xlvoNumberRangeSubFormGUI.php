@@ -156,7 +156,7 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 	 * @param int $start The new start range which should be set.
 	 *
 	 * @return xlvoVoting
-	 * @throws ilException
+	 * @throws xlvoSubFormGUIHandleFieldException
 	 */
 	private function setStartRange($start) {
 		$end = (int)$this->getXlvoVoting()->getEndRange();
@@ -165,7 +165,7 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 			return $this->getXlvoVoting()->setStartRange($start);
 		}
 
-		throw new ilException(sprintf($this->pl->txt(self::START_RANGE_INVALID_INFO), self::START_RANGE_MIN, self::START_RANGE_MAX));
+		throw new xlvoSubFormGUIHandleFieldException(sprintf($this->pl->txt(self::START_RANGE_INVALID_INFO), self::START_RANGE_MIN, self::START_RANGE_MAX));
 	}
 
 
@@ -175,7 +175,7 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 	 * @param int $end The new end range which should be set.
 	 *
 	 * @return xlvoVoting
-	 * @throws ilException
+	 * @throws xlvoSubFormGUIHandleFieldException
 	 */
 	private function setEndRange($end) {
 		$start = (int)$this->getXlvoVoting()->getStartRange();
@@ -184,7 +184,7 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 			return $this->getXlvoVoting()->setEndRange($end);
 		}
 
-		throw new ilException(sprintf($this->pl->txt(self::END_RANGE_INVALID_INFO), self::END_RANGE_MIN, self::END_RANGE_MAX));
+		throw new xlvoSubFormGUIHandleFieldException(sprintf($this->pl->txt(self::END_RANGE_INVALID_INFO), self::END_RANGE_MIN, self::END_RANGE_MAX));
 	}
 
 
@@ -192,7 +192,7 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 	 * @param int $step
 	 *
 	 * @return xlvoVoting
-	 * @throws ilException
+	 * @throws xlvoSubFormGUIHandleFieldException
 	 */
 	private function setStepRange($step) {
 		$start = (int)$this->getXlvoVoting()->getStartRange();
@@ -202,6 +202,6 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 			return $this->getXlvoVoting()->setStepRange($step);
 		}
 
-		throw new ilException($this->pl->txt(self::STEP_RANGE_INVALID_INFO));
+		throw new xlvoSubFormGUIHandleFieldException($this->pl->txt(self::STEP_RANGE_INVALID_INFO));
 	}
 }
