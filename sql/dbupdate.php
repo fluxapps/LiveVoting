@@ -493,8 +493,6 @@ require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/Li
 <?php
 require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
-use LiveVoting\Puk\xlvoPuk;
-
 xlvoVotingConfig::updateDB();
 
 foreach (xlvoVotingConfig::get() as $xlvoVotingConfig) {
@@ -503,7 +501,7 @@ foreach (xlvoVotingConfig::get() as $xlvoVotingConfig) {
 	 */
 
 	if (empty($xlvoVotingConfig->getPuk())) {
-		$xlvoPuk = new xlvoPuk();
+		$xlvoPuk = new LiveVoting\Puk\xlvoPuk();
 
 		$xlvoVotingConfig->setPuk($xlvoPuk->getPin());
 
@@ -515,8 +513,6 @@ foreach (xlvoVotingConfig::get() as $xlvoVotingConfig) {
 <?php
 require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
-use LiveVoting\Puk\xlvoPuk;
-
 xlvoVotingConfig::updateDB();
 
 foreach (xlvoVotingConfig::get() as $xlvoVotingConfig) {
@@ -524,7 +520,7 @@ foreach (xlvoVotingConfig::get() as $xlvoVotingConfig) {
 	 * @var xlvoVotingConfig $xlvoVotingConfig
 	 */
 
-	$xlvoPuk = new xlvoPuk();
+	$xlvoPuk = new LiveVoting\Puk\xlvoPuk();
 
 	if (empty($xlvoVotingConfig->getPuk()) || strlen($xlvoVotingConfig->getPuk()) < $xlvoPuk->getPinLength()) {
 		$xlvoVotingConfig->setPuk($xlvoPuk->getPin());
@@ -537,15 +533,13 @@ foreach (xlvoVotingConfig::get() as $xlvoVotingConfig) {
 <?php
 require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/vendor/autoload.php';
 
-use LiveVoting\Voting\xlvoVoting;
+LiveVoting\Voting\xlvoVoting::updateDB();
 
-xlvoVoting::updateDB();
-
-foreach (xlvoVoting::where([ "step_range" => NULL ])->get() as $voting) {
+foreach (LiveVoting\Voting\xlvoVoting::where([ "step_range" => NULL ])->get() as $voting) {
 	/**
-	 * @var xlvoVoting $voting
+	 * @var LiveVoting\Voting\xlvoVoting $voting
 	 */
-	$voting->setStepRange(intval(floor(abs($voting->getEndRange() - $voting->getStartRange())))); // Calculate 1 step like before
+	$voting->setStepRange(xlvoNumberRangeSubFormGUI::STEP_RANGE_DEFAULT_VALUE);
 	$voting->store();
 }
 ?>

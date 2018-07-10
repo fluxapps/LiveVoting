@@ -1,5 +1,6 @@
 <?php
 
+use LiveVoting\Exceptions\xlvoSubFormGUIHandleFieldException;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\Voting\xlvoVoting;
 
@@ -205,6 +206,7 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 
 	/**
 	 * @return bool
+	 * @throws ilException
 	 */
 	public function fillObject() {
 		if (!$this->checkInput()) {
@@ -222,14 +224,21 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 			$this->voting->setColumns(intval($this->getInput(self::F_COLUMNS)) + 1);
 		}
 
-		xlvoSubFormGUI::getInstance($this->getVoting())->handleAfterSubmit($this);
+		try {
+			xlvoSubFormGUI::getInstance($this->getVoting())->handleAfterSubmit($this);
 
-		return true;
+			return true;
+		} catch (xlvoSubFormGUIHandleFieldException $ex) {
+			ilUtil::sendFailure($ex->getMessage(), true);
+
+			return false;
+		}
 	}
 
 
 	/**
 	 * @return bool
+	 * @throws ilException
 	 */
 	public function saveObject() {
 		if (!$this->fillObject()) {

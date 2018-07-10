@@ -1,5 +1,6 @@
 <?php
 
+use LiveVoting\Exceptions\xlvoSubFormGUIHandleFieldException;
 use LiveVoting\Option\xlvoOption;
 
 /**
@@ -43,7 +44,7 @@ class xlvoFreeOrderSubFormGUI extends xlvoSubFormGUI {
 	 * @param ilFormPropertyGUI $element
 	 * @param string|array      $value
 	 *
-	 * @throws ilException
+	 * @throws xlvoSubFormGUIHandleFieldException
 	 */
 	protected function handleField(ilFormPropertyGUI $element, $value) {
 		switch ($element->getPostVar()) {

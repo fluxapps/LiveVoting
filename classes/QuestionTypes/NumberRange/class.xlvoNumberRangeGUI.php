@@ -166,9 +166,7 @@ class xlvoNumberRangeGUI extends xlvoQuestionTypesGUI {
 	 * @return int
 	 */
 	private function getStep() {
-		$step = (int)$this->manager->getVoting()->getStepRange();
-
-		return intval(floor(abs($this->getEnd() - $this->getStart()) / ($step - 1)));
+		return (int)$this->manager->getVoting()->getStepRange();
 	}
 
 

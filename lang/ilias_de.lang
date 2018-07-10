@@ -159,8 +159,8 @@ qtype_6_range_start#:#Start
 qtype_6_voter_start_button_vote#:#Senden
 qtype_6_voter_clear#:#Verwerfen
 qtype_6_voter_start_button_unvote#:#Verwerfen
-qtype_6_invalid_end_range#:#Das Ende des Bereichs muss größer sein als der Start. Bitte beachten Sie, dass der Endbereich zwischen 2147483646 und -2147483647 liegen muss.
-qtype_6_invalid_start_range#:#Der Anfang des Bereichs muss kleiner sein als das Ende. Bitte beachten Sie, dass der Startbereich zwischen 2147483645 und -2147483646 liegen muss.
+qtype_6_invalid_end_range#:#Das Ende des Bereichs muss größer sein als der Start. Bitte beachten Sie, dass der Endbereich zwischen %1$s und %2$s liegen muss.
+qtype_6_invalid_start_range#:#Der Anfang des Bereichs muss kleiner sein als das Ende. Bitte beachten Sie, dass der Startbereich zwischen %1$s und %2$s liegen muss.
 qtype_6_range_end#:#Ende
 qtype_6_option_percentage#:#Prozentual
 qtype_6_option_range_start#:#Start
@@ -279,6 +279,7 @@ config_allow_shortlink_link_presenter_info#:#Ganze Kurz-URL Ihrer Installation, 
 rbac_create_xlvo#:#LiveVoting anlegen
 player_pin#:#PIN: %s
 qtype_6_option_range_step#:#Schrittweite
-qtype_6_option_range_step_info#:#Anzahl Schrittweite des Zahlenbereichs.
+qtype_6_option_range_step_info#:#Schrittweite des Zahlenbereichs.
 config_use_serif_font_for_pins#:#Serifenschrift für PIN's nutzen
 config_use_serif_font_for_pins_info#:#Serifenschrift für PIN's nutzen
+qtype_6_invalid_step_range#:#Die Schrittweite konnte nicht gespeichert werden. Diese muss kleiner sein als der Zahlenbereich zwischen Start und Ende. Der Zahlenbereich zwischen Start und Ende muss teilbar sein durch die Schrittweite.

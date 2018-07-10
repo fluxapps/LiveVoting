@@ -1,5 +1,6 @@
 <?php
 
+use LiveVoting\Exceptions\xlvoSubFormGUIHandleFieldException;
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\Voting\xlvoVoting;
@@ -150,7 +151,7 @@ abstract class xlvoSubFormGUI {
 	/**
 	 * @param ilPropertyFormGUI $ilPropertyFormGUI
 	 *
-	 * @throws ilException
+	 * @throws xlvoSubFormGUIHandleFieldException
 	 */
 	public function handleAfterSubmit(ilPropertyFormGUI $ilPropertyFormGUI) {
 		foreach ($this->getFormElements() as $formElement) {
@@ -204,7 +205,7 @@ abstract class xlvoSubFormGUI {
 	 * @param ilFormPropertyGUI $element
 	 * @param string|array      $value
 	 *
-	 * @throws ilException
+	 * @throws xlvoSubFormGUIHandleFieldException
 	 */
 	protected abstract function handleField(ilFormPropertyGUI $element, $value);
 

@@ -1,5 +1,6 @@
 <?php
 
+use LiveVoting\Exceptions\xlvoSubFormGUIHandleFieldException;
 use LiveVoting\Voting\xlvoVoting;
 
 /**
@@ -28,9 +29,10 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 	const START_RANGE_MAX = 1000000;
 	const END_RANGE_MIN = - 1000000;
 	const END_RANGE_MAX = 1000000;
-	const STEP_RANGE_MIN = 0;
-	const STEP_RANGE_MAX = 1000000;
-	const STEP_RANGE_DEFAULT_VALUE = 100;
+	//const STEP_RANGE_MIN = 0;
+	//const STEP_RANGE_MAX = 1000000;
+	const STEP_RANGE_DEFAULT_VALUE = 1;
+	const STEP_RANGE_INVALID_INFO = 'qtype_6_invalid_step_range';
 
 
 	/**
@@ -75,14 +77,14 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 		//create end range number input
 		$stepRange = new ilNumberInputGUI($this->txt(self::OPTION_RANGE_STEP), self::OPTION_RANGE_STEP);
 		$stepRange->setInfo($this->txt(self::OPTION_RANGE_STEP_INFO));
-		$stepRange->setMinValue(self::STEP_RANGE_MIN);
-		$stepRange->setMaxValue(self::STEP_RANGE_MAX);
-		$stepRange->setValue($this->getXlvoVoting()->getEndRange());
+		//$stepRange->setMinValue(self::STEP_RANGE_MIN);
+		//$stepRange->setMaxValue(self::STEP_RANGE_MAX);
+		$stepRange->setValue($this->getXlvoVoting()->getStepRange());
 
 		//add elements to gui
 		$this->addFormElement($percentageCheckBox);
 		$this->addFormElement($displayMode);
-		//		$this->addFormElement($alternativeResultDisplayModeCheckBox);
+		//$this->addFormElement($alternativeResultDisplayModeCheckBox);
 		$this->addFormElement($startRange);
 		$this->addFormElement($endRange);
 		$this->addFormElement($stepRange);
@@ -93,7 +95,7 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 	 * @param ilFormPropertyGUI $element
 	 * @param string|array      $value
 	 *
-	 * @throws ilException
+	 * @throws xlvoSubFormGUIHandleFieldException
 	 */
 	protected function handleField(ilFormPropertyGUI $element, $value) {
 		$postKey = $element->getPostVar();
@@ -154,6 +156,7 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 	 * @param int $start The new start range which should be set.
 	 *
 	 * @return xlvoVoting
+	 * @throws ilException
 	 */
 	private function setStartRange($start) {
 		$end = (int)$this->getXlvoVoting()->getEndRange();
@@ -162,9 +165,7 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 			return $this->getXlvoVoting()->setStartRange($start);
 		}
 
-		ilUtil::sendFailure($this->pl->txt(self::START_RANGE_INVALID_INFO));
-
-		return $this->getXlvoVoting();
+		throw new ilException(sprintf($this->pl->txt(self::START_RANGE_INVALID_INFO), self::START_RANGE_MIN, self::START_RANGE_MAX));
 	}
 
 
@@ -174,6 +175,7 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 	 * @param int $end The new end range which should be set.
 	 *
 	 * @return xlvoVoting
+	 * @throws ilException
 	 */
 	private function setEndRange($end) {
 		$start = (int)$this->getXlvoVoting()->getStartRange();
@@ -182,9 +184,7 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 			return $this->getXlvoVoting()->setEndRange($end);
 		}
 
-		ilUtil::sendFailure($this->pl->txt(self::END_RANGE_INVALID_INFO));
-
-		return $this->getXlvoVoting();
+		throw new ilException(sprintf($this->pl->txt(self::END_RANGE_INVALID_INFO), self::END_RANGE_MIN, self::END_RANGE_MAX));
 	}
 
 
@@ -192,8 +192,16 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 	 * @param int $step
 	 *
 	 * @return xlvoVoting
+	 * @throws ilException
 	 */
 	private function setStepRange($step) {
-		return $this->getXlvoVoting()->setStepRange($step);
+		$start = (int)$this->getXlvoVoting()->getStartRange();
+		$end = (int)$this->getXlvoVoting()->getEndRange();
+		$range = ($end - $start);
+		if ($step <= $range && $range % $step === 0) {
+			return $this->getXlvoVoting()->setStepRange($step);
+		}
+
+		throw new ilException($this->pl->txt(self::STEP_RANGE_INVALID_INFO));
 	}
 }

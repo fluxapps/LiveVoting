@@ -1341,16 +1341,16 @@
       },
       "6_invalid_end_range": {
         "translations": {
-          "en": "The end of the range must be greater than the start. Please note that the end range must be between 2147483646 and -2147483647.",
-          "de": "Das Ende des Bereichs muss größer sein als der Start. Bitte beachten Sie, dass der Endbereich zwischen 2147483646 und -2147483647 liegen muss.",
-          "hu": "A végén a tartomány nagyobbnak kell lennie, mint a kezdés. Felhívjuk figyelmét, hogy a végén tartomány között kell lennie 2147483646 és -2147483647."
+          "en": "The end of the range must be greater than the start. Please note that the end range must be between %1$s and %2$s.",
+          "de": "Das Ende des Bereichs muss größer sein als der Start. Bitte beachten Sie, dass der Endbereich zwischen %1$s und %2$s liegen muss.",
+          "hu": "A végén a tartomány nagyobbnak kell lennie, mint a kezdés. Felhívjuk figyelmét, hogy a végén tartomány között kell lennie %1$s és %2$s."
         }
       },
       "6_invalid_start_range": {
         "translations": {
-          "en": "The start of the range must be less than the end. Please note that the start range must be between 2147483645 and -2147483646.",
-          "de": "Der Anfang des Bereichs muss kleiner sein als das Ende. Bitte beachten Sie, dass der Startbereich zwischen 2147483645 und -2147483646 liegen muss.",
-          "hu": "A start a tartományban kisebbnek kell lennie a végén. Felhívjuk figyelmét, hogy a start tartomány között kell lennie 2147483645 és -2147483646."
+          "en": "The start of the range must be less than the end. Please note that the start range must be between %1$s and %2$s.",
+          "de": "Der Anfang des Bereichs muss kleiner sein als das Ende. Bitte beachten Sie, dass der Startbereich zwischen %1$s und %2$s liegen muss.",
+          "hu": "A start a tartományban kisebbnek kell lennie a végén. Felhívjuk figyelmét, hogy a start tartomány között kell lennie %1$s és %2$s."
         }
       },
       "6_range_end": {
@@ -1482,8 +1482,16 @@
       },
       "6_option_range_step_info": {
         "translations": {
-          "de": "Anzahl Schrittweite des Zahlenbereichs.",
-          "en": "The step count of the number range.",
+          "de": "Schrittweite des Zahlenbereichs.",
+          "en": "The step of the number range.",
+          "hu": "MISSING"
+        },
+        "last_used": "20.03.2018"
+      },
+      "6_invalid_step_range": {
+        "translations": {
+          "de": "Die Schrittweite konnte nicht gespeichert werden. Diese muss kleiner sein als der Zahlenbereich zwischen Start und Ende. Der Zahlenbereich zwischen Start und Ende muss teilbar sein durch die Schrittweite.",
+          "en": "The step could not be saved. This must be smaller than the number range between start and end. The number range between start and end must be divisible by the step.",
           "hu": "MISSING"
         },
         "last_used": "20.03.2018"

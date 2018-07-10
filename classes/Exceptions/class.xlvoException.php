@@ -2,10 +2,12 @@
 
 namespace LiveVoting\Exceptions;
 
+use ilException;
+
 /**
- * Class xlvoVotingManagerException
+ * Class xlvoException
  */
-class xlvoVotingManagerException extends xlvoException {
+class xlvoException extends ilException {
 
 	/**
 	 * @param string $message

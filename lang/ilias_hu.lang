@@ -154,8 +154,8 @@ qtype_6_range_start#:#Rajt
 qtype_6_voter_start_button_vote#:#Szavazás
 qtype_6_voter_clear#:#Kezdőállapotba
 qtype_6_voter_start_button_unvote#:#Megválni
-qtype_6_invalid_end_range#:#A végén a tartomány nagyobbnak kell lennie, mint a kezdés. Felhívjuk figyelmét, hogy a végén tartomány között kell lennie 2147483646 és -2147483647.
-qtype_6_invalid_start_range#:#A start a tartományban kisebbnek kell lennie a végén. Felhívjuk figyelmét, hogy a start tartomány között kell lennie 2147483645 és -2147483646.
+qtype_6_invalid_end_range#:#A végén a tartomány nagyobbnak kell lennie, mint a kezdés. Felhívjuk figyelmét, hogy a végén tartomány között kell lennie %1$s és %2$s.
+qtype_6_invalid_start_range#:#A start a tartományban kisebbnek kell lennie a végén. Felhívjuk figyelmét, hogy a start tartomány között kell lennie %1$s és %2$s.
 qtype_6_range_end#:#Vég
 qtype_6_option_percentage#:#Százalék
 qtype_6_option_range_start#:#Kezdet
@@ -280,3 +280,4 @@ qtype_6_option_range_step#:#MISSING
 qtype_6_option_range_step_info#:#MISSING
 config_use_serif_font_for_pins#:#MISSING
 config_use_serif_font_for_pins_info#:#MISSING
+qtype_6_invalid_step_range#:#MISSING
