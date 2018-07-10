@@ -47,6 +47,8 @@ return array(
     'LiveVoting\\Context\\xlvoRbacSystem' => $baseDir . '/classes/Context/xlvoRbacSystem.php',
     'LiveVoting\\Display\\Bar\\xlvoBarGUI' => $baseDir . '/classes/Display/Bar/class.xlvoBarGUI.php',
     'LiveVoting\\Display\\Bar\\xlvoGeneralBarGUI' => $baseDir . '/classes/Display/Bar/class.xlvoGeneralBarGUI.php',
+    'LiveVoting\\Exceptions\\xlvoException' => $baseDir . '/classes/Exceptions/class.xlvoException.php',
+    'LiveVoting\\Exceptions\\xlvoSubFormGUIHandleFieldException' => $baseDir . '/classes/Exceptions/class.xlvoSubFormGUIHandleFieldException.php',
     'LiveVoting\\Exceptions\\xlvoVotingManagerException' => $baseDir . '/classes/Exceptions/class.xlvoVotingManagerException.php',
     'LiveVoting\\Js\\xlvoJs' => $baseDir . '/classes/Js/class.xlvoJs.php',
     'LiveVoting\\Js\\xlvoJsResponse' => $baseDir . '/classes/Js/class.xlvoJsResponse.php',

@@ -70,6 +70,8 @@ class ComposerStaticInit2a9f25cb7db537cf8950f4e268186c34
         'LiveVoting\\Context\\xlvoRbacSystem' => __DIR__ . '/../..' . '/classes/Context/xlvoRbacSystem.php',
         'LiveVoting\\Display\\Bar\\xlvoBarGUI' => __DIR__ . '/../..' . '/classes/Display/Bar/class.xlvoBarGUI.php',
         'LiveVoting\\Display\\Bar\\xlvoGeneralBarGUI' => __DIR__ . '/../..' . '/classes/Display/Bar/class.xlvoGeneralBarGUI.php',
+        'LiveVoting\\Exceptions\\xlvoException' => __DIR__ . '/../..' . '/classes/Exceptions/class.xlvoException.php',
+        'LiveVoting\\Exceptions\\xlvoSubFormGUIHandleFieldException' => __DIR__ . '/../..' . '/classes/Exceptions/class.xlvoSubFormGUIHandleFieldException.php',
         'LiveVoting\\Exceptions\\xlvoVotingManagerException' => __DIR__ . '/../..' . '/classes/Exceptions/class.xlvoVotingManagerException.php',
         'LiveVoting\\Js\\xlvoJs' => __DIR__ . '/../..' . '/classes/Js/class.xlvoJs.php',
         'LiveVoting\\Js\\xlvoJsResponse' => __DIR__ . '/../..' . '/classes/Js/class.xlvoJsResponse.php',
