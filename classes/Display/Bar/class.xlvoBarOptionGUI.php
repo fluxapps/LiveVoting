@@ -85,7 +85,7 @@ class xlvoBarOptionGUI implements xlvoGeneralBarGUI {
 		/**
 		 * @var xlvoVote $vote
 		 */
-		$vote = $this->voting_manager->getVotesOfUserOfOption($this->voting->getId(), $this->option->getId())->first();
+		$vote = $this->voting_manager->getVotesOfUserOfOption($this->voting->getId(), $this->option->getId())->first(); // TODO: Invalid method call?
 		if ($vote instanceof xlvoVote) {
 			if ($vote->getStatus() == 1) {
 				return "active";
