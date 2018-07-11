@@ -4,16 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [3.7.0] - 2018-03-23
+## [4.0.1] - 2018-08-01
 
 ### Added
 - ILIAS 5.3 support
-- Feature: Presenter link
+- Feature: Presenter link included puk
 - Feature: Export PowerPoint with slides for each questions with presenter link
 - Feature: Presentation of number range
+- Feature: Use serif font for PIN's
+- Feature: NumberRange step
 
 ### Changed
--
+- Removed discard button in FreeInput
+- Removed 'Colums for possible answers' in NumberRange
 
 ### Deprecated
 -
@@ -22,17 +25,26 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Removed ILIAS 5.1 support
 
 ### Fixed
-- Fix no wrap if the shortlink URL is too long
 - Fix no preventDefault on some button which caused unwanted redirects
 - Fixed filtering by participant for anonymous participants
 - FreeInput now don't allows empty inputs anymore
 - CorrectOrder now immediately displays result without reloading page
+- Fix endless loop in CorrectOrder question type with only 1 position (Only 1 position=The solution)
+- Fix number range left and right buttons
+- Fix new line always add on bottom in the multi line gui
+- Fix visible permission
+- Fix Chrome's favicon.ico (If shortlink enabled)
 
 ### Improved
 - Refactoring
+- Plugin uninstaller
+- Fix no wrap if the shortlink URL is too long
+- Cursor pointer for QR code button
+- FreeInput enter auto submit
+- Updated de and en languages
 
 ### Security
--
+- Improved PIN validation in pin.php
 
 ## [Unreleased] - XXX
 ### Added
