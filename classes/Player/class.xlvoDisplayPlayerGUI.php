@@ -88,9 +88,8 @@ class xlvoDisplayPlayerGUI {
 		$this->tpl->setVariable('PIN', xlvoPin::formatPin($config->getPin()));
 		if ($this->manager->getVotingConfig()->isShowAttendees()) {
 			$this->tpl->setCurrentBlock('attendees');
-			$this->tpl->setVariable('ATTENDEES', xlvoVoter::countVoters($this->manager->getPlayer()->getId()));
-
-			$this->tpl->setVariable('ONLINE', $this->pl->txt('player_voters_online'));
+			$this->tpl->setVariable('ONLINE_TEXT', sprintf($this->pl->txt("start_online"), xlvoVoter::countVoters($this->manager->getPlayer()
+				->getId())));
 			$this->tpl->parseCurrentBlock();
 		}
 		if ($this->manager->getPlayer()->isCountDownRunning()) {
@@ -102,8 +101,7 @@ class xlvoDisplayPlayerGUI {
 		}
 
 		//parse votes block
-		$this->tpl->setVariable('VOTERS', $this->manager->countVoters());
-		$this->tpl->setVariable('VOTERS_DESCRIPTION', $this->pl->txt('player_voters_description'));
+		$this->tpl->setVariable('VOTERS_TEXT', sprintf($this->pl->txt('player_voters_description'), $this->manager->countVoters()));
 
 		$this->tpl->setVariable('COUNT', $this->manager->countVotings());
 		$this->tpl->setVariable('POSITION', $this->manager->getVotingPosition());

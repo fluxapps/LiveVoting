@@ -107,10 +107,9 @@ player_start_voting#:#Start LiveVoting
 player_start_voting_and_unfreeze#:#Start LiveVoting and start voting directly
 player_terminate#:#Terminate
 player_unfreeze#:#Vote
-player_voters_online#:#Online
 player_voting_countdown#:#Countdown
 player_voting_list#:#Questions
-player_voters_description#:#Voters
+player_voters_description#:#%s voters
 qtype_1_colors#:#Different Colors
 qtype_1_info_latex#:#LaTeX can be surrounded with [tex] ... [/tex]
 qtype_1_multi_selection#:#Multiple Selection
@@ -289,4 +288,4 @@ qtype_2_answer_field_single_line_info#:#Single-line answer field
 qtype_2_answer_field_multi_line#:#Multi-line answer field
 qtype_2_answer_field_multi_line_info#:#Multi-line answer field
 start_online#:#%s online
-start_zoom#:#zoom
+start_zoom#:#Zoom

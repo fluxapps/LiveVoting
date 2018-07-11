@@ -34,7 +34,6 @@ var xlvoPlayer = {
 		base_url: '',
 		voter_count_element_id: '',
 		lng: {
-			player_voters_online: 'Online',
 			voting_confirm_reset: 'Reset?'
 		},
 		status_running: -1,

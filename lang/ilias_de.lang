@@ -107,10 +107,9 @@ player_start_voting#:#LiveVoting beginnen
 player_start_voting_and_unfreeze#:#LiveVoting beginnen und direkt freigeben
 player_terminate#:#Beenden
 player_unfreeze#:#Abstimmen
-player_voters_online#:#Online
 player_voting_countdown#:#Countdown
 player_voting_list#:#Fragen
-player_voters_description#:#Abstimmende
+player_voters_description#:#%s Abstimmende
 playplayer_msg_no_start_2#:#Das LiveVoting kann nicht gestartet werden, da noch keine Votings vorhanden sind.
 qtype_1_colors#:#Unterschiedliche Farben
 qtype_1_info_latex#:#LaTeX kann mit [tex] ... [/tex] formatiert werden.

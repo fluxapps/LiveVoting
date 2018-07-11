@@ -514,7 +514,6 @@ class xlvoPlayerGUI extends xlvoGUI {
 		iljQueryUtil::initjQuery();
 		xlvoJs::getInstance()->addLibToHeader('screenfull.min.js');
 		xlvoJs::getInstance()->ilias($this)->addSettings($settings)->name('Player')->addTranslations(array(
-			'player_voters_online',
 			'voting_confirm_reset',
 		))->init()->setRunCode();
 		$this->tpl->addCss($this->pl->getDirectory() . '/templates/default/Player/player.css');

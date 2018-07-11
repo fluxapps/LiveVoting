@@ -947,14 +947,6 @@
         },
         "last_used": "23.03.2018"
       },
-      "voters_online": {
-        "translations": {
-          "de": "Online",
-          "en": "Online",
-          "hu": "MISSING"
-        },
-        "last_used": "23.03.2018"
-      },
       "voting_countdown": {
         "translations": {
           "de": "Countdown",
@@ -972,9 +964,9 @@
       },
       "voters_description": {
         "translations": {
-          "en": "Voters",
-          "hu": "Választók",
-          "de": "Abstimmende"
+          "en": "%s voters",
+          "hu": "%s választók",
+          "de": "%s Abstimmende"
         },
         "last_used": "23.03.2018"
       },
@@ -2269,7 +2261,7 @@
       "zoom": {
         "translations": {
           "de": "Zoom",
-          "en": "zoom",
+          "en": "Zoom",
           "hu": "MISSING"
         },
         "last_used": "11.07.2017"

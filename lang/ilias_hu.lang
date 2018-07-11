@@ -105,10 +105,9 @@ player_start_voting#:#Élőszavazás indítása
 player_start_voting_and_unfreeze#:#Élőszavazás indítása és a szavazás azonnali megkezdése
 player_terminate#:#Megszakítás
 player_unfreeze#:#Szavazz
-player_voters_online#:#MISSING
 player_voting_countdown#:#Visszaszámlálás
 player_voting_list#:#Kérdések
-player_voters_description#:#Választók
+player_voters_description#:#%s választók
 qtype_1_colors#:#Különböző színek
 qtype_1_info_latex#:#LaTeX részt [tex] ... [/tex] közé kell írni.
 qtype_1_multi_selection#:#Többszörös kijelölés
