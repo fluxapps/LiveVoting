@@ -101,7 +101,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 
 		$xlvoPin = new xlvoPin();
 
-		$te = new ilTextInputGUI($this->txt(self::F_PIN_INPUT), self::F_PIN_INPUT);
+		$te = new xlvoTextInputGUI($this->txt(self::F_PIN_INPUT), self::F_PIN_INPUT);
 		$te->setMaxLength($xlvoPin->getPinLength());
 		$pin_form->addItem($te);
 

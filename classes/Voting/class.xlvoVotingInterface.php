@@ -10,6 +10,7 @@ use LiveVoting\Vote\xlvoVote;
  * @author  Daniel Aemmer <daniel.aemmer@phbern.ch>
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version 1.0.0
+ * TODO: Usage?
  */
 interface xlvoVotingInterface {
 

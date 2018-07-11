@@ -379,6 +379,7 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 					$tpl->setVariable('VALUE', ilUtil::prepareFormOutput($input->getValue()));
 					break;
 				case $is_ta:
+					$input->insert($tpl);
 					if ($this->isShowLabel() || ($this->isShowLabelOnce() && $first_label)) {
 						$tpl->setCurrentBlock('input_label');
 						$tpl->setVariable('LABEL', $input->getTitle());

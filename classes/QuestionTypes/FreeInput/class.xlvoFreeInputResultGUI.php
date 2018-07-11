@@ -17,7 +17,7 @@ class xlvoFreeInputResultGUI extends xlvoResultGUI {
 	public function getTextRepresentation(array $votes) {
 		$strings = array();
 		foreach ($votes as $vote) {
-			$strings[] = $vote->getFreeInput();
+			$strings[] = str_replace([ "\r\n", "\r", "\n" ], " ", $vote->getFreeInput());
 		}
 
 		return implode(', ', $strings);

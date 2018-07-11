@@ -102,16 +102,16 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 		$te->setInfo($this->txt('type_' . $this->voting->getVotingType() . "_info"));
 		$this->addItem($te);
 
-		$te = new ilTextInputGUI($this->parent_gui->txt('title'), 'title');
+		$te = new xlvoTextInputGUI($this->parent_gui->txt('title'), 'title');
 		//		$te->setInfo($this->parent_gui->txt('info_voting_title'));
 		$te->setRequired(true);
 		$this->addItem($te);
 
-		$ta = new ilTextAreaInputGUI($this->parent_gui->txt('description'), 'description');
+		$ta = new xlvoTextAreaInputGUI($this->parent_gui->txt('description'), 'description');
 		//		$ta->setInfo($this->parent_gui->txt('info_voting_description'));
 		//		$this->addItem($ta);
 
-		$te = new ilTextAreaInputGUI($this->parent_gui->txt('question'), 'question');
+		$te = new xlvoTextAreaInputGUI($this->parent_gui->txt('question'), 'question');
 		$te->addPlugin('latex');
 		$te->addButton('latex');
 		$te->addButton('pastelatex');

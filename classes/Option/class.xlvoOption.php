@@ -80,15 +80,6 @@ class xlvoOption extends CachingActiveRecord {
 	}
 
 
-	public function store() {
-		if (self::where(array( 'id' => $this->getId() ))->hasSets()) {
-			$this->update();
-		} else {
-			$this->create();
-		}
-	}
-
-
 	/**
 	 * @return string
 	 */

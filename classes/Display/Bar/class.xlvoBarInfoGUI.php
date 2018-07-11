@@ -1,8 +1,6 @@
 <?php
 
 use LiveVoting\Display\Bar\xlvoGeneralBarGUI;
-use LiveVoting\Vote\xlvoVote;
-use LiveVoting\Voting\xlvoVoting;
 
 /**
  * Class xlvoBarInfoGUI
@@ -28,11 +26,15 @@ class xlvoBarInfoGUI extends xlvoAbstractBarGUI implements xlvoGeneralBarGUI {
 	 * @param string $value
 	 */
 	public function __construct($label, $value) {
+		parent::__construct();
 		$this->label = $label;
 		$this->value = $value;
 	}
 
 
+	/**
+	 *
+	 */
 	protected function render() {
 		parent::render();
 		$this->tpl->setVariable('FREE_INPUT', $this->label . ": " . $this->value);

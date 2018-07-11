@@ -81,10 +81,10 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 
 
 	protected function addFilterItems() {
-		$title = new ilTextInputGUI($this->txt('title'), 'title');
+		$title = new xlvoTextInputGUI($this->txt('title'), 'title');
 		$this->addAndReadFilterItem($title);
 
-		$question = new ilTextInputGUI($this->txt('question'), 'question');
+		$question = new xlvoTextInputGUI($this->txt('question'), 'question');
 		$this->addAndReadFilterItem($question);
 
 		$status = new ilSelectInputGUI($this->txt('status'), 'voting_status');

@@ -12,6 +12,7 @@ use LiveVoting\Cache\CachingActiveRecord;
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use stdClass;
+use xlvoFreeInputSubFormGUI;
 use xlvoNumberRangeSubFormGUI;
 
 /**
@@ -205,6 +206,14 @@ class xlvoVoting extends CachingActiveRecord {
 	 * @var xlvoOption
 	 */
 	protected $first_voting_option = NULL;
+	/**
+	 * @var int
+	 *
+	 * @db_has_field true
+	 * @db_fieldtype integer
+	 * @db_length    1
+	 */
+	protected $answer_field = xlvoFreeInputSubFormGUI::ANSWER_FIELD_SINGLE_LINE;
 
 
 	/**
@@ -231,6 +240,9 @@ class xlvoVoting extends CachingActiveRecord {
 	}
 
 
+	/**
+	 *
+	 */
 	public function renegerateOptionSorting() {
 		$i = 1;
 		foreach ($this->getVotingOptions() as $votingOption) {
@@ -278,6 +290,9 @@ class xlvoVoting extends CachingActiveRecord {
 	}
 
 
+	/**
+	 *
+	 */
 	public function create() {
 		global $DIC;
 		$ilDB = $DIC->database();
@@ -378,6 +393,9 @@ class xlvoVoting extends CachingActiveRecord {
 	}
 
 
+	/**
+	 * @throws arException
+	 */
 	public function afterObjectLoad() {
 		/**
 		 * @var xlvoOption[] $xlvoOptions
@@ -387,15 +405,6 @@ class xlvoVoting extends CachingActiveRecord {
 		$this->setVotingOptions($xlvoOptions);
 		$first_voting_option = xlvoOption::where(array( 'voting_id' => $this->id ))->orderBy('position')->first();
 		$this->setFirstVotingOption($first_voting_option);
-	}
-
-
-	public function store() {
-		if (!xlvoVoting::where(array( 'id' => $this->getId() ))->hasSets()) {
-			$this->create();
-		} else {
-			$this->update();
-		}
 	}
 
 
@@ -741,5 +750,21 @@ class xlvoVoting extends CachingActiveRecord {
 		}
 
 		return $class;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getAnswerField() {
+		return $this->answer_field;
+	}
+
+
+	/**
+	 * @param int $answer_field
+	 */
+	public function setAnswerField($answer_field) {
+		$this->answer_field = $answer_field;
 	}
 }

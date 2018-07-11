@@ -2,7 +2,6 @@
 
 namespace LiveVoting\Vote;
 
-use ActiveRecord;
 use LiveVoting\Cache\CachingActiveRecord;
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\User\xlvoUser;
@@ -94,22 +93,18 @@ class xlvoVote extends CachingActiveRecord {
 	}
 
 
-	public function store() {
-		if (self::where(array( 'id' => $this->getId() ))->hasSets()) {
-			$this->update();
-		} else {
-			$this->create();
-		}
-	}
-
-
+	/**
+	 *
+	 */
 	public function update() {
-
 		$this->setLastUpdate(time());
 		parent::update();
 	}
 
 
+	/**
+	 *
+	 */
 	public function create() {
 		$this->setLastUpdate(time());
 		parent::create();
@@ -117,7 +112,7 @@ class xlvoVote extends CachingActiveRecord {
 
 
 	/**
-	 * @param $field_name
+	 * @param string $field_name
 	 *
 	 * @return mixed
 	 */
@@ -133,7 +128,9 @@ class xlvoVote extends CachingActiveRecord {
 
 	/**
 	 * @param xlvoUser $xlvoUser
-	 * @param          $voting_id
+	 * @param int      $voting_id
+	 * @param int      $round_id
+	 * @param bool     $incl_inactive
 	 *
 	 * @return xlvoVote[]
 	 */
@@ -161,10 +158,10 @@ class xlvoVote extends CachingActiveRecord {
 
 	/**
 	 * @param xlvoUser $xlvoUser
-	 * @param          $voting_id
-	 * @param          $option_id
+	 * @param int      $voting_id
+	 * @param int      $option_id
 	 *
-	 * @return ActiveRecord|xlvoVote
+	 * @return xlvoVote
 	 */
 	protected static function getUserInstance(xlvoUser $xlvoUser, $voting_id, $option_id) {
 		$where = array( 'voting_id' => $voting_id );
@@ -197,9 +194,9 @@ class xlvoVote extends CachingActiveRecord {
 
 
 	/**
-	 * @param $xlvoUser  xlvoUser
-	 * @param $voting_id int
-	 * @param $round_id  int
+	 * @param xlvoUser $xlvoUser
+	 * @param int      $voting_id
+	 * @param int      $round_id
 	 */
 	public static function createHistoryObject($xlvoUser, $voting_id, $round_id) {
 		$historyObject = new xlvoVoteHistoryObject();
@@ -233,32 +230,6 @@ class xlvoVote extends CachingActiveRecord {
 		$historyObject->setAnswer($gui->getTextRepresentation($votes));
 
 		$historyObject->create();
-	}
-
-
-	/**
-	 * @var string
-	 *
-	 * @db_has_field        true
-	 * @db_fieldtype        text
-	 * @db_length           256
-	 */
-	protected $free_input;
-
-
-	/**
-	 * @return string
-	 */
-	public function getFreeInput() {
-		return $this->free_input;
-	}
-
-
-	/**
-	 * @param string $free_input
-	 */
-	public function setFreeInput($free_input) {
-		$this->free_input = $free_input;
 	}
 
 
@@ -344,6 +315,14 @@ class xlvoVote extends CachingActiveRecord {
 	 * @db_length           8
 	 */
 	protected $round_id = 0;
+	/**
+	 * @var string
+	 *
+	 * @db_has_field true
+	 * @db_fieldtype text
+	 * @db_length    2000
+	 */
+	protected $free_input;
 
 
 	/**
@@ -503,5 +482,21 @@ class xlvoVote extends CachingActiveRecord {
 	 */
 	public function setRoundId($round_id) {
 		$this->round_id = $round_id;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getFreeInput() {
+		return $this->free_input;
+	}
+
+
+	/**
+	 * @param string $free_input
+	 */
+	public function setFreeInput($free_input) {
+		$this->free_input = $free_input;
 	}
 }

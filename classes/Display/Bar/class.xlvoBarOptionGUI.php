@@ -44,7 +44,7 @@ class xlvoBarOptionGUI implements xlvoGeneralBarGUI {
 	/**
 	 * @param xlvoVoting $voting
 	 * @param xlvoOption $option
-	 * @param            $option_letter
+	 * @param  string    $option_letter
 	 */
 	public function __construct(xlvoVoting $voting, xlvoOption $option, $option_letter) {
 		$this->voting_manager = xlvoVotingManager2::getInstanceFromObjId($voting->getObjId());
@@ -56,6 +56,9 @@ class xlvoBarOptionGUI implements xlvoGeneralBarGUI {
 	}
 
 
+	/**
+	 *
+	 */
 	protected function render() {
 		$this->tpl->setVariable('OPTION_LETTER', $this->option_letter);
 		$this->tpl->setVariable('OPTION_ID', $this->option->getId());
@@ -75,6 +78,9 @@ class xlvoBarOptionGUI implements xlvoGeneralBarGUI {
 	}
 
 
+	/**
+	 * @return string
+	 */
 	private function getActiveBar() {
 		/**
 		 * @var xlvoVote $vote
@@ -92,11 +98,14 @@ class xlvoBarOptionGUI implements xlvoGeneralBarGUI {
 	}
 
 
+	/**
+	 * @return int|string
+	 */
 	private function getVoteId() {
 		/**
 		 * @var xlvoVote $vote
 		 */
-		$vote = $this->voting_manager->getVotesOfUserOfOption($this->voting->getId(), $this->option->getId())->first();
+		$vote = $this->voting_manager->getVotesOfUserOfOption($this->voting->getId(), $this->option->getId())->first(); // TODO: Invalid method call?
 		if ($vote instanceof xlvoVote) {
 			return $vote->getId();
 		} else {

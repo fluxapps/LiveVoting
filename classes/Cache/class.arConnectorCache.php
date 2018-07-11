@@ -24,7 +24,7 @@ class arConnectorCache extends arConnector {
 	/**
 	 * arConnectorCache constructor.
 	 *
-	 * @param $arConnectorDB arConnector
+	 * @param arConnector $arConnectorDB
 	 */
 	public function __construct(arConnector $arConnectorDB) {
 		$this->arConnectorDB = $arConnectorDB;

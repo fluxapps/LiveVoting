@@ -281,3 +281,9 @@ qtype_6_option_range_step_info#:#MISSING
 config_use_serif_font_for_pins#:#MISSING
 config_use_serif_font_for_pins_info#:#MISSING
 qtype_6_invalid_step_range#:#MISSING
+qtype_2_answer_field#:#MISSING
+qtype_2_answer_field_info#:#MISSING
+qtype_2_answer_field_single_line#:#MISSING
+qtype_2_answer_field_single_line_info#:#MISSING
+qtype_2_answer_field_multi_line#:#MISSING
+qtype_2_answer_field_multi_line_info#:#MISSING

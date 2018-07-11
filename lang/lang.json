@@ -1494,7 +1494,55 @@
           "en": "The step could not be saved. This must be smaller than the number range between start and end. The number range between start and end must be divisible by the step.",
           "hu": "MISSING"
         },
-        "last_used": "20.03.2018"
+        "last_used": "10.07.2018"
+      },
+      "2_answer_field": {
+        "translations": {
+          "de": "Antwortfeld",
+          "en": "Answer field",
+          "hu": "MISSING"
+        },
+        "last_used": "11.07.2018"
+      },
+      "2_answer_field_info": {
+        "translations": {
+          "de": "MISSING",
+          "en": "MISSING",
+          "hu": "MISSING"
+        },
+        "last_used": "11.07.2018"
+      },
+      "2_answer_field_single_line": {
+        "translations": {
+          "de": "Einzeiliges Antwortfeld",
+          "en": "Single-line answer field",
+          "hu": "MISSING"
+        },
+        "last_used": "11.07.2018"
+      },
+      "2_answer_field_single_line_info": {
+        "translations": {
+          "de": "Einzeiliges Antwortfeld",
+          "en": "Single-line answer field",
+          "hu": "MISSING"
+        },
+        "last_used": "11.07.2018"
+      },
+      "2_answer_field_multi_line": {
+        "translations": {
+          "de": "Mehrzeiliges Antwortfeld",
+          "en": "Multi-line answer field",
+          "hu": "MISSING"
+        },
+        "last_used": "11.07.2018"
+      },
+      "2_answer_field_multi_line_info": {
+        "translations": {
+          "de": "Mehrzeiliges Antwortfeld",
+          "en": "Multi-line answer field",
+          "hu": "MISSING"
+        },
+        "last_used": "11.07.2018"
       }
     },
     "results": {

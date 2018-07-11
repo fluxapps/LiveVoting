@@ -45,11 +45,17 @@ class xlvoBarPercentageGUI implements xlvoGeneralBarGUI {
 	protected $pl;
 
 
+	/**
+	 *
+	 */
 	public function __construct() {
 		$this->pl = ilLiveVotingPlugin::getInstance();
 	}
 
 
+	/**
+	 * @return string
+	 */
 	public function getHTML() {
 		$tpl = $this->pl->getTemplate('default/Display/Bar/tpl.bar_percentage.html');
 

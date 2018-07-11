@@ -37,6 +37,9 @@ class xlvoBarCollectionGUI {
 	protected $pl;
 
 
+	/**
+	 *
+	 */
 	public function __construct() {
 		$this->pl = ilLiveVotingPlugin::getInstance();
 		$this->tpl = $this->pl->getTemplate('default/Display/Bar/tpl.bar_collection.html');
@@ -54,7 +57,7 @@ class xlvoBarCollectionGUI {
 
 
 	/**
-	 * @param $bar_gui xlvoGeneralBarGUI
+	 * @param xlvoGeneralBarGUI $bar_gui
 	 */
 	public function addBar(xlvoGeneralBarGUI $bar_gui) {
 		$this->tpl->setCurrentBlock('bar');
@@ -137,6 +140,9 @@ class xlvoBarCollectionGUI {
 	}
 
 
+	/**
+	 *
+	 */
 	protected function renderVotersAndVotes() {
 		if ($this->isShowTotalVotes()) {
 			$this->tpl->setCurrentBlock('total_votes');

@@ -32,7 +32,7 @@ class xlvoFreeOrderSubFormGUI extends xlvoSubFormGUI {
 		$h = new ilHiddenInputGUI(self::F_ID);
 		$xlvoMultiLineInputGUI->addInput($h);
 
-		$te = new ilTextInputGUI($this->txt('option_text'), self::F_TEXT);
+		$te = new xlvoTextInputGUI($this->txt('option_text'), self::F_TEXT);
 
 		$xlvoMultiLineInputGUI->addInput($te);
 
@@ -44,7 +44,7 @@ class xlvoFreeOrderSubFormGUI extends xlvoSubFormGUI {
 	 * @param ilFormPropertyGUI $element
 	 * @param string|array      $value
 	 *
-	 * @throws xlvoSubFormGUIHandleFieldException
+	 * @throws xlvoSubFormGUIHandleFieldException|ilException
 	 */
 	protected function handleField(ilFormPropertyGUI $element, $value) {
 		switch ($element->getPostVar()) {

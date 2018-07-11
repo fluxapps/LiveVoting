@@ -35,23 +35,27 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 	 *
 	 */
 	protected function submit() {
+		$input_gui = $this->getTextInputGUI("", self::F_FREE_INPUT);
+
 		$this->manager->unvoteAll();
 		if ($this->manager->getVoting()->isMultiFreeInput()) {
 			$array = array();
-			foreach ($_POST[self::F_VOTE_MULTI_LINE_INPUT] as $item) {
-				if ($item[self::F_FREE_INPUT] != "") {
+			foreach (filter_input(INPUT_POST, self::F_VOTE_MULTI_LINE_INPUT, FILTER_DEFAULT, FILTER_FORCE_ARRAY) as $item) {
+				$input = $item[self::F_FREE_INPUT];
+				if (!empty($input) && strlen($input) <= $input_gui->getMaxLength()) {
 					$array[] = array(
-						"input" => $item[self::F_FREE_INPUT],
+						"input" => $input,
 						"vote_id" => $item[self::F_VOTE_ID],
 					);
 				}
 			}
 			$this->manager->inputAll($array);
 		} else {
-			if ($_POST[self::F_FREE_INPUT] != "") {
+			$input = filter_input(INPUT_POST, self::F_FREE_INPUT);
+			if (!empty($input) && strlen($input) <= $input_gui->getMaxLength()) {
 				$this->manager->inputOne(array(
-					"input" => $_POST[self::F_FREE_INPUT],
-					"vote_id" => $_POST[self::F_VOTE_ID],
+					"input" => $input,
+					"vote_id" => filter_input(INPUT_POST, self::F_VOTE_ID),
 				));
 			}
 		}
@@ -70,7 +74,7 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 	 * @return string
 	 */
 	public function getMobileHTML() {
-		$this->tpl = $this->pl->getTemplate('default/Display/tpl.free_input.html');
+		$this->tpl = $this->pl->getTemplate('default/QuestionTypes/FreeInput/tpl.free_input.html');
 		$this->pl = ilLiveVotingPlugin::getInstance();
 		$this->render();
 
@@ -79,9 +83,45 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 
 
 	/**
-	 * @return string
+	 * @param string $a_title
+	 * @param string $a_postvar
+	 *
+	 * @return ilTextInputGUI|ilTextAreaInputGUI
 	 */
-	protected function renderForm() {
+	protected function getTextInputGUI($a_title = "", $a_postvar = "") {
+		switch (intval($this->manager->getVoting()->getAnswerField())) {
+			case xlvoFreeInputSubFormGUI::ANSWER_FIELD_MULTI_LINE:
+				$input_gui = new xlvoTextAreaInputGUI($a_title, $a_postvar);
+				$input_gui->setMaxlength(1000);
+				break;
+
+			case xlvoFreeInputSubFormGUI::ANSWER_FIELD_SINGLE_LINE:
+			default:
+				$input_gui = new xlvoTextInputGUI($a_title, $a_postvar);
+				$input_gui->setMaxLength(200);
+				break;
+		}
+
+		return $input_gui;
+	}
+
+
+	/**
+	 * @return ilPropertyFormGUI
+	 */
+	protected function getForm() {
+		if ($this->manager->getVoting()->isMultiFreeInput()) {
+			return $this->getMultiForm();
+		} else {
+			return $this->getSingleForm();
+		}
+	}
+
+
+	/**
+	 * @return ilPropertyFormGUI
+	 */
+	protected function getSingleForm() {
 		$form = new ilPropertyFormGUI();
 		$form->setFormAction($this->ctrl->getFormAction($this));
 		$form->setId('xlvo_free_input');
@@ -89,8 +129,7 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 		$votes = $this->manager->getVotesOfUser(true);
 		$vote = array_shift(array_values($votes));
 
-		$an = new ilTextInputGUI($this->txt('input'), self::F_FREE_INPUT);
-		$an->setMaxLength(200);
+		$an = $this->getTextInputGUI($this->txt('input'), self::F_FREE_INPUT);
 		$hi2 = new ilHiddenInputGUI(self::F_VOTE_ID);
 
 		if ($vote instanceof xlvoVote) {
@@ -105,14 +144,14 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 		$form->addItem($hi2);
 		$form->addCommandButton(self::CMD_SUBMIT, $this->txt('send'));
 
-		return $form->getHTML();
+		return $form;
 	}
 
 
 	/**
-	 * @return string
+	 * @return ilPropertyFormGUI
 	 */
-	protected function renderMultiForm() {
+	protected function getMultiForm() {
 		$form = new ilPropertyFormGUI();
 		$form->setFormAction($this->ctrl->getFormAction($this));
 
@@ -125,8 +164,7 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 		}
 
 		$mli = new xlvoMultiLineInputGUI($this->txt('answers'), self::F_VOTE_MULTI_LINE_INPUT);
-		$te = new ilTextInputGUI($this->txt('text'), self::F_FREE_INPUT);
-		$te->setMaxLength(45);
+		$te = $this->getTextInputGUI($this->txt('text'), self::F_FREE_INPUT);
 
 		$hi2 = new ilHiddenInputGUI(self::F_VOTE_ID);
 		$mli->addInput($te);
@@ -144,7 +182,7 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 		$form->setValuesByArray(array( self::F_VOTE_MULTI_LINE_INPUT => $array ));
 		$form->addCommandButton(self::CMD_SUBMIT, $this->txt('send'));
 
-		return $form->getHTML();
+		return $form;
 	}
 
 
@@ -152,12 +190,8 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 	 *
 	 */
 	protected function render() {
-		if ($this->manager->getVoting()->isMultiFreeInput()) {
-			$form = $this->renderMultiForm();
-		} else {
-			$form = $this->renderForm();
-		}
+		$form = $this->getForm();
 
-		$this->tpl->setVariable('FREE_INPUT_FORM', $form);
+		$this->tpl->setVariable('FREE_INPUT_FORM', $form->getHTML());
 	}
 }

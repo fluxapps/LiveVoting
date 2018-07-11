@@ -15,15 +15,26 @@ class xlvoTextAreaInputGUI extends ilTextAreaInputGUI {
 	 * @var ilLiveVotingPlugin
 	 */
 	protected $pl;
+	/**
+	 * @var int
+	 */
+	protected $maxlength = 1000;
 
 
-	function __construct($a_title = "", $a_postvar = "") {
+	/**
+	 * @param string $a_title
+	 * @param string $a_postvar
+	 */
+	public function __construct($a_title = "", $a_postvar = "") {
 		$this->pl = ilLiveVotingPlugin::getInstance();
 
 		parent::__construct($a_title, $a_postvar);
 	}
 
 
+	/**
+	 *
+	 */
 	public function customPrepare() {
 		$this->addPlugin('latex');
 		$this->addButton('latex');
@@ -80,5 +91,21 @@ class xlvoTextAreaInputGUI extends ilTextAreaInputGUI {
 	 */
 	public function setInlineStyle($inline_style) {
 		$this->inline_style = $inline_style;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getMaxlength() {
+		return $this->maxlength;
+	}
+
+
+	/**
+	 * @param int $maxlength
+	 */
+	public function setMaxlength($maxlength) {
+		$this->maxlength = $maxlength;
 	}
 }

@@ -390,10 +390,10 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 			$this->form = new ilPropertyFormGUI();
 			$this->form->setTitle($this->pl->txt('obj_edit_properties'));
 
-			$ti = new ilTextInputGUI($this->pl->txt('obj_title'), self::F_TITLE);
+			$ti = new xlvoTextInputGUI($this->pl->txt('obj_title'), self::F_TITLE);
 			$ti->setRequired(true);
 			$this->form->addItem($ti);
-			$ta = new ilTextAreaInputGUI($this->pl->txt('obj_description'), self::F_DESCRIPTION);
+			$ta = new xlvoTextAreaInputGUI($this->pl->txt('obj_description'), self::F_DESCRIPTION);
 			$this->form->addItem($ta);
 			$cb = new ilCheckboxInputGUI($this->pl->txt('obj_online'), xlvoVotingConfig::F_ONLINE);
 			$cb->setInfo($this->pl->txt('obj_info_online'));

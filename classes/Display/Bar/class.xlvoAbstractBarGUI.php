@@ -43,6 +43,9 @@ abstract class xlvoAbstractBarGUI implements xlvoGeneralBarGUI {
 	}
 
 
+	/**
+	 *
+	 */
 	protected function initTemplate() {
 		global $DIC;
 		$this->tpl = $this->pl->getTemplate('default/Display/Bar/tpl.bar_free_input.html');
@@ -50,6 +53,9 @@ abstract class xlvoAbstractBarGUI implements xlvoGeneralBarGUI {
 	}
 
 
+	/**
+	 *
+	 */
 	protected function render() {
 		$this->initTemplate();
 		if ($this->isCenter()) {

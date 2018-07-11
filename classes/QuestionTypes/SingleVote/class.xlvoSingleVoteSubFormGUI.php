@@ -40,7 +40,7 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 
 		$xlvoMultiLineInputGUI->setPositionMovable(true);
 
-		$te = new ilTextInputGUI($this->txt('option_text'), self::F_TEXT);
+		$te = new xlvoTextInputGUI($this->txt('option_text'), self::F_TEXT);
 		$te->setInfo($this->txt('info_latex'));
 		$xlvoMultiLineInputGUI->addInput($te);
 
@@ -55,7 +55,7 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 	 * @param ilFormPropertyGUI $element
 	 * @param string|array      $value
 	 *
-	 * @throws xlvoSubFormGUIHandleFieldException
+	 * @throws xlvoSubFormGUIHandleFieldException|ilException
 	 */
 	protected function handleField(ilFormPropertyGUI $element, $value) {
 		switch ($element->getPostVar()) {

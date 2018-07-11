@@ -12,6 +12,9 @@ use ilLinkButton;
  */
 class xlvoLinkButton extends ilLinkButton {
 
+	const TYPE_XLVO_LINK = 'xlvo_link';
+
+
 	public function clearClasses() {
 		$this->css = array();
 	}
@@ -29,6 +32,6 @@ class xlvoLinkButton extends ilLinkButton {
 	 * @return xlvoLinkButton
 	 */
 	public static function getInstance() {
-		return new self('xlvo_link');
+		return new self(self::TYPE_XLVO_LINK);
 	}
 }

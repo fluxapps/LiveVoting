@@ -51,6 +51,9 @@ final class xlvoBarGroupingCollectionGUI extends xlvoBarCollectionGUI {
 	}
 
 
+	/**
+	 * @param bool $enabled
+	 */
 	public function sorted($enabled) {
 		$this->sorted = $enabled;
 	}

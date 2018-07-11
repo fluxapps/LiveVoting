@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [4.0.1] - 2018-08-01
+## [4.0.2] - 2018-08-
 
 ### Added
 - ILIAS 5.3 support
@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Feature: Presentation of number range
 - Feature: Use serif font for PIN's
 - Feature: NumberRange step
+- Feature: FreeInput single and multiple lines answer field
 
 ### Changed
 - Removed discard button in FreeInput
@@ -45,6 +46,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Security
 - Improved PIN validation in pin.php
+- Improved FreeInput config validation
 
 ## [Unreleased] - XXX
 ### Added

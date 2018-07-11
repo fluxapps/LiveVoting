@@ -49,7 +49,7 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI {
 		$position->setMaxLength(2);
 		$xlvoMultiLineInputGUI->addInput($position);
 
-		$te = new ilTextInputGUI($this->txt('option_text'), self::F_TEXT);
+		$te = new xlvoTextInputGUI($this->txt('option_text'), self::F_TEXT);
 		$xlvoMultiLineInputGUI->addInput($te);
 
 		$this->addFormElement($randomiseOptionSequenceAfterSave);
@@ -61,7 +61,7 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI {
 	 * @param ilFormPropertyGUI $element
 	 * @param string|array      $value
 	 *
-	 * @throws xlvoSubFormGUIHandleFieldException
+	 * @throws xlvoSubFormGUIHandleFieldException|ilException
 	 */
 	protected function handleField(ilFormPropertyGUI $element, $value) {
 		switch ($element->getPostVar()) {

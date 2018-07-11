@@ -41,8 +41,8 @@ class xlvoParticipants {
 
 
 	/**
-	 * @param $round_id int
-	 * @param $filter   string what's the participant id or identifier you're looking for?
+	 * @param int $round_id
+	 * @param     $filter   string what's the participant id or identifier you're looking for?
 	 *
 	 * @return xlvoParticipant[]
 	 */

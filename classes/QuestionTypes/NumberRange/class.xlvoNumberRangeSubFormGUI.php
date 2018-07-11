@@ -95,7 +95,7 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 	 * @param ilFormPropertyGUI $element
 	 * @param string|array      $value
 	 *
-	 * @throws xlvoSubFormGUIHandleFieldException
+	 * @throws xlvoSubFormGUIHandleFieldException|ilException
 	 */
 	protected function handleField(ilFormPropertyGUI $element, $value) {
 		$postKey = $element->getPostVar();

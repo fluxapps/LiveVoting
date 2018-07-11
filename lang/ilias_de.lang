@@ -283,3 +283,9 @@ qtype_6_option_range_step_info#:#Schrittweite des Zahlenbereichs.
 config_use_serif_font_for_pins#:#Serifenschrift für PIN's nutzen
 config_use_serif_font_for_pins_info#:#Serifenschrift für PIN's nutzen
 qtype_6_invalid_step_range#:#Die Schrittweite konnte nicht gespeichert werden. Diese muss kleiner sein als der Zahlenbereich zwischen Start und Ende. Der Zahlenbereich zwischen Start und Ende muss teilbar sein durch die Schrittweite.
+qtype_2_answer_field#:#Antwortfeld
+qtype_2_answer_field_info#:#MISSING
+qtype_2_answer_field_single_line#:#Einzeiliges Antwortfeld
+qtype_2_answer_field_single_line_info#:#Einzeiliges Antwortfeld
+qtype_2_answer_field_multi_line#:#Mehrzeiliges Antwortfeld
+qtype_2_answer_field_multi_line_info#:#Mehrzeiliges Antwortfeld

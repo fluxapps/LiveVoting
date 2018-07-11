@@ -11,7 +11,7 @@ var xlvoFreeInput = {
 		this.ready = true;
 
 		new MutationObserver(function () { // Detect html changes
-			$('input[name^="vote_multi_line_input["][name$="][free_input]"]:not([data-has_auto_submit])').each(
+			$('input[name^="vote_multi_line_input["][name$="][free_input]"]:not([data-has_auto_submit])').each( // Intentionally not do this for textareas ...
 				/**
 				 * @param {number} i
 				 * @param {HTMLInputElement} input

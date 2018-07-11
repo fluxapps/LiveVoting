@@ -151,7 +151,7 @@ abstract class xlvoSubFormGUI {
 	/**
 	 * @param ilPropertyFormGUI $ilPropertyFormGUI
 	 *
-	 * @throws xlvoSubFormGUIHandleFieldException
+	 * @throws xlvoSubFormGUIHandleFieldException|ilException
 	 */
 	public function handleAfterSubmit(ilPropertyFormGUI $ilPropertyFormGUI) {
 		foreach ($this->getFormElements() as $formElement) {
@@ -205,7 +205,7 @@ abstract class xlvoSubFormGUI {
 	 * @param ilFormPropertyGUI $element
 	 * @param string|array      $value
 	 *
-	 * @throws xlvoSubFormGUIHandleFieldException
+	 * @throws xlvoSubFormGUIHandleFieldException|ilException
 	 */
 	protected abstract function handleField(ilFormPropertyGUI $element, $value);
 

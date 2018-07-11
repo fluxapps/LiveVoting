@@ -202,7 +202,7 @@ class xlvoResultsGUI extends xlvoGUI {
 
 
 	/**
-	 * @param $participant xlvoParticipant
+	 * @param xlvoParticipant $participant
 	 *
 	 * @return string
 	 */
@@ -227,7 +227,7 @@ class xlvoResultsGUI extends xlvoGUI {
 
 
 	/**
-	 * @param $table xlvoResultsTableGUI
+	 * @param xlvoResultsTableGUI $table
 	 */
 	private function buildFilters(&$table) {
 		$filter = new ilSelectInputGUI($this->pl->txt("common_participant"), "participant");

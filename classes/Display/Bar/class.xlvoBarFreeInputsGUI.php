@@ -39,10 +39,6 @@ class xlvoBarFreeInputsGUI extends xlvoAbstractBarGUI implements xlvoGeneralBarG
 	 * @var bool
 	 */
 	private $big = false;
-	/**
-	 * @var ilLiveVotingPlugin
-	 */
-	protected $pl;
 
 
 	/**
@@ -50,16 +46,19 @@ class xlvoBarFreeInputsGUI extends xlvoAbstractBarGUI implements xlvoGeneralBarG
 	 * @param xlvoVote   $vote
 	 */
 	public function __construct(xlvoVoting $voting, xlvoVote $vote) {
+		parent::__construct();
 		$this->voting = $voting;
 		$this->vote = $vote;
-		$this->pl = ilLiveVotingPlugin::getInstance();
 		$this->tpl = $this->pl->getTemplate('default/Display/Bar/tpl.bar_free_input.html');
 		$this->occurrences = 0;
 	}
 
 
+	/**
+	 *
+	 */
 	protected function render() {
-		$this->tpl->setVariable('FREE_INPUT', $this->vote->getFreeInput());
+		$this->tpl->setVariable('FREE_INPUT', nl2br($this->vote->getFreeInput(), false));
 
 		if ($this->isCenter()) {
 			$this->tpl->touchBlock('center');
@@ -101,12 +100,12 @@ class xlvoBarFreeInputsGUI extends xlvoAbstractBarGUI implements xlvoGeneralBarG
 	 * This function returns true if the free text is case insensitive equal to the
 	 * given one.
 	 *
-	 * @param xlvoGeneralBarGUI $bar The object which should be used for the comparison.
+	 * @param xlvoBarFreeInputsGUI $bar The object which should be used for the comparison.
 	 *
 	 * @return bool True if the freetext is case insensitive equal to the given one.
 	 */
 	public function equals(xlvoGeneralBarGUI $bar) {
-		return strcasecmp($this->vote->getFreeInput(), $bar->vote->getFreeInput()) === 0;
+		return strcasecmp(nl2br($this->vote->getFreeInput(), false), nl2br($bar->vote->getFreeInput(), false)) === 0;
 	}
 
 
