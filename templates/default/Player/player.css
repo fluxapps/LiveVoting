@@ -122,7 +122,7 @@
   width: 100% !important;
   height: 100% !important;
   z-index: 5000 !important;
-  background-color: black !important;
+  background-color: #F0F0F0 !important;
   overflow-y: scroll;
 }
 .xlvo-fullscreen #xlvo-display-player {

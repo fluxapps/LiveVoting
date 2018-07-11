@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Removed discard button in FreeInput
 - Removed 'Colums for possible answers' in NumberRange
+- Fix fullscreen background not any more black
 
 ### Deprecated
 -
