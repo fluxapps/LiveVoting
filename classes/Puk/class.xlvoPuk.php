@@ -10,11 +10,11 @@ use LiveVoting\Pin\xlvoPin;
 class xlvoPuk extends xlvoPin {
 
 	/**
-	 * @param string $pin
+	 * @param string $puk
 	 */
-	public function __construct($pin = "") {
+	public function __construct($puk = "") {
 		$this->pin_length = 10;
 
-		parent::__construct($pin);
+		parent::__construct($puk);
 	}
 }
