@@ -228,7 +228,7 @@ var xlvoPlayer = {
 		}
 		if (this.player.attendees > 0) {
 			var attendees = document.getElementById('xlvo-attendees');
-			attendees.innerHTML = (this.player.attendees + ' Online'); // TODO Translate Online
+			attendees.innerHTML = (this.player.attendees);
 		}
 
 
@@ -378,7 +378,7 @@ var xlvoPlayer = {
 		xlvoPlayer.startRequest();
 		$.get(this.base_url, {cmd: "getAttendees"})
 			.done(function (data) {
-				$('#xlvo-attendees').html(data + ' Online'); // TODO Translate Online
+				$('#xlvo-attendees').html(data);
 				xlvoPlayer.timeout = setTimeout(xlvoPlayer.updateAttendees, 1000);
 			})
 			.always(function () {
@@ -463,11 +463,11 @@ var xlvoPlayer = {
 	},
 	togglePull: function () {
 		if (xlvoPlayer.timeout) {
-			alert('Pull stopped'); // TODO Translate or xlvoPlayer.log
+			alert('Pull stopped'); // TODO: Translate or xlvoPlayer.log
 			xlvoPlayer.clearTimeout();
 			xlvoPlayer.timeout = false;
 		} else {
-			alert('Pull started'); // TODO Translate or xlvoPlayer.log
+			alert('Pull started'); // TODO: Translate or xlvoPlayer.log
 			xlvoPlayer.getPlayerData();
 		}
 	},

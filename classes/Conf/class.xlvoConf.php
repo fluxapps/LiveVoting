@@ -80,7 +80,7 @@ class xlvoConf extends CachingActiveRecord {
 	public static function getApiToken() {
 		$token = self::getConfig(self::F_API_TOKEN);
 		if (!$token) {
-			$token = md5(time()); // TODO Use other not depcreated, safer hash algo (Like `hash("sha256", $hash)`)
+			$token = md5(time()); // TODO: Use other not depcreated, safer hash algo (Like `hash("sha256", $hash)`)
 			self::set(self::F_API_TOKEN, $token);
 		}
 

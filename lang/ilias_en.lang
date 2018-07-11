@@ -288,3 +288,5 @@ qtype_2_answer_field_single_line#:#Single-line answer field
 qtype_2_answer_field_single_line_info#:#Single-line answer field
 qtype_2_answer_field_multi_line#:#Multi-line answer field
 qtype_2_answer_field_multi_line_info#:#Multi-line answer field
+start_online#:#%s online
+start_zoom#:#zoom

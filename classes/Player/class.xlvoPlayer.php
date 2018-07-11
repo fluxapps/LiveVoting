@@ -2,6 +2,7 @@
 
 namespace LiveVoting\Player;
 
+use ilLiveVotingPlugin;
 use LiveVoting\Cache\CachingActiveRecord;
 use LiveVoting\Cache\xlvoCacheFactory;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
@@ -245,6 +246,8 @@ class xlvoPlayer extends CachingActiveRecord {
 	 * @return stdClass
 	 */
 	public function getStdClassForPlayer() {
+		$pl = ilLiveVotingPlugin::getInstance();
+
 		$obj = new stdClass();
 		$obj->is_first = (bool)$this->getCurrentVotingObject()->isFirst();
 		$obj->is_last = (bool)$this->getCurrentVotingObject()->isLast();
@@ -265,7 +268,7 @@ class xlvoPlayer extends CachingActiveRecord {
 		))->orderBy('last_update', 'DESC')->getArray('last_update', 'last_update');
 		$last_update = array_shift(array_values($last_update));
 		$obj->last_update = (int)$last_update;
-		$obj->attendees = (int)xlvoVoter::countVoters($this->getId());
+		$obj->attendees = sprintf($pl->txt("start_online"), (int)xlvoVoter::countVoters($this->getId()));
 		$obj->qtype = $this->getQuestionTypeClassName();
 		$obj->countdown = $this->remainingCountDown();
 		$obj->has_countdown = $this->isCountDownRunning();

@@ -454,7 +454,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 					. xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . "_info_manual")) . '</i><ol>' . implode("", array_map(function ($step) {
 					return '<li>' . htmlspecialchars($this->txt("config_" . xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . "_info_manual_" . $step))
 						. '</li>';
-				}, range(1, 4))) . '</ol>');
+				}, range(1, 4))) . '</ol>'); // TODO: default.css not loaded
 			$this->form->addItem($presenter_link);
 
 			$this->form->addCommandButton('updateProperties', $this->pl->txt('obj_save'));

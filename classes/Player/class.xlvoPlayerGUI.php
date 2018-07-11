@@ -104,6 +104,8 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$template->setVariable('QR-CODE', xlvoQR::getImageDataString($short_link, 180));
 		$template->setVariable('SHORTLINK', $short_link);
 		$template->setVariable('MODAL', xlvoQRModalGUI::getInstanceFromVotingConfig($xlvoVotingConfig)->getHTML());
+		$template->setVariable("ONLINE_TEXT", sprintf($this->pl->txt("start_online"), 0));
+		$template->setVariable("ZOOM_TEXT", $this->pl->txt("start_zoom"));
 
 		$js = xlvoJs::getInstance()->ilias($this)->name('Player')->init();
 		if ($this->manager->getVotingConfig()->isShowAttendees()) {
@@ -120,7 +122,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 *
 	 */
 	protected function getAttendees() {
-		xlvoJsResponse::getInstance(xlvoVoter::countVoters($this->manager->getPlayer()->getId()))->send();
+		xlvoJsResponse::getInstance(sprintf($this->pl->txt("start_online"), xlvoVoter::countVoters($this->manager->getPlayer()->getId())))->send();
 	}
 
 

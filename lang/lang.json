@@ -2256,6 +2256,24 @@
         },
         "last_used": "25.05.2018"
       }
+    },
+    "start": {
+      "count": {
+        "translations": {
+          "de": "%s Online",
+          "en": "%s online",
+          "hu": "MISSING"
+        },
+        "last_used": "11.07.2018"
+      },
+      "zoom": {
+        "translations": {
+          "de": "Zoom",
+          "en": "zoom",
+          "hu": "MISSING"
+        },
+        "last_used": "11.07.2017"
+      }
     }
   }
 }
