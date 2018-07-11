@@ -228,7 +228,7 @@ var xlvoPlayer = {
 		}
 		if (this.player.attendees > 0) {
 			var attendees = document.getElementById('xlvo-attendees');
-			attendees.innerHTML = (this.player.attendees + ' Online');
+			attendees.innerHTML = (this.player.attendees + ' Online'); // TODO Translate Online
 		}
 
 
@@ -301,6 +301,7 @@ var xlvoPlayer = {
 			xlvoPlayer.handleQuestionButtons(data.buttons_html);
 			xlvoPlayer.initElements();
 			xlvoPlayer.timeout = setTimeout(xlvoPlayer.getPlayerData, xlvoPlayer.delay);
+		}).always(function () {
 			xlvoPlayer.endRequest();
 		});
 	},
@@ -324,17 +325,13 @@ var xlvoPlayer = {
 
 		xlvoPlayer.startRequest();
 		xlvoPlayer.toolbar_loader.show();
-		var success = success ? success : function () {
-		}, fail = fail ? fail : function () {
-		}, voting_id = voting_id ? voting_id : null;
 
 		var input_data = input_data ? input_data : {};
 		var post_data = $.extend({call: cmd}, input_data);
-		$.post(xlvoPlayer.config.base_url + '&cmd=apiCall', post_data).done(function (data) {
-
-			// xlvoPlayer.endRequest();
+		$.post(xlvoPlayer.config.base_url + '&cmd=apiCall', post_data).always(function () {
 			xlvoPlayer.handleSwitch();
 			xlvoPlayer.getPlayerData();
+			//xlvoPlayer.endRequest();
 		});
 	},
 	/**
@@ -360,7 +357,7 @@ var xlvoPlayer = {
 		}).always(function () {
 			xlvoPlayer.handleSwitch();
 			xlvoPlayer.getPlayerData();
-			xlvoPlayer.endRequest();
+			//xlvoPlayer.endRequest();
 		});
 	},
 	/**
@@ -381,8 +378,10 @@ var xlvoPlayer = {
 		xlvoPlayer.startRequest();
 		$.get(this.base_url, {cmd: "getAttendees"})
 			.done(function (data) {
-				$('#xlvo-attendees').html(data + ' Online');
+				$('#xlvo-attendees').html(data + ' Online'); // TODO Translate Online
 				xlvoPlayer.timeout = setTimeout(xlvoPlayer.updateAttendees, 1000);
+			})
+			.always(function () {
 				xlvoPlayer.endRequest();
 			});
 	},
@@ -464,11 +463,11 @@ var xlvoPlayer = {
 	},
 	togglePull: function () {
 		if (xlvoPlayer.timeout) {
-			alert('Pull stopped');
+			alert('Pull stopped'); // TODO Translate or xlvoPlayer.log
 			xlvoPlayer.clearTimeout();
 			xlvoPlayer.timeout = false;
 		} else {
-			alert('Pull started');
+			alert('Pull started'); // TODO Translate or xlvoPlayer.log
 			xlvoPlayer.getPlayerData();
 		}
 	},
