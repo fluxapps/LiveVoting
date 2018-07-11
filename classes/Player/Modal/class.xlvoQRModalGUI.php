@@ -26,7 +26,7 @@ class xlvoQRModalGUI extends ilModalGUI {
 
 		$short_link = $xlvoVotingConfig->getShortLinkURL();
 
-		$modal_body = '<span class="label label-default xlvo-label-url resize">' . $short_link . '</span>'; // TODO: Fix Short link label shrinks after opem modal animation
+		$modal_body = '<span class="label label-default xlvo-label-url resize">' . $short_link . '</span>'; // TODO: Fix link label shrinks after opem modal animation
 		$modal_body .= '<img id="xlvo-modal-qr" src="' . xlvoQR::getImageDataString($short_link, 1200) . '">';
 
 		$ilModalGUI->setBody($modal_body);
