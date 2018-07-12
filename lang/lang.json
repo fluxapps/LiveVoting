@@ -319,6 +319,20 @@
                     "de": "Aktiviert die Verwendung der globalen Cache Mechanik von ILIAS. Der zugrundeliegende cache muss in einem Setup mit mehreren ILIAS installation synchron sein, da das Plugin ansonsten unvorhersehbare Werte produzieren wird.",
                     "hu": "Lehetővé teszi a LiveVoting plugint használni a globális cache mechanizmus, amely biztosítja ILIAS. Az alapul szolgáló cache szinkronizálni kell egy multi veszi a telepítést, egyébként a plugin megjósolhatatlan eredményeket."
                 }
+            },
+            "use_serif_font_for_pins": {
+                "translations": {
+                    "de": "Serifenschrift für PIN's nutzen",
+                    "en": "Use serif font for PIN's",
+                    "hu": "MISSING"
+                }
+            },
+            "use_serif_font_for_pins_info": {
+                "translations": {
+                    "de": "Serifenschrift für PIN's nutzen",
+                    "en": "Use serif font for PIN's",
+                    "hu": "MISSING"
+                }
             }
         },
         "correct": {

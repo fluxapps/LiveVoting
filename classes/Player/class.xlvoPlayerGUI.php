@@ -3,6 +3,7 @@
 use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Js\xlvoJs;
 use LiveVoting\Js\xlvoJsResponse;
+use LiveVoting\Pin\xlvoPin;
 use LiveVoting\Player\QR\xlvoQR;
 use LiveVoting\Player\xlvoPlayer;
 use LiveVoting\Player\xlvoPlayerException;
@@ -93,9 +94,9 @@ class xlvoPlayerGUI extends xlvoGUI {
 		 * @var xlvoVotingConfig $xlvoVotingConfig
 		 */
 		$xlvoVotingConfig = $this->manager->getVotingConfig();
-		$template->setVariable('PIN', $xlvoVotingConfig->getPin());
+		$template->setVariable('PIN', xlvoPin::formatPin($xlvoVotingConfig->getPin()));
 
-		$short_link = xlvoConf::getShortLinkURL() . $xlvoVotingConfig->getPin();
+		$short_link = xlvoConf::getShortLinkURL() . xlvoPin::formatPin($xlvoVotingConfig->getPin());
 		$template->setVariable('QR-CODE', xlvoQR::getImageDataString($short_link, 180));
 		$template->setVariable('SHORTLINK', $short_link);
 		$template->setVariable('MODAL', xlvoQRModalGUI::getInstanceFromVotingConfig($xlvoVotingConfig)->getHTML());
@@ -457,7 +458,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 	protected function handlePreview() {
 		if ($this->manager->getVotingConfig()->isSelfVote()) {
 			$preview = new ilTemplate('./Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/Player/tpl.preview.html', true, false);
-			$preview->setVariable('URL', xlvoConf::getShortLinkURL() . $this->manager->getVotingConfig()->getPin());
+			$preview->setVariable('URL', xlvoConf::getShortLinkURL() . xlvoPin::formatPin($this->manager->getVotingConfig()->getPin()));
 			$this->tpl->setRightContent($preview->get());
 		}
 	}

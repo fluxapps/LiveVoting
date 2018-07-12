@@ -250,3 +250,5 @@ xlvo_new#:#Add new LiveVoting
 xlvo_read#:#Read (used only in non-anonymous-mode)
 xlvo_visible#:#LiveVotings visible
 xlvo_write#:#Present and edit LiveVoting
+config_use_serif_font_for_pins#:#Use serif font for PIN's
+config_use_serif_font_for_pins_info#:#Use serif font for PIN's

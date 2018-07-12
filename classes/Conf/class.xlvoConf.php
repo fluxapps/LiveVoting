@@ -26,6 +26,7 @@ class xlvoConf extends CachingActiveRecord {
 	const RESULT_API_URL = './Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/api.php';
 	const F_REQUEST_FREQUENCY = 'request_frequency';
 	const F_RESULT_API = 'result_api';
+	const F_USE_SERIF_FONT_FOR_PINS = 'use_serif_font_for_pins';
 	const F_API_TYPE = 'api_type';
 	const F_API_TOKEN = 'api_token';
 	const F_USE_GLOBAL_CACHE = 'use_global_cache';
