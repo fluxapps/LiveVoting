@@ -1,7 +1,7 @@
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
   REVIEW_APP_IMAGE: sturai/ilias:latest
-  REVIEW_APP_DEST: Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting
+  REVIEW_APP_DEST: /var/www/html/Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting
 
 .review_deployment: &review_deployment
   stage: review
