@@ -17,9 +17,9 @@ InitialisationManager::startMinimal();
 CookieManager::setContext(xlvoContext::CONTEXT_PIN);
 CookieManager::resetCookiePIN();
 
-$existing_pin = trim($_REQUEST['pin'], '/');
+$existing_pin = trim($_REQUEST['pin'], "/ ");
 if ($existing_pin) {
-	CookieManager::setCookiePIN(trim($_REQUEST['pin'], '/'));
+	CookieManager::setCookiePIN(trim($_REQUEST['pin'], "/ "));
 }
 global $DIC;
 $ilCtrl = $DIC->ctrl();
