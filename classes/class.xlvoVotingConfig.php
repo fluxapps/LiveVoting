@@ -219,7 +219,7 @@ class xlvoVotingConfig extends CachingActiveRecord {
 
 
 	/**
-	 * @param int|null $vvoting_id
+	 * @param int|null $voting_id
 	 * @param bool     $power_point
 	 * @param bool     $force_not_format
 	 *
