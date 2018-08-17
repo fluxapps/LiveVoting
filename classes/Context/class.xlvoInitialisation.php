@@ -2,6 +2,7 @@
 
 namespace LiveVoting\Context;
 
+use Exception;
 use ILIAS\DI\Container;
 use ilInitialisation;
 use iljQueryUtil;
@@ -52,6 +53,9 @@ class xlvoInitialisation extends ilInitialisation {
 	}
 
 
+	/**
+	 *
+	 */
 	protected function run() {
 		//		$this->setContext(self::CONTEXT_ILIAS);
 		switch (self::getContext()) {
@@ -78,6 +82,11 @@ class xlvoInitialisation extends ilInitialisation {
 	}
 
 
+	/**
+	 * @param int $context
+	 *
+	 * @throws Exception
+	 */
 	public static function saveContext($context) {
 		self::setContext($context);
 		CookieManager::setContext($context);
@@ -112,6 +121,9 @@ class xlvoInitialisation extends ilInitialisation {
 	}
 
 
+	/**
+	 *
+	 */
 	public static function initILIAS2() {
 		global $DIC;
 		require_once 'include/inc.ilias_version.php';
@@ -126,6 +138,9 @@ class xlvoInitialisation extends ilInitialisation {
 	}
 
 
+	/**
+	 *
+	 */
 	public static function initDependencyInjection() {
 		global $DIC;
 		$DIC = new Container();
@@ -135,7 +150,14 @@ class xlvoInitialisation extends ilInitialisation {
 	}
 
 
+	/**
+	 *
+	 */
 	protected static function initHTML2() {
+		global $DIC;
+		if ($DIC->offsetExists("tpl")) {
+			$DIC->offsetUnset("tpl");
+		}
 		parent::initHTML();
 		$pl = ilLiveVotingPlugin::getInstance();
 		if (self::USE_OWN_GLOBAL_TPL) {
@@ -144,9 +166,8 @@ class xlvoInitialisation extends ilInitialisation {
 			$tpl->addCss('./templates/default/delos.css');
 			$tpl->addBlockFile("CONTENT", "content", "tpl.main_voter.html", $pl->getDirectory());
 
-			global $DIC;
-			if ($DIC->offsetExists('tpl')) {
-				$DIC->offsetUnset('tpl');
+			if ($DIC->offsetExists("tpl")) {
+				$DIC->offsetUnset("tpl");
 			}
 
 			self::initGlobal("tpl", $tpl);
@@ -163,6 +184,9 @@ class xlvoInitialisation extends ilInitialisation {
 	}
 
 
+	/**
+	 *
+	 */
 	protected static function initClient() {
 		self::determineClient();
 		self::initClientIniFile();
