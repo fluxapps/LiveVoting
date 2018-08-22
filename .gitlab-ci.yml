@@ -30,7 +30,7 @@ review:
   <<: *review_deployment
   environment:
     name: review/${CI_BUILD_REF_SLUG}
-    url: http://${CI_PROJECT_PATH_SLUG}_${CI_BUILD_REF_SLUG}.review.studer-raimann.ch
+    url: http://${CI_BUILD_REF_SLUG}.${CI_PROJECT_PATH_SLUG}.review.studer-raimann.ch
     on_stop: stop_review
   script:
     - srag-review deploy
