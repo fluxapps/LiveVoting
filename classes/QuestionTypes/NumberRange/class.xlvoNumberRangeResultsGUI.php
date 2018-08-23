@@ -168,7 +168,7 @@ class xlvoNumberRangeResultsGUI extends xlvoInputResultsGUI {
 	 * @return string[]
 	 */
 	private function getAllVoteValues() {
-		$percentage = ((int)$this->manager->getVoting()->getPercentage() === 1) ? '%' : '';
+		$percentage = ((int)$this->manager->getVoting()->getPercentage() === 1) ? ' %' : '';
 
 		//generate array which is equal in its length to the range from start to end
 		$start = $this->manager->getVoting()->getStartRange();

@@ -38,7 +38,7 @@ class xlvoNumberRangeResultGUI extends xlvoResultGUI {
 		$testVotes = [];
 
 		foreach ($votes as $vote) {
-			$percentage = (int)$this->voting->getPercentage() === 1 ? '%' : '';
+			$percentage = (int)$this->voting->getPercentage() === 1 ? ' %' : '';
 			$testVotes[] = "{$vote->getFreeInput()}{$percentage}";
 		}
 

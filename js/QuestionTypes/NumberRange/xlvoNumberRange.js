@@ -16,7 +16,7 @@ var xlvoNumberRange = {
 	base_url: '',
 	run: function () {
 
-		this.percentageSign = $('#percentage')[0].value === "1" ? '%' : '';
+		this.percentageSign = $('#percentage')[0].value === "1" ? ' %' : '';
 
 		var numberDisplay = $('#number-display');
 		var oldText = numberDisplay.text();
