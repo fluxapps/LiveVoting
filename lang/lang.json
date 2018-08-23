@@ -1448,7 +1448,7 @@
         },
         "last_used": "20.03.2018"
       },
-      "6_display_mode_nr_1": {
+      "6_display_mode_nr_2": {
         "translations": {
           "en": "Effective estimates inc. mean, median and mode",
           "hu": "MISSING qtype_6_display_mode_nr_1",
@@ -1456,7 +1456,7 @@
         },
         "last_used": "20.03.2018"
       },
-      "6_display_mode_nr_2": {
+      "6_display_mode_nr_1": {
         "translations": {
           "en": "Bar graph",
           "hu": "MISSING qtype_6_display_mode_nr_2",

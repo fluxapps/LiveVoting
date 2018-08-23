@@ -170,8 +170,8 @@ qtype_6_option_alternative_result_display_mode#:#Display-Mode
 qtype_6_option_alternative_result_display_mode_info#:#Alternative mode which displays the result as text grouped together. The answers are sorted descending by quantity.
 qtype_4_option_randomise_option_after_save_info#:#Shuffles the options on save without generating the right answer.
 qtype_6_display_mode_nr_0#:#Effective estimates (in ascending order)
-qtype_6_display_mode_nr_1#:#Effective estimates inc. mean, median and mode
-qtype_6_display_mode_nr_2#:#Bar graph
+qtype_6_display_mode_nr_2#:#Effective estimates inc. mean, median and mode
+qtype_6_display_mode_nr_1#:#Bar graph
 results_title#:#Results
 rminable_select_start_time#:#Start
 root_create_xlvo#:#Create LiveVoting

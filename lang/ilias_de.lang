@@ -173,8 +173,8 @@ qtype_6_option_alternative_result_display_mode#:#Darstellungsart der Antworten
 qtype_6_option_alternative_result_display_mode_info#:#Alternative Darstellungsart der Antworten. Diese werden als Text absteigend gruppiert dargestellt.
 qtype_4_option_randomise_option_after_save_info#:#Bestimmt die Reihenfolge der Optionen zufällig wenn diese gesichert werden. Die Generierung einer korrekten Antwort ist jedoch ausgeschlossen.
 qtype_6_display_mode_nr_0#:#Effektive Schätzwerte (in aufsteigender Reihenfolge)
-qtype_6_display_mode_nr_1#:#Effektive Schätzwerte ink. Mittelwert, Median und Modus
-qtype_6_display_mode_nr_2#:#Balkendiagramm
+qtype_6_display_mode_nr_2#:#Effektive Schätzwerte ink. Mittelwert, Median und Modus
+qtype_6_display_mode_nr_1#:#Balkendiagramm
 results_title#:#Resultate
 root_create_xlvo#:#LiveVoting erstellen
 show_attendees#:#Anzahl Teilnehmende (Online)
