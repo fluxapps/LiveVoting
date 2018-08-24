@@ -9,7 +9,7 @@
     "cat": {
       "create_xlobj_results_behaviour": {
         "translations": {
-          "de": "MISSING",
+          "de": "MISSING cat_create_xlobj_results_behaviour",
           "en": "Show Results",
           "hu": "Eredmények megjelenítése"
         }
@@ -39,8 +39,8 @@
       },
       "all2": {
         "translations": {
-          "de": "MISSING",
-          "en": "MISSING",
+          "de": "MISSING common_all2",
+          "en": "MISSING common_all2",
           "hu": "HIÁNYZIK"
         }
       },
@@ -176,7 +176,7 @@
         "translations": {
           "de": "[Option nicht mehr vorhanden]",
           "en": "[Option no longer available]",
-          "hu": "MISSING"
+          "hu": "MISSING common_option_no_longer_available"
         }
       },
       "ok": {
@@ -193,7 +193,7 @@
         "translations": {
           "de": "Kurz-URL für Voter einschalten",
           "en": "Activate Short URL for Voter",
-          "hu": "MISSING"
+          "hu": "MISSING config_allow_shortlink"
         },
         "last_used": "20.04.2018"
       },
@@ -257,7 +257,7 @@
         "translations": {
           "de": "Klienten aktualisierungs Frequenz",
           "en": "Client update frequency",
-          "hu": "MISSING"
+          "hu": "MISSING config_request_frequency"
         },
         "last_used": "26.03.2018"
       },
@@ -279,7 +279,7 @@
       "result_api": {
         "translations": {
           "en": "Activate Results-API",
-          "hu": "MISSING",
+          "hu": "MISSING config_result_api",
           "de": "Resultate-API aktivieren"
         },
         "last_used": "26.03.2018"
@@ -287,7 +287,7 @@
       "result_api_info": {
         "translations": {
           "en": "Results of a Voting can be accessed as JSON via Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/api.php?pin=XXXX?token=XXXXX",
-          "hu": "MISSING",
+          "hu": "MISSING config_result_api_info",
           "de": "Resultate eines Votings können als JSON via Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/api.php?pin=XXXX?token=XXXXX abgerufen werden"
         },
         "last_used": "26.03.2018"
@@ -295,7 +295,7 @@
       "api_token": {
         "translations": {
           "en": "API-Token",
-          "hu": "MISSING",
+          "hu": "MISSING config_api_token",
           "de": "API-Token"
         },
         "last_used": "26.03.2018"
@@ -303,7 +303,7 @@
       "api_type": {
         "translations": {
           "en": "Type",
-          "hu": "MISSING",
+          "hu": "MISSING config_api_type",
           "de": "Typ"
         },
         "last_used": "26.03.2018"
@@ -311,7 +311,7 @@
       "regenerate_token": {
         "translations": {
           "en": "Regenerate Token",
-          "hu": "MISSING",
+          "hu": "MISSING config_regenerate_token",
           "de": "Token neu generieren"
         },
         "last_used": "17.03.2017"
@@ -319,7 +319,7 @@
       "open_result_api": {
         "translations": {
           "en": "Open API-Link (with latest Voting)",
-          "hu": "MISSING",
+          "hu": "MISSING config_open_result_api",
           "de": "API-Link öffnen (mit neustem Voting)"
         },
         "last_used": "17.03.2017"
@@ -344,14 +344,14 @@
         "translations": {
           "en": "Presenter link",
           "de": "Moderator-Link",
-          "hu": "MISSING"
+          "hu": "MISSING config_presenter_link"
         },
         "last_used": "01.03.2018"
       },
       "ppt_export": {
         "translations": {
           "en": "PowerPoint-Export",
-          "hu": "MISSING",
+          "hu": "MISSING config_ppt_export",
           "de": "PowerPoint-Export"
         },
         "last_used": "26.03.2018"
@@ -359,7 +359,7 @@
       "ppt_export_info": {
         "translations": {
           "en": "Activate PowerPoint-Export: This features needs the PowerPoint-WebView-Plugin installed and will only work if you ILIAS runs on HTTPS.",
-          "hu": "MISSING",
+          "hu": "MISSING config_ppt_export_info",
           "de": "PowerPoint-Export aktivieren: Dieses Feature funktioniert nur mit installierten PowerPoint-WebView-Plugin und wenn die ILIAS Installation unter HTTPS betrieben wird."
         },
         "last_used": "26.03.2018"
@@ -367,7 +367,7 @@
       "ppt_export_info_manual": {
         "translations": {
           "en": "Embedding LiveVotings in PowerPoint:",
-          "hu": "MISSING",
+          "hu": "MISSING config_ppt_export_info_manual",
           "de": "LiveVotings in PowerPoint einbetten:"
         },
         "last_used": "20.04.2018"
@@ -375,7 +375,7 @@
       "ppt_export_info_manual_1": {
         "translations": {
           "en": "Start PowerPoint",
-          "hu": "MISSING",
+          "hu": "MISSING config_ppt_export_info_manual_1",
           "de": "PowerPoint starten"
         },
         "last_used": "25.05.2018"
@@ -383,7 +383,7 @@
       "ppt_export_info_manual_2": {
         "translations": {
           "en": "Search for \"Web Viewer\" in the Office-Add-Ins Store (Insert > Add-Ins > My Add-Ins)",
-          "hu": "MISSING",
+          "hu": "MISSING config_ppt_export_info_manual_2",
           "de": "Nach \"Web Viewer\" im Office-Add-Ins Store suchen (Einfügen > Add-Ins > Meine Add-Ins)"
         },
         "last_used": "25.05.2018"
@@ -391,7 +391,7 @@
       "ppt_export_info_manual_3": {
         "translations": {
           "en": "Copy the Presenter link from this LiveVoting and paste the link in the Web Viewer-form in your presentation",
-          "hu": "MISSING",
+          "hu": "MISSING config_ppt_export_info_manual_3",
           "de": "Den Moderator-Link dieses LiveVotings kopieren und den Link im Web Viewer-Formular in Ihrer Präsentation einfügen"
         },
         "last_used": "25.05.2018"
@@ -399,7 +399,7 @@
       "ppt_export_info_manual_4": {
         "translations": {
           "en": "IMPORTANT: Please note that after inserting you must remove the https:// at the beginning of the link, as it will already automatically dictate from PowerPoint and thus would not work if it exists twice",
-          "hu": "MISSING",
+          "hu": "MISSING config_ppt_export_info_manual_4",
           "de": "WICHTIG: Bitte beachten Sie, dass Sie nach dem Einfügen das https:// am Anfang des Links entfernen müssen, da es bereits automatisch von PowerPoint vorgeben wird und somit nicht funktionieren würde, wenn es 2x vorhanden ist"
         },
         "last_used": "25.05.2018"
@@ -408,7 +408,7 @@
         "translations": {
           "de": "Kurz-URL für Moderator einschalten",
           "en": "Activate Short URL for Presenter",
-          "hu": "MISSING"
+          "hu": "MISSING config_allow_shortlink_presenter"
         },
         "last_used": "20.04.2018"
       },
@@ -416,7 +416,7 @@
         "translations": {
           "de": "Eine Kurz-URL kann bspw. durch hinzufügen einer RewriteRule in der .htaccess erstellt werden, dadurch kann auf https://ilias.domain.com/presenter angestimmt werden:",
           "en": "For example, a short URL can be created by adding a RewriteRule in the .htaccess, which will trigger on https://ilias.domain.com/presenter:",
-          "hu": "MISSING"
+          "hu": "MISSING config_allow_shortlink_presenter_info"
         },
         "last_used": "20.04.2018"
       },
@@ -424,7 +424,7 @@
         "translations": {
           "de": "Kurz-URL",
           "en": "Short URL",
-          "hu": "MISSING"
+          "hu": "MISSING config_allow_shortlink_link_presenter"
         },
         "last_used": "20.04.2018"
       },
@@ -432,7 +432,7 @@
         "translations": {
           "de": "Ganze Kurz-URL Ihrer Installation, bspw. https://ilias.domain.com/presenter",
           "en": "Full Short URL of your Installation , e.g. https://ilias.domain.com/presenter",
-          "hu": "MISSING"
+          "hu": "MISSING config_allow_shortlink_link_presenter_info"
         },
         "last_used": "20.04.2018"
       },
@@ -440,14 +440,14 @@
         "translations": {
           "de": "Serifenschrift für PIN's nutzen",
           "en": "Use serif font for PIN's",
-          "hu": "MISSING"
+          "hu": "MISSING config_use_serif_font_for_pins"
         }
       },
       "use_serif_font_for_pins_info": {
         "translations": {
           "de": "Serifenschrift für PIN's nutzen",
           "en": "Use serif font for PIN's",
-          "hu": "MISSING"
+          "hu": "MISSING config_use_serif_font_for_pins_info"
         }
       }
     },
@@ -581,8 +581,8 @@
       "frozen_alway_ofxlvo_edit": {
         "translations": {
           "de": "Bearbeiten",
-          "en": "MISSING",
-          "hu": "MISSING"
+          "en": "MISSING obj_frozen_alway_ofxlvo_edit",
+          "hu": "MISSING obj_frozen_alway_ofxlvo_edit"
         }
       },
       "frozen_alway_on": {
@@ -666,14 +666,14 @@
         "translations": {
           "de": "Offline",
           "en": "Offline",
-          "hu": "MISSING"
+          "hu": "MISSING obj_offline"
         }
       },
       "online": {
         "translations": {
           "de": "Online",
           "en": "Online",
-          "hu": "MISSING"
+          "hu": "MISSING obj_online"
         },
         "last_used": "26.03.2018"
       },
@@ -808,9 +808,9 @@
       },
       "": {
         "translations": {
-          "en": "MISSING",
-          "hu": "MISSING",
-          "de": "MISSING"
+          "en": "MISSING obj_",
+          "hu": "MISSING obj_",
+          "de": "MISSING obj_"
         }
       }
     },
@@ -895,7 +895,7 @@
         "translations": {
           "de": "Zurücksetzen",
           "en": "Reset",
-          "hu": "MISSING"
+          "hu": "MISSING player_reset"
         },
         "last_used": "23.03.2018"
       },
@@ -974,7 +974,7 @@
         "translations": {
           "de": "PIN: %s",
           "en": "PIN: %s",
-          "hu": "MISSING"
+          "hu": "MISSING player_pin"
         }
       }
     },
@@ -982,8 +982,8 @@
       "msg_no_start_2": {
         "translations": {
           "de": "Das LiveVoting kann nicht gestartet werden, da noch keine Votings vorhanden sind.",
-          "en": "MISSING",
-          "hu": "MISSING"
+          "en": "MISSING playplayer_msg_no_start_2",
+          "hu": "MISSING playplayer_msg_no_start_2"
         }
       }
     },
@@ -1032,22 +1032,22 @@
         "translations": {
           "de": "Options-Text",
           "en": "Option-Text",
-          "hu": "MISSING"
+          "hu": "MISSING qtype_1_option_text"
         },
         "last_used": "28.06.2017"
       },
       "1_optmsg_success_voting_updated": {
         "translations": {
           "de": "Frage wurde gespeichert",
-          "en": "MISSING",
-          "hu": "MISSING"
+          "en": "MISSING qtype_1_optmsg_success_voting_updated",
+          "hu": "MISSING qtype_1_optmsg_success_voting_updated"
         }
       },
       "1_total_obj_results_alway_on_info": {
         "translations": {
           "de": "Die Resultate werden nach einem Wechsel der Frage automatisch eingeblendet.",
-          "en": "MISSING",
-          "hu": "MISSING"
+          "en": "MISSING qtype_1_total_obj_results_alway_on_info",
+          "hu": "MISSING qtype_1_total_obj_results_alway_on_info"
         }
       },
       "1_total_voters": {
@@ -1304,9 +1304,9 @@
       },
       "6_range_start": {
         "translations": {
-          "en": "Start",
-          "de": "Start",
-          "hu": "Rajt"
+          "en": "Minimum",
+          "de": "Minimum",
+          "hu": "MISSING qtype_6_range_start"
         },
         "last_used": "28.06.2017"
       },
@@ -1347,33 +1347,33 @@
       },
       "6_range_end": {
         "translations": {
-          "en": "End",
-          "de": "Ende",
-          "hu": "Vég"
+          "en": "Maximum",
+          "de": "Maximum",
+          "hu": "MISSING qtype_6_range_end"
         },
         "last_used": "28.06.2017"
       },
       "6_option_percentage": {
         "translations": {
-          "en": "Percentage",
-          "de": "Prozentual",
-          "hu": "Százalék"
+          "en": "Percentages",
+          "de": "Prozentwerte",
+          "hu": "MISSING qtype_6_option_percentage"
         },
         "last_used": "20.03.2018"
       },
       "6_option_range_start": {
         "translations": {
-          "en": "Start",
-          "de": "Start",
-          "hu": "Kezdet"
+          "en": "Minimum",
+          "de": "Minimum",
+          "hu": "MISSING qtype_6_option_range_start"
         },
         "last_used": "20.03.2018"
       },
       "6_option_range_end": {
         "translations": {
-          "en": "End",
-          "de": "Ende",
-          "hu": "Vég"
+          "en": "Maximum",
+          "de": "Maximum",
+          "hu": "MISSING qtype_6_option_range_end"
         },
         "last_used": "20.03.2018"
       },
@@ -1442,25 +1442,25 @@
       },
       "6_display_mode_nr_0": {
         "translations": {
-          "en": "Grouped Text TBD",
-          "hu": "MISSING",
-          "de": "Gruppierter Text TBD"
-        },
-        "last_used": "20.03.2018"
-      },
-      "6_display_mode_nr_1": {
-        "translations": {
-          "en": "Bars TBD",
-          "hu": "MISSING",
-          "de": "Barren TBD"
+          "en": "Effective estimates (in ascending order)",
+          "hu": "MISSING qtype_6_display_mode_nr_0",
+          "de": "Effektive Schätzwerte (in aufsteigender Reihenfolge)"
         },
         "last_used": "20.03.2018"
       },
       "6_display_mode_nr_2": {
         "translations": {
-          "en": "Grouped Text Extended TBD",
-          "hu": "MISSING",
-          "de": "Gruppierter Text erweitert TBD"
+          "en": "Effective estimates inc. mean, median and mode",
+          "hu": "MISSING qtype_6_display_mode_nr_1",
+          "de": "Effektive Schätzwerte ink. Mittelwert, Median und Modus"
+        },
+        "last_used": "20.03.2018"
+      },
+      "6_display_mode_nr_1": {
+        "translations": {
+          "en": "Bar graph",
+          "hu": "MISSING qtype_6_display_mode_nr_2",
+          "de": "Balkendiagramm"
         },
         "last_used": "20.03.2018"
       },
@@ -1468,7 +1468,7 @@
         "translations": {
           "de": "Schrittweite",
           "en": "Step",
-          "hu": "MISSING"
+          "hu": "MISSING qtype_6_option_range_step"
         },
         "last_used": "20.03.2018"
       },
@@ -1476,15 +1476,15 @@
         "translations": {
           "de": "Schrittweite des Zahlenbereichs.",
           "en": "The step of the number range.",
-          "hu": "MISSING"
+          "hu": "MISSING qtype_6_option_range_step_info"
         },
         "last_used": "20.03.2018"
       },
       "6_invalid_step_range": {
         "translations": {
           "de": "Die Schrittweite konnte nicht gespeichert werden. Diese muss kleiner sein als der Zahlenbereich zwischen Start und Ende. Der Zahlenbereich zwischen Start und Ende muss teilbar sein durch die Schrittweite.",
-          "en": "The step could not be saved. This must be smaller than the number range between start and end. The number range between start and end must be divisible by the step.",
-          "hu": "MISSING"
+          "en": "The step could not be saved. This must be smaller than the number range between minimum and maximum. The number range between minimum and maximum must be divisible by the step.",
+          "hu": "MISSING qtype_6_invalid_step_range"
         },
         "last_used": "10.07.2018"
       },
@@ -1492,15 +1492,15 @@
         "translations": {
           "de": "Antwortfeld",
           "en": "Answer field",
-          "hu": "MISSING"
+          "hu": "MISSING qtype_2_answer_field"
         },
         "last_used": "11.07.2018"
       },
       "2_answer_field_info": {
         "translations": {
-          "de": "MISSING",
-          "en": "MISSING",
-          "hu": "MISSING"
+          "de": "MISSING qtype_2_answer_field_info",
+          "en": "MISSING qtype_2_answer_field_info",
+          "hu": "MISSING qtype_2_answer_field_info"
         },
         "last_used": "11.07.2018"
       },
@@ -1508,7 +1508,7 @@
         "translations": {
           "de": "Einzeiliges Antwortfeld",
           "en": "Single-line answer field",
-          "hu": "MISSING"
+          "hu": "MISSING qtype_2_answer_field_single_line"
         },
         "last_used": "11.07.2018"
       },
@@ -1516,7 +1516,7 @@
         "translations": {
           "de": "Einzeiliges Antwortfeld",
           "en": "Single-line answer field",
-          "hu": "MISSING"
+          "hu": "MISSING qtype_2_answer_field_single_line_info"
         },
         "last_used": "11.07.2018"
       },
@@ -1524,7 +1524,7 @@
         "translations": {
           "de": "Mehrzeiliges Antwortfeld",
           "en": "Multi-line answer field",
-          "hu": "MISSING"
+          "hu": "MISSING qtype_2_answer_field_multi_line"
         },
         "last_used": "11.07.2018"
       },
@@ -1532,7 +1532,7 @@
         "translations": {
           "de": "Mehrzeiliges Antwortfeld",
           "en": "Multi-line answer field",
-          "hu": "MISSING"
+          "hu": "MISSING qtype_2_answer_field_multi_line_info"
         },
         "last_used": "11.07.2018"
       }
@@ -1549,7 +1549,7 @@
     "rminable": {
       "select_start_time": {
         "translations": {
-          "de": "MISSING",
+          "de": "MISSING rminable_select_start_time",
           "en": "Start",
           "hu": "Indítás"
         }
@@ -1569,7 +1569,7 @@
         "translations": {
           "de": "Anzahl Teilnehmende (Online)",
           "en": "Show Attendees (Online)",
-          "hu": "MISSING"
+          "hu": "MISSING show_attendees"
         },
         "last_used": "26.03.2018"
       },
@@ -1577,7 +1577,7 @@
         "translations": {
           "de": "Die Anzahl der aktuell teilnehmenden Personen wird im Präsentationsmodus angezeigt. Diese Funktion hat einen Einfluss auf die Geschwindigkeit des Systems und sollte nur bei LiveVotings mit geringer Anzahl Teilnehmenden (Abhängig von der Installationsgrösse) verwendet werden.",
           "en": "Show the count of attendees, this has an impact on performance and should only be activated for a small live voting.",
-          "hu": "MISSING"
+          "hu": "MISSING show_attendees_info"
         },
         "last_used": "26.03.2018"
       }
@@ -1958,7 +1958,7 @@
         "translations": {
           "de": "Zurücksetzen",
           "en": "Reset",
-          "hu": "MISSING"
+          "hu": "MISSING voting_reset"
         },
         "last_used": "26.03.2018"
       },
@@ -2140,14 +2140,14 @@
         "translations": {
           "en": "Export as PowerPoint",
           "de": "Als PowerPoint exportieren",
-          "hu": "MISSING"
+          "hu": "MISSING voting_powerpoint_export"
         },
         "last_used": "26.03.2018"
       },
       "confirm_ppt_export_msg": {
         "translations": {
           "en": "A PowerPoint-Slideshow will be created with one slide per voting using the Presenter-Shortlink. Please note that this slides will require the PowerPoint-WebView-Plugin installed.",
-          "hu": "MISSING",
+          "hu": "MISSING voting_confirm_ppt_export_msg",
           "de": "Eine PowerPoint-Präsentation mit einer Folie pro Frage wird erstellt, welche den jeweiligen Presenter-Link nutzen. Bitte beachten Sie, dass das Powepoint-WebView-Plugin installiert sein muss."
         },
         "last_used": "26.03.2018"
@@ -2164,7 +2164,7 @@
         "translations": {
           "de": "Permanenter-Link",
           "en": "Permanent-Link",
-          "hu": "MISSING"
+          "hu": "MISSING voting_permanent_link"
         },
         "last_used": "19.04.2018"
       }
@@ -2174,7 +2174,7 @@
         "translations": {
           "en": "Options",
           "hu": "Beállítások",
-          "de": "MISSING"
+          "de": "MISSING vqtype_1_options"
         }
       }
     },
@@ -2250,11 +2250,11 @@
       }
     },
     "start": {
-      "count": {
+      "online": {
         "translations": {
           "de": "%s Online",
           "en": "%s online",
-          "hu": "MISSING"
+          "hu": "MISSING start_online"
         },
         "last_used": "11.07.2018"
       },
@@ -2262,7 +2262,7 @@
         "translations": {
           "de": "Zoom",
           "en": "Zoom",
-          "hu": "MISSING"
+          "hu": "MISSING start_zoom"
         },
         "last_used": "11.07.2017"
       }

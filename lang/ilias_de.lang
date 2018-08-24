@@ -1,7 +1,7 @@
 cat_create_xlvo#:#LiveVoting erstellen
 common_actions#:#Aktionen
 common_all#:#Alle
-common_all2#:#MISSING
+common_all2#:#MISSING common_all2
 common_answer#:#Antwort
 common_back#:#Zurück
 common_cancel#:#Abbrechen
@@ -89,7 +89,7 @@ obj_terminable_select_start_time#:#Start
 obj_title#:#Titel
 obj_xlvo#:#LiveVoting
 obj_xlvo_duplicate#:#Bestehendes LiveVoting kopieren
-obj_#:#MISSING
+obj_#:#MISSING obj_
 objs_xlvo#:#LiveVotings
 objs_xlvo_duplicate#:#Bestehendes LiveVoting kopieren
 player_close_modal#:#Schliessen
@@ -154,16 +154,16 @@ qtype_5_option_text#:#Text
 qtype_5_option_weight#:#Gewichtung
 qtype_form_header#:#Antworten
 qtype_multi_free_input#:#Mehrfache Eingaben
-qtype_6_range_start#:#Start
+qtype_6_range_start#:#Minimum
 qtype_6_voter_start_button_vote#:#Senden
 qtype_6_voter_clear#:#Verwerfen
 qtype_6_voter_start_button_unvote#:#Verwerfen
 qtype_6_invalid_end_range#:#Das Ende des Bereichs muss größer sein als der Start. Bitte beachten Sie, dass der Endbereich zwischen %1$s und %2$s liegen muss.
 qtype_6_invalid_start_range#:#Der Anfang des Bereichs muss kleiner sein als das Ende. Bitte beachten Sie, dass der Startbereich zwischen %1$s und %2$s liegen muss.
-qtype_6_range_end#:#Ende
-qtype_6_option_percentage#:#Prozentual
-qtype_6_option_range_start#:#Start
-qtype_6_option_range_end#:#Ende
+qtype_6_range_end#:#Maximum
+qtype_6_option_percentage#:#Prozentwerte
+qtype_6_option_range_start#:#Minimum
+qtype_6_option_range_end#:#Maximum
 qtype_6_option_percentage_info#:#Blendet ein Prozentzeichen neben der Start und Endzahl ein.
 qtype_6_option_range_start_info#:#Start des Zahlenbereichs.
 qtype_6_option_range_end_info#:#Ende des Zahlenbereichs.
@@ -172,9 +172,9 @@ qtype_4_option_randomise_option_after_save_inf#:#Bestimmt die Reihenfolge der Op
 qtype_6_option_alternative_result_display_mode#:#Darstellungsart der Antworten
 qtype_6_option_alternative_result_display_mode_info#:#Alternative Darstellungsart der Antworten. Diese werden als Text absteigend gruppiert dargestellt.
 qtype_4_option_randomise_option_after_save_info#:#Bestimmt die Reihenfolge der Optionen zufällig wenn diese gesichert werden. Die Generierung einer korrekten Antwort ist jedoch ausgeschlossen.
-qtype_6_display_mode_nr_0#:#Gruppierter Text TBD
-qtype_6_display_mode_nr_1#:#Barren TBD
-qtype_6_display_mode_nr_2#:#Gruppierter Text erweitert TBD
+qtype_6_display_mode_nr_0#:#Effektive Schätzwerte (in aufsteigender Reihenfolge)
+qtype_6_display_mode_nr_2#:#Effektive Schätzwerte ink. Mittelwert, Median und Modus
+qtype_6_display_mode_nr_1#:#Balkendiagramm
 results_title#:#Resultate
 root_create_xlvo#:#LiveVoting erstellen
 show_attendees#:#Anzahl Teilnehmende (Online)
@@ -261,9 +261,9 @@ xlvo_new#:#Neues LiveVoting anlegen
 xlvo_read#:#Leserecht (nur im nicht-anonymen Modus verwendet
 xlvo_visible#:#LiveVoting sichtbar
 xlvo_write#:#LiveVoting präsentieren und bearbeiten
-cat_create_xlobj_results_behaviour#:#MISSING
-rminable_select_start_time#:#MISSING
-vqtype_1_options#:#MISSING
+cat_create_xlobj_results_behaviour#:#MISSING cat_create_xlobj_results_behaviour
+rminable_select_start_time#:#MISSING rminable_select_start_time
+vqtype_1_options#:#MISSING vqtype_1_options
 voting_short_link#:#Kurz-URL
 voting_permanent_link#:#Permanenter-Link
 config_ppt_export_info_manual#:#LiveVotings in PowerPoint einbetten:
@@ -281,9 +281,9 @@ qtype_6_option_range_step#:#Schrittweite
 qtype_6_option_range_step_info#:#Schrittweite des Zahlenbereichs.
 config_use_serif_font_for_pins#:#Serifenschrift für PIN's nutzen
 config_use_serif_font_for_pins_info#:#Serifenschrift für PIN's nutzen
-qtype_6_invalid_step_range#:#Die Schrittweite konnte nicht gespeichert werden. Diese muss kleiner sein als der Zahlenbereich zwischen Start und Ende. Der Zahlenbereich zwischen Start und Ende muss teilbar sein durch die Schrittweite.
+qtype_6_invalid_step_range#:#Die Schrittweite konnte nicht gespeichert werden. Diese muss kleiner sein als der Zahlenbereich zwischen Minimum und Maximum. Der Zahlenbereich zwischen Minimum und Maximum muss teilbar sein durch die Schrittweite.
 qtype_2_answer_field#:#Antwortfeld
-qtype_2_answer_field_info#:#MISSING
+qtype_2_answer_field_info#:#MISSING qtype_2_answer_field_info
 qtype_2_answer_field_single_line#:#Einzeiliges Antwortfeld
 qtype_2_answer_field_single_line_info#:#Einzeiliges Antwortfeld
 qtype_2_answer_field_multi_line#:#Mehrzeiliges Antwortfeld

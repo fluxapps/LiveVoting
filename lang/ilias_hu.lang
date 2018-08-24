@@ -21,9 +21,9 @@ common_round#:#Kör
 common_show_history#:#Történelem
 common_time#:#Időbélyeg
 common_user#:#Felhasználó
-common_option_no_longer_available#:#MISSING
+common_option_no_longer_available#:#MISSING common_option_no_longer_available
 common_ok#:#OK
-config_allow_shortlink#:#MISSING
+config_allow_shortlink#:#MISSING config_allow_shortlink
 config_allow_shortlink_info#:#Rövid URL (pl. /vote) használatához adja a RewriteRule szabályt .htaccess fájljához:
 config_allow_shortlink_link#:#Rövid URL
 config_allow_shortlink_link_info#:#Telepítése teljes rövid URL-je , pl. https://ilias.domain.hu/vote
@@ -32,17 +32,17 @@ config_base_url_info#:#Telepítése URL-je (alkönyvtárat is beleértve), pl. h
 config_cancel#:#Mégsem
 config_msg_success#:#Mentve
 config_update#:#Módosítás
-config_result_api#:#MISSING
-config_result_api_info#:#MISSING
-config_api_token#:#MISSING
-config_api_type#:#MISSING
-config_regenerate_token#:#MISSING
-config_open_result_api#:#MISSING
+config_result_api#:#MISSING config_result_api
+config_result_api_info#:#MISSING config_result_api_info
+config_api_token#:#MISSING config_api_token
+config_api_type#:#MISSING config_api_type
+config_regenerate_token#:#MISSING config_regenerate_token
+config_open_result_api#:#MISSING config_open_result_api
 config_use_global_cache#:#aktiválása caching
 config_use_global_cache_info#:#Lehetővé teszi a LiveVoting plugint használni a globális cache mechanizmus, amely biztosítja ILIAS. Az alapul szolgáló cache szinkronizálni kell egy multi veszi a telepítést, egyébként a plugin megjósolhatatlan eredményeket.
-config_presenter_link#:#MISSING
-config_ppt_export#:#MISSING
-config_ppt_export_info#:#MISSING
+config_presenter_link#:#MISSING config_presenter_link
+config_ppt_export#:#MISSING config_ppt_export
+config_ppt_export_info#:#MISSING config_ppt_export_info
 correct_order#:#Helyes sorrend
 crs_create_xlvo#:#Élőszavazás létrehozása
 fikd_create_xlvo#:#Élőszavazás létrehozása
@@ -68,8 +68,8 @@ obj_info_online#:#Objektum online és elérhető
 obj_info_reuse_status#:#Az élőszavazás pillanatnyi állapotának megőrzése amikor a következőre váltunk (szüneteltetett / nem szüneteltetett).
 obj_info_terminable#:#Az előszavazás csak a meghatározott időtartam alatt érhető el
 obj_msg_properties_form_saved#:#Beállításokat sikeresen mentette.
-obj_offline#:#MISSING
-obj_online#:#MISSING
+obj_offline#:#MISSING obj_offline
+obj_online#:#MISSING obj_online
 obj_results_alway_off#:#Szavazatállás sohasem látható
 obj_results_alway_off_info#:#Kérdésváltás után a pillanatnyi szavazatállás nem jelenik meg.
 obj_results_alway_on#:#Szavazatállás mindig látható
@@ -87,7 +87,7 @@ obj_terminable_select_start_time#:#Kezdő idő
 obj_title#:#Cím
 obj_xlvo#:#Élőszavazás
 obj_xlvo_duplicate#:#Meglévő élőszavazás duplikálása
-obj_#:#MISSING
+obj_#:#MISSING obj_
 objs_xlvo#:#Élőszavazás
 objs_xlvo_duplicate#:#Meglévő élőszavazás klónozása
 player_close_modal#:#Bezárás
@@ -98,7 +98,7 @@ player_msg_no_start_2#:#Ez az élőszavazás nem indítható, mert nincsenek el�
 player_msg_no_votings#:#Ez az élőszavazás nem indítható, mert nincs benne kérdés
 player_msg_voting_not_available#:#A kijelölt élőszavazás nem érhető el
 player_player_countdown#:#Visszaszámlálás
-player_reset#:#MISSING
+player_reset#:#MISSING player_reset
 player_seconds#:#mp
 player_show_results#:#Szavazatállás megjelenítése
 player_start_voting#:#Élőszavazás indítása
@@ -113,7 +113,7 @@ qtype_1_info_latex#:#LaTeX részt [tex] ... [/tex] közé kell írni.
 qtype_1_multi_selection#:#Többszörös kijelölés
 qtype_1_multi_selection_info#:#Válaszadó több, mint egy válaszlehetőséget jelölhet meg
 qtype_1_options#:#Lehetőségek
-qtype_1_option_text#:#MISSING
+qtype_1_option_text#:#MISSING qtype_1_option_text
 qtype_1_total_voters#:#Összes szavazó
 qtype_1_total_votes#:#Összes szavazó
 qtype_1_unvote#:#Szavazat visszavonása
@@ -149,16 +149,16 @@ qtype_5_option_text#:#Szöveg
 qtype_5_option_weight#:#Szélesség
 qtype_form_header#:#Válaszok
 qtype_multi_free_input#:#Többszörös válasz
-qtype_6_range_start#:#Rajt
+qtype_6_range_start#:#MISSING qtype_6_range_start
 qtype_6_voter_start_button_vote#:#Szavazás
 qtype_6_voter_clear#:#Kezdőállapotba
 qtype_6_voter_start_button_unvote#:#Megválni
 qtype_6_invalid_end_range#:#A végén a tartomány nagyobbnak kell lennie, mint a kezdés. Felhívjuk figyelmét, hogy a végén tartomány között kell lennie %1$s és %2$s.
 qtype_6_invalid_start_range#:#A start a tartományban kisebbnek kell lennie a végén. Felhívjuk figyelmét, hogy a start tartomány között kell lennie %1$s és %2$s.
-qtype_6_range_end#:#Vég
-qtype_6_option_percentage#:#Százalék
-qtype_6_option_range_start#:#Kezdet
-qtype_6_option_range_end#:#Vég
+qtype_6_range_end#:#MISSING qtype_6_range_end
+qtype_6_option_percentage#:#MISSING qtype_6_option_percentage
+qtype_6_option_range_start#:#MISSING qtype_6_option_range_start
+qtype_6_option_range_end#:#MISSING qtype_6_option_range_end
 qtype_6_option_percentage_info#:#Kijelzők százalék jelek mellett a kezdő és záró szám.
 qtype_6_option_range_start_info#:#Kezdje a szám tartományban.
 qtype_6_option_range_end_info#:#Vége a fordulatszám-tartományban.
@@ -167,9 +167,9 @@ qtype_4_option_randomise_option_after_save_inf#:#Véletlenszerűen választja ki
 qtype_6_option_alternative_result_display_mode#:#Képviselete a válaszokat
 qtype_6_option_alternative_result_display_mode_info#:#Alternatív képviselete a válaszokat. Ezeket mutatja lehajló csoportosítva szövegként.
 qtype_4_option_randomise_option_after_save_info#:#Véletlenszerűen választja ki a mentési beállításokat anélkül, hogy a megfelelő választ generálná.
-qtype_6_display_mode_nr_0#:#MISSING
-qtype_6_display_mode_nr_1#:#MISSING
-qtype_6_display_mode_nr_2#:#MISSING
+qtype_6_display_mode_nr_0#:#MISSING qtype_6_display_mode_nr_0
+qtype_6_display_mode_nr_1#:#MISSING qtype_6_display_mode_nr_1
+qtype_6_display_mode_nr_2#:#MISSING qtype_6_display_mode_nr_2
 results_title#:#Eredmények
 rminable_select_start_time#:#Indítás
 root_create_xlvo#:#Élőszavazás létrehozása
@@ -222,7 +222,7 @@ voting_import#:#Importálás
 voting_msg_duplicated#:#Kérdést sikeresen duplikálta
 voting_msg_sorting_saved#:#Sorrend mentése
 voting_question#:#Kérdés
-voting_reset#:#MISSING
+voting_reset#:#MISSING voting_reset
 voting_reset_all#:#Összes szavazat resetelése
 voting_save_sorting#:#Sorrend mentése
 voting_select_type#:#Típus mentése
@@ -245,8 +245,8 @@ voting_update#:#Mentés és vissza
 voting_update_and_stay#:#Mentés
 voting_type_6#:#Számtartomány
 voting_type_6_info#:#A felhasználók kitalálni egy számot X és Y között.
-voting_powerpoint_export#:#MISSING
-voting_confirm_ppt_export_msg#:#MISSING
+voting_powerpoint_export#:#MISSING voting_powerpoint_export
+voting_confirm_ppt_export_msg#:#MISSING voting_confirm_ppt_export_msg
 vqtype_1_options#:#Beállítások
 xlvo_add#:#Létrehozása
 xlvo_delete#:#Élőszavazás törlése
@@ -256,35 +256,36 @@ xlvo_new#:#Új Élőszavazás létrehozása
 xlvo_read#:#Olvasás (csak nem-anonim módban hasznresetálható)
 xlvo_visible#:#Élőszavazások látható
 xlvo_write#:#Élőszavazás indítása és módosítása
-qtype_1_total_obj_results_alway_on_info#:#MISSING
-config_request_frequency#:#MISSING
-obj_frozen_alway_ofxlvo_edit#:#MISSING
-playplayer_msg_no_start_2#:#MISSING
-show_attendees#:#MISSING
-show_attendees_info#:#MISSING
+qtype_1_total_obj_results_alway_on_info#:#MISSING qtype_1_total_obj_results_alway_on_info
+config_request_frequency#:#MISSING config_request_frequency
+obj_frozen_alway_ofxlvo_edit#:#MISSING obj_frozen_alway_ofxlvo_edit
+playplayer_msg_no_start_2#:#MISSING playplayer_msg_no_start_2
+show_attendees#:#MISSING show_attendees
+show_attendees_info#:#MISSING show_attendees_info
 voting_short_link#:#Rövid URL
-voting_permanent_link#:#MISSING
-config_ppt_export_info_manual#:#MISSING
-config_ppt_export_info_manual_1#:#MISSING
-config_ppt_export_info_manual_2#:#MISSING
-config_ppt_export_info_manual_3#:#MISSING
-config_ppt_export_info_manual_4#:#MISSING
-config_allow_shortlink_presenter#:#MISSING
-config_allow_shortlink_presenter_info#:#MISSING
-config_allow_shortlink_link_presenter#:#MISSING
-config_allow_shortlink_link_presenter_info#:#MISSING
-rbac_create_xlvo#:#MISSING
-player_pin#:#MISSING
-qtype_6_option_range_step#:#MISSING
-qtype_6_option_range_step_info#:#MISSING
-config_use_serif_font_for_pins#:#MISSING
-config_use_serif_font_for_pins_info#:#MISSING
-qtype_6_invalid_step_range#:#MISSING
-qtype_2_answer_field#:#MISSING
-qtype_2_answer_field_info#:#MISSING
-qtype_2_answer_field_single_line#:#MISSING
-qtype_2_answer_field_single_line_info#:#MISSING
-qtype_2_answer_field_multi_line#:#MISSING
-qtype_2_answer_field_multi_line_info#:#MISSING
-start_online#:#MISSING
-start_zoom#:#MISSING
+voting_permanent_link#:#MISSING voting_permanent_link
+config_ppt_export_info_manual#:#MISSING config_ppt_export_info_manual
+config_ppt_export_info_manual_1#:#MISSING config_ppt_export_info_manual_1
+config_ppt_export_info_manual_2#:#MISSING config_ppt_export_info_manual_2
+config_ppt_export_info_manual_3#:#MISSING config_ppt_export_info_manual_3
+config_ppt_export_info_manual_4#:#MISSING config_ppt_export_info_manual_4
+config_allow_shortlink_presenter#:#MISSING config_allow_shortlink_presenter
+config_allow_shortlink_presenter_info#:#MISSING config_allow_shortlink_presenter_info
+config_allow_shortlink_link_presenter#:#MISSING config_allow_shortlink_link_presenter
+config_allow_shortlink_link_presenter_info#:#MISSING config_allow_shortlink_link_presenter_info
+rbac_create_xlvo#:#MISSING rbac_create_xlvo
+player_pin#:#MISSING player_pin
+qtype_6_option_range_step#:#MISSING qtype_6_option_range_step
+qtype_6_option_range_step_info#:#MISSING qtype_6_option_range_step_info
+config_use_serif_font_for_pins#:#MISSING config_use_serif_font_for_pins
+config_use_serif_font_for_pins_info#:#MISSING config_use_serif_font_for_pins_info
+qtype_6_invalid_step_range#:#MISSING qtype_6_invalid_step_range
+qtype_2_answer_field#:#MISSING qtype_2_answer_field
+qtype_2_answer_field_info#:#MISSING qtype_2_answer_field_info
+qtype_2_answer_field_single_line#:#MISSING qtype_2_answer_field_single_line
+qtype_2_answer_field_single_line_info#:#MISSING qtype_2_answer_field_single_line_info
+qtype_2_answer_field_multi_line#:#MISSING qtype_2_answer_field_multi_line
+qtype_2_answer_field_multi_line_info#:#MISSING qtype_2_answer_field_multi_line_info
+start_online#:#MISSING start_online
+start_zoom#:#MISSING start_zoom
+qtype_1_optmsg_success_voting_updated#:#MISSING qtype_1_optmsg_success_voting_updated

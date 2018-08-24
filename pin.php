@@ -16,7 +16,7 @@ use LiveVoting\Pin\xlvoPin;
 
 try {
 
-	$pin = trim(filter_input(INPUT_GET, "pin"), "/");
+	$pin = trim(filter_input(INPUT_GET, "pin"), "/ ");
 	if (!empty($pin)) {
 
 		InitialisationManager::startMinimal();

@@ -2,7 +2,7 @@ cat_create_xlobj_results_behaviour#:#Show Results
 cat_create_xlvo#:#Create LiveVoting
 common_actions#:#Actions
 common_all#:#All
-common_all2#:#MISSING
+common_all2#:#MISSING common_all2
 common_answer#:#Answer
 common_back#:#Back
 common_cancel#:#Cancel
@@ -89,7 +89,7 @@ obj_terminable_select_start_time#:#Start
 obj_title#:#Title
 obj_xlvo#:#LiveVoting
 obj_xlvo_duplicate#:#Clone existing LiveVoting
-obj_#:#MISSING
+obj_#:#MISSING obj_
 objs_xlvo#:#LiveVotings
 objs_xlvo_duplicate#:#Clone existing LiveVoting
 player_close_modal#:#Close
@@ -151,16 +151,16 @@ qtype_5_option_text#:#Text
 qtype_5_option_weight#:#Weight
 qtype_form_header#:#Answers
 qtype_multi_free_input#:#Multiple Inputs
-qtype_6_range_start#:#Start
+qtype_6_range_start#:#Minimum
 qtype_6_voter_start_button_vote#:#Send
 qtype_6_voter_clear#:#Discard
 qtype_6_voter_start_button_unvote#:#Discard
 qtype_6_invalid_end_range#:#The end of the range must be greater than the start. Please note that the end range must be between %1$s and %2$s.
 qtype_6_invalid_start_range#:#The start of the range must be less than the end. Please note that the start range must be between %1$s and %2$s.
-qtype_6_range_end#:#End
-qtype_6_option_percentage#:#Percentage
-qtype_6_option_range_start#:#Start
-qtype_6_option_range_end#:#End
+qtype_6_range_end#:#Maximum
+qtype_6_option_percentage#:#Percentages
+qtype_6_option_range_start#:#Minimum
+qtype_6_option_range_end#:#Maximum
 qtype_6_option_percentage_info#:#Shows the number range with a percentage sign. There are no calculations done, this is only an visual option.
 qtype_6_option_range_start_info#:#The start of the number range.
 qtype_6_option_range_end_info#:#The end of the number range.
@@ -169,9 +169,9 @@ qtype_4_option_randomise_option_after_save_inf#:#Shuffles the options on save wi
 qtype_6_option_alternative_result_display_mode#:#Display-Mode
 qtype_6_option_alternative_result_display_mode_info#:#Alternative mode which displays the result as text grouped together. The answers are sorted descending by quantity.
 qtype_4_option_randomise_option_after_save_info#:#Shuffles the options on save without generating the right answer.
-qtype_6_display_mode_nr_0#:#Grouped Text TBD
-qtype_6_display_mode_nr_1#:#Bars TBD
-qtype_6_display_mode_nr_2#:#Grouped Text Extended TBD
+qtype_6_display_mode_nr_0#:#Effective estimates (in ascending order)
+qtype_6_display_mode_nr_2#:#Effective estimates inc. mean, median and mode
+qtype_6_display_mode_nr_1#:#Bar graph
 results_title#:#Results
 rminable_select_start_time#:#Start
 root_create_xlvo#:#Create LiveVoting
@@ -260,9 +260,9 @@ xlvo_new#:#Add new LiveVoting
 xlvo_read#:#Read (used only in non-anonymous-mode)
 xlvo_visible#:#LiveVotings visible
 xlvo_write#:#Present and edit LiveVoting
-qtype_1_total_obj_results_alway_on_info#:#MISSING
-obj_frozen_alway_ofxlvo_edit#:#MISSING
-playplayer_msg_no_start_2#:#MISSING
+qtype_1_total_obj_results_alway_on_info#:#MISSING qtype_1_total_obj_results_alway_on_info
+obj_frozen_alway_ofxlvo_edit#:#MISSING obj_frozen_alway_ofxlvo_edit
+playplayer_msg_no_start_2#:#MISSING playplayer_msg_no_start_2
 voting_short_link#:#Short URL
 voting_permanent_link#:#Permanent-Link
 config_ppt_export_info_manual#:#Embedding LiveVotings in PowerPoint:
@@ -280,12 +280,13 @@ qtype_6_option_range_step#:#Step
 qtype_6_option_range_step_info#:#The step of the number range.
 config_use_serif_font_for_pins#:#Use serif font for PIN's
 config_use_serif_font_for_pins_info#:#Use serif font for PIN's
-qtype_6_invalid_step_range#:#The step could not be saved. This must be smaller than the number range between start and end. The number range between start and end must be divisible by the step.
+qtype_6_invalid_step_range#:#The step could not be saved. This must be smaller than the number range between minimum and maximum. The number range between minimum and maximum must be divisible by the step.
 qtype_2_answer_field#:#Answer field
-qtype_2_answer_field_info#:#MISSING
+qtype_2_answer_field_info#:#MISSING qtype_2_answer_field_info
 qtype_2_answer_field_single_line#:#Single-line answer field
 qtype_2_answer_field_single_line_info#:#Single-line answer field
 qtype_2_answer_field_multi_line#:#Multi-line answer field
 qtype_2_answer_field_multi_line_info#:#Multi-line answer field
 start_online#:#%s online
 start_zoom#:#Zoom
+qtype_1_optmsg_success_voting_updated#:#MISSING qtype_1_optmsg_success_voting_updated
