@@ -51,7 +51,7 @@ class xlvoPin {
 	 */
 	public static function formatPin($pin) {
 		if (xlvoConf::getConfig(xlvoConf::F_USE_SERIF_FONT_FOR_PINS)) {
-			$pin = '<span class="serif_font"> ' . $pin . "</span>";
+			$pin = '<span class="serif_font">' . $pin . "</span>";
 		}
 
 		return $pin;
