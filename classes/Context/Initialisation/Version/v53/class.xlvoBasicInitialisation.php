@@ -112,6 +112,7 @@ class xlvoBasicInitialisation {
 		$this->initSettings();  //required
 		$this->initAccessHandling();
 		$this->buildHTTPPath();
+		$this->initHTTPServices();
 		$this->initLocale();
 		$this->initLanguage();
 		$this->initDataCache();
@@ -122,7 +123,6 @@ class xlvoBasicInitialisation {
 		$this->initAccess();
 		$this->initTree();
 		$this->initTemplate();
-		$this->initHTTPServices();
 		$this->initTabs();
 		$this->initNavigationHistory();
 		$this->initHelp();
