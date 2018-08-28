@@ -146,7 +146,7 @@ class xlvoDisplayPlayerGUI {
 		//workaround due to the old question design.
 		if ($option->getType() == xlvoQuestionTypes::TYPE_NUMBER_RANGE) {
 			$columnWith = 6; //because of bootstrap grid 12 = 100%, 6 = 50% therefore 2 columns
-			$percentage = (int)$this->manager->getVoting()->getPercentage() === 1 ? '%' : '';
+			$percentage = (int)$this->manager->getVoting()->getPercentage() === 1 ? ' %' : '';
 
 			$this->tpl->setCurrentBlock('option');
 			$this->tpl->setVariable('OPTION_LETTER', self::translate('qtype_6_range_start'));
