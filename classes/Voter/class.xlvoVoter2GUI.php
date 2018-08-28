@@ -1,15 +1,22 @@
 <?php
 
+require_once __DIR__ . '/../../vendor/autoload.php';
+
 use LiveVoting\Conf\xlvoConf;
-use LiveVoting\Context\cookie\CookieManager;
+use LiveVoting\Context\Cookie\CookieManager;
+use LiveVoting\Exceptions\xlvoVoterException;
 use LiveVoting\Exceptions\xlvoVotingManagerException;
+use LiveVoting\GUI\xlvoGlyphGUI;
+use LiveVoting\GUI\xlvoGUI;
+use LiveVoting\GUI\xlvoTextInputGUI;
 use LiveVoting\Js\xlvoJs;
 use LiveVoting\Js\xlvoJsResponse;
 use LiveVoting\Pin\xlvoPin;
 use LiveVoting\Player\xlvoPlayer;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
+use LiveVoting\QuestionTypes\xlvoQuestionTypesGUI;
 use LiveVoting\Voter\xlvoVoter;
-use LiveVoting\Voter\xlvoVoterException;
+use LiveVoting\Voting\xlvoVotingConfig;
 use LiveVoting\Voting\xlvoVotingManager2;
 
 /**
@@ -42,7 +49,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 	 * @return string
 	 */
 	protected function txt($key) {
-		return $this->pl->txt('voter_' . $key);
+		return self::translate($key, 'voter');
 	}
 
 
@@ -53,20 +60,20 @@ class xlvoVoter2GUI extends xlvoGUI {
 	public function executeCommand() {
 		$this->pin = CookieManager::getCookiePIN();
 		$this->manager = new xlvoVotingManager2($this->pin);
-		$nextClass = $this->ctrl->getNextClass();
+		$nextClass = self::dic()->ctrl()->getNextClass();
 		switch ($nextClass) {
 			case '':
 				if (!$this->manager->getVotingConfig()->isAnonymous()
-					&& (is_null($this->usr) || $this->usr->getId() == 13
-						|| $this->usr->getId() == 0)) {
+					&& (is_null(self::dic()->user()) || self::dic()->user()->getId() == 13
+						|| self::dic()->user()->getId() == 0)) {
 					//remove plugin path to get "real" web root otherwise we break installations with context paths -> http://demo.ilias.ch/test/goto.php
-					$plugin_path = substr($this->pl->getDirectory(), 2); // Remove ./
+					$plugin_path = substr(self::directory(), 2); // Remove ./
 					$ilias_base_path = str_replace($plugin_path, '', ILIAS_HTTP_PATH);
 					$login_target = "{$ilias_base_path}goto.php?target=xlvo_1_pin_" . $this->pin;
 
 					//redirect
-					$this->tpl->setContent("<script>window.location.replace('$login_target');</script>");
-					$this->tpl->show("content");
+					self::dic()->template()->setContent("<script>window.location.replace('$login_target');</script>");
+					self::dic()->template()->show("content");
 				} else {
 					parent::executeCommand();
 				}
@@ -74,12 +81,12 @@ class xlvoVoter2GUI extends xlvoGUI {
 				break;
 			default:
 				// Question-types
-				require_once $this->ctrl->lookupClassPath($nextClass);
+				require_once self::dic()->ctrl()->lookupClassPath($nextClass);
 				$gui = new $nextClass();
 				if ($gui instanceof xlvoQuestionTypesGUI) {
 					$gui->setManager($this->manager);
 				}
-				$this->ctrl->forwardCommand($gui);
+				self::dic()->ctrl()->forwardCommand($gui);
 				break;
 		}
 	}
@@ -90,13 +97,13 @@ class xlvoVoter2GUI extends xlvoGUI {
 	 */
 	protected function index() {
 		if ($this->manager->getObjId() > 0) {
-			$this->ctrl->redirect($this, self::CMD_START_VOTER_PLAYER);
+			self::dic()->ctrl()->redirect($this, self::CMD_START_VOTER_PLAYER);
 		}
 
-		$tpl = $this->pl->getTemplate('default/Voter/tpl.pin.html', true, false);
-		$this->tpl->addCss($this->pl->getDirectory() . '/templates/default/Voter/pin.css');
+		$tpl = self::template('default/Voter/tpl.pin.html', true, false);
+		self::dic()->template()->addCss(self::directory() . '/templates/default/Voter/pin.css');
 		$pin_form = new ilPropertyFormGUI();
-		$pin_form->setFormAction($this->ctrl->getLinkTarget($this, self::CMD_CHECK_PIN));
+		$pin_form->setFormAction(self::dic()->ctrl()->getLinkTarget($this, self::CMD_CHECK_PIN));
 		$pin_form->addCommandButton(self::CMD_CHECK_PIN, $this->txt('send'));
 
 		$xlvoPin = new xlvoPin();
@@ -108,7 +115,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 		$tpl->setVariable('TITLE', $this->txt('pin_form_title'));
 		$tpl->setVariable('FORM', $pin_form->getHTML());
 
-		$this->tpl->setContent($tpl->get());
+		self::dic()->template()->setContent($tpl->get());
 	}
 
 
@@ -134,7 +141,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 		if ($redirect) {
 			CookieManager::setCookiePIN($_POST[self::F_PIN_INPUT]);
 
-			$this->ctrl->redirect($this, self::CMD_START_VOTER_PLAYER);
+			self::dic()->ctrl()->redirect($this, self::CMD_START_VOTER_PLAYER);
 		}
 	}
 
@@ -150,9 +157,9 @@ class xlvoVoter2GUI extends xlvoGUI {
 		}
 
 		$this->initJsAndCss();
-		$this->tpl->addCss($this->pl->getDirectory() . '/templates/default/default.css');
-		$tpl = $this->pl->getTemplate('default/Voter/tpl.voter_player.html', true, false);
-		$this->tpl->setContent($tpl->get());
+		self::dic()->template()->addCss(self::directory() . '/templates/default/default.css');
+		$tpl = self::template('default/Voter/tpl.voter_player.html', true, false);
+		self::dic()->template()->setContent($tpl->get());
 	}
 
 
@@ -176,9 +183,9 @@ class xlvoVoter2GUI extends xlvoGUI {
 	 * @throws ilException
 	 */
 	protected function initJsAndCss() {
-		$this->tpl->addCss($this->pl->getDirectory() . '/templates/default/Voter/voter.css');
-		$this->tpl->addCss($this->pl->getDirectory() . '/templates/default/libs/bootstrap-slider.min.css');
-		$this->tpl->addCss($this->pl->getDirectory() . '/templates/default/QuestionTypes/NumberRange/number_range.css');
+		self::dic()->template()->addCss(self::directory() . '/templates/default/Voter/voter.css');
+		self::dic()->template()->addCss(self::directory() . '/templates/default/libs/bootstrap-slider.min.css');
+		self::dic()->template()->addCss(self::directory() . '/templates/default/QuestionTypes/NumberRange/number_range.css');
 		iljQueryUtil::initjQueryUI();
 
 		ilMathJax::getInstance()->includeMathJax();
@@ -219,7 +226,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 	 * @throws ilException
 	 */
 	protected function getHTML() {
-		$tpl = $this->pl->getTemplate('default/Voter/tpl.inner_screen.html');
+		$tpl = self::template('default/Voter/tpl.inner_screen.html');
 		switch ($this->manager->getPlayer()->getStatus(true)) {
 			case xlvoPlayer::STAT_STOPPED:
 				$tpl->setVariable('TITLE', $this->txt('header_stopped'));

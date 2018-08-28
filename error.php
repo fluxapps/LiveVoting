@@ -9,9 +9,10 @@
 require_once __DIR__ . "/vendor/autoload.php";
 require_once "dir.php";
 
-use LiveVoting\Context\cookie\CookieManager;
+use LiveVoting\Context\Cookie\CookieManager;
 use LiveVoting\Context\InitialisationManager;
 use LiveVoting\Context\xlvoContext;
+use srag\DIC\DICStatic;
 
 $context = CookieManager::getContext();
 switch ($context) {
@@ -25,8 +26,7 @@ switch ($context) {
 		break;
 }
 
-global $DIC;
 ilUtil::sendFailure($_SESSION["failure"]);
 ilSession::clear("referer");
 ilSession::clear("message");
-$DIC->ui()->mainTemplate()->show();
+DICStatic::dic()->template()->show();

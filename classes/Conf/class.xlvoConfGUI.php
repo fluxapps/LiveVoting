@@ -1,6 +1,10 @@
 <?php
 
+require_once __DIR__ . '/../../vendor/autoload.php';
+
 use LiveVoting\Conf\xlvoConf;
+use LiveVoting\Conf\xlvoConfFormGUI;
+use LiveVoting\GUI\xlvoGUI;
 use LiveVoting\Pin\xlvoPin;
 use LiveVoting\Voting\xlvoVoting;
 
@@ -22,16 +26,16 @@ class xlvoConfGUI extends xlvoGUI {
 	 * @return string
 	 */
 	public function txt($key) {
-		return $this->pl->txt('config_' . $key);
+		return self::translate($key, 'config');
 	}
 
 
 	public function index() {
 		if (xlvoConf::getConfig(xlvoConf::F_RESULT_API)) {
 			$b = ilLinkButton::getInstance();
-			$b->setUrl($this->ctrl->getLinkTarget($this, self::CMD_RESET_TOKEN));
+			$b->setUrl(self::dic()->ctrl()->getLinkTarget($this, self::CMD_RESET_TOKEN));
 			$b->setCaption($this->txt('regenerate_token'), false);
-			$this->toolbar->addButtonInstance($b);
+			self::dic()->toolbar()->addButtonInstance($b);
 			$b = ilLinkButton::getInstance();
 			$xlvoVoting = xlvoVoting::last();
 			$xlvoVoting = $xlvoVoting ? $xlvoVoting : new xlvoVoting();
@@ -40,12 +44,12 @@ class xlvoConfGUI extends xlvoGUI {
 			$b->setUrl($url);
 			$b->setTarget('_blank');
 			$b->setCaption($this->txt('open_result_api'), false);
-			$this->toolbar->addButtonInstance($b);
+			self::dic()->toolbar()->addButtonInstance($b);
 		}
 
 		$xlvoConfFormGUI = new xlvoConfFormGUI($this);
 		$xlvoConfFormGUI->fillForm();
-		$this->tpl->setContent($xlvoConfFormGUI->getHTML());
+		self::dic()->template()->setContent($xlvoConfFormGUI->getHTML());
 	}
 
 
@@ -61,9 +65,9 @@ class xlvoConfGUI extends xlvoGUI {
 		$xlvoConfFormGUI->setValuesByPost();
 		if ($xlvoConfFormGUI->saveObject()) {
 			ilUtil::sendSuccess($this->txt('msg_success'), true);
-			$this->ctrl->redirect($this, self::CMD_STANDARD);
+			self::dic()->ctrl()->redirect($this, self::CMD_STANDARD);
 		}
-		$this->tpl->setContent($xlvoConfFormGUI->getHTML());
+		self::dic()->template()->setContent($xlvoConfFormGUI->getHTML());
 	}
 
 

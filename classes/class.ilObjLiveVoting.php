@@ -30,6 +30,8 @@ use LiveVoting\Player\xlvoPlayer;
 use LiveVoting\Puk\xlvoPuk;
 use LiveVoting\Vote\xlvoVote;
 use LiveVoting\Voting\xlvoVoting;
+use LiveVoting\Voting\xlvoVotingConfig;
+use srag\DIC\DICTrait;
 
 /**
  * Class ilObjLiveVoting
@@ -42,10 +44,8 @@ use LiveVoting\Voting\xlvoVoting;
  */
 class ilObjLiveVoting extends ilObjectPlugin {
 
-	/**
-	 * @var ilDB
-	 */
-	protected $db;
+	use DICTrait;
+	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 
 
 	/**
@@ -58,8 +58,6 @@ class ilObjLiveVoting extends ilObjectPlugin {
 			$this->id = $a_ref_id;
 			$this->doRead();
 		}*/
-		global $DIC;
-		$this->db = $DIC->database();
 	}
 
 

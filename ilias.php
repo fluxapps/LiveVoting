@@ -12,9 +12,10 @@ require_once __DIR__ . "/vendor/autoload.php";
 require_once "dir.php";
 
 use LiveVoting\Conf\xlvoConf;
-use LiveVoting\Context\cookie\CookieManager;
+use LiveVoting\Context\Cookie\CookieManager;
 use LiveVoting\Context\InitialisationManager;
 use LiveVoting\Context\xlvoContext;
+use srag\DIC\DICStatic;
 
 $context = CookieManager::getContext();
 switch ($context) {
@@ -31,9 +32,6 @@ switch ($context) {
 
 xlvoConf::load();
 
-global $DIC;
-$ilCtrl = $DIC->ctrl();
-$ilBench = $DIC["ilBench"];
-$ilCtrl->setTargetScript(xlvoConf::getFullApiURL());
-$ilCtrl->callBaseClass();
-$ilBench->save();
+DICStatic::dic()->ctrl()->setTargetScript(xlvoConf::getFullApiURL());
+DICStatic::dic()->ctrl()->callBaseClass();
+DICStatic::dic()->benchmark()->save();

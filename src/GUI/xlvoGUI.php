@@ -1,0 +1,69 @@
+<?php
+
+namespace LiveVoting\GUI;
+
+use ilLiveVotingPlugin;
+use LiveVoting\Conf\xlvoConf;
+use LiveVoting\Js\xlvoJs;
+use srag\DIC\DICTrait;
+
+/**
+ * Class xlvoGUI
+ *
+ * @package LiveVoting\GUI
+ * @author  Fabian Schmid <fs@studer-raimann.ch>
+ * @version 1.0.0
+ */
+abstract class xlvoGUI {
+
+	use DICTrait;
+	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
+	const CMD_STANDARD = 'index';
+	const CMD_ADD = 'add';
+	const CMD_SAVE = 'save';
+	const CMD_CREATE = 'create';
+	const CMD_EDIT = 'edit';
+	const CMD_UPDATE = 'update';
+	const CMD_CONFIRM = 'confirmDelete';
+	const CMD_DELETE = 'delete';
+	const CMD_CANCEL = 'cancel';
+	const CMD_VIEW = 'view';
+	/**
+	 * @var bool $is_api_call
+	 */
+	protected $is_api_call;
+
+
+	/**
+	 *
+	 */
+	public function __construct() {
+		$this->is_api_call = (self::dic()->ctrl()->getTargetScript() == xlvoConf::getFullApiURL());
+	}
+
+
+	/**
+	 *
+	 */
+	public function executeCommand() {
+		$nextClass = self::dic()->ctrl()->getNextClass();
+		xlvoJs::getInstance()->name('Main')->init()->setRunCode();
+		switch ($nextClass) {
+			default:
+				$cmd = self::dic()->ctrl()->getCmd(self::CMD_STANDARD);
+				$this->{$cmd}();
+				break;
+		}
+		if ($this->is_api_call) {
+			self::dic()->template()->show();
+		}
+	}
+
+
+	/**
+	 *
+	 */
+	protected function cancel() {
+		self::dic()->ctrl()->redirect($this, self::CMD_STANDARD);
+	}
+}

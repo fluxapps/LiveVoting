@@ -1,18 +1,27 @@
 <?php
 
-use LiveVoting\Context\cookie\CookieManager;
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+use LiveVoting\Context\Cookie\CookieManager;
 use LiveVoting\Context\ILIASVersionEnum;
+use LiveVoting\Exceptions\xlvoPlayerException;
 use LiveVoting\Exceptions\xlvoVotingManagerException;
+use LiveVoting\GUI\xlvoGlyphGUI;
+use LiveVoting\GUI\xlvoGUI;
+use LiveVoting\GUI\xlvoLinkButton;
+use LiveVoting\GUI\xlvoToolbarGUI;
 use LiveVoting\Js\xlvoJs;
 use LiveVoting\Js\xlvoJsResponse;
 use LiveVoting\Pin\xlvoPin;
 use LiveVoting\Player\QR\xlvoQR;
+use LiveVoting\Player\QR\xlvoQRModalGUI;
+use LiveVoting\Player\xlvoDisplayPlayerGUI;
 use LiveVoting\Player\xlvoPlayer;
-use LiveVoting\Player\xlvoPlayerException;
+use LiveVoting\QuestionTypes\xlvoQuestionTypesGUI;
 use LiveVoting\Voter\xlvoVoter;
 use LiveVoting\Voting\xlvoVoting;
+use LiveVoting\Voting\xlvoVotingConfig;
 use LiveVoting\Voting\xlvoVotingManager2;
-use LiveVoting\xlvoLinkButton;
 
 /**
  * Class xlvoPlayerGUI
@@ -49,7 +58,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 	public function __construct() {
 		parent::__construct();
 		$this->manager = xlvoVotingManager2::getInstanceFromObjId(ilObject2::_lookupObjId($_GET['ref_id']));
-		$this->tpl->addCss($this->pl->getDirectory() . '/templates/default/default.css');
+		self::dic()->template()->addCss(self::directory() . '/templates/default/default.css');
 	}
 
 
@@ -59,7 +68,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 * @return string
 	 */
 	protected function txt($key) {
-		return $this->pl->txt('player_' . $key);
+		return self::translate($key, 'player');
 	}
 
 
@@ -78,22 +87,22 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$b = ilLinkButton::getInstance();
 		$b->setCaption($this->txt('start_voting'), false);
 		$b->addCSSClass('xlvo-preview');
-		$b->setUrl($this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_START_PLAYER));
+		$b->setUrl(self::dic()->ctrl()->getLinkTarget(new xlvoPlayerGUI(), self::CMD_START_PLAYER));
 		$b->setId('btn-start-voting');
 		$b->setPrimary(true);
-		$this->toolbar->addButtonInstance($b);
+		self::dic()->toolbar()->addButtonInstance($b);
 
 		$b = ilLinkButton::getInstance();
 		$b->setCaption($this->txt('start_voting_and_unfreeze'), false);
 		$b->addCSSClass('xlvo-preview');
-		$b->setUrl($this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_START_PLAYER_AND_UNFREEZE));
+		$b->setUrl(self::dic()->ctrl()->getLinkTarget(new xlvoPlayerGUI(), self::CMD_START_PLAYER_AND_UNFREEZE));
 		$b->setId('btn-start-voting-unfreeze');
-		$this->toolbar->addButtonInstance($b);
+		self::dic()->toolbar()->addButtonInstance($b);
 
 		$current_selection_list = $this->getVotingSelectionList(false);
-		$this->toolbar->addText($current_selection_list->getHTML());
+		self::dic()->toolbar()->addText($current_selection_list->getHTML());
 
-		$template = $this->pl->getTemplate('default/Player/tpl.start.html');
+		$template = self::template('default/Player/tpl.start.html');
 		/**
 		 * @var xlvoVotingConfig $xlvoVotingConfig
 		 */
@@ -104,8 +113,8 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$template->setVariable('QR-CODE', xlvoQR::getImageDataString($short_link, 180));
 		$template->setVariable('SHORTLINK', $short_link);
 		$template->setVariable('MODAL', xlvoQRModalGUI::getInstanceFromVotingConfig($xlvoVotingConfig)->getHTML());
-		$template->setVariable("ONLINE_TEXT", sprintf($this->pl->txt("start_online"), 0));
-		$template->setVariable("ZOOM_TEXT", $this->pl->txt("start_zoom"));
+		$template->setVariable("ONLINE_TEXT", self::translate("start_online", "", [ 0 ]));
+		$template->setVariable("ZOOM_TEXT", self::translate("start_zoom"));
 
 		$js = xlvoJs::getInstance()->ilias($this)->name('Player')->init();
 		if ($this->manager->getVotingConfig()->isShowAttendees()) {
@@ -114,7 +123,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 		}
 		$js->call('handleStartButton');
 
-		$this->tpl->setContent($template->get());
+		self::dic()->template()->setContent($template->get());
 	}
 
 
@@ -122,7 +131,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 *
 	 */
 	protected function getAttendees() {
-		xlvoJsResponse::getInstance(sprintf($this->pl->txt("start_online"), xlvoVoter::countVoters($this->manager->getPlayer()->getId())))->send();
+		xlvoJsResponse::getInstance(self::translate("start_online", "", [ xlvoVoter::countVoters($this->manager->getPlayer()->getId()) ]))->send();
 	}
 
 
@@ -135,7 +144,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$this->manager->prepare();
 		$this->manager->getPlayer()->unfreeze();
 		$modal = xlvoQRModalGUI::getInstanceFromVotingConfig($this->manager->getVotingConfig())->getHTML();
-		$this->tpl->setContent($modal . $this->getPlayerHTML());
+		self::dic()->template()->setContent($modal . $this->getPlayerHTML());
 		$this->handlePreview();
 	}
 
@@ -151,7 +160,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$this->manager->prepare();
 		$this->initToolbarDuringVoting();
 		$modal = xlvoQRModalGUI::getInstanceFromVotingConfig($this->manager->getVotingConfig())->getHTML();
-		$this->tpl->setContent($modal . $this->getPlayerHTML());
+		self::dic()->template()->setContent($modal . $this->getPlayerHTML());
 		$this->handlePreview();
 	}
 
@@ -187,7 +196,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 			throw new ilException("Wrong PUK!");
 		}
 
-		$this->ctrl->saveParameter($this, "ref_id");
+		self::dic()->ctrl()->saveParameter($this, "ref_id");
 
 		if (CookieManager::hasCookieVoting()) {
 			$this->manager->open(CookieManager::getCookieVoting());
@@ -251,7 +260,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 */
 	protected function next() {
 		$this->manager->next();
-		$this->ctrl->redirect($this, self::CMD_START_PLAYER);
+		self::dic()->ctrl()->redirect($this, self::CMD_START_PLAYER);
 	}
 
 
@@ -260,7 +269,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 */
 	protected function previous() {
 		$this->manager->previous();
-		$this->ctrl->redirect($this, self::CMD_START_PLAYER);
+		self::dic()->ctrl()->redirect($this, self::CMD_START_PLAYER);
 	}
 
 
@@ -269,7 +278,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 */
 	protected function terminate() {
 		$this->manager->terminate();
-		$this->ctrl->redirect($this, self::CMD_STANDARD);
+		self::dic()->ctrl()->redirect($this, self::CMD_STANDARD);
 	}
 
 
@@ -340,7 +349,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 		foreach (array( 10, 30, 90, 120, 180, 240, 300 ) as $seconds) {
 			$cd = ilLinkButton::getInstance();
 			$cd->setUrl('#');
-			$cd->setCaption($seconds . ' ' . $this->pl->txt('player_seconds'), false);
+			$cd->setCaption($seconds . ' ' . self::translate('player_seconds'), false);
 			$cd->setOnClick("xlvoPlayer.countdown(event, $seconds);");
 			$ilSplitButtonMenuItem = new ilButtonToSplitButtonMenuItemAdapter($cd);
 			$split->addMenuItem($ilSplitButtonMenuItem);
@@ -353,51 +362,51 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$suspendButton->setCaption($this->txt('hide_results'), false);
 		$suspendButton->setUrl('#');
 		$suspendButton->setId('btn-hide-results');
-		$this->toolbar->addButtonInstance($suspendButton);
+		self::dic()->toolbar()->addButtonInstance($suspendButton);
 
 		// Show
 		$suspendButton = ilLinkButton::getInstance();
 		$suspendButton->setCaption($this->txt('show_results'), false);
 		$suspendButton->setUrl('#');
 		$suspendButton->setId('btn-show-results');
-		$this->toolbar->addButtonInstance($suspendButton);
+		self::dic()->toolbar()->addButtonInstance($suspendButton);
 
 		// Reset
 		$suspendButton = ilLinkButton::getInstance();
 		$suspendButton->setCaption(xlvoGlyphGUI::get('remove') . $this->txt('reset'), false);
 		$suspendButton->setUrl('#');
 		$suspendButton->setId('btn-reset');
-		$this->toolbar->addButtonInstance($suspendButton);
+		self::dic()->toolbar()->addButtonInstance($suspendButton);
 
 		//
 		//
-		$this->toolbar->addSeparator();
+		self::dic()->toolbar()->addSeparator();
 		//
 		//
 
 		// PREV
 		$suspendButton = ilLinkButton::getInstance();
 		$suspendButton->setDisabled(true);
-		$suspendButton->setUrl($this->ctrl->getLinkTarget($this, self::CMD_PREVIOUS));
+		$suspendButton->setUrl(self::dic()->ctrl()->getLinkTarget($this, self::CMD_PREVIOUS));
 		$suspendButton->setCaption(xlvoGlyphGUI::get(xlvoGlyphGUI::PREVIOUS), false);
 		$suspendButton->setId('btn-previous');
-		$this->toolbar->addButtonInstance($suspendButton);
+		self::dic()->toolbar()->addButtonInstance($suspendButton);
 
 		// NEXT
 		$suspendButton = ilLinkButton::getInstance();
 		$suspendButton->setDisabled(true);
 		$suspendButton->setCaption(xlvoGlyphGUI::get(xlvoGlyphGUI::NEXT), false);
-		$suspendButton->setUrl($this->ctrl->getLinkTarget($this, self::CMD_NEXT));
+		$suspendButton->setUrl(self::dic()->ctrl()->getLinkTarget($this, self::CMD_NEXT));
 		$suspendButton->setId('btn-next');
-		$this->toolbar->addButtonInstance($suspendButton);
+		self::dic()->toolbar()->addButtonInstance($suspendButton);
 
 		// Votings
 		$current_selection_list = $this->getVotingSelectionList();
-		$this->toolbar->addText($current_selection_list->getHTML());
+		self::dic()->toolbar()->addText($current_selection_list->getHTML());
 
 		//
 		//
-		$this->toolbar->addSeparator();
+		self::dic()->toolbar()->addSeparator();
 		//
 		//
 
@@ -407,21 +416,21 @@ class xlvoPlayerGUI extends xlvoGUI {
 			$suspendButton->setCaption(xlvoGlyphGUI::get('fullscreen'), false);
 			$suspendButton->setUrl('#');
 			$suspendButton->setId('btn-start-fullscreen');
-			$this->toolbar->addButtonInstance($suspendButton);
+			self::dic()->toolbar()->addButtonInstance($suspendButton);
 
 			$suspendButton = ilLinkButton::getInstance();
 			$suspendButton->setCaption(xlvoGlyphGUI::get('resize-small'), false);
 			$suspendButton->setUrl('#');
 			$suspendButton->setId('btn-close-fullscreen');
-			$this->toolbar->addButtonInstance($suspendButton);
+			self::dic()->toolbar()->addButtonInstance($suspendButton);
 		}
 
 		// END
 		$suspendButton = ilLinkButton::getInstance();
 		$suspendButton->setCaption(xlvoGlyphGUI::get('stop') . $this->txt('terminate'), false);
-		$suspendButton->setUrl($this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_TERMINATE));
+		$suspendButton->setUrl(self::dic()->ctrl()->getLinkTarget(new xlvoPlayerGUI(), self::CMD_TERMINATE));
 		$suspendButton->setId('btn-terminate');
-		$this->toolbar->addButtonInstance($suspendButton);
+		self::dic()->toolbar()->addButtonInstance($suspendButton);
 		if (self::DEBUG) {
 
 			// PAUSE PULL
@@ -429,7 +438,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 			$suspendButton->setCaption('Toogle Pulling', false);
 			$suspendButton->setUrl('#');
 			$suspendButton->setId('btn-toggle-pull');
-			$this->toolbar->addButtonInstance($suspendButton);
+			self::dic()->toolbar()->addButtonInstance($suspendButton);
 		}
 	}
 
@@ -443,7 +452,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 * @return void
 	 */
 	private function addStickyButtonToToolbar(ilButtonBase $button) {
-		$this->toolbar->addStickyItem($button);
+		self::dic()->toolbar()->addStickyItem($button);
 	}
 
 
@@ -464,9 +473,9 @@ class xlvoPlayerGUI extends xlvoGUI {
 		 */
 		foreach ($this->manager->getAllVotings() as $voting) {
 			$id = $voting->getId();
-			$this->ctrl->setParameter(new xlvoPlayerGUI(), self::IDENTIFIER, $id);
+			self::dic()->ctrl()->setParameter(new xlvoPlayerGUI(), self::IDENTIFIER, $id);
 			$t = $voting->getTitle();
-			$target = $this->ctrl->getLinkTarget(new xlvoPlayerGUI(), self::CMD_START_PLAYER);
+			$target = self::dic()->ctrl()->getLinkTarget(new xlvoPlayerGUI(), self::CMD_START_PLAYER);
 			if ($async) {
 				$current_selection_list->addItem($t, $id, $target, '', '', '', '', false, 'xlvoPlayer.open(' . $id . ')');
 			} else {
@@ -516,8 +525,8 @@ class xlvoPlayerGUI extends xlvoGUI {
 		xlvoJs::getInstance()->ilias($this)->addSettings($settings)->name('Player')->addTranslations(array(
 			'voting_confirm_reset',
 		))->init()->setRunCode();
-		$this->tpl->addCss($this->pl->getDirectory() . '/templates/default/Player/player.css');
-		$this->tpl->addCss($this->pl->getDirectory() . '/LiveVoting/templates/default/Display/Bar/bar.css');
+		self::dic()->template()->addCss(self::directory() . '/templates/default/Player/player.css');
+		self::dic()->template()->addCss(self::directory() . '/LiveVoting/templates/default/Display/Bar/bar.css');
 	}
 
 
@@ -526,9 +535,9 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 */
 	protected function handlePreview() {
 		if ($this->manager->getVotingConfig()->isSelfVote()) {
-			$preview = $this->pl->getTemplate('default/Player/tpl.preview.html', true, false);
+			$preview = self::template('default/Player/tpl.preview.html', true, false);
 			$preview->setVariable('URL', $this->manager->getVotingConfig()->getShortLinkURL());
-			$this->tpl->setRightContent($preview->get());
+			self::dic()->template()->setRightContent($preview->get());
 		}
 	}
 }

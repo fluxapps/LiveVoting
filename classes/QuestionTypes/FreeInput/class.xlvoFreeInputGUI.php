@@ -1,7 +1,14 @@
 <?php
 
+require_once __DIR__ . '/../../../vendor/autoload.php';
+
+use LiveVoting\GUI\xlvoMultiLineInputGUI;
+use LiveVoting\GUI\xlvoTextAreaInputGUI;
+use LiveVoting\GUI\xlvoTextInputGUI;
 use LiveVoting\Js\xlvoJs;
+use LiveVoting\QuestionTypes\FreeInput\xlvoFreeInputSubFormGUI;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
+use LiveVoting\QuestionTypes\xlvoQuestionTypesGUI;
 use LiveVoting\Vote\xlvoVote;
 
 /**
@@ -19,6 +26,10 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 	const F_FREE_INPUT = 'free_input';
 	const F_VOTE_ID = 'vote_id';
 	//const CMD_CLEAR = 'clear';
+	/**
+	 * @var ilTemplate
+	 */
+	protected $tpl;
 
 
 	/**
@@ -74,8 +85,7 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 	 * @return string
 	 */
 	public function getMobileHTML() {
-		$this->tpl = $this->pl->getTemplate('default/QuestionTypes/FreeInput/tpl.free_input.html');
-		$this->pl = ilLiveVotingPlugin::getInstance();
+		$this->tpl = self::template('default/QuestionTypes/FreeInput/tpl.free_input.html');
 		$this->render();
 
 		return $this->tpl->get() . xlvoJs::getInstance()->name(xlvoQuestionTypes::FREE_INPUT)->category('QuestionTypes')->getRunCode();
@@ -123,7 +133,7 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 	 */
 	protected function getSingleForm() {
 		$form = new ilPropertyFormGUI();
-		$form->setFormAction($this->ctrl->getFormAction($this));
+		$form->setFormAction(self::dic()->ctrl()->getFormAction($this));
 		$form->setId('xlvo_free_input');
 
 		$votes = $this->manager->getVotesOfUser(true);
@@ -153,7 +163,7 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 	 */
 	protected function getMultiForm() {
 		$form = new ilPropertyFormGUI();
-		$form->setFormAction($this->ctrl->getFormAction($this));
+		$form->setFormAction(self::dic()->ctrl()->getFormAction($this));
 
 		$xlvoVotes = $this->manager->getVotesOfUser();
 		if (count($xlvoVotes) > 0) {

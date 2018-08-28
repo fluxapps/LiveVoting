@@ -22,9 +22,10 @@
 	+-----------------------------------------------------------------------------+
 */
 
-use LiveVoting\Pin\xlvoPin;
-
 require_once __DIR__ . '/../vendor/autoload.php';
+
+use LiveVoting\Pin\xlvoPin;
+use srag\DIC\DICTrait;
 
 /**
  * ListGUI implementation for LiveVoting object plugin. This one
@@ -37,6 +38,8 @@ require_once __DIR__ . '/../vendor/autoload.php';
  */
 class ilObjLiveVotingListGUI extends ilObjectPluginListGUI {
 
+	use DICTrait;
+	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	/**
 	 * @var array
 	 */

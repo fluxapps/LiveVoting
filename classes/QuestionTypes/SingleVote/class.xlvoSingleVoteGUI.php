@@ -1,7 +1,11 @@
 <?php
 
+require_once __DIR__ . '/../../../vendor/autoload.php';
+
 use LiveVoting\Js\xlvoJs;
+use LiveVoting\Player\xlvoGlyphGUI;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
+use LiveVoting\QuestionTypes\xlvoQuestionTypesGUI;
 
 /**
  * Class xlvoSingleVoteGUI
@@ -66,14 +70,14 @@ class xlvoSingleVoteGUI extends xlvoQuestionTypesGUI {
 	 * @return string
 	 */
 	public function getMobileHTML() {
-		$tpl = $this->pl->getTemplate('default/QuestionTypes/SingleVote/tpl.single_vote.html', false);
+		$tpl = self::template('default/QuestionTypes/SingleVote/tpl.single_vote.html', false);
 		$answer_count = 64;
 		foreach ($this->manager->getVoting()->getVotingOptions() as $xlvoOption) {
 			$answer_count ++;
-			$this->ctrl->setParameter($this, 'option_id', $xlvoOption->getId());
+			self::dic()->ctrl()->setParameter($this, 'option_id', $xlvoOption->getId());
 			$tpl->setCurrentBlock('option');
 			$tpl->setVariable('TITLE', $xlvoOption->getTextForPresentation());
-			$tpl->setVariable('LINK', $this->ctrl->getLinkTarget($this, self::CMD_SUBMIT));
+			$tpl->setVariable('LINK', self::dic()->ctrl()->getLinkTarget($this, self::CMD_SUBMIT));
 			$tpl->setVariable('OPTION_LETTER', chr($answer_count));
 			if ($this->manager->hasUserVotedForOption($xlvoOption)) {
 				$tpl->setVariable('BUTTON_STATE', 'btn-primary');

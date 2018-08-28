@@ -1,12 +1,18 @@
 <?php
 
+require_once __DIR__ . '/../../vendor/autoload.php';
+
 use LiveVoting\Conf\xlvoConf;
+use LiveVoting\GUI\xlvoGlyphGUI;
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\PowerPointExport\ilPowerPointExport;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\Round\xlvoRound;
 use LiveVoting\Vote\xlvoVote;
 use LiveVoting\Voting\xlvoVoting;
+use LiveVoting\Voting\xlvoVotingFormGUI;
+use LiveVoting\Voting\xlvoVotingTableGUI;
+use srag\DIC\DICTrait;
 
 /**
  *
@@ -21,6 +27,8 @@ use LiveVoting\Voting\xlvoVoting;
  */
 class xlvoVotingGUI {
 
+	use DICTrait;
+	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	const IDENTIFIER = 'xlvoVot';
 	const CMD_STANDARD = 'content';
 	const CMD_CONTENT = 'content';
@@ -46,33 +54,9 @@ class xlvoVotingGUI {
 	const F_TYPE = 'type';
 	const CMD_RUN_POWER_POINT_EXPORT = 'runPowerPointExport';
 	/**
-	 * @var ilTemplate
-	 */
-	public $tpl;
-	/**
-	 * @var ilCtrl
-	 */
-	protected $ctrl;
-	/**
-	 * @var ilTabsGUI
-	 */
-	protected $tabs;
-	/**
-	 * @var ilToolbarGUI
-	 */
-	protected $toolbar;
-	/**
 	 * @var ilObjLiveVotingAccess
 	 */
 	protected $access;
-	/**
-	 * @var ilLiveVotingPlugin
-	 */
-	protected $pl;
-	/**
-	 * @var ilObjUser
-	 */
-	protected $usr;
 	/**
 	 * @var int
 	 */
@@ -91,15 +75,7 @@ class xlvoVotingGUI {
 	 *
 	 */
 	public function __construct() {
-		global $DIC;
-
-		$this->tpl = $DIC->ui()->mainTemplate();
-		$this->ctrl = $DIC->ctrl();
-		$this->tabs = $DIC->tabs();
-		$this->usr = $DIC->user();
-		$this->toolbar = $DIC->toolbar();
 		$this->access = new ilObjLiveVotingAccess();
-		$this->pl = ilLiveVotingPlugin::getInstance();
 		$ref_id = filter_input(INPUT_GET, 'ref_id');
 		$this->obj_id = ilObject2::_lookupObjId($ref_id);
 		$this->round = xlvoRound::getLatestRound($this->obj_id);
@@ -111,10 +87,10 @@ class xlvoVotingGUI {
 	 *
 	 */
 	public function executeCommand() {
-		$nextClass = $this->ctrl->getNextClass();
+		$nextClass = self::dic()->ctrl()->getNextClass();
 		switch ($nextClass) {
 			default:
-				$cmd = $this->ctrl->getCmd(self::CMD_STANDARD);
+				$cmd = self::dic()->ctrl()->getCmd(self::CMD_STANDARD);
 				$this->{$cmd}();
 				break;
 		}
@@ -126,19 +102,19 @@ class xlvoVotingGUI {
 	 */
 	protected function content() {
 		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
+			ilUtil::sendFailure(self::translate('permission_denied_write'), true);
 		} elseif (ilObjLiveVotingAccess::hasWriteAccess()) {
 			$b = ilLinkButton::getInstance();
 			$b->setPrimary(true);
 			$b->setCaption($this->txt('add'), false);
-			$b->setUrl($this->ctrl->getLinkTarget($this, self::CMD_SELECT_TYPE));
-			$this->toolbar->addButtonInstance($b);
+			$b->setUrl(self::dic()->ctrl()->getLinkTarget($this, self::CMD_SELECT_TYPE));
+			self::dic()->toolbar()->addButtonInstance($b);
 
 			if (xlvoConf::getConfig(xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT)) {
 				$powerpoint_export = ilLinkButton::getInstance();
 				$powerpoint_export->setCaption($this->txt('powerpoint_export'), false);
-				$powerpoint_export->setUrl($this->ctrl->getLinkTarget($this, self::CMD_POWERPOINT_EXPORT));
-				$this->toolbar->addButtonInstance($powerpoint_export);
+				$powerpoint_export->setUrl(self::dic()->ctrl()->getLinkTarget($this, self::CMD_POWERPOINT_EXPORT));
+				self::dic()->toolbar()->addButtonInstance($powerpoint_export);
 			}
 
 			$voting_ids = xlvoVoting::where(array( 'obj_id' => $this->obj_id ))->getArray(NULL, 'id');
@@ -153,26 +129,26 @@ class xlvoVotingGUI {
 			$b = ilLinkButton::getInstance();
 			$b->setDisabled(!$has_votes);
 			$b->setCaption($this->txt('reset_all'), false);
-			$b->setUrl($this->ctrl->getLinkTarget($this, self::CMD_CONFIRM_RESET_ALL));
-			$this->toolbar->addButtonInstance($b);
+			$b->setUrl(self::dic()->ctrl()->getLinkTarget($this, self::CMD_CONFIRM_RESET_ALL));
+			self::dic()->toolbar()->addButtonInstance($b);
 
 			if ($_GET['import']) {
 				$b = ilLinkButton::getInstance();
 				$b->setCaption($this->txt('export'), false);
-				$b->setUrl($this->ctrl->getLinkTarget($this, self::CMD_EXPORT));
-				$this->toolbar->addButtonInstance($b);
+				$b->setUrl(self::dic()->ctrl()->getLinkTarget($this, self::CMD_EXPORT));
+				self::dic()->toolbar()->addButtonInstance($b);
 
-				$this->toolbar->setFormAction($this->ctrl->getLinkTarget($this, self::CMD_IMPORT), true);
+				self::dic()->toolbar()->setFormAction(self::dic()->ctrl()->getLinkTarget($this, self::CMD_IMPORT), true);
 				$import = new ilFileInputGUI('xlvo_import', 'xlvo_import');
-				$this->toolbar->addInputItem($import);
+				self::dic()->toolbar()->addInputItem($import);
 				$button = ilSubmitButton::getInstance();
 				$button->setCaption($this->txt('import'), false);
 				$button->setCommand(self::CMD_IMPORT);
-				$this->toolbar->addButtonInstance($button);
+				self::dic()->toolbar()->addButtonInstance($button);
 			}
 
 			$xlvoVotingTableGUI = new xlvoVotingTableGUI($this, self::CMD_STANDARD);
-			$this->tpl->setContent($xlvoVotingTableGUI->getHTML());
+			self::dic()->template()->setContent($xlvoVotingTableGUI->getHTML());
 		}
 	}
 
@@ -182,11 +158,11 @@ class xlvoVotingGUI {
 	 */
 	protected function selectType() {
 		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
-			$this->ctrl->redirect($this, self::CMD_STANDARD);
+			ilUtil::sendFailure(self::translate('permission_denied_write'), true);
+			self::dic()->ctrl()->redirect($this, self::CMD_STANDARD);
 		} else {
 			$form = new ilPropertyFormGUI();
-			$form->setFormAction($this->ctrl->getFormAction($this, self::CMD_ADD));
+			$form->setFormAction(self::dic()->ctrl()->getFormAction($this, self::CMD_ADD));
 			$form->addCommandButton(self::CMD_ADD, $this->txt('select_type'));
 			$form->addCommandButton(self::CMD_CANCEL, $this->txt('cancel'));
 			$cb = new ilRadioGroupInputGUI($this->txt('type'), self::F_TYPE);
@@ -200,7 +176,7 @@ class xlvoVotingGUI {
 			}
 			$form->addItem($cb);
 
-			$this->tpl->setContent($form->getHTML());
+			self::dic()->template()->setContent($form->getHTML());
 		}
 	}
 
@@ -210,14 +186,14 @@ class xlvoVotingGUI {
 	 */
 	protected function add() {
 		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
-			$this->ctrl->redirect($this, self::CMD_STANDARD);
+			ilUtil::sendFailure(self::translate('permission_denied_write'), true);
+			self::dic()->ctrl()->redirect($this, self::CMD_STANDARD);
 		} else {
 			$xlvoVoting = new xlvoVoting();
 			$xlvoVoting->setVotingType($_POST[self::F_TYPE]);
 			$xlvoVotingFormGUI = xlvoVotingFormGUI::get($this, $xlvoVoting);
 			$xlvoVotingFormGUI->fillForm();
-			$this->tpl->setContent($xlvoVotingFormGUI->getHTML());
+			self::dic()->template()->setContent($xlvoVotingFormGUI->getHTML());
 		}
 	}
 
@@ -227,18 +203,18 @@ class xlvoVotingGUI {
 	 */
 	protected function create() {
 		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
-			$this->ctrl->redirect($this, self::CMD_STANDARD);
+			ilUtil::sendFailure(self::translate('permission_denied_write'), true);
+			self::dic()->ctrl()->redirect($this, self::CMD_STANDARD);
 		} else {
 			$xlvoVoting = new xlvoVoting();
 			$xlvoVoting->setVotingType($_POST[self::F_TYPE]);
 			$xlvoVotingFormGUI = xlvoVotingFormGUI::get($this, $xlvoVoting);
 			$xlvoVotingFormGUI->setValuesByPost();
 			if ($xlvoVotingFormGUI->saveObject()) {
-				ilUtil::sendSuccess($this->pl->txt('msg_success_voting_created'), true);
-				$this->ctrl->redirect($this, self::CMD_STANDARD);
+				ilUtil::sendSuccess(self::translate('msg_success_voting_created'), true);
+				self::dic()->ctrl()->redirect($this, self::CMD_STANDARD);
 			}
-			$this->tpl->setContent($xlvoVotingFormGUI->getHTML());
+			self::dic()->template()->setContent($xlvoVotingFormGUI->getHTML());
 		}
 	}
 
@@ -248,8 +224,8 @@ class xlvoVotingGUI {
 	 */
 	protected function edit() {
 		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
-			$this->ctrl->redirect($this, self::CMD_STANDARD);
+			ilUtil::sendFailure(self::translate('permission_denied_write'), true);
+			self::dic()->ctrl()->redirect($this, self::CMD_STANDARD);
 		} else {
 			/**
 			 * @var xlvoVoting $xlvoVoting
@@ -263,11 +239,11 @@ class xlvoVotingGUI {
 			$prev_id = array_shift(array_values($prev_id));
 
 			if ($prev_id) {
-				$this->ctrl->setParameter($this, self::IDENTIFIER, $prev_id);
+				self::dic()->ctrl()->setParameter($this, self::IDENTIFIER, $prev_id);
 				$prev = ilLinkButton::getInstance();
-				$prev->setUrl($this->ctrl->getLinkTarget($this, self::CMD_EDIT));
+				$prev->setUrl(self::dic()->ctrl()->getLinkTarget($this, self::CMD_EDIT));
 				$prev->setCaption(xlvoGlyphGUI::get(xlvoGlyphGUI::PREVIOUS), false);
-				$this->toolbar->addButtonInstance($prev);
+				self::dic()->toolbar()->addButtonInstance($prev);
 			}
 
 			// NEXT
@@ -278,16 +254,16 @@ class xlvoVotingGUI {
 			$next_id = array_shift(array_values($next_id));
 
 			if ($next_id) {
-				$this->ctrl->setParameter($this, self::IDENTIFIER, $next_id);
+				self::dic()->ctrl()->setParameter($this, self::IDENTIFIER, $next_id);
 				$next = ilLinkButton::getInstance();
-				$next->setUrl($this->ctrl->getLinkTarget($this, self::CMD_EDIT));
+				$next->setUrl(self::dic()->ctrl()->getLinkTarget($this, self::CMD_EDIT));
 				$next->setCaption(xlvoGlyphGUI::get(xlvoGlyphGUI::NEXT), false);
-				$this->toolbar->addButtonInstance($next);
+				self::dic()->toolbar()->addButtonInstance($next);
 			}
-			$this->ctrl->setParameter($this, self::IDENTIFIER, $xlvoVoting->getId());
+			self::dic()->ctrl()->setParameter($this, self::IDENTIFIER, $xlvoVoting->getId());
 			$xlvoVotingFormGUI = xlvoVotingFormGUI::get($this, $xlvoVoting);
 			$xlvoVotingFormGUI->fillForm();
-			$this->tpl->setContent($xlvoVotingFormGUI->getHTML());
+			self::dic()->template()->setContent($xlvoVotingFormGUI->getHTML());
 		}
 	}
 
@@ -305,16 +281,16 @@ class xlvoVotingGUI {
 	 */
 	protected function update($cmd = self::CMD_STANDARD) {
 		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
-			$this->ctrl->redirect($this, self::CMD_STANDARD);
+			ilUtil::sendFailure(self::translate('permission_denied_write'), true);
+			self::dic()->ctrl()->redirect($this, self::CMD_STANDARD);
 		} else {
 			$xlvoVotingFormGUI = xlvoVotingFormGUI::get($this, xlvoVoting::find($_GET[self::IDENTIFIER]));
 			$xlvoVotingFormGUI->setValuesByPost();
 			if ($xlvoVotingFormGUI->saveObject()) {
-				ilUtil::sendSuccess($this->pl->txt('msg_success_voting_updated'), true);
-				$this->ctrl->redirect($this, $cmd);
+				ilUtil::sendSuccess(self::translate('msg_success_voting_updated'), true);
+				self::dic()->ctrl()->redirect($this, $cmd);
 			}
-			$this->tpl->setContent($xlvoVotingFormGUI->getHTML());
+			self::dic()->template()->setContent($xlvoVotingFormGUI->getHTML());
 		}
 	}
 
@@ -324,8 +300,8 @@ class xlvoVotingGUI {
 	 */
 	protected function confirmDelete() {
 		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
-			$this->ctrl->redirect($this, self::CMD_STANDARD);
+			ilUtil::sendFailure(self::translate('permission_denied_write'), true);
+			self::dic()->ctrl()->redirect($this, self::CMD_STANDARD);
 		} else {
 
 			/**
@@ -337,14 +313,14 @@ class xlvoVotingGUI {
 				ilUtil::sendQuestion($this->txt('delete_confirm'), true);
 				$confirm = new ilConfirmationGUI();
 				$confirm->addItem(self::IDENTIFIER, $xlvoVoting->getId(), $xlvoVoting->getTitle());
-				$confirm->setFormAction($this->ctrl->getFormAction($this));
+				$confirm->setFormAction(self::dic()->ctrl()->getFormAction($this));
 				$confirm->setCancel($this->txt('cancel'), self::CMD_CANCEL);
 				$confirm->setConfirm($this->txt('delete'), self::CMD_DELETE);
 
-				$this->tpl->setContent($confirm->getHTML());
+				self::dic()->template()->setContent($confirm->getHTML());
 			} else {
-				ilUtil::sendFailure($this->pl->txt('permission_denied_object'), true);
-				$this->ctrl->redirect($this, self::CMD_STANDARD);
+				ilUtil::sendFailure(self::translate('permission_denied_object'), true);
+				self::dic()->ctrl()->redirect($this, self::CMD_STANDARD);
 			}
 		}
 	}
@@ -355,8 +331,8 @@ class xlvoVotingGUI {
 	 */
 	protected function delete() {
 		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
-			$this->ctrl->redirect($this, self::CMD_STANDARD);
+			ilUtil::sendFailure(self::translate('permission_denied_write'), true);
+			self::dic()->ctrl()->redirect($this, self::CMD_STANDARD);
 		} else {
 
 			/**
@@ -382,8 +358,8 @@ class xlvoVotingGUI {
 				$xlvoVoting->delete();
 				$this->cancel();
 			} else {
-				ilUtil::sendFailure($this->pl->txt('delete_failed'), true);
-				$this->ctrl->redirect($this, self::CMD_STANDARD);
+				ilUtil::sendFailure(self::translate('delete_failed'), true);
+				self::dic()->ctrl()->redirect($this, self::CMD_STANDARD);
 			}
 		}
 	}
@@ -394,8 +370,8 @@ class xlvoVotingGUI {
 	 */
 	protected function confirmReset() {
 		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
-			$this->ctrl->redirect($this, self::CMD_STANDARD);
+			ilUtil::sendFailure(self::translate('permission_denied_write'), true);
+			self::dic()->ctrl()->redirect($this, self::CMD_STANDARD);
 		} else {
 
 			/**
@@ -407,14 +383,14 @@ class xlvoVotingGUI {
 				ilUtil::sendQuestion($this->txt('confirm_reset'), true);
 				$confirm = new ilConfirmationGUI();
 				$confirm->addItem(self::IDENTIFIER, $xlvoVoting->getId(), $xlvoVoting->getTitle());
-				$confirm->setFormAction($this->ctrl->getFormAction($this));
+				$confirm->setFormAction(self::dic()->ctrl()->getFormAction($this));
 				$confirm->setCancel($this->txt('cancel'), self::CMD_CANCEL);
 				$confirm->setConfirm($this->txt('reset'), self::CMD_RESET);
 
-				$this->tpl->setContent($confirm->getHTML());
+				self::dic()->template()->setContent($confirm->getHTML());
 			} else {
 				ilUtil::sendFailure($this->txt('permission_denied_object'), true);
-				$this->ctrl->redirect($this, self::CMD_STANDARD);
+				self::dic()->ctrl()->redirect($this, self::CMD_STANDARD);
 			}
 		}
 	}
@@ -425,8 +401,8 @@ class xlvoVotingGUI {
 	 */
 	protected function reset() {
 		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
-			$this->ctrl->redirect($this, self::CMD_STANDARD);
+			ilUtil::sendFailure(self::translate('permission_denied_write'), true);
+			self::dic()->ctrl()->redirect($this, self::CMD_STANDARD);
 		} else {
 			/**
 			 * @var xlvoVoting $xlvoVoting
@@ -444,8 +420,8 @@ class xlvoVotingGUI {
 				}
 				$this->cancel();
 			} else {
-				ilUtil::sendFailure($this->pl->txt('reset_failed'), true);
-				$this->ctrl->redirect($this, self::CMD_STANDARD);
+				ilUtil::sendFailure(self::translate('reset_failed'), true);
+				self::dic()->ctrl()->redirect($this, self::CMD_STANDARD);
 			}
 		}
 	}
@@ -456,8 +432,8 @@ class xlvoVotingGUI {
 	 */
 	protected function confirmResetAll() {
 		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
-			$this->ctrl->redirect($this, self::CMD_STANDARD);
+			ilUtil::sendFailure(self::translate('permission_denied_write'), true);
+			self::dic()->ctrl()->redirect($this, self::CMD_STANDARD);
 		} else {
 			ilUtil::sendQuestion($this->txt('confirm_reset_all'), true);
 			$confirm = new ilConfirmationGUI();
@@ -470,11 +446,11 @@ class xlvoVotingGUI {
 				$num_votes += xlvoVote::where(array( 'voting_id' => $voting->getId() ))->count();
 			}
 			$confirm->addItem(self::IDENTIFIER, 0, $this->txt('confirm_number_of_votes') . " " . $num_votes);
-			$confirm->setFormAction($this->ctrl->getFormAction($this));
+			$confirm->setFormAction(self::dic()->ctrl()->getFormAction($this));
 			$confirm->setCancel($this->txt('cancel'), self::CMD_CANCEL);
 			$confirm->setConfirm($this->txt('reset_all'), self::CMD_RESET_ALL);
 
-			$this->tpl->setContent($confirm->getHTML());
+			self::dic()->template()->setContent($confirm->getHTML());
 		}
 	}
 
@@ -484,8 +460,8 @@ class xlvoVotingGUI {
 	 */
 	protected function resetAll() {
 		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
-			$this->ctrl->redirect($this, self::CMD_STANDARD);
+			ilUtil::sendFailure(self::translate('permission_denied_write'), true);
+			self::dic()->ctrl()->redirect($this, self::CMD_STANDARD);
 		} else {
 			/**
 			 * @var xlvoVoting[] $votings
@@ -515,7 +491,7 @@ class xlvoVotingGUI {
 		 */
 		$xlvoVoting = xlvoVoting::find($_GET[self::IDENTIFIER]);
 		$xlvoVoting->fullClone(true, true);
-		ilUtil::sendSuccess($this->pl->txt('voting_msg_duplicated'), true);
+		ilUtil::sendSuccess(self::translate('voting_msg_duplicated'), true);
 		$this->cancel();
 	}
 
@@ -524,7 +500,7 @@ class xlvoVotingGUI {
 	 *
 	 */
 	protected function cancel() {
-		$this->ctrl->redirect($this, self::CMD_STANDARD);
+		self::dic()->ctrl()->redirect($this, self::CMD_STANDARD);
 	}
 
 
@@ -533,7 +509,7 @@ class xlvoVotingGUI {
 	 */
 	protected function saveSorting() {
 		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
-			ilUtil::sendFailure($this->pl->txt('permission_denied_write'), true);
+			ilUtil::sendFailure(self::translate('permission_denied_write'), true);
 		} else {
 			if (is_array($_POST['position'])) {
 				foreach ($_POST['position'] as $k => $v) {
@@ -545,8 +521,8 @@ class xlvoVotingGUI {
 					$xlvoVoting->update();
 				}
 			}
-			ilUtil::sendSuccess($this->pl->txt('voting_msg_sorting_saved'), true);
-			$this->ctrl->redirect($this, self::CMD_STANDARD);
+			ilUtil::sendSuccess(self::translate('voting_msg_sorting_saved'), true);
+			self::dic()->ctrl()->redirect($this, self::CMD_STANDARD);
 		}
 	}
 
@@ -557,7 +533,7 @@ class xlvoVotingGUI {
 	protected function applyFilter() {
 		$xlvoVotingGUI = new xlvoVotingTableGUI($this, self::CMD_STANDARD);
 		$xlvoVotingGUI->writeFilterToSession();
-		$this->ctrl->redirect($this, self::CMD_STANDARD);
+		self::dic()->ctrl()->redirect($this, self::CMD_STANDARD);
 	}
 
 
@@ -568,7 +544,7 @@ class xlvoVotingGUI {
 		$xlvoVotingTableGUI = new xlvoVotingTableGUI($this, self::CMD_STANDARD);
 		$xlvoVotingTableGUI->resetFilter();
 		$xlvoVotingTableGUI->resetOffset();
-		$this->ctrl->redirect($this, self::CMD_STANDARD);
+		self::dic()->ctrl()->redirect($this, self::CMD_STANDARD);
 	}
 
 
@@ -594,7 +570,7 @@ class xlvoVotingGUI {
 	 * @return string
 	 */
 	public function txt($key) {
-		return $this->pl->txt('voting_' . $key);
+		return self::translate($key, 'voting');
 	}
 
 
@@ -608,8 +584,8 @@ class xlvoVotingGUI {
 		$config = $domxml->appendChild(new DOMElement(ilLiveVotingPlugin::PLUGIN_NAME));
 
 		$xml_info = $config->appendChild(new DOMElement('info'));
-		$xml_info->appendChild(new DOMElement('plugin_version', $this->pl->getVersion()));
-		$xml_info->appendChild(new DOMElement('plugin_db_version', $this->pl->getDBVersion()));
+		$xml_info->appendChild(new DOMElement('plugin_version', self::pl()->getVersion()));
+		$xml_info->appendChild(new DOMElement('plugin_db_version', self::pl()->getDBVersion()));
 
 		// xoctConf
 		$xml_votings = $config->appendChild(new DOMElement('votings'));
@@ -739,7 +715,7 @@ class xlvoVotingGUI {
 	 */
 	protected function powerPointExport() {
 		$this->content();
-		$this->ctrl->redirect($this, self::CMD_RUN_POWER_POINT_EXPORT);
+		self::dic()->ctrl()->redirect($this, self::CMD_RUN_POWER_POINT_EXPORT);
 	}
 
 
@@ -757,11 +733,11 @@ class xlvoVotingGUI {
 	 */
 	protected function confirmPowerPointExport() {
 		$c = new ilConfirmationGUI();
-		$c->setFormAction($this->ctrl->getFormAction($this));
-		$c->setHeaderText($this->pl->txt('voting_confirm_ppt_export_msg'));
-		$c->setConfirm($this->pl->txt('common_ok'), self::CMD_POWERPOINT_EXPORT);
-		$c->setCancel($this->pl->txt('common_cancel'), self::CMD_CONTENT);
+		$c->setFormAction(self::dic()->ctrl()->getFormAction($this));
+		$c->setHeaderText(self::translate('voting_confirm_ppt_export_msg'));
+		$c->setConfirm(self::translate('common_ok'), self::CMD_POWERPOINT_EXPORT);
+		$c->setCancel(self::translate('common_cancel'), self::CMD_CONTENT);
 
-		$this->tpl->setContent($c->getHTML());
+		self::dic()->template()->setContent($c->getHTML());
 	}
 }

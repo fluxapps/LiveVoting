@@ -24,6 +24,9 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+use LiveVoting\Voting\xlvoVotingConfig;
+use srag\DIC\DICTrait;
+
 /**
  *
  * Class ilObjLiveVotingAccess
@@ -39,6 +42,10 @@ require_once __DIR__ . '/../vendor/autoload.php';
  * @version $Id$
  */
 class ilObjLiveVotingAccess extends ilObjectPluginAccess {
+
+	use DICTrait;
+	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
+
 
 	/**
 	 * Checks wether a user may invoke a command or not
@@ -56,17 +63,15 @@ class ilObjLiveVotingAccess extends ilObjectPluginAccess {
 	 * @return    boolean        true, if everything is ok
 	 */
 	public function _checkAccess($a_cmd, $a_permission, $a_ref_id, $a_obj_id, $a_user_id = "") {
-		global $DIC;
-
 		if ($a_user_id == "") {
-			$a_user_id = $DIC->user()->getId();
+			$a_user_id = self::dic()->user()->getId();
 		}
 
 		switch ($a_permission) {
 			case "visible":
 			case "read":
 				if (!self::checkOnline($a_obj_id)
-					&& !$DIC->access()->checkAccessOfUser($a_user_id, "write", "", $a_ref_id)) {
+					&& !self::dic()->access()->access()->checkAccessOfUser($a_user_id, "write", "", $a_ref_id)) {
 					return false;
 				}
 				break;
@@ -167,10 +172,9 @@ class ilObjLiveVotingAccess extends ilObjectPluginAccess {
 	 * @return bool
 	 */
 	protected static function hasAccess($permission, $ref_id = NULL, $user_id = NULL) {
-		global $DIC;
 		$ref_id = $ref_id ? $ref_id : $_GET['ref_id'];
-		$user_id = $user_id ? $user_id : $DIC->user()->getId();
-		//		if (! $user_id) {
+		$user_id = $user_id ? $user_id : self::dic()->user()->getId();
+		//		if (!$this->user_id) {
 		//			try {
 		//				throw new Exception();
 		//			} catch (Exception $e) {
@@ -183,9 +187,9 @@ class ilObjLiveVotingAccess extends ilObjectPluginAccess {
 		//			}
 		//		}
 
-		//		$ilLog->write('XLVO check permission ' . $permission . ' for user ' . $user_id . ' on ref_id ' . $ref_id);
+		//		$ilLog->write('XLVO check permission ' . $permission . ' for user ' .$this->user_id . ' on ref_id ' . $ref_id);
 
-		return $DIC->access()->checkAccessOfUser($user_id, $permission, '', $ref_id);
+		return self::dic()->access()->checkAccessOfUser($user_id, $permission, '', $ref_id);
 	}
 
 

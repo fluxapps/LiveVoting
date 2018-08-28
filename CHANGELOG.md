@@ -19,6 +19,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Removed discard button in FreeInput
 - Removed 'Colums for possible answers' in NumberRange
 - Fix fullscreen background not any more black
+- Full namespaces
+- DIC-Trait
 
 ### Deprecated
 -
@@ -36,6 +38,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Fix new line always add on bottom in the multi line gui
 - Fix visible permission
 - Fix Chrome's favicon.ico (If shortlink enabled)
+- Fix PegasusHelper let crash
 
 ### Improved
 - Refactoring

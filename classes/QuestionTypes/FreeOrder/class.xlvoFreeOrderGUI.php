@@ -1,5 +1,8 @@
 <?php
 
+require_once __DIR__ . '/../../../vendor/autoload.php';
+
+use LiveVoting\GUI\xlvoGlyphGUI;
 use LiveVoting\Js\xlvoJs;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 

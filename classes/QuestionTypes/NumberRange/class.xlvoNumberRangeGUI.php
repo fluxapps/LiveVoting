@@ -1,7 +1,10 @@
 <?php
 
+require_once __DIR__ . '/../../../vendor/autoload.php';
+
 use LiveVoting\Js\xlvoJs;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
+use LiveVoting\QuestionTypes\xlvoQuestionTypesGUI;
 use LiveVoting\Vote\xlvoVote;
 use LiveVoting\Voting\xlvoVotingManager2;
 
@@ -94,8 +97,8 @@ class xlvoNumberRangeGUI extends xlvoQuestionTypesGUI {
 	 * @return string
 	 */
 	public function getMobileHTML() {
-		$template = $this->pl->getTemplate('default/QuestionTypes/NumberRange/tpl.number_range.html');
-		$template->setVariable('ACTION', $this->ctrl->getFormAction($this));
+		$template = self::template('default/QuestionTypes/NumberRange/tpl.number_range.html');
+		$template->setVariable('ACTION', self::dic()->ctrl()->getFormAction($this));
 		$template->setVariable('SHOW_PERCENTAGE', (int)$this->manager->getVoting()->getPercentage());
 
 		/**

@@ -1,8 +1,13 @@
 <?php
 
+require_once __DIR__ . '/../../../vendor/autoload.php';
+
+use LiveVoting\Display\Bar\xlvoBarMovableGUI;
+use LiveVoting\GUI\xlvoGlyphGUI;
 use LiveVoting\Js\xlvoJs;
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
+use LiveVoting\QuestionTypes\xlvoQuestionTypesGUI;
 use LiveVoting\Vote\xlvoVote;
 
 /**
@@ -59,11 +64,11 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 	 * @return string
 	 */
 	protected function getFormContent() {
-		$tpl = $this->pl->getTemplate('default/QuestionTypes/FreeOrder/tpl.free_order.html', true, false);
-		$tpl->setVariable('ACTION', $this->ctrl->getFormAction($this));
+		$tpl = self::template('default/QuestionTypes/FreeOrder/tpl.free_order.html', true, false);
+		$tpl->setVariable('ACTION', self::dic()->ctrl()->getFormAction($this));
 		$tpl->setVariable('ID', 'xlvo_sortable');
-		$tpl->setVariable('BTN_RESET', $this->pl->txt('qtype_4_clear'));
-		$tpl->setVariable('BTN_SAVE', $this->pl->txt('qtype_4_save'));
+		$tpl->setVariable('BTN_RESET', self::translate('qtype_4_clear'));
+		$tpl->setVariable('BTN_SAVE', self::translate('qtype_4_save'));
 
 		$vote = array_shift(array_values($this->manager->getVotesOfUser()));
 		$order = array();
