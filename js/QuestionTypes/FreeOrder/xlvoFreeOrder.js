@@ -13,6 +13,13 @@ var xlvoFreeOrder = {
 	config: {},
 	base_url: '',
 	run: function () {
+		this.addSortable();
+	},
+	addSortable: function () {
+		$('#lvo_bar_movable').sortable({
+			placeholder: "list-group-item list-group-item-default xlvolist-group-fix"
+		});
+		$("#lvo_bar_movable").disableSelection();
 	},
 	/**
 	 * @param button_id
