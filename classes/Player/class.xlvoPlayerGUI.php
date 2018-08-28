@@ -109,9 +109,8 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$xlvoVotingConfig = $this->manager->getVotingConfig();
 		$template->setVariable('PIN', xlvoPin::formatPin($xlvoVotingConfig->getPin()));
 
-		$short_link = $xlvoVotingConfig->getShortLinkURL();
-		$template->setVariable('QR-CODE', xlvoQR::getImageDataString($short_link, 180));
-		$template->setVariable('SHORTLINK', $short_link);
+		$template->setVariable('QR-CODE', xlvoQR::getImageDataString($xlvoVotingConfig->getShortLinkURL(true), 180));
+		$template->setVariable('SHORTLINK', $xlvoVotingConfig->getShortLinkURL());
 		$template->setVariable('MODAL', xlvoQRModalGUI::getInstanceFromVotingConfig($xlvoVotingConfig)->getHTML());
 		$template->setVariable("ONLINE_TEXT", self::translate("start_online", "", [ 0 ]));
 		$template->setVariable("ZOOM_TEXT", self::translate("start_zoom"));
