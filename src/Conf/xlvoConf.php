@@ -10,6 +10,8 @@ use LiveVoting\Cache\CachingActiveRecord;
  *
  * @package LiveVoting\Conf
  * @author  Fabian Schmid <fs@studer-raimann.ch>
+ *
+ * TODO: Use srag\ActiveRecordConfig
  */
 class xlvoConf extends CachingActiveRecord {
 
