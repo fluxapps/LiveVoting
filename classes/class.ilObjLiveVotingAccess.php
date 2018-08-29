@@ -71,7 +71,7 @@ class ilObjLiveVotingAccess extends ilObjectPluginAccess {
 			case "visible":
 			case "read":
 				if (!self::checkOnline($a_obj_id)
-					&& !self::dic()->access()->access()->checkAccessOfUser($a_user_id, "write", "", $a_ref_id)) {
+					&& !self::dic()->access()->checkAccessOfUser($a_user_id, "write", "", $a_ref_id)) {
 					return false;
 				}
 				break;
