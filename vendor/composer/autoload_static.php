@@ -60,6 +60,7 @@ class ComposerStaticInit2a9f25cb7db537cf8950f4e268186c34
         'Endroid\\QrCode\\Exceptions\\VersionTooLargeException' => __DIR__ . '/..' . '/endroid/qrcode/src/Exceptions/VersionTooLargeException.php',
         'Endroid\\QrCode\\Factory\\QrCodeFactory' => __DIR__ . '/..' . '/endroid/qrcode/src/Factory/QrCodeFactory.php',
         'Endroid\\QrCode\\QrCode' => __DIR__ . '/..' . '/endroid/qrcode/src/QrCode.php',
+        'LiveVotingRemoveDataConfirm' => __DIR__ . '/../..' . '/classes/uninstall/class.LiveVotingRemoveDataConfirm.php',
         'LiveVoting\\Api\\xlvoApi' => __DIR__ . '/../..' . '/src/Api/xlvoApi.php',
         'LiveVoting\\Cache\\CachingActiveRecord' => __DIR__ . '/../..' . '/src/Cache/CachingActiveRecord.php',
         'LiveVoting\\Cache\\Initialisable' => __DIR__ . '/../..' . '/src/Cache/Initialisable.php',

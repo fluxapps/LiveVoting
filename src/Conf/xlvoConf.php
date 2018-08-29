@@ -178,6 +178,20 @@ class xlvoConf extends CachingActiveRecord {
 
 
 	/**
+	 * @param string $name
+	 */
+	public static function remove($name) {
+		/**
+		 * @var xlvoConf $obj
+		 */
+		$obj = self::find($name);
+		if ($obj !== NULL) {
+			$obj->delete();
+		}
+	}
+
+
+	/**
 	 * @var string
 	 *
 	 * @db_has_field        true

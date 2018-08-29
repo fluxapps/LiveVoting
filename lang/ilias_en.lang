@@ -293,3 +293,10 @@ qtype_1_optmsg_success_voting_updated#:#MISSING qtype_1_optmsg_success_voting_up
 qtype_6_mean#:#Mean
 qtype_6_median#:#Median
 qtype_6_mode#:#Mode
+uninstall_confirm_remove_data#:#Do you want to remove the LiveVoting data as well? At most, you just want to disable the LiveVoting plugin?
+uninstall_deactivate#:#Just deactivate LiveVoting plugin
+uninstall_data#:#LiveVoting data
+uninstall_keep_data#:#Keep LiveVoting data
+uninstall_msg_kept_data#:#The LiveVoting data was kept!
+uninstall_msg_removed_data#:#The LiveVoting data was also removed!
+uninstall_remove_data#:#Remove LiveVoting data

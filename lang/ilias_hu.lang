@@ -292,3 +292,10 @@ qtype_1_optmsg_success_voting_updated#:#MISSING qtype_1_optmsg_success_voting_up
 qtype_6_mean#:#MISSING qtype_6_mean
 qtype_6_median#:#MISSING qtype_6_median
 qtype_6_mode#:#MISSING qtype_6_mode
+uninstall_confirm_remove_data#:#MISSING uninstall_confirm_remove_data
+uninstall_deactivate#:#MISSING uninstall_deactivate
+uninstall_data#:#MISSING uninstall_data
+uninstall_keep_data#:#MISSING uninstall_keep_data
+uninstall_msg_kept_data#:#MISSING uninstall_msg_kept_data
+uninstall_msg_removed_data#:#MISSING uninstall_msg_removed_data
+uninstall_remove_data#:#MISSING uninstall_remove_data

@@ -293,3 +293,10 @@ start_zoom#:#Zoom
 qtype_6_mean#:#Mittelwert
 qtype_6_median#:#Median
 qtype_6_mode#:#Modus
+uninstall_confirm_remove_data#:#Möchten Sie die LiveVoting-Daten auch entfernen? Allenfalls möchten Sie das LiveVoting-Plugin nur deaktivieren?
+uninstall_deactivate#:#LiveVoting-Plugin nur deaktivieren
+uninstall_data#:#LiveVoting-Daten
+uninstall_keep_data#:#LiveVoting-Daten behalten
+uninstall_msg_kept_data#:#Die LiveVoting-Daten wurden behalten!
+uninstall_msg_removed_data#:#Die LiveVoting-Daten wurden auch entfernt!
+uninstall_remove_data#:#Entferne LiveVoting-Daten

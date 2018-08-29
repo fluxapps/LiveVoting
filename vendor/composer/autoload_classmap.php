@@ -21,6 +21,7 @@ return array(
     'Endroid\\QrCode\\Exceptions\\VersionTooLargeException' => $vendorDir . '/endroid/qrcode/src/Exceptions/VersionTooLargeException.php',
     'Endroid\\QrCode\\Factory\\QrCodeFactory' => $vendorDir . '/endroid/qrcode/src/Factory/QrCodeFactory.php',
     'Endroid\\QrCode\\QrCode' => $vendorDir . '/endroid/qrcode/src/QrCode.php',
+    'LiveVotingRemoveDataConfirm' => $baseDir . '/classes/uninstall/class.LiveVotingRemoveDataConfirm.php',
     'LiveVoting\\Api\\xlvoApi' => $baseDir . '/src/Api/xlvoApi.php',
     'LiveVoting\\Cache\\CachingActiveRecord' => $baseDir . '/src/Cache/CachingActiveRecord.php',
     'LiveVoting\\Cache\\Initialisable' => $baseDir . '/src/Cache/Initialisable.php',

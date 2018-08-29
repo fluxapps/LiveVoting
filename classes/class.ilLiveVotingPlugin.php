@@ -30,6 +30,7 @@ class ilLiveVotingPlugin extends ilRepositoryObjectPlugin {
 	const PLUGIN_ID = 'xlvo';
 	const PLUGIN_NAME = 'LiveVoting';
 	const PLUGIN_CLASS_NAME = self::class;
+	const KEY_UNINSTALL_REMOVE_DATA = "uninstall_remove_data";
 	/**
 	 * @var ilLiveVotingPlugin
 	 */
@@ -67,7 +68,37 @@ class ilLiveVotingPlugin extends ilRepositoryObjectPlugin {
 	/**
 	 * @return bool
 	 */
-	protected function uninstallCustom() {
+	protected function beforeUninstallCustom() {
+		$uninstall_remove_data = xlvoConf::getConfig(self::KEY_UNINSTALL_REMOVE_DATA);
+
+		if ($uninstall_remove_data === NULL) {
+			LiveVotingRemoveDataConfirm::saveParameterByClass();
+
+			self::dic()->ctrl()->redirectByClass([
+				ilUIPluginRouterGUI::class,
+				LiveVotingRemoveDataConfirm::class
+			], LiveVotingRemoveDataConfirm::CMD_CONFIRM_REMOVE_DATA);
+
+			return false;
+		}
+
+		$uninstall_remove_data = boolval($uninstall_remove_data);
+
+		if ($uninstall_remove_data) {
+			$this->removeData();
+		} else {
+			// Ask again if reinstalled
+			xlvoConf::remove(self::KEY_UNINSTALL_REMOVE_DATA);
+		}
+
+		return true;
+	}
+
+
+	/**
+	 *
+	 */
+	protected function removeData() {
 		self::dic()->database()->dropTable(xlvoConfOld::TABLE_NAME, false);
 		self::dic()->database()->dropTable(xlvoVotingConfig::TABLE_NAME, false);
 		self::dic()->database()->dropTable(xlvoData::TABLE_NAME, false);
@@ -81,8 +112,14 @@ class ilLiveVotingPlugin extends ilRepositoryObjectPlugin {
 		self::dic()->database()->dropTable(xlvoVoting::TABLE_NAME, false);
 		self::dic()->database()->dropTable(xlvoConf::TABLE_NAME, false);
 		self::dic()->database()->dropTable(xlvoVoter::TABLE_NAME, false);
+	}
 
-		return true;
+
+	/**
+	 *
+	 */
+	protected function uninstallCustom() {
+
 	}
 
 
