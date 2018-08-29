@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../../../vendor/autoload.php';
 
 use LiveVoting\Js\xlvoJs;
-use LiveVoting\Player\xlvoGlyphGUI;
+use LiveVoting\GUI\xlvoGlyphGUI;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\QuestionTypes\xlvoQuestionTypesGUI;
 
