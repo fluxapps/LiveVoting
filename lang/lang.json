@@ -1535,6 +1535,27 @@
           "hu": "MISSING qtype_2_answer_field_multi_line_info"
         },
         "last_used": "11.07.2018"
+      },
+      "6_mean": {
+        "translations": {
+          "en": "Mean",
+          "de": "Mittelwert",
+          "hu": "MISSING qtype_6_mean"
+        }
+      },
+      "6_median": {
+        "translations": {
+          "en": "Median",
+          "de": "Median",
+          "hu": "MISSING qtype_6_median"
+        }
+      },
+      "6_mode": {
+        "translations": {
+          "en": "Mode",
+          "de": "Modus",
+          "hu": "MISSING qtype_6_mode"
+        }
       }
     },
     "results": {

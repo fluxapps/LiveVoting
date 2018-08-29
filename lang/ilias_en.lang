@@ -290,3 +290,6 @@ qtype_2_answer_field_multi_line_info#:#Multi-line answer field
 start_online#:#%s online
 start_zoom#:#Zoom
 qtype_1_optmsg_success_voting_updated#:#MISSING qtype_1_optmsg_success_voting_updated
+qtype_6_mean#:#Mean
+qtype_6_median#:#Median
+qtype_6_mode#:#Mode

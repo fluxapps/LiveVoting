@@ -111,19 +111,19 @@ class xlvoNumberRangeResultsGUI extends xlvoInputResultsGUI {
 
 		$info = new xlvoBarCollectionGUI();
 		$value = $vote_count > 0 ? round($vote_sum / $vote_count, 2) : 0;
-		$mean = new xlvoBarInfoGUI('Mean', $value); // TODO: Translate
+		$mean = new xlvoBarInfoGUI($this->txt("mean"), $value);
 		$mean->setBig(true);
 		$mean->setDark(true);
 		$mean->setCenter(true);
 		$info->addBar($mean);
 
-		$median = new xlvoBarInfoGUI('Median', $calculateMedian($values)); // TODO: Translate
+		$median = new xlvoBarInfoGUI($this->txt("median"), $calculateMedian($values));
 		$median->setBig(true);
 		$median->setCenter(true);
 		$median->setDark(true);
 		$info->addBar($median);
 
-		$mode = new xlvoBarInfoGUI('Mode', implode(',', $relevant_modes)); // TODO: Translate
+		$mode = new xlvoBarInfoGUI($this->txt("mode"), implode(',', $relevant_modes));
 		$mode->setBig(true);
 		$mode->setDark(true);
 		$mode->setCenter(true);
