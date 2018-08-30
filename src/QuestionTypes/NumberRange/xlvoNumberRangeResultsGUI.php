@@ -142,10 +142,7 @@ class xlvoNumberRangeResultsGUI extends xlvoInputResultsGUI {
 	private function renderGroupedTextResult() {
 		$bars = new xlvoBarGroupingCollectionGUI();
 		$bars->sorted(true);
-		$votes = $this->manager->getVotesOfVoting();
-		usort($votes, function (xlvoVote $v1, xlvoVote $v2) {
-			return (intval($v1->getFreeInput()) - intval($v2->getFreeInput()));
-		});
+		$votes = $this->manager->getVotesOfVoting(true);
 		foreach ($votes as $value) {
 			$bar = new xlvoBarFreeInputsGUI($this->voting, $value);
 			$bar->setBig(true);

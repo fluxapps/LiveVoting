@@ -497,17 +497,25 @@ class xlvoVotingManager2 {
 
 
 	/**
+	 * @param bool $order_by_free_input
+	 *
 	 * @return xlvoVote[]
 	 */
-	public function getVotesOfVoting() {
+	public function getVotesOfVoting($order_by_free_input = false) {
 		/**
 		 * @var xlvoVote[] $xlvoVotes
 		 */
-		return xlvoVote::where(array(
+		$where = xlvoVote::where(array(
 			'voting_id' => $this->getVoting()->getId(),
 			'status' => xlvoOption::STAT_ACTIVE,
 			'round_id' => $this->player->getRoundId(),
-		))->get();
+		));
+
+		if ($order_by_free_input) {
+			$where = $where->orderBy("free_input", "asc");
+		}
+
+		return $where->get();
 	}
 
 
