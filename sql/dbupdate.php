@@ -1,194 +1,179 @@
 <#1>
 <?php
-if (false) {
-	/*$fields = array(
-	'id' => array(
-	'type' => 'integer',
-	'length' => 4,
-	'notnull' => true
-	),
-	'is_online' => array(
-	'type' => 'integer',
-	'length' => 1,
-	'notnull' => false
-	),
-	'is_anonym' => array(
-	'type' => 'integer',
-	'length' => 1,
-	'notnull' => false
-	),
-	'options_type' => array(
-	'type' => 'integer',
-	'length' => 4,
-	'notnull' => false
-	),
-	'pin' => array(
-	'type' => 'text',
-	'length' => 10,
-	'notnull' => false
-	)
-	);
-	if(!\srag\DIC\DICStatic::dic()->database()->tableExists (\LiveVoting\Option\xlvoData::TABLE_NAME)) {
-		\srag\DIC\DICStatic::dic()->database()->createTable (\LiveVoting\Option\xlvoData::TABLE_NAME, $fields);
-		\srag\DIC\DICStatic::dic()->database()->addPrimaryKey (\LiveVoting\Option\xlvoData::TABLE_NAME, array( "id" ));
-	}
-	if(!\srag\DIC\DICStatic::dic()->database()->sequenceExists (\LiveVoting\Option\xlvoData::TABLE_NAME)) {
-		\srag\DIC\DICStatic::dic()->database()->createSequence (\LiveVoting\Option\xlvoData::TABLE_NAME);
-	}*/
+/*$fields = array(
+'id' => array(
+'type' => 'integer',
+'length' => 4,
+'notnull' => true
+),
+'is_online' => array(
+'type' => 'integer',
+'length' => 1,
+'notnull' => false
+),
+'is_anonym' => array(
+'type' => 'integer',
+'length' => 1,
+'notnull' => false
+),
+'options_type' => array(
+'type' => 'integer',
+'length' => 4,
+'notnull' => false
+),
+'pin' => array(
+'type' => 'text',
+'length' => 10,
+'notnull' => false
+)
+);
+if(!\srag\DIC\DICStatic::dic()->database()->tableExists (\LiveVoting\Option\xlvoData::TABLE_NAME)) {
+	\srag\DIC\DICStatic::dic()->database()->createTable (\LiveVoting\Option\xlvoData::TABLE_NAME, $fields);
+	\srag\DIC\DICStatic::dic()->database()->addPrimaryKey (\LiveVoting\Option\xlvoData::TABLE_NAME, array( "id" ));
 }
+if(!\srag\DIC\DICStatic::dic()->database()->sequenceExists (\LiveVoting\Option\xlvoData::TABLE_NAME)) {
+	\srag\DIC\DICStatic::dic()->database()->createSequence (\LiveVoting\Option\xlvoData::TABLE_NAME);
+}*/
 ?>
 <#2>
 <?php
-if (false) {
-	/*$fields = array(
-	'id' => array(
-	'type' => 'integer',
-	'length' => 4,
-	'notnull' => true
-	),
-	'option_id' => array(
-	'type' => 'integer',
-	'length' => 4,
-	'notnull' => true
-	),
-	'usr_id' => array(
-	'type' => 'integer',
-	'length' => 8,
-	'notnull' => false
-	),
-	'usr_session' => array(
-	'type' => 'text',
-	'length' => 100,
-	'notnull' => false
-	)
-	);
-	if (! \srag\DIC\DICStatic::dic()->database()->tableExists (\LiveVoting\Vote\xlvoVoteOld::TABLE_NAME)) {
-		\srag\DIC\DICStatic::dic()->database()->createTable (\LiveVoting\Vote\xlvoVoteOld::TABLE_NAME, $fields);
-		\srag\DIC\DICStatic::dic()->database()->addPrimaryKey (\LiveVoting\Vote\xlvoVoteOld::TABLE_NAME, array( "id" ));
-	}
-	if (!\srag\DIC\DICStatic::dic()->database()->sequenceExists (\LiveVoting\Vote\xlvoVoteOld::TABLE_NAME)) {
-		\srag\DIC\DICStatic::dic()->database()->createSequence (\LiveVoting\Vote\xlvoVoteOld::TABLE_NAME);
-	}*/
+/*$fields = array(
+'id' => array(
+'type' => 'integer',
+'length' => 4,
+'notnull' => true
+),
+'option_id' => array(
+'type' => 'integer',
+'length' => 4,
+'notnull' => true
+),
+'usr_id' => array(
+'type' => 'integer',
+'length' => 8,
+'notnull' => false
+),
+'usr_session' => array(
+'type' => 'text',
+'length' => 100,
+'notnull' => false
+)
+);
+if (! \srag\DIC\DICStatic::dic()->database()->tableExists (\LiveVoting\Vote\xlvoVoteOld::TABLE_NAME)) {
+	\srag\DIC\DICStatic::dic()->database()->createTable (\LiveVoting\Vote\xlvoVoteOld::TABLE_NAME, $fields);
+	\srag\DIC\DICStatic::dic()->database()->addPrimaryKey (\LiveVoting\Vote\xlvoVoteOld::TABLE_NAME, array( "id" ));
 }
+if (!\srag\DIC\DICStatic::dic()->database()->sequenceExists (\LiveVoting\Vote\xlvoVoteOld::TABLE_NAME)) {
+	\srag\DIC\DICStatic::dic()->database()->createSequence (\LiveVoting\Vote\xlvoVoteOld::TABLE_NAME);
+}*/
 ?>
 <#3>
 <?php
-if (false) {
-	/*$fields = array(
-	'id' => array(
-	'type' => 'integer',
-	'length' => 4,
-	'notnull' => true
-	),
-	'data_id' => array(
-	'type' => 'integer',
-	'length' => 4,
-	'notnull' => true
-	),
-	'title' => array(
-	'type' => 'text',
-	'length' => 100,
-	'notnull' => false
-	)
-	);
-	if (! \srag\DIC\DICStatic::dic()->database()->tableExists (\LiveVoting\Option\xlvoOptionOld::TABLE_NAME)) {
-		\srag\DIC\DICStatic::dic()->database()->createTable (\LiveVoting\Option\xlvoOptionOld::TABLE_NAME, $fields);
-		\srag\DIC\DICStatic::dic()->database()->addPrimaryKey (\LiveVoting\Option\xlvoOptionOld::TABLE_NAME, array( "id" ));
-	}
-	if (! \srag\DIC\DICStatic::dic()->database()->sequenceExists (\LiveVoting\Option\xlvoOptionOld::TABLE_NAME)) {
-		\srag\DIC\DICStatic::dic()->database()->createSequence (\LiveVoting\Option\xlvoOptionOld::TABLE_NAME);
-	}*/
+/*$fields = array(
+'id' => array(
+'type' => 'integer',
+'length' => 4,
+'notnull' => true
+),
+'data_id' => array(
+'type' => 'integer',
+'length' => 4,
+'notnull' => true
+),
+'title' => array(
+'type' => 'text',
+'length' => 100,
+'notnull' => false
+)
+);
+if (! \srag\DIC\DICStatic::dic()->database()->tableExists (\LiveVoting\Option\xlvoOptionOld::TABLE_NAME)) {
+	\srag\DIC\DICStatic::dic()->database()->createTable (\LiveVoting\Option\xlvoOptionOld::TABLE_NAME, $fields);
+	\srag\DIC\DICStatic::dic()->database()->addPrimaryKey (\LiveVoting\Option\xlvoOptionOld::TABLE_NAME, array( "id" ));
 }
+if (! \srag\DIC\DICStatic::dic()->database()->sequenceExists (\LiveVoting\Option\xlvoOptionOld::TABLE_NAME)) {
+	\srag\DIC\DICStatic::dic()->database()->createSequence (\LiveVoting\Option\xlvoOptionOld::TABLE_NAME);
+}*/
 ?>
 <#4>
 <?php
-if (false) {
-	/*if (! \srag\DIC\DICStatic::dic()->database()->tableColumnExists (\LiveVoting\Option\xlvoData::TABLE_NAME, 'question')) {
-	\srag\DIC\DICStatic::dic()->database()->addTableColumn (\LiveVoting\Option\xlvoData::TABLE_NAME, 'question', array(
-	'type' => 'text',
-	'length' => 4000
-	));
-	}
-
-	if (! \srag\DIC\DICStatic::dic()->database()->tableColumnExists (\LiveVoting\Option\xlvoData::TABLE_NAME, 'is_terminated')) {
-	\srag\DIC\DICStatic::dic()->database()->addTableColumn (\LiveVoting\Option\xlvoData::TABLE_NAME, 'is_terminated', array(
-	'type' => 'integer',
-	'length' => 1,
-	'default' => 0
-	));
-	}
-	if (! \srag\DIC\DICStatic::dic()->database()->tableColumnExists (\LiveVoting\Option\xlvoData::TABLE_NAME, 'start_time')) {
-	\srag\DIC\DICStatic::dic()->database()->addTableColumn (\LiveVoting\Option\xlvoData::TABLE_NAME, 'start_time', array(
-	'type' => 'integer',
-	'length' => 8,
-	'default' => 0
-	));
-	}
-	if (! \srag\DIC\DICStatic::dic()->database()->tableColumnExists (\LiveVoting\Option\xlvoData::TABLE_NAME, 'end_time')) {
-	\srag\DIC\DICStatic::dic()->database()->addTableColumn (\LiveVoting\Option\xlvoData::TABLE_NAME, 'end_time', array(
-	'type' => 'integer',
-	'length' => 8,
-	'default' => 0
-	));
-	}*/
+/*if (! \srag\DIC\DICStatic::dic()->database()->tableColumnExists (\LiveVoting\Option\xlvoData::TABLE_NAME, 'question')) {
+\srag\DIC\DICStatic::dic()->database()->addTableColumn (\LiveVoting\Option\xlvoData::TABLE_NAME, 'question', array(
+'type' => 'text',
+'length' => 4000
+));
 }
+
+if (! \srag\DIC\DICStatic::dic()->database()->tableColumnExists (\LiveVoting\Option\xlvoData::TABLE_NAME, 'is_terminated')) {
+\srag\DIC\DICStatic::dic()->database()->addTableColumn (\LiveVoting\Option\xlvoData::TABLE_NAME, 'is_terminated', array(
+'type' => 'integer',
+'length' => 1,
+'default' => 0
+));
+}
+if (! \srag\DIC\DICStatic::dic()->database()->tableColumnExists (\LiveVoting\Option\xlvoData::TABLE_NAME, 'start_time')) {
+\srag\DIC\DICStatic::dic()->database()->addTableColumn (\LiveVoting\Option\xlvoData::TABLE_NAME, 'start_time', array(
+'type' => 'integer',
+'length' => 8,
+'default' => 0
+));
+}
+if (! \srag\DIC\DICStatic::dic()->database()->tableColumnExists (\LiveVoting\Option\xlvoData::TABLE_NAME, 'end_time')) {
+\srag\DIC\DICStatic::dic()->database()->addTableColumn (\LiveVoting\Option\xlvoData::TABLE_NAME, 'end_time', array(
+'type' => 'integer',
+'length' => 8,
+'default' => 0
+));
+}*/
 ?>
 <#5>
 <?php
-if (false) {
-	/*$fields = array(
-	'lvo_key' => array(
-	'type' => 'text',
-	'length' => 64,
-	),
-	'lvo_value' => array(
-	'type' => 'text',
-	'length' => 64,
-	)
-	);
-	if (! \srag\DIC\DICStatic::dic()->database()->tableExists (\LiveVoting\Conf\xlvoConfOld::TABLE_NAME)) {
-		\srag\DIC\DICStatic::dic()->database()->createTable (\LiveVoting\Conf\xlvoConfOld::TABLE_NAME, $fields);
-		\srag\DIC\DICStatic::dic()->database()->addPrimaryKey (\LiveVoting\Conf\xlvoConfOld::TABLE_NAME, array( "lvo_key" ));
-	}
-	?>
-	<#6>
-	<?php
-	if (! \srag\DIC\DICStatic::dic()->database()->tableColumnExists (\LiveVoting\Option\xlvoData::TABLE_NAME, 'is_freezed')) {
-	\srag\DIC\DICStatic::dic()->database()->addTableColumn (\LiveVoting\Option\xlvoData::TABLE_NAME, 'is_freezed', array(
-	'type' => 'integer',
-	'length' => 1,
-	'default' => 0
-	));
-	}*/
-}
+/*$fields = array(
+'lvo_key' => array(
+'type' => 'text',
+'length' => 64,
+),
+'lvo_value' => array(
+'type' => 'text',
+'length' => 64,
+)
+);
+if (! \srag\DIC\DICStatic::dic()->database()->tableExists (\LiveVoting\Conf\xlvoConfOld::TABLE_NAME)) {
+	\srag\DIC\DICStatic::dic()->database()->createTable (\LiveVoting\Conf\xlvoConfOld::TABLE_NAME, $fields);
+	\srag\DIC\DICStatic::dic()->database()->addPrimaryKey (\LiveVoting\Conf\xlvoConfOld::TABLE_NAME, array( "lvo_key" ));
+}*/
+?>
+<#6>
+<?php
+/*if (! \srag\DIC\DICStatic::dic()->database()->tableColumnExists (\LiveVoting\Option\xlvoData::TABLE_NAME, 'is_freezed')) {
+\srag\DIC\DICStatic::dic()->database()->addTableColumn (\LiveVoting\Option\xlvoData::TABLE_NAME, 'is_freezed', array(
+'type' => 'integer',
+'length' => 1,
+'default' => 0
+));*/
 ?>
 <#7>
 <?php
-if (false) {
-	/*if(\srag\DIC\DICStatic::dic()->database()->tableColumnExists (\LiveVoting\Conf\xlvoConfOld::TABLE_NAME, 'lvo_key')) {
-		\srag\DIC\DICStatic::dic()->database()->renameTableColumn (\LiveVoting\Conf\xlvoConfOld::TABLE_NAME, 'lvo_key', 'config_key');
-	}
-	if(\srag\DIC\DICStatic::dic()->database()->tableColumnExists (\LiveVoting\Conf\xlvoConfOld::TABLE_NAME, 'lvo_value')) {
-		\srag\DIC\DICStatic::dic()->database()->renameTableColumn (\LiveVoting\Conf\xlvoConfOld::TABLE_NAME, 'lvo_value', 'config_value');
-	}
-	\srag\DIC\DICStatic::dic()->database()->modifyTableColumn (\LiveVoting\Conf\xlvoConfOld::TABLE_NAME, 'config_value', array(
-	'type' => 'clob',
-	'notnull' => false
-	));*/
+/*if(\srag\DIC\DICStatic::dic()->database()->tableColumnExists (\LiveVoting\Conf\xlvoConfOld::TABLE_NAME, 'lvo_key')) {
+	\srag\DIC\DICStatic::dic()->database()->renameTableColumn (\LiveVoting\Conf\xlvoConfOld::TABLE_NAME, 'lvo_key', 'config_key');
 }
+if(\srag\DIC\DICStatic::dic()->database()->tableColumnExists (\LiveVoting\Conf\xlvoConfOld::TABLE_NAME, 'lvo_value')) {
+	\srag\DIC\DICStatic::dic()->database()->renameTableColumn (\LiveVoting\Conf\xlvoConfOld::TABLE_NAME, 'lvo_value', 'config_value');
+}
+\srag\DIC\DICStatic::dic()->database()->modifyTableColumn (\LiveVoting\Conf\xlvoConfOld::TABLE_NAME, 'config_value', array(
+'type' => 'clob',
+'notnull' => false
+));*/
 ?>
 <#8>
 <?php
-if (false) {
-	/*if (! \srag\DIC\DICStatic::dic()->database()->tableColumnExists (\LiveVoting\Option\xlvoData::TABLE_NAME, 'is_colorful')) {
-	\srag\DIC\DICStatic::dic()->database()->addTableColumn (\LiveVoting\Option\xlvoData::TABLE_NAME, 'is_colorful', array(
-	'type' => 'integer',
-	'length' => 1,
-	'default' => 0,
-	'notnull' => false
-	));
-	}*/
-}
+/*if (! \srag\DIC\DICStatic::dic()->database()->tableColumnExists (\LiveVoting\Option\xlvoData::TABLE_NAME, 'is_colorful')) {
+\srag\DIC\DICStatic::dic()->database()->addTableColumn (\LiveVoting\Option\xlvoData::TABLE_NAME, 'is_colorful', array(
+'type' => 'integer',
+'length' => 1,
+'default' => 0,
+'notnull' => false
+));
+}*/
 ?>
 <#9>
 <?php
@@ -212,15 +197,13 @@ if (false) {
 ?>
 <#14>
 <?php
-if (false) {
-	/*if (! \srag\DIC\DICStatic::dic()->database()->tableColumnExists (\LiveVoting\Option\xlvoData::TABLE_NAME, 'end_time')) {
-	\srag\DIC\DICStatic::dic()->database()->addTableColumn (\LiveVoting\Option\xlvoData::TABLE_NAME, 'end_time', array(
-	'type' => 'integer',
-	'length' => 8,
-	'default' => 0
-	));
-	}*/
-}
+/*if (! \srag\DIC\DICStatic::dic()->database()->tableColumnExists (\LiveVoting\Option\xlvoData::TABLE_NAME, 'end_time')) {
+\srag\DIC\DICStatic::dic()->database()->addTableColumn (\LiveVoting\Option\xlvoData::TABLE_NAME, 'end_time', array(
+'type' => 'integer',
+'length' => 8,
+'default' => 0
+));
+}*/
 ?>
 <#15>
 <?php
@@ -273,10 +256,6 @@ if (\srag\DIC\DICStatic::dic()->database()->tableExists(\LiveVoting\Option\xlvoD
 		}
 	}
 
-	\srag\DIC\DICStatic::dic()->database()->dropTable(\LiveVoting\Option\xlvoData::TABLE_NAME, false);
-}
-
-if (\srag\DIC\DICStatic::dic()->database()->tableExists(\LiveVoting\Option\xlvoOptionOld::TABLE_NAME)) {
 	// rep_robj_xlvo_option
 	$query = "SELECT * FROM " . \LiveVoting\Option\xlvoOptionOld::TABLE_NAME . " WHERE data_id = " . \srag\DIC\DICStatic::dic()->database()
 			->quote($xlvoVotingConfig->getObjId(), "integer");
@@ -315,9 +294,11 @@ if (\srag\DIC\DICStatic::dic()->database()->tableExists(\LiveVoting\Option\xlvoO
 			$xlvoVote->setVotingId($xlvoVoting->getId());
 		}
 	}
-
-	\srag\DIC\DICStatic::dic()->database()->dropTable(\LiveVoting\Option\xlvoVoteOld::TABLE_NAME, false);
 }
+
+\srag\DIC\DICStatic::dic()->database()->dropTable(\LiveVoting\Option\xlvoData::TABLE_NAME, false);
+\srag\DIC\DICStatic::dic()->database()->dropTable(\LiveVoting\Option\xlvoOptionOld::TABLE_NAME, false);
+\srag\DIC\DICStatic::dic()->database()->dropTable(\LiveVoting\Vote\xlvoVoteOld::TABLE_NAME, false);
 ?>
 <#16>
 <?php
