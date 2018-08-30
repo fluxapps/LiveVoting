@@ -162,11 +162,11 @@ qtype_6_option_range_end#:#MISSING qtype_6_option_range_end
 qtype_6_option_percentage_info#:#Kijelzők százalék jelek mellett a kezdő és záró szám.
 qtype_6_option_range_start_info#:#Kezdje a szám tartományban.
 qtype_6_option_range_end_info#:#Vége a fordulatszám-tartományban.
-qtype_4_option_randomise_option_after_save#:#Randomize opciók
-qtype_4_option_randomise_option_after_save_inf#:#Véletlenszerűen választja ki a mentési beállításokat anélkül, hogy a megfelelő választ generálná.
+qtype_4_option_randomise_option_after_save#:#MISSING qtype_4_option_randomise_option_after_save
+qtype_4_option_randomise_option_after_save_inf#:#MISSING qtype_4_option_randomise_option_after_save_inf
 qtype_6_option_alternative_result_display_mode#:#Képviselete a válaszokat
 qtype_6_option_alternative_result_display_mode_info#:#Alternatív képviselete a válaszokat. Ezeket mutatja lehajló csoportosítva szövegként.
-qtype_4_option_randomise_option_after_save_info#:#Véletlenszerűen választja ki a mentési beállításokat anélkül, hogy a megfelelő választ generálná.
+qtype_4_option_randomise_option_after_save_info#:#MISSING qtype_4_option_randomise_option_after_save_info
 qtype_6_display_mode_nr_0#:#MISSING qtype_6_display_mode_nr_0
 qtype_6_display_mode_nr_1#:#MISSING qtype_6_display_mode_nr_1
 qtype_6_display_mode_nr_2#:#MISSING qtype_6_display_mode_nr_2

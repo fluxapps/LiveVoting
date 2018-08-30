@@ -128,7 +128,7 @@ class LiveVotingRemoveDataConfirm {
 		$confirmation->addButton(self::translate("uninstall_deactivate"), self::CMD_DEACTIVATE);
 		$confirmation->setCancel(self::translate("cancel"), self::CMD_CANCEL);
 
-		self::output($confirmation->getHTML());
+		self::output($confirmation);
 	}
 
 

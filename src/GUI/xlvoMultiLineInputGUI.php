@@ -451,8 +451,6 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 
 	/**
 	 * Insert property html
-	 *
-	 * @return int Size
 	 */
 	public function insert(&$a_tpl) {
 		$output = "";

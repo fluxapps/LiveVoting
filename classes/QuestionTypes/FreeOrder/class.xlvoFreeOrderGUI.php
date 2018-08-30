@@ -20,8 +20,14 @@ class xlvoFreeOrderGUI extends xlvoCorrectOrderGUI {
 	 */
 	public function __construct() {
 		parent::__construct();
+	}
 
-		$this->setRandomizeOptions(false);
+
+	/**
+	 * @return bool
+	 */
+	protected function isRandomizeOptions() {
+		return false;
 	}
 
 

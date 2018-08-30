@@ -1403,17 +1403,17 @@
       },
       "4_option_randomise_option_after_save": {
         "translations": {
-          "en": "Randomise options",
-          "de": "Zufallsreihenfolge",
-          "hu": "Randomize opciók"
+          "en": "Shuffle answers",
+          "de": "Antworten mischen",
+          "hu": "MISSING qtype_4_option_randomise_option_after_save"
         },
         "last_used": "28.06.2017"
       },
       "4_option_randomise_option_after_save_inf": {
         "translations": {
-          "en": "Shuffles the options on save without generating the right answer.",
-          "de": "Bestimmt die Reihenfolge der Optionen zufällig wenn diese gesichert werden. Die Generierung einer korrekten Antwort ist jedoch ausgeschlossen.",
-          "hu": "Véletlenszerűen választja ki a mentési beállításokat anélkül, hogy a megfelelő választ generálná."
+          "en": "MISSING qtype_4_option_randomise_option_after_save_inf",
+          "de": "MISSING qtype_4_option_randomise_option_after_save_inf",
+          "hu": "MISSING qtype_4_option_randomise_option_after_save_inf"
         }
       },
       "6_option_alternative_result_display_mode": {
@@ -1434,9 +1434,9 @@
       },
       "4_option_randomise_option_after_save_info": {
         "translations": {
-          "en": "Shuffles the options on save without generating the right answer.",
-          "hu": "Véletlenszerűen választja ki a mentési beállításokat anélkül, hogy a megfelelő választ generálná.",
-          "de": "Bestimmt die Reihenfolge der Optionen zufällig wenn diese gesichert werden. Die Generierung einer korrekten Antwort ist jedoch ausgeschlossen."
+          "en": "During presentation, the options appear in a random order.",
+          "hu": "MISSING qtype_4_option_randomise_option_after_save_info",
+          "de": "Bei der Präsentation werden die Optionen in einer zufälligen Reihenfolge angezeigt."
         },
         "last_used": "28.06.2017"
       },

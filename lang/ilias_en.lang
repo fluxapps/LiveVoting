@@ -164,11 +164,11 @@ qtype_6_option_range_end#:#Maximum
 qtype_6_option_percentage_info#:#Shows the number range with a percentage sign. There are no calculations done, this is only an visual option.
 qtype_6_option_range_start_info#:#The start of the number range.
 qtype_6_option_range_end_info#:#The end of the number range.
-qtype_4_option_randomise_option_after_save#:#Randomise options
-qtype_4_option_randomise_option_after_save_inf#:#Shuffles the options on save without generating the right answer.
+qtype_4_option_randomise_option_after_save#:#Shuffle answers
+qtype_4_option_randomise_option_after_save_inf#:#MISSING qtype_4_option_randomise_option_after_save_inf
 qtype_6_option_alternative_result_display_mode#:#Display-Mode
 qtype_6_option_alternative_result_display_mode_info#:#Alternative mode which displays the result as text grouped together. The answers are sorted descending by quantity.
-qtype_4_option_randomise_option_after_save_info#:#Shuffles the options on save without generating the right answer.
+qtype_4_option_randomise_option_after_save_info#:#During presentation, the options appear in a random order.
 qtype_6_display_mode_nr_0#:#Effective estimates (in ascending order)
 qtype_6_display_mode_nr_2#:#Effective estimates inc. mean, median and mode
 qtype_6_display_mode_nr_1#:#Bar graph

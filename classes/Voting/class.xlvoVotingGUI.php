@@ -272,6 +272,7 @@ class xlvoVotingGUI {
 	 *
 	 */
 	public function updateAndStay() {
+		self::dic()->ctrl()->setParameter($this, self::IDENTIFIER, filter_input(INPUT_GET, self::IDENTIFIER));
 		$this->update(self::CMD_EDIT);
 	}
 

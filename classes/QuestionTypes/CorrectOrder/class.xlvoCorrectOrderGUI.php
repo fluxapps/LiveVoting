@@ -21,7 +21,6 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 
 	const BUTTON_TOTTLE_DISPLAY_CORRECT_ORDER = 'display_correct_order';
 	const BUTTON_TOGGLE_PERCENTAGE = 'toggle_percentage';
-	private $randomizeOptions = true;
 
 
 	/**
@@ -52,13 +51,14 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 	}
 
 
-	/* *
+	/**
 	 *
-	 * /
+	 */
 	protected function clear() {
 		$this->manager->unvoteAll();
 		$this->afterSubmit();
-	}*/
+	}
+
 
 	/**
 	 * @return string
@@ -83,13 +83,11 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 
 		$options = NULL;
 
-		if ($this->randomizeOptions) {
+		$options = $this->manager->getVoting()->getVotingOptions();
+		if ($this->isRandomizeOptions()) {
 			//randomize the options for the voters
-			$options = $this->randomizeWithoutCorrectSequence($this->manager->getVoting()->getVotingOptions());
-		} else {
-			$options = $this->manager->getVoting()->getVotingOptions();
+			$options = $this->randomizeWithoutCorrectSequence($options);
 		}
-
 		$bars = new xlvoBarMovableGUI($options, $order, $vote_id);
 		$bars->setShowOptionLetter(true);
 		$tpl->setVariable('CONTENT', $bars->getHTML());
@@ -159,22 +157,11 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 
 	/**
 	 * Checks whether the options displayed to the voter is randomized.
-	 * The options get randomized by default.
 	 *
 	 * @return bool
 	 */
-	public function isRandomizeOptions() {
-		return $this->randomizeOptions;
-	}
-
-
-	/**
-	 * Set the configuration regarding the randomization of the options.
-	 *
-	 * @param bool $randomizeOptions
-	 */
-	public function setRandomizeOptions($randomizeOptions) {
-		$this->randomizeOptions = $randomizeOptions;
+	protected function isRandomizeOptions() {
+		return $this->manager->getVoting()->getRandomiseOptionSequence();
 	}
 
 
@@ -201,7 +188,7 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 	 * @return xlvoOption[] The randomized option array.
 	 */
 	private function randomizeWithoutCorrectSequence(array &$options) {
-		if (count($options) <= 1) {
+		if (count($options) < 2) {
 			return $options;
 		}
 

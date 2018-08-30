@@ -4,6 +4,7 @@ namespace LiveVoting\Voting;
 
 use ActiveRecordList;
 use arException;
+use function boolval;
 use Exception;
 use ilObjectTypeMismatchException;
 use ilRTE;
@@ -192,7 +193,7 @@ class xlvoVoting extends CachingActiveRecord {
 	 */
 	protected $alt_result_display_mode;
 	/**
-	 * @var int
+	 * @var bool
 	 *
 	 * @db_has_field        true
 	 * @db_fieldtype        integer
@@ -715,20 +716,20 @@ class xlvoVoting extends CachingActiveRecord {
 
 
 	/**
-	 * @return int
+	 * @return bool
 	 */
 	public function getRandomiseOptionSequence() {
-		return intval($this->randomise_option_sequence);
+		return boolval($this->randomise_option_sequence);
 	}
 
 
 	/**
-	 * @param int $randomise_option_sequence
+	 * @param bool $randomise_option_sequence
 	 *
 	 * @return xlvoVoting
 	 */
 	public function setRandomiseOptionSequence($randomise_option_sequence) {
-		$this->randomise_option_sequence = intval($randomise_option_sequence);
+		$this->randomise_option_sequence = boolval($randomise_option_sequence);
 
 		return $this;
 	}
