@@ -34,7 +34,7 @@
   "minimum-stability": "beta",
   "prefer-stable": true,
   "require": {
-    "php": "^>=5.6",
+    "php": ">=5.6",
     "endroid/qrcode": "^1.9",
     "srag/dic": ">=0.1.0"
   },
