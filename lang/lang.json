@@ -2288,54 +2288,61 @@
         "last_used": "11.07.2017"
       }
     },
-    "uninstall": {
+    "removeplugindataconfirm": {
+      "cancel": {
+        "translations": {
+          "de": "Abbrechen",
+          "en": "Cancel",
+          "hu": "MISSING removeplugindataconfirm_cancel"
+        }
+      },
       "confirm_remove_data": {
         "translations": {
-          "de": "Möchten Sie die LiveVoting-Daten auch entfernen? Allenfalls möchten Sie das LiveVoting-Plugin nur deaktivieren?",
-          "en": "Do you want to remove the LiveVoting data as well? At most, you just want to disable the LiveVoting plugin?",
-          "hu":"MISSING uninstall_confirm_remove_data"
+          "de": "Möchten Sie die %s-Daten auch entfernen? Allenfalls möchten Sie das %s-Plugin nur deaktivieren?",
+          "en": "Do you want to remove the %s data as well? At most, you just want to disable the %s plugin?",
+          "hu": "MISSING removeplugindataconfirm_confirm_remove_data"
         }
       },
       "remove_data": {
         "translations": {
-          "de": "LiveVoting-Daten behalten",
-          "en": "Remove LiveVoting data",
-          "hu":"MISSING uninstall_remove_data"
+          "de": "%s-Daten behalten",
+          "en": "Remove %s data",
+          "hu": "MISSING removeplugindataconfirm_remove_data"
         }
       },
       "keep_data": {
         "translations": {
-          "de": "Entferne LiveVoting-Daten",
-          "en": "Keep LiveVoting data",
-          "hu":"MISSING uninstall_keep_data"
+          "de": "Entferne %s-Daten",
+          "en": "Keep %s data",
+          "hu": "MISSING removeplugindataconfirm_keep_data"
         }
       },
       "deactivate": {
         "translations": {
-          "de": "LiveVoting-Plugin nur deaktivieren",
-          "en": "Just deactivate LiveVoting plugin",
-          "hu":"MISSING uninstall_deactivate"
+          "de": "%s-Plugin nur deaktivieren",
+          "en": "Just deactivate %s plugin",
+          "hu": "MISSING removeplugindataconfirm_deactivate"
         }
       },
       "data": {
         "translations": {
-          "de": "LiveVoting-Daten",
-          "en": "LiveVoting data",
-          "hu":"MISSING uninstall_data"
+          "de": "%s-Daten",
+          "en": "%s data",
+          "hu": "MISSING removeplugindataconfirm_data"
         }
       },
       "msg_removed_data": {
         "translations": {
-          "de": "Die LiveVoting-Daten wurden auch entfernt!",
-          "en": "The LiveVoting data was also removed!",
-          "hu":"MISSING uninstall_msg_removed_data"
+          "de": "Die %s-Daten wurden auch entfernt!",
+          "en": "The %s data was also removed!",
+          "hu": "MISSING removeplugindataconfirm_msg_removed_data"
         }
       },
       "msg_kept_data": {
         "translations": {
-          "de": "Die LiveVoting-Daten wurden behalten!",
-          "en": "The LiveVoting data was kept!",
-          "hu":"MISSING uninstall_msg_kept_data"
+          "de": "Die %s-Daten wurden behalten!",
+          "en": "The %s data was kept!",
+          "hu": "MISSING removeplugindataconfirm_msg_kept_data"
         }
       }
     }

@@ -9,6 +9,7 @@ class ComposerStaticInit2a9f25cb7db537cf8950f4e268186c34
     public static $prefixLengthsPsr4 = array (
         's' => 
         array (
+            'srag\\RemovePluginDataConfirm\\' => 29,
             'srag\\DIC\\' => 9,
         ),
         'S' => 
@@ -26,6 +27,10 @@ class ComposerStaticInit2a9f25cb7db537cf8950f4e268186c34
     );
 
     public static $prefixDirsPsr4 = array (
+        'srag\\RemovePluginDataConfirm\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src',
+        ),
         'srag\\DIC\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/dic/src',
@@ -261,6 +266,11 @@ class ComposerStaticInit2a9f25cb7db537cf8950f4e268186c34
         'srag\\DIC\\DICTrait' => __DIR__ . '/..' . '/srag/dic/src/DICTrait.php',
         'srag\\DIC\\LegacyDIC' => __DIR__ . '/..' . '/srag/dic/src/LegacyDIC.php',
         'srag\\DIC\\NewDIC' => __DIR__ . '/..' . '/srag/dic/src/NewDIC.php',
+        'srag\\RemovePluginDataConfirm\\AbstractPluginUninstallTrait' => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src/AbstractPluginUninstallTrait.php',
+        'srag\\RemovePluginDataConfirm\\AbstractRemovePluginDataConfirm' => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src/AbstractRemovePluginDataConfirm.php',
+        'srag\\RemovePluginDataConfirm\\PluginUninstallTrait' => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src/PluginUninstallTrait.php',
+        'srag\\RemovePluginDataConfirm\\RemovePluginDataConfirmException' => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src/RemovePluginDataConfirmException.php',
+        'srag\\RemovePluginDataConfirm\\RepositoryObjectPluginUninstallTrait' => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src/RepositoryObjectPluginUninstallTrait.php',
         'xlvoConfGUI' => __DIR__ . '/../..' . '/classes/Conf/class.xlvoConfGUI.php',
         'xlvoCorrectOrderGUI' => __DIR__ . '/../..' . '/classes/QuestionTypes/CorrectOrder/class.xlvoCorrectOrderGUI.php',
         'xlvoFreeInputGUI' => __DIR__ . '/../..' . '/classes/QuestionTypes/FreeInput/class.xlvoFreeInputGUI.php',

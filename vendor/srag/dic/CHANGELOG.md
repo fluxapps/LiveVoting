@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.5.6]
+- Exception: Please use the placeholders feature and not direct `sprintf` or `vsprintf` in your code!
+
+## [0.5.5]
+- Update readme
+
+## [0.5.4]
+- Update readme
+
+## [0.5.3]
+- Mark some methods as `final`
+
 ## [0.5.2]
 - Use always latest version of DIC
 

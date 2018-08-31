@@ -64,23 +64,23 @@
     },
     {
         "name": "srag/dic",
-        "version": "0.5.2",
-        "version_normalized": "0.5.2.0",
+        "version": "0.5.6",
+        "version_normalized": "0.5.6.0",
         "source": {
             "type": "git",
             "url": "https://github.com/studer-raimann/DIC.git",
-            "reference": "7009722505f786561c959458dcabc48f14668459"
+            "reference": "737a89502d8c9b6681ad3dd54fc21898f2c60431"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/studer-raimann/DIC/zipball/7009722505f786561c959458dcabc48f14668459",
-            "reference": "7009722505f786561c959458dcabc48f14668459",
+            "url": "https://api.github.com/repos/studer-raimann/DIC/zipball/737a89502d8c9b6681ad3dd54fc21898f2c60431",
+            "reference": "737a89502d8c9b6681ad3dd54fc21898f2c60431",
             "shasum": ""
         },
         "require": {
-            "php": "^5.6 || ^7.0"
+            "php": ">=5.6"
         },
-        "time": "2018-08-30T13:18:36+00:00",
+        "time": "2018-08-31T10:42:21+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -107,6 +107,55 @@
             "dic",
             "globals",
             "trait"
+        ]
+    },
+    {
+        "name": "srag/removeplugindataconfirm",
+        "version": "0.1.10",
+        "version_normalized": "0.1.10.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/studer-raimann/RemovePluginDataConfirm.git",
+            "reference": "75ba0a6a5bb244b10038fc1f44c7a9f2ef14d876"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/studer-raimann/RemovePluginDataConfirm/zipball/75ba0a6a5bb244b10038fc1f44c7a9f2ef14d876",
+            "reference": "75ba0a6a5bb244b10038fc1f44c7a9f2ef14d876",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.6",
+            "srag/dic": ">=0.1.0"
+        },
+        "time": "2018-08-31T09:55:10+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "srag\\RemovePluginDataConfirm\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "GPL-3.0-only"
+        ],
+        "authors": [
+            {
+                "name": "srag",
+                "email": "support-custom1@studer-raimann.ch",
+                "homepage": "https://studer-raimann.ch",
+                "role": "Developer"
+            }
+        ],
+        "description": "Demand if plugin data should be removed on uninstall",
+        "homepage": "https://github.com/studer-raimann/RemovePluginDataConfirm",
+        "keywords": [
+            "ILIAS",
+            "confirm",
+            "data",
+            "plugin",
+            "uninstall"
         ]
     },
     {

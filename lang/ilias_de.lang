@@ -293,10 +293,11 @@ start_zoom#:#Zoom
 qtype_6_mean#:#Mittelwert
 qtype_6_median#:#Median
 qtype_6_mode#:#Modus
-uninstall_confirm_remove_data#:#Möchten Sie die LiveVoting-Daten auch entfernen? Allenfalls möchten Sie das LiveVoting-Plugin nur deaktivieren?
-uninstall_deactivate#:#LiveVoting-Plugin nur deaktivieren
-uninstall_data#:#LiveVoting-Daten
-uninstall_keep_data#:#LiveVoting-Daten behalten
-uninstall_msg_kept_data#:#Die LiveVoting-Daten wurden behalten!
-uninstall_msg_removed_data#:#Die LiveVoting-Daten wurden auch entfernt!
-uninstall_remove_data#:#Entferne LiveVoting-Daten
+removeplugindataconfirm_cancel#:#Abbrechen
+removeplugindataconfirm_confirm_remove_data#:#Möchten Sie die %1$s-Daten auch entfernen? Allenfalls möchten Sie das %1$s-Plugin nur deaktivieren?
+removeplugindataconfirm_deactivate#:#%1$s-Plugin nur deaktivieren
+removeplugindataconfirm_data#:#%1$s-Daten
+removeplugindataconfirm_keep_data#:#%1$s-Daten behalten
+removeplugindataconfirm_msg_kept_data#:#Die %1$s-Daten wurden behalten!
+removeplugindataconfirm_msg_removed_data#:#Die %1$s-Daten wurden auch entfernt!
+removeplugindataconfirm_remove_data#:#Entferne %1$s-Daten

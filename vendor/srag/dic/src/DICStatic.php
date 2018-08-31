@@ -15,7 +15,7 @@ final class DICStatic {
 	 * @return DICInterface DIC interface
 	 * @ throws DICException Your class needs to implement the PLUGIN_CLASS_NAME constant!
 	 */
-	public static function dic() {
+	public static final function dic() {
 		return DICCache::dic();
 	}
 

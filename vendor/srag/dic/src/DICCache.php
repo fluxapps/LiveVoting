@@ -29,7 +29,7 @@ final class DICCache {
 	/**
 	 * @return DICInterface
 	 */
-	public static function dic() {
+	public static final function dic() {
 		if (self::$dic === NULL) {
 			if (ILIAS_VERSION_NUMERIC >= "5.2") {
 				global $DIC;
@@ -49,7 +49,7 @@ final class DICCache {
 	 *
 	 * @return ilLanguage
 	 */
-	public static function language($lang) {
+	public static final function language($lang) {
 		if (!isset(self::$languages[$lang])) {
 			self::$languages[$lang] = new ilLanguage($lang);
 		}
@@ -64,7 +64,7 @@ final class DICCache {
 	 * @return ilPlugin
 	 * @throws DICException Class $plugin_class_name not exists!
 	 */
-	public static function pl($plugin_class_name) {
+	public static final function pl($plugin_class_name) {
 		if (!isset(self::$pl[$plugin_class_name])) {
 			if (!class_exists($plugin_class_name)) {
 				throw new DICException("Class $plugin_class_name not exists!");

@@ -70,7 +70,7 @@ For plugin dir use:
 self::directory();
 ```
 
-For Output html use:
+For output html use:
 ```php
 /**
  * Output html
@@ -113,12 +113,11 @@ For translate use:
 self::translate($key, $module = "", $placeholders = [], $plugin = true, $lang = "", $default = "MISSING %s");
 ```
 
-Should you get an exception like `Warning: sprintf(): Too few arguments`, please use the placeholders feature and not direct `sprintf` in your code.
-
 If you really need DICTrait outside a class (For instance in `dbupdate.php`), use `DICStatic::dic()`
 
 #### Clean up
 You can now remove all usages of ILIAS globals in your class and replace it with this library.
+Please avoid to store in variables or class variables.
 
 #### Other tips
 - Use `__DIR__`
