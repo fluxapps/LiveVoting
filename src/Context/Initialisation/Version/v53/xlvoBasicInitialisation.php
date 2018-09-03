@@ -171,13 +171,13 @@ class xlvoBasicInitialisation {
 		$ilias = new xlvoILIAS();
 		$this->makeGlobal("ilias", $ilias);
 
-		$tpl = self::template("default/tpl.main.html");
+		$tpl = self::plugin()->template("default/tpl.main.html");
 		if (!CookieManager::hasCookiePUK()) {
 			$tpl->touchBlock("navbar");
 		}
-		$tpl->addCss(self::directory() . '/templates/default/default.css');
+		$tpl->addCss(self::plugin()->directory() . '/templates/default/default.css');
 		$tpl->addCss('./templates/default/delos.css');
-		$tpl->addBlockFile("CONTENT", "content", "tpl.main_voter.html", self::directory());
+		$tpl->addBlockFile("CONTENT", "content", "tpl.main_voter.html", self::plugin()->directory());
 		$tpl->setVariable('BASE', xlvoConf::getBaseVoteURL());
 		$this->makeGlobal("tpl", $tpl);
 

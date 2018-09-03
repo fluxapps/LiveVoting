@@ -120,7 +120,7 @@ class xlvoResultsGUI extends xlvoGUI {
 	 * @return string
 	 */
 	private function getRoundTitle(xlvoRound $round) {
-		return $round->getTitle() ? $round->getTitle() : self::translate("common_round") . " " . $round->getRoundNumber();
+		return $round->getTitle() ? $round->getTitle() : self::plugin()->translate("common_round") . " " . $round->getRoundNumber();
 	}
 
 
@@ -138,7 +138,7 @@ class xlvoResultsGUI extends xlvoGUI {
 		$newRound->setObjId($this->obj_id);
 		$newRound->create();
 		self::dic()->ctrl()->setParameter($this, 'round_id', xlvoRound::getLatestRound($this->obj_id)->getId());
-		ilUtil::sendSuccess(self::translate("common_new_round_created"), true);
+		ilUtil::sendSuccess(self::plugin()->translate("common_new_round_created"), true);
 		self::dic()->ctrl()->redirect($this, self::CMD_SHOW);
 	}
 
@@ -162,20 +162,20 @@ class xlvoResultsGUI extends xlvoGUI {
 
 
 	private function showHistory() {
-		self::dic()->tabs()->setBackTarget(self::translate('common_back'), self::dic()->ctrl()->getLinkTarget($this, self::CMD_SHOW));
+		self::dic()->tabs()->setBackTarget(self::plugin()->translate('common_back'), self::dic()->ctrl()->getLinkTarget($this, self::CMD_SHOW));
 
 		$user_id = $_GET['user_id'] ? $_GET['user_id'] : $_GET['user_identifier'];
 		$participants = xlvoParticipants::getInstance($this->obj_id)->getParticipantsForRound($this->round->getId(), $this->user_id);
 		/** @var xlvoParticipant $participant */
 		$participant = array_shift($participants);
 
-		$q = new ilNonEditableValueGUI(self::translate("common_question"));
+		$q = new ilNonEditableValueGUI(self::plugin()->translate("common_question"));
 		$q->setValue(strip_tags(xlvoVoting::find($_GET['voting_id'])->getQuestion()));
 
-		$p = new ilNonEditableValueGUI(self::translate("common_participant"));
+		$p = new ilNonEditableValueGUI(self::plugin()->translate("common_participant"));
 		$p->setValue($this->getParticipantName($participant));
 
-		$d = new ilNonEditableValueGUI(self::translate("common_round"));
+		$d = new ilNonEditableValueGUI(self::plugin()->translate("common_round"));
 		$d->setValue($this->getRoundTitle($this->round));
 
 		$form = new ilPropertyFormGUI();
@@ -199,7 +199,7 @@ class xlvoResultsGUI extends xlvoGUI {
 				return $name['firstname'] . " " . $name['lastname'];
 			}
 
-			return self::translate("common_participant") . " " . substr($participant->getUserIdentifier(), 0, 4);
+			return self::plugin()->translate("common_participant") . " " . substr($participant->getUserIdentifier(), 0, 4);
 		};
 	}
 
@@ -222,9 +222,9 @@ class xlvoResultsGUI extends xlvoGUI {
 	public function confirmNewRound() {
 		$conf = new ilConfirmationGUI();
 		$conf->setFormAction(self::dic()->ctrl()->getFormAction($this));
-		$conf->setHeaderText(self::translate('common_confirm_new_round'));
-		$conf->setConfirm(self::translate("common_new_round"), self::CMD_NEW_ROUND);
-		$conf->setCancel(self::translate('common_cancel'), self::CMD_SHOW);
+		$conf->setHeaderText(self::plugin()->translate('common_confirm_new_round'));
+		$conf->setConfirm(self::plugin()->translate("common_new_round"), self::CMD_NEW_ROUND);
+		$conf->setCancel(self::plugin()->translate('common_cancel'), self::CMD_SHOW);
 		self::dic()->template()->setContent($conf->getHTML());
 	}
 
@@ -233,9 +233,9 @@ class xlvoResultsGUI extends xlvoGUI {
 	 * @param xlvoResultsTableGUI $table
 	 */
 	private function buildFilters(&$table) {
-		$filter = new ilSelectInputGUI(self::translate("common_participant"), "participant");
+		$filter = new ilSelectInputGUI(self::plugin()->translate("common_participant"), "participant");
 		$participants = xlvoParticipants::getInstance($this->obj_id)->getParticipantsForRound($this->round->getId());
-		$options = array( 0 => self::translate("common_all") );
+		$options = array( 0 => self::plugin()->translate("common_all") );
 		foreach ($participants as $participant) {
 			$options[($participant->getUserIdentifier()
 				!= NULL) ? $participant->getUserIdentifier() : $participant->getUserId()] = $this->getParticipantName($participant);
@@ -245,9 +245,9 @@ class xlvoResultsGUI extends xlvoGUI {
 		$filter->readFromSession();
 
 		//		 Title
-		$filter = new ilSelectInputGUI(self::translate("voting_title"), "voting_title");
+		$filter = new ilSelectInputGUI(self::plugin()->translate("voting_title"), "voting_title");
 		$titles = array();
-		$titles[0] = self::translate("common_all");
+		$titles[0] = self::plugin()->translate("common_all");
 		$titles = array_replace($titles, xlvoVoting::where(array( "obj_id" => $this->obj_id ))
 			->getArray("id", "title")); //dont use array_merge: it kills the keys.
 		$closure = $this->getShortener(40);
@@ -257,10 +257,10 @@ class xlvoResultsGUI extends xlvoGUI {
 		$filter->readFromSession();
 
 		// Question
-		$filter = new ilSelectInputGUI(self::translate("common_question"), "voting");
+		$filter = new ilSelectInputGUI(self::plugin()->translate("common_question"), "voting");
 
 		$votings = array();
-		$votings[0] = self::translate("common_all");
+		$votings[0] = self::plugin()->translate("common_all");
 		$votings = array_replace($votings, xlvoVoting::where(array( "obj_id" => $this->obj_id ))
 			->getArray("id", "question")); //dont use array_merge: it kills the keys.
 		array_walk($votings, $closure);
@@ -279,7 +279,7 @@ class xlvoResultsGUI extends xlvoGUI {
 	private function buildToolbar() {
 		$button = ilLinkButton::getInstance();
 		$button->setUrl(self::dic()->ctrl()->getLinkTargetByClass(xlvoResultsGUI::class, xlvoResultsGUI::CMD_CONFIRM_NEW_ROUND));
-		$button->setCaption(self::translate("new_round"), false);
+		$button->setCaption(self::plugin()->translate("new_round"), false);
 		self::dic()->toolbar()->addButtonInstance($button);
 
 		self::dic()->toolbar()->addSeparator();
@@ -290,11 +290,11 @@ class xlvoResultsGUI extends xlvoGUI {
 		$table_selection->setValue($this->round->getId());
 
 		self::dic()->toolbar()->setFormAction(self::dic()->ctrl()->getFormAction($this, self::CMD_CHANGE_ROUND));
-		self::dic()->toolbar()->addText(self::translate("common_round"));
+		self::dic()->toolbar()->addText(self::plugin()->translate("common_round"));
 		self::dic()->toolbar()->addInputItem($table_selection);
 
 		$button = ilSubmitButton::getInstance();
-		$button->setCaption(self::translate('common_change'), false);
+		$button->setCaption(self::plugin()->translate('common_change'), false);
 		$button->setCommand(self::CMD_CHANGE_ROUND);
 		self::dic()->toolbar()->addButtonInstance($button);
 	}

@@ -29,14 +29,14 @@ class xlvoCorrectOrderResultGUI extends xlvoResultGUI {
 
 		$correct_order_json = $this->getCorrectOrderJSON();
 		$return = ($correct_order_json
-			== $vote->getFreeInput()) ? self::translate("common_correct_order") : self::translate("common_incorrect_order");
+			== $vote->getFreeInput()) ? self::plugin()->translate("common_correct_order") : self::plugin()->translate("common_incorrect_order");
 		$return .= ": ";
 		foreach (json_decode($vote->getFreeInput()) as $option_id) {
 			$xlvoOption = $this->options[$option_id];
 			if ($xlvoOption instanceof xlvoOption) {
 				$strings[] = $xlvoOption->getTextForPresentation();
 			} else {
-				$strings[] = self::translate("common_option_no_longer_available");
+				$strings[] = self::plugin()->translate("common_option_no_longer_available");
 			}
 		}
 
@@ -58,7 +58,7 @@ class xlvoCorrectOrderResultGUI extends xlvoResultGUI {
 		}
 		$correct_order_json = $this->getCorrectOrderJSON();
 		$return = ($correct_order_json
-			== $vote->getFreeInput()) ? self::translate("common_correct_order") : self::translate("common_incorrect_order");
+			== $vote->getFreeInput()) ? self::plugin()->translate("common_correct_order") : self::plugin()->translate("common_incorrect_order");
 		$return .= ": ";
 		foreach (json_decode($vote->getFreeInput()) as $option_id) {
 			$strings[] = $this->options[$option_id]->getText();

@@ -35,7 +35,7 @@ class xlvoFreeOrderResultGUI extends xlvoResultGUI {
 			if ($xlvoOption instanceof xlvoOption) {
 				$strings[] = $xlvoOption->getTextForPresentation();
 			} else {
-				$strings[] = self::translate("common_option_no_longer_available");
+				$strings[] = self::plugin()->translate("common_option_no_longer_available");
 			}
 		}
 

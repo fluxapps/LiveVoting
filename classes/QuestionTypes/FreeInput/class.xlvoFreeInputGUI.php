@@ -85,7 +85,7 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 	 * @return string
 	 */
 	public function getMobileHTML() {
-		$this->tpl = self::template('default/QuestionTypes/FreeInput/tpl.free_input.html');
+		$this->tpl = self::plugin()->template('default/QuestionTypes/FreeInput/tpl.free_input.html');
 		$this->render();
 
 		return $this->tpl->get() . xlvoJs::getInstance()->name(xlvoQuestionTypes::FREE_INPUT)->category('QuestionTypes')->getRunCode();

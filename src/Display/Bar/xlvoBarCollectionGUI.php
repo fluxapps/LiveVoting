@@ -44,7 +44,7 @@ class xlvoBarCollectionGUI {
 	 *
 	 */
 	public function __construct() {
-		$this->tpl = self::template('default/Display/Bar/tpl.bar_collection.html');
+		$this->tpl = self::plugin()->template('default/Display/Bar/tpl.bar_collection.html');
 	}
 
 
@@ -148,12 +148,12 @@ class xlvoBarCollectionGUI {
 	protected function renderVotersAndVotes() {
 		if ($this->isShowTotalVotes()) {
 			$this->tpl->setCurrentBlock('total_votes');
-			$this->tpl->setVariable('TOTAL_VOTES', self::translate('qtype_1_total_votes') . ': ' . $this->getTotalVotes());
+			$this->tpl->setVariable('TOTAL_VOTES', self::plugin()->translate('qtype_1_total_votes') . ': ' . $this->getTotalVotes());
 			$this->tpl->parseCurrentBlock();
 		}
 		if ($this->isShowTotalVoters()) {
 			$this->tpl->setCurrentBlock('total_voters');
-			$this->tpl->setVariable('TOTAL_VOTERS', self::translate('qtype_1_total_voters') . ': ' . $this->getTotalVoters());
+			$this->tpl->setVariable('TOTAL_VOTERS', self::plugin()->translate('qtype_1_total_voters') . ': ' . $this->getTotalVoters());
 			$this->tpl->parseCurrentBlock();
 		}
 	}

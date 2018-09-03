@@ -58,7 +58,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 	public function __construct() {
 		parent::__construct();
 		$this->manager = xlvoVotingManager2::getInstanceFromObjId(ilObject2::_lookupObjId($_GET['ref_id']));
-		self::dic()->template()->addCss(self::directory() . '/templates/default/default.css');
+		self::dic()->template()->addCss(self::plugin()->directory() . '/templates/default/default.css');
 	}
 
 
@@ -68,7 +68,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 * @return string
 	 */
 	protected function txt($key) {
-		return self::translate($key, 'player');
+		return self::plugin()->translate($key, 'player');
 	}
 
 
@@ -102,7 +102,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$current_selection_list = $this->getVotingSelectionList(false);
 		self::dic()->toolbar()->addText($current_selection_list->getHTML());
 
-		$template = self::template('default/Player/tpl.start.html');
+		$template = self::plugin()->template('default/Player/tpl.start.html');
 		/**
 		 * @var xlvoVotingConfig $xlvoVotingConfig
 		 */
@@ -112,8 +112,8 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$template->setVariable('QR-CODE', xlvoQR::getImageDataString($xlvoVotingConfig->getShortLinkURL(true), 180));
 		$template->setVariable('SHORTLINK', $xlvoVotingConfig->getShortLinkURL());
 		$template->setVariable('MODAL', xlvoQRModalGUI::getInstanceFromVotingConfig($xlvoVotingConfig)->getHTML());
-		$template->setVariable("ONLINE_TEXT", self::translate("start_online", "", [ 0 ]));
-		$template->setVariable("ZOOM_TEXT", self::translate("start_zoom"));
+		$template->setVariable("ONLINE_TEXT", self::plugin()->translate("start_online", "", [ 0 ]));
+		$template->setVariable("ZOOM_TEXT", self::plugin()->translate("start_zoom"));
 
 		$js = xlvoJs::getInstance()->ilias($this)->name('Player')->init();
 		if ($this->manager->getVotingConfig()->isShowAttendees()) {
@@ -130,7 +130,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 *
 	 */
 	protected function getAttendees() {
-		xlvoJsResponse::getInstance(self::translate("start_online", "", [ xlvoVoter::countVoters($this->manager->getPlayer()->getId()) ]))->send();
+		xlvoJsResponse::getInstance(self::plugin()->translate("start_online", "", [ xlvoVoter::countVoters($this->manager->getPlayer()->getId()) ]))->send();
 	}
 
 
@@ -348,7 +348,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 		foreach (array( 10, 30, 90, 120, 180, 240, 300 ) as $seconds) {
 			$cd = ilLinkButton::getInstance();
 			$cd->setUrl('#');
-			$cd->setCaption($seconds . ' ' . self::translate('player_seconds'), false);
+			$cd->setCaption($seconds . ' ' . self::plugin()->translate('player_seconds'), false);
 			$cd->setOnClick("xlvoPlayer.countdown(event, $seconds);");
 			$ilSplitButtonMenuItem = new ilButtonToSplitButtonMenuItemAdapter($cd);
 			$split->addMenuItem($ilSplitButtonMenuItem);
@@ -524,8 +524,8 @@ class xlvoPlayerGUI extends xlvoGUI {
 		xlvoJs::getInstance()->ilias($this)->addSettings($settings)->name('Player')->addTranslations(array(
 			'voting_confirm_reset',
 		))->init()->setRunCode();
-		self::dic()->template()->addCss(self::directory() . '/templates/default/Player/player.css');
-		self::dic()->template()->addCss(self::directory() . '/LiveVoting/templates/default/Display/Bar/bar.css');
+		self::dic()->template()->addCss(self::plugin()->directory() . '/templates/default/Player/player.css');
+		self::dic()->template()->addCss(self::plugin()->directory() . '/LiveVoting/templates/default/Display/Bar/bar.css');
 	}
 
 
@@ -534,7 +534,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 */
 	protected function handlePreview() {
 		if ($this->manager->getVotingConfig()->isSelfVote()) {
-			$preview = self::template('default/Player/tpl.preview.html', true, false);
+			$preview = self::plugin()->template('default/Player/tpl.preview.html', true, false);
 			$preview->setVariable('URL', $this->manager->getVotingConfig()->getShortLinkURL());
 			self::dic()->template()->setRightContent($preview->get());
 		}

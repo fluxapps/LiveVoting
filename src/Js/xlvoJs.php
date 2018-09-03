@@ -264,7 +264,7 @@ class xlvoJs {
 	 */
 	public function addLibToHeader($name_of_lib, $external = true) {
 		if ($external) {
-			self::dic()->template()->addJavascript(self::directory() . '/js/libs/' . $name_of_lib);
+			self::dic()->template()->addJavascript(self::plugin()->directory() . '/js/libs/' . $name_of_lib);
 		} else {
 			self::dic()->template()->addJavaScript($name_of_lib);
 		}

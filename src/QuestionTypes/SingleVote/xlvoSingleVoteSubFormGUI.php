@@ -41,7 +41,7 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 		$this->addFormElement($cb);
 
 		//$cb = new ilCheckboxInputGUI($this->txt(self::F_COLORS), self::F_COLORS);
-		//		$cb->setInfo(self::translate('info_singlevote_colors'));
+		//		$cb->setInfo(self::plugin()->translate('info_singlevote_colors'));
 		//		$this->addFormElement($cb);
 
 		$xlvoMultiLineInputGUI = new xlvoMultiLineInputGUI($this->txt(self::F_OPTIONS), self::F_OPTIONS);

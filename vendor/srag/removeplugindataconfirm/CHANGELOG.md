@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.1.13]
+- DIC PluginInterface
+
 ## [0.1.12]
 - Update readme
 

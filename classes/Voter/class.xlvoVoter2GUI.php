@@ -49,7 +49,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 	 * @return string
 	 */
 	protected function txt($key) {
-		return self::translate($key, 'voter');
+		return self::plugin()->translate($key, 'voter');
 	}
 
 
@@ -67,7 +67,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 					&& (is_null(self::dic()->user()) || self::dic()->user()->getId() == 13
 						|| self::dic()->user()->getId() == 0)) {
 					//remove plugin path to get "real" web root otherwise we break installations with context paths -> http://demo.ilias.ch/test/goto.php
-					$plugin_path = substr(self::directory(), 2); // Remove ./
+					$plugin_path = substr(self::plugin()->directory(), 2); // Remove ./
 					$ilias_base_path = str_replace($plugin_path, '', ILIAS_HTTP_PATH);
 					$login_target = "{$ilias_base_path}goto.php?target=xlvo_1_pin_" . $this->pin;
 
@@ -100,8 +100,8 @@ class xlvoVoter2GUI extends xlvoGUI {
 			self::dic()->ctrl()->redirect($this, self::CMD_START_VOTER_PLAYER);
 		}
 
-		$tpl = self::template('default/Voter/tpl.pin.html', true, false);
-		self::dic()->template()->addCss(self::directory() . '/templates/default/Voter/pin.css');
+		$tpl = self::plugin()->template('default/Voter/tpl.pin.html', true, false);
+		self::dic()->template()->addCss(self::plugin()->directory() . '/templates/default/Voter/pin.css');
 		$pin_form = new ilPropertyFormGUI();
 		$pin_form->setFormAction(self::dic()->ctrl()->getLinkTarget($this, self::CMD_CHECK_PIN));
 		$pin_form->addCommandButton(self::CMD_CHECK_PIN, $this->txt('send'));
@@ -157,8 +157,8 @@ class xlvoVoter2GUI extends xlvoGUI {
 		}
 
 		$this->initJsAndCss();
-		self::dic()->template()->addCss(self::directory() . '/templates/default/default.css');
-		$tpl = self::template('default/Voter/tpl.voter_player.html', true, false);
+		self::dic()->template()->addCss(self::plugin()->directory() . '/templates/default/default.css');
+		$tpl = self::plugin()->template('default/Voter/tpl.voter_player.html', true, false);
 		self::dic()->template()->setContent($tpl->get());
 	}
 
@@ -183,9 +183,9 @@ class xlvoVoter2GUI extends xlvoGUI {
 	 * @throws ilException
 	 */
 	protected function initJsAndCss() {
-		self::dic()->template()->addCss(self::directory() . '/templates/default/Voter/voter.css');
-		self::dic()->template()->addCss(self::directory() . '/templates/default/libs/bootstrap-slider.min.css');
-		self::dic()->template()->addCss(self::directory() . '/templates/default/QuestionTypes/NumberRange/number_range.css');
+		self::dic()->template()->addCss(self::plugin()->directory() . '/templates/default/Voter/voter.css');
+		self::dic()->template()->addCss(self::plugin()->directory() . '/templates/default/libs/bootstrap-slider.min.css');
+		self::dic()->template()->addCss(self::plugin()->directory() . '/templates/default/QuestionTypes/NumberRange/number_range.css');
 		iljQueryUtil::initjQueryUI();
 
 		ilMathJax::getInstance()->includeMathJax();
@@ -226,7 +226,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 	 * @throws ilException
 	 */
 	protected function getHTML() {
-		$tpl = self::template('default/Voter/tpl.inner_screen.html');
+		$tpl = self::plugin()->template('default/Voter/tpl.inner_screen.html');
 		switch ($this->manager->getPlayer()->getStatus(true)) {
 			case xlvoPlayer::STAT_STOPPED:
 				$tpl->setVariable('TITLE', $this->txt('header_stopped'));

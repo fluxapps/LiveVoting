@@ -54,7 +54,7 @@ class xlvoBarOptionGUI implements xlvoGeneralBarGUI {
 		$this->voting = $voting;
 		$this->option = $option;
 		$this->option_letter = $option_letter;
-		$this->tpl = self::template('default/Display/Bar/tpl.bar_option.html');
+		$this->tpl = self::plugin()->template('default/Display/Bar/tpl.bar_option.html');
 	}
 
 

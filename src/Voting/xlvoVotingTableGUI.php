@@ -57,7 +57,7 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 
 		parent::__construct($a_parent_obj, $a_parent_cmd);
 
-		$this->setRowTemplate('tpl.tbl_voting.html', self::directory());
+		$this->setRowTemplate('tpl.tbl_voting.html', self::plugin()->directory());
 		$this->setExternalSorting(true);
 		$this->setExternalSegmentation(true);
 		$this->initColums();

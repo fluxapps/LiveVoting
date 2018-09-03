@@ -55,7 +55,7 @@ class xlvoDisplayPlayerGUI {
 	 */
 	public function __construct(xlvoVotingManager2 $manager) {
 		$this->manager = $manager;
-		$this->tpl = self::template('default/Player/tpl.player.html');
+		$this->tpl = self::plugin()->template('default/Player/tpl.player.html');
 	}
 
 
@@ -97,7 +97,7 @@ class xlvoDisplayPlayerGUI {
 		$this->tpl->setVariable('PIN', xlvoPin::formatPin($config->getPin()));
 		if ($this->manager->getVotingConfig()->isShowAttendees()) {
 			$this->tpl->setCurrentBlock('attendees');
-			$this->tpl->setVariable('ONLINE_TEXT', self::translate("start_online", "", [
+			$this->tpl->setVariable('ONLINE_TEXT', self::plugin()->translate("start_online", "", [
 				xlvoVoter::countVoters($this->manager->getPlayer()->getId())
 			]));
 			$this->tpl->parseCurrentBlock();
@@ -105,13 +105,13 @@ class xlvoDisplayPlayerGUI {
 		if ($this->manager->getPlayer()->isCountDownRunning()) {
 			$this->tpl->setCurrentBlock('countdown');
 			$cd = $this->manager->getPlayer()->remainingCountDown();
-			$this->tpl->setVariable('COUNTDOWN', $cd . ' ' . self::translate('player_seconds'));
+			$this->tpl->setVariable('COUNTDOWN', $cd . ' ' . self::plugin()->translate('player_seconds'));
 			$this->tpl->setVariable('COUNTDOWN_CSS', $this->manager->getPlayer()->getCountdownClassname());
 			$this->tpl->parseCurrentBlock();
 		}
 
 		//parse votes block
-		$this->tpl->setVariable('VOTERS_TEXT', self::translate('player_voters_description', "", [ $this->manager->countVoters() ]));
+		$this->tpl->setVariable('VOTERS_TEXT', self::plugin()->translate('player_voters_description', "", [ $this->manager->countVoters() ]));
 
 		$this->tpl->setVariable('COUNT', $this->manager->countVotings());
 		$this->tpl->setVariable('POSITION', $this->manager->getVotingPosition());
@@ -149,13 +149,13 @@ class xlvoDisplayPlayerGUI {
 			$percentage = (int)$this->manager->getVoting()->getPercentage() === 1 ? ' %' : '';
 
 			$this->tpl->setCurrentBlock('option');
-			$this->tpl->setVariable('OPTION_LETTER', self::translate('qtype_6_range_start'));
+			$this->tpl->setVariable('OPTION_LETTER', self::plugin()->translate('qtype_6_range_start'));
 			$this->tpl->setVariable('OPTION_COL', $columnWith);
 			$this->tpl->setVariable('OPTION_TEXT', "{$this->manager->getVoting()->getStartRange()}{$percentage}");
 			$this->tpl->parseCurrentBlock();
 
 			$this->tpl->setCurrentBlock('option');
-			$this->tpl->setVariable('OPTION_LETTER', self::translate('qtype_6_range_end'));
+			$this->tpl->setVariable('OPTION_LETTER', self::plugin()->translate('qtype_6_range_end'));
 			$this->tpl->setVariable('OPTION_COL', $columnWith);
 			$this->tpl->setVariable('OPTION_TEXT', "{$this->manager->getVoting()->getEndRange()}{$percentage}");
 			$this->tpl->parseCurrentBlock();

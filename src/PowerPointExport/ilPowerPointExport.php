@@ -103,13 +103,13 @@ class ilPowerPointExport {
 	 *
 	 */
 	protected function setDocumentProperties() {
-		$core_tpl = self::template($this->temp_folder . "/docProps/core.xml", false, true, false);
+		$core_tpl = self::plugin()->template($this->temp_folder . "/docProps/core.xml", false, true, false);
 
 		$core_tpl->setVariable("TITLE", htmlspecialchars($this->obj->getTitle()));
 
 		$core_tpl->setVariable("DESCRIPTION", htmlspecialchars($this->obj->getDescription()));
 
-		$core_tpl->setVariable("SUBJECT", htmlspecialchars(self::translate("obj_xlvo")));
+		$core_tpl->setVariable("SUBJECT", htmlspecialchars(self::plugin()->translate("obj_xlvo")));
 
 		$core_tpl->setVariable("CREATED", gmdate("Y-m-d\TH:i:s\Z", strtotime($this->obj->getCreateDate())));
 
@@ -117,7 +117,7 @@ class ilPowerPointExport {
 
 		file_put_contents($this->temp_folder . "/docProps/core.xml", $core_tpl->get());
 
-		$app_tpl = self::template($this->temp_folder . "/docProps/app.xml", false, true, false);
+		$app_tpl = self::plugin()->template($this->temp_folder . "/docProps/app.xml", false, true, false);
 
 		$app_tpl->setVariable("COMPANY", htmlspecialchars(ILIAS_HTTP_PATH));
 
@@ -149,7 +149,7 @@ class ilPowerPointExport {
 	 *
 	 */
 	protected function updateContentTypesXML() {
-		$core_types_tpl = self::template($this->temp_folder . "/[Content_Types].xml", false, true, false);
+		$core_types_tpl = self::plugin()->template($this->temp_folder . "/[Content_Types].xml", false, true, false);
 
 		$core_types_tpl->setCurrentBlock("slide");
 		foreach ($this->votings as $i => $voting) {
@@ -168,8 +168,8 @@ class ilPowerPointExport {
 	 *
 	 */
 	protected function updatePresentationXML() {
-		$presentation_tpl = self::template($this->temp_folder . "/ppt/presentation.xml", false, true, false);
-		$presentation_rels_tpl = self::template($this->temp_folder . "/ppt/_rels/presentation.xml.rels", false, true, false);
+		$presentation_tpl = self::plugin()->template($this->temp_folder . "/ppt/presentation.xml", false, true, false);
+		$presentation_rels_tpl = self::plugin()->template($this->temp_folder . "/ppt/_rels/presentation.xml.rels", false, true, false);
 
 		$presentation_tpl->setCurrentBlock("slide");
 		$presentation_rels_tpl->setCurrentBlock("slide");
@@ -211,8 +211,8 @@ class ilPowerPointExport {
 			$title = $voting->getTitle();
 			$question = strip_tags($voting->getQuestion());
 
-			$slide_tpl = self::template($this->temp_folder . "/ppt/slides/slide.xml", false, true, false);
-			$slide_rels_tpl = self::template($this->temp_folder . "/ppt/slides/_rels/slide.xml.rels", false, true, false);
+			$slide_tpl = self::plugin()->template($this->temp_folder . "/ppt/slides/slide.xml", false, true, false);
+			$slide_rels_tpl = self::plugin()->template($this->temp_folder . "/ppt/slides/_rels/slide.xml.rels", false, true, false);
 
 			$slide_tpl->setVariable("NUM", $num);
 			$slide_rels_tpl->setVariable("NUM", $num);
@@ -251,8 +251,8 @@ class ilPowerPointExport {
 			$secure = (stripos($presenter_link, "https://") === 0);
 			$link = substr($presenter_link, (stripos($presenter_link, "://") + 3));
 
-			$webextension_tpl = self::template($this->temp_folder . "/ppt/webextensions/webextension.xml", false, true, false);
-			$webextension_rels_tpl = self::template($this->temp_folder . "/ppt/webextensions/_rels/webextension.xml.rels", false, true, false);
+			$webextension_tpl = self::plugin()->template($this->temp_folder . "/ppt/webextensions/webextension.xml", false, true, false);
+			$webextension_rels_tpl = self::plugin()->template($this->temp_folder . "/ppt/webextensions/_rels/webextension.xml.rels", false, true, false);
 
 			$webextension_tpl->setVariable("NUM", $num);
 			$webextension_rels_tpl->setVariable("NUM", $num);
@@ -289,15 +289,15 @@ class ilPowerPointExport {
 			];
 			$note = implode("\n", array_map(function ($txt, $value) {
 				if ($txt !== "" && $value !== "") {
-					return self::translate($txt) . ": " . $value;
+					return self::plugin()->translate($txt) . ": " . $value;
 				} else {
 					// Empty line
 					return "";
 				}
 			}, array_keys($data), $data));
 
-			$notesslide_tpl = self::template($this->temp_folder . "/ppt/notesSlides/notesSlide.xml", false, true, false);
-			$notesslide_rels_tpl = self::template($this->temp_folder . "/ppt/notesSlides/_rels/notesSlide.xml.rels", false, true, false);
+			$notesslide_tpl = self::plugin()->template($this->temp_folder . "/ppt/notesSlides/notesSlide.xml", false, true, false);
+			$notesslide_rels_tpl = self::plugin()->template($this->temp_folder . "/ppt/notesSlides/_rels/notesSlide.xml.rels", false, true, false);
 
 			$notesslide_tpl->setVariable("NUM", $num);
 			$notesslide_rels_tpl->setVariable("NUM", $num);

@@ -213,7 +213,7 @@ class xlvoVotingConfig extends CachingActiveRecord {
 			$url = xlvoConf::getConfig(xlvoConf::F_ALLOW_SHORTLINK_VOTE_LINK);
 			$url = rtrim($url, "/") . "/";
 		} else {
-			$url = ILIAS_HTTP_PATH . substr(self::directory(), 1) . '/pin.php?pin=';
+			$url = ILIAS_HTTP_PATH . substr(self::plugin()->directory(), 1) . '/pin.php?pin=';
 		}
 
 		$url .= xlvoPin::formatPin($this->getPin(), $force_not_format);
@@ -244,7 +244,7 @@ class xlvoVotingConfig extends CachingActiveRecord {
 				$url .= "/ppt";
 			}
 		} else {
-			$url = ILIAS_HTTP_PATH . substr(self::directory(), 1) . '/presenter.php?pin=' . xlvoPin::formatPin($this->getPin(), $force_not_format)
+			$url = ILIAS_HTTP_PATH . substr(self::plugin()->directory(), 1) . '/presenter.php?pin=' . xlvoPin::formatPin($this->getPin(), $force_not_format)
 				. "&puk=" . xlvoPuk::formatPin($this->getPuk(), $force_not_format);
 			if ($voting_id !== NULL) {
 				$url .= "&voting=" . $voting_id;

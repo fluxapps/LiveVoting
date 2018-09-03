@@ -1,11 +1,11 @@
 <?php
 
-namespace srag\DIC;
+namespace srag\DIC\DIC;
 
 /**
  * Class AbstractDIC
  *
- * @package srag\DIC
+ * @package srag\DIC\DIC
  */
 abstract class AbstractDIC implements DICInterface {
 

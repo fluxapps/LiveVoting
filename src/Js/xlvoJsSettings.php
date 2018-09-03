@@ -46,7 +46,7 @@ class xlvoJsSettings {
 	 * @param string $key
 	 */
 	public function addTranslation($key) {
-		$this->translations[$key] = self::translate($key);
+		$this->translations[$key] = self::plugin()->translate($key);
 	}
 
 

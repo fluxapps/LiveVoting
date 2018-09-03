@@ -324,7 +324,7 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	 */
 	public function render($iterator_id = 0, $clean_render = false) {
 		$first_label = true;
-		$tpl = self::template("default/tpl.multi_line_input.html");
+		$tpl = self::plugin()->template("default/tpl.multi_line_input.html");
 		$class = 'multi_input_line';
 		$this->addCustomAttribute('class', $class, true);
 		foreach ($this->getCustomAttributes() as $key => $value) {
@@ -444,8 +444,8 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	 *
 	 */
 	public function initCSSandJS() {
-		self::dic()->template()->addCss(self::directory() . '/templates/default/multi_line_input.css');
-		self::dic()->template()->addJavascript(self::directory() . '/js/libs/multi_line_input.min.js');
+		self::dic()->template()->addCss(self::plugin()->directory() . '/templates/default/multi_line_input.css');
+		self::dic()->template()->addJavascript(self::plugin()->directory() . '/js/libs/multi_line_input.min.js');
 	}
 
 

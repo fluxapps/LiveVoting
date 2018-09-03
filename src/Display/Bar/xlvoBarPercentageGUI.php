@@ -60,7 +60,7 @@ class xlvoBarPercentageGUI implements xlvoGeneralBarGUI {
 	 * @return string
 	 */
 	public function getHTML() {
-		$tpl = self::template('default/Display/Bar/tpl.bar_percentage.html');
+		$tpl = self::plugin()->template('default/Display/Bar/tpl.bar_percentage.html');
 
 		$tpl->setVariable('TITLE', $this->getTitle());
 

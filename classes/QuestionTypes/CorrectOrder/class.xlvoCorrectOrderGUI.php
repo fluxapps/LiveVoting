@@ -64,11 +64,11 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 	 * @return string
 	 */
 	protected function getFormContent() {
-		$tpl = self::template('default/QuestionTypes/FreeOrder/tpl.free_order.html', true, false);
+		$tpl = self::plugin()->template('default/QuestionTypes/FreeOrder/tpl.free_order.html', true, false);
 		$tpl->setVariable('ACTION', self::dic()->ctrl()->getFormAction($this));
 		$tpl->setVariable('ID', 'xlvo_sortable');
-		$tpl->setVariable('BTN_RESET', self::translate('qtype_4_clear'));
-		$tpl->setVariable('BTN_SAVE', self::translate('qtype_4_save'));
+		$tpl->setVariable('BTN_RESET', self::plugin()->translate('qtype_4_clear'));
+		$tpl->setVariable('BTN_SAVE', self::plugin()->translate('qtype_4_save'));
 
 		$vote = array_shift(array_values($this->manager->getVotesOfUser()));
 		$order = array();

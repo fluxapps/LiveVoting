@@ -1,13 +1,14 @@
 <?php
 
-namespace srag\DIC;
+namespace srag\DIC\DIC;
 
 use ILIAS\DI\Container;
+use srag\DIC\Exception\DICException;
 
 /**
  * Class NewDIC
  *
- * @package srag\DIC
+ * @package srag\DIC\DIC
  */
 final class NewDIC extends AbstractDIC {
 

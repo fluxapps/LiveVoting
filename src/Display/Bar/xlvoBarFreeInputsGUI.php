@@ -47,7 +47,7 @@ class xlvoBarFreeInputsGUI extends xlvoAbstractBarGUI implements xlvoGeneralBarG
 		parent::__construct();
 		$this->voting = $voting;
 		$this->vote = $vote;
-		$this->tpl = self::template('default/Display/Bar/tpl.bar_free_input.html');
+		$this->tpl = self::plugin()->template('default/Display/Bar/tpl.bar_free_input.html');
 		$this->occurrences = 0;
 	}
 

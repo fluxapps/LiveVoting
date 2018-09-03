@@ -97,7 +97,7 @@ class xlvoNumberRangeGUI extends xlvoQuestionTypesGUI {
 	 * @return string
 	 */
 	public function getMobileHTML() {
-		$template = self::template('default/QuestionTypes/NumberRange/tpl.number_range.html');
+		$template = self::plugin()->template('default/QuestionTypes/NumberRange/tpl.number_range.html');
 		$template->setVariable('ACTION', self::dic()->ctrl()->getFormAction($this));
 		$template->setVariable('SHOW_PERCENTAGE', (int)$this->manager->getVoting()->getPercentage());
 

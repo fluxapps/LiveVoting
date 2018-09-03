@@ -42,8 +42,8 @@ class xlvoResultsTableGUI extends ilTable2GUI {
 	public function __construct(xlvoResultsGUI $a_parent_obj, $a_parent_cmd, $show_history = false) {
 		$this->setId('xlvo_results');
 		parent::__construct($a_parent_obj, $a_parent_cmd);
-		$this->setRowTemplate('tpl.results_list.html', self::directory());
-		$this->setTitle(self::translate('results_title'));
+		$this->setRowTemplate('tpl.results_list.html', self::plugin()->directory());
+		$this->setTitle(self::plugin()->translate('results_title'));
 		$this->showHistory = $show_history;
 		$this->setExportFormats(array( self::EXPORT_CSV ));
 		//
@@ -53,13 +53,13 @@ class xlvoResultsTableGUI extends ilTable2GUI {
 
 
 	protected function buildColumns() {
-		$this->addColumn(self::translate('common_position'), 'position', '1%');
-		$this->addColumn(self::translate('common_user'), 'user', '10%');
-		$this->addColumn(self::translate('voting_title'), 'title', '15%');
-		$this->addColumn(self::translate('common_question'), 'question', '20%');
-		$this->addColumn(self::translate('common_answer'), 'answer', 'auto');
+		$this->addColumn(self::plugin()->translate('common_position'), 'position', '1%');
+		$this->addColumn(self::plugin()->translate('common_user'), 'user', '10%');
+		$this->addColumn(self::plugin()->translate('voting_title'), 'title', '15%');
+		$this->addColumn(self::plugin()->translate('common_question'), 'question', '20%');
+		$this->addColumn(self::plugin()->translate('common_answer'), 'answer', 'auto');
 		if ($this->isShowHistory()) {
-			$this->addColumn(self::translate('common_history'), "", 'auto');
+			$this->addColumn(self::plugin()->translate('common_history'), "", 'auto');
 		}
 	}
 
@@ -91,7 +91,7 @@ class xlvoResultsTableGUI extends ilTable2GUI {
 		$this->tpl->setVariable("TITLE", $this->shorten($record['title'], 40));
 		$this->tpl->setVariable("ANSWER", $this->shorten($record['answer'], 100));
 		if ($this->isShowHistory()) {
-			$this->tpl->setVariable("ACTION", self::translate("common_show_history"));
+			$this->tpl->setVariable("ACTION", self::plugin()->translate("common_show_history"));
 			self::dic()->ctrl()->setParameter($this->parent_obj, 'round_id', $record['round_id']);
 			self::dic()->ctrl()->setParameter($this->parent_obj, 'user_id', $record['user_id']);
 			self::dic()->ctrl()->setParameter($this->parent_obj, 'user_identifier', $record['user_identifier']);

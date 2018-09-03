@@ -22,8 +22,8 @@ class xlvoVoteHistoryTableGUI extends ilTable2GUI {
 	public function __construct($a_parent_obj, $a_parent_cmd) {
 		$this->setId('xlvo_results');
 		parent::__construct($a_parent_obj, $a_parent_cmd);
-		$this->setRowTemplate('tpl.history_list.html', self::directory());
-		$this->setTitle(self::translate('results_title'));
+		$this->setRowTemplate('tpl.history_list.html', self::plugin()->directory());
+		$this->setTitle(self::plugin()->translate('results_title'));
 		//
 		// Columns
 		$this->buildColumns();
@@ -31,8 +31,8 @@ class xlvoVoteHistoryTableGUI extends ilTable2GUI {
 
 
 	protected function buildColumns() {
-		$this->addColumn(self::translate('common_answer'), 'answer', '80%');
-		$this->addColumn(self::translate('common_time'), 'time', '20%');
+		$this->addColumn(self::plugin()->translate('common_answer'), 'answer', '80%');
+		$this->addColumn(self::plugin()->translate('common_time'), 'time', '20%');
 	}
 
 

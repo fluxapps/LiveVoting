@@ -1,13 +1,14 @@
 <?php
 
-namespace srag\DIC;
+namespace srag\DIC\DIC;
 
 use ilLoggerFactory;
+use srag\DIC\Exception\DICException;
 
 /**
  * Class LegacyDIC
  *
- * @package srag\DIC
+ * @package srag\DIC\DIC
  */
 final class LegacyDIC extends AbstractDIC {
 

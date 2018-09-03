@@ -70,7 +70,7 @@ class xlvoSingleVoteGUI extends xlvoQuestionTypesGUI {
 	 * @return string
 	 */
 	public function getMobileHTML() {
-		$tpl = self::template('default/QuestionTypes/SingleVote/tpl.single_vote.html', false);
+		$tpl = self::plugin()->template('default/QuestionTypes/SingleVote/tpl.single_vote.html', false);
 		$answer_count = 64;
 		foreach ($this->manager->getVoting()->getVotingOptions() as $xlvoOption) {
 			$answer_count ++;

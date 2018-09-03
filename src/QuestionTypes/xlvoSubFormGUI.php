@@ -104,7 +104,7 @@ abstract class xlvoSubFormGUI {
 	 * @return string
 	 */
 	protected function txt($key) {
-		return self::translate($this->getXlvoVoting()->getVotingType() . '_' . $key, 'qtype');
+		return self::plugin()->translate($this->getXlvoVoting()->getVotingType() . '_' . $key, 'qtype');
 	}
 
 
@@ -154,7 +154,7 @@ abstract class xlvoSubFormGUI {
 	public function appedElementsToForm(ilPropertyFormGUI $ilPropertyFormGUI) {
 		if (count($this->getFormElements()) > 0) {
 			$h = new ilFormSectionHeaderGUI();
-			$h->setTitle(self::translate('qtype_form_header'));
+			$h->setTitle(self::plugin()->translate('qtype_form_header'));
 			$ilPropertyFormGUI->addItem($h);
 		}
 		foreach ($this->getFormElements() as $formElement) {

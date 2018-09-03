@@ -73,7 +73,7 @@ class xlvoTextAreaInputGUI extends ilTextAreaInputGUI {
 	 * @return string
 	 */
 	public function render() {
-		$tpl = self::template('default/tpl.text_area_helper.html', false, false);
+		$tpl = self::plugin()->template('default/tpl.text_area_helper.html', false, false);
 		$this->insert($tpl);
 		$tpl->setVariable('INLINE_STYLE', $this->getInlineStyle());
 

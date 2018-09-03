@@ -26,7 +26,7 @@ class xlvoConfGUI extends xlvoGUI {
 	 * @return string
 	 */
 	public function txt($key) {
-		return self::translate($key, 'config');
+		return self::plugin()->translate($key, 'config');
 	}
 
 

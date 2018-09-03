@@ -148,7 +148,7 @@ abstract class AbstractRemovePluginDataConfirm {
 		$confirmation->addButton($this->txt("deactivate"), self::CMD_DEACTIVATE);
 		$confirmation->setCancel($this->txt("cancel"), self::CMD_CANCEL);
 
-		self::output($confirmation);
+		self::plugin()->output($confirmation);
 	}
 
 
@@ -190,7 +190,7 @@ abstract class AbstractRemovePluginDataConfirm {
 	 * @return string
 	 */
 	protected final function txt($key) {
-		return self::translate($key, "removeplugindataconfirm", [ self::pl()->getPluginName() ]);
+		return self::plugin()->translate($key, "removeplugindataconfirm", [ self::plugin()->getPluginObject()->getPluginName() ]);
 	}
 
 

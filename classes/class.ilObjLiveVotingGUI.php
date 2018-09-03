@@ -98,7 +98,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 		} else {
 			// show info of parent
 			self::dic()->template()->setTitle(ilObject::_lookupTitle(ilObject::_lookupObjId($this->ref_id)));
-			self::dic()->template()->setTitleIcon(ilObject::_getIcon(ilObject::_lookupObjId($this->ref_id), 'big'), self::translate('obj_'
+			self::dic()->template()->setTitleIcon(ilObject::_getIcon(ilObject::_lookupObjId($this->ref_id), 'big'), self::plugin()->translate('obj_'
 				. ilObject::_lookupType($this->ref_id, true)));
 			$this->setLocator();
 		}
@@ -244,13 +244,13 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 	 *
 	 */
 	protected function setTabs() {
-		self::dic()->tabs()->addTab(self::TAB_CONTENT, self::translate(self::TAB_CONTENT), self::dic()->ctrl()
+		self::dic()->tabs()->addTab(self::TAB_CONTENT, self::plugin()->translate(self::TAB_CONTENT), self::dic()->ctrl()
 			->getLinkTargetByClass(xlvoPlayerGUI::class, xlvoPlayerGUI::CMD_STANDARD));
 		$this->addInfoTab();
 		if (ilObjLiveVotingAccess::hasWriteAccess()) {
-			self::dic()->tabs()->addTab(self::TAB_EDIT, self::translate(self::TAB_EDIT), self::dic()->ctrl()
+			self::dic()->tabs()->addTab(self::TAB_EDIT, self::plugin()->translate(self::TAB_EDIT), self::dic()->ctrl()
 				->getLinkTargetByClass(ilObjLiveVotingGUI::class, self::CMD_EDIT));
-			self::dic()->tabs()->addTab(self::TAB_RESULTS, self::translate(self::TAB_RESULTS), self::dic()->ctrl()
+			self::dic()->tabs()->addTab(self::TAB_RESULTS, self::plugin()->translate(self::TAB_RESULTS), self::dic()->ctrl()
 				->getLinkTargetByClass(xlvoResultsGUI::class, xlvoResultsGUI::CMD_SHOW));
 		}
 		parent::setTabs();
@@ -266,10 +266,10 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 		self::dic()->tabs()->activateTab($tab);
 		switch ($tab) {
 			case self::TAB_CONTENT:
-				self::dic()->tabs()->addSubTab(self::SUBTAB_SHOW, self::translate(self::SUBTAB_SHOW), self::dic()->ctrl()
+				self::dic()->tabs()->addSubTab(self::SUBTAB_SHOW, self::plugin()->translate(self::SUBTAB_SHOW), self::dic()->ctrl()
 					->getLinkTargetByClass(xlvoPlayerGUI::class, xlvoPlayerGUI::CMD_STANDARD));
 				if (ilObjLiveVotingAccess::hasWriteAccess()) {
-					self::dic()->tabs()->addSubTab(self::SUBTAB_EDIT, self::translate(self::SUBTAB_EDIT), self::dic()->ctrl()
+					self::dic()->tabs()->addSubTab(self::SUBTAB_EDIT, self::plugin()->translate(self::SUBTAB_EDIT), self::dic()->ctrl()
 						->getLinkTargetByClass(xlvoVotingGUI::class, xlvoVotingGUI::CMD_STANDARD));
 				}
 				break;
@@ -301,7 +301,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 	 */
 	public function editProperties() {
 		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
-			ilUtil::sendFailure(self::translate('obj_permission_denied'), true);
+			ilUtil::sendFailure(self::plugin()->translate('obj_permission_denied'), true);
 			self::dic()->ctrl()->redirect($this, self::CMD_STANDARD);
 		} else {
 			self::dic()->tabs()->activateTab(self::TAB_EDIT);
@@ -350,62 +350,62 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 		$config = xlvoVotingConfig::find($this->obj_id);
 
 		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
-			ilUtil::sendFailure(self::translate('obj_permission_denied'), true);
+			ilUtil::sendFailure(self::plugin()->translate('obj_permission_denied'), true);
 		} else {
 			$this->form = new ilPropertyFormGUI();
-			$this->form->setTitle(self::translate('obj_edit_properties'));
+			$this->form->setTitle(self::plugin()->translate('obj_edit_properties'));
 
-			$ti = new xlvoTextInputGUI(self::translate('obj_title'), self::F_TITLE);
+			$ti = new xlvoTextInputGUI(self::plugin()->translate('obj_title'), self::F_TITLE);
 			$ti->setRequired(true);
 			$this->form->addItem($ti);
-			$ta = new xlvoTextAreaInputGUI(self::translate('obj_description'), self::F_DESCRIPTION);
+			$ta = new xlvoTextAreaInputGUI(self::plugin()->translate('obj_description'), self::F_DESCRIPTION);
 			$this->form->addItem($ta);
-			$cb = new ilCheckboxInputGUI(self::translate('obj_online'), xlvoVotingConfig::F_ONLINE);
-			$cb->setInfo(self::translate('obj_info_online'));
+			$cb = new ilCheckboxInputGUI(self::plugin()->translate('obj_online'), xlvoVotingConfig::F_ONLINE);
+			$cb->setInfo(self::plugin()->translate('obj_info_online'));
 			$this->form->addItem($cb);
-			$cb = new ilCheckboxInputGUI(self::translate('obj_anonymous'), xlvoVotingConfig::F_ANONYMOUS);
-			$cb->setInfo(self::translate('obj_info_anonymous'));
-			$this->form->addItem($cb);
-
-			$cb = new ilCheckboxInputGUI(self::translate("voting_history"), xlvoVotingConfig::F_VOTING_HISTORY);
-			$cb->setInfo(self::translate('voting_history_info'));
+			$cb = new ilCheckboxInputGUI(self::plugin()->translate('obj_anonymous'), xlvoVotingConfig::F_ANONYMOUS);
+			$cb->setInfo(self::plugin()->translate('obj_info_anonymous'));
 			$this->form->addItem($cb);
 
-			$cb = new ilCheckboxInputGUI(self::translate("show_attendees"), xlvoVotingConfig::F_SHOW_ATTENDEES);
-			$cb->setInfo(self::translate('show_attendees_info'));
+			$cb = new ilCheckboxInputGUI(self::plugin()->translate("voting_history"), xlvoVotingConfig::F_VOTING_HISTORY);
+			$cb->setInfo(self::plugin()->translate('voting_history_info'));
+			$this->form->addItem($cb);
+
+			$cb = new ilCheckboxInputGUI(self::plugin()->translate("show_attendees"), xlvoVotingConfig::F_SHOW_ATTENDEES);
+			$cb->setInfo(self::plugin()->translate('show_attendees_info'));
 			$this->form->addItem($cb);
 
 			// Voting Settings
 			$h = new ilFormSectionHeaderGUI();
-			$h->setTitle(self::translate('obj_formtitle_change_vote'));
+			$h->setTitle(self::plugin()->translate('obj_formtitle_change_vote'));
 			$this->form->addItem($h);
 
-			$frozen = new ilRadioGroupInputGUI(self::translate('obj_frozen_behaviour'), xlvoVotingConfig::F_FROZEN_BEHAVIOUR);
-			$frozen_always_on = new ilRadioOption(self::translate('obj_frozen_alway_on'), xlvoVotingConfig::B_FROZEN_ALWAY_ON);
-			$frozen_always_on->setInfo(self::translate('obj_frozen_alway_on_info'));
+			$frozen = new ilRadioGroupInputGUI(self::plugin()->translate('obj_frozen_behaviour'), xlvoVotingConfig::F_FROZEN_BEHAVIOUR);
+			$frozen_always_on = new ilRadioOption(self::plugin()->translate('obj_frozen_alway_on'), xlvoVotingConfig::B_FROZEN_ALWAY_ON);
+			$frozen_always_on->setInfo(self::plugin()->translate('obj_frozen_alway_on_info'));
 			$frozen->addOption($frozen_always_on);
 
-			$frozen_always_off = new ilRadioOption(self::translate('obj_frozen_alway_off'), xlvoVotingConfig::B_FROZEN_ALWAY_OFF);
-			$frozen_always_off->setInfo(self::translate('obj_frozen_alway_off_info'));
+			$frozen_always_off = new ilRadioOption(self::plugin()->translate('obj_frozen_alway_off'), xlvoVotingConfig::B_FROZEN_ALWAY_OFF);
+			$frozen_always_off->setInfo(self::plugin()->translate('obj_frozen_alway_off_info'));
 			$frozen->addOption($frozen_always_off);
 
-			$frozen_reuse = new ilRadioOption(self::translate('obj_frozen_reuse'), xlvoVotingConfig::B_FROZEN_REUSE);
-			$frozen_reuse->setInfo(self::translate('obj_frozen_reuse_info'));
+			$frozen_reuse = new ilRadioOption(self::plugin()->translate('obj_frozen_reuse'), xlvoVotingConfig::B_FROZEN_REUSE);
+			$frozen_reuse->setInfo(self::plugin()->translate('obj_frozen_reuse_info'));
 			$frozen->addOption($frozen_reuse);
 
 			$this->form->addItem($frozen);
 
-			$results = new ilRadioGroupInputGUI(self::translate('obj_results_behaviour'), xlvoVotingConfig::F_RESULTS_BEHAVIOUR);
-			$results_always_on = new ilRadioOption(self::translate('obj_results_alway_on'), xlvoVotingConfig::B_RESULTS_ALWAY_ON);
-			$results_always_on->setInfo(self::translate('obj_results_alway_on_info'));
+			$results = new ilRadioGroupInputGUI(self::plugin()->translate('obj_results_behaviour'), xlvoVotingConfig::F_RESULTS_BEHAVIOUR);
+			$results_always_on = new ilRadioOption(self::plugin()->translate('obj_results_alway_on'), xlvoVotingConfig::B_RESULTS_ALWAY_ON);
+			$results_always_on->setInfo(self::plugin()->translate('obj_results_alway_on_info'));
 			$results->addOption($results_always_on);
 
-			$results_always_off = new ilRadioOption(self::translate('obj_results_alway_off'), xlvoVotingConfig::B_RESULTS_ALWAY_OFF);
-			$results_always_off->setInfo(self::translate('obj_results_alway_off_info'));
+			$results_always_off = new ilRadioOption(self::plugin()->translate('obj_results_alway_off'), xlvoVotingConfig::B_RESULTS_ALWAY_OFF);
+			$results_always_off->setInfo(self::plugin()->translate('obj_results_alway_off_info'));
 			$results->addOption($results_always_off);
 
-			$results_reuse = new ilRadioOption(self::translate('obj_results_reuse'), xlvoVotingConfig::B_RESULTS_REUSE);
-			$results_reuse->setInfo(self::translate('obj_results_reuse_info'));
+			$results_reuse = new ilRadioOption(self::plugin()->translate('obj_results_reuse'), xlvoVotingConfig::B_RESULTS_REUSE);
+			$results_reuse->setInfo(self::plugin()->translate('obj_results_reuse_info'));
 			$results->addOption($results_reuse);
 
 			$this->form->addItem($results);
@@ -414,7 +414,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 			$h->setTitle("");
 			$this->form->addItem($h);
 
-			$presenter_link = new ilCustomInputGUI(self::translate('config_presenter_link'), self::F_PRESENTER_LINK);
+			$presenter_link = new ilCustomInputGUI(self::plugin()->translate('config_presenter_link'), self::F_PRESENTER_LINK);
 			$presenter_link->setHtml($config->getPresenterLink() . '<br><br><i>' . htmlspecialchars($this->txt("config_"
 					. xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . "_info_manual")) . '</i><ol>' . implode("", array_map(function ($step) {
 					return '<li>' . htmlspecialchars($this->txt("config_" . xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . "_info_manual_" . $step))
@@ -422,7 +422,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 				}, range(1, 4))) . '</ol>'); // TODO: default.css not loaded
 			$this->form->addItem($presenter_link);
 
-			$this->form->addCommandButton('updateProperties', self::translate('obj_save'));
+			$this->form->addCommandButton('updateProperties', self::plugin()->translate('obj_save'));
 			$this->form->setFormAction(self::dic()->ctrl()->getFormAction($this));
 		}
 	}
@@ -457,7 +457,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 	 */
 	public function updateProperties() {
 		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
-			ilUtil::sendFailure(self::translate('obj_permission_denied_write'), true);
+			ilUtil::sendFailure(self::plugin()->translate('obj_permission_denied_write'), true);
 		} else {
 			self::dic()->tabs()->activateTab(self::TAB_EDIT);
 			$this->initPropertiesForm();
@@ -490,7 +490,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 				$config->setShowAttendees($this->form->getInput(xlvoVotingConfig::F_SHOW_ATTENDEES));
 
 				$config->update();
-				ilUtil::sendSuccess(self::translate('obj_msg_properties_form_saved'), true);
+				ilUtil::sendSuccess(self::plugin()->translate('obj_msg_properties_form_saved'), true);
 				self::dic()->ctrl()->redirect($this, self::CMD_EDIT);
 			}
 

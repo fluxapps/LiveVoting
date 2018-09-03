@@ -52,7 +52,7 @@ abstract class xlvoInputResultsGUI {
 	 * @return string
 	 */
 	protected function txt($key) {
-		return self::translate($this->manager->getVoting()->getVotingType() . '_' . $key, 'qtype');
+		return self::plugin()->translate($this->manager->getVoting()->getVotingType() . '_' . $key, 'qtype');
 	}
 
 

@@ -174,7 +174,7 @@ final class xlvoBarGroupingCollectionGUI extends xlvoBarCollectionGUI {
 	private function renderBar(xlvoBarFreeInputsGUI $bar, $count) {
 		$bar->setOccurrences($count);
 
-		$this->tpl->setCurrentBlock(self::TEMPLATE_BLOCK_NAME);
+		$this->tpl->setCurrentBlock(self::plugin()->template_BLOCK_NAME);
 		$this->tpl->setVariable('BAR', $bar->getHTML());
 		$this->tpl->parseCurrentBlock();
 	}

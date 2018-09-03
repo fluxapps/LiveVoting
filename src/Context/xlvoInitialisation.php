@@ -164,10 +164,10 @@ class xlvoInitialisation extends ilInitialisation {
 		}
 		parent::initHTML();
 		if (self::USE_OWN_GLOBAL_TPL) {
-			$tpl = self::template("default/tpl.main.html");
+			$tpl = self::plugin()->template("default/tpl.main.html");
 			$tpl->touchBlock("navbar");
 			$tpl->addCss('./templates/default/delos.css');
-			$tpl->addBlockFile("CONTENT", "content", "tpl.main_voter.html", self::directory());
+			$tpl->addBlockFile("CONTENT", "content", "tpl.main_voter.html", self::plugin()->directory());
 
 			if ($DIC->offsetExists("tpl")) {
 				$DIC->offsetUnset("tpl");

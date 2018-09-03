@@ -49,7 +49,7 @@ class xlvoBarMovableGUI implements xlvoGeneralBarGUI {
 		$this->options = $options;
 		$this->order = $order;
 		$this->vote_id = $vote_id;
-		$this->tpl = self::template('default/Display/Bar/tpl.bar_movable.html', false);
+		$this->tpl = self::plugin()->template('default/Display/Bar/tpl.bar_movable.html', false);
 	}
 
 
@@ -60,7 +60,7 @@ class xlvoBarMovableGUI implements xlvoGeneralBarGUI {
 		$i = 1;
 		$this->tpl->setVariable('VOTE_ID', $this->vote_id);
 		if (count($this->order) > 0) {
-			$this->tpl->setVariable('YOUR_ORDER', self::translate('qtype_4_your_order'));
+			$this->tpl->setVariable('YOUR_ORDER', self::plugin()->translate('qtype_4_your_order'));
 			foreach ($this->order as $value) {
 				$xlvoOption = $this->options[$value];
 				if (!$xlvoOption instanceof xlvoOption) {

@@ -1,15 +1,15 @@
 <?php
 
-namespace srag\DIC;
+namespace srag\DIC\Exception;
 
 use ilException;
 
 /**
  * Class DICException
  *
- * @package srag\DIC
+ * @package srag\DIC\Exception
  */
-class DICException extends ilException {
+final class DICException extends ilException {
 
 	/**
 	 * DICException constructor

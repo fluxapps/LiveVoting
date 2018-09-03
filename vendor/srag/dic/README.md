@@ -50,17 +50,19 @@ For instance you can access the ilCtrl global like:
 self::dic()->ctrl();
 ```
 
-You can access the plugin class:
+You can now access the plugin interface, in instance and in static places:
 ```php
 /**
- * Get ilPlugin instance
+ * Get plugin interface
  * 
- * @return ilPlugin ilPlugin instance of your plugin
+ * @return PluginInterface Plugin interface
  *
- * @throws DICException
+ * @throws DICException 
  */
-self::pl();
+self::plugin();
 ```
+
+The plugin interface has the follow methods:
 
 For plugin dir use:
 ```php
@@ -69,7 +71,7 @@ For plugin dir use:
  * 
  * @return string Plugin directory
  */
-self::directory();
+self::plugin()->directory();
 ```
 
 For output html use:
@@ -82,7 +84,7 @@ For output html use:
  *
  * @throws DICException
  */
-self::output($html, $main = true);
+self::plugin()->output($html, $main = true);
 ```
 
 For get a template use:
@@ -99,7 +101,7 @@ For get a template use:
  *
  * @throws DICException
  */
-self::template($template, $remove_unknown_variables = true, $remove_empty_blocks = true, $plugin = true);
+self::plugin()->template($template, $remove_unknown_variables = true, $remove_empty_blocks = true, $plugin = true);
 ```
 
 For translate use:
@@ -118,11 +120,20 @@ For translate use:
  *
  * @throws DICException
  */
-self::translate($key, $module = "", $placeholders = [], $plugin = true, $lang = "", $default = "MISSING %s");
+self::plugin()->translate($key, $module = "", $placeholders = [], $plugin = true, $lang = "", $default = "MISSING %s");
 ```
 
-If you really need DICTrait outside a class (For instance in `dbupdate.php`), use `DICStatic::dic()`.
-Please notice that some methods in `DICStatic` needs to know the `ilXPlugin::class` as the first parameter!
+If you really need the ILIAS plugin object use:
+```php
+/**
+ * Get ILIAS plugin object instance
+ *
+ * @return ilPlugin ILIAS plugin object instance
+ */
+self::plugin()->getPluginObject();
+```
+
+If you really need DICTrait outside a class (For instance in `dbupdate.php`), use `DICStatic::dic()` or `DICStatic::plugin(ilXPlugin::class)`.
 
 #### Clean up
 You can now remove all usages of ILIAS globals in your class and replace it with this library.

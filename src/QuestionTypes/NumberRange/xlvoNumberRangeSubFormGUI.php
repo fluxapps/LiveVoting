@@ -176,7 +176,7 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 			return $this->getXlvoVoting()->setStartRange($start);
 		}
 
-		throw new xlvoSubFormGUIHandleFieldException(self::translate(self::START_RANGE_INVALID_INFO, "" . [
+		throw new xlvoSubFormGUIHandleFieldException(self::plugin()->translate(self::START_RANGE_INVALID_INFO, "" . [
 				self::START_RANGE_MIN,
 				self::START_RANGE_MAX
 			]));
@@ -198,7 +198,7 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 			return $this->getXlvoVoting()->setEndRange($end);
 		}
 
-		throw new xlvoSubFormGUIHandleFieldException(self::translate(self::END_RANGE_INVALID_INFO, "", [ self::END_RANGE_MIN, self::END_RANGE_MAX ]));
+		throw new xlvoSubFormGUIHandleFieldException(self::plugin()->translate(self::END_RANGE_INVALID_INFO, "", [ self::END_RANGE_MIN, self::END_RANGE_MAX ]));
 	}
 
 
@@ -216,6 +216,6 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 			return $this->getXlvoVoting()->setStepRange($step);
 		}
 
-		throw new xlvoSubFormGUIHandleFieldException(self::translate(self::STEP_RANGE_INVALID_INFO));
+		throw new xlvoSubFormGUIHandleFieldException(self::plugin()->translate(self::STEP_RANGE_INVALID_INFO));
 	}
 }
