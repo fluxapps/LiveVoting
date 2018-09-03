@@ -161,7 +161,7 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 	 * @return bool
 	 */
 	protected function isRandomizeOptions() {
-		return $this->manager->getVoting()->getRandomiseOptionSequence();
+		return false;
 	}
 
 

@@ -47,23 +47,19 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI {
 
 		$randomiseOptionSequenceAfterSave = new ilCheckboxInputGUI($this->txt(self::OPTION_RANDOMIZE_OPTIONS_AFTER_SAVE), self::OPTION_RANDOMIZE_OPTIONS_AFTER_SAVE);
 		$randomiseOptionSequenceAfterSave->setOptionTitle($this->txt(self::OPTION_RANDOMIZE_OPTIONS_AFTER_SAVE_INFO));
-		if ($this->getXlvoVoting()->getRandomiseOptionSequence()) {
-			//$xlvoMultiLineInputGUI->setPositionMovable(false);
-			$xlvoMultiLineInputGUI->setPositionMovable(true);
-			$randomiseOptionSequenceAfterSave->setChecked(true);
-		} else {
-			$xlvoMultiLineInputGUI->setPositionMovable(true);
-			$randomiseOptionSequenceAfterSave->setChecked(false);
-		}
+		$xlvoMultiLineInputGUI->setPositionMovable(true); // Allow move position
+		$randomiseOptionSequenceAfterSave->setChecked($this->getXlvoVoting()->getRandomiseOptionSequence()); // Should shuffled?
 
 		$h = new ilHiddenInputGUI(self::F_ID);
 		$xlvoMultiLineInputGUI->addInput($h);
 
 		if (!$this->getXlvoVoting()->getRandomiseOptionSequence()) {
+			// Allow input correct position if not shuffled
 			$position = new ilNumberInputGUI($this->txt('option_correct_position'), self::F_CORRECT_POSITION);
 			$position->setSize(2);
 			$position->setMaxLength(2);
 		} else {
+			// Only display correct order as text if shuffled
 			$position = new ilNonEditableValueGUI("", self::F_CORRECT_POSITION, true);
 		}
 		$xlvoMultiLineInputGUI->addInput($position);
@@ -96,6 +92,7 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI {
 					$xlvoOption->setVotingId($this->getXlvoVoting()->getId());
 					$xlvoOption->setPosition($pos);
 					if (!$this->getXlvoVoting()->getRandomiseOptionSequence()) {
+						// Correct position can only be inputed if not shuffle
 						$xlvoOption->setCorrectPosition($item[self::F_CORRECT_POSITION]);
 					}
 					$xlvoOption->setType($this->getXlvoVoting()->getVotingType());
@@ -120,20 +117,25 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI {
 	 * @throws ilException
 	 */
 	protected function getFieldValue(ilFormPropertyGUI $element) {
+		if ($this->getXlvoVoting()->getRandomiseOptionSequence()) {
+			// Sort options by correct position if shuffled
+			$this->options = xlvoOption::where(array( "voting_id" => $this->getXlvoVoting()->getVotingOptions() ))->orderBy("correct_position")
+				->get();
+		} else {
+			// Sort options by position if not shuffled
+			$this->options = $this->getXlvoVoting()->getVotingOptions();
+		}
 		switch ($element->getPostVar()) {
 			case self::F_OPTIONS:
 				$array = [];
-				/**
-				 * @var xlvoOption $option
-				 */
-				$options = $this->getXlvoVoting()->getVotingOptions();
-				foreach ($options as $option) {
+				foreach ($this->options as $option) {
 					$array[] = [
 						self::F_ID => $option->getId(),
 						self::F_TEXT => $option->getTextForEditor(),
 						self::F_POSITION => $option->getPosition(),
 						self::F_CORRECT_POSITION => ($this->getXlvoVoting()->getRandomiseOptionSequence() ? "<br>" : "")
 							. $option->getCorrectPosition() . ($this->getXlvoVoting()->getRandomiseOptionSequence() ? "." : "")
+						// Display as text whit dot and break if shuffled otherwise only position for input
 					];
 				}
 
@@ -167,10 +169,12 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI {
 
 		//randomize the order on save
 		if ($this->getXlvoVoting()->getRandomiseOptionSequence()) {
-			//$this->randomiseOptionPosition($this->options);
+			// First set correct position in the sequence of user has ordered
 			foreach ($this->options as $i => $option) {
 				$option->setCorrectPosition($option->getPosition());
 			}
+			// Then shuffle positions
+			$this->randomiseOptionPosition($this->options);
 		}
 
 		foreach ($this->options as $option) {
