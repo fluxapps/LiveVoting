@@ -32,7 +32,7 @@ abstract class AbstractRemovePluginDataConfirm {
 	/**
 	 * @return static
 	 */
-	public static function getInstance() {
+	public static final function getInstance() {
 		if (self::$instance === NULL) {
 			self::$instance = new static();
 		}

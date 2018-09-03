@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.1.12]
+- Update readme
+
+## [0.1.11]
+- Update readme
+
 ## [0.1.10]
 - Description
 

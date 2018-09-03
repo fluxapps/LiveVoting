@@ -69,16 +69,16 @@
         },
         {
             "name": "srag/dic",
-            "version": "0.5.6",
+            "version": "0.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/studer-raimann/DIC.git",
-                "reference": "737a89502d8c9b6681ad3dd54fc21898f2c60431"
+                "reference": "d67183a3289ed8aed338605165208b20c2821274"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/studer-raimann/DIC/zipball/737a89502d8c9b6681ad3dd54fc21898f2c60431",
-                "reference": "737a89502d8c9b6681ad3dd54fc21898f2c60431",
+                "url": "https://api.github.com/repos/studer-raimann/DIC/zipball/d67183a3289ed8aed338605165208b20c2821274",
+                "reference": "d67183a3289ed8aed338605165208b20c2821274",
                 "shasum": ""
             },
             "require": {
@@ -110,20 +110,20 @@
                 "globals",
                 "trait"
             ],
-            "time": "2018-08-31T10:42:21+00:00"
+            "time": "2018-09-03T05:50:26+00:00"
         },
         {
             "name": "srag/removeplugindataconfirm",
-            "version": "0.1.10",
+            "version": "0.1.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/studer-raimann/RemovePluginDataConfirm.git",
-                "reference": "75ba0a6a5bb244b10038fc1f44c7a9f2ef14d876"
+                "reference": "20bf82cddb38dd0e0b63005ad3ff2c3d2343d2a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/studer-raimann/RemovePluginDataConfirm/zipball/75ba0a6a5bb244b10038fc1f44c7a9f2ef14d876",
-                "reference": "75ba0a6a5bb244b10038fc1f44c7a9f2ef14d876",
+                "url": "https://api.github.com/repos/studer-raimann/RemovePluginDataConfirm/zipball/20bf82cddb38dd0e0b63005ad3ff2c3d2343d2a3",
+                "reference": "20bf82cddb38dd0e0b63005ad3ff2c3d2343d2a3",
                 "shasum": ""
             },
             "require": {
@@ -157,7 +157,7 @@
                 "plugin",
                 "uninstall"
             ],
-            "time": "2018-08-31T09:55:10+00:00"
+            "time": "2018-08-31T13:11:39+00:00"
         },
         {
             "name": "symfony/options-resolver",

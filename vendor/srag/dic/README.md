@@ -56,6 +56,8 @@ You can access the plugin class:
  * Get ilPlugin instance
  * 
  * @return ilPlugin ilPlugin instance of your plugin
+ *
+ * @throws DICException
  */
 self::pl();
 ```
@@ -75,8 +77,10 @@ For output html use:
 /**
  * Output html
  * 
- * @param string|ilTemplate|ilConfirmationGUI|ilPropertyFormGUI $html HTML code or ilTemplate instance
- * @param bool                                                  $main Display main skin?
+ * @param string|ilTemplate|ilConfirmationGUI|ilPropertyFormGUI|ilTable2GUI $html HTML code or some gui instance
+ * @param bool                                                              $main Display main skin?
+ *
+ * @throws DICException
  */
 self::output($html, $main = true);
 ```
@@ -92,6 +96,8 @@ For get a template use:
  * @param bool   $plugin                   Plugin template or ILIAS core template?
  *
  * @return ilTemplate ilTemplate instance
+ *
+ * @throws DICException
  */
 self::template($template, $remove_unknown_variables = true, $remove_empty_blocks = true, $plugin = true);
 ```
@@ -109,11 +115,14 @@ For translate use:
  * @param string $default      Default text, if language key not exists
  *
  * @return string Translated text
+ *
+ * @throws DICException
  */
 self::translate($key, $module = "", $placeholders = [], $plugin = true, $lang = "", $default = "MISSING %s");
 ```
 
-If you really need DICTrait outside a class (For instance in `dbupdate.php`), use `DICStatic::dic()`
+If you really need DICTrait outside a class (For instance in `dbupdate.php`), use `DICStatic::dic()`.
+Please notice that some methods in `DICStatic` needs to know the `ilXPlugin::class` as the first parameter!
 
 #### Clean up
 You can now remove all usages of ILIAS globals in your class and replace it with this library.

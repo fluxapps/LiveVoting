@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.6.0]
+- Supports output ilTable2GUI
+- Better DICException throws declare
+- Remove `DICCache` and merge it with `DICStatic`
+- Logs if `$plugin_class_name::getInstance` not exists
+
 ## [0.5.6]
 - Exception: Please use the placeholders feature and not direct `sprintf` or `vsprintf` in your code!
 
