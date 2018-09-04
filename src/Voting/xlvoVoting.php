@@ -4,7 +4,6 @@ namespace LiveVoting\Voting;
 
 use ActiveRecordList;
 use arException;
-use function boolval;
 use Exception;
 use ilObjectTypeMismatchException;
 use ilRTE;

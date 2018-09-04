@@ -14,7 +14,6 @@ use LiveVoting\GUI\xlvoMultiLineInputGUI;
 use LiveVoting\GUI\xlvoTextInputGUI;
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\QuestionTypes\xlvoSubFormGUI;
-use function boolval;
 
 /**
  * Class xlvoCorrectOrderSubFormGUI
