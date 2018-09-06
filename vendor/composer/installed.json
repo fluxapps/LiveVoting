@@ -64,23 +64,23 @@
     },
     {
         "name": "srag/dic",
-        "version": "0.7.1",
-        "version_normalized": "0.7.1.0",
+        "version": "0.8.7",
+        "version_normalized": "0.8.7.0",
         "source": {
             "type": "git",
             "url": "https://github.com/studer-raimann/DIC.git",
-            "reference": "8df28d5d4e794bf7cc3912bd889e96a81b402163"
+            "reference": "fdc616a118044e1f47dce496ddf744622cc17cbe"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/studer-raimann/DIC/zipball/8df28d5d4e794bf7cc3912bd889e96a81b402163",
-            "reference": "8df28d5d4e794bf7cc3912bd889e96a81b402163",
+            "url": "https://api.github.com/repos/studer-raimann/DIC/zipball/fdc616a118044e1f47dce496ddf744622cc17cbe",
+            "reference": "fdc616a118044e1f47dce496ddf744622cc17cbe",
             "shasum": ""
         },
         "require": {
             "php": ">=5.6"
         },
-        "time": "2018-09-03T08:18:36+00:00",
+        "time": "2018-09-06T09:56:58+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -111,24 +111,24 @@
     },
     {
         "name": "srag/removeplugindataconfirm",
-        "version": "0.1.13",
-        "version_normalized": "0.1.13.0",
+        "version": "0.2.1",
+        "version_normalized": "0.2.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/studer-raimann/RemovePluginDataConfirm.git",
-            "reference": "df6952d1308d538e2747ae3da7da494dabbad826"
+            "reference": "f17bf56c4aeba1e68bd2c2c0d644c1062a4bba08"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/studer-raimann/RemovePluginDataConfirm/zipball/df6952d1308d538e2747ae3da7da494dabbad826",
-            "reference": "df6952d1308d538e2747ae3da7da494dabbad826",
+            "url": "https://api.github.com/repos/studer-raimann/RemovePluginDataConfirm/zipball/f17bf56c4aeba1e68bd2c2c0d644c1062a4bba08",
+            "reference": "f17bf56c4aeba1e68bd2c2c0d644c1062a4bba08",
             "shasum": ""
         },
         "require": {
             "php": ">=5.6",
             "srag/dic": ">=0.1.0"
         },
-        "time": "2018-09-03T08:11:15+00:00",
+        "time": "2018-09-06T08:29:47+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {

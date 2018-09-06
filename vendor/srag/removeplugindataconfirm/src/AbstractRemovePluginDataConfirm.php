@@ -24,15 +24,17 @@ abstract class AbstractRemovePluginDataConfirm {
 	const KEY_UNINSTALL_REMOVES_DATA = "uninstall_removes_data";
 	const DEFAULT_UNINSTALL_REMOVES_DATA = NULL;
 	/**
-	 * @var static|null
+	 * @var AbstractRemovePluginDataConfirm|null
 	 */
-	protected static $instance = NULL;
+	private static $instance = NULL;
 
 
 	/**
-	 * @return static
+	 * @return AbstractRemovePluginDataConfirm
+	 *
+	 * @access namespace
 	 */
-	public static final function getInstance() {
+	public static final function getInstance()/*: AbstractRemovePluginDataConfirm*/ {
 		if (self::$instance === NULL) {
 			self::$instance = new static();
 		}
@@ -43,8 +45,11 @@ abstract class AbstractRemovePluginDataConfirm {
 
 	/**
 	 * @param bool $plugin
+	 *
+	 * @access namespace
 	 */
-	public static final function saveParameterByClass($plugin = true) {
+	public static final function saveParameterByClass(/*bool*/
+		$plugin = true)/*: void*/ {
 		$ref_id = filter_input(INPUT_GET, "ref_id");
 		self::dic()->ctrl()->setParameterByClass(ilObjComponentSettingsGUI::class, "ref_id", $ref_id);
 		self::dic()->ctrl()->setParameterByClass(static::class, "ref_id", $ref_id);
@@ -74,7 +79,7 @@ abstract class AbstractRemovePluginDataConfirm {
 
 
 	/**
-	 *
+	 * @access namespace
 	 */
 	public final function __construct() {
 
@@ -82,9 +87,9 @@ abstract class AbstractRemovePluginDataConfirm {
 
 
 	/**
-	 *
+	 * @access namespace
 	 */
-	public final function executeCommand() {
+	public final function executeCommand()/*: void*/ {
 		$next_class = self::dic()->ctrl()->getNextClass($this);
 
 		switch ($next_class) {
@@ -111,7 +116,8 @@ abstract class AbstractRemovePluginDataConfirm {
 	/**
 	 * @param string $cmd
 	 */
-	protected final function redirectToPlugins($cmd) {
+	private final function redirectToPlugins(/*string*/
+		$cmd)/*: void*/ {
 		self::saveParameterByClass($cmd !== "listPlugins");
 
 		self::dic()->ctrl()->redirectByClass([
@@ -124,7 +130,7 @@ abstract class AbstractRemovePluginDataConfirm {
 	/**
 	 *
 	 */
-	protected final function cancel() {
+	private final function cancel()/*: void*/ {
 		$this->redirectToPlugins("listPlugins");
 	}
 
@@ -132,7 +138,7 @@ abstract class AbstractRemovePluginDataConfirm {
 	/**
 	 *
 	 */
-	protected final function confirmRemoveData() {
+	private final function confirmRemoveData()/*: void*/ {
 		self::saveParameterByClass();
 
 		$confirmation = new ilConfirmationGUI();
@@ -155,7 +161,7 @@ abstract class AbstractRemovePluginDataConfirm {
 	/**
 	 *
 	 */
-	protected final function deactivate() {
+	private final function deactivate()/*: void*/ {
 		$this->redirectToPlugins("deactivatePlugin");
 	}
 
@@ -163,7 +169,7 @@ abstract class AbstractRemovePluginDataConfirm {
 	/**
 	 *
 	 */
-	protected final function setKeepData() {
+	private final function setKeepData()/*: void*/ {
 		$this->setUninstallRemovesData(false);
 
 		ilUtil::sendInfo($this->txt("msg_kept_data"), true);
@@ -175,7 +181,7 @@ abstract class AbstractRemovePluginDataConfirm {
 	/**
 	 *
 	 */
-	protected final function setRemoveData() {
+	private final function setRemoveData()/*: void*/ {
 		$this->setUninstallRemovesData(true);
 
 		ilUtil::sendInfo($this->txt("msg_removed_data"), true);
@@ -189,7 +195,8 @@ abstract class AbstractRemovePluginDataConfirm {
 	 *
 	 * @return string
 	 */
-	protected final function txt($key) {
+	private final function txt(/*string*/
+		$key)/*: string*/ {
 		return self::plugin()->translate($key, "removeplugindataconfirm", [ self::plugin()->getPluginObject()->getPluginName() ]);
 	}
 
@@ -199,13 +206,8 @@ abstract class AbstractRemovePluginDataConfirm {
 	 *
 	 * @return bool|null
 	 */
-	public abstract function getUninstallRemovesData();
-
-
-	/**
-	 * Reset in your config database, that the plugin data should be removed on uninstall. `getUninstallRemovesData` should now return `null`
-	 */
-	public abstract function removeUninstallRemovesData();
+	public abstract function getUninstallRemovesData()/*: ?bool*/
+	;
 
 
 	/**
@@ -213,5 +215,14 @@ abstract class AbstractRemovePluginDataConfirm {
 	 *
 	 * @param bool $uninstall_removes_data
 	 */
-	public abstract function setUninstallRemovesData($uninstall_removes_data);
+	public abstract function setUninstallRemovesData(/*bool*/
+		$uninstall_removes_data)/*: void*/
+	;
+
+
+	/**
+	 * Reset in your config database, that the plugin data should be removed on uninstall. `getUninstallRemovesData` should now return `null`
+	 */
+	public abstract function removeUninstallRemovesData()/*: void*/
+	;
 }

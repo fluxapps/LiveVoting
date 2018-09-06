@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.2.1]
+- PHP7 comments
+
+## [0.2.0]
+- Allow to disable the confirm remove data
+
+## [0.1.15]
+- Update comments
+
+## [0.1.14]
+- Update PHPDoc and visibility
+
 ## [0.1.13]
 - DIC PluginInterface
 
