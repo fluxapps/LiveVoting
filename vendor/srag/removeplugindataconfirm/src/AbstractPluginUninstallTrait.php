@@ -4,7 +4,6 @@ namespace srag\RemovePluginDataConfirm;
 
 use ilUIPluginRouterGUI;
 use srag\DIC\DICTrait;
-use function boolval;
 
 /**
  * Trait AbstractPluginUninstallTrait
