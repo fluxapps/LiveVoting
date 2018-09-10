@@ -52,6 +52,7 @@ You need also to configure your website as HTTPS and allow that your website can
 
 ### Dependencies
 * [endroid/qrcode](https://packagist.org/packages/endroid/qrcode)
+* [srag/activerecordconfig](https://packagist.org/packages/srag/activerecordconfig)
 * [srag/dic](https://packagist.org/packages/srag/dic)
 * [srag/removeplugindataconfirm](https://packagist.org/packages/srag/removeplugindataconfirm)
 

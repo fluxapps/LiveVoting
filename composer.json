@@ -46,6 +46,7 @@
   "require": {
     "php": ">=5.6",
     "endroid/qrcode": "^1.9",
+    "srag/activerecordconfig": ">=0.1.0",
     "srag/dic": ">=0.1.0",
     "srag/removeplugindataconfirm": ">=0.1.0"
   },
