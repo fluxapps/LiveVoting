@@ -1,9 +1,21 @@
 {
-  "name": "studer-raimann.ch/live-voting",
-  "description": "ILIAS 5 LiveVoting plugin",
-  "type": "project",
+  "name": "srag/plugins/livevoting",
+  "description": "ILIAS LiveVoting plugin",
+  "version": "4.0.3",
+  "type": "library",
+  "keywords": [
+    "ILIAS",
+    "Plugin",
+    "LiveVoting"
+  ],
   "license": "GPL-3.0+",
   "authors": [
+    {
+      "name": "srag",
+      "email": "support@studer-raimann.ch",
+      "homepage": "https://studer-raimann.ch",
+      "role": "Developer"
+    },
     {
       "name": "Nicolas Schaefli",
       "email": "ns@studer-raimann.ch",
@@ -29,18 +41,13 @@
     }
   ],
   "support": {
-    "email": "info@studer-raimann.ch"
+    "email": "support@studer-raimann.ch"
   },
-  "minimum-stability": "beta",
-  "prefer-stable": true,
   "require": {
     "php": ">=5.6",
     "endroid/qrcode": "^1.9",
     "srag/dic": ">=0.1.0",
     "srag/removeplugindataconfirm": ">=0.1.0"
-  },
-  "require-dev": {
-    "endroid/qrcode": "^1.9"
   },
   "autoload": {
     "psr-4": {

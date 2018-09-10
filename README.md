@@ -50,6 +50,13 @@ For display the exported PowerPoint files you need to install the WebViewer-AddI
 https://appsource.microsoft.com/en-us/product/office/WA104295828?tab=Overview
 You need also to configure your website as HTTPS and allow that your website can be displayed in frames.
 
+### Dependencies
+* [endroid/qrcode](https://packagist.org/packages/endroid/qrcode)
+* [srag/dic](https://packagist.org/packages/srag/dic)
+* [srag/removeplugindataconfirm](https://packagist.org/packages/srag/removeplugindataconfirm)
+
+Please use it for further development!
+
 ### ILIAS Plugin SLA
 
 Wir lieben und leben die Philosophie von Open Soure Software! Die meisten unserer Entwicklungen, welche wir im Kundenauftrag oder in Eigenleistung entwickeln, stellen wir öffentlich allen Interessierten kostenlos unter https://github.com/studer-raimann zur Verfügung.
