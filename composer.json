@@ -12,7 +12,7 @@
   "authors": [
     {
       "name": "srag",
-      "email": "support@studer-raimann.ch",
+      "email": "support-core1@studer-raimann.ch",
       "homepage": "https://studer-raimann.ch",
       "role": "Developer"
     },
@@ -41,7 +41,7 @@
     }
   ],
   "support": {
-    "email": "support@studer-raimann.ch"
+    "email": "support-core1@studer-raimann.ch"
   },
   "require": {
     "php": ">=5.6",
