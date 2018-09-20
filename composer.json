@@ -8,6 +8,7 @@
     "Plugin",
     "LiveVoting"
   ],
+  "homepage": "https://github.com/studer-raimann/LiveVoting",
   "license": "GPL-3.0+",
   "authors": [
     {
