@@ -1,8 +1,7 @@
 {
   "name": "srag/plugins/livevoting",
   "description": "ILIAS LiveVoting plugin",
-  "version": "4.0.3",
-  "type": "library",
+  "type": "project",
   "keywords": [
     "ILIAS",
     "Plugin",
