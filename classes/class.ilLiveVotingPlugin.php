@@ -68,7 +68,7 @@ class ilLiveVotingPlugin extends ilRepositoryObjectPlugin {
 	/**
 	 * @inheritdoc
 	 */
-	protected function deleteData() {
+	protected function deleteData()/*: void*/ {
 		self::dic()->database()->dropTable(xlvoConfOld::TABLE_NAME, false);
 		self::dic()->database()->dropTable(xlvoVotingConfig::TABLE_NAME, false);
 		self::dic()->database()->dropTable(xlvoData::TABLE_NAME, false);

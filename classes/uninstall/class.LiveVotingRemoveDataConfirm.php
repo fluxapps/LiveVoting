@@ -18,7 +18,7 @@ class LiveVotingRemoveDataConfirm extends AbstractRemovePluginDataConfirm {
 	/**
 	 * @inheritdoc
 	 */
-	public function getUninstallRemovesData() {
+	public function getUninstallRemovesData()/*: ?bool*/ {
 		return xlvoConf::getConfig(self::KEY_UNINSTALL_REMOVES_DATA);
 	}
 
@@ -26,7 +26,8 @@ class LiveVotingRemoveDataConfirm extends AbstractRemovePluginDataConfirm {
 	/**
 	 * @inheritdoc
 	 */
-	public function setUninstallRemovesData($uninstall_removes_data) {
+	public function setUninstallRemovesData(/*bool*/
+		$uninstall_removes_data)/*: void*/ {
 		xlvoConf::set(self::KEY_UNINSTALL_REMOVES_DATA, $uninstall_removes_data);
 	}
 
@@ -34,7 +35,7 @@ class LiveVotingRemoveDataConfirm extends AbstractRemovePluginDataConfirm {
 	/**
 	 * @inheritdoc
 	 */
-	public function removeUninstallRemovesData() {
+	public function removeUninstallRemovesData()/*: void*/ {
 		xlvoConf::remove(self::KEY_UNINSTALL_REMOVES_DATA);
 	}
 }
