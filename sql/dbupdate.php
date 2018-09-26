@@ -223,8 +223,8 @@ if (\srag\DIC\DICStatic::dic()->database()->tableExists(\LiveVoting\Option\xlvoD
 		$xlvoVotingConfig->setObjOnline($resData['is_online']);
 		$xlvoVotingConfig->setAnonymous($resData['is_anonym']);
 		$xlvoVotingConfig->setTerminable($resData['is_terminated']);
-		$xlvoVotingConfig->setStartDate(date('Y-m-d H:i:s', $resData['start_time']));
-		$xlvoVotingConfig->setEndDate(date('Y-m-d H:i:s', $resData['end_time']));
+		$xlvoVotingConfig->setStartDate(date(\srag\ActiveRecordConfig\ActiveRecordConfig::SQL_DATE_FORMAT, $resData['start_time']));
+		$xlvoVotingConfig->setEndDate(date(\srag\ActiveRecordConfig\ActiveRecordConfig::SQL_DATE_FORMAT, $resData['end_time']));
 		$xlvoVotingConfig->setPin($resData['pin']);
 		if (!\LiveVoting\Voting\xlvoVotingConfig::where(array( 'obj_id' => $xlvoVotingConfig->getObjId() ))->hasSets()) {
 			$xlvoVotingConfig->create();
