@@ -83,17 +83,4 @@ class ilLiveVotingPlugin extends ilRepositoryObjectPlugin {
 		self::dic()->database()->dropTable(xlvoConf::TABLE_NAME, false);
 		self::dic()->database()->dropTable(xlvoVoter::TABLE_NAME, false);
 	}
-
-
-
-	//		/**
-	//		 * @param string $key
-	//		 * @return mixed|string
-	//		 * @throws ilException
-	//		 */
-	//		public function txt($key) {
-	//			require_once 'Customizing/global/plugins/Libraries/PluginTranslator/class.sragPluginTranslator.php;
-	//
-	//			return sragPluginTranslator::getInstance($this)->active()->write()->txt($key);
-	//		}
 }
