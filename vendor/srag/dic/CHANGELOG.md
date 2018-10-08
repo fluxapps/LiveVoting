@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.9.1]
+- Fix
+
 ## [0.9.0]
 - VersionInterface
 - `mailMimeTransportFactory`
