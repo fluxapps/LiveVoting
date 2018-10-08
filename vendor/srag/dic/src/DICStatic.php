@@ -10,11 +10,15 @@ use srag\DIC\DIC\LegacyDIC;
 use srag\DIC\DIC\NewDIC;
 use srag\DIC\Exception\DICException;
 use srag\DIC\Plugin\Plugin;
+use srag\DIC\Version\Version;
+use srag\DIC\Version\VersionInterface;
 
 /**
  * Class DICStatic
  *
  * @package srag\DIC
+ *
+ * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 final class DICStatic implements DICStaticInterface {
 
@@ -26,6 +30,10 @@ final class DICStatic implements DICStaticInterface {
 	 * @var PluginInterface[]
 	 */
 	private static $plugins = [];
+	/**
+	 * @var VersionInterface|null
+	 */
+	private static $version = NULL;
 
 
 	/**
@@ -33,7 +41,7 @@ final class DICStatic implements DICStaticInterface {
 	 */
 	public static function dic()/*: DICInterface*/ {
 		if (self::$dic === NULL) {
-			if (ILIAS_VERSION_NUMERIC >= "5.2") {
+			if (self::version()->is52()) {
 				global $DIC;
 				self::$dic = new NewDIC($DIC);
 			} else {
@@ -72,6 +80,18 @@ final class DICStatic implements DICStaticInterface {
 		}
 
 		return self::$plugins[$plugin_class_name];
+	}
+
+
+	/**
+	 * @inheritdoc
+	 */
+	public static function version()/*: VersionInterface*/ {
+		if (self::$version === NULL) {
+			self::$version = new Version();
+		}
+
+		return self::$version;
 	}
 
 

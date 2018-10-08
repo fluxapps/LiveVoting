@@ -1,16 +1,14 @@
 {
-  "name": "srag/removeplugindataconfirm",
-  "description": "Demand if plugin data should be removed on uninstall",
-  "version": "0.2.5",
+  "name": "srag/activerecordconfig",
+  "description": "Simple ActiveRecord config for ILIAS plugins",
+  "version": "0.6.4",
   "type": "library",
   "keywords": [
     "ILIAS",
-    "Plugin",
-    "Uninstall",
-    "Data",
-    "Confirm"
+    "ActiveRecord",
+    "Config"
   ],
-  "homepage": "https://github.com/studer-raimann/RemovePluginDataConfirm",
+  "homepage": "https://github.com/studer-raimann/ActiveRecordConfig",
   "license": "GPL-3.0-only",
   "authors": [
     {
@@ -29,7 +27,7 @@
   },
   "autoload": {
     "psr-4": {
-      "srag\\RemovePluginDataConfirm\\": "src/"
+      "srag\\ActiveRecordConfig\\": "src/"
     }
   }
 }

@@ -30,8 +30,8 @@ class ilLiveVotingConfigGUI extends ilPluginConfigGUI {
 		self::dic()->ctrl()->setParameterByClass(ilObjComponentSettingsGUI::class, "plugin_id", $_GET["plugin_id"]);
 		self::dic()->ctrl()->setParameterByClass(ilObjComponentSettingsGUI::class, "pname", $_GET["pname"]);
 
-		self::dic()->template()->setTitle(self::dic()->language()->txt("cmps_plugin") . ": " . $_GET["pname"]);
-		self::dic()->template()->setDescription("");
+		self::dic()->mainTemplate()->setTitle(self::dic()->language()->txt("cmps_plugin") . ": " . $_GET["pname"]);
+		self::dic()->mainTemplate()->setDescription("");
 
 		self::dic()->tabs()->clearTargets();
 

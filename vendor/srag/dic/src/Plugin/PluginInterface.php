@@ -16,6 +16,8 @@ use stdClass;
  * Interface PluginInterface
  *
  * @package srag\DIC\Plugin
+ *
+ * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 interface PluginInterface {
 
@@ -90,6 +92,8 @@ interface PluginInterface {
 	 * Get ILIAS plugin object instance
 	 *
 	 * @return ilPlugin ILIAS plugin object instance
+	 *
+	 * @deprecated Please avoid to use ILIAS plugin object instance and instead use methods in this class!
 	 */
 	public function getPluginObject()/*: ilPlugin*/
 	;

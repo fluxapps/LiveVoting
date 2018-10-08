@@ -26,6 +26,7 @@ use ilLocatorGUI;
 use ilLog;
 use ilLoggerFactory;
 use ilMailMimeSenderFactory;
+use ilMailMimeTransportFactory;
 use ilMainMenuGUI;
 use ilNavigationHistory;
 use ilObjectDataCache;
@@ -48,6 +49,8 @@ use srag\DIC\Exception\DICException;
  * Interface DICInterface
  *
  * @package srag\DIC\DIC
+ *
+ * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 interface DICInterface {
 
@@ -76,6 +79,8 @@ interface DICInterface {
 	 * @return BackgroundTaskServices
 	 *
 	 * @throws DICException BackgroundTaskServices not exists in ILIAS 5.2 or below!
+	 *
+	 * @since ILIAS 5.3
 	 */
 	public function backgroundTasks()/*: BackgroundTaskServices*/
 	;
@@ -141,6 +146,8 @@ interface DICInterface {
 	 * @return Filesystems
 	 *
 	 * @throws DICException Filesystems not exists in ILIAS 5.2 or below!
+	 *
+	 * @since ILIAS 5.3
 	 */
 	public function filesystem()/*: Filesystems*/
 	;
@@ -164,6 +171,8 @@ interface DICInterface {
 	 * @return HTTPServices
 	 *
 	 * @throws DICException HTTPServices not exists in ILIAS 5.2 or below!
+	 *
+	 * @since ILIAS 5.3
 	 */
 	public function http()/*: HTTPServices*/
 	;
@@ -208,6 +217,8 @@ interface DICInterface {
 	 * @return LoggingServices
 	 *
 	 * @throws DICException LoggingServices not exists in ILIAS 5.2 or below!
+	 *
+	 * @since ILIAS 5.3
 	 */
 	public function logger()/*: LoggingServices*/
 	;
@@ -224,8 +235,21 @@ interface DICInterface {
 	 * @return ilMailMimeSenderFactory
 	 *
 	 * @throws DICException ilMailMimeSenderFactory not exists in ILIAS 5.2 or below!
+	 *
+	 * @since ILIAS 5.3
 	 */
 	public function mailMimeSenderFactory()/*: ilMailMimeSenderFactory*/
+	;
+
+
+	/**
+	 * @return ilMailMimeTransportFactory
+	 *
+	 * @throws DICException ilMailMimeTransportFactory not exists in ILIAS 5.2 or below!
+	 *
+	 * @since ILIAS 5.3
+	 */
+	public function mailMimeTransportFactory()/*: ilMailMimeTransportFactory*/
 	;
 
 
@@ -233,6 +257,13 @@ interface DICInterface {
 	 * @return ilMainMenuGUI
 	 */
 	public function mainMenu()/*: ilMainMenuGUI*/
+	;
+
+
+	/**
+	 * @return ilTemplate Main ilTemplate instance
+	 */
+	public function mainTemplate()/*: ilTemplate*/
 	;
 
 
@@ -307,13 +338,6 @@ interface DICInterface {
 
 
 	/**
-	 * @return ilTemplate Main-Template
-	 */
-	public function template()/*: ilTemplate*/
-	;
-
-
-	/**
 	 * @return ilToolbarGUI
 	 */
 	public function toolbar()/*: ilToolbarGUI*/
@@ -331,6 +355,8 @@ interface DICInterface {
 	 * @return UIServices
 	 *
 	 * @throws DICException UIServices not exists in ILIAS 5.1 or below!
+	 *
+	 * @since ILIAS 5.2
 	 */
 	public function ui()/*: UIServices*/
 	;
@@ -340,6 +366,8 @@ interface DICInterface {
 	 * @return FileUpload
 	 *
 	 * @throws DICException FileUpload not exists in ILIAS 5.2 or below!
+	 *
+	 * @since ILIAS 5.3
 	 */
 	public function upload()/*: FileUpload*/
 	;

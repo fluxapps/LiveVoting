@@ -58,7 +58,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 	public function __construct() {
 		parent::__construct();
 		$this->manager = xlvoVotingManager2::getInstanceFromObjId(ilObject2::_lookupObjId($_GET['ref_id']));
-		self::dic()->template()->addCss(self::plugin()->directory() . '/templates/default/default.css');
+		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/default.css');
 	}
 
 
@@ -122,7 +122,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 		}
 		$js->call('handleStartButton');
 
-		self::dic()->template()->setContent($template->get());
+		self::dic()->mainTemplate()->setContent($template->get());
 	}
 
 
@@ -143,7 +143,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$this->manager->prepare();
 		$this->manager->getPlayer()->unfreeze();
 		$modal = xlvoQRModalGUI::getInstanceFromVotingConfig($this->manager->getVotingConfig())->getHTML();
-		self::dic()->template()->setContent($modal . $this->getPlayerHTML());
+		self::dic()->mainTemplate()->setContent($modal . $this->getPlayerHTML());
 		$this->handlePreview();
 	}
 
@@ -159,7 +159,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$this->manager->prepare();
 		$this->initToolbarDuringVoting();
 		$modal = xlvoQRModalGUI::getInstanceFromVotingConfig($this->manager->getVotingConfig())->getHTML();
-		self::dic()->template()->setContent($modal . $this->getPlayerHTML());
+		self::dic()->mainTemplate()->setContent($modal . $this->getPlayerHTML());
 		$this->handlePreview();
 	}
 
@@ -491,7 +491,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 * @throws xlvoVotingManagerException
 	 */
 	protected function initJSandCss() {
-		$subversion = (int)explode('.', ILIAS_VERSION_NUMERIC)[1];
+		$subversion = (int)explode('.', self::version()->getILIASVersion())[1];
 
 		switch ($subversion) {
 			case ILIASVersionEnum::ILIAS_VERSION_5_2:
@@ -524,8 +524,8 @@ class xlvoPlayerGUI extends xlvoGUI {
 		xlvoJs::getInstance()->ilias($this)->addSettings($settings)->name('Player')->addTranslations(array(
 			'voting_confirm_reset',
 		))->init()->setRunCode();
-		self::dic()->template()->addCss(self::plugin()->directory() . '/templates/default/Player/player.css');
-		self::dic()->template()->addCss(self::plugin()->directory() . '/LiveVoting/templates/default/Display/Bar/bar.css');
+		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/Player/player.css');
+		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/LiveVoting/templates/default/Display/Bar/bar.css');
 	}
 
 
@@ -536,7 +536,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 		if ($this->manager->getVotingConfig()->isSelfVote()) {
 			$preview = self::plugin()->template('default/Player/tpl.preview.html', true, false);
 			$preview->setVariable('URL', $this->manager->getVotingConfig()->getShortLinkURL());
-			self::dic()->template()->setRightContent($preview->get());
+			self::dic()->mainTemplate()->setRightContent($preview->get());
 		}
 	}
 }

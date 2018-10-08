@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "cc848b84657e31d652f2032ac0650f9a",
+    "content-hash": "08bf1de514fbfe9733f6af13b4572ab8",
     "packages": [
         {
             "name": "endroid/qrcode",
@@ -68,17 +68,62 @@
             "time": "2017-04-08T09:13:59+00:00"
         },
         {
-            "name": "srag/dic",
-            "version": "0.8.7",
+            "name": "srag/activerecordconfig",
+            "version": "0.6.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/studer-raimann/DIC.git",
-                "reference": "fdc616a118044e1f47dce496ddf744622cc17cbe"
+                "url": "https://github.com/studer-raimann/ActiveRecordConfig.git",
+                "reference": "c67b5662ce36645a44ecb1491780cefbb14f935e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/studer-raimann/DIC/zipball/fdc616a118044e1f47dce496ddf744622cc17cbe",
-                "reference": "fdc616a118044e1f47dce496ddf744622cc17cbe",
+                "url": "https://api.github.com/repos/studer-raimann/ActiveRecordConfig/zipball/c67b5662ce36645a44ecb1491780cefbb14f935e",
+                "reference": "c67b5662ce36645a44ecb1491780cefbb14f935e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6",
+                "srag/dic": ">=0.1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "srag\\ActiveRecordConfig\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "studer + raimann ag - Team Custom 1",
+                    "email": "support-custom1@studer-raimann.ch",
+                    "homepage": "https://studer-raimann.ch",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Simple ActiveRecord config for ILIAS plugins",
+            "homepage": "https://github.com/studer-raimann/ActiveRecordConfig",
+            "keywords": [
+                "ILIAS",
+                "activerecord",
+                "config"
+            ],
+            "time": "2018-09-17T09:03:25+00:00"
+        },
+        {
+            "name": "srag/dic",
+            "version": "v0.9.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/studer-raimann/DIC.git",
+                "reference": "532a63051b3884df753e12fa57e7efa7c56509c0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/studer-raimann/DIC/zipball/532a63051b3884df753e12fa57e7efa7c56509c0",
+                "reference": "532a63051b3884df753e12fa57e7efa7c56509c0",
                 "shasum": ""
             },
             "require": {
@@ -96,7 +141,7 @@
             ],
             "authors": [
                 {
-                    "name": "srag",
+                    "name": "studer + raimann ag - Team Custom 1",
                     "email": "support-custom1@studer-raimann.ch",
                     "homepage": "https://studer-raimann.ch",
                     "role": "Developer"
@@ -110,20 +155,20 @@
                 "globals",
                 "trait"
             ],
-            "time": "2018-09-06T09:56:58+00:00"
+            "time": "2018-10-08T12:47:05+00:00"
         },
         {
             "name": "srag/removeplugindataconfirm",
-            "version": "0.2.1",
+            "version": "0.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/studer-raimann/RemovePluginDataConfirm.git",
-                "reference": "f17bf56c4aeba1e68bd2c2c0d644c1062a4bba08"
+                "reference": "911c0ff316181c3efdf9068cf1cc2eb0e5ed6c8f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/studer-raimann/RemovePluginDataConfirm/zipball/f17bf56c4aeba1e68bd2c2c0d644c1062a4bba08",
-                "reference": "f17bf56c4aeba1e68bd2c2c0d644c1062a4bba08",
+                "url": "https://api.github.com/repos/studer-raimann/RemovePluginDataConfirm/zipball/911c0ff316181c3efdf9068cf1cc2eb0e5ed6c8f",
+                "reference": "911c0ff316181c3efdf9068cf1cc2eb0e5ed6c8f",
                 "shasum": ""
             },
             "require": {
@@ -142,7 +187,7 @@
             ],
             "authors": [
                 {
-                    "name": "srag",
+                    "name": "studer + raimann ag - Team Custom 1",
                     "email": "support-custom1@studer-raimann.ch",
                     "homepage": "https://studer-raimann.ch",
                     "role": "Developer"
@@ -157,20 +202,20 @@
                 "plugin",
                 "uninstall"
             ],
-            "time": "2018-09-06T08:29:47+00:00"
+            "time": "2018-09-17T09:07:15+00:00"
         },
         {
             "name": "symfony/options-resolver",
-            "version": "v3.4.15",
+            "version": "v3.4.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/options-resolver.git",
-                "reference": "6debc476953a45969ab39afe8dee0b825f356dc7"
+                "reference": "1cf7d8e704a9cc4164c92e430f2dfa3e6983661d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/6debc476953a45969ab39afe8dee0b825f356dc7",
-                "reference": "6debc476953a45969ab39afe8dee0b825f356dc7",
+                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/1cf7d8e704a9cc4164c92e430f2dfa3e6983661d",
+                "reference": "1cf7d8e704a9cc4164c92e430f2dfa3e6983661d",
                 "shasum": ""
             },
             "require": {
@@ -211,14 +256,14 @@
                 "configuration",
                 "options"
             ],
-            "time": "2018-07-26T08:45:46+00:00"
+            "time": "2018-09-17T17:29:18+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
-    "minimum-stability": "beta",
+    "minimum-stability": "stable",
     "stability-flags": [],
-    "prefer-stable": true,
+    "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": ">=5.6"

@@ -199,7 +199,7 @@ class xlvoJs {
 	 * @return $this
 	 */
 	public function addOnLoadCode($code) {
-		self::dic()->template()->addOnLoadCode($code);
+		self::dic()->mainTemplate()->addOnLoadCode($code);
 
 		return $this;
 	}
@@ -264,9 +264,9 @@ class xlvoJs {
 	 */
 	public function addLibToHeader($name_of_lib, $external = true) {
 		if ($external) {
-			self::dic()->template()->addJavascript(self::plugin()->directory() . '/js/libs/' . $name_of_lib);
+			self::dic()->mainTemplate()->addJavascript(self::plugin()->directory() . '/js/libs/' . $name_of_lib);
 		} else {
-			self::dic()->template()->addJavaScript($name_of_lib);
+			self::dic()->mainTemplate()->addJavaScript($name_of_lib);
 		}
 
 		return $this;

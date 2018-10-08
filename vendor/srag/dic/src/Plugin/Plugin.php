@@ -18,6 +18,8 @@ use stdClass;
  * Class Plugin
  *
  * @package srag\DIC\Plugin
+ *
+ * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 final class Plugin implements PluginInterface {
 
@@ -101,10 +103,10 @@ final class Plugin implements PluginInterface {
 					echo $html;
 				} else {
 					if ($main) {
-						self::dic()->template()->getStandardTemplate();
+						self::dic()->mainTemplate()->getStandardTemplate();
 					}
-					self::dic()->template()->setContent($html);
-					self::dic()->template()->show();
+					self::dic()->mainTemplate()->setContent($html);
+					self::dic()->mainTemplate()->show();
 				}
 
 				break;
@@ -143,31 +145,33 @@ final class Plugin implements PluginInterface {
 			$key = $module . "_" . $key;
 		}
 
+		if (!empty($lang)) {
+			$lng = self::getLanguage($lang);
+		} else {
+			$lng = self::dic()->language();
+		}
+
 		if ($plugin) {
-			if (empty($lang)) {
-				$txt = $this->plugin_object->txt($key);
+			$lng->loadLanguageModule($this->plugin_object->getPrefix());
+
+			if ($lng->exists($this->plugin_object->getPrefix() . "_" . $key)) {
+				$txt = $lng->txt($this->plugin_object->getPrefix() . "_" . $key);
 			} else {
-				$lng = self::getLanguage($lang);
-
-				$lng->loadLanguageModule($this->plugin_object->getPrefix());
-
-				$txt = $lng->txt($this->plugin_object->getPrefix() . "_" . $key, $this->plugin_object->getPrefix());
+				$txt = "";
 			}
 		} else {
-			if (empty($lang)) {
-				$txt = self::dic()->language()->txt($key);
-			} else {
-				$lng = self::getLanguage($lang);
+			if (!empty($module)) {
+				$lng->loadLanguageModule($module);
+			}
 
-				if (!empty($module)) {
-					$lng->loadLanguageModule($module);
-				}
-
+			if ($lng->exists($key)) {
 				$txt = $lng->txt($key);
+			} else {
+				$txt = "";
 			}
 		}
 
-		if (!(empty($txt) || ($txt[0] === "-" && $txt[strlen($txt) - 1] === "-") || $txt === "MISSING" || strpos($txt, "MISSING ") === 0)) {
+		if (!(empty($txt) || $txt === "MISSING" || strpos($txt, "MISSING ") === 0)) {
 			try {
 				$txt = vsprintf($txt, $placeholders);
 			} catch (Exception $ex) {
@@ -183,12 +187,14 @@ final class Plugin implements PluginInterface {
 			}
 		}
 
-		return $txt;
+		return strval($txt);
 	}
 
 
 	/**
 	 * @inheritdoc
+	 *
+	 * @deprecated Please avoid to use ILIAS plugin object instance and instead use methods in this class!
 	 */
 	public function getPluginObject()/*: ilPlugin*/ {
 		return $this->plugin_object;

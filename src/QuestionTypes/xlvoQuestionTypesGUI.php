@@ -102,7 +102,7 @@ abstract class xlvoQuestionTypesGUI extends xlvoGUI {
 				break;
 		}
 		if ($this->is_api_call) {
-			self::dic()->template()->show();
+			self::dic()->mainTemplate()->show();
 		}
 	}
 

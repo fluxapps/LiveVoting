@@ -1,20 +1,20 @@
 <?php
 
-namespace srag\RemovePluginDataConfirm;
+namespace srag\ActiveRecordConfig\Exception;
 
 use ilException;
 
 /**
- * Class RemovePluginDataConfirmException
+ * Class ActiveRecordConfigException
  *
- * @package srag\RemovePluginDataConfirm
+ * @package srag\ActiveRecordConfig\Exception
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-class RemovePluginDataConfirmException extends ilException {
+final class ActiveRecordConfigException extends ilException {
 
 	/**
-	 * RemovePluginDataConfirmException constructor
+	 * ActiveRecordConfigException constructor
 	 *
 	 * @param string $message
 	 * @param int    $code
