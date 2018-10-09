@@ -119,7 +119,7 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI {
 	protected function getFieldValue(ilFormPropertyGUI $element) {
 		if ($this->getXlvoVoting()->getRandomiseOptionSequence()) {
 			// Sort options by correct position if shuffled
-			$this->options = xlvoOption::where(array( "voting_id" => $this->getXlvoVoting()->getVotingOptions() ))->orderBy("correct_position")
+			$this->options = xlvoOption::where(array( "voting_id" => $this->getXlvoVoting()->getId() ))->orderBy("correct_position")
 				->get();
 		} else {
 			// Sort options by position if not shuffled
