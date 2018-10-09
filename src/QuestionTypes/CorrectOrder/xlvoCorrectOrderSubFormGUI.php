@@ -55,6 +55,7 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI {
 		if (!$this->getXlvoVoting()->getRandomiseOptionSequence()) {
 			// Allow input correct position if not shuffled
 			$position = new ilNumberInputGUI($this->txt('option_correct_position'), self::F_CORRECT_POSITION);
+			$position->setRequired(true);
 			$position->setSize(2);
 			$position->setMaxLength(2);
 		} else {
