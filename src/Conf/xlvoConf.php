@@ -16,94 +16,140 @@ use LiveVoting\Cache\CachingActiveRecord;
 class xlvoConf extends CachingActiveRecord {
 
 	/**
+	 * @var int
+	 *
 	 * @deprecated
 	 */
 	const CONFIG_VERSION = 2;
 	/**
+	 * @var string
+	 *
 	 * @deprecated
 	 */
 	const F_CONFIG_VERSION = 'config_version';
 	/**
+	 * @var string
+	 *
 	 * @deprecated
 	 */
 	const F_ALLOW_FREEZE = 'allow_freeze';
 	/**
+	 * @var string
+	 *
 	 * @deprecated
 	 */
 	const F_ALLOW_FULLSCREEN = 'allow_fullscreen';
 	/**
+	 * @var string
+	 *
 	 * @deprecated
 	 */
 	const F_ALLOW_SHORTLINK_VOTE = 'allow_shortlink';
 	/**
+	 * @var string
+	 *
 	 * @deprecated
 	 */
 	const F_ALLOW_SHORTLINK_VOTE_LINK = 'allow_shortlink_link';
 	/**
+	 * @var string
+	 *
 	 * @deprecated
 	 */
 	const F_BASE_URL_VOTE = 'base_url';
 	/**
+	 * @var string
+	 *
 	 * @deprecated
 	 */
 	const F_ALLOW_GLOBAL_ANONYMOUS = 'global_anonymous';
 	/**
+	 * @var string
+	 *
 	 * @deprecated
 	 */
 	const F_REGENERATE_TOKEN = 'regenerate_token';
 	/**
+	 * @var string
+	 *
 	 * @deprecated
 	 */
 	const F_USE_QR = 'use_qr';
 	/**
+	 * @var string
+	 *
 	 * @deprecated
 	 */
 	const REWRITE_RULE_VOTE = "RewriteRule ^vote(/[\\w]*|) Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?pin=$1 [L]";
 	/**
+	 * @var string
+	 *
 	 * @deprecated
 	 */
 	const API_URL = './Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/ilias.php';
 	/**
+	 * @var string
+	 *
 	 * @deprecated
 	 */
 	const RESULT_API_URL = './Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/api.php';
 	/**
+	 * @var string
+	 *
 	 * @deprecated
 	 */
 	const F_REQUEST_FREQUENCY = 'request_frequency';
 	/**
+	 * @var string
+	 *
 	 * @deprecated
 	 */
 	const F_RESULT_API = 'result_api';
 	/**
+	 * @var string
+	 *
 	 * @deprecated
 	 */
 	const F_USE_SERIF_FONT_FOR_PINS = 'use_serif_font_for_pins';
 	/**
+	 * @var string
+	 *
 	 * @deprecated
 	 */
 	const F_API_TYPE = 'api_type';
 	/**
+	 * @var string
+	 *
 	 * @deprecated
 	 */
 	const F_API_TOKEN = 'api_token';
 	/**
+	 * @var string
+	 *
 	 * @deprecated
 	 */
 	const F_USE_GLOBAL_CACHE = 'use_global_cache';
 	/**
+	 * @var string
+	 *
 	 * @deprecated
 	 */
 	const F_ACTIVATE_POWERPOINT_EXPORT = 'ppt_export';
 	/**
+	 * @var string
+	 *
 	 * @deprecated
 	 */
 	const F_ALLOW_SHORTLINK_PRESENTER = 'allow_shortlink_presenter';
 	/**
+	 * @var string
+	 *
 	 * @deprecated
 	 */
 	const F_ALLOW_SHORTLINK_PRESENTER_LINK = 'allow_shortlink_link_presenter';
 	/**
+	 * @var string
+	 *
 	 * @deprecated
 	 */
 	const REWRITE_RULE_PRESENTER = "RewriteRule ^presenter(/\\w*)(/\\w*)(/\\w*)?(/\\w*)? Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/presenter.php?pin=$1&puk=$2&voting=$3&ppt=$4 [L]";
@@ -111,16 +157,22 @@ class xlvoConf extends CachingActiveRecord {
 	 * Min client update frequency in seconds.
 	 * This value should never be set bellow 1 second.
 	 *
+	 * @var string
+	 *
 	 * @deprecated
 	 */
 	const MIN_CLIENT_UPDATE_FREQUENCY = 1;
 	/**
 	 * Max client update frequency in seconds.
 	 *
+	 * @var string
+	 *
 	 * @deprecated
 	 */
 	const MAX_CLIENT_UPDATE_FREQUENCY = 60;
 	/**
+	 * @var string
+	 *
 	 * @deprecated
 	 */
 	const TABLE_NAME = 'xlvo_config';
