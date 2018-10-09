@@ -283,7 +283,7 @@ class PowerPointExport {
 				"voting_title" => $voting->getTitle(),
 				"voting_question" => strip_tags($voting->getQuestion()),
 				"empty1" => "",
-				"voting_short_link" => $this->config->getShortLinkURL(),
+				"voting_short_link" => $this->config->getShortLinkURL(true),
 				"voting_permanent_link" => ilLink::_getStaticLink($this->obj->getRefId(), $this->obj->getType()),
 				"empty2" => ""
 			];
