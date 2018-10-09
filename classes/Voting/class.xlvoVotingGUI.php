@@ -291,7 +291,7 @@ class xlvoVotingGUI {
 				ilUtil::sendSuccess(self::plugin()->translate('msg_success_voting_updated'), true);
 				self::dic()->ctrl()->redirect($this, $cmd);
 			}
-			self::dic()->mainTemplate()->setContent($xlvoVotingFormGUI->getHTML());
+			$this->edit();
 		}
 	}
 
