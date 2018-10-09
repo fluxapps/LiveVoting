@@ -32,8 +32,8 @@
 							<p:nvPr />
 						</p:nvGraphicFramePr>
 						<p:xfrm>
-							<a:off x="0" y="300000" />
-							<a:ext cx="12192000" cy="5143500" />
+							<a:off x="0" y="0" />
+							<a:ext cx="12192000" cy="6549657" />
 						</p:xfrm>
 						<a:graphic>
 							<a:graphicData uri="http://schemas.microsoft.com/office/webextensions/webextension/2010/11">
