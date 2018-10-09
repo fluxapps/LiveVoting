@@ -17,6 +17,8 @@ use srag\DIC\DICTrait;
  *
  * @package LiveVoting\GUI
  * @author  Michael Herren <mh@studer-raimann.ch>
+ *
+ * TODO: Complete refactoring
  */
 class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 
@@ -254,6 +256,12 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 			foreach ($this->inputs as $input_key => $input) {
 				if (isset($item[$input_key])) {
 					$out_array[$item_num][$input_key] = (is_string($item[$input_key])) ? ilUtil::stripSlashes($item[$input_key]) : $item[$input_key];
+
+					if (method_exists($input, 'setValue')) {
+						$input->setValue($out_array[$item_num][$input_key]);
+					} elseif ($input instanceof ilDateTimeInputGUI) {
+						$input->setDate(new ilDate($out_array[$item_num][$input_key]['date'], IL_CAL_DATE));
+					}
 				}
 			}
 		}
@@ -263,6 +271,7 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 		}
 		// validate
 		foreach ($this->inputs as $input_key => $inputs) {
+			$_POST[$inputs->getPostVar()] = $inputs->getValue();
 			if (!$inputs->checkInput()) {
 				$valid = false;
 			}
