@@ -292,6 +292,7 @@ qtype_1_optmsg_success_voting_updated#:#MISSING qtype_1_optmsg_success_voting_up
 qtype_6_mean#:#MISSING qtype_6_mean
 qtype_6_median#:#MISSING qtype_6_median
 qtype_6_mode#:#MISSING qtype_6_mode
+qtype_6_mode_not_applicable#:#MISSING qtype_6_mode_not_applicable
 removeplugindataconfirm_cancel#:#MISSING removeplugindataconfirm_cancel
 removeplugindataconfirm_confirm_remove_data#:#MISSING removeplugindataconfirm_confirm_remove_data
 removeplugindataconfirm_deactivate#:#MISSING removeplugindataconfirm_deactivate

@@ -123,7 +123,7 @@ class xlvoNumberRangeResultsGUI extends xlvoInputResultsGUI {
 		$median->setDark(true);
 		$info->addBar($median);
 
-		$mode = new xlvoBarInfoGUI($this->txt("mode"), implode(',', $relevant_modes));
+		$mode = new xlvoBarInfoGUI($this->txt("mode"), count($relevant_modes) === 1 ? $relevant_modes[0] : $this->txt("mode_not_applicable"));
 		$mode->setBig(true);
 		$mode->setDark(true);
 		$mode->setCenter(true);

@@ -293,6 +293,7 @@ start_zoom#:#Zoom
 qtype_6_mean#:#Mittelwert
 qtype_6_median#:#Median
 qtype_6_mode#:#Modus
+qtype_6_mode_not_applicable#:#nicht verfügbar
 removeplugindataconfirm_cancel#:#Abbrechen
 removeplugindataconfirm_confirm_remove_data#:#Möchten Sie die %1$s-Daten auch entfernen? Allenfalls möchten Sie das %1$s-Plugin nur deaktivieren?
 removeplugindataconfirm_deactivate#:#%1$s-Plugin nur deaktivieren
