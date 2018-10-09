@@ -285,13 +285,15 @@ class xlvoVotingGUI {
 			ilUtil::sendFailure(self::plugin()->translate('permission_denied_write'), true);
 			self::dic()->ctrl()->redirect($this, self::CMD_STANDARD);
 		} else {
-			$xlvoVotingFormGUI = xlvoVotingFormGUI::get($this, xlvoVoting::find($_GET[self::IDENTIFIER]));
+			$xlvoVoting = xlvoVoting::find($_GET[self::IDENTIFIER]);
+			self::dic()->ctrl()->setParameter($this, self::IDENTIFIER, $xlvoVoting->getId());
+			$xlvoVotingFormGUI = xlvoVotingFormGUI::get($this, $xlvoVoting);
 			$xlvoVotingFormGUI->setValuesByPost();
 			if ($xlvoVotingFormGUI->saveObject()) {
 				ilUtil::sendSuccess(self::plugin()->translate('msg_success_voting_updated'), true);
 				self::dic()->ctrl()->redirect($this, $cmd);
 			}
-			$this->edit();
+			self::dic()->mainTemplate()->setContent($xlvoVotingFormGUI->getHTML());
 		}
 	}
 
