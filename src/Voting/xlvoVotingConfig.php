@@ -7,7 +7,7 @@ use ilObjectActivation;
 use LiveVoting\Cache\CachingActiveRecord;
 use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Pin\xlvoPin;
-use LiveVoting\Puk\xlvoPuk;
+use LiveVoting\Puk\Puk;
 
 /**
  * Class xlvoVotingConfig
@@ -236,7 +236,7 @@ class xlvoVotingConfig extends CachingActiveRecord {
 		if ($shortLinkEnabled) {
 			$url = xlvoConf::getConfig(xlvoConf::F_ALLOW_SHORTLINK_PRESENTER_LINK);
 			$url = rtrim($url, "/") . "/";
-			$url .= xlvoPin::formatPin($this->getPin(), $force_not_format) . "/" . xlvoPuk::formatPin($this->getPuk(), $force_not_format);
+			$url .= xlvoPin::formatPin($this->getPin(), $force_not_format) . "/" . Puk::formatPin($this->getPuk(), $force_not_format);
 			if ($voting_id !== NULL) {
 				$url .= "/" . $voting_id;
 			}
@@ -245,7 +245,7 @@ class xlvoVotingConfig extends CachingActiveRecord {
 			}
 		} else {
 			$url = ILIAS_HTTP_PATH . substr(self::plugin()->directory(), 1) . '/presenter.php?pin=' . xlvoPin::formatPin($this->getPin(), $force_not_format)
-				. "&puk=" . xlvoPuk::formatPin($this->getPuk(), $force_not_format);
+				. "&puk=" . Puk::formatPin($this->getPuk(), $force_not_format);
 			if ($voting_id !== NULL) {
 				$url .= "&voting=" . $voting_id;
 			}

@@ -114,16 +114,16 @@
         },
         {
             "name": "srag/dic",
-            "version": "v0.9.1",
+            "version": "v0.9.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/studer-raimann/DIC.git",
-                "reference": "654c519756eb9d00ea057a5d7a1c32120ade5749"
+                "reference": "6ddb639eb4b8a04a67dffd5bdc525bddc42a5bbd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/studer-raimann/DIC/zipball/654c519756eb9d00ea057a5d7a1c32120ade5749",
-                "reference": "654c519756eb9d00ea057a5d7a1c32120ade5749",
+                "url": "https://api.github.com/repos/studer-raimann/DIC/zipball/6ddb639eb4b8a04a67dffd5bdc525bddc42a5bbd",
+                "reference": "6ddb639eb4b8a04a67dffd5bdc525bddc42a5bbd",
                 "shasum": ""
             },
             "require": {
@@ -155,7 +155,7 @@
                 "globals",
                 "trait"
             ],
-            "time": "2018-10-08T13:22:42+00:00"
+            "time": "2018-10-09T05:18:46+00:00"
         },
         {
             "name": "srag/removeplugindataconfirm",

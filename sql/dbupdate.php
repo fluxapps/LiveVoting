@@ -450,7 +450,7 @@ foreach (\LiveVoting\Voting\xlvoVotingConfig::get() as $xlvoVotingConfig) {
 	 */
 
 	if (empty($xlvoVotingConfig->getPuk())) {
-		$xlvoPuk = new \LiveVoting\Puk\xlvoPuk();
+		$xlvoPuk = new \LiveVoting\Puk\Puk();
 
 		$xlvoVotingConfig->setPuk($xlvoPuk->getPin());
 
@@ -467,7 +467,7 @@ foreach (\LiveVoting\Voting\xlvoVotingConfig::get() as $xlvoVotingConfig) {
 	 * @var \LiveVoting\Voting\xlvoVotingConfig $xlvoVotingConfig
 	 */
 
-	$xlvoPuk = new \LiveVoting\Puk\xlvoPuk();
+	$xlvoPuk = new \LiveVoting\Puk\Puk();
 
 	if (empty($xlvoVotingConfig->getPuk()) || strlen($xlvoVotingConfig->getPuk()) < $xlvoPuk->getPinLength()) {
 		$xlvoVotingConfig->setPuk($xlvoPuk->getPin());

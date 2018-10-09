@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.9.2]
+- Fix readme
+
 ## [0.9.1]
 - Fix
 

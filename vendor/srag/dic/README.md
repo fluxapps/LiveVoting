@@ -146,6 +146,7 @@ You can access ILIAS version informations, in instance and in static places:
  * @return VersionInterface Version interface
  */
 self::version()/*: VersionInterface*/;
+```
 
 If you really need DICTrait outside a class (For instance in `dbupdate.php`), use `DICStatic::dic()` or `DICStatic::plugin(ilXPlugin::class)`.
 

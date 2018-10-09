@@ -12,13 +12,13 @@ use LiveVoting\Voting\xlvoVotingConfig;
 use srag\DIC\DICTrait;
 
 /**
- * Class ilPowerPointExport
+ * Class PowerPointExport
  *
  * http://officeopenxml.com/anatomyofOOXML-pptx.php
  *
  * @package LiveVoting\PowerPointExport
  */
-class ilPowerPointExport {
+class PowerPointExport {
 
 	use DICTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;

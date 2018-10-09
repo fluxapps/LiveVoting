@@ -5,11 +5,11 @@ namespace LiveVoting\Puk;
 use LiveVoting\Pin\xlvoPin;
 
 /**
- * Class xlvoPuk
+ * Class Puk
  *
  * @package LiveVoting\Puk
  */
-class xlvoPuk extends xlvoPin {
+class Puk extends xlvoPin {
 
 	/**
 	 * @param string $puk

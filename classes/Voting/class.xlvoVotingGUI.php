@@ -5,7 +5,7 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 use LiveVoting\Conf\xlvoConf;
 use LiveVoting\GUI\xlvoGlyphGUI;
 use LiveVoting\Option\xlvoOption;
-use LiveVoting\PowerPointExport\ilPowerPointExport;
+use LiveVoting\PowerPointExport\PowerPointExport;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\Round\xlvoRound;
 use LiveVoting\Vote\xlvoVote;
@@ -726,7 +726,7 @@ class xlvoVotingGUI {
 	 *
 	 */
 	protected function runPowerPointExport() {
-		$powerPointExport = new ilPowerPointExport($this->obj);
+		$powerPointExport = new PowerPointExport($this->obj);
 		$powerPointExport->run();
 	}
 
