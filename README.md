@@ -48,7 +48,7 @@ https://appsource.microsoft.com/en-us/product/office/WA104295828?tab=Overview
 You need also to configure your website as HTTPS and allow that your website can be displayed in frames.
 
 ### Dependencies
-* PHP 5.6
+* PHP >=5.6
 * [composer](https://getcomposer.org)
 * [endroid/qrcode](https://packagist.org/packages/endroid/qrcode)
 * [srag/activerecordconfig](https://packagist.org/packages/srag/activerecordconfig)
