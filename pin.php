@@ -16,29 +16,36 @@ use LiveVoting\Pin\xlvoPin;
 use srag\DIC\DICStatic;
 
 try {
-
 	$pin = trim(filter_input(INPUT_GET, "pin"), "/");
-	if (!empty($pin)) {
 
-		InitialisationManager::startMinimal();
+	InitialisationManager::startMinimal();
+
+	CookieManager::resetCookiePIN();
+	CookieManager::resetCookiePUK();
+	CookieManager::resetCookieVoting();
+	CookieManager::resetCookiePpt();
+
+	CookieManager::setContext(xlvoContext::CONTEXT_PIN);
+
+	DICStatic::dic()->ctrl()->initBaseClass(ilUIPluginRouterGUI::class);
+	DICStatic::dic()->ctrl()->setTargetScript(xlvoConf::getFullApiURL());
+
+	if (!empty($pin)) {
 
 		if (xlvoPin::checkPin($pin)) {
 
-			//CookieManager::resetCookiePIN();
-			CookieManager::resetCookiePUK();
-			CookieManager::resetCookieVoting();
-			CookieManager::resetCookiePpt();
-
-			CookieManager::setContext(xlvoContext::CONTEXT_PIN);
 			CookieManager::setCookiePIN($pin);
 
-			DICStatic::dic()->ctrl()->initBaseClass(ilUIPluginRouterGUI::class);
-			DICStatic::dic()->ctrl()->setTargetScript(xlvoConf::getFullApiURL());
 			DICStatic::dic()->ctrl()->redirectByClass([
 				ilUIPluginRouterGUI::class,
 				xlvoVoter2GUI::class,
 			], xlvoVoter2GUI::CMD_START_VOTER_PLAYER);
 		}
+	} else {
+		DICStatic::dic()->ctrl()->redirectByClass([
+			ilUIPluginRouterGUI::class,
+			xlvoVoter2GUI::class,
+		], xlvoVoter2GUI::CMD_STANDARD);
 	}
 } catch (Throwable $ex) {
 

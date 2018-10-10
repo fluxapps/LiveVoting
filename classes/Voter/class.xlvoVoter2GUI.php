@@ -123,25 +123,25 @@ class xlvoVoter2GUI extends xlvoGUI {
 	 * @throws Exception
 	 */
 	protected function checkPin() {
-		//CookieManager::resetCookiePIN();
+		CookieManager::resetCookiePIN();
 		CookieManager::resetCookiePUK();
 		CookieManager::resetCookieVoting();
 		CookieManager::resetCookiePpt();
 
-		$redirect = true;
 		try {
-			xlvoPin::checkPin(filter_input(INPUT_POST, self::F_PIN_INPUT));
-		} catch (xlvoVoterException $e) {
-			CookieManager::resetCookiePIN();
-			ilUtil::sendFailure($this->txt('msg_validation_error_pin_' . $e->getCode()));
-			$this->index();
-			$redirect = false;
-		}
+			$pin = filter_input(INPUT_POST, self::F_PIN_INPUT);
 
-		if ($redirect) {
+			xlvoPin::checkPin($pin);
+
 			CookieManager::setCookiePIN($_POST[self::F_PIN_INPUT]);
 
 			self::dic()->ctrl()->redirect($this, self::CMD_START_VOTER_PLAYER);
+		} catch (xlvoVoterException $e) {
+			CookieManager::resetCookiePIN();
+
+			ilUtil::sendFailure($this->txt('msg_validation_error_pin_' . $e->getCode()));
+
+			$this->index();
 		}
 	}
 
