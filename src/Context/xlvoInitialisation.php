@@ -174,6 +174,8 @@ class xlvoInitialisation extends ilInitialisation {
 	 *
 	 */
 	protected static function initHTML2() {
+		global $DIC;
+		$DIC = new Container();
 		parent::initHTML();
 		if (self::USE_OWN_GLOBAL_TPL) {
 			$tpl = self::plugin()->template("default/tpl.main.html");
