@@ -175,13 +175,19 @@ class xlvoInitialisation extends ilInitialisation {
 	 */
 	protected static function initHTML2() {
 		global $DIC;
-		$DIC = new Container();
+		if ($DIC->offsetExists("tpl")) {
+			$DIC->offsetUnset("tpl");
+		}
 		parent::initHTML();
 		if (self::USE_OWN_GLOBAL_TPL) {
 			$tpl = self::plugin()->template("default/tpl.main.html");
 			$tpl->touchBlock("navbar");
 			$tpl->addCss('./templates/default/delos.css');
 			$tpl->addBlockFile("CONTENT", "content", "tpl.main_voter.html", self::plugin()->directory());
+
+			if ($DIC->offsetExists("tpl")) {
+				$DIC->offsetUnset("tpl");
+			}
 
 			self::initGlobal("tpl", $tpl);
 		}
