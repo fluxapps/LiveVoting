@@ -155,23 +155,31 @@ class xlvoInitialisation extends ilInitialisation {
 
 
 	/**
+	 * @param string $a_name
+	 * @param string $a_class
+	 * @param null   $a_source_file
+	 */
+	protected static function initGlobal($a_name, $a_class, $a_source_file = NULL) {
+		global $DIC;
+
+		if ($DIC->offsetExists($a_name)) {
+			$DIC->offsetUnset($a_name);
+		}
+
+		parent::initGlobal($a_name, $a_class, $a_source_file);
+	}
+
+
+	/**
 	 *
 	 */
 	protected static function initHTML2() {
-		global $DIC;
-		if ($DIC->offsetExists("tpl")) {
-			$DIC->offsetUnset("tpl");
-		}
 		parent::initHTML();
 		if (self::USE_OWN_GLOBAL_TPL) {
 			$tpl = self::plugin()->template("default/tpl.main.html");
 			$tpl->touchBlock("navbar");
 			$tpl->addCss('./templates/default/delos.css');
 			$tpl->addBlockFile("CONTENT", "content", "tpl.main_voter.html", self::plugin()->directory());
-
-			if ($DIC->offsetExists("tpl")) {
-				$DIC->offsetUnset("tpl");
-			}
 
 			self::initGlobal("tpl", $tpl);
 		}
