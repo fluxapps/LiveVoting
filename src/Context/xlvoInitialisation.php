@@ -178,6 +178,9 @@ class xlvoInitialisation extends ilInitialisation {
 		if ($DIC->offsetExists("tpl")) {
 			$DIC->offsetUnset("tpl");
 		}
+		if ($DIC->offsetExists("ilNavigationHistory")) {
+			$DIC->offsetUnset("ilNavigationHistory");
+		}
 		parent::initHTML();
 		if (self::USE_OWN_GLOBAL_TPL) {
 			$tpl = self::plugin()->template("default/tpl.main.html");
