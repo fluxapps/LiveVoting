@@ -201,14 +201,14 @@ final class CookieManager {
 
 
 	/**
-	 * @return string
+	 * @return bool
 	 */
 	public static function getCookiePpt() {
 		if (!self::hasCookiePpt()) {
 			return false;
 		}
 
-		return $_COOKIE[self::PPT_COOKIE];
+		return boolval($_COOKIE[self::PPT_COOKIE]);
 	}
 
 

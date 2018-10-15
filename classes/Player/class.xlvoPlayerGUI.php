@@ -411,7 +411,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 		//
 
 		// Fullscreen
-		if ($this->manager->getVotingConfig()->isFullScreen() && !CookieManager::hasCookiePpt()) {
+		if ($this->manager->getVotingConfig()->isFullScreen() && !CookieManager::getCookiePpt()) {
 			$suspendButton = ilLinkButton::getInstance();
 			$suspendButton->setCaption(xlvoGlyphGUI::get('fullscreen'), false);
 			$suspendButton->setUrl('#');
