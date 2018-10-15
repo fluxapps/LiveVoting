@@ -130,7 +130,8 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 *
 	 */
 	protected function getAttendees() {
-		xlvoJsResponse::getInstance(self::plugin()->translate("start_online", "", [ xlvoVoter::countVoters($this->manager->getPlayer()->getId()) ]))->send();
+		xlvoJsResponse::getInstance(self::plugin()->translate("start_online", "", [ xlvoVoter::countVoters($this->manager->getPlayer()->getId()) ]))
+			->send();
 	}
 
 
@@ -410,7 +411,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 		//
 
 		// Fullscreen
-		if ($this->manager->getVotingConfig()->isFullScreen()) {
+		if ($this->manager->getVotingConfig()->isFullScreen() && !CookieManager::hasCookiePpt()) {
 			$suspendButton = ilLinkButton::getInstance();
 			$suspendButton->setCaption(xlvoGlyphGUI::get('fullscreen'), false);
 			$suspendButton->setUrl('#');

@@ -60,43 +60,46 @@ var xlvoPlayer = {
 		this.getPlayerData();
 	},
 	handleFullScreen: function () {
-
-		this.btn_close_fullscreen.parent().hide();
-		var jq_target = $('div.ilTabsContentOuter');
-		var target = jq_target[0];
-		var self = this;
-		this.btn_start_fullscreen.click(function (e) {
-			e.preventDefault();
-			if (screenfull.enabled) {
-				screenfull.request(target);
-			}
-		});
-		this.btn_close_fullscreen.click(function (e) {
-			e.preventDefault();
-			if (screenfull.enabled) {
-				screenfull.exit(target);
-			}
-		});
-
-		if (screenfull.enabled) {
-			document.addEventListener(screenfull.raw.fullscreenchange, function () {
-				if (!screenfull.isFullscreen) {
-					jq_target.removeClass('xlvo-fullscreen');
-					self.btn_start_fullscreen.parent().show();
-					self.btn_close_fullscreen.parent().hide();
-				} else {
-					jq_target.addClass('xlvo-fullscreen');
-					self.btn_start_fullscreen.parent().hide();
-					self.btn_close_fullscreen.parent().show();
+		if (document.cookie.indexOf("xlvo_ppt=1") === -1) {
+			this.btn_close_fullscreen.parent().hide();
+			var jq_target = $('div.ilTabsContentOuter');
+			var target = jq_target[0];
+			var self = this;
+			this.btn_start_fullscreen.click(function (e) {
+				e.preventDefault();
+				if (screenfull.enabled) {
+					screenfull.request(target);
 				}
-
-				//set the height for safari
-				var node = $('#xlvo-display-player').children();
-				$('#xlvo-display-player').css('height', node.css('height'));
-
 			});
-		}
+			this.btn_close_fullscreen.click(function (e) {
+				e.preventDefault();
+				if (screenfull.enabled) {
+					screenfull.exit(target);
+				}
+			});
 
+			if (screenfull.enabled) {
+				document.addEventListener(screenfull.raw.fullscreenchange, function () {
+					if (!screenfull.isFullscreen) {
+						jq_target.removeClass('xlvo-fullscreen');
+						self.btn_start_fullscreen.parent().show();
+						self.btn_close_fullscreen.parent().hide();
+					} else {
+						jq_target.addClass('xlvo-fullscreen');
+						self.btn_start_fullscreen.parent().hide();
+						self.btn_close_fullscreen.parent().show();
+					}
+
+					//set the height for safari
+					var node = $('#xlvo-display-player').children();
+					$('#xlvo-display-player').css('height', node.css('height'));
+
+				});
+			}
+		} else {
+			this.btn_start_fullscreen.parent().hide();
+			this.btn_close_fullscreen.parent().hide();
+		}
 	}, registerElements: function () {
 		if (document.cookie.indexOf("xlvo_ppt=1") === -1) {
 			$(document).keydown(function (e) {
