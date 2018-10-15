@@ -343,6 +343,7 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 			$tpl->parseCurrentBlock();
 		}
 		$inputs = $this->inputs;
+		$required = file_get_contents(self::plugin()->directory() . "/templates/default/tpl.multi_line_input_required.html");
 		foreach ($inputs as $key => $input) {
 			$input = clone $input;
 			$is_hidden = false;
@@ -391,6 +392,9 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 					if ($this->isShowLabel() || ($this->isShowLabelOnce() && $first_label)) {
 						$tpl->setCurrentBlock('input_label');
 						$tpl->setVariable('LABEL', $input->getTitle());
+						if ($input->getRequired()) {
+							$tpl->setVariable("REQUIRED", $required);
+						}
 						$tpl->setVariable('CONTENT', $input->getHTML());
 						$tpl->parseCurrentBlock();
 						$first_label = false;
@@ -403,6 +407,9 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 					if ($this->isShowLabel() || ($this->isShowLabelOnce() && $first_label)) {
 						$tpl->setCurrentBlock('input_label');
 						$tpl->setVariable('LABEL', $input->getTitle());
+						if ($input->getRequired()) {
+							$tpl->setVariable("REQUIRED", $required);
+						}
 						$tpl->setVariable('CONTENT', $input->render());
 						$first_label = false;
 					} else {
