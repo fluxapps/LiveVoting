@@ -213,17 +213,17 @@ final class CookieManager {
 
 
 	/**
-	 * @param string $ppt
-	 * @param bool   $force
+	 * @param bool|int|string $ppt
+	 * @param bool            $force
 	 *
 	 * @throws Exception
 	 */
 	public static function setCookiePpt($ppt, $force = false) {
 		// Fix short url
 		if ($ppt === "ppt") {
-			$ppt = "1";
+			$ppt = true;
 		}
-		$result = setcookie(self::PPT_COOKIE, $ppt, NULL, '/');
+		$result = setcookie(self::PPT_COOKIE, boolval($ppt), NULL, '/');
 		if (!$result) {
 			throw new Exception("error setting cookie");
 		}
