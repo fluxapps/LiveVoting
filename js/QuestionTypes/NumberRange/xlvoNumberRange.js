@@ -15,6 +15,9 @@ var xlvoNumberRange = {
 	config: {},
 	base_url: '',
 	run: function () {
+		var slider = $("#slider").bootstrapSlider();
+
+		var step = parseInt(slider.attr("data-slider-step"));
 
 		this.percentageSign = $('#percentage')[0].value === "1" ? ' %' : '';
 
@@ -23,13 +26,12 @@ var xlvoNumberRange = {
 
 		numberDisplay.text(oldText.concat(this.percentageSign));
 
-		var slider = $("#slider").bootstrapSlider();
-		var thisRef = this;
+		slider = slider.bootstrapSlider();
 
 		slider.change(
 			function (changedValues) {
-				$('#number-display').text(String(changedValues.value.newValue).concat(thisRef.percentageSign));
-			}.bind(thisRef));
+				$('#number-display').text(String(changedValues.value.newValue).concat(this.percentageSign));
+			}.bind(this));
 
 		//left button click event to move the slider to the left
 		var buttonMoveSliderLeft = document.querySelector("#btn-slider-left");
@@ -37,7 +39,7 @@ var xlvoNumberRange = {
 
 			var sliderValue = slider.bootstrapSlider("getValue");
 			if (slider.bootstrapSlider("getAttribute", "min") < sliderValue)
-				slider.bootstrapSlider("setValue", sliderValue - thisRef.config.step, false, true);
+				slider.bootstrapSlider("setValue", sliderValue - step, false, true);
 
 		}.bind(slider);
 
@@ -47,7 +49,7 @@ var xlvoNumberRange = {
 
 			var sliderValue = slider.bootstrapSlider("getValue");
 			if (slider.bootstrapSlider("getAttribute", "max") > sliderValue)
-				slider.bootstrapSlider("setValue", sliderValue + thisRef.config.step, false, true);
+				slider.bootstrapSlider("setValue", sliderValue + step, false, true);
 
 		}.bind(slider);
 	},
