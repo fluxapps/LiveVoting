@@ -270,10 +270,23 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 			$valid = false;
 		}
 		// validate
-		foreach ($this->inputs as $input_key => $inputs) {
-			$_POST[$inputs->getPostVar()] = $inputs->getValue();
-			if (!$inputs->checkInput()) {
-				$valid = false;
+
+		if ($this->getMulti()) {
+			foreach ($this->line_values as $inputs) {
+				foreach ($inputs as $input_key => $input_value) {
+					$input = $this->inputs[$input_key];
+					$_POST[$input->getPostVar()] = $input_value;
+					if (!$input->checkInput()) {
+						$valid = false;
+					}
+				}
+			}
+		} else {
+			foreach ($this->inputs as $input_key => $input) {
+				$_POST[$input->getPostVar()] = $input->getValue();
+				if (!$input->checkInput()) {
+					$valid = false;
+				}
 			}
 		}
 		if (!$valid) {
