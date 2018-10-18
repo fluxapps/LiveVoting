@@ -71,8 +71,8 @@ class xlvoCorrectOrderResultsGUI extends xlvoSingleVoteResultsGUI {
 			 * @var xlvoOption $item
 			 */
 			foreach ($correct_order as $item) {
-				$solution_html .= ' <p><h1 class="xlvo-option"><span class="label label-primary xlvo-option">' . $item->getCipher() . '</span> '
-					. $item->getTextForPresentation() . '</h1></p>';
+				$solution_html .= ' <p><div class="xlvo-option"><span class="label label-primary xlvo-option">' . $item->getCipher() . '</span> '
+					. $item->getTextForPresentation() . '</div></p>';
 			}
 			$bars->addSolution($solution_html);
 		}
