@@ -76,6 +76,9 @@ li.ilToolbarTextonly button {
 .xlvo-question {
   font-size: 1.4em;
 }
+.xlvo-option_col {
+  line-height: 0px !important;
+}
 .xlvo-option {
   border-bottom:  1px solid #EEEEEE;
   padding-bottom: 3px;
