@@ -78,7 +78,7 @@ li.ilToolbarTextonly button {
 }
 .xlvo-option {
   border-bottom:  1px solid #EEEEEE;
-  padding-bottom: 3px;
+  padding-bottom: 2px;
   padding-top:    2px;
 }
 .xlvo-option_letter {
@@ -90,8 +90,9 @@ li.ilToolbarTextonly button {
   width:       25px;
 }
 .xlvo-option_text {
+  display:     inline-block;
   font-size:      24px;
-  line-height:    24px;
+  height:    18px;
 }
 .ilToolbar li.ilToolbarGroup .navbar-text {
   margin-right: 20px !important;
