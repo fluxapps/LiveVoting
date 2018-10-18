@@ -60,9 +60,9 @@ var xlvoPlayer = {
 		this.getPlayerData();
 	},
 	handleFullScreen: function () {
+		var jq_target = $('div.ilTabsContentOuter');
 		if (document.cookie.indexOf("xlvo_ppt=1") === -1) {
 			this.btn_close_fullscreen.parent().hide();
-			var jq_target = $('div.ilTabsContentOuter');
 			var target = jq_target[0];
 			var self = this;
 			this.btn_start_fullscreen.click(function (e) {
@@ -99,6 +99,7 @@ var xlvoPlayer = {
 		} else {
 			this.btn_start_fullscreen.parent().hide();
 			this.btn_close_fullscreen.parent().hide();
+			jq_target.addClass('xlvo-fullscreen');
 		}
 	}, registerElements: function () {
 		if (document.cookie.indexOf("xlvo_ppt=1") === -1) {
