@@ -384,21 +384,23 @@ class xlvoPlayerGUI extends xlvoGUI {
 		//
 		//
 
-		// PREV
-		$suspendButton = ilLinkButton::getInstance();
-		$suspendButton->setDisabled(true);
-		$suspendButton->setUrl(self::dic()->ctrl()->getLinkTarget($this, self::CMD_PREVIOUS));
-		$suspendButton->setCaption(xlvoGlyphGUI::get(xlvoGlyphGUI::PREVIOUS), false);
-		$suspendButton->setId('btn-previous');
-		self::dic()->toolbar()->addButtonInstance($suspendButton);
+		if (!CookieManager::getCookiePpt()) {
+			// PREV
+			$suspendButton = ilLinkButton::getInstance();
+			$suspendButton->setDisabled(true);
+			$suspendButton->setUrl(self::dic()->ctrl()->getLinkTarget($this, self::CMD_PREVIOUS));
+			$suspendButton->setCaption(xlvoGlyphGUI::get(xlvoGlyphGUI::PREVIOUS), false);
+			$suspendButton->setId('btn-previous');
+			self::dic()->toolbar()->addButtonInstance($suspendButton);
 
-		// NEXT
-		$suspendButton = ilLinkButton::getInstance();
-		$suspendButton->setDisabled(true);
-		$suspendButton->setCaption(xlvoGlyphGUI::get(xlvoGlyphGUI::NEXT), false);
-		$suspendButton->setUrl(self::dic()->ctrl()->getLinkTarget($this, self::CMD_NEXT));
-		$suspendButton->setId('btn-next');
-		self::dic()->toolbar()->addButtonInstance($suspendButton);
+			// NEXT
+			$suspendButton = ilLinkButton::getInstance();
+			$suspendButton->setDisabled(true);
+			$suspendButton->setCaption(xlvoGlyphGUI::get(xlvoGlyphGUI::NEXT), false);
+			$suspendButton->setUrl(self::dic()->ctrl()->getLinkTarget($this, self::CMD_NEXT));
+			$suspendButton->setId('btn-next');
+			self::dic()->toolbar()->addButtonInstance($suspendButton);
+		}
 
 		// Votings
 		$current_selection_list = $this->getVotingSelectionList();
