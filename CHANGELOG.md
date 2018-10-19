@@ -48,7 +48,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Fix no wrap if the shortlink URL is too long
 - Cursor pointer for QR code button
 - FreeInput enter auto submit
-- Updated de and en languages
+- Updated de and en languages and remove outdated PluginTranslator
 
 ### Security
 - Improved PIN validation in pin.php
