@@ -20,11 +20,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Removed discard button in FreeInput
 - Removed 'Colums for possible answers' in NumberRange
 - Fix fullscreen background not any more black
+- New behavior for random and non-random correct positions
 - Full namespaces
 - DIC-Trait
 
 ### Deprecated
--
+- 
 
 ### Removed
 - Removed ILIAS 5.1 support
