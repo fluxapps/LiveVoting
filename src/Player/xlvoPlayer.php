@@ -4,6 +4,7 @@ namespace LiveVoting\Player;
 
 use LiveVoting\Cache\CachingActiveRecord;
 use LiveVoting\Cache\xlvoCacheFactory;
+use LiveVoting\Context\Param\ParamManager;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\Round\xlvoRound;
 use LiveVoting\Vote\xlvoVote;

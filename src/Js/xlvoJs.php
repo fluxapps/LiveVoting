@@ -5,6 +5,7 @@ namespace LiveVoting\Js;
 use ilLiveVotingPlugin;
 use ilUIPluginRouterGUI;
 use LiveVoting\Conf\xlvoConf;
+use LiveVoting\Context\Param\ParamManager;
 use LiveVoting\GUI\xlvoGUI;
 use srag\DIC\DICTrait;
 
@@ -105,9 +106,11 @@ class xlvoJs {
 	 */
 	public function api(xlvoGUI $xlvoGUI, array $additional_classes = array(), $cmd = '') {
 		$ilCtrl2 = clone(self::dic()->ctrl());
-		self::dic()->ctrl()->initBaseClass(ilUIPluginRouterGUI::class);
+		//self::dic()->ctrl()->initBaseClass(ilUIPluginRouterGUI::class);
 		$ilCtrl2->setTargetScript(self::API_URL);
 		$additional_classes[] = get_class($xlvoGUI);
+
+		ParamManager::getInstance();
 
 		$this->settings->addSetting(self::BASE_URL_SETTING, self::dic()->ctrl()->getLinkTargetByClass($additional_classes, $cmd, NULL, true));
 
@@ -243,7 +246,6 @@ class xlvoJs {
 	public function setRunCode() {
 		return $this->call("run");
 	}
-
 
 	/**
 	 * @param string $method

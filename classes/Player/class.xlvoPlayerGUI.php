@@ -2,7 +2,6 @@
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-use LiveVoting\Context\Cookie\CookieManager;
 use LiveVoting\Context\ILIASVersionEnum;
 use LiveVoting\Exceptions\xlvoPlayerException;
 use LiveVoting\Exceptions\xlvoVotingManagerException;
@@ -22,6 +21,7 @@ use LiveVoting\Voter\xlvoVoter;
 use LiveVoting\Voting\xlvoVoting;
 use LiveVoting\Voting\xlvoVotingConfig;
 use LiveVoting\Voting\xlvoVotingManager2;
+use LiveVoting\Context\Param\ParamManager;
 
 /**
  * Class xlvoPlayerGUI
@@ -36,6 +36,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 	const CMD_START_PLAYER = 'startPlayer';
 	const CMD_START_PLAYER_AND_UNFREEZE = 'startPlayerAnUnfreeze';
 	const CMD_START_PRESENTER = 'startPresenter';
+	const CMD_SHOW_PPT_QUESTION_OVERVIEW  = 'showPptQuestionOverview';
 	const CMD_NEXT = 'next';
 	const CMD_PREVIOUS = 'previous';
 	const CMD_FREEZE = 'freeze';
@@ -56,8 +57,16 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 *
 	 */
 	public function __construct() {
+
 		parent::__construct();
-		$this->manager = xlvoVotingManager2::getInstanceFromObjId(ilObject2::_lookupObjId($_GET['ref_id']));
+
+		global $ilLog;
+		//$ilLog->write(print_r($_GET,true));
+
+		$param_manager = ParamManager::getInstance();
+
+		$this->manager = xlvoVotingManager2::getInstanceFromObjId(ilObject2::_lookupObjId($param_manager->getRefId()),$param_manager->getVoting());
+
 		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/default.css');
 	}
 
@@ -101,6 +110,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 		$current_selection_list = $this->getVotingSelectionList(false);
 		self::dic()->toolbar()->addText($current_selection_list->getHTML());
+
 
 		$template = self::plugin()->template('default/Player/tpl.start.html');
 		/**
@@ -153,9 +163,6 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 *
 	 */
 	protected function startPlayer() {
-		if ($_GET[self::IDENTIFIER]) {
-			$this->manager->open($_GET[self::IDENTIFIER]);
-		}
 		$this->initJSandCss();
 		$this->manager->prepare();
 		$this->initToolbarDuringVoting();
@@ -170,15 +177,17 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 * @throws ilException
 	 */
 	protected function startPresenter() {
-		$pin = CookieManager::getCookiePIN();
 
 		try {
-			xlvoPin::checkPin($pin);
+			xlvoPin::checkPin($this->param_manager->getPin());
 		} catch (Throwable $e) {
-			throw new ilException("Wrong PIN!");
+			throw new ilException("PlayerGUI startPresenter1 Wrong PIN!");
 		}
 
-		$this->manager = new xlvoVotingManager2($pin);
+
+
+		$this->manager = new xlvoVotingManager2($this->param_manager->getPin(),$this->param_manager->getVoting());
+
 
 		/**
 		 * @var xlvoVotingConfig|null $xlvoVotingConfig
@@ -188,19 +197,17 @@ class xlvoPlayerGUI extends xlvoGUI {
 		if ($xlvoVotingConfig === NULL
 			|| $this->manager->getObjId()
 			!= ilObject2::_lookupObjId(filter_input(INPUT_GET, "ref_id"))/* || !ilObjLiveVotingAccess::hasWriteAccess($this->manager->getObjId())*/) {
-			throw new ilException("Wrong PIN!");
+			throw new ilException("PlayerGUI startPresenter2 Wrong PIN!");
 		}
 
-		$puk = CookieManager::getCookiePUK();
-		if ($xlvoVotingConfig->getPuk() !== $puk) {
+		if ($xlvoVotingConfig->getPuk() !== $this->param_manager->getPuk()) {
 			throw new ilException("Wrong PUK!");
 		}
 
 		self::dic()->ctrl()->saveParameter($this, "ref_id");
 
-		if (CookieManager::hasCookieVoting()) {
-			$this->manager->open(CookieManager::getCookieVoting());
-			CookieManager::resetCookieVoting();
+		if ($this->param_manager->getVoting()) {
+			$this->manager->open($this->param_manager->getVoting());
 		}
 
 		$this->startPlayer();
@@ -211,13 +218,20 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 *
 	 */
 	protected function getPlayerData() {
+
 		$this->manager->attend();
-		$results = array(
-			'player' => $this->manager->getPlayer()->getStdClassForPlayer(),
-			'player_html' => $this->getPlayerHTML(true),
-			'buttons_html' => $this->getButtonsHTML(),
-		);
-		xlvoJsResponse::getInstance($results)->send();
+
+		if($this->param_manager->getVoting() > 0) {
+			$this->manager->getPlayer()->setActiveVoting($this->param_manager->getVoting());
+		}
+
+
+			$results = array(
+				'player' => $this->manager->getPlayer()->getStdClassForPlayer(),
+				'player_html' => $this->getPlayerHTML(true),
+				'buttons_html' => $this->getButtonsHTML(),
+			);
+			xlvoJsResponse::getInstance($results)->send();
 	}
 
 
@@ -286,6 +300,13 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 * @throws ilException
 	 */
 	protected function apiCall() {
+
+
+		if($this->param_manager->getVoting() > 0) {
+			$this->manager->getPlayer()->setActiveVoting($this->param_manager->getVoting());
+		}
+
+
 		$return_value = true;
 		switch ($_POST['call']) {
 			case 'toggle_freeze':
@@ -319,6 +340,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 				$return_value->buttons_html = $this->getButtonsHTML();
 				break;
 		}
+
 		xlvoJsResponse::getInstance($return_value)->send();
 	}
 
@@ -384,7 +406,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 		//
 		//
 
-		if (!CookieManager::getCookiePpt()) {
+		if (!$this->param_manager->isPpt()) {
 			// PREV
 			$suspendButton = ilLinkButton::getInstance();
 			$suspendButton->setDisabled(true);
@@ -403,8 +425,10 @@ class xlvoPlayerGUI extends xlvoGUI {
 		}
 
 		// Votings
-		$current_selection_list = $this->getVotingSelectionList();
-		self::dic()->toolbar()->addText($current_selection_list->getHTML());
+		if(!$this->param_manager->isPpt()) {
+			$current_selection_list = $this->getVotingSelectionList();
+			self::dic()->toolbar()->addText($current_selection_list->getHTML());
+		}
 
 		//
 		//
@@ -413,7 +437,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 		//
 
 		// Fullscreen
-		if ($this->manager->getVotingConfig()->isFullScreen() && !CookieManager::getCookiePpt()) {
+		if ($this->manager->getVotingConfig()->isFullScreen() && !$this->param_manager->isPpt()) {
 			$suspendButton = ilLinkButton::getInstance();
 			$suspendButton->setCaption(xlvoGlyphGUI::get('fullscreen'), false);
 			$suspendButton->setUrl('#');
@@ -475,7 +499,6 @@ class xlvoPlayerGUI extends xlvoGUI {
 		 */
 		foreach ($this->manager->getAllVotings() as $voting) {
 			$id = $voting->getId();
-			self::dic()->ctrl()->setParameter(new xlvoPlayerGUI(), self::IDENTIFIER, $id);
 			$t = $voting->getTitle();
 			$target = self::dic()->ctrl()->getLinkTarget(new xlvoPlayerGUI(), self::CMD_START_PLAYER);
 			if ($async) {
@@ -522,11 +545,23 @@ class xlvoPlayerGUI extends xlvoGUI {
 			$keyboard->next = 39;
 		}
 		$settings['keyboard'] = $keyboard;
+
+		$settings['xlvo_ppt'] = $this->param_manager->isPpt();
+
 		iljQueryUtil::initjQuery();
+
+		//self::dic()->mainTemplate()->addJavaScript("https://appsforoffice.microsoft.com/lib/1/hosted/Office.js");
+		//self::dic()->mainTemplate()->addJavaScript(self::plugin()->directory() . '/js/PPT/xlvoPPT.min.js');
+		
+		
 		xlvoJs::getInstance()->addLibToHeader('screenfull.min.js');
 		xlvoJs::getInstance()->ilias($this)->addSettings($settings)->name('Player')->addTranslations(array(
 			'voting_confirm_reset',
 		))->init()->setRunCode();
+
+
+		//xlvoJs::getInstance()->ilias($this)->name('PPT')->init()->setRunCode();
+
 		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/Player/player.css');
 		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/LiveVoting/templates/default/Display/Bar/bar.css');
 	}

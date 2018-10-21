@@ -3,18 +3,21 @@ Simple ActiveRecord config for ILIAS plugins
 ### Usage
 
 #### Composer
-First add the follow to your `composer.json` file:
+First add the following to your `composer.json` file:
 ```json
 "require": {
   "srag/activerecordconfig": ">=0.1.0"
 },
 ```
 
-If your plugin should support ILIAS 5.2 or earlier you need to require `ActiveRecord` like follow in your `composer.json` file:
+If your plugin should support ILIAS 5.2 or earlier you need to require some ILIAS core classes like follow in your `composer.json` file:
 ```json
 "autoload": {
     "classmap": [
       "../../../../../../../Services/ActiveRecord/class.ActiveRecord.php",
+      "../../../../../../../Services/Component/classes/class.ilPluginConfigGUI.php",
+      "../../../../../../../Services/Form/classes/class.ilPropertyFormGUI.php",
+      "../../../../../../../Services/Table/classes/class.ilTable2GUI.php",
 ```
 May you need to adjust the relative `ActiveRecord` path
 
@@ -125,6 +128,9 @@ self::removeName(/*string*/$name)/*: void*/;
 Other `ActiveRecord` methods should be not used!
 
 ### ActiveRecordConfigGUI
+This class is experimental. Use it with care!
+It only supports a config with an `ilPropertyFormGUI`!
+
 Create a class `ilXConfigGUI`:
 ```php
 //...
@@ -133,7 +139,10 @@ use srag\ActiveRecordConfig\ActiveRecordConfigGUI;
 class ilXConfigGUI extends ActiveRecordConfigGUI {
 	//...
 	const PLUGIN_CLASS_NAME = ilXPlugin::class;
-	const REMOVE_PLUGIN_DATA_CONFIRM_CLASS_NAME = XConfigFormGUI::class;
+	/**
+     * @var array
+     */
+    protected static $tabs = [ self::TAB_CONFIGURATION => XConfigFormGUI::class ];
 }
 ```
 and a class `XConfigFormGUI`:
@@ -148,8 +157,8 @@ class XConfigFormGUI extends ActiveRecordConfigFormGUI {
 	/**
      * @inheritdoc
      */
-    protected function setForm()/*: void*/ {
-        parent::setForm();
+    protected function initForm()/*: void*/ {
+        parent::initForm();
         
         // TODO: Fill your config form
     }
@@ -170,15 +179,15 @@ class XConfigFormGUI extends ActiveRecordConfigFormGUI {
 Then you need to declare some language variables like:
 English:
 ```
-activerecordconfig_configuration#:#Configuration
-activerecordconfig_configuration_saved#:#Configuration saved
-activerecordconfig_save#:#Save
+config_configuration#:#Configuration
+config_configuration_saved#:#Configuration saved
+config_save#:#Save
 ```
 German:
 ```
-activerecordconfig_configuration#:#Konfiguration
-activerecordconfig_configuration_saved#:#Konfiguration gespeichert
-activerecordconfig_save#:#Speichern
+config_configuration#:#Konfiguration
+config_configuration_saved#:#Konfiguration gespeichert
+config_save#:#Speichern
 ```
 
 ### Migrate from your old config class
@@ -211,6 +220,8 @@ Column name based:
 XConfig::updateDB();
 
 if (\srag\DIC\DICStatic::dic()->database()->tableExists(XConfigOld::TABLE_NAME)) {
+	XConfigOld::updateDB();
+
 	$config_old = XConfigOld::getConfig();
 
  	XConfig::setSome($config_old->getSome());
@@ -228,6 +239,8 @@ Key and value based (Similar to this library):
 XConfig::updateDB();
 
 if (\srag\DIC\DICStatic::dic()->database()->tableExists(XConfigOld::TABLE_NAME)) {
+	XConfigOld::updateDB();
+
 	foreach (XConfigOld::get() as $config) {
 		/**
 		 * @var XConfigOld $config
@@ -248,6 +261,7 @@ if (\srag\DIC\DICStatic::dic()->database()->tableExists(XConfigOld::TABLE_NAME))
 ```
 
 ### Dependencies
+* PHP >=5.6
 * [composer](https://getcomposer.org)
 * [srag/dic](https://packagist.org/packages/srag/dic)
 
@@ -266,5 +280,5 @@ Start at your ILIAS root directory
 ```bash
 mkdir -p Customizing/global/plugins/Libraries
 cd Customizing/global/plugins/Libraries
-git clone git@git.studer-raimann.ch:ILIAS/Plugins/ActiveRecordConfig.git ActiveRecordConfig
+git clone -b develop git@git.studer-raimann.ch:ILIAS/Plugins/ActiveRecordConfig.git ActiveRecordConfig
 ```

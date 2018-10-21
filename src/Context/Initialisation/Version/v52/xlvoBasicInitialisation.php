@@ -39,7 +39,6 @@ use ilTree;
 use ilUIFramework;
 use ilUtil;
 use LiveVoting\Conf\xlvoConf;
-use LiveVoting\Context\Cookie\CookieManager;
 use LiveVoting\Context\xlvoContext;
 use LiveVoting\Context\xlvoDummyUser;
 use LiveVoting\Context\xlvoILIAS;

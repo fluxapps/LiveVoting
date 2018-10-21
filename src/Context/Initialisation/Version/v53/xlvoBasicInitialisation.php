@@ -39,8 +39,8 @@ use ilTree;
 use ilUIFramework;
 use ilUtil;
 use LiveVoting\Conf\xlvoConf;
-use LiveVoting\Context\Cookie\CookieManager;
 use LiveVoting\Context\Initialisation\Version\v52\xlvoStyleDefinition;
+use LiveVoting\Context\Param\ParamManager;
 use LiveVoting\Context\xlvoContext;
 use LiveVoting\Context\xlvoDummyUser;
 use LiveVoting\Context\xlvoILIAS;
@@ -49,6 +49,9 @@ use LiveVoting\Context\xlvoRbacReview;
 use LiveVoting\Context\xlvoRbacSystem;
 use LiveVoting\Session\xlvoSessionHandler;
 use srag\DIC\DICTrait;
+
+
+
 
 /**
  * Class xlvoBasicInitialisation for ILIAS 5.3 (Experimental)
@@ -80,7 +83,7 @@ class xlvoBasicInitialisation {
 	 */
 	protected function __construct($context = NULL) {
 		if ($context) {
-			CookieManager::setContext($context);
+			xlvoContext::setContext($context);
 		}
 
 		$this->bootstrapApp();
@@ -98,11 +101,11 @@ class xlvoBasicInitialisation {
 
 
 	private function bootstrapApp() {
-		//init context
-		xlvoContext::init(xlvoContext::CONTEXT_PIN);
-
 		//bootstrap ILIAS
+
 		$this->initDependencyInjection();
+		$GLOBALS["DIC"] = new \ILIAS\DI\Container();
+
 		$this->removeUnsafeCharacters();
 		$this->loadIniFile();
 		$this->requireCommonIncludes();
@@ -131,7 +134,6 @@ class xlvoBasicInitialisation {
 		$this->initHelp();
 		$this->initMainMenu();
 		$this->initAppEventHandler();
-		//$this->setCookieParams();
 	}
 
 
@@ -171,13 +173,16 @@ class xlvoBasicInitialisation {
 		$ilias = new xlvoILIAS();
 		$this->makeGlobal("ilias", $ilias);
 
-		$tpl = self::plugin()->template("default/tpl.main.html");
-		if (!CookieManager::hasCookiePUK()) {
+		$tpl = new \ilTemplate("tpl.main.html", true, true, 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting');
+
+		$param_manager = ParamManager::getInstance();
+		//$tpl = self::plugin()->template("default/tpl.main.html");
+		if (!$param_manager->getPuk()) {
 			$tpl->touchBlock("navbar");
 		}
-		$tpl->addCss(self::plugin()->directory() . '/templates/default/default.css');
+
 		$tpl->addCss('./templates/default/delos.css');
-		$tpl->addBlockFile("CONTENT", "content", "tpl.main_voter.html", self::plugin()->directory());
+		$tpl->addBlockFile("CONTENT", "content", "tpl.main_voter.html", 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting');
 		$tpl->setVariable('BASE', xlvoConf::getBaseVoteURL());
 		$this->makeGlobal("tpl", $tpl);
 
@@ -507,6 +512,8 @@ class xlvoBasicInitialisation {
 		// error_reporting(((ini_get("error_reporting")) & ~E_DEPRECATED) & ~E_STRICT); // removed reading ini since notices lead to a non working livevoting in 5.2 when E_NOTICE is enabled
 		error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_NOTICE);
 
+		$this->requireCommonIncludes();
+
 		// error handler
 		if (!defined('ERROR_HANDLER')) {
 			define('ERROR_HANDLER', 'PRETTY_PAGE');
@@ -514,6 +521,16 @@ class xlvoBasicInitialisation {
 		if (!defined('DEVMODE')) {
 			define('DEVMODE', false);
 		}
+
+
+		require_once "./libs/composer/vendor/filp/whoops/src/Whoops/Util/SystemFacade.php";
+		require_once "./libs/composer/vendor/filp/whoops/src/Whoops/RunInterface.php";
+		require_once "./libs/composer/vendor/filp/whoops/src/Whoops/Run.php";
+		require_once "./libs/composer/vendor/filp/whoops/src/Whoops/Handler/HandlerInterface.php";
+		require_once "./libs/composer/vendor/filp/whoops/src/Whoops/Handler/Handler.php";
+		require_once "./libs/composer/vendor/filp/whoops/src/Whoops/Handler/CallbackHandler.php";
+
+		require_once "./Services/Init/classes/class.ilErrorHandling.php";
 		$ilErr = new ilErrorHandling();
 		$this->makeGlobal("ilErr", $ilErr);
 		$ilErr->setErrorHandling(PEAR_ERROR_CALLBACK, array( $ilErr, 'errorHandler' ));

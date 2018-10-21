@@ -4,6 +4,7 @@ namespace LiveVoting\Conf;
 
 use ilSetting;
 use LiveVoting\Cache\CachingActiveRecord;
+use LiveVoting\Context\Param\ParamManager;
 
 /**
  * Class xlvoConf
@@ -80,7 +81,7 @@ class xlvoConf extends CachingActiveRecord {
 	 *
 	 * @deprecated
 	 */
-	const REWRITE_RULE_VOTE = "RewriteRule ^vote(/[\\w]*|) Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?pin=$1 [L]";
+	const REWRITE_RULE_VOTE = "RewriteRule ^vote(/[\\w]*|) Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?".ParamManager::PARAM_PIN."=$1 [L]";
 	/**
 	 * @var string
 	 *
@@ -152,7 +153,7 @@ class xlvoConf extends CachingActiveRecord {
 	 *
 	 * @deprecated
 	 */
-	const REWRITE_RULE_PRESENTER = "RewriteRule ^presenter(/\\w*)(/\\w*)(/\\w*)?(/\\w*)? Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/presenter.php?pin=$1&puk=$2&voting=$3&ppt=$4 [L]";
+	const REWRITE_RULE_PRESENTER = "RewriteRule ^presenter(/\\w*)(/\\w*)(/\\w*)?(/\\w*)? Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/presenter.php?".ParamManager::PARAM_PIN."=$1&puk=$2&voting=$3&ppt=$4 [L]";
 	/**
 	 * Min client update frequency in seconds.
 	 * This value should never be set bellow 1 second.

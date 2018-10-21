@@ -34,7 +34,7 @@ config_request_frequency#:#Klienten aktualisierungs Frequenz
 config_request_frequency_info#:#Die aktualisierungs Frequenz der LiveVoting Klienten, angegeben in Sekunden. Umso kleiner die Zahl ist umso schneller reagieren die Clients (z.B. Smartphones der Benutzer) während eines LiveVotings, allerdings erhöht sich die Last auf den Server merklich. Richtwert 2-5 Sekunden.
 config_update#:#Speichern
 config_result_api#:#Resultate-API aktivieren
-config_result_api_info#:#Resultate eines Votings können als JSON via Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/api.php?pin=XXXX?token=XXXXX abgerufen werden
+config_result_api_info#:#Resultate eines Votings können als JSON via Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/api.php?xlvo_pin=XXXX?token=XXXXX abgerufen werden
 config_api_token#:#API-Token
 config_api_type#:#Typ
 config_regenerate_token#:#Token neu generieren

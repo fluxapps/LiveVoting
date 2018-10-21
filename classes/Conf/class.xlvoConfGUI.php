@@ -7,6 +7,7 @@ use LiveVoting\Conf\xlvoConfFormGUI;
 use LiveVoting\GUI\xlvoGUI;
 use LiveVoting\Pin\xlvoPin;
 use LiveVoting\Voting\xlvoVoting;
+use LiveVoting\Context\Param\ParamManager;
 
 /**
  * Class xlvoConfGUI
@@ -39,7 +40,7 @@ class xlvoConfGUI extends xlvoGUI {
 			$b = ilLinkButton::getInstance();
 			$xlvoVoting = xlvoVoting::last();
 			$xlvoVoting = $xlvoVoting ? $xlvoVoting : new xlvoVoting();
-			$url = xlvoConf::getBaseVoteURL() . xlvoConf::RESULT_API_URL . '?token=%s&type=%s&pin=%s';
+			$url = xlvoConf::getBaseVoteURL() . xlvoConf::RESULT_API_URL . '?token=%s&type=%s&'.ParamManager::PARAM_PIN.'=%s';
 			$url = sprintf($url, xlvoConf::getApiToken(), xlvoConf::getConfig(xlvoConf::F_API_TYPE), xlvoPin::lookupPin($xlvoVoting->getObjId()));
 			$b->setUrl($url);
 			$b->setTarget('_blank');

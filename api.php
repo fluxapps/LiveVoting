@@ -9,7 +9,7 @@ require_once __DIR__ . "/vendor/autoload.php";
 require_once "dir.php";
 
 use LiveVoting\Api\xlvoApi;
-use LiveVoting\Context\Cookie\CookieManager;
+use LiveVoting\Context\Param\ParamManager;
 use LiveVoting\Context\InitialisationManager;
 use LiveVoting\Context\xlvoContext;
 use LiveVoting\Pin\xlvoPin;
@@ -17,19 +17,17 @@ use LiveVoting\Pin\xlvoPin;
 try {
 
 	$pin = trim(filter_input(INPUT_GET, "pin"), "/");
+	$puk = trim(filter_input(INPUT_GET, "puk"), "/");
+
 	if (!empty($pin)) {
 
 		InitialisationManager::startMinimal();
 
 		if (xlvoPin::checkPin($pin)) {
 
-			//CookieManager::resetCookiePIN();
-			CookieManager::resetCookiePUK();
-			CookieManager::resetCookieVoting();
-			CookieManager::resetCookiePpt();
+			$param_manager = ParamManager::getInstance();
+			xlvoContext::setContext(xlvoContext::CONTEXT_PIN);
 
-			CookieManager::setContext(xlvoContext::CONTEXT_PIN);
-			CookieManager::setCookiePIN($pin);
 
 			$token = trim(filter_input(INPUT_GET, "token"), "/");
 			if (!empty($token)) {

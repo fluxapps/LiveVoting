@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 use LiveVoting\Conf\xlvoConf;
-use LiveVoting\Context\Cookie\CookieManager;
+use LiveVoting\Context\Param\ParamManager;
 use LiveVoting\Exceptions\xlvoVoterException;
 use LiveVoting\Exceptions\xlvoVotingManagerException;
 use LiveVoting\GUI\xlvoGlyphGUI;
@@ -58,7 +58,10 @@ class xlvoVoter2GUI extends xlvoGUI {
 	 * @throws xlvoVotingManagerException
 	 */
 	public function executeCommand() {
-		$this->pin = CookieManager::getCookiePIN();
+
+		$param_manager = ParamManager::getInstance();
+
+		$this->pin = $param_manager->getPin();
 		$this->manager = new xlvoVotingManager2($this->pin);
 		$nextClass = self::dic()->ctrl()->getNextClass();
 		switch ($nextClass) {
@@ -123,21 +126,18 @@ class xlvoVoter2GUI extends xlvoGUI {
 	 * @throws Exception
 	 */
 	protected function checkPin() {
-		CookieManager::resetCookiePIN();
-		CookieManager::resetCookiePUK();
-		CookieManager::resetCookieVoting();
-		CookieManager::resetCookiePpt();
+		$param_manager = ParamManager::getInstance();
 
 		try {
 			$pin = filter_input(INPUT_POST, self::F_PIN_INPUT);
 
 			xlvoPin::checkPin($pin);
 
-			CookieManager::setCookiePIN($_POST[self::F_PIN_INPUT]);
+			$param_manager->setPin($_POST[self::F_PIN_INPUT]);
 
 			self::dic()->ctrl()->redirect($this, self::CMD_START_VOTER_PLAYER);
 		} catch (xlvoVoterException $e) {
-			CookieManager::resetCookiePIN();
+			$param_manager->setPin('');
 
 			ilUtil::sendFailure($this->txt('msg_validation_error_pin_' . $e->getCode()));
 
@@ -153,7 +153,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 		try {
 			xlvoPin::checkPin($this->pin);
 		} catch (Throwable $e) {
-			throw new ilException("Wrong PIN!");
+			throw new ilException("Voter2GUI Wrong PIN!");
 		}
 
 		$this->initJsAndCss();

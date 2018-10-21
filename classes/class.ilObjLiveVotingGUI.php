@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use LiveVoting\Conf\xlvoConf;
-use LiveVoting\Context\Cookie\CookieManager;
+use LiveVoting\Context\Param\ParamManager;
 use LiveVoting\Context\xlvoContext;
 use LiveVoting\Context\xlvoInitialisation;
 use LiveVoting\GUI\xlvoTextAreaInputGUI;
@@ -530,9 +530,11 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 	public static function _goto($a_target) {
 		if (preg_match("/[\\d]*_pin_([\\w]*)/", $a_target[0], $matches)) {
 			xlvoInitialisation::saveContext(xlvoInitialisation::CONTEXT_ILIAS);
-			CookieManager::setCookiePIN($matches[1], true);
 
-			self::dic()->ctrl()->initBaseClass(ilUIPluginRouterGUI::class);
+			$param_manager = ParamManager::getInstance();
+			$param_manager->setPin($matches[1]);
+
+			//self::dic()->ctrl()->initBaseClass(ilUIPluginRouterGUI::class);
 			self::dic()->ctrl()->setTargetScript(ltrim(xlvoConf::getFullApiURL(), './'));
 			self::dic()->ctrl()->redirectByClass(array(
 				ilUIPluginRouterGUI::class,
@@ -549,10 +551,11 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 	 */
 	protected function redirectToPublicVotingMask() {
 		$xlvoVotingManager2 = xlvoVotingManager2::getInstanceFromObjId($this->obj_id);
-		CookieManager::setCookiePIN($xlvoVotingManager2->getVotingConfig()->getPin(), true);
-		CookieManager::setContext(xlvoContext::CONTEXT_ILIAS);
 
-		self::dic()->ctrl()->initBaseClass(ilUIPluginRouterGUI::class);
+		$param_manager = ParamManager::getInstance();
+		$param_manager->setPin($xlvoVotingManager2->getVotingConfig()->getPin());
+		xlvoContext::setContext(xlvoContext::CONTEXT_ILIAS);
+
 		self::dic()->ctrl()->setTargetScript(xlvoConf::getFullApiURL());
 		self::dic()->ctrl()->redirectByClass(array(
 			ilUIPluginRouterGUI::class,

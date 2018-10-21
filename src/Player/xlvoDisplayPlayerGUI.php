@@ -5,6 +5,7 @@ namespace LiveVoting\Player;
 use ilException;
 use ilLiveVotingPlugin;
 use ilTemplate;
+use LiveVoting\Context\Param\ParamManager;
 use LiveVoting\Exceptions\xlvoVotingManagerException;
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\Pin\xlvoPin;
@@ -89,6 +90,8 @@ class xlvoDisplayPlayerGUI {
 			}
 		}
 
+
+		$this->tpl->setVariable('VOTING_ID', $this->manager->getVoting()->getId());
 		$this->tpl->setVariable('TITLE', $this->manager->getVoting()->getTitle());
 		$this->tpl->setVariable('QUESTION', $this->manager->getVoting()->getQuestionForPresentation());
 		$this->tpl->setVariable('VOTING_ID', $this->manager->getVoting()->getId());
@@ -127,6 +130,7 @@ class xlvoDisplayPlayerGUI {
 		$this->render();
 		$open = '<div id="xlvo-display-player" class="display-player panel panel-primary">';
 		$close = '</div>';
+
 		if ($inner) {
 			return $this->tpl->get();
 		} else {

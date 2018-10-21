@@ -10,7 +10,7 @@ use ilLiveVotingPlugin;
 use ilTree;
 use ilUIFramework;
 use LiveVoting\Conf\xlvoConf;
-use LiveVoting\Context\Cookie\CookieManager;
+use LiveVoting\Context\Param\ParamManager;
 use LiveVoting\Session\xlvoSessionHandler;
 use srag\DIC\DICTrait;
 
@@ -51,7 +51,7 @@ class xlvoInitialisation extends ilInitialisation {
 		if ($context) {
 			self::saveContext($context);
 		} else {
-			self::setContext(CookieManager::getContext());
+			self::setContext(xlvoContext::getContext());
 		}
 		$this->run();
 	}
@@ -93,7 +93,7 @@ class xlvoInitialisation extends ilInitialisation {
 	 */
 	public static function saveContext($context) {
 		self::setContext($context);
-		CookieManager::setContext($context);
+		xlvoContext::setContext($context);
 	}
 
 
@@ -225,7 +225,7 @@ class xlvoInitialisation extends ilInitialisation {
 
 		//		if (ilContext::usesHTTP()) {
 		//			self::initGlobal("https", "ilHTTPS", "./Services/Http/classes/class.ilHTTPS.php");
-		//			$https->enableSecureCookies();
+		//			$https->enableSecureParams();
 		//			$https->checkPort();
 		//		}
 
@@ -235,7 +235,7 @@ class xlvoInitialisation extends ilInitialisation {
 		//unset(self::$tree);
 		self::initGlobal("ilCtrl", "ilCtrl", "./Services/UICore/classes/class.ilCtrl.php");
 		$GLOBALS['COOKIE_PATH'] = '/';
-		self::setCookieParams();
+		self::setParamParams();
 		self::initLog();
 	}
 

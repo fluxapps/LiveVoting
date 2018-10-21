@@ -4,6 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
+    "hash": "599ebf047a77fc202e52d069d6e0761a",
     "content-hash": "08bf1de514fbfe9733f6af13b4572ab8",
     "packages": [
         {
@@ -65,20 +66,20 @@
                 "symfony"
             ],
             "abandoned": "endroid/qr-code",
-            "time": "2017-04-08T09:13:59+00:00"
+            "time": "2017-04-08 09:13:59"
         },
         {
             "name": "srag/activerecordconfig",
-            "version": "0.6.4",
+            "version": "v0.7.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/studer-raimann/ActiveRecordConfig.git",
-                "reference": "c67b5662ce36645a44ecb1491780cefbb14f935e"
+                "reference": "d12d1bfb2d241d5c30235d74ff6fc1b25817df5b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/studer-raimann/ActiveRecordConfig/zipball/c67b5662ce36645a44ecb1491780cefbb14f935e",
-                "reference": "c67b5662ce36645a44ecb1491780cefbb14f935e",
+                "url": "https://api.github.com/repos/studer-raimann/ActiveRecordConfig/zipball/d12d1bfb2d241d5c30235d74ff6fc1b25817df5b",
+                "reference": "d12d1bfb2d241d5c30235d74ff6fc1b25817df5b",
                 "shasum": ""
             },
             "require": {
@@ -110,20 +111,20 @@
                 "activerecord",
                 "config"
             ],
-            "time": "2018-09-17T09:03:25+00:00"
+            "time": "2018-10-16 12:29:31"
         },
         {
             "name": "srag/dic",
-            "version": "v0.9.2",
+            "version": "0.10.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/studer-raimann/DIC.git",
-                "reference": "6ddb639eb4b8a04a67dffd5bdc525bddc42a5bbd"
+                "reference": "7b4208ac5d0733e13d443099aac45dd89cf14b29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/studer-raimann/DIC/zipball/6ddb639eb4b8a04a67dffd5bdc525bddc42a5bbd",
-                "reference": "6ddb639eb4b8a04a67dffd5bdc525bddc42a5bbd",
+                "url": "https://api.github.com/repos/studer-raimann/DIC/zipball/7b4208ac5d0733e13d443099aac45dd89cf14b29",
+                "reference": "7b4208ac5d0733e13d443099aac45dd89cf14b29",
                 "shasum": ""
             },
             "require": {
@@ -155,7 +156,7 @@
                 "globals",
                 "trait"
             ],
-            "time": "2018-10-09T05:18:46+00:00"
+            "time": "2018-10-15 12:09:44"
         },
         {
             "name": "srag/removeplugindataconfirm",
@@ -202,7 +203,7 @@
                 "plugin",
                 "uninstall"
             ],
-            "time": "2018-09-17T09:07:15+00:00"
+            "time": "2018-09-17 09:07:15"
         },
         {
             "name": "symfony/options-resolver",
@@ -256,7 +257,7 @@
                 "configuration",
                 "options"
             ],
-            "time": "2018-09-17T17:29:18+00:00"
+            "time": "2018-09-17 17:29:18"
         }
     ],
     "packages-dev": [],

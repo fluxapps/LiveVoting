@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.7.4]
+- Fix
+
+## [0.7.3]
+- Fix
+
+## [0.7.2]
+- Fix
+
+## [0.7.1]
+- Fix
+
+## [0.7.0]
+- Correctly store boolean
+- Rename setForm to initForm
+- LANG_MODULE_CONFIG
+- Multiple config tabs support
+- Config table gui support
+
 ## [0.6.4]
 - Update readme
 

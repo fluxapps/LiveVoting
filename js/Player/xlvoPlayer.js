@@ -38,7 +38,7 @@ var xlvoPlayer = {
 		},
 		status_running: -1,
 		use_mathjax: false,
-		debug: false
+		debug: false,
 	},
 	player: {
 		is_first: true,
@@ -51,7 +51,8 @@ var xlvoPlayer = {
 		last_update: 0,
 		attendees: 0,
 		countdown: 0,
-		has_countdown: false
+		has_countdown: false,
+		xlvo_ppt: false
 	},
 	player_html: null,
 	run: function () {
@@ -61,7 +62,7 @@ var xlvoPlayer = {
 	},
 	handleFullScreen: function () {
 		var jq_target = $('div.ilTabsContentOuter');
-		if (document.cookie.indexOf("xlvo_ppt=1") === -1) {
+		if(xlvoPlayer.config.xlvo_ppt == false) {
 			this.btn_close_fullscreen.parent().hide();
 			var target = jq_target[0];
 			var self = this;
@@ -102,7 +103,7 @@ var xlvoPlayer = {
 			jq_target.addClass('xlvo-fullscreen');
 		}
 	}, registerElements: function () {
-		if (document.cookie.indexOf("xlvo_ppt=1") === -1) {
+		if(xlvoPlayer.config.xlvo_ppt == false) {
 			$(document).keydown(function (e) {
 				switch (e.which) {
 					case xlvoPlayer.config.keyboard.toggle_results:
@@ -126,6 +127,7 @@ var xlvoPlayer = {
 				e.preventDefault();
 			});
 		}
+
 
 		this.btn_freeze = $('#btn-freeze');
 		this.btn_previous = $('#btn-previous');
@@ -233,8 +235,6 @@ var xlvoPlayer = {
 			var attendees = document.getElementById('xlvo-attendees');
 			attendees.innerHTML = (this.player.attendees);
 		}
-
-
 	},
 	startRequest: function () {
 		xlvoPlayer.request_pending = true;
@@ -257,6 +257,7 @@ var xlvoPlayer = {
 			return;
 		}
 		xlvoPlayer.startRequest();
+
 		$.get(xlvoPlayer.config.base_url, {cmd: 'getPlayerData'}).done(function (data) {
 			xlvoPlayer.counter++;
 			if ((xlvoPlayer.counter > xlvoPlayer.forced_update_interval) // Forced update of HTML
@@ -271,7 +272,6 @@ var xlvoPlayer = {
 				if (xlvoPlayer.player_html !== playerHtml) { // Only change html if changed (Try prevent blinking images) (Not work because countdown text and/or token links)
 					//create new jquery node
 					var node = $(playerHtml);
-
 					//get list of old childs
 					var oldNode = $('#xlvo-display-player').children();
 
@@ -303,11 +303,17 @@ var xlvoPlayer = {
 			xlvoPlayer.player_html = data.player_html;
 			xlvoPlayer.handleQuestionButtons(data.buttons_html);
 			xlvoPlayer.initElements();
+
+
 			xlvoPlayer.timeout = setTimeout(xlvoPlayer.getPlayerData, xlvoPlayer.delay);
+
+
+
 		}).always(function () {
 			xlvoPlayer.endRequest();
 		});
 	},
+
 
 	handleSwitch: function () {
 		xlvoPlayer.buttons_handled = false;
@@ -331,6 +337,7 @@ var xlvoPlayer = {
 
 		var input_data = input_data ? input_data : {};
 		var post_data = $.extend({call: cmd}, input_data);
+		
 		$.post(xlvoPlayer.config.base_url + '&cmd=apiCall', post_data).always(function () {
 			xlvoPlayer.handleSwitch();
 			xlvoPlayer.getPlayerData();
@@ -360,6 +367,8 @@ var xlvoPlayer = {
 		}).always(function () {
 			xlvoPlayer.handleSwitch();
 			xlvoPlayer.getPlayerData();
+
+
 			//xlvoPlayer.endRequest();
 		});
 	},
@@ -474,6 +483,7 @@ var xlvoPlayer = {
 			xlvoPlayer.getPlayerData();
 		}
 	},
+
 	/**
 	 * @param data
 	 */
@@ -489,3 +499,8 @@ var xlvoPlayer = {
 		this.config.debug = false;
 	}
 };
+
+
+
+
+

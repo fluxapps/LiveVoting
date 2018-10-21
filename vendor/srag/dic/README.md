@@ -162,6 +162,7 @@ Please avoid to store in variables or class variables.
 - Try to avoid use `$pl`
 
 ### Dependencies
+* PHP >=5.6
 * [composer](https://getcomposer.org)
 
 Please use it for further development!

@@ -263,6 +263,7 @@ class PowerPointExport {
 
 			$webextension_tpl->setVariable("SECURE", var_export($secure, true));
 
+
 			file_put_contents($this->temp_folder . "/ppt/webextensions/webextension{$num}.xml", $webextension_tpl->get());
 			file_put_contents($this->temp_folder . "/ppt/webextensions/_rels/webextension{$num}.xml.rels", $webextension_rels_tpl->get());
 		}
@@ -287,6 +288,7 @@ class PowerPointExport {
 				"voting_permanent_link" => ilLink::_getStaticLink($this->obj->getRefId(), $this->obj->getType()),
 				"empty2" => ""
 			];
+
 			$note = implode("\n", array_map(function ($txt, $value) {
 				if ($txt !== "" && $value !== "") {
 					return self::plugin()->translate($txt) . ": " . $value;
@@ -317,6 +319,7 @@ class PowerPointExport {
 	 *
 	 */
 	protected function zip() {
+
 		ilUtil::zip($this->temp_folder, $this->temp_file, true);
 
 		ilUtil::delDir($this->temp_folder);
@@ -335,7 +338,12 @@ class PowerPointExport {
 	 * @return string
 	 */
 	protected function getTempFolder() {
-		return CLIENT_DATA_DIR . "/temp/" . uniqid(ilLiveVotingPlugin::PLUGIN_ID . "_pp_", true);
+
+		$temp_directory = CLIENT_DATA_DIR . "/temp";
+		//create it, if this plugin is the first one who uses it.
+		self::dic()->filesystem()->storage()->createDir($temp_directory);
+
+		return $temp_directory."/" . uniqid(ilLiveVotingPlugin::PLUGIN_ID . "_pp_", true);
 	}
 
 
