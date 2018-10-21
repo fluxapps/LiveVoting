@@ -4,7 +4,6 @@ namespace LiveVoting\Conf;
 
 use ilSetting;
 use LiveVoting\Cache\CachingActiveRecord;
-use LiveVoting\Context\Param\ParamManager;
 
 /**
  * Class xlvoConf
@@ -81,7 +80,7 @@ class xlvoConf extends CachingActiveRecord {
 	 *
 	 * @deprecated
 	 */
-	const REWRITE_RULE_VOTE = "RewriteRule ^vote(/[\\w]*|) Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?".ParamManager::PARAM_PIN."=$1 [L]";
+	const REWRITE_RULE_VOTE = "RewriteRule ^vote(/[\\w]*|) Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?xlvo_pin=$1 [L]";
 	/**
 	 * @var string
 	 *
