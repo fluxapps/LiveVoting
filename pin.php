@@ -16,7 +16,7 @@ use LiveVoting\Pin\xlvoPin;
 use srag\DIC\DICStatic;
 
 try {
-	$pin = trim(filter_input(INPUT_GET, "pin"), "/");
+	$pin = trim(filter_input(INPUT_GET, ParamManager::PARAM_PIN), "/");
 
 	InitialisationManager::startMinimal();
 
