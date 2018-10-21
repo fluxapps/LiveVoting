@@ -58,8 +58,13 @@ class xlvoVotingManager2 {
 	 */
 	public function __construct($pin,$voting_id = 0) {
 
+		//Todo
 		$obj_id = xlvoPin::checkPin($pin, false);
-		$this->obj_id = $obj_id;
+
+
+		//Todo
+		$this->obj_id = \ilObject::_lookupObjId($_GET['ref_id']);
+
 		$this->player = xlvoPlayer::getInstanceForObjId($this->obj_id);
 		$round_id = $this->player->getRoundId();
 		$this->player->setRoundId(xlvoRound::getLatestRoundId($this->obj_id));
@@ -473,6 +478,7 @@ class xlvoVotingManager2 {
 		if (!$this->getVotingConfig()->isObjOnline()) {
 			throw new xlvoPlayerException('', xlvoPlayerException::OBJ_OFFLINE);
 		}
+
 		if ($this->canBeStarted()) {
 			$xlvoVoting = $this->getVotingsList()->first();
 			$this->getPlayer()->prepareStart($xlvoVoting->getId());

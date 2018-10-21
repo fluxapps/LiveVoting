@@ -60,8 +60,6 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 		parent::__construct();
 
-		global $ilLog;
-		//$ilLog->write(print_r($_GET,true));
 
 		$param_manager = ParamManager::getInstance();
 
