@@ -59,8 +59,6 @@ class xlvoPlayerGUI extends xlvoGUI {
 	public function __construct() {
 
 		parent::__construct();
-
-
 		$param_manager = ParamManager::getInstance();
 
 		$this->manager = xlvoVotingManager2::getInstanceFromObjId(ilObject2::_lookupObjId($param_manager->getRefId()),$param_manager->getVoting());
@@ -192,9 +190,8 @@ class xlvoPlayerGUI extends xlvoGUI {
 		 */
 		$xlvoVotingConfig = xlvoVotingConfig::find($this->manager->getObjId());
 
-		if ($xlvoVotingConfig === NULL
-			|| $this->manager->getObjId()
-			!= ilObject2::_lookupObjId(filter_input(INPUT_GET, "ref_id"))/* || !ilObjLiveVotingAccess::hasWriteAccess($this->manager->getObjId())*/) {
+		if ($xlvoVotingConfig === NULL) {
+			/* || !ilObjLiveVotingAccess::hasWriteAccess($this->manager->getObjId())*/
 			throw new ilException("PlayerGUI startPresenter2 Wrong PIN!");
 		}
 

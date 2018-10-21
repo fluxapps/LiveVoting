@@ -81,21 +81,21 @@ final class ParamManager {
 
 	private function loadAndPersistAllParams() {
 
-		if(null !== trim(filter_input(INPUT_GET, self::PARAM_PIN), "/")) {
+		if(!empty(trim(filter_input(INPUT_GET, self::PARAM_PIN), "/"))) {
 			$this->setPin(trim(filter_input(INPUT_GET, self::PARAM_PIN), "/"));
 		}
 
-		if(null !== trim(filter_input(INPUT_GET, self::PARAM_REF_ID), "/")) {
+		if(!empty(trim(filter_input(INPUT_GET, self::PARAM_REF_ID), "/"))) {
 			$this->setRefId(trim(filter_input(INPUT_GET, self::PARAM_REF_ID), "/"));
 		}
 
-		if(null !== trim(filter_input(INPUT_GET, self::PARAM_PUK), "/")) {
+		if(!empty(trim(filter_input(INPUT_GET, self::PARAM_PUK), "/"))) {
 			$this->setPuk(trim(filter_input(INPUT_GET, self::PARAM_PUK), "/"));
 		}
-		if(null !== trim(filter_input(INPUT_GET, self::PARAM_VOTING), "/")) {
+		if(!empty(trim(filter_input(INPUT_GET, self::PARAM_VOTING), "/"))) {
 			$this->setVoting(trim(filter_input(INPUT_GET, self::PARAM_VOTING), "/"));
 		}
-		if(null !== trim(filter_input(INPUT_GET, self::PARAM_PPT), "/")) {
+		if(!empty(trim(filter_input(INPUT_GET, self::PARAM_PPT), "/"))) {
 			$this->setPpt(trim(filter_input(INPUT_GET, self::PARAM_PPT), "/"));
 		}
 	}
@@ -112,6 +112,15 @@ final class ParamManager {
 	 * @return int
 	 */
 	public function getRefId() {
+		if(!empty(trim(filter_input(INPUT_GET, self::PARAM_REF_ID), "/"))) {
+			$this->ref_id = trim(filter_input(INPUT_GET, self::PARAM_REF_ID), "/");
+		}
+
+		if(empty($this->ref_id)) {
+		  $obj_id = xlvoPin::checkPin($this->pin, false);
+			$this->ref_id = current(\ilObject::_getAllReferences($obj_id));
+		}
+
 		return $this->ref_id;
 	}
 

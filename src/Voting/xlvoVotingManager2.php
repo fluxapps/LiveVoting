@@ -57,7 +57,14 @@ class xlvoVotingManager2 {
 	 * @param $voting_id
 	 */
 	public function __construct($pin,$voting_id = 0) {
+
+		if(empty($pin)) {
+			$param_manager = ParamManager::getInstance();
+			$pin = $param_manager->getPin();
+		}
+
 		$this->obj_id = xlvoPin::checkPin($pin, false);
+
 
 		$this->player = xlvoPlayer::getInstanceForObjId($this->obj_id);
 		$round_id = $this->player->getRoundId();
@@ -675,7 +682,6 @@ class xlvoVotingManager2 {
 		} else {
 			$this->voting = xlvoVoting::findOrGetInstance($this->getPlayer()->getActiveVotingId());
 		}
-
 
 	}
 
