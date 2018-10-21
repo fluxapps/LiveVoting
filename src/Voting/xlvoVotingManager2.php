@@ -57,13 +57,7 @@ class xlvoVotingManager2 {
 	 * @param $voting_id
 	 */
 	public function __construct($pin,$voting_id = 0) {
-
-		//Todo
-		$obj_id = xlvoPin::checkPin($pin, false);
-
-
-		//Todo
-		$this->obj_id = \ilObject::_lookupObjId($_GET['ref_id']);
+		$this->obj_id = xlvoPin::checkPin($pin, false);
 
 		$this->player = xlvoPlayer::getInstanceForObjId($this->obj_id);
 		$round_id = $this->player->getRoundId();

@@ -83,10 +83,10 @@ final class ParamManager {
 
 		if(null !== trim(filter_input(INPUT_GET, self::PARAM_PIN), "/")) {
 			$this->setPin(trim(filter_input(INPUT_GET, self::PARAM_PIN), "/"));
-			$obj_id = xlvoPin::checkPin($this->getPin(), false);
-			if(!$this->getRefId()) {
-				$this->setRefId(current(ilObject2::_getAllReferences($obj_id)));
-			}
+		}
+
+		if(null !== trim(filter_input(INPUT_GET, self::PARAM_REF_ID), "/")) {
+			$this->setRefId(trim(filter_input(INPUT_GET, self::PARAM_REF_ID), "/"));
 		}
 
 		if(null !== trim(filter_input(INPUT_GET, self::PARAM_PUK), "/")) {
