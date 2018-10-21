@@ -216,6 +216,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 		$this->manager->attend();
 
+		//TODO
 		if($this->param_manager->getVoting() > 0) {
 			$this->manager->getPlayer()->setActiveVoting($this->param_manager->getVoting());
 		}
@@ -296,7 +297,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 */
 	protected function apiCall() {
 
-
+		//TODO
 		if($this->param_manager->getVoting() > 0) {
 			$this->manager->getPlayer()->setActiveVoting($this->param_manager->getVoting());
 		}

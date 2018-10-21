@@ -677,6 +677,7 @@ class xlvoVotingManager2 {
 	 */
 	protected function initVoting($voting_id = 0) {
 
+		//TODO
 		if($voting_id > 0) {
 			$this->voting = xlvoVoting::findOrGetInstance($voting_id);
 		} else {
