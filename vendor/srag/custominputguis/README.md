@@ -17,13 +17,13 @@ If you deliver your plugin, the plugin has it's own copy of this library and the
 Hint: Because of multiple autoloaders of plugins, it could be, that different versions of this library exists and suddenly your plugin use an old version of an other plugin! So you should keep up to date your plugin with `composer update`.
 
 ### Input-GUI's
-* [DateDurationInputGUI](./src/NumberInputGUI/doc/DateDurationInputGUI.md)
+* [DateDurationInputGUI](./src/DateDurationInputGUI/doc/DateDurationInputGUI.md)
 * [MultiSelectSearchInputGUI](./doc/MultiSelectSearchInputGUI.md)
 * [MultiSelectSearchInput2GUI](./doc/MultiSelectSearchInput2GUI.md)
 * [NumberInputGUI](./src/NumberInputGUI/doc/NumberInputGUI.md)
 * [ScreenshotsInputGUI](./src/ScreenshotsInputGUI/doc/ScreenshotsInputGUI.md)
-* [TextAreaInputGUI](./src/NumberInputGUI/doc/TextAreaInputGUI.md)
-* [TextInputGUI](./src/NumberInputGUI/doc/TextInputGUI.md)
+* [TextAreaInputGUI](./src/TextAreaInputGUI/doc/TextAreaInputGUI.md)
+* [TextInputGUI](./src/TextInputGUI/doc/TextInputGUI.md)
 
 ### Dependencies
 * PHP >=5.6
