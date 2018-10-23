@@ -163,9 +163,9 @@ abstract class ActiveRecordConfigGUI extends ilPluginConfigGUI {
 
 		$form->updateConfig();
 
-		ilUtil::sendSuccess($this->txt($tab_id . "_saved"));
+		ilUtil::sendSuccess($this->txt($tab_id . "_saved"), true);
 
-		self::plugin()->output($form);
+		self::dic()->ctrl()->redirect($this, self::CMD_CONFIGURE . "_" . $tab_id);
 	}
 
 

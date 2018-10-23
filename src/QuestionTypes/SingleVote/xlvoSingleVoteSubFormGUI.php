@@ -9,9 +9,9 @@ use ilHiddenInputGUI;
 use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Exceptions\xlvoSubFormGUIHandleFieldException;
 use LiveVoting\GUI\xlvoMultiLineInputGUI;
-use LiveVoting\GUI\xlvoTextInputGUI;
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\QuestionTypes\xlvoSubFormGUI;
+use srag\CustomInputGUIs\TextInputGUI\TextInputGUI;
 
 /**
  * Class xlvoSingleVoteSubFormGUI
@@ -50,7 +50,7 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 
 		$xlvoMultiLineInputGUI->setPositionMovable(true);
 
-		$te = new xlvoTextInputGUI($this->txt('option_text'), self::F_TEXT);
+		$te = new TextInputGUI($this->txt('option_text'), self::F_TEXT);
 		$te->setInfo($this->txt('info_latex'));
 		$xlvoMultiLineInputGUI->addInput($te);
 

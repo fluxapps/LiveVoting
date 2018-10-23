@@ -3,13 +3,13 @@
 require_once __DIR__ . '/../../../vendor/autoload.php';
 
 use LiveVoting\GUI\xlvoMultiLineInputGUI;
-use LiveVoting\GUI\xlvoTextAreaInputGUI;
-use LiveVoting\GUI\xlvoTextInputGUI;
 use LiveVoting\Js\xlvoJs;
 use LiveVoting\QuestionTypes\FreeInput\xlvoFreeInputSubFormGUI;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\QuestionTypes\xlvoQuestionTypesGUI;
 use LiveVoting\Vote\xlvoVote;
+use srag\CustomInputGUIs\TextAreaInputGUI\TextAreaInputGUI;
+use srag\CustomInputGUIs\TextInputGUI\TextInputGUI;
 
 /**
  * Class xlvoFreeInputGUI
@@ -101,13 +101,13 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 	protected function getTextInputGUI($a_title = "", $a_postvar = "") {
 		switch (intval($this->manager->getVoting()->getAnswerField())) {
 			case xlvoFreeInputSubFormGUI::ANSWER_FIELD_MULTI_LINE:
-				$input_gui = new xlvoTextAreaInputGUI($a_title, $a_postvar);
+				$input_gui = new TextAreaInputGUI($a_title, $a_postvar);
 				$input_gui->setMaxlength(1000);
 				break;
 
 			case xlvoFreeInputSubFormGUI::ANSWER_FIELD_SINGLE_LINE:
 			default:
-				$input_gui = new xlvoTextInputGUI($a_title, $a_postvar);
+				$input_gui = new TextInputGUI($a_title, $a_postvar);
 				$input_gui->setMaxLength(200);
 				break;
 		}

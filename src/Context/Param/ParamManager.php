@@ -2,21 +2,19 @@
 
 namespace LiveVoting\Context\Param;
 
-use Exception;
 use ilLiveVotingPlugin;
-use srag\DIC\DICStatic;
-use srag\DIC\DICTrait;
+use ilObject;
 use ilUIPluginRouterGUI;
-use ilObject2;
 use LiveVoting\Pin\xlvoPin;
+use LiveVoting\Voting\xlvoVotingManager2;
+use srag\DIC\DICTrait;
 
 /**
  * Class ParamManager
  *
  * @package LiveVoting\Context\ParamManager
  *
- * @author Martin Studer <ms@studer-raimann.ch>
- *
+ * @author  Martin Studer <ms@studer-raimann.ch>
  */
 final class ParamManager {
 
@@ -29,17 +27,14 @@ final class ParamManager {
 	const PARAM_VOTING = 'xlvo_voting';
 	const PARAM_PPT = 'xlvo_ppt';
 	const PPT_START = 'ppt_start';
-
 	/**
 	 * @var ParamManager
 	 */
 	protected static $instance;
-
 	/**
 	 * @var xlvoVotingManager2
 	 */
 	protected static $instance_voting_manager2;
-
 	/**
 	 * @var int
 	 */
@@ -62,48 +57,58 @@ final class ParamManager {
 	protected $ppt = false;
 
 
-	public function __construct()
-	{
+	/**
+	 * ParamManager constructor
+	 */
+	public function __construct() {
 		$this->loadBaseClassIfNecessary();
 		$this->loadAndPersistAllParams();
 	}
 
+
 	/**
-	 * @return ParamManager
+	 * @return self
 	 */
 	public static function getInstance() {
 
-		if (! isset(self::$instance)) {
+		if (!isset(self::$instance)) {
 			self::$instance = new self();
 		}
+
 		return self::$instance;
 	}
 
-	private function loadAndPersistAllParams() {
 
-		if(!empty(trim(filter_input(INPUT_GET, self::PARAM_PIN), "/"))) {
+	/**
+	 *
+	 */
+	private function loadAndPersistAllParams() {
+		if (!empty(trim(filter_input(INPUT_GET, self::PARAM_PIN), "/"))) {
 			$this->setPin(trim(filter_input(INPUT_GET, self::PARAM_PIN), "/"));
 		}
 
-		if(!empty(trim(filter_input(INPUT_GET, self::PARAM_REF_ID), "/"))) {
+		if (!empty(trim(filter_input(INPUT_GET, self::PARAM_REF_ID), "/"))) {
 			$this->setRefId(trim(filter_input(INPUT_GET, self::PARAM_REF_ID), "/"));
 		}
 
-		if(!empty(trim(filter_input(INPUT_GET, self::PARAM_PUK), "/"))) {
+		if (!empty(trim(filter_input(INPUT_GET, self::PARAM_PUK), "/"))) {
 			$this->setPuk(trim(filter_input(INPUT_GET, self::PARAM_PUK), "/"));
 		}
-		if(!empty(trim(filter_input(INPUT_GET, self::PARAM_VOTING), "/"))) {
+		if (!empty(trim(filter_input(INPUT_GET, self::PARAM_VOTING), "/"))) {
 			$this->setVoting(trim(filter_input(INPUT_GET, self::PARAM_VOTING), "/"));
 		}
-		if(!empty(trim(filter_input(INPUT_GET, self::PARAM_PPT), "/"))) {
+		if (!empty(trim(filter_input(INPUT_GET, self::PARAM_PPT), "/"))) {
 			$this->setPpt(trim(filter_input(INPUT_GET, self::PARAM_PPT), "/"));
 		}
 	}
 
 
+	/**
+	 *
+	 */
 	private function loadBaseClassIfNecessary() {
-		if($_GET["baseClass"] === null) {
-			DICStatic::dic()->ctrl()->initBaseClass(ilUIPluginRouterGUI::class);
+		if (empty(filter_input(INPUT_GET, "baseClass"))) {
+			self::dic()->ctrl()->initBaseClass(ilUIPluginRouterGUI::class);
 		}
 	}
 
@@ -112,13 +117,13 @@ final class ParamManager {
 	 * @return int
 	 */
 	public function getRefId() {
-		if(!empty(trim(filter_input(INPUT_GET, self::PARAM_REF_ID), "/"))) {
+		if (!empty(trim(filter_input(INPUT_GET, self::PARAM_REF_ID), "/"))) {
 			$this->ref_id = trim(filter_input(INPUT_GET, self::PARAM_REF_ID), "/");
 		}
 
-		if(empty($this->ref_id)) {
-		  $obj_id = xlvoPin::checkPin($this->pin, false);
-			$this->ref_id = current(\ilObject::_getAllReferences($obj_id));
+		if (empty($this->ref_id)) {
+			$obj_id = xlvoPin::checkPin($this->pin, false);
+			$this->ref_id = current(ilObject::_getAllReferences($obj_id));
 		}
 
 		return $this->ref_id;
@@ -131,7 +136,7 @@ final class ParamManager {
 	public function setRefId($ref_id) {
 		$this->ref_id = $ref_id;
 
-		DICStatic::dic()->ctrl()->setParameterByClass(self::PARAM_BASE_CLASS_NAME, self::PARAM_REF_ID, $ref_id);
+		self::dic()->ctrl()->setParameterByClass(self::PARAM_BASE_CLASS_NAME, self::PARAM_REF_ID, $ref_id);
 	}
 
 
@@ -149,7 +154,7 @@ final class ParamManager {
 	public function setPin($pin) {
 		$this->pin = $pin;
 
-		DICStatic::dic()->ctrl()->setParameterByClass(self::PARAM_BASE_CLASS_NAME, self::PARAM_PIN, $pin);
+		self::dic()->ctrl()->setParameterByClass(self::PARAM_BASE_CLASS_NAME, self::PARAM_PIN, $pin);
 	}
 
 
@@ -167,7 +172,7 @@ final class ParamManager {
 	public function setPuk($puk) {
 		$this->puk = $puk;
 
-		DICStatic::dic()->ctrl()->setParameterByClass(self::PARAM_BASE_CLASS_NAME, self::PARAM_PUK, $puk);
+		self::dic()->ctrl()->setParameterByClass(self::PARAM_BASE_CLASS_NAME, self::PARAM_PUK, $puk);
 	}
 
 
@@ -184,7 +189,8 @@ final class ParamManager {
 	 */
 	public function setVoting($voting) {
 		$this->voting = $voting;
-		DICStatic::dic()->ctrl()->setParameterByClass(self::PARAM_BASE_CLASS_NAME, self::PARAM_VOTING, $voting);
+
+		self::dic()->ctrl()->setParameterByClass(self::PARAM_BASE_CLASS_NAME, self::PARAM_VOTING, $voting);
 	}
 
 
@@ -202,6 +208,6 @@ final class ParamManager {
 	public function setPpt($ppt) {
 		$this->ppt = $ppt;
 
-		DICStatic::dic()->ctrl()->setParameterByClass(self::PARAM_BASE_CLASS_NAME, self::PARAM_PPT, $ppt);
+		self::dic()->ctrl()->setParameterByClass(self::PARAM_BASE_CLASS_NAME, self::PARAM_PPT, $ppt);
 	}
 }

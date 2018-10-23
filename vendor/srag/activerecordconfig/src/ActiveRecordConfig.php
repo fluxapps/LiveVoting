@@ -252,7 +252,7 @@ abstract class ActiveRecordConfig extends ActiveRecord {
 	protected static final function getBooleanValue(/*string*/
 		$name, /*bool*/
 		$default_value = false)/*: bool*/ {
-		return boolval(self::getXValue($name, $default_value));
+		return boolval(filter_var(self::getXValue($name, $default_value), FILTER_VALIDATE_BOOLEAN));
 	}
 
 
@@ -262,7 +262,7 @@ abstract class ActiveRecordConfig extends ActiveRecord {
 	 */
 	protected static final function setBooleanValue(/*string*/
 		$name, $value)/*: void*/ {
-		self::setXValue($name, json_encode(boolval($value)));
+		self::setXValue($name, json_encode(boolval(filter_var($value, FILTER_VALIDATE_BOOLEAN))));
 	}
 
 

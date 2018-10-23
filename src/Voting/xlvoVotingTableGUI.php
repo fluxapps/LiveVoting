@@ -10,9 +10,9 @@ use ilObjLiveVotingAccess;
 use ilSelectInputGUI;
 use ilTable2GUI;
 use ilUtil;
-use LiveVoting\GUI\xlvoTextInputGUI;
 use LiveVoting\Js\xlvoJs;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
+use srag\CustomInputGUIs\TextInputGUI\TextInputGUI;
 use srag\DIC\DICTrait;
 use xlvoVotingGUI;
 
@@ -80,10 +80,10 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 
 
 	protected function addFilterItems() {
-		$title = new xlvoTextInputGUI($this->txt('title'), 'title');
+		$title = new TextInputGUI($this->txt('title'), 'title');
 		$this->addAndReadFilterItem($title);
 
-		$question = new xlvoTextInputGUI($this->txt('question'), 'question');
+		$question = new TextInputGUI($this->txt('question'), 'question');
 		$this->addAndReadFilterItem($question);
 
 		$status = new ilSelectInputGUI($this->txt('status'), 'voting_status');

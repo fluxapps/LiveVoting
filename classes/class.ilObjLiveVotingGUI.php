@@ -6,10 +6,10 @@ use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Context\Param\ParamManager;
 use LiveVoting\Context\xlvoContext;
 use LiveVoting\Context\xlvoInitialisation;
-use LiveVoting\GUI\xlvoTextAreaInputGUI;
-use LiveVoting\GUI\xlvoTextInputGUI;
 use LiveVoting\Voting\xlvoVotingConfig;
 use LiveVoting\Voting\xlvoVotingManager2;
+use srag\CustomInputGUIs\TextAreaInputGUI\TextAreaInputGUI;
+use srag\CustomInputGUIs\TextInputGUI\TextInputGUI;
 use srag\DIC\DICTrait;
 
 /**
@@ -98,8 +98,8 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 		} else {
 			// show info of parent
 			self::dic()->mainTemplate()->setTitle(ilObject::_lookupTitle(ilObject::_lookupObjId($this->ref_id)));
-			self::dic()->mainTemplate()->setTitleIcon(ilObject::_getIcon(ilObject::_lookupObjId($this->ref_id), 'big'), self::plugin()->translate('obj_'
-				. ilObject::_lookupType($this->ref_id, true)));
+			self::dic()->mainTemplate()->setTitleIcon(ilObject::_getIcon(ilObject::_lookupObjId($this->ref_id), 'big'), self::plugin()
+				->translate('obj_' . ilObject::_lookupType($this->ref_id, true)));
 			$this->setLocator();
 		}
 	}
@@ -355,10 +355,10 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 			$this->form = new ilPropertyFormGUI();
 			$this->form->setTitle(self::plugin()->translate('obj_edit_properties'));
 
-			$ti = new xlvoTextInputGUI(self::plugin()->translate('obj_title'), self::F_TITLE);
+			$ti = new TextInputGUI(self::plugin()->translate('obj_title'), self::F_TITLE);
 			$ti->setRequired(true);
 			$this->form->addItem($ti);
-			$ta = new xlvoTextAreaInputGUI(self::plugin()->translate('obj_description'), self::F_DESCRIPTION);
+			$ta = new TextAreaInputGUI(self::plugin()->translate('obj_description'), self::F_DESCRIPTION);
 			$this->form->addItem($ta);
 			$cb = new ilCheckboxInputGUI(self::plugin()->translate('obj_online'), xlvoVotingConfig::F_ONLINE);
 			$cb->setInfo(self::plugin()->translate('obj_info_online'));

@@ -12,7 +12,6 @@ require_once __DIR__ . "/vendor/autoload.php";
 require_once "dir.php";
 
 use LiveVoting\Conf\xlvoConf;
-use LiveVoting\Context\Param\ParamManager;
 use LiveVoting\Context\InitialisationManager;
 use LiveVoting\Context\xlvoContext;
 use srag\DIC\DICStatic;

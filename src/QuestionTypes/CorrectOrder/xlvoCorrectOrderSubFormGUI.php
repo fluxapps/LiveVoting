@@ -10,9 +10,9 @@ use ilNumberInputGUI;
 use InvalidArgumentException;
 use LiveVoting\Exceptions\xlvoSubFormGUIHandleFieldException;
 use LiveVoting\GUI\xlvoMultiLineInputGUI;
-use LiveVoting\GUI\xlvoTextInputGUI;
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\QuestionTypes\xlvoSubFormGUI;
+use srag\CustomInputGUIs\TextInputGUI\TextInputGUI;
 
 /**
  * Class xlvoCorrectOrderSubFormGUI
@@ -64,7 +64,7 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI {
 		}*/
 		$xlvoMultiLineInputGUI->addInput($position);
 
-		$te = new xlvoTextInputGUI($this->txt('option_text'), self::F_TEXT);
+		$te = new TextInputGUI($this->txt('option_text'), self::F_TEXT);
 		$xlvoMultiLineInputGUI->addInput($te);
 
 		$this->addFormElement($randomiseOptionSequenceAfterSave);
