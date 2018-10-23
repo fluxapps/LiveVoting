@@ -2,6 +2,7 @@
 
 namespace srag\CustomInputGUIs\TextAreaInputGUI;
 
+use ilTemplate;
 use ilTextAreaInputGUI;
 use srag\DIC\DICTrait;
 
@@ -64,7 +65,7 @@ class TextAreaInputGUI extends ilTextAreaInputGUI {
 	 * @return string
 	 */
 	public function render()/*: string*/ {
-		$tpl = self::plugin()->template(__DIR__ . '/templates/tpl.text_area_helper.html', false, false, false);
+		$tpl = new ilTemplate(__DIR__ . '/templates/tpl.text_area_helper.html', false, false);
 		$this->insert($tpl);
 		$tpl->setVariable('INLINE_STYLE', $this->getInlineStyle());
 

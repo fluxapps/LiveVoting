@@ -1,17 +1,16 @@
 <?php
 
-namespace srag\CustomInputGUIs;
+namespace srag\CustomInputGUIs\MultiSelectSearchInputGUI;
 
 use ilMultiSelectInputGUI;
 use ilTemplate;
 use ilUtil;
 use srag\DIC\DICTrait;
-use srDefaultAccessChecker;
 
 /**
  * Class MultiSelectSearchInputGUI
  *
- * @package srag\CustomInputGUIs
+ * @package srag\CustomInputGUIs\MultiSelectSearchInputGUI
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  * @author  Oskar Truffer <ot@studer-raimann.ch>
@@ -60,12 +59,12 @@ class MultiSelectSearchInputGUI extends ilMultiSelectInputGUI {
 		}
 		parent::__construct($title, $post_var);
 
-		$dir = substr(__DIR__, strlen(ILIAS_ABSOLUTE_PATH) + 1) . "/..";
+		$dir = substr(__DIR__, strlen(ILIAS_ABSOLUTE_PATH) + 1) . "/../..";
 
 		self::dic()->mainTemplate()->addJavaScript($dir . "/node_modules/select2/dist/js/select2.full.min.js");
 		self::dic()->mainTemplate()->addJavaScript($dir . "/node_modules/select2/dist/js/i18n/" . self::dic()->user()->getCurrentLanguage() . ".js");
 		self::dic()->mainTemplate()->addCss($dir . "/node_modules/select2/dist/css/select2.min.css");
-		$this->setInputTemplate(new ilTemplate(__DIR__ . "/../templates/tpl.multiple_select.html", true, true));
+		$this->setInputTemplate(new ilTemplate(__DIR__ . "/templates/tpl.multiple_select.html", true, true));
 		$this->setWidth("308px");
 	}
 
