@@ -55,6 +55,7 @@ Hint: Due a bug in WebViewer-Addin, multiple slides with ILIAS in WebViewer-AddI
 * [composer](https://getcomposer.org)
 * [endroid/qrcode](https://packagist.org/packages/endroid/qrcode)
 * [srag/activerecordconfig](https://packagist.org/packages/srag/activerecordconfig)
+* [srag/custominputguis](https://packagist.org/packages/srag/custominputguis)
 * [srag/dic](https://packagist.org/packages/srag/dic)
 * [srag/removeplugindataconfirm](https://packagist.org/packages/srag/removeplugindataconfirm)
 
