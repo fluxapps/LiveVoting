@@ -1,0 +1,38 @@
+{
+  "name": "srag/custominputguis",
+  "description": "Custom Input-GUI's",
+  "type": "library",
+  "keywords": [
+    "ILIAS",
+    "PropertyForm",
+    "Input",
+    "GUI"
+  ],
+  "homepage": "https://github.com/studer-raimann/CustomInputGUIs",
+  "license": "GPL-3.0-only",
+  "authors": [
+    {
+      "name": "studer + raimann ag - Team Custom 1",
+      "email": "support-custom1@studer-raimann.ch",
+      "homepage": "https://studer-raimann.ch",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "email": "support-custom1@studer-raimann.ch"
+  },
+  "require": {
+    "php": ">=5.6",
+    "srag/dic": ">=0.1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "srag\\CustomInputGUIs\\": "src/"
+    }
+  },
+  "config": {
+    "classmap-authoritative": true,
+    "optimize-autoloader": true,
+    "sort-packages": true
+  }
+}
