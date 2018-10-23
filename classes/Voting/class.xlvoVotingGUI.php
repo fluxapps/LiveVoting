@@ -3,7 +3,6 @@
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 use LiveVoting\Conf\xlvoConf;
-use LiveVoting\GUI\xlvoGlyphGUI;
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\PowerPointExport\PowerPointExport;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
@@ -12,6 +11,7 @@ use LiveVoting\Vote\xlvoVote;
 use LiveVoting\Voting\xlvoVoting;
 use LiveVoting\Voting\xlvoVotingFormGUI;
 use LiveVoting\Voting\xlvoVotingTableGUI;
+use srag\CustomInputGUIs\GlyphGUI\GlyphGUI;
 use srag\DIC\DICTrait;
 
 /**
@@ -242,7 +242,7 @@ class xlvoVotingGUI {
 				self::dic()->ctrl()->setParameter($this, self::IDENTIFIER, $prev_id);
 				$prev = ilLinkButton::getInstance();
 				$prev->setUrl(self::dic()->ctrl()->getLinkTarget($this, self::CMD_EDIT));
-				$prev->setCaption(xlvoGlyphGUI::get(xlvoGlyphGUI::PREVIOUS), false);
+				$prev->setCaption(GlyphGUI::get(GlyphGUI::PREVIOUS), false);
 				self::dic()->toolbar()->addButtonInstance($prev);
 			}
 
@@ -257,7 +257,7 @@ class xlvoVotingGUI {
 				self::dic()->ctrl()->setParameter($this, self::IDENTIFIER, $next_id);
 				$next = ilLinkButton::getInstance();
 				$next->setUrl(self::dic()->ctrl()->getLinkTarget($this, self::CMD_EDIT));
-				$next->setCaption(xlvoGlyphGUI::get(xlvoGlyphGUI::NEXT), false);
+				$next->setCaption(GlyphGUI::get(GlyphGUI::NEXT), false);
 				self::dic()->toolbar()->addButtonInstance($next);
 			}
 			self::dic()->ctrl()->setParameter($this, self::IDENTIFIER, $xlvoVoting->getId());

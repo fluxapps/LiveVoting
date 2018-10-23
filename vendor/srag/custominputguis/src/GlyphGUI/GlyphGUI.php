@@ -1,21 +1,21 @@
 <?php
 
-namespace LiveVoting\GUI;
+namespace srag\CustomInputGUIs\GlyphGUI;
 
 use ilGlyphGUI;
-use ilLiveVotingPlugin;
 use srag\DIC\DICTrait;
 
 /**
- * Class xlvoGlyphGUI
+ * Class GlyphGUI
  *
- * @package LiveVoting\GUI
+ * @package srag\CustomInputGUIs\GlyphGUI
+ *
+ * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  */
-class xlvoGlyphGUI extends ilGlyphGUI {
+class GlyphGUI extends ilGlyphGUI {
 
 	use DICTrait;
-	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 
 
 	/**

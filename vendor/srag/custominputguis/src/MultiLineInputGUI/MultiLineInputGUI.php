@@ -1,29 +1,33 @@
 <?php
 
-namespace LiveVoting\GUI;
+namespace srag\CustomInputGUIs\MultiLineInputGUI;
 
 use ilDate;
 use ilDateTimeInputGUI;
 use ilException;
 use ilFormPropertyGUI;
 use ilHiddenInputGUI;
-use ilLiveVotingPlugin;
+use ilTableFilterItem;
+use ilTemplate;
 use ilTextAreaInputGUI;
+use ilToolbarItem;
 use ilUtil;
+use srag\CustomInputGUIs\GlyphGUI\GlyphGUI;
 use srag\DIC\DICTrait;
 
 /**
- * Class ctrlmmMultiLineInputGUI
+ * Class MultiLineInputGUI
  *
- * @package LiveVoting\GUI
+ * @package srag\CustomInputGUIs\MultiLineInputGUI
+ *
+ * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  * @author  Michael Herren <mh@studer-raimann.ch>
  *
  * TODO: Complete refactoring
  */
-class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
+class MultiLineInputGUI extends ilFormPropertyGUI implements ilTableFilterItem, ilToolbarItem {
 
 	use DICTrait;
-	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	const HOOK_IS_LINE_REMOVABLE = "hook_is_line_removable";
 	const HOOK_IS_INPUT_DISABLED = "hook_is_disabled";
 	const HOOK_BEFORE_INPUT_RENDER = "hook_before_render";
@@ -91,7 +95,9 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	 * @param string $a_title   Title
 	 * @param string $a_postvar Post Variable
 	 */
-	public function __construct($a_title = "", $a_postvar = "") {
+	public function __construct(/*string*/
+		$a_title = "", /*string*/
+		$a_postvar = "") {
 		parent::__construct($a_title, $a_postvar);
 		$this->setType("line_select");
 		$this->setMulti(true);
@@ -102,7 +108,8 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	/**
 	 * @return string
 	 */
-	public function getHook($key) {
+	public function getHook(/*string*/
+		$key)/*: string*/ {
 		if (isset($this->hooks[$key])) {
 			return $this->hooks[$key];
 		}
@@ -112,9 +119,12 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 
 
 	/**
-	 * @param array $options
+	 * @param string $key
+	 * @param array  $options
 	 */
-	public function addHook($key, $options) {
+	public function addHook(/*string*/
+		$key, /*array*/
+		$options)/*: void*/ {
 		$this->hooks[$key] = $options;
 	}
 
@@ -124,7 +134,8 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	 *
 	 * @return bool
 	 */
-	public function removeHook($key) {
+	public function removeHook(/*string*/
+		$key)/*: bool*/ {
 		if (isset($this->hooks[$key])) {
 			unset($this->hooks[$key]);
 
@@ -139,7 +150,8 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	 * @param ilFormPropertyGUI $input
 	 * @param array             $options
 	 */
-	public function addInput(ilFormPropertyGUI $input, $options = array()) {
+	public function addInput(ilFormPropertyGUI $input, /*: array*/
+		$options = array())/*: void*/ {
 		$this->inputs[$input->getPostVar()] = $input;
 		$this->input_options[$input->getPostVar()] = $options;
 		$this->counter ++;
@@ -147,17 +159,18 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
-	public function getTemplateDir() {
+	public function getTemplateDir()/*: string*/ {
 		return $this->template_dir;
 	}
 
 
 	/**
-	 * @param mixed $template_dir
+	 * @param string $template_dir
 	 */
-	public function setTemplateDir($template_dir) {
+	public function setTemplateDir(/*string*/
+		$template_dir)/*: void*/ {
 		$this->template_dir = $template_dir;
 	}
 
@@ -165,7 +178,7 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	/**
 	 * @return boolean
 	 */
-	public function isShowLabel() {
+	public function isShowLabel()/*: bool*/ {
 		return $this->show_label;
 	}
 
@@ -173,7 +186,8 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	/**
 	 * @param boolean $show_label
 	 */
-	public function setShowLabel($show_label) {
+	public function setShowLabel(/*bool*/
+		$show_label)/*: void*/ {
 		$this->show_label = $show_label;
 	}
 
@@ -183,15 +197,20 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	 *
 	 * @return array Options. Array ("value" => "option_text")
 	 */
-	public function getInputs() {
+	public function getInputs()/*: array*/ {
 		return $this->inputs;
 	}
 
 
 	/**
 	 * @param bool $a_multi
+	 * @param bool $a_sortable
+	 * @param bool $a_addremove
 	 */
-	public function setMulti($a_multi, $a_sortable = false, $a_addremove = true) {
+	public function setMulti(/*bool*/
+		$a_multi, /*bool*/
+		$a_sortable = false, /*bool*/
+		$a_addremove = true)/*: void*/ {
 		$this->multi = $a_multi;
 	}
 
@@ -201,7 +220,8 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	 *
 	 * @param string $a_value Value
 	 */
-	public function setValue($a_value) {
+	public function setValue(/*string*/
+		$a_value)/*: void*/ {
 		foreach ($this->inputs as $key => $item) {
 			if (method_exists($item, 'setValue')) {
 				$item->setValue($a_value[$key]);
@@ -233,7 +253,8 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	 *
 	 * @param array $a_values value array
 	 */
-	public function setValueByArray($a_values) {
+	public function setValueByArray(/*array*/
+		$a_values)/*: void*/ {
 		$data = $a_values[$this->getPostVar()];
 		if ($this->getMulti()) {
 			$this->line_values = $data;
@@ -248,7 +269,7 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	 *
 	 * @return boolean Input ok, true/false
 	 */
-	public function checkInput() {
+	public function checkInput()/*: bool*/ {
 		$valid = true;
 		// escape data
 		$out_array = array();
@@ -301,10 +322,13 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 
 	/**
 	 * @param string     $key
-	 * @param mixed      $value
+	 * @param string     $value
 	 * @param bool|false $override
 	 */
-	public function addCustomAttribute($key, $value, $override = false) {
+	public function addCustomAttribute(/*string*/
+		$key, /*string*/
+		$value, /*bool*/
+		$override = false)/*: void*/ {
 		if (isset($this->cust_attr[$key]) && !$override) {
 			$this->cust_attr[$key] .= ' ' . $value;
 		} else {
@@ -316,7 +340,7 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	/**
 	 * @return array
 	 */
-	public function getCustomAttributes() {
+	public function getCustomAttributes()/*: array*/ {
 		return (array)$this->cust_attr;
 	}
 
@@ -327,7 +351,8 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	 *
 	 * @return string
 	 */
-	protected function createInputPostVar($iterator_id, ilFormPropertyGUI $input) {
+	protected function createInputPostVar(/*string*/
+		$iterator_id, ilFormPropertyGUI $input)/*: string*/ {
 		if ($this->getMulti()) {
 			return $this->getPostVar() . '[' . $iterator_id . '][' . $input->getPostVar() . ']';
 		} else {
@@ -339,14 +364,17 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	/**
 	 * Render item
 	 *
-	 * @param int $iterator_id
+	 * @param int  $iterator_id
+	 * @param bool $clean_render
 	 *
 	 * @return string
 	 * @throws ilException
 	 */
-	public function render($iterator_id = 0, $clean_render = false) {
+	public function render(/*int*/
+		$iterator_id = 0, /*bool*/
+		$clean_render = false)/*: string*/ {
 		$first_label = true;
-		$tpl = self::plugin()->template("default/tpl.multi_line_input.html");
+		$tpl = new ilTemplate(__DIR__ . "/templates/tpl.multi_line_input.html");
 		$class = 'multi_input_line';
 		$this->addCustomAttribute('class', $class, true);
 		foreach ($this->getCustomAttributes() as $key => $value) {
@@ -356,7 +384,7 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 			$tpl->parseCurrentBlock();
 		}
 		$inputs = $this->inputs;
-		$required = file_get_contents(self::plugin()->directory() . "/templates/default/tpl.multi_line_input_required.html");
+		$required = file_get_contents(__DIR__ . "/templates/tpl.multi_line_input_required.html");
 		foreach ($inputs as $key => $input) {
 			$input = clone $input;
 			$is_hidden = false;
@@ -445,22 +473,22 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 			$tpl->parseCurrentBlock();
 		}
 		if ($this->getMulti() && !$this->getDisabled()) {
-			$image_plus = xlvoGlyphGUI::get('plus');
+			$image_plus = GlyphGUI::get('plus');
 			$show_remove = true;
 			$is_removeable_hook = $this->getHook(self::HOOK_IS_LINE_REMOVABLE);
 			if ($is_removeable_hook !== false && !$clean_render) {
 				$show_remove = $is_removeable_hook($this->getValue());
 			}
 			$show_remove = true;
-			$image_minus = ($show_remove) ? xlvoGlyphGUI::get('minus') : '<span class="glyphicon glyphicon-minus hide"></span>';
+			$image_minus = ($show_remove) ? GlyphGUI::get('minus') : '<span class="glyphicon glyphicon-minus hide"></span>';
 			$tpl->setCurrentBlock('multi_icons');
 			$tpl->setVariable('IMAGE_PLUS', $image_plus);
 			$tpl->setVariable('IMAGE_MINUS', $image_minus);
 			$tpl->parseCurrentBlock();
 			if ($this->isPositionMovable()) {
 				$tpl->setCurrentBlock('multi_icons_move');
-				$tpl->setVariable('IMAGE_UP', xlvoGlyphGUI::get(xlvoGlyphGUI::UP));
-				$tpl->setVariable('IMAGE_DOWN', xlvoGlyphGUI::get(xlvoGlyphGUI::DOWN));
+				$tpl->setVariable('IMAGE_UP', GlyphGUI::get(GlyphGUI::UP));
+				$tpl->setVariable('IMAGE_DOWN', GlyphGUI::get(GlyphGUI::DOWN));
 				$tpl->parseCurrentBlock();
 			}
 		}
@@ -472,16 +500,20 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	/**
 	 *
 	 */
-	public function initCSSandJS() {
-		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/multi_line_input.css');
-		self::dic()->mainTemplate()->addJavascript(self::plugin()->directory() . '/js/libs/multi_line_input.min.js');
+	public function initCSSandJS()/*: void*/ {
+		$dir = substr(__DIR__, strlen(ILIAS_ABSOLUTE_PATH) + 1);
+		self::dic()->mainTemplate()->addCss($dir . '/css/multi_line_input.css');
+		self::dic()->mainTemplate()->addJavascript($dir . '/js/multi_line_input.min.js');
 	}
 
 
 	/**
 	 * Insert property html
+	 *
+	 * @param ilTemplate $a_tpl
 	 */
-	public function insert(&$a_tpl) {
+	public function insert(&/*ilTemplate*/
+	$a_tpl)/*: void*/ {
 		$output = "";
 
 		$output .= $this->render(0, true);
@@ -508,7 +540,7 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	/**
 	 * Get HTML for table filter
 	 */
-	public function getTableFilterHTML() {
+	public function getTableFilterHTML()/*: string*/ {
 		$html = $this->render();
 
 		return $html;
@@ -518,7 +550,7 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	/**
 	 * Get HTML for toolbar
 	 */
-	public function getToolbarHTML() {
+	public function getToolbarHTML()/*: string*/ {
 		$html = $this->render("toolbar");
 
 		return $html;
@@ -528,7 +560,7 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	/**
 	 * @return boolean
 	 */
-	public function isPositionMovable() {
+	public function isPositionMovable()/*: bool*/ {
 		return $this->position_movable;
 	}
 
@@ -536,7 +568,8 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	/**
 	 * @param boolean $position_movable
 	 */
-	public function setPositionMovable($position_movable) {
+	public function setPositionMovable(/*bool*/
+		$position_movable)/*: void*/ {
 		$this->position_movable = $position_movable;
 	}
 
@@ -544,7 +577,7 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	/**
 	 * @return boolean
 	 */
-	public function isShowLabelOnce() {
+	public function isShowLabelOnce()/*: bool*/ {
 		return $this->show_label_once;
 	}
 
@@ -552,7 +585,8 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	/**
 	 * @param boolean $show_label_once
 	 */
-	public function setShowLabelOnce($show_label_once) {
+	public function setShowLabelOnce(/*bool*/
+		$show_label_once)/*: void*/ {
 		$this->setShowLabel(false);
 		$this->show_label_once = $show_label_once;
 	}
@@ -561,7 +595,7 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	/**
 	 * @return boolean
 	 */
-	public function isShowInfo() {
+	public function isShowInfo()/*: bool*/ {
 		return $this->show_info;
 	}
 
@@ -569,7 +603,8 @@ class xlvoMultiLineInputGUI extends ilFormPropertyGUI {
 	/**
 	 * @param boolean $show_info
 	 */
-	public function setShowInfo($show_info) {
+	public function setShowInfo(/*bool*/
+		$show_info)/*: void*/ {
 		$this->show_info = $show_info;
 	}
 }

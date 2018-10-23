@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.7.0]
+- MultiLineInputGUI and GlyphGUI
+
+## [0.6.2]
+- Fix
+
+## [0.6.1]
+- Fix IE and Edge in ScreenshotsInputGUI
+
+## [0.6.0]
+- IE11 polyfills for ScreenshotsInputGUI
+- Improve ScreenshotsInputGUI
+
 ## [0.5.3]
 - Fix
 

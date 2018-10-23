@@ -6,9 +6,9 @@ use ilException;
 use ilFormPropertyGUI;
 use ilHiddenInputGUI;
 use LiveVoting\Exceptions\xlvoSubFormGUIHandleFieldException;
-use LiveVoting\GUI\xlvoMultiLineInputGUI;
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\QuestionTypes\xlvoSubFormGUI;
+use srag\CustomInputGUIs\MultiLineInputGUI\MultiLineInputGUI;
 use srag\CustomInputGUIs\TextInputGUI\TextInputGUI;
 
 /**
@@ -34,7 +34,7 @@ class xlvoFreeOrderSubFormGUI extends xlvoSubFormGUI {
 	 *
 	 */
 	protected function initFormElements() {
-		$xlvoMultiLineInputGUI = new xlvoMultiLineInputGUI($this->txt(self::F_OPTIONS), self::F_OPTIONS);
+		$xlvoMultiLineInputGUI = new MultiLineInputGUI($this->txt(self::F_OPTIONS), self::F_OPTIONS);
 		$xlvoMultiLineInputGUI->setShowLabel(false);
 		$xlvoMultiLineInputGUI->setPositionMovable(true);
 

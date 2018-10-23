@@ -3,9 +3,9 @@
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 use LiveVoting\Context\ILIASVersionEnum;
+use LiveVoting\Context\Param\ParamManager;
 use LiveVoting\Exceptions\xlvoPlayerException;
 use LiveVoting\Exceptions\xlvoVotingManagerException;
-use LiveVoting\GUI\xlvoGlyphGUI;
 use LiveVoting\GUI\xlvoGUI;
 use LiveVoting\GUI\xlvoLinkButton;
 use LiveVoting\GUI\xlvoToolbarGUI;
@@ -21,7 +21,7 @@ use LiveVoting\Voter\xlvoVoter;
 use LiveVoting\Voting\xlvoVoting;
 use LiveVoting\Voting\xlvoVotingConfig;
 use LiveVoting\Voting\xlvoVotingManager2;
-use LiveVoting\Context\Param\ParamManager;
+use srag\CustomInputGUIs\GlyphGUI\GlyphGUI;
 
 /**
  * Class xlvoPlayerGUI
@@ -36,7 +36,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 	const CMD_START_PLAYER = 'startPlayer';
 	const CMD_START_PLAYER_AND_UNFREEZE = 'startPlayerAnUnfreeze';
 	const CMD_START_PRESENTER = 'startPresenter';
-	const CMD_SHOW_PPT_QUESTION_OVERVIEW  = 'showPptQuestionOverview';
+	const CMD_SHOW_PPT_QUESTION_OVERVIEW = 'showPptQuestionOverview';
 	const CMD_NEXT = 'next';
 	const CMD_PREVIOUS = 'previous';
 	const CMD_FREEZE = 'freeze';
@@ -61,7 +61,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 		parent::__construct();
 		$param_manager = ParamManager::getInstance();
 
-		$this->manager = xlvoVotingManager2::getInstanceFromObjId(ilObject2::_lookupObjId($param_manager->getRefId()),$param_manager->getVoting());
+		$this->manager = xlvoVotingManager2::getInstanceFromObjId(ilObject2::_lookupObjId($param_manager->getRefId()), $param_manager->getVoting());
 
 		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/default.css');
 	}
@@ -106,7 +106,6 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 		$current_selection_list = $this->getVotingSelectionList(false);
 		self::dic()->toolbar()->addText($current_selection_list->getHTML());
-
 
 		$template = self::plugin()->template('default/Player/tpl.start.html');
 		/**
@@ -180,10 +179,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 			throw new ilException("PlayerGUI startPresenter1 Wrong PIN!");
 		}
 
-
-
-		$this->manager = new xlvoVotingManager2($this->param_manager->getPin(),$this->param_manager->getVoting());
-
+		$this->manager = new xlvoVotingManager2($this->param_manager->getPin(), $this->param_manager->getVoting());
 
 		/**
 		 * @var xlvoVotingConfig|null $xlvoVotingConfig
@@ -217,17 +213,16 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$this->manager->attend();
 
 		//TODO PLLV-272
-		if($this->param_manager->getVoting() > 0) {
+		if ($this->param_manager->getVoting() > 0) {
 			$this->manager->getPlayer()->setActiveVoting($this->param_manager->getVoting());
 		}
 
-
-			$results = array(
-				'player' => $this->manager->getPlayer()->getStdClassForPlayer(),
-				'player_html' => $this->getPlayerHTML(true),
-				'buttons_html' => $this->getButtonsHTML(),
-			);
-			xlvoJsResponse::getInstance($results)->send();
+		$results = array(
+			'player' => $this->manager->getPlayer()->getStdClassForPlayer(),
+			'player_html' => $this->getPlayerHTML(true),
+			'buttons_html' => $this->getButtonsHTML(),
+		);
+		xlvoJsResponse::getInstance($results)->send();
 	}
 
 
@@ -298,10 +293,9 @@ class xlvoPlayerGUI extends xlvoGUI {
 	protected function apiCall() {
 
 		//TODO PLLV-272
-		if($this->param_manager->getVoting() > 0) {
+		if ($this->param_manager->getVoting() > 0) {
 			$this->manager->getPlayer()->setActiveVoting($this->param_manager->getVoting());
 		}
-
 
 		$return_value = true;
 		switch ($_POST['call']) {
@@ -349,7 +343,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$suspendButton = xlvoLinkButton::getInstance();
 		$suspendButton->clearClasses();
 		$suspendButton->addCSSClass('btn-warning');
-		$suspendButton->setCaption(xlvoGlyphGUI::get('pause') . $this->txt('freeze'), false);
+		$suspendButton->setCaption(GlyphGUI::get('pause') . $this->txt('freeze'), false);
 		$suspendButton->setUrl('#');
 		$suspendButton->setId('btn-freeze');
 		$this->addStickyButtonToToolbar($suspendButton);
@@ -358,7 +352,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$playButton = xlvoLinkButton::getInstance();
 		$playButton->clearClasses();
 		$playButton->setPrimary(true);
-		$playButton->setCaption(xlvoGlyphGUI::get('play') . $this->txt('unfreeze'), false);
+		$playButton->setCaption(GlyphGUI::get('play') . $this->txt('unfreeze'), false);
 		$playButton->setUrl('#');
 		$playButton->setId('btn-unfreeze');
 
@@ -391,7 +385,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 		// Reset
 		$suspendButton = ilLinkButton::getInstance();
-		$suspendButton->setCaption(xlvoGlyphGUI::get('remove') . $this->txt('reset'), false);
+		$suspendButton->setCaption(GlyphGUI::get('remove') . $this->txt('reset'), false);
 		$suspendButton->setUrl('#');
 		$suspendButton->setId('btn-reset');
 		self::dic()->toolbar()->addButtonInstance($suspendButton);
@@ -407,21 +401,21 @@ class xlvoPlayerGUI extends xlvoGUI {
 			$suspendButton = ilLinkButton::getInstance();
 			$suspendButton->setDisabled(true);
 			$suspendButton->setUrl(self::dic()->ctrl()->getLinkTarget($this, self::CMD_PREVIOUS));
-			$suspendButton->setCaption(xlvoGlyphGUI::get(xlvoGlyphGUI::PREVIOUS), false);
+			$suspendButton->setCaption(GlyphGUI::get(GlyphGUI::PREVIOUS), false);
 			$suspendButton->setId('btn-previous');
 			self::dic()->toolbar()->addButtonInstance($suspendButton);
 
 			// NEXT
 			$suspendButton = ilLinkButton::getInstance();
 			$suspendButton->setDisabled(true);
-			$suspendButton->setCaption(xlvoGlyphGUI::get(xlvoGlyphGUI::NEXT), false);
+			$suspendButton->setCaption(GlyphGUI::get(GlyphGUI::NEXT), false);
 			$suspendButton->setUrl(self::dic()->ctrl()->getLinkTarget($this, self::CMD_NEXT));
 			$suspendButton->setId('btn-next');
 			self::dic()->toolbar()->addButtonInstance($suspendButton);
 		}
 
 		// Votings
-		if(!$this->param_manager->isPpt()) {
+		if (!$this->param_manager->isPpt()) {
 			$current_selection_list = $this->getVotingSelectionList();
 			self::dic()->toolbar()->addText($current_selection_list->getHTML());
 		}
@@ -435,13 +429,13 @@ class xlvoPlayerGUI extends xlvoGUI {
 		// Fullscreen
 		if ($this->manager->getVotingConfig()->isFullScreen() && !$this->param_manager->isPpt()) {
 			$suspendButton = ilLinkButton::getInstance();
-			$suspendButton->setCaption(xlvoGlyphGUI::get('fullscreen'), false);
+			$suspendButton->setCaption(GlyphGUI::get('fullscreen'), false);
 			$suspendButton->setUrl('#');
 			$suspendButton->setId('btn-start-fullscreen');
 			self::dic()->toolbar()->addButtonInstance($suspendButton);
 
 			$suspendButton = ilLinkButton::getInstance();
-			$suspendButton->setCaption(xlvoGlyphGUI::get('resize-small'), false);
+			$suspendButton->setCaption(GlyphGUI::get('resize-small'), false);
 			$suspendButton->setUrl('#');
 			$suspendButton->setId('btn-close-fullscreen');
 			self::dic()->toolbar()->addButtonInstance($suspendButton);
@@ -449,7 +443,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 		// END
 		$suspendButton = ilLinkButton::getInstance();
-		$suspendButton->setCaption(xlvoGlyphGUI::get('stop') . $this->txt('terminate'), false);
+		$suspendButton->setCaption(GlyphGUI::get('stop') . $this->txt('terminate'), false);
 		$suspendButton->setUrl(self::dic()->ctrl()->getLinkTarget(new xlvoPlayerGUI(), self::CMD_TERMINATE));
 		$suspendButton->setId('btn-terminate');
 		self::dic()->toolbar()->addButtonInstance($suspendButton);
@@ -548,13 +542,11 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 		//self::dic()->mainTemplate()->addJavaScript("https://appsforoffice.microsoft.com/lib/1/hosted/Office.js");
 		//self::dic()->mainTemplate()->addJavaScript(self::plugin()->directory() . '/js/PPT/xlvoPPT.min.js');
-		
-		
+
 		xlvoJs::getInstance()->addLibToHeader('screenfull.min.js');
 		xlvoJs::getInstance()->ilias($this)->addSettings($settings)->name('Player')->addTranslations(array(
 			'voting_confirm_reset',
 		))->init()->setRunCode();
-
 
 		//xlvoJs::getInstance()->ilias($this)->name('PPT')->init()->setRunCode();
 

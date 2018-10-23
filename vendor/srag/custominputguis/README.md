@@ -18,6 +18,8 @@ Hint: Because of multiple autoloaders of plugins, it could be, that different ve
 
 ### Input-GUI's
 * [DateDurationInputGUI](./src/DateDurationInputGUI/doc/DateDurationInputGUI.md)
+* [GlyphGUI](./src/DateDurationInputGUI/doc/GlyphGUI.md)
+* [MultiLineInputGUI](./src/MultiLineInputGUI/doc/MultiLineInputGUI.md)
 * [MultiSelectSearchInputGUI](./src/MultiSelectSearchInputGUI/doc/MultiSelectSearchInputGUI.md)
 * [MultiSelectSearchInput2GUI](./src/MultiSelectSearchInputGUI/doc/MultiSelectSearchInput2GUI.md)
 * [NumberInputGUI](./src/NumberInputGUI/doc/NumberInputGUI.md)
@@ -26,9 +28,12 @@ Hint: Because of multiple autoloaders of plugins, it could be, that different ve
 * [TextInputGUI](./src/TextInputGUI/doc/TextInputGUI.md)
 
 ### Dependencies
+* ILIAS 5.2 or ILIAS 5.3
 * PHP >=5.6
 * [composer](https://getcomposer.org)
 * [npm](https://nodejs.org)
+* [canvas-toBlob](https://www.npmjs.com/package/canvas-toBlob)
+* [es6-promise](https://www.npmjs.com/package/es6-promise)
 * [html2canvas](https://www.npmjs.com/package/html2canvas)
 * [select2](https://www.npmjs.com/package/select2)
 * [srag/dic](https://packagist.org/packages/srag/dic)

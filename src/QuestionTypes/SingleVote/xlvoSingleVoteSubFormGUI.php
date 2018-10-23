@@ -8,9 +8,9 @@ use ilFormPropertyGUI;
 use ilHiddenInputGUI;
 use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Exceptions\xlvoSubFormGUIHandleFieldException;
-use LiveVoting\GUI\xlvoMultiLineInputGUI;
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\QuestionTypes\xlvoSubFormGUI;
+use srag\CustomInputGUIs\MultiLineInputGUI\MultiLineInputGUI;
 use srag\CustomInputGUIs\TextInputGUI\TextInputGUI;
 
 /**
@@ -44,7 +44,7 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 		//		$cb->setInfo(self::plugin()->translate('info_singlevote_colors'));
 		//		$this->addFormElement($cb);
 
-		$xlvoMultiLineInputGUI = new xlvoMultiLineInputGUI($this->txt(self::F_OPTIONS), self::F_OPTIONS);
+		$xlvoMultiLineInputGUI = new MultiLineInputGUI($this->txt(self::F_OPTIONS), self::F_OPTIONS);
 		$xlvoMultiLineInputGUI->setShowLabel(false);
 		$xlvoMultiLineInputGUI->setShowInfo(xlvoConf::isLatexEnabled());
 

@@ -6,7 +6,6 @@ use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Context\Param\ParamManager;
 use LiveVoting\Exceptions\xlvoVoterException;
 use LiveVoting\Exceptions\xlvoVotingManagerException;
-use LiveVoting\GUI\xlvoGlyphGUI;
 use LiveVoting\GUI\xlvoGUI;
 use LiveVoting\Js\xlvoJs;
 use LiveVoting\Js\xlvoJsResponse;
@@ -17,6 +16,7 @@ use LiveVoting\QuestionTypes\xlvoQuestionTypesGUI;
 use LiveVoting\Voter\xlvoVoter;
 use LiveVoting\Voting\xlvoVotingConfig;
 use LiveVoting\Voting\xlvoVotingManager2;
+use srag\CustomInputGUIs\GlyphGUI\GlyphGUI;
 use srag\CustomInputGUIs\TextInputGUI\TextInputGUI;
 
 /**
@@ -254,12 +254,12 @@ class xlvoVoter2GUI extends xlvoGUI {
 			case xlvoPlayer::STAT_START_VOTING:
 				$tpl->setVariable('TITLE', $this->txt('header_start'));
 				$tpl->setVariable('DESCRIPTION', $this->txt('info_start'));
-				$tpl->setVariable('GLYPH', xlvoGlyphGUI::get('pause'));
+				$tpl->setVariable('GLYPH', GlyphGUI::get('pause'));
 				break;
 			case xlvoPlayer::STAT_END_VOTING:
 				$tpl->setVariable('TITLE', $this->txt('header_end'));
 				$tpl->setVariable('DESCRIPTION', $this->txt('info_end'));;
-				$tpl->setVariable('GLYPH', xlvoGlyphGUI::get('stop'));
+				$tpl->setVariable('GLYPH', GlyphGUI::get('stop'));
 				break;
 			case xlvoPlayer::STAT_FROZEN:
 				$tpl->setVariable('TITLE', $this->txt('header_frozen'));
@@ -267,7 +267,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 				$tpl->setVariable('COUNT', $this->manager->countVotings());
 				$tpl->setVariable('POSITION', $this->manager->getVotingPosition());
 				$tpl->setVariable('PIN', xlvoPin::formatPin($this->manager->getVotingConfig()->getPin()));
-				$tpl->setVariable('GLYPH', xlvoGlyphGUI::get('pause'));
+				$tpl->setVariable('GLYPH', GlyphGUI::get('pause'));
 				break;
 		}
 		echo $tpl->get();

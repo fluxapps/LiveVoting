@@ -2,12 +2,12 @@
 
 require_once __DIR__ . '/../../../vendor/autoload.php';
 
-use LiveVoting\GUI\xlvoMultiLineInputGUI;
 use LiveVoting\Js\xlvoJs;
 use LiveVoting\QuestionTypes\FreeInput\xlvoFreeInputSubFormGUI;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\QuestionTypes\xlvoQuestionTypesGUI;
 use LiveVoting\Vote\xlvoVote;
+use srag\CustomInputGUIs\MultiLineInputGUI\MultiLineInputGUI;
 use srag\CustomInputGUIs\TextAreaInputGUI\TextAreaInputGUI;
 use srag\CustomInputGUIs\TextInputGUI\TextInputGUI;
 
@@ -36,7 +36,7 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 	 * @param bool $current
 	 */
 	public function initJS($current = false) {
-		$xlvoMultiLineInputGUI = new xlvoMultiLineInputGUI();
+		$xlvoMultiLineInputGUI = new MultiLineInputGUI();
 		$xlvoMultiLineInputGUI->initCSSandJS();
 		xlvoJs::getInstance()->api($this)->name(xlvoQuestionTypes::FREE_INPUT)->category('QuestionTypes')->init();
 	}
@@ -173,7 +173,7 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 			//$form->addCommandButton(self::CMD_CLEAR, $this->txt('delete_all'));
 		}
 
-		$mli = new xlvoMultiLineInputGUI($this->txt('answers'), self::F_VOTE_MULTI_LINE_INPUT);
+		$mli = new MultiLineInputGUI($this->txt('answers'), self::F_VOTE_MULTI_LINE_INPUT);
 		$te = $this->getTextInputGUI($this->txt('text'), self::F_FREE_INPUT);
 
 		$hi2 = new ilHiddenInputGUI(self::F_VOTE_ID);
