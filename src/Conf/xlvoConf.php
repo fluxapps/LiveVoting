@@ -81,7 +81,7 @@ class xlvoConf extends CachingActiveRecord {
 	 *
 	 * @deprecated
 	 */
-	const REWRITE_RULE_VOTE = "RewriteRule ^vote(/[\\w]*|) Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?". ParamManager::PARAM_PIN . "=$1 [L]";
+	const REWRITE_RULE_VOTE = 'RewriteRule ^vote(/[\\w]*|) Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?'. ParamManager::PARAM_PIN . '=$1 [L]';
 	/**
 	 * @var string
 	 *
