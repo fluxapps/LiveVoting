@@ -1,0 +1,11 @@
+<button class="btn btn-link add_screenshot" type="button">{TXT_UPLOAD_SCREENSHOT}</button>
+<br>
+<button class="btn btn-link add_page_screenshot" type="button">{TXT_TAKE_PAGE_SCREENSHOT}</button>
+
+<div class="screenshots"></div>
+
+<input accept="{ALLOWED_FORMATS}" class="screenshot_file_input" multiple name="{POST_VAR}" style="display: none;" type="file">
+
+<script>
+	il.ScreenshotsInputGUI.newInstance("{POST_VAR}");
+</script>

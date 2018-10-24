@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.7.5]
+- Fix boolean datatype
+
 ## [0.7.4]
 - Fix
 

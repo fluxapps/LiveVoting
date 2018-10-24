@@ -9,10 +9,10 @@ use ilHiddenInputGUI;
 use ilNumberInputGUI;
 use InvalidArgumentException;
 use LiveVoting\Exceptions\xlvoSubFormGUIHandleFieldException;
-use LiveVoting\GUI\xlvoMultiLineInputGUI;
-use LiveVoting\GUI\xlvoTextInputGUI;
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\QuestionTypes\xlvoSubFormGUI;
+use srag\CustomInputGUIs\MultiLineInputGUI\MultiLineInputGUI;
+use srag\CustomInputGUIs\TextInputGUI\TextInputGUI;
 
 /**
  * Class xlvoCorrectOrderSubFormGUI
@@ -40,7 +40,7 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI {
 	 */
 	protected function initFormElements() {
 
-		$xlvoMultiLineInputGUI = new xlvoMultiLineInputGUI($this->txt(self::F_OPTIONS), self::F_OPTIONS);
+		$xlvoMultiLineInputGUI = new MultiLineInputGUI($this->txt(self::F_OPTIONS), self::F_OPTIONS);
 		$xlvoMultiLineInputGUI->setShowLabel(true);
 
 		$randomiseOptionSequenceAfterSave = new ilCheckboxInputGUI($this->txt(self::OPTION_RANDOMIZE_OPTIONS_AFTER_SAVE), self::OPTION_RANDOMIZE_OPTIONS_AFTER_SAVE);
@@ -64,7 +64,7 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI {
 		}*/
 		$xlvoMultiLineInputGUI->addInput($position);
 
-		$te = new xlvoTextInputGUI($this->txt('option_text'), self::F_TEXT);
+		$te = new TextInputGUI($this->txt('option_text'), self::F_TEXT);
 		$xlvoMultiLineInputGUI->addInput($te);
 
 		$this->addFormElement($randomiseOptionSequenceAfterSave);

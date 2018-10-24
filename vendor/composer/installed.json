@@ -26,7 +26,7 @@
             "symfony/framework-bundle": "^2.3|^3.0",
             "symfony/http-kernel": "^2.3|^3.0"
         },
-        "time": "2017-04-08 09:13:59",
+        "time": "2017-04-08T09:13:59+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -63,6 +63,148 @@
         "abandoned": "endroid/qr-code"
     },
     {
+        "name": "srag/activerecordconfig",
+        "version": "v0.7.5",
+        "version_normalized": "0.7.5.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/studer-raimann/ActiveRecordConfig.git",
+            "reference": "3b3dcf055830af66aa6aae66f9239905f489d56c"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/studer-raimann/ActiveRecordConfig/zipball/3b3dcf055830af66aa6aae66f9239905f489d56c",
+            "reference": "3b3dcf055830af66aa6aae66f9239905f489d56c",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.6",
+            "srag/dic": ">=0.1.0"
+        },
+        "time": "2018-10-22T08:06:16+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "srag\\ActiveRecordConfig\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "GPL-3.0-only"
+        ],
+        "authors": [
+            {
+                "name": "studer + raimann ag - Team Custom 1",
+                "email": "support-custom1@studer-raimann.ch",
+                "homepage": "https://studer-raimann.ch",
+                "role": "Developer"
+            }
+        ],
+        "description": "Simple ActiveRecord config for ILIAS plugins",
+        "homepage": "https://github.com/studer-raimann/ActiveRecordConfig",
+        "keywords": [
+            "ILIAS",
+            "activerecord",
+            "config"
+        ]
+    },
+    {
+        "name": "srag/custominputguis",
+        "version": "v0.7.1",
+        "version_normalized": "0.7.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/studer-raimann/CustomInputGUIs.git",
+            "reference": "f109ba888876b9460b34ddd4403dedcf5ff19d3c"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/studer-raimann/CustomInputGUIs/zipball/f109ba888876b9460b34ddd4403dedcf5ff19d3c",
+            "reference": "f109ba888876b9460b34ddd4403dedcf5ff19d3c",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.6",
+            "srag/dic": ">=0.1.0"
+        },
+        "time": "2018-10-24T05:25:44+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "srag\\CustomInputGUIs\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "GPL-3.0-only"
+        ],
+        "authors": [
+            {
+                "name": "studer + raimann ag - Team Custom 1",
+                "email": "support-custom1@studer-raimann.ch",
+                "homepage": "https://studer-raimann.ch",
+                "role": "Developer"
+            }
+        ],
+        "description": "Custom Input-GUI's",
+        "homepage": "https://github.com/studer-raimann/CustomInputGUIs",
+        "keywords": [
+            "ILIAS",
+            "PropertyForm",
+            "gui",
+            "input"
+        ]
+    },
+    {
+        "name": "srag/dic",
+        "version": "0.10.3",
+        "version_normalized": "0.10.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/studer-raimann/DIC.git",
+            "reference": "7b4208ac5d0733e13d443099aac45dd89cf14b29"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/studer-raimann/DIC/zipball/7b4208ac5d0733e13d443099aac45dd89cf14b29",
+            "reference": "7b4208ac5d0733e13d443099aac45dd89cf14b29",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.6"
+        },
+        "time": "2018-10-15T12:09:44+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "srag\\DIC\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "GPL-3.0-only"
+        ],
+        "authors": [
+            {
+                "name": "studer + raimann ag - Team Custom 1",
+                "email": "support-custom1@studer-raimann.ch",
+                "homepage": "https://studer-raimann.ch",
+                "role": "Developer"
+            }
+        ],
+        "description": "Use all ILIAS globals in your class",
+        "homepage": "https://github.com/studer-raimann/DIC",
+        "keywords": [
+            "ILIAS",
+            "dic",
+            "globals",
+            "trait"
+        ]
+    },
+    {
         "name": "srag/removeplugindataconfirm",
         "version": "0.2.5",
         "version_normalized": "0.2.5.0",
@@ -81,7 +223,7 @@
             "php": ">=5.6",
             "srag/dic": ">=0.1.0"
         },
-        "time": "2018-09-17 09:07:15",
+        "time": "2018-09-17T09:07:15+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -129,7 +271,7 @@
         "require": {
             "php": "^5.5.9|>=7.0.8"
         },
-        "time": "2018-09-17 17:29:18",
+        "time": "2018-09-17T17:29:18+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -165,100 +307,6 @@
             "config",
             "configuration",
             "options"
-        ]
-    },
-    {
-        "name": "srag/dic",
-        "version": "0.10.3",
-        "version_normalized": "0.10.3.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/studer-raimann/DIC.git",
-            "reference": "7b4208ac5d0733e13d443099aac45dd89cf14b29"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/studer-raimann/DIC/zipball/7b4208ac5d0733e13d443099aac45dd89cf14b29",
-            "reference": "7b4208ac5d0733e13d443099aac45dd89cf14b29",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.6"
-        },
-        "time": "2018-10-15 12:09:44",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "srag\\DIC\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "GPL-3.0-only"
-        ],
-        "authors": [
-            {
-                "name": "studer + raimann ag - Team Custom 1",
-                "email": "support-custom1@studer-raimann.ch",
-                "homepage": "https://studer-raimann.ch",
-                "role": "Developer"
-            }
-        ],
-        "description": "Use all ILIAS globals in your class",
-        "homepage": "https://github.com/studer-raimann/DIC",
-        "keywords": [
-            "ILIAS",
-            "dic",
-            "globals",
-            "trait"
-        ]
-    },
-    {
-        "name": "srag/activerecordconfig",
-        "version": "v0.7.4",
-        "version_normalized": "0.7.4.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/studer-raimann/ActiveRecordConfig.git",
-            "reference": "d12d1bfb2d241d5c30235d74ff6fc1b25817df5b"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/studer-raimann/ActiveRecordConfig/zipball/d12d1bfb2d241d5c30235d74ff6fc1b25817df5b",
-            "reference": "d12d1bfb2d241d5c30235d74ff6fc1b25817df5b",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.6",
-            "srag/dic": ">=0.1.0"
-        },
-        "time": "2018-10-16 12:29:31",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "srag\\ActiveRecordConfig\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "GPL-3.0-only"
-        ],
-        "authors": [
-            {
-                "name": "studer + raimann ag - Team Custom 1",
-                "email": "support-custom1@studer-raimann.ch",
-                "homepage": "https://studer-raimann.ch",
-                "role": "Developer"
-            }
-        ],
-        "description": "Simple ActiveRecord config for ILIAS plugins",
-        "homepage": "https://github.com/studer-raimann/ActiveRecordConfig",
-        "keywords": [
-            "ILIAS",
-            "activerecord",
-            "config"
         ]
     }
 ]

@@ -3,9 +3,9 @@
 require_once __DIR__ . '/../../../vendor/autoload.php';
 
 use LiveVoting\Js\xlvoJs;
-use LiveVoting\GUI\xlvoGlyphGUI;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\QuestionTypes\xlvoQuestionTypesGUI;
+use srag\CustomInputGUIs\GlyphGUI\GlyphGUI;
 
 /**
  * Class xlvoSingleVoteGUI
@@ -49,7 +49,7 @@ class xlvoSingleVoteGUI extends xlvoQuestionTypesGUI {
 		if ($states[self::BUTTON_TOGGLE_PERCENTAGE]) {
 			$t->setCaption(' %', false);
 		} else {
-			$t->setCaption(xlvoGlyphGUI::get('user'), false);
+			$t->setCaption(GlyphGUI::get('user'), false);
 		}
 
 		return array( $t );

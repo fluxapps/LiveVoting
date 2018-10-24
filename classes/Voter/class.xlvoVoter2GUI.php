@@ -6,9 +6,7 @@ use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Context\Param\ParamManager;
 use LiveVoting\Exceptions\xlvoVoterException;
 use LiveVoting\Exceptions\xlvoVotingManagerException;
-use LiveVoting\GUI\xlvoGlyphGUI;
 use LiveVoting\GUI\xlvoGUI;
-use LiveVoting\GUI\xlvoTextInputGUI;
 use LiveVoting\Js\xlvoJs;
 use LiveVoting\Js\xlvoJsResponse;
 use LiveVoting\Pin\xlvoPin;
@@ -18,6 +16,8 @@ use LiveVoting\QuestionTypes\xlvoQuestionTypesGUI;
 use LiveVoting\Voter\xlvoVoter;
 use LiveVoting\Voting\xlvoVotingConfig;
 use LiveVoting\Voting\xlvoVotingManager2;
+use srag\CustomInputGUIs\GlyphGUI\GlyphGUI;
+use srag\CustomInputGUIs\TextInputGUI\TextInputGUI;
 
 /**
  * Class xlvoVoter2GUI
@@ -111,7 +111,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 
 		$xlvoPin = new xlvoPin();
 
-		$te = new xlvoTextInputGUI($this->txt(self::F_PIN_INPUT), self::F_PIN_INPUT);
+		$te = new TextInputGUI($this->txt(self::F_PIN_INPUT), self::F_PIN_INPUT);
 		$te->setMaxLength($xlvoPin->getPinLength());
 		$pin_form->addItem($te);
 
@@ -254,12 +254,12 @@ class xlvoVoter2GUI extends xlvoGUI {
 			case xlvoPlayer::STAT_START_VOTING:
 				$tpl->setVariable('TITLE', $this->txt('header_start'));
 				$tpl->setVariable('DESCRIPTION', $this->txt('info_start'));
-				$tpl->setVariable('GLYPH', xlvoGlyphGUI::get('pause'));
+				$tpl->setVariable('GLYPH', GlyphGUI::get('pause'));
 				break;
 			case xlvoPlayer::STAT_END_VOTING:
 				$tpl->setVariable('TITLE', $this->txt('header_end'));
 				$tpl->setVariable('DESCRIPTION', $this->txt('info_end'));;
-				$tpl->setVariable('GLYPH', xlvoGlyphGUI::get('stop'));
+				$tpl->setVariable('GLYPH', GlyphGUI::get('stop'));
 				break;
 			case xlvoPlayer::STAT_FROZEN:
 				$tpl->setVariable('TITLE', $this->txt('header_frozen'));
@@ -267,7 +267,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 				$tpl->setVariable('COUNT', $this->manager->countVotings());
 				$tpl->setVariable('POSITION', $this->manager->getVotingPosition());
 				$tpl->setVariable('PIN', xlvoPin::formatPin($this->manager->getVotingConfig()->getPin()));
-				$tpl->setVariable('GLYPH', xlvoGlyphGUI::get('pause'));
+				$tpl->setVariable('GLYPH', GlyphGUI::get('pause'));
 				break;
 		}
 		echo $tpl->get();

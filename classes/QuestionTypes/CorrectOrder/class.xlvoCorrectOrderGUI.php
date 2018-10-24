@@ -3,12 +3,12 @@
 require_once __DIR__ . '/../../../vendor/autoload.php';
 
 use LiveVoting\Display\Bar\xlvoBarMovableGUI;
-use LiveVoting\GUI\xlvoGlyphGUI;
 use LiveVoting\Js\xlvoJs;
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\QuestionTypes\xlvoQuestionTypesGUI;
 use LiveVoting\Vote\xlvoVote;
+use srag\CustomInputGUIs\GlyphGUI\GlyphGUI;
 
 /**
  * Class xlvoCorrectOrderGUI
@@ -118,9 +118,9 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 		$b = ilLinkButton::getInstance();
 		$b->setId(self::BUTTON_TOTTLE_DISPLAY_CORRECT_ORDER);
 		if ($states[self::BUTTON_TOTTLE_DISPLAY_CORRECT_ORDER]) {
-			$b->setCaption(xlvoGlyphGUI::get('eye-close'), false);
+			$b->setCaption(GlyphGUI::get('eye-close'), false);
 		} else {
-			$b->setCaption(xlvoGlyphGUI::get('eye-open'), false);
+			$b->setCaption(GlyphGUI::get('eye-open'), false);
 		}
 
 		$t = ilLinkButton::getInstance();
@@ -128,7 +128,7 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI {
 		if ($states[self::BUTTON_TOGGLE_PERCENTAGE]) {
 			$t->setCaption(' %', false);
 		} else {
-			$t->setCaption(xlvoGlyphGUI::get('user'), false);
+			$t->setCaption(GlyphGUI::get('user'), false);
 		}
 
 		return array( $b, $t );
