@@ -279,11 +279,11 @@ class xlvoVotingGUI {
 
 
 			$presenter_link = new ilCustomInputGUI(self::plugin()->translate('config_presenter_link'), self::F_PRESENTER_LINK);
-			$presenter_link->setHtml($config->getPresenterLink($xlvoVoting->getId(),true) . '<br><br><i>' . htmlspecialchars($this->txt("config_"
+			$presenter_link->setHtml($config->getPresenterLink($xlvoVoting->getId(),true) . '<br><br><i>' . htmlspecialchars(self::plugin()->translate("config_"
 					. xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . "_info_manual")) . '</i><ol>' . implode("", array_map(function ($step) {
-					return '<li>' . htmlspecialchars($this->txt("config_" . xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . "_info_manual_" . $step))
+					return '<li>' . htmlspecialchars(self::plugin()->translate("config_" . xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . "_info_manual_" . $step))
 						. '</li>';
-				}, range(1, 4))) . '</ol>'); // TODO: default.css not loaded
+				}, range(1, 4))) . '</ol>');
 			$xlvoVotingFormGUI->addItem($presenter_link);
 
 
