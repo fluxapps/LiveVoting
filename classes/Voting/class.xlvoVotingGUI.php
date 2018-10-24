@@ -13,6 +13,7 @@ use LiveVoting\Voting\xlvoVoting;
 use LiveVoting\Voting\xlvoVotingFormGUI;
 use LiveVoting\Voting\xlvoVotingTableGUI;
 use srag\DIC\DICTrait;
+use LiveVoting\Voting\xlvoVotingConfig;
 
 /**
  *
@@ -53,6 +54,8 @@ class xlvoVotingGUI {
 	const CMD_POWERPOINT_EXPORT = 'powerPointExport';
 	const F_TYPE = 'type';
 	const CMD_RUN_POWER_POINT_EXPORT = 'runPowerPointExport';
+	const F_PRESENTER_LINK = 'presenter_link';
+
 	/**
 	 * @var ilObjLiveVotingAccess
 	 */
@@ -263,6 +266,27 @@ class xlvoVotingGUI {
 			self::dic()->ctrl()->setParameter($this, self::IDENTIFIER, $xlvoVoting->getId());
 			$xlvoVotingFormGUI = xlvoVotingFormGUI::get($this, $xlvoVoting);
 			$xlvoVotingFormGUI->fillForm();
+
+
+			$h = new ilFormSectionHeaderGUI();
+			$h->setTitle("");
+			$xlvoVotingFormGUI->addItem($h);
+
+			/**
+			 * @var xlvoVotingConfig $config
+			 */
+			$config = xlvoVotingConfig::find($this->obj_id);
+
+
+			$presenter_link = new ilCustomInputGUI(self::plugin()->translate('config_presenter_link'), self::F_PRESENTER_LINK);
+			$presenter_link->setHtml($config->getPresenterLink($xlvoVoting->getId(),true) . '<br><br><i>' . htmlspecialchars($this->txt("config_"
+					. xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . "_info_manual")) . '</i><ol>' . implode("", array_map(function ($step) {
+					return '<li>' . htmlspecialchars($this->txt("config_" . xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . "_info_manual_" . $step))
+						. '</li>';
+				}, range(1, 4))) . '</ol>'); // TODO: default.css not loaded
+			$xlvoVotingFormGUI->addItem($presenter_link);
+
+
 			self::dic()->mainTemplate()->setContent($xlvoVotingFormGUI->getHTML());
 		}
 	}

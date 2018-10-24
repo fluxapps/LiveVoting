@@ -45,7 +45,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 	const TAB_LEARNING_PROGRESS = 'learning_progress';
 	const F_TITLE = 'title';
 	const F_DESCRIPTION = 'description';
-	const F_PRESENTER_LINK = 'presenter_link';
+
 	/**
 	 * @var ilPropertyFormGUI
 	 */
@@ -344,10 +344,6 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 	 *
 	 */
 	protected function initPropertiesForm() {
-		/**
-		 * @var xlvoVotingConfig $config
-		 */
-		$config = xlvoVotingConfig::find($this->obj_id);
 
 		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
 			ilUtil::sendFailure(self::plugin()->translate('obj_permission_denied'), true);
@@ -409,18 +405,6 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 			$results->addOption($results_reuse);
 
 			$this->form->addItem($results);
-
-			$h = new ilFormSectionHeaderGUI();
-			$h->setTitle("");
-			$this->form->addItem($h);
-
-			$presenter_link = new ilCustomInputGUI(self::plugin()->translate('config_presenter_link'), self::F_PRESENTER_LINK);
-			$presenter_link->setHtml($config->getPresenterLink() . '<br><br><i>' . htmlspecialchars($this->txt("config_"
-					. xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . "_info_manual")) . '</i><ol>' . implode("", array_map(function ($step) {
-					return '<li>' . htmlspecialchars($this->txt("config_" . xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . "_info_manual_" . $step))
-						. '</li>';
-				}, range(1, 4))) . '</ol>'); // TODO: default.css not loaded
-			$this->form->addItem($presenter_link);
 
 			$this->form->addCommandButton('updateProperties', self::plugin()->translate('obj_save'));
 			$this->form->setFormAction(self::dic()->ctrl()->getFormAction($this));
