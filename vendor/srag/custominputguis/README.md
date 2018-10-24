@@ -18,7 +18,7 @@ Hint: Because of multiple autoloaders of plugins, it could be, that different ve
 
 ### Input-GUI's
 * [DateDurationInputGUI](./src/DateDurationInputGUI/doc/DateDurationInputGUI.md)
-* [GlyphGUI](./src/DateDurationInputGUI/doc/GlyphGUI.md)
+* [GlyphGUI](./src/GlyphGUI/doc/GlyphGUI.md)
 * [MultiLineInputGUI](./src/MultiLineInputGUI/doc/MultiLineInputGUI.md)
 * [MultiSelectSearchInputGUI](./src/MultiSelectSearchInputGUI/doc/MultiSelectSearchInputGUI.md)
 * [MultiSelectSearchInput2GUI](./src/MultiSelectSearchInputGUI/doc/MultiSelectSearchInput2GUI.md)

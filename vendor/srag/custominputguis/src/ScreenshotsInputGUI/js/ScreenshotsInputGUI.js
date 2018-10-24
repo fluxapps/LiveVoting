@@ -164,7 +164,7 @@ il.ScreenshotsInputGUI.prototype = {
 		this.restoreModal();
 
 		//console.log(ex);
-		//alert(ex);
+		alert(ex);
 	},
 
 	/**

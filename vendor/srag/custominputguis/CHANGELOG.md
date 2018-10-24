@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.7.1]
+- Fix
+
 ## [0.7.0]
 - MultiLineInputGUI and GlyphGUI
 

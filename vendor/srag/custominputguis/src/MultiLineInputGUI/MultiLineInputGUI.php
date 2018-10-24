@@ -374,7 +374,7 @@ class MultiLineInputGUI extends ilFormPropertyGUI implements ilTableFilterItem, 
 		$iterator_id = 0, /*bool*/
 		$clean_render = false)/*: string*/ {
 		$first_label = true;
-		$tpl = new ilTemplate(__DIR__ . "/templates/tpl.multi_line_input.html");
+		$tpl = new ilTemplate(__DIR__ . "/templates/tpl.multi_line_input.html", true, true);
 		$class = 'multi_input_line';
 		$this->addCustomAttribute('class', $class, true);
 		foreach ($this->getCustomAttributes() as $key => $value) {
