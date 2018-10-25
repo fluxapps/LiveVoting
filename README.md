@@ -49,7 +49,7 @@ You need also to configure your website as HTTPS and allow that your website can
 
 ### Dependencies
 * ILIAS 5.2 or ILIAS 5.3
-* PHP >=5.6
+* PHP >=5.5
 * [composer](https://getcomposer.org)
 * [endroid/qrcode](https://packagist.org/packages/endroid/qrcode)
 * [srag/activerecordconfig](https://packagist.org/packages/srag/activerecordconfig)
