@@ -2,6 +2,7 @@
 
 namespace srag\CustomInputGUIs\MultiLineInputGUI;
 
+use ilCalendarUtil;
 use ilDate;
 use ilDateTimeInputGUI;
 use ilException;
@@ -153,6 +154,7 @@ class MultiLineInputGUI extends ilFormPropertyGUI implements ilTableFilterItem, 
 	public function addInput(ilFormPropertyGUI $input, /*: array*/
 		$options = array())/*: void*/ {
 		$this->inputs[$input->getPostVar()] = $input;
+
 		$this->input_options[$input->getPostVar()] = $options;
 		$this->counter ++;
 	}
@@ -226,7 +228,7 @@ class MultiLineInputGUI extends ilFormPropertyGUI implements ilTableFilterItem, 
 			if (method_exists($item, 'setValue')) {
 				$item->setValue($a_value[$key]);
 			} elseif ($item instanceof ilDateTimeInputGUI) {
-				$item->setDate(new ilDate($a_value[$key]['date'], IL_CAL_DATE));
+				$item->setDate(new ilDate($a_value[$key], IL_CAL_DATE));
 			}
 		}
 		$this->value = $a_value;
@@ -281,7 +283,7 @@ class MultiLineInputGUI extends ilFormPropertyGUI implements ilTableFilterItem, 
 					if (method_exists($input, 'setValue')) {
 						$input->setValue($out_array[$item_num][$input_key]);
 					} elseif ($input instanceof ilDateTimeInputGUI) {
-						$input->setDate(new ilDate($out_array[$item_num][$input_key]['date'], IL_CAL_DATE));
+						$input->setDate(new ilDate($out_array[$item_num][$input_key], IL_CAL_DATE));
 					}
 				}
 			}
@@ -502,7 +504,7 @@ class MultiLineInputGUI extends ilFormPropertyGUI implements ilTableFilterItem, 
 	 */
 	public function initCSSandJS()/*: void*/ {
 		$dir = substr(__DIR__, strlen(ILIAS_ABSOLUTE_PATH) + 1);
-		self::dic()->mainTemplate()->addCss($dir . '/css/multi_line_input.css');
+		self::dic()->mainTemplate()->addCss($dir . '/css/multi_line_input.min.css');
 		self::dic()->mainTemplate()->addJavascript($dir . '/js/multi_line_input.min.js');
 	}
 
@@ -514,6 +516,24 @@ class MultiLineInputGUI extends ilFormPropertyGUI implements ilTableFilterItem, 
 	 */
 	public function insert(&/*ilTemplate*/
 	$a_tpl)/*: void*/ {
+		$options = [
+			// Services/Calendar/classes/class.ilCalendarUtil.php::addDateTimePicker
+			"date_config" => [
+				'locale' => self::dic()->user()->getLanguage(),
+				'stepping' => 5,
+				'useCurrent' => false,
+				'calendarWeeks' => true,
+				'toolbarPlacement' => 'top',
+				//'showTodayButton' => true,
+				'showClear' => true,
+				//'showClose' => true
+				'keepInvalid' => true,
+				'sideBySide' => true,
+				//'collapse' => false,
+				'format' => ilCalendarUtil::getUserDateFormat(false)
+			]
+		];
+
 		$output = "";
 
 		$output .= $this->render(0, true);
@@ -528,8 +548,8 @@ class MultiLineInputGUI extends ilFormPropertyGUI implements ilTableFilterItem, 
 		}
 		if ($this->getMulti()) {
 			$output = '<div id="' . $this->getFieldId() . '" class="multi_line_input">' . $output . '</div>';
-			$output .= '<script type="text/javascript">$("#' . $this->getFieldId() . '").multi_line_input(' . json_encode($this->input_options)
-				. ')</script>';
+			$output .= '<script type="text/javascript">$("#' . $this->getFieldId() . '").multi_line_input(' . json_encode($this->input_options) . ', '
+				. json_encode($options) . ')</script>';
 		}
 		$a_tpl->setCurrentBlock("prop_generic");
 		$a_tpl->setVariable("PROP_GENERIC", $output);

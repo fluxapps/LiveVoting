@@ -224,6 +224,7 @@ return array(
     'srag\\CustomInputGUIs\\ScreenshotsInputGUI\\ScreenshotsInputGUI' => $vendorDir . '/srag/custominputguis/src/ScreenshotsInputGUI/ScreenshotsInputGUI.php',
     'srag\\CustomInputGUIs\\TextAreaInputGUI\\TextAreaInputGUI' => $vendorDir . '/srag/custominputguis/src/TextAreaInputGUI/TextAreaInputGUI.php',
     'srag\\CustomInputGUIs\\TextInputGUI\\TextInputGUI' => $vendorDir . '/srag/custominputguis/src/TextInputGUI/TextInputGUI.php',
+    'srag\\CustomInputGUIs\\Waiter\\Waiter' => $vendorDir . '/srag/custominputguis/src/Waiter/Waiter.php',
     'srag\\DIC\\DICStatic' => $vendorDir . '/srag/dic/src/DICStatic.php',
     'srag\\DIC\\DICStaticInterface' => $vendorDir . '/srag/dic/src/DICStaticInterface.php',
     'srag\\DIC\\DICTrait' => $vendorDir . '/srag/dic/src/DICTrait.php',

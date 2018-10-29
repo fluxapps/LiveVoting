@@ -54,10 +54,14 @@
 					new_line.show();
 					$(new_line).addClass("multi_input_line");
 					setup_line(new_line);
+
 					$line.after(new_line);
+
 					$(element).change();
 					$(document).trigger('multi_line_add_button', [$line, new_line]);
+
 					$(new_line).find("textarea, input[type='text']").focus();
+
 					return false;
 				});
 
@@ -77,6 +81,12 @@
 					$(document).trigger('multi_line_remove_button', $line);
 					return false;
 				});
+
+				// if date input, configure datetimepicker
+				var $div = $line.find('.date');
+				if (typeof $div !== 'undefined') {
+					$div.datetimepicker(options.date_config);
+				}
 
 				// If element is added by plus button
 				if (!init) {
