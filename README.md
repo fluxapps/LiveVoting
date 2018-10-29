@@ -57,6 +57,8 @@ You need also to configure your website as HTTPS and allow that your website can
 * [srag/dic](https://packagist.org/packages/srag/dic)
 * [srag/removeplugindataconfirm](https://packagist.org/packages/srag/removeplugindataconfirm)
 * [babel-minify -g](https://www.npmjs.com/package/babel-minify)
+* [clean-css-cli](https://www.npmjs.com/package/clean-css-cli)
+* [less -g](https://www.npmjs.com/package/less)
 
 Please use it for further development!
 

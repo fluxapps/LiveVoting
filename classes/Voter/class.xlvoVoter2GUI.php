@@ -104,7 +104,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 		}
 
 		$tpl = self::plugin()->template('default/Voter/tpl.pin.html', true, false);
-		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/Voter/pin.css');
+		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/Voter/pin.min.css');
 		$pin_form = new ilPropertyFormGUI();
 		$pin_form->setFormAction(self::dic()->ctrl()->getLinkTarget($this, self::CMD_CHECK_PIN));
 		$pin_form->addCommandButton(self::CMD_CHECK_PIN, $this->txt('send'));
@@ -157,7 +157,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 		}
 
 		$this->initJsAndCss();
-		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/default.css');
+		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/default.min.css');
 		$tpl = self::plugin()->template('default/Voter/tpl.voter_player.html', true, false);
 		self::dic()->mainTemplate()->setContent($tpl->get());
 	}
@@ -183,9 +183,9 @@ class xlvoVoter2GUI extends xlvoGUI {
 	 * @throws ilException
 	 */
 	protected function initJsAndCss() {
-		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/Voter/voter.css');
+		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/Voter/voter.min.css');
 		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/libs/bootstrap-slider.min.css');
-		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/QuestionTypes/NumberRange/number_range.css');
+		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/QuestionTypes/NumberRange/number_range.min.css');
 		iljQueryUtil::initjQueryUI();
 
 		ilMathJax::getInstance()->includeMathJax();
