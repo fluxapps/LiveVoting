@@ -48,7 +48,7 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 		$this->voting_gui = $a_parent_obj;
 		$this->access = new ilObjLiveVotingAccess();
 
-		xlvoJs::getInstance()->addLibToHeader('sortable.js');
+		xlvoJs::getInstance()->addLibToHeader('sortable.min.js');
 
 		$this->setId(self::TBL_ID);
 		$this->setPrefix(self::TBL_ID);

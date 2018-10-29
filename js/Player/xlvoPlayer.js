@@ -62,7 +62,7 @@ var xlvoPlayer = {
 	},
 	handleFullScreen: function () {
 		var jq_target = $('div.ilTabsContentOuter');
-		if(xlvoPlayer.config.xlvo_ppt == false) {
+		if (xlvoPlayer.config.xlvo_ppt == false) {
 			this.btn_close_fullscreen.parent().hide();
 			var target = jq_target[0];
 			var self = this;
@@ -103,7 +103,7 @@ var xlvoPlayer = {
 			jq_target.addClass('xlvo-fullscreen');
 		}
 	}, registerElements: function () {
-		if(xlvoPlayer.config.xlvo_ppt == false) {
+		if (xlvoPlayer.config.xlvo_ppt == false) {
 			$(document).keydown(function (e) {
 				switch (e.which) {
 					case xlvoPlayer.config.keyboard.toggle_results:
@@ -308,7 +308,6 @@ var xlvoPlayer = {
 			xlvoPlayer.timeout = setTimeout(xlvoPlayer.getPlayerData, xlvoPlayer.delay);
 
 
-
 		}).always(function () {
 			xlvoPlayer.endRequest();
 		});
@@ -337,7 +336,7 @@ var xlvoPlayer = {
 
 		var input_data = input_data ? input_data : {};
 		var post_data = $.extend({call: cmd}, input_data);
-		
+
 		$.post(xlvoPlayer.config.base_url + '&cmd=apiCall', post_data).always(function () {
 			xlvoPlayer.handleSwitch();
 			xlvoPlayer.getPlayerData();
@@ -499,8 +498,3 @@ var xlvoPlayer = {
 		this.config.debug = false;
 	}
 };
-
-
-
-
-
