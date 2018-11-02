@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.8.0]
+- getCmdForTab and redirectToTab
+
 ## [0.7.5]
 - Fix boolean datatype
 

@@ -116,7 +116,8 @@ class ScreenshotsInputGUI extends ilFormPropertyGUI implements Pluginable {
 		if (self::$init === false) {
 			self::$init = true;
 
-			$dir = substr(__DIR__, strlen(ILIAS_ABSOLUTE_PATH) + 1);
+			$dir = __DIR__;
+			$dir = substr($dir, strpos($dir, "/Customizing/") + 1);
 
 			self::dic()->mainTemplate()->addJavaScript($dir . "/../../node_modules/es6-promise/dist/es6-promise.auto.min.js");
 			self::dic()->mainTemplate()->addJavaScript($dir . "/../../node_modules/canvas-toBlob/canvas-toBlob.js");
@@ -173,7 +174,7 @@ class ScreenshotsInputGUI extends ilFormPropertyGUI implements Pluginable {
 	/**
 	 * @return string
 	 */
-	protected function render(): string {
+	public function render(): string {
 		$this->initJS();
 
 		$screenshots_tpl = $this->getPlugin()->template(__DIR__ . "/templates/screenshots.html", true, true, false);
@@ -192,17 +193,51 @@ class ScreenshotsInputGUI extends ilFormPropertyGUI implements Pluginable {
 
 	/**
 	 * @param string[] $allowed_formats
+	 *
+	 * @return self
 	 */
-	public function setAllowedFormats(array $allowed_formats)/*: void*/ {
+	public function setAllowedFormats(array $allowed_formats): self {
 		$this->allowed_formats = $allowed_formats;
+
+		return $this;
 	}
 
 
 	/**
 	 * @param PluginInterface $plugin
+	 *
+	 * @return self
 	 */
-	public function setPlugin(PluginInterface $plugin)/*: void*/ {
+	public function setPlugin(PluginInterface $plugin): self {
 		$this->plugin = $plugin;
+
+		return $this;
+	}
+
+
+	/**
+	 * @param string $post_var
+	 *
+	 * @return self
+	 */
+	public function setPostVar(/*string*/
+		$post_var): self {
+		$this->postvar = $post_var;
+
+		return $this;
+	}
+
+
+	/**
+	 * @param string $title
+	 *
+	 * @return self
+	 */
+	public function setTitle(/*string*/
+		$title): self {
+		$this->title = $title;
+
+		return $this;
 	}
 
 
@@ -211,8 +246,9 @@ class ScreenshotsInputGUI extends ilFormPropertyGUI implements Pluginable {
 	 *
 	 * @throws ilFormException
 	 */
-	public function setValue(array $screenshots)/*: void*/ {
-		//throw new ilFormException("ScreenshotInputGUI does not support set screenshots!");
+	public function setValue(/*array*/
+		$screenshots)/*: void*/ {
+		//throw new ilFormException("ScreenshotsInputGUI does not support set screenshots!");
 	}
 
 
@@ -221,7 +257,8 @@ class ScreenshotsInputGUI extends ilFormPropertyGUI implements Pluginable {
 	 *
 	 * @throws ilFormException
 	 */
-	public function setValueByArray($values)/*: void*/ {
-		//throw new ilFormException("ScreenshotInputGUI does not support set screenshots!");
+	public function setValueByArray(/*array*/
+		$values)/*: void*/ {
+		//throw new ilFormException("ScreenshotsInputGUI does not support set screenshots!");
 	}
 }

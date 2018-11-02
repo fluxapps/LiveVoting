@@ -222,6 +222,8 @@ return array(
     'srag\\CustomInputGUIs\\MultiSelectSearchInputGUI\\MultiSelectSearchInputGUI' => $vendorDir . '/srag/custominputguis/src/MultiSelectSearchInputGUI/MultiSelectSearchInputGUI.php',
     'srag\\CustomInputGUIs\\NumberInputGUI\\NumberInputGUI' => $vendorDir . '/srag/custominputguis/src/NumberInputGUI/NumberInputGUI.php',
     'srag\\CustomInputGUIs\\ScreenshotsInputGUI\\ScreenshotsInputGUI' => $vendorDir . '/srag/custominputguis/src/ScreenshotsInputGUI/ScreenshotsInputGUI.php',
+    'srag\\CustomInputGUIs\\StaticHTMLPresentationInputGUI\\StaticHTMLPresentationInputGUI' => $vendorDir . '/srag/custominputguis/src/StaticHTMLPresentationInputGUI/StaticHTMLPresentationInputGUI.php',
+    'srag\\CustomInputGUIs\\Template\\Template' => $vendorDir . '/srag/custominputguis/src/Template/Template.php',
     'srag\\CustomInputGUIs\\TextAreaInputGUI\\TextAreaInputGUI' => $vendorDir . '/srag/custominputguis/src/TextAreaInputGUI/TextAreaInputGUI.php',
     'srag\\CustomInputGUIs\\TextInputGUI\\TextInputGUI' => $vendorDir . '/srag/custominputguis/src/TextInputGUI/TextInputGUI.php',
     'srag\\CustomInputGUIs\\Waiter\\Waiter' => $vendorDir . '/srag/custominputguis/src/Waiter/Waiter.php',

@@ -64,24 +64,24 @@
     },
     {
         "name": "srag/activerecordconfig",
-        "version": "v0.7.5",
-        "version_normalized": "0.7.5.0",
+        "version": "v0.8.0",
+        "version_normalized": "0.8.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/studer-raimann/ActiveRecordConfig.git",
-            "reference": "3b3dcf055830af66aa6aae66f9239905f489d56c"
+            "reference": "b51e5032dfeef0e46facdf6a11a489ba37c5741d"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/studer-raimann/ActiveRecordConfig/zipball/3b3dcf055830af66aa6aae66f9239905f489d56c",
-            "reference": "3b3dcf055830af66aa6aae66f9239905f489d56c",
+            "url": "https://api.github.com/repos/studer-raimann/ActiveRecordConfig/zipball/b51e5032dfeef0e46facdf6a11a489ba37c5741d",
+            "reference": "b51e5032dfeef0e46facdf6a11a489ba37c5741d",
             "shasum": ""
         },
         "require": {
             "php": ">=5.6",
             "srag/dic": ">=0.1.0"
         },
-        "time": "2018-10-22T08:06:16+00:00",
+        "time": "2018-11-02T13:48:13+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -111,24 +111,24 @@
     },
     {
         "name": "srag/custominputguis",
-        "version": "v0.8.5",
-        "version_normalized": "0.8.5.0",
+        "version": "v0.10.1",
+        "version_normalized": "0.10.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/studer-raimann/CustomInputGUIs.git",
-            "reference": "131b0de116124a1ec7c8dedf9edd37b59e45a145"
+            "reference": "c81fdadada853ccd26dccc2ffa9f0d2f4ac66a2e"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/studer-raimann/CustomInputGUIs/zipball/131b0de116124a1ec7c8dedf9edd37b59e45a145",
-            "reference": "131b0de116124a1ec7c8dedf9edd37b59e45a145",
+            "url": "https://api.github.com/repos/studer-raimann/CustomInputGUIs/zipball/c81fdadada853ccd26dccc2ffa9f0d2f4ac66a2e",
+            "reference": "c81fdadada853ccd26dccc2ffa9f0d2f4ac66a2e",
             "shasum": ""
         },
         "require": {
             "php": ">=5.6",
             "srag/dic": ">=0.1.0"
         },
-        "time": "2018-10-29T07:31:16+00:00",
+        "time": "2018-11-02T12:11:12+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
