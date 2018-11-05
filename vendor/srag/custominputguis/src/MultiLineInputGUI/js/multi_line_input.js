@@ -93,7 +93,7 @@
 					$line.find("textarea[name^='" + empty_id + "'], input[name^='" + empty_id + "'], select[name^='" + empty_id + "']").each(function () {
 						var name = $(this).attr('name');
 						var id = element.attr('id');
-						$(this).val('');
+						//$(this).val('');
 						var regex = new RegExp('^' + empty_id + '\[[0-9]+\](.*)$', 'g');
 						var matches = regex.exec(name);
 						name = id + '[' + counter + ']' + matches[1];

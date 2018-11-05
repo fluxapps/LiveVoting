@@ -111,24 +111,24 @@
     },
     {
         "name": "srag/custominputguis",
-        "version": "v0.10.1",
-        "version_normalized": "0.10.1.0",
+        "version": "v0.10.2",
+        "version_normalized": "0.10.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/studer-raimann/CustomInputGUIs.git",
-            "reference": "c81fdadada853ccd26dccc2ffa9f0d2f4ac66a2e"
+            "reference": "a0c9a3ed0f652faec9e8fcd79e8af1c675f6af64"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/studer-raimann/CustomInputGUIs/zipball/c81fdadada853ccd26dccc2ffa9f0d2f4ac66a2e",
-            "reference": "c81fdadada853ccd26dccc2ffa9f0d2f4ac66a2e",
+            "url": "https://api.github.com/repos/studer-raimann/CustomInputGUIs/zipball/a0c9a3ed0f652faec9e8fcd79e8af1c675f6af64",
+            "reference": "a0c9a3ed0f652faec9e8fcd79e8af1c675f6af64",
             "shasum": ""
         },
         "require": {
             "php": ">=5.6",
             "srag/dic": ">=0.1.0"
         },
-        "time": "2018-11-02T12:11:12+00:00",
+        "time": "2018-11-05T06:38:35+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -255,8 +255,8 @@
     },
     {
         "name": "symfony/options-resolver",
-        "version": "v3.4.17",
-        "version_normalized": "3.4.17.0",
+        "version": "v3.4.18",
+        "version_normalized": "3.4.18.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/options-resolver.git",

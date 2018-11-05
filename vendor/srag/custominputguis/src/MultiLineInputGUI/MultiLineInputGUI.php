@@ -230,6 +230,10 @@ class MultiLineInputGUI extends ilFormPropertyGUI implements ilTableFilterItem, 
 			} elseif ($item instanceof ilDateTimeInputGUI) {
 				$item->setDate(new ilDate($a_value[$key], IL_CAL_DATE));
 			}
+
+			if (method_exists($item, 'setChecked')) {
+				$item->setChecked($a_value[$key . '_checked']);
+			}
 		}
 		$this->value = $a_value;
 	}
@@ -275,19 +279,22 @@ class MultiLineInputGUI extends ilFormPropertyGUI implements ilTableFilterItem, 
 		$valid = true;
 		// escape data
 		$out_array = array();
-		foreach ($_POST[$this->getPostVar()] as $item_num => $item) {
-			foreach ($this->inputs as $input_key => $input) {
-				if (isset($item[$input_key])) {
-					$out_array[$item_num][$input_key] = (is_string($item[$input_key])) ? ilUtil::stripSlashes($item[$input_key]) : $item[$input_key];
+		if (count($_POST[$this->getPostVar()]) > 0) {
+			foreach ($_POST[$this->getPostVar()] as $item_num => $item) {
+				foreach ($this->inputs as $input_key => $input) {
+					if (isset($item[$input_key])) {
+						$out_array[$item_num][$input_key] = (is_string($item[$input_key])) ? ilUtil::stripSlashes($item[$input_key]) : $item[$input_key];
 
-					if (method_exists($input, 'setValue')) {
-						$input->setValue($out_array[$item_num][$input_key]);
-					} elseif ($input instanceof ilDateTimeInputGUI) {
-						$input->setDate(new ilDate($out_array[$item_num][$input_key], IL_CAL_DATE));
+						if (method_exists($input, 'setValue')) {
+							$input->setValue($out_array[$item_num][$input_key]);
+						} elseif ($input instanceof ilDateTimeInputGUI) {
+							$input->setDate(new ilDate($out_array[$item_num][$input_key], IL_CAL_DATE));
+						}
 					}
 				}
 			}
 		}
+
 		$_POST[$this->getPostVar()] = $out_array;
 		if ($this->getRequired() && !trim(implode("", $_POST[$this->getPostVar()]))) {
 			$valid = false;
@@ -295,12 +302,14 @@ class MultiLineInputGUI extends ilFormPropertyGUI implements ilTableFilterItem, 
 		// validate
 
 		if ($this->getMulti()) {
-			foreach ($this->line_values as $inputs) {
-				foreach ($inputs as $input_key => $input_value) {
-					$input = $this->inputs[$input_key];
-					$_POST[$input->getPostVar()] = $input_value;
-					if (!$input->checkInput()) {
-						$valid = false;
+			if (count($this->line_values) > 0) {
+				foreach ($this->line_values as $inputs) {
+					foreach ($inputs as $input_key => $input_value) {
+						$input = $this->inputs[$input_key];
+						$_POST[$input->getPostVar()] = $input_value;
+						if (!$input->checkInput()) {
+							$valid = false;
+						}
 					}
 				}
 			}
