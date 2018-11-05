@@ -7,13 +7,13 @@ use LiveVoting\Utils\LiveVotingTrait;
 use srag\DIC\DICTrait;
 
 /**
- * Class Permission
+ * Class Ilias
  *
  * @package LiveVoting\Access
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-final class Permission {
+final class Ilias {
 
 	use DICTrait;
 	use LiveVotingTrait;
@@ -37,7 +37,7 @@ final class Permission {
 
 
 	/**
-	 * Permission constructor
+	 * Ilias constructor
 	 */
 	private function __construct() {
 

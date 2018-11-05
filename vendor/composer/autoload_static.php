@@ -77,7 +77,7 @@ class ComposerStaticInit2a9f25cb7db537cf8950f4e268186c34
         'Endroid\\QrCode\\QrCode' => __DIR__ . '/..' . '/endroid/qrcode/src/QrCode.php',
         'LiveVotingRemoveDataConfirm' => __DIR__ . '/../..' . '/classes/uninstall/class.LiveVotingRemoveDataConfirm.php',
         'LiveVoting\\Access\\Access' => __DIR__ . '/../..' . '/src/Access/Access.php',
-        'LiveVoting\\Access\\Permission' => __DIR__ . '/../..' . '/src/Access/Permission.php',
+        'LiveVoting\\Access\\Ilias' => __DIR__ . '/../..' . '/src/Access/Ilias.php',
         'LiveVoting\\Api\\xlvoApi' => __DIR__ . '/../..' . '/src/Api/xlvoApi.php',
         'LiveVoting\\Cache\\CachingActiveRecord' => __DIR__ . '/../..' . '/src/Cache/CachingActiveRecord.php',
         'LiveVoting\\Cache\\Initialisable' => __DIR__ . '/../..' . '/src/Cache/Initialisable.php',

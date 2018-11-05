@@ -3,7 +3,7 @@
 namespace LiveVoting\Utils;
 
 use LiveVoting\Access\Access;
-use LiveVoting\Access\Permission;
+use LiveVoting\Access\Ilias;
 
 /**
  * Trait LiveVotingTrait
@@ -23,9 +23,9 @@ trait LiveVotingTrait {
 
 
 	/**
-	 * @return Permission
+	 * @return Ilias
 	 */
-	protected static function permission()/*: Permission*/ {
-		return Permission::getInstance();
+	protected static function ilias()/*: Ilias*/ {
+		return Ilias::getInstance();
 	}
 }

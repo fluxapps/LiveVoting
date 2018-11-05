@@ -23,7 +23,7 @@ return array(
     'Endroid\\QrCode\\QrCode' => $vendorDir . '/endroid/qrcode/src/QrCode.php',
     'LiveVotingRemoveDataConfirm' => $baseDir . '/classes/uninstall/class.LiveVotingRemoveDataConfirm.php',
     'LiveVoting\\Access\\Access' => $baseDir . '/src/Access/Access.php',
-    'LiveVoting\\Access\\Permission' => $baseDir . '/src/Access/Permission.php',
+    'LiveVoting\\Access\\Ilias' => $baseDir . '/src/Access/Ilias.php',
     'LiveVoting\\Api\\xlvoApi' => $baseDir . '/src/Api/xlvoApi.php',
     'LiveVoting\\Cache\\CachingActiveRecord' => $baseDir . '/src/Cache/CachingActiveRecord.php',
     'LiveVoting\\Cache\\Initialisable' => $baseDir . '/src/Cache/Initialisable.php',
