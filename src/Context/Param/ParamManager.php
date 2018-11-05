@@ -6,6 +6,7 @@ use ilLiveVotingPlugin;
 use ilObject;
 use ilUIPluginRouterGUI;
 use LiveVoting\Pin\xlvoPin;
+use LiveVoting\Utils\LiveVotingTrait;
 use LiveVoting\Voting\xlvoVotingManager2;
 use srag\DIC\DICTrait;
 
@@ -19,6 +20,7 @@ use srag\DIC\DICTrait;
 final class ParamManager {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	const PARAM_BASE_CLASS_NAME = ilUIPluginRouterGUI::class;
 	const PARAM_REF_ID = 'ref_id';

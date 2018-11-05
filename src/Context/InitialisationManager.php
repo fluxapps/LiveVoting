@@ -7,8 +7,8 @@ require_once 'include/inc.ilias_version.php';
 use Exception;
 use ilLiveVotingPlugin;
 use ilObjUser;
-use LiveVoting\Context\Param\ParamManager;
 use LiveVoting\User\xlvoUser;
+use LiveVoting\Utils\LiveVotingTrait;
 use srag\DIC\DICTrait;
 
 /**
@@ -25,6 +25,7 @@ use srag\DIC\DICTrait;
 final class InitialisationManager {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 
 
@@ -39,7 +40,6 @@ final class InitialisationManager {
 
 		$subversion = (int)explode('.', self::version()->getILIASVersion())[1];
 
-
 		switch ($subversion) {
 			case ILIASVersionEnum::ILIAS_VERSION_5_2:
 				Initialisation\Version\v52\xlvoBasicInitialisation::init();
@@ -51,7 +51,6 @@ final class InitialisationManager {
 				throw new Exception("Can't find bootstrap code for the given ILIAS version.");
 		}
 		xlvoUser::getInstance()->setIdentifier(session_id())->setType(xlvoUser::TYPE_PIN);
-
 	}
 
 

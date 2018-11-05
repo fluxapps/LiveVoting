@@ -28,6 +28,7 @@ use LiveVoting\Option\xlvoOption;
 use LiveVoting\Pin\xlvoPin;
 use LiveVoting\Player\xlvoPlayer;
 use LiveVoting\Puk\Puk;
+use LiveVoting\Utils\LiveVotingTrait;
 use LiveVoting\Vote\xlvoVote;
 use LiveVoting\Voting\xlvoVoting;
 use LiveVoting\Voting\xlvoVotingConfig;
@@ -45,6 +46,7 @@ use srag\DIC\DICTrait;
 class ilObjLiveVoting extends ilObjectPlugin {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 
 

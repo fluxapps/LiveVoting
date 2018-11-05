@@ -10,6 +10,7 @@ use LiveVoting\QuestionTypes\FreeInput\xlvoFreeInputResultGUI;
 use LiveVoting\QuestionTypes\FreeOrder\xlvoFreeOrderResultGUI;
 use LiveVoting\QuestionTypes\NumberRange\xlvoNumberRangeResultGUI;
 use LiveVoting\QuestionTypes\SingleVote\xlvoSingleVoteResultGUI;
+use LiveVoting\Utils\LiveVotingTrait;
 use LiveVoting\Vote\xlvoVote;
 use LiveVoting\Voting\xlvoVoting;
 use srag\DIC\DICTrait;
@@ -24,6 +25,7 @@ use srag\DIC\DICTrait;
 abstract class xlvoResultGUI {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	/**
 	 * @var xlvoVoting

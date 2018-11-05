@@ -4,7 +4,6 @@ namespace LiveVoting\Conf;
 
 use ilSetting;
 use LiveVoting\Cache\CachingActiveRecord;
-use LiveVoting\Context\Param\ParamManager;
 
 /**
  * Class xlvoConf

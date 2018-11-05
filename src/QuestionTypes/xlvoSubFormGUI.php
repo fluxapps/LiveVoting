@@ -15,6 +15,7 @@ use LiveVoting\QuestionTypes\FreeInput\xlvoFreeInputSubFormGUI;
 use LiveVoting\QuestionTypes\FreeOrder\xlvoFreeOrderSubFormGUI;
 use LiveVoting\QuestionTypes\NumberRange\xlvoNumberRangeSubFormGUI;
 use LiveVoting\QuestionTypes\SingleVote\xlvoSingleVoteSubFormGUI;
+use LiveVoting\Utils\LiveVotingTrait;
 use LiveVoting\Voting\xlvoVoting;
 use srag\DIC\DICTrait;
 
@@ -27,6 +28,7 @@ use srag\DIC\DICTrait;
 abstract class xlvoSubFormGUI {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	/**
 	 * @var xlvoSubFormGUI

@@ -16,6 +16,7 @@ use LiveVoting\QuestionTypes\FreeInput\xlvoFreeInputVotingFormGUI;
 use LiveVoting\QuestionTypes\NumberRange\xlvoNumberRangeVotingFormGUI;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\QuestionTypes\xlvoSubFormGUI;
+use LiveVoting\Utils\LiveVotingTrait;
 use srag\CustomInputGUIs\TextAreaInputGUI\TextAreaInputGUI;
 use srag\CustomInputGUIs\TextInputGUI\TextInputGUI;
 use srag\DIC\DICTrait;
@@ -32,6 +33,7 @@ use xlvoVotingGUI;
 class xlvoVotingFormGUI extends ilPropertyFormGUI {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	const F_COLUMNS = 'columns';
 	const USE_F_COLUMNS = true;

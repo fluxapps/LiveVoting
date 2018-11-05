@@ -7,6 +7,7 @@ use ilLiveVotingPlugin;
 use ilObjLiveVoting;
 use ilUtil;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
+use LiveVoting\Utils\LiveVotingTrait;
 use LiveVoting\Voting\xlvoVoting;
 use LiveVoting\Voting\xlvoVotingConfig;
 use srag\DIC\DICTrait;
@@ -21,6 +22,7 @@ use srag\DIC\DICTrait;
 class PowerPointExport {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	/**
 	 * @var ilObjLiveVoting
@@ -252,7 +254,8 @@ class PowerPointExport {
 			$link = substr($presenter_link, (stripos($presenter_link, "://") + 3));
 
 			$webextension_tpl = self::plugin()->template($this->temp_folder . "/ppt/webextensions/webextension.xml", false, true, false);
-			$webextension_rels_tpl = self::plugin()->template($this->temp_folder . "/ppt/webextensions/_rels/webextension.xml.rels", false, true, false);
+			$webextension_rels_tpl = self::plugin()->template($this->temp_folder
+				. "/ppt/webextensions/_rels/webextension.xml.rels", false, true, false);
 
 			$webextension_tpl->setVariable("NUM", $num);
 			$webextension_rels_tpl->setVariable("NUM", $num);
@@ -262,7 +265,6 @@ class PowerPointExport {
 			$webextension_tpl->setVariable("LINK", htmlspecialchars($link));
 
 			$webextension_tpl->setVariable("SECURE", var_export($secure, true));
-
 
 			file_put_contents($this->temp_folder . "/ppt/webextensions/webextension{$num}.xml", $webextension_tpl->get());
 			file_put_contents($this->temp_folder . "/ppt/webextensions/_rels/webextension{$num}.xml.rels", $webextension_rels_tpl->get());
@@ -343,7 +345,7 @@ class PowerPointExport {
 		//create it, if this plugin is the first one who uses it.
 		self::dic()->filesystem()->storage()->createDir($temp_directory);
 
-		return $temp_directory."/" . uniqid(ilLiveVotingPlugin::PLUGIN_ID . "_pp_", true);
+		return $temp_directory . "/" . uniqid(ilLiveVotingPlugin::PLUGIN_ID . "_pp_", true);
 	}
 
 

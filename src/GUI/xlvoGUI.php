@@ -6,6 +6,7 @@ use ilLiveVotingPlugin;
 use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Context\Param\ParamManager;
 use LiveVoting\Js\xlvoJs;
+use LiveVoting\Utils\LiveVotingTrait;
 use srag\DIC\DICTrait;
 
 /**
@@ -18,6 +19,7 @@ use srag\DIC\DICTrait;
 abstract class xlvoGUI {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	const CMD_STANDARD = 'index';
 	const CMD_ADD = 'add';

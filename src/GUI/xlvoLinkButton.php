@@ -4,6 +4,7 @@ namespace LiveVoting\GUI;
 
 use ilLinkButton;
 use ilLiveVotingPlugin;
+use LiveVoting\Utils\LiveVotingTrait;
 use srag\DIC\DICTrait;
 
 /**
@@ -16,6 +17,7 @@ use srag\DIC\DICTrait;
 class xlvoLinkButton extends ilLinkButton {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	const TYPE_XLVO_LINK = 'xlvo_link';
 

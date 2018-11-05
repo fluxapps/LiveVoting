@@ -46,6 +46,7 @@ use LiveVoting\Context\xlvoObjectDefinition;
 use LiveVoting\Context\xlvoRbacReview;
 use LiveVoting\Context\xlvoRbacSystem;
 use LiveVoting\Session\xlvoSessionHandler;
+use LiveVoting\Utils\LiveVotingTrait;
 use srag\DIC\DICTrait;
 
 /**
@@ -60,6 +61,7 @@ use srag\DIC\DICTrait;
 class xlvoBasicInitialisation {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	/**
 	 * @var ilIniFile

@@ -11,6 +11,7 @@ use ilNumberInputGUI;
 use ilPropertyFormGUI;
 use ilSelectInputGUI;
 use LiveVoting\Api\xlvoApi;
+use LiveVoting\Utils\LiveVotingTrait;
 use srag\CustomInputGUIs\TextInputGUI\TextInputGUI;
 use srag\DIC\DICTrait;
 use xlvoConfGUI;
@@ -25,6 +26,7 @@ use xlvoConfGUI;
 class xlvoConfFormGUI extends ilPropertyFormGUI {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	/**
 	 * @var xlvoConf

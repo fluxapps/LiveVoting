@@ -14,9 +14,9 @@ use LiveVoting\Player\xlvoPlayer;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\Round\xlvoRound;
 use LiveVoting\User\xlvoUser;
+use LiveVoting\Utils\LiveVotingTrait;
 use LiveVoting\Vote\xlvoVote;
 use srag\DIC\DICTrait;
-
 
 /**
  * Class xlvoVotingManager2
@@ -27,6 +27,7 @@ use srag\DIC\DICTrait;
 class xlvoVotingManager2 {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	/**
 	 * @var xlvoVotingManager2[]
@@ -56,15 +57,14 @@ class xlvoVotingManager2 {
 	 * @param $pin
 	 * @param $voting_id
 	 */
-	public function __construct($pin,$voting_id = 0) {
+	public function __construct($pin, $voting_id = 0) {
 
-		if(empty($pin)) {
+		if (empty($pin)) {
 			$param_manager = ParamManager::getInstance();
 			$pin = $param_manager->getPin();
 		}
 
 		$this->obj_id = xlvoPin::checkPin($pin, false);
-
 
 		$this->player = xlvoPlayer::getInstanceForObjId($this->obj_id);
 		$round_id = $this->player->getRoundId();
@@ -94,14 +94,14 @@ class xlvoVotingManager2 {
 	 *
 	 * @return xlvoVotingManager2
 	 */
-	public static function getInstanceFromObjId($obj_id,$voting_id = 0) {
+	public static function getInstanceFromObjId($obj_id, $voting_id = 0) {
 		if (!isset(self::$instances[$obj_id])) {
 			/**
 			 * @var xlvoVotingConfig $xlvoVotingConfig
 			 */
 			$xlvoVotingConfig = xlvoVotingConfig::findOrGetInstance($obj_id);
 
-			self::$instances[$obj_id] = new self($xlvoVotingConfig->getPin(),$voting_id);
+			self::$instances[$obj_id] = new self($xlvoVotingConfig->getPin(), $voting_id);
 		}
 
 		return self::$instances[$obj_id];
@@ -678,12 +678,11 @@ class xlvoVotingManager2 {
 	protected function initVoting($voting_id = 0) {
 
 		//TODO PLLV-272
-		if($voting_id > 0) {
+		if ($voting_id > 0) {
 			$this->voting = xlvoVoting::findOrGetInstance($voting_id);
 		} else {
 			$this->voting = xlvoVoting::findOrGetInstance($this->getPlayer()->getActiveVotingId());
 		}
-
 	}
 
 

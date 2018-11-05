@@ -7,13 +7,14 @@ use LiveVoting\Option\xlvoOption;
 use LiveVoting\PowerPointExport\PowerPointExport;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\Round\xlvoRound;
+use LiveVoting\Utils\LiveVotingTrait;
 use LiveVoting\Vote\xlvoVote;
 use LiveVoting\Voting\xlvoVoting;
+use LiveVoting\Voting\xlvoVotingConfig;
 use LiveVoting\Voting\xlvoVotingFormGUI;
 use LiveVoting\Voting\xlvoVotingTableGUI;
 use srag\CustomInputGUIs\GlyphGUI\GlyphGUI;
 use srag\DIC\DICTrait;
-use LiveVoting\Voting\xlvoVotingConfig;
 
 /**
  *
@@ -29,6 +30,7 @@ use LiveVoting\Voting\xlvoVotingConfig;
 class xlvoVotingGUI {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	const IDENTIFIER = 'xlvoVot';
 	const CMD_STANDARD = 'content';
@@ -55,7 +57,6 @@ class xlvoVotingGUI {
 	const F_TYPE = 'type';
 	const CMD_RUN_POWER_POINT_EXPORT = 'runPowerPointExport';
 	const F_PRESENTER_LINK = 'presenter_link';
-
 	/**
 	 * @var ilObjLiveVotingAccess
 	 */
@@ -267,7 +268,6 @@ class xlvoVotingGUI {
 			$xlvoVotingFormGUI = xlvoVotingFormGUI::get($this, $xlvoVoting);
 			$xlvoVotingFormGUI->fillForm();
 
-
 			$h = new ilFormSectionHeaderGUI();
 			$h->setTitle("");
 			$xlvoVotingFormGUI->addItem($h);
@@ -277,15 +277,14 @@ class xlvoVotingGUI {
 			 */
 			$config = xlvoVotingConfig::find($this->obj_id);
 
-
 			$presenter_link = new ilCustomInputGUI(self::plugin()->translate('config_presenter_link'), self::F_PRESENTER_LINK);
-			$presenter_link->setHtml($config->getPresenterLink($xlvoVoting->getId(),true) . '<br><br><i>' . htmlspecialchars(self::plugin()->translate("config_"
-					. xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . "_info_manual")) . '</i><ol>' . implode("", array_map(function ($step) {
-					return '<li>' . htmlspecialchars(self::plugin()->translate("config_" . xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . "_info_manual_" . $step))
-						. '</li>';
+			$presenter_link->setHtml($config->getPresenterLink($xlvoVoting->getId(), true) . '<br><br><i>' . htmlspecialchars(self::plugin()
+					->translate("config_" . xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . "_info_manual")) . '</i><ol>'
+				. implode("", array_map(function ($step) {
+					return '<li>' . htmlspecialchars(self::plugin()->translate("config_" . xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . "_info_manual_"
+							. $step)) . '</li>';
 				}, range(1, 4))) . '</ol>');
 			$xlvoVotingFormGUI->addItem($presenter_link);
-
 
 			self::dic()->mainTemplate()->setContent($xlvoVotingFormGUI->getHTML());
 		}

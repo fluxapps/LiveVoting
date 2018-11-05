@@ -5,6 +5,7 @@ namespace LiveVoting\Results;
 use ilLiveVotingPlugin;
 use ilTable2GUI;
 use LiveVoting\QuestionTypes\xlvoResultGUI;
+use LiveVoting\Utils\LiveVotingTrait;
 use srag\DIC\DICTrait;
 use xlvoResultsGUI;
 
@@ -17,6 +18,7 @@ use xlvoResultsGUI;
 class xlvoResultsTableGUI extends ilTable2GUI {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	/**
 	 * @var array

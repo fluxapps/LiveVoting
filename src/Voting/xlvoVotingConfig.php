@@ -214,7 +214,7 @@ class xlvoVotingConfig extends CachingActiveRecord {
 			$url = xlvoConf::getConfig(xlvoConf::F_ALLOW_SHORTLINK_VOTE_LINK);
 			$url = rtrim($url, "/") . "/";
 		} else {
-			$url = ILIAS_HTTP_PATH . substr(self::plugin()->directory(), 1) . '/pin.php?'.ParamManager::PARAM_PIN.'=';
+			$url = ILIAS_HTTP_PATH . substr(self::plugin()->directory(), 1) . '/pin.php?' . ParamManager::PARAM_PIN . '=';
 		}
 
 		$url .= xlvoPin::formatPin($this->getPin(), $force_not_format);
@@ -245,16 +245,15 @@ class xlvoVotingConfig extends CachingActiveRecord {
 				$url .= "/1";
 			}
 		} else {
-			$url = ILIAS_HTTP_PATH . substr(self::plugin()->directory(), 1) . '/presenter.php?'.ParamManager::PARAM_PIN.'=' . xlvoPin::formatPin($this->getPin(), $force_not_format)
-				. "&".ParamManager::PARAM_PUK."=" . Puk::formatPin($this->getPuk(), $force_not_format);
+			$url = ILIAS_HTTP_PATH . substr(self::plugin()->directory(), 1) . '/presenter.php?' . ParamManager::PARAM_PIN . '='
+				. xlvoPin::formatPin($this->getPin(), $force_not_format) . "&" . ParamManager::PARAM_PUK . "="
+				. Puk::formatPin($this->getPuk(), $force_not_format);
 			if ($voting_id !== NULL) {
-				$url .= "&".ParamManager::PARAM_VOTING."=" . $voting_id;
+				$url .= "&" . ParamManager::PARAM_VOTING . "=" . $voting_id;
 			}
 			if ($power_point) {
-				$url .= "&".ParamManager::PARAM_PPT."=1";
+				$url .= "&" . ParamManager::PARAM_PPT . "=1";
 			}
-
-
 		}
 
 		return $url;

@@ -12,6 +12,7 @@ use ilTable2GUI;
 use ilUtil;
 use LiveVoting\Js\xlvoJs;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
+use LiveVoting\Utils\LiveVotingTrait;
 use srag\CustomInputGUIs\TextInputGUI\TextInputGUI;
 use srag\DIC\DICTrait;
 use xlvoVotingGUI;
@@ -27,6 +28,7 @@ use xlvoVotingGUI;
 class xlvoVotingTableGUI extends ilTable2GUI {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	const TBL_ID = 'tbl_xlvo';
 	const LENGTH = 100;

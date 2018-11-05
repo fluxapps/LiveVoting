@@ -5,12 +5,12 @@ namespace LiveVoting\Player;
 use ilException;
 use ilLiveVotingPlugin;
 use ilTemplate;
-use LiveVoting\Context\Param\ParamManager;
 use LiveVoting\Exceptions\xlvoVotingManagerException;
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\Pin\xlvoPin;
 use LiveVoting\QuestionTypes\xlvoInputResultsGUI;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
+use LiveVoting\Utils\LiveVotingTrait;
 use LiveVoting\Voter\xlvoVoter;
 use LiveVoting\Voting\xlvoVoting;
 use LiveVoting\Voting\xlvoVotingConfig;
@@ -30,6 +30,7 @@ use srag\DIC\DICTrait;
 class xlvoDisplayPlayerGUI {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	/**
 	 * @var ilTemplate
@@ -89,7 +90,6 @@ class xlvoDisplayPlayerGUI {
 				$this->addOption($item);
 			}
 		}
-
 
 		$this->tpl->setVariable('VOTING_ID', $this->manager->getVoting()->getId());
 		$this->tpl->setVariable('TITLE', $this->manager->getVoting()->getTitle());

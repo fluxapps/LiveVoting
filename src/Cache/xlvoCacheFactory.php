@@ -6,6 +6,7 @@ use ilException;
 use ilLiveVotingPlugin;
 use LiveVoting\Cache\Version\v52\xlvoCache;
 use LiveVoting\Context\ILIASVersionEnum;
+use LiveVoting\Utils\LiveVotingTrait;
 use srag\DIC\DICTrait;
 
 /**
@@ -17,6 +18,7 @@ use srag\DIC\DICTrait;
 class xlvoCacheFactory {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	private static $cache_instance = NULL;
 

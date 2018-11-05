@@ -6,6 +6,7 @@ use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Context\Param\ParamManager;
 use LiveVoting\Context\xlvoContext;
 use LiveVoting\Context\xlvoInitialisation;
+use LiveVoting\Utils\LiveVotingTrait;
 use LiveVoting\Voting\xlvoVotingConfig;
 use LiveVoting\Voting\xlvoVotingManager2;
 use srag\CustomInputGUIs\TextAreaInputGUI\TextAreaInputGUI;
@@ -30,6 +31,7 @@ use srag\DIC\DICTrait;
 class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandling {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	const CMD_STANDARD = self::CMD_SHOW_CONTENT;
 	const CMD_AFTER_CREATION = 'showContentAfterCreation';
@@ -45,7 +47,6 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 	const TAB_LEARNING_PROGRESS = 'learning_progress';
 	const F_TITLE = 'title';
 	const F_DESCRIPTION = 'description';
-
 	/**
 	 * @var ilPropertyFormGUI
 	 */

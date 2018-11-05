@@ -10,8 +10,8 @@ use ilLiveVotingPlugin;
 use ilTree;
 use ilUIFramework;
 use LiveVoting\Conf\xlvoConf;
-use LiveVoting\Context\Param\ParamManager;
 use LiveVoting\Session\xlvoSessionHandler;
+use LiveVoting\Utils\LiveVotingTrait;
 use srag\DIC\DICTrait;
 
 /**
@@ -28,6 +28,7 @@ use srag\DIC\DICTrait;
 class xlvoInitialisation extends ilInitialisation {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	const USE_OWN_GLOBAL_TPL = true;
 	const CONTEXT_PIN = 1;

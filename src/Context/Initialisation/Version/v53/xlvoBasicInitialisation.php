@@ -48,10 +48,8 @@ use LiveVoting\Context\xlvoObjectDefinition;
 use LiveVoting\Context\xlvoRbacReview;
 use LiveVoting\Context\xlvoRbacSystem;
 use LiveVoting\Session\xlvoSessionHandler;
+use LiveVoting\Utils\LiveVotingTrait;
 use srag\DIC\DICTrait;
-
-
-
 
 /**
  * Class xlvoBasicInitialisation for ILIAS 5.3 (Experimental)
@@ -65,6 +63,7 @@ use srag\DIC\DICTrait;
 class xlvoBasicInitialisation {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	/**
 	 * @var ilIniFile
@@ -521,7 +520,6 @@ class xlvoBasicInitialisation {
 		if (!defined('DEVMODE')) {
 			define('DEVMODE', false);
 		}
-
 
 		require_once "./libs/composer/vendor/filp/whoops/src/Whoops/Util/SystemFacade.php";
 		require_once "./libs/composer/vendor/filp/whoops/src/Whoops/RunInterface.php";

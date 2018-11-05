@@ -4,6 +4,7 @@ namespace LiveVoting\Context;
 
 use ilContext;
 use ilLiveVotingPlugin;
+use LiveVoting\Utils\LiveVotingTrait;
 use srag\DIC\DICTrait;
 
 /**
@@ -15,6 +16,7 @@ use srag\DIC\DICTrait;
 class xlvoContext extends ilContext {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	const XLVO_CONTEXT = 'xlvo_context';
 	const CONTEXT_PIN = 1;
@@ -35,13 +37,13 @@ class xlvoContext extends ilContext {
 		ilContext::$class_name = xlvoContextLiveVoting::class;
 		ilContext::$type = - 1;
 
-
-		if($context) {
+		if ($context) {
 			self::setContext($context);
 		}
 
 		return true;
 	}
+
 
 	/**
 	 * @return int
@@ -74,6 +76,4 @@ class xlvoContext extends ilContext {
 			throw new Exception("error setting cookie");
 		}
 	}
-
-
 }

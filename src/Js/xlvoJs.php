@@ -3,10 +3,10 @@
 namespace LiveVoting\Js;
 
 use ilLiveVotingPlugin;
-use ilUIPluginRouterGUI;
 use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Context\Param\ParamManager;
 use LiveVoting\GUI\xlvoGUI;
+use LiveVoting\Utils\LiveVotingTrait;
 use srag\DIC\DICTrait;
 
 /**
@@ -18,6 +18,7 @@ use srag\DIC\DICTrait;
 class xlvoJs {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	const DEVELOP = false;
 	const API_URL = xlvoConf::API_URL;
@@ -246,6 +247,7 @@ class xlvoJs {
 	public function setRunCode() {
 		return $this->call("run");
 	}
+
 
 	/**
 	 * @param string $method
