@@ -5,7 +5,9 @@ namespace srag\ActiveRecordConfig;
 use ActiveRecord;
 use arConnector;
 use arException;
-use DateTime;
+use ilDateTime;
+use ilDateTimeException;
+use srag\ActiveRecordConfig\Exception\ActiveRecordConfigException;
 use srag\DIC\DICTrait;
 
 /**
@@ -26,10 +28,42 @@ abstract class ActiveRecordConfig extends ActiveRecord {
 	const TABLE_NAME = "";
 	/**
 	 * @var string
-	 *
-	 * @access protected
 	 */
 	const SQL_DATE_FORMAT = "Y-m-d H:i:s";
+	/**
+	 * @var int
+	 */
+	const TYPE_STRING = 1;
+	/**
+	 * @var int
+	 */
+	const TYPE_INTEGER = 2;
+	/**
+	 * @var int
+	 */
+	const TYPE_DOUBLE = 3;
+	/**
+	 * @var int
+	 */
+	const TYPE_BOOLEAN = 4;
+	/**
+	 * @var int
+	 */
+	const TYPE_TIMESTAMP = 5;
+	/**
+	 * @var int
+	 */
+	const TYPE_DATETIME = 6;
+	/**
+	 * @var int
+	 */
+	const TYPE_JSON = 7;
+	/**
+	 * @var array
+	 *
+	 * @abstract
+	 */
+	protected static $fields = [];
 
 
 	/**
@@ -51,6 +85,175 @@ abstract class ActiveRecordConfig extends ActiveRecord {
 	 */
 	public static final function returnDbTableName()/*: string*/ {
 		return static::TABLE_NAME;
+	}
+
+
+	/**
+	 * @param string $name
+	 *
+	 * @return mixed
+	 *
+	 * @throws ActiveRecordConfigException Invalid type $type!
+	 * @throws ActiveRecordConfigException Invalid field $name!
+	 */
+	public static final function getField(/*string*/
+		$name) {
+		if (isset(static::$fields[$name])) {
+			$field = static::$fields[$name];
+			if (!is_array($field)) {
+				$field = [ $field ];
+			}
+
+			$type = $field[0];
+			$default_value = $field[1];
+
+			switch ($type) {
+				case self::TYPE_STRING:
+					return self::getStringValue($name, $default_value);
+
+				case self::TYPE_INTEGER:
+					return self::getIntegerValue($name, $default_value);
+
+				case self::TYPE_DOUBLE:
+					return self::getDoubleValue($name, $default_value);
+
+				case self::TYPE_BOOLEAN:
+					return self::getBooleanValue($name, $default_value);
+
+				case self::TYPE_TIMESTAMP:
+					return self::getTimestampValue($name, $default_value);
+
+				case self::TYPE_DATETIME:
+					return self::getDateTimeValue($name, $default_value);
+
+				case self::TYPE_JSON:
+					$assoc = boolval($field[2]);
+
+					return self::getJsonValue($name, $assoc, $default_value);
+
+				default:
+					throw new ActiveRecordConfigException("Invalid type $type!");
+					break;
+			}
+		}
+
+		throw new ActiveRecordConfigException("Invalid field $name!");
+	}
+
+
+	/**
+	 * @param string $name
+	 * @param mixed  $value
+	 *
+	 * @throws ActiveRecordConfigException Invalid type $type!
+	 * @throws ActiveRecordConfigException Invalid field $name!
+	 */
+	public static final function setField(/*string*/
+		$name, $value)/*: void*/ {
+		if (isset(static::$fields[$name])) {
+			$field = static::$fields[$name];
+			if (!is_array($field)) {
+				$field = [ $field ];
+			}
+
+			$type = $field[0];
+
+			switch ($type) {
+				case self::TYPE_STRING:
+					self::setStringValue($name, $value);
+
+					return;
+
+				case self::TYPE_INTEGER:
+					self::setIntegerValue($name, $value);
+
+					return;
+
+				case self::TYPE_DOUBLE:
+					self::setDoubleValue($name, $value);
+
+					return;
+
+				case self::TYPE_BOOLEAN:
+					self::setBooleanValue($name, $value);
+
+					return;
+
+				case self::TYPE_TIMESTAMP:
+					self::setTimestampValue($name, $value);
+
+					return;
+
+				case self::TYPE_DATETIME:
+					self::setDateTimeValue($name, $value);
+
+					return;
+
+				case self::TYPE_JSON:
+					self::setJsonValue($name, $value);
+
+					return;
+
+				default:
+					throw new ActiveRecordConfigException("Invalid type $type!");
+					break;
+			}
+		}
+
+		throw new ActiveRecordConfigException("Invalid field $name!");
+	}
+
+
+	/**
+	 * Get all values
+	 *
+	 * @return array [ [ "name" => value ], ... ]
+	 *
+	 * @throws ActiveRecordConfigException Invalid type $type!
+	 * @throws ActiveRecordConfigException Invalid field $name!
+	 */
+	public static final function getFields()/*: array*/ {
+		$values = [];
+
+		foreach (static::$fields as $name) {
+			$values[$name] = self::getField($name);
+		}
+
+		return $values;
+	}
+
+
+	/**
+	 * Set all values
+	 *
+	 * @param array $fields        [ [ "name" => value ], ... ]
+	 * @param bool  $remove_exists Delete all exists name before
+	 *
+	 * @throws ActiveRecordConfigException Invalid type $type!
+	 * @throws ActiveRecordConfigException Invalid field $name!
+	 */
+	public static final function setFields(array $fields, /*bool*/
+		$remove_exists = false)/*: void*/ {
+		if ($remove_exists) {
+			self::truncateDB();
+		}
+
+		foreach ($fields as $name => $value) {
+			self::setField($name, $value);
+		}
+	}
+
+
+	/**
+	 * Remove a field
+	 *
+	 * @param string $name Name
+	 */
+	public static final function removeField(/*string*/
+		$name)/*: void*/ {
+		$config = self::getConfig($name, false);
+
+		$config->delete();
 	}
 
 
@@ -116,61 +319,6 @@ abstract class ActiveRecordConfig extends ActiveRecord {
 		$config->setValue($value);
 
 		$config->store();
-	}
-
-
-	/**
-	 * Get all values
-	 *
-	 * @return string[] [ [ "name" => value ], ... ]
-	 */
-	protected static final function getValues()/*: array*/ {
-		return array_reduce(self::get(), function (array $configs, self $config) {
-			$configs[$config->getName()] = $config->getValue();
-
-			return $configs;
-		}, []);
-	}
-
-
-	/**
-	 * Get all names
-	 *
-	 * @return string[] [ "name", ... ]
-	 */
-	protected static final function getNames()/*: array*/ {
-		return array_keys(self::getValues());
-	}
-
-
-	/**
-	 * Set all values
-	 *
-	 * @param array $configs       [ [ "name" => value ], ... ]
-	 * @param bool  $remove_exists Delete all exists name before
-	 */
-	protected static final function setValues(array $configs, /*bool*/
-		$remove_exists = false)/*: void*/ {
-		if ($remove_exists) {
-			self::truncateDB();
-		}
-
-		foreach ($configs as $name => $value) {
-			self::setXValue($name, $value);
-		}
-	}
-
-
-	/**
-	 * Remove a name
-	 *
-	 * @param string $name Name
-	 */
-	protected static final function removeName(/*string*/
-		$name)/*: void*/ {
-		$config = self::getConfig($name, false);
-
-		$config->delete();
 	}
 
 
@@ -275,15 +423,13 @@ abstract class ActiveRecordConfig extends ActiveRecord {
 	protected static final function getTimestampValue(/*string*/
 		$name, /*int*/
 		$default_value = 0)/*: int*/ {
-		$value = self::getXValue($name);
+		$value = self::getDateTimeValue($name);
 
 		if ($value !== NULL) {
-			$date_time = new DateTime($value);
+			return $value->getUnixTime();
 		} else {
-			$date_time = new DateTime("@" . $default_value);
+			return $default_value;
 		}
-
-		return $date_time->getTimestamp();
 	}
 
 
@@ -292,15 +438,55 @@ abstract class ActiveRecordConfig extends ActiveRecord {
 	 * @param int    $value
 	 */
 	protected static final function setTimestampValue(/*string*/
-		$name, $value)/*: void*/ {
+		$name, /*init*/
+		$value)/*: void*/ {
 		if ($value !== NULL) {
-			$date_time = new DateTime("@" . $value);
-
-			$formated = $date_time->format(self::SQL_DATE_FORMAT);
-
-			self::setXValue($name, $formated);
+			try {
+				self::setDateTimeValue($name, new ilDateTime(IL_CAL_UNIX, $value));
+			} catch (ilDateTimeException $ex) {
+			}
 		} else {
 			// Fix `@null`
+			self::setNullValue($name);
+		}
+	}
+
+
+	/**
+	 * @param string          $name
+	 * @param ilDateTime|null $default_value
+	 *
+	 * @return ilDateTime|null
+	 */
+	protected static final function getDateTimeValue(/*string*/
+		$name, /*?*/
+		ilDateTime $default_value = NULL)/* :?ilDateTime*/ {
+		$value = self::getXValue($name);
+
+		if ($value !== NULL) {
+			try {
+				$value = new ilDateTime(IL_CAL_DATETIME, $value);
+			} catch (ilDateTimeException $ex) {
+				$value = $default_value;
+			}
+		} else {
+			$value = $default_value;
+		}
+
+		return $value;
+	}
+
+
+	/**
+	 * @param string          $name
+	 * @param ilDateTime|null $value
+	 */
+	protected static final function setDateTimeValue(/*string*/
+		$name, /*?*/
+		ilDateTime $value = NULL)/*: void*/ {
+		if ($value !== NULL) {
+			self::setXValue($name, $value->get(IL_CAL_DATETIME));
+		} else {
 			self::setNullValue($name);
 		}
 	}

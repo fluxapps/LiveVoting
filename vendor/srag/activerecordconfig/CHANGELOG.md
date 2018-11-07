@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.9.2]
+- Add missing return in `setField`
+
+## [0.9.1]
+- Easier: Default value is now voluntary
+
+## [0.9.0]
+- Rewrite ActiveRecordConfig for supports easier handling fields: Define your fields in the `$fields` variable and access by `getField`, `setField` and `removeField
+- DateTime datatype
+
 ## [0.8.0]
 - getCmdForTab and redirectToTab
 

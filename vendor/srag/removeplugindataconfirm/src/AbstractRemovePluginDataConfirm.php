@@ -5,6 +5,7 @@ namespace srag\RemovePluginDataConfirm;
 use ilAdministrationGUI;
 use ilConfirmationGUI;
 use ilObjComponentSettingsGUI;
+use ilSession;
 use ilUtil;
 use srag\DIC\DICTrait;
 
@@ -23,8 +24,18 @@ abstract class AbstractRemovePluginDataConfirm {
 	const CMD_DEACTIVATE = "deactivate";
 	const CMD_SET_KEEP_DATA = "setKeepData";
 	const CMD_SET_REMOVE_DATA = "setRemoveData";
+	/**
+	 * @var string
+	 *
+	 * @access namespace
+	 */
 	const KEY_UNINSTALL_REMOVES_DATA = "uninstall_removes_data";
-	const DEFAULT_UNINSTALL_REMOVES_DATA = NULL;
+	/**
+	 * @var string
+	 *
+	 * @access namespace
+	 */
+	const LANG_MODULE = "removeplugindataconfirm";
 	/**
 	 * @var AbstractRemovePluginDataConfirm|null
 	 */
@@ -199,32 +210,31 @@ abstract class AbstractRemovePluginDataConfirm {
 	 */
 	private final function txt(/*string*/
 		$key)/*: string*/ {
-		return self::plugin()->translate($key, "removeplugindataconfirm", [ self::plugin()->getPluginObject()->getPluginName() ]);
+		return self::plugin()->translate($key, self::LANG_MODULE, [ self::plugin()->getPluginObject()->getPluginName() ]);
 	}
 
 
 	/**
-	 * Return from your config database, if the plugin data should be removed on uninstall (bool) or should be confirmed if not exists (null)
-	 *
 	 * @return bool|null
 	 */
-	public abstract function getUninstallRemovesData()/*: ?bool*/
-	;
+	public final function getUninstallRemovesData()/*: ?bool*/ {
+		return json_decode(ilSession::get(self::KEY_UNINSTALL_REMOVES_DATA));
+	}
 
 
 	/**
-	 * Set in your config database, that the plugin data should be removed or not on uninstall
-	 *
 	 * @param bool $uninstall_removes_data
 	 */
-	public abstract function setUninstallRemovesData(/*bool*/
-		$uninstall_removes_data)/*: void*/
-	;
+	public final function setUninstallRemovesData(/*bool*/
+		$uninstall_removes_data)/*: void*/ {
+		ilSession::set(self::KEY_UNINSTALL_REMOVES_DATA, json_encode($uninstall_removes_data));
+	}
 
 
 	/**
-	 * Reset in your config database, that the plugin data should be removed on uninstall. `getUninstallRemovesData` should now return `null`
+	 *
 	 */
-	public abstract function removeUninstallRemovesData()/*: void*/
-	;
+	public final function removeUninstallRemovesData()/*: void*/ {
+		ilSession::clear(self::KEY_UNINSTALL_REMOVES_DATA);
+	}
 }

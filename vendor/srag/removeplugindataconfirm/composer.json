@@ -1,7 +1,6 @@
 {
   "name": "srag/removeplugindataconfirm",
   "description": "Demand if plugin data should be removed on uninstall",
-  "version": "0.2.5",
   "type": "library",
   "keywords": [
     "ILIAS",
@@ -31,5 +30,10 @@
     "psr-4": {
       "srag\\RemovePluginDataConfirm\\": "src/"
     }
+  },
+  "config": {
+    "classmap-authoritative": true,
+    "optimize-autoloader": true,
+    "sort-packages": true
   }
 }

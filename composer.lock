@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "235dbd696818e010e4eeba4e2330db46",
@@ -69,16 +69,16 @@
         },
         {
             "name": "srag/activerecordconfig",
-            "version": "v0.8.0",
+            "version": "v0.9.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/studer-raimann/ActiveRecordConfig.git",
-                "reference": "b51e5032dfeef0e46facdf6a11a489ba37c5741d"
+                "reference": "4b04a38d90b850b3d359c2c191eda89433b03032"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/studer-raimann/ActiveRecordConfig/zipball/b51e5032dfeef0e46facdf6a11a489ba37c5741d",
-                "reference": "b51e5032dfeef0e46facdf6a11a489ba37c5741d",
+                "url": "https://api.github.com/repos/studer-raimann/ActiveRecordConfig/zipball/4b04a38d90b850b3d359c2c191eda89433b03032",
+                "reference": "4b04a38d90b850b3d359c2c191eda89433b03032",
                 "shasum": ""
             },
             "require": {
@@ -110,7 +110,7 @@
                 "activerecord",
                 "config"
             ],
-            "time": "2018-11-02T13:48:13+00:00"
+            "time": "2018-11-07T07:23:53+00:00"
         },
         {
             "name": "srag/custominputguis",
@@ -205,16 +205,16 @@
         },
         {
             "name": "srag/removeplugindataconfirm",
-            "version": "0.2.5",
+            "version": "v0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/studer-raimann/RemovePluginDataConfirm.git",
-                "reference": "911c0ff316181c3efdf9068cf1cc2eb0e5ed6c8f"
+                "reference": "c1c7147433c65136ab4378db406c01b094692336"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/studer-raimann/RemovePluginDataConfirm/zipball/911c0ff316181c3efdf9068cf1cc2eb0e5ed6c8f",
-                "reference": "911c0ff316181c3efdf9068cf1cc2eb0e5ed6c8f",
+                "url": "https://api.github.com/repos/studer-raimann/RemovePluginDataConfirm/zipball/c1c7147433c65136ab4378db406c01b094692336",
+                "reference": "c1c7147433c65136ab4378db406c01b094692336",
                 "shasum": ""
             },
             "require": {
@@ -248,7 +248,7 @@
                 "plugin",
                 "uninstall"
             ],
-            "time": "2018-09-17T09:07:15+00:00"
+            "time": "2018-11-07T07:07:10+00:00"
         },
         {
             "name": "symfony/options-resolver",

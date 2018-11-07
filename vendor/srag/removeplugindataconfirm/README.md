@@ -3,7 +3,7 @@ Demand if plugin data should be removed on uninstall
 ### Usage
 
 #### Composer
-First add the follow to your `composer.json` file:
+First add the following to your `composer.json` file:
 ```json
 "require": {
   "srag/removeplugindataconfirm": ">=0.1.0"
@@ -31,11 +31,12 @@ const REMOVE_PLUGIN_DATA_CONFIRM_CLASS_NAME = XRemoveDataConfirm::class;
  * @inheritdoc
  */
 protected function deleteData()/*: void*/ {
-	// TODO: Delete your plugin data in this method
+    // TODO: Delete your plugin data in this method
 }
 //...
 ```
 `XRemoveDataConfirm` is the name of your remove data confirm class.
+You don't need to use `DICTrait`, it is already in use!
 
 If your plugin is a RepositoryObject use `RepositoryObjectPluginUninstallTrait` instead:
 ```php
@@ -54,7 +55,6 @@ Then create a class called `XRemoveDataConfirm` in `classes/uninstall/class.XRem
 
 require_once __DIR__ . "/../../vendor/autoload.php";
 
-use srag\Plugins\X\Config\XConfig;
 use srag\RemovePluginDataConfirm\AbstractRemovePluginDataConfirm;
 
 /**
@@ -66,67 +66,13 @@ use srag\RemovePluginDataConfirm\AbstractRemovePluginDataConfirm;
  */
 class XRemoveDataConfirm extends AbstractRemovePluginDataConfirm {
 
-	const PLUGIN_CLASS_NAME = ilXPlugin::class;
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function getUninstallRemovesData()/*: ?bool*/ {
-		return XConfig::getUninstallRemovesData();
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function setUninstallRemovesData(/*bool*/$uninstall_removes_data)/*: void*/ {
-		XConfig::setUninstallRemovesData($uninstall_removes_data);
-	}
-
-
-	/**
-     * @inheritdoc
-     */
-    public function removeUninstallRemovesData()/*: void*/ {
-        XConfig::removeUninstallRemovesData();
-    }
+    const PLUGIN_CLASS_NAME = ilXPlugin::class;
 }
 
 ```
 `ilXPlugin` is the name of your plugin class ([DICTrait](https://github.com/studer-raimann/DIC)).
 Replace the `X` in `XRemoveDataConfirm` with your plugin name.
-If you do not use `ActiveRecordConfig` replace in the `UninstallRemovesData` methods with your own database functions
-
-If you use `ActiveRecordConfig` add the follow to these class:
-```php
-///...
-use XRemoveDataConfirm;
-///...
-/**
- * @return bool|null
- */
-public static function getUninstallRemovesData()/*: ?bool*/ {
-	return self::getXValue(XRemoveDataConfirm::KEY_UNINSTALL_REMOVES_DATA, XRemoveDataConfirm::DEFAULT_UNINSTALL_REMOVES_DATA);
-}
-
-
-/**
- * @param bool $uninstall_removes_data
- */
-public static function setUninstallRemovesData(/*bool*/$uninstall_removes_data)/*: void*/ {
-	self::setBooleanValue(XRemoveDataConfirm::KEY_UNINSTALL_REMOVES_DATA, $uninstall_removes_data);
-}
-
-
-/**
- *
- */
-public static function removeUninstallRemovesData()/*: void*/ {
-	self::removeName(XRemoveDataConfirm::KEY_UNINSTALL_REMOVES_DATA);
-}
-//...
-```
+You don't need to use `DICTrait`, it is already in use!
 
 Then you need to declare some language variables like:
 English:
@@ -153,6 +99,8 @@ removeplugindataconfirm_remove_data#:#Entferne %1$s-Daten
 ```
 If you want you can modify these. The `%1$s` placeholder is the name of your plugin.
 
+Notice to also adjust `dbupdate.php` so it can be reinstalled if the data should already exists!
+
 If you want to use this library, but don't want to confirm to remove data, you can disable it with add the follow to your `ilXPlugin` class:
 ```php
 //...
@@ -160,6 +108,7 @@ const REMOVE_PLUGIN_DATA_CONFIRM = false;
 //...
 ```
 ### Dependencies
+* PHP >=5.6
 * [composer](https://getcomposer.org)
 * [srag/dic](https://packagist.org/packages/srag/dic)
 
@@ -178,5 +127,5 @@ Start at your ILIAS root directory
 ```bash
 mkdir -p Customizing/global/plugins/Libraries
 cd Customizing/global/plugins/Libraries
-git clone git@git.studer-raimann.ch:ILIAS/Plugins/RemovePluginDataConfirm.git RemovePluginDataConfirm
+git clone -b develop git@git.studer-raimann.ch:ILIAS/Plugins/RemovePluginDataConfirm.git RemovePluginDataConfirm
 ```

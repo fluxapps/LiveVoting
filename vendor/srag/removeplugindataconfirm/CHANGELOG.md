@@ -1,7 +1,10 @@
 # Changelog
 
+## [0.3.0]
+- No config class needed anymore. It stores the value temporary in the session
+
 ## [0.2.5]
-Update readme
+- Update readme
 
 ## [0.2.4]
 - Added dependencies to readme

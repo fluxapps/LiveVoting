@@ -74,10 +74,9 @@ trait AbstractPluginUninstallTrait {
 			if ($remove_data) {
 				$this->deleteData();
 			}
-		} else {
-			// Ask again if reinstalled
-			$remove_plugin_data_confirm_class->removeUninstallRemovesData();
 		}
+
+		$remove_plugin_data_confirm_class->removeUninstallRemovesData();
 
 		return true;
 	}
