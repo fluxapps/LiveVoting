@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.9.4]
+- Fix on some strange PHP versions
+
+## [0.9.3]
+- Fixes
+
 ## [0.9.2]
 - Add missing return in `setField`
 

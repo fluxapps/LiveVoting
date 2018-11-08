@@ -70,10 +70,20 @@ abstract class ActiveRecordConfigGUI extends ilPluginConfigGUI {
 
 
 	/**
+	 * @access namespace
+	 */
+	public final function executeCommand() {
+		parent::executeCommand();
+	}
+
+
+	/**
 	 * @param string $cmd
 	 *
 	 * @throws ActiveRecordConfigException Unknown command $cmd!
 	 * @throws ActiveRecordConfigException Class $config_gui_class_name not extends ActiveRecordConfigFormGUI or ActiveRecordConfigTableGUI!
+	 *
+	 * @access namespace
 	 */
 	public final function performCommand(/*string*/
 		$cmd)/*: void*/ {
@@ -89,6 +99,7 @@ abstract class ActiveRecordConfigGUI extends ilPluginConfigGUI {
 						break;
 
 					case ($cmd === self::CMD_CONFIGURE):
+						reset(static::$tabs);
 						$this->configure(key(static::$tabs));
 						break;
 
@@ -126,7 +137,7 @@ abstract class ActiveRecordConfigGUI extends ilPluginConfigGUI {
 
 
 	/**
-	 *
+	 * @access namespace
 	 */
 	private final function setTabs() {
 		foreach (static::$tabs as $tab_id => $config_gui_class_name) {
@@ -159,6 +170,8 @@ abstract class ActiveRecordConfigGUI extends ilPluginConfigGUI {
 	 * @param string $tab_id
 	 *
 	 * @throws ActiveRecordConfigException Class $config_gui_class_name not extends ActiveRecordConfigFormGUI or ActiveRecordConfigTableGUI!
+	 *
+	 * @access namespace
 	 */
 	private final function configure(/*string*/
 		$tab_id)/*: void*/ {
@@ -174,6 +187,8 @@ abstract class ActiveRecordConfigGUI extends ilPluginConfigGUI {
 	 * @param string $tab_id
 	 *
 	 * @throws ActiveRecordConfigException Class $config_gui_class_name not extends ActiveRecordConfigFormGUI!
+	 *
+	 * @access namespace
 	 */
 	private final function updateConfigure(/*string*/
 		$tab_id)/*: void*/ {
@@ -201,8 +216,10 @@ abstract class ActiveRecordConfigGUI extends ilPluginConfigGUI {
 	 * @param string $tab_id
 	 *
 	 * @throws ActiveRecordConfigException Class $config_form_gui_class_name not extends ActiveRecordConfigTableGUI!
+	 *
+	 * @access namespace
 	 */
-	protected function applyFilter(/*string*/
+	private final function applyFilter(/*string*/
 		$tab_id)/*: void*/ {
 		$table = $this->getConfigurationTable(static::$tabs[$tab_id], self::CMD_APPLY_FILTER . "_" . $tab_id, $tab_id);
 
@@ -216,8 +233,10 @@ abstract class ActiveRecordConfigGUI extends ilPluginConfigGUI {
 	 * @param string $tab_id
 	 *
 	 * @throws ActiveRecordConfigException Class $config_form_gui_class_name not extends ActiveRecordConfigTableGUI!
+	 *
+	 * @access namespace
 	 */
-	protected function resetFilter(/*string*/
+	private final function resetFilter(/*string*/
 		$tab_id)/*: void*/ {
 		$table = $this->getConfigurationTable(static::$tabs[$tab_id], self::CMD_RESET_FILTER . "_" . $tab_id, $tab_id);
 
@@ -235,6 +254,8 @@ abstract class ActiveRecordConfigGUI extends ilPluginConfigGUI {
 	 * @return ActiveRecordConfigFormGUI|ActiveRecordConfigTableGUI
 	 *
 	 * @throws ActiveRecordConfigException Class $config_gui_class_name not extends ActiveRecordConfigFormGUI or ActiveRecordConfigTableGUI!
+	 *
+	 * @access namespace
 	 */
 	private final function getConfigurationGUI(/*string*/
 		$tab_id) {
@@ -266,6 +287,8 @@ abstract class ActiveRecordConfigGUI extends ilPluginConfigGUI {
 	 *
 	 * @throws ActiveRecordConfigException Class $config_form_gui_class_name not exists!
 	 * @throws ActiveRecordConfigException Class $config_form_gui_class_name not extends ActiveRecordConfigFormGUI!
+	 *
+	 * @access namespace
 	 */
 	private final function getConfigurationFormGUI(/*string*/
 		$config_form_gui_class_name, /*string*/
@@ -293,6 +316,8 @@ abstract class ActiveRecordConfigGUI extends ilPluginConfigGUI {
 	 *
 	 * @throws ActiveRecordConfigException Class $config_form_gui_class_name not exists!
 	 * @throws ActiveRecordConfigException Class $config_form_gui_class_name not extends ActiveRecordConfigTableGUI!
+	 *
+	 * @access namespace
 	 */
 	private final function getConfigurationTable(/*string*/
 		$config_table_gui_class_name,/*string*/
