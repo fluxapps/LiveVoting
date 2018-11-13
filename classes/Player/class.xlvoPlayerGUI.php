@@ -21,7 +21,7 @@ use LiveVoting\Voter\xlvoVoter;
 use LiveVoting\Voting\xlvoVoting;
 use LiveVoting\Voting\xlvoVotingConfig;
 use LiveVoting\Voting\xlvoVotingManager2;
-use srag\CustomInputGUIs\GlyphGUI\GlyphGUI;
+use srag\CustomInputGUIs\LiveVoting\GlyphGUI\GlyphGUI;
 
 /**
  * Class xlvoPlayerGUI

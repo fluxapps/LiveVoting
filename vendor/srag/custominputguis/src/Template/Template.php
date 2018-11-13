@@ -1,13 +1,13 @@
 <?php
 
-namespace srag\CustomInputGUIs\Template;
+namespace srag\CustomInputGUIs\LiveVoting\Template;
 
 use ilTemplate;
 
 /**
  * Class Template
  *
- * @package srag\CustomInputGUIs\Template
+ * @package srag\CustomInputGUIs\LiveVoting\Template
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

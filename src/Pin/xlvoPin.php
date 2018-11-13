@@ -10,7 +10,7 @@ use LiveVoting\Exceptions\xlvoVoterException;
 use LiveVoting\User\xlvoUser;
 use LiveVoting\Utils\LiveVotingTrait;
 use LiveVoting\Voting\xlvoVotingConfig;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 use stdClass;
 
 /**

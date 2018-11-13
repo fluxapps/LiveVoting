@@ -16,7 +16,7 @@ use LiveVoting\Vote\xlvoVoteOld;
 use LiveVoting\Voter\xlvoVoter;
 use LiveVoting\Voting\xlvoVoting;
 use LiveVoting\Voting\xlvoVotingConfig;
-use srag\RemovePluginDataConfirm\RepositoryObjectPluginUninstallTrait;
+use srag\RemovePluginDataConfirm\LiveVoting\RepositoryObjectPluginUninstallTrait;
 
 /**
  * LiveVoting repository object plugin

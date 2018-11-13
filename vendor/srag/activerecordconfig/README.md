@@ -33,7 +33,7 @@ Declare your config class basically like follow:
 //...
 namespace srag\Plugins\X\Config
 //...
-use srag\ActiveRecordConfig\ActiveRecordConfig;
+use srag\ActiveRecordConfig\LiveVoting\ActiveRecordConfig;
 //...
 class Config extends ActiveRecordConfig {
     //...
@@ -105,7 +105,7 @@ It only supports a config with an `ilPropertyFormGUI` or an `ilTable2GUI`!
 Create a class `ilXConfigGUI`:
 ```php
 //...
-use srag\ActiveRecordConfig\ActiveRecordConfigGUI;
+use srag\ActiveRecordConfig\LiveVoting\ActiveRecordConfigGUI;
 //...
 class ilXConfigGUI extends ActiveRecordConfigGUI {
     //...
@@ -124,7 +124,7 @@ A config tab class can be either a class `ConfigFormGUI`:
 //...
 namespace srag\Plugins\X\Config
 //...
-use srag\ActiveRecordConfig\ActiveRecordConfigFormGUI;
+use srag\ActiveRecordConfig\LiveVoting\ActiveRecordConfigFormGUI;
 //...
 class ConfigFormGUI extends ActiveRecordConfigFormGUI {
     //...
@@ -153,7 +153,7 @@ or a class `ConfigTableGUI`:
 //...
 namespace srag\Plugins\X\Config
 //...
-use srag\ActiveRecordConfig\ActiveRecordConfigTableGUI;
+use srag\ActiveRecordConfig\LiveVoting\ActiveRecordConfigTableGUI;
 //...
 class ConfigTableGUI extends ActiveRecordConfigTableGUI {
     //...
@@ -296,7 +296,7 @@ Column name based:
 <?php
 \srag\Plugins\X\Config\Config::updateDB();
 
-if (\srag\DIC\DICStatic::dic()->database()->tableExists(\srag\Plugins\X\Config\ConfigOld::TABLE_NAME)) {
+if (\srag\DIC\LiveVoting\DICStatic::dic()->database()->tableExists(\srag\Plugins\X\Config\ConfigOld::TABLE_NAME)) {
     \srag\Plugins\X\Config\ConfigOld::updateDB();
 
     $config_old = \srag\Plugins\X\Config\ConfigOld::getConfig();
@@ -304,7 +304,7 @@ if (\srag\DIC\DICStatic::dic()->database()->tableExists(\srag\Plugins\X\Config\C
      \srag\Plugins\X\Config\Config::setField(Config::KEY_SOME, $config_old->getSome());
     //...
 
-    \srag\DIC\DICStatic::dic()->database()->dropTable(\srag\Plugins\X\Config\ConfigOld::TABLE_NAME);
+    \srag\DIC\LiveVoting\DICStatic::dic()->database()->dropTable(\srag\Plugins\X\Config\ConfigOld::TABLE_NAME);
 }
 ?>
 ```
@@ -315,7 +315,7 @@ Key and value based (Similar to this library):
 <?php
 \srag\Plugins\X\Config\Config::updateDB();
 
-if (\srag\DIC\DICStatic::dic()->database()->tableExists(\srag\Plugins\X\Config\ConfigOld::TABLE_NAME)) {
+if (\srag\DIC\LiveVoting\DICStatic::dic()->database()->tableExists(\srag\Plugins\X\Config\ConfigOld::TABLE_NAME)) {
     \srag\Plugins\X\Config\ConfigOld::updateDB();
 
     foreach (\srag\Plugins\X\Config\ConfigOld::get() as $config) {
@@ -325,7 +325,7 @@ if (\srag\DIC\DICStatic::dic()->database()->tableExists(\srag\Plugins\X\Config\C
         \srag\Plugins\X\Config\Config::setField($config->getName(), $config->getValue());
     }
 
-    \srag\DIC\DICStatic::dic()->database()->dropTable(\srag\Plugins\X\Config\ConfigOld::TABLE_NAME);
+    \srag\DIC\LiveVoting\DICStatic::dic()->database()->dropTable(\srag\Plugins\X\Config\ConfigOld::TABLE_NAME);
 }
 ?>
 ```

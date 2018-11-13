@@ -9,7 +9,7 @@ use ilLiveVotingPlugin;
 use ilObjUser;
 use LiveVoting\User\xlvoUser;
 use LiveVoting\Utils\LiveVotingTrait;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class: InitialisationManager

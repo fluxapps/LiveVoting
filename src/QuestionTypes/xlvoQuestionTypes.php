@@ -6,7 +6,7 @@ use ilLiveVotingPlugin;
 use LiveVoting\Exceptions\xlvoVotingManagerException;
 use LiveVoting\Utils\LiveVotingTrait;
 use ReflectionClass;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class xlvoQuestionTypes

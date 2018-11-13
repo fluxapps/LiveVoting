@@ -5,7 +5,7 @@ namespace LiveVoting\Context;
 use ilException;
 use ilLiveVotingPlugin;
 use LiveVoting\Utils\LiveVotingTrait;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class xlvoILIAS

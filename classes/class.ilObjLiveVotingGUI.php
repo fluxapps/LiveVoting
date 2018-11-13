@@ -9,9 +9,9 @@ use LiveVoting\Context\xlvoInitialisation;
 use LiveVoting\Utils\LiveVotingTrait;
 use LiveVoting\Voting\xlvoVotingConfig;
 use LiveVoting\Voting\xlvoVotingManager2;
-use srag\CustomInputGUIs\TextAreaInputGUI\TextAreaInputGUI;
-use srag\CustomInputGUIs\TextInputGUI\TextInputGUI;
-use srag\DIC\DICTrait;
+use srag\CustomInputGUIs\LiveVoting\TextAreaInputGUI\TextAreaInputGUI;
+use srag\CustomInputGUIs\LiveVoting\TextInputGUI\TextInputGUI;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class ilObjLiveVotingGUI

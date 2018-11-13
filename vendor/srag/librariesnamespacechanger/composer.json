@@ -1,13 +1,12 @@
 {
-  "name": "srag/activerecordconfig",
-  "description": "Simple ActiveRecord config for ILIAS plugins",
+  "name": "srag/librariesnamespacechanger",
+  "description": "Change namespace of libraries to plugin namespace",
   "type": "library",
   "keywords": [
     "ILIAS",
-    "ActiveRecord",
-    "Config"
+    "Libraries"
   ],
-  "homepage": "https://github.com/studer-raimann/ActiveRecordConfig",
+  "homepage": "https://github.com/studer-raimann/LibrariesNamespaceChanger",
   "license": "GPL-3.0-only",
   "authors": [
     {
@@ -21,12 +20,11 @@
     "email": "support-custom1@studer-raimann.ch"
   },
   "require": {
-    "php": ">=5.6",
-    "srag/dic": ">=0.1.0"
+    "php": ">=5.6"
   },
   "autoload": {
     "psr-4": {
-      "srag\\ActiveRecordConfig\\LiveVoting\\": "src/"
+      "srag\\LibrariesNamespaceChanger\\": "src/"
     }
   },
   "config": {

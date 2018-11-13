@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.3.1]
+- Fixes
+
 ## [0.3.0]
 - No config class needed anymore. It stores the value temporary in the session
 

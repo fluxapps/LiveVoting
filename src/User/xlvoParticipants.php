@@ -5,7 +5,7 @@ namespace LiveVoting\User;
 use ilLiveVotingPlugin;
 use LiveVoting\Utils\LiveVotingTrait;
 use LiveVoting\Vote\xlvoVote;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class xlvoParticipants

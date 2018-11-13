@@ -1,13 +1,13 @@
 <?php
 
-namespace srag\DIC\Exception;
+namespace srag\DIC\LiveVoting\Exception;
 
 use ilException;
 
 /**
  * Class DICException
  *
- * @package srag\DIC\Exception
+ * @package srag\DIC\LiveVoting\Exception
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

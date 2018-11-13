@@ -17,7 +17,7 @@ use LiveVoting\QuestionTypes\NumberRange\xlvoNumberRangeSubFormGUI;
 use LiveVoting\QuestionTypes\SingleVote\xlvoSingleVoteSubFormGUI;
 use LiveVoting\Utils\LiveVotingTrait;
 use LiveVoting\Voting\xlvoVoting;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class xlvoFreeInputSubFormGUI

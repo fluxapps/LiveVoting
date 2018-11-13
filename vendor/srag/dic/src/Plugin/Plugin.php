@@ -1,6 +1,6 @@
 <?php
 
-namespace srag\DIC\Plugin;
+namespace srag\DIC\LiveVoting\Plugin;
 
 use Exception;
 use ilConfirmationGUI;
@@ -10,14 +10,14 @@ use ilPropertyFormGUI;
 use ilTable2GUI;
 use ilTemplate;
 use JsonSerializable;
-use srag\DIC\DICTrait;
-use srag\DIC\Exception\DICException;
+use srag\DIC\LiveVoting\DICTrait;
+use srag\DIC\LiveVoting\Exception\DICException;
 use stdClass;
 
 /**
  * Class Plugin
  *
- * @package srag\DIC\Plugin
+ * @package srag\DIC\LiveVoting\Plugin
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

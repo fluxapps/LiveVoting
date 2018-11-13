@@ -1,14 +1,14 @@
 <?php
 
-namespace srag\CustomInputGUIs\TextInputGUI;
+namespace srag\CustomInputGUIs\LiveVoting\TextInputGUI;
 
 use ilTextInputGUI;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class TextInputGUI
  *
- * @package srag\CustomInputGUIs\TextInputGUI
+ * @package srag\CustomInputGUIs\LiveVoting\TextInputGUI
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

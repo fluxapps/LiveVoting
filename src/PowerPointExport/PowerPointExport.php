@@ -10,7 +10,7 @@ use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\Utils\LiveVotingTrait;
 use LiveVoting\Voting\xlvoVoting;
 use LiveVoting\Voting\xlvoVotingConfig;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class PowerPointExport

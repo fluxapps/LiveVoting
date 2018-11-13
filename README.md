@@ -55,6 +55,7 @@ You need also to configure your website as HTTPS and allow that your website can
 * [srag/activerecordconfig](https://packagist.org/packages/srag/activerecordconfig)
 * [srag/custominputguis](https://packagist.org/packages/srag/custominputguis)
 * [srag/dic](https://packagist.org/packages/srag/dic)
+* [srag/librariesnamespacechanger](https://packagist.org/packages/srag/librariesnamespacechanger)
 * [srag/removeplugindataconfirm](https://packagist.org/packages/srag/removeplugindataconfirm)
 * [babel-minify -g](https://www.npmjs.com/package/babel-minify)
 * [clean-css-cli](https://www.npmjs.com/package/clean-css-cli)

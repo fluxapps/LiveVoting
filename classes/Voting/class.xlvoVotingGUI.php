@@ -13,8 +13,8 @@ use LiveVoting\Voting\xlvoVoting;
 use LiveVoting\Voting\xlvoVotingConfig;
 use LiveVoting\Voting\xlvoVotingFormGUI;
 use LiveVoting\Voting\xlvoVotingTableGUI;
-use srag\CustomInputGUIs\GlyphGUI\GlyphGUI;
-use srag\DIC\DICTrait;
+use srag\CustomInputGUIs\LiveVoting\GlyphGUI\GlyphGUI;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  *

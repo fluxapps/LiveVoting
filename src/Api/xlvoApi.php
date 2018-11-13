@@ -14,7 +14,7 @@ use LiveVoting\Results\xlvoResults;
 use LiveVoting\Round\xlvoRound;
 use LiveVoting\Utils\LiveVotingTrait;
 use LiveVoting\Voting\xlvoVotingManager2;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 use stdClass;
 
 /**

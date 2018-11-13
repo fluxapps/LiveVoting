@@ -26,7 +26,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use LiveVoting\Pin\xlvoPin;
 use LiveVoting\Utils\LiveVotingTrait;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * ListGUI implementation for LiveVoting object plugin. This one

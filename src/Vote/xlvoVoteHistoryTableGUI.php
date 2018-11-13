@@ -6,7 +6,7 @@ use ilDateTime;
 use ilLiveVotingPlugin;
 use ilTable2GUI;
 use LiveVoting\Utils\LiveVotingTrait;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class xlvoVoteHistoryTableGUI

@@ -14,7 +14,7 @@ require_once "dir.php";
 use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Context\InitialisationManager;
 use LiveVoting\Context\xlvoContext;
-use srag\DIC\DICStatic;
+use srag\DIC\LiveVoting\DICStatic;
 
 $context = xlvoContext::getContext();
 switch ($context) {

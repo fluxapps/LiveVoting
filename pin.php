@@ -13,7 +13,7 @@ use LiveVoting\Context\InitialisationManager;
 use LiveVoting\Context\Param\ParamManager;
 use LiveVoting\Context\xlvoContext;
 use LiveVoting\Pin\xlvoPin;
-use srag\DIC\DICStatic;
+use srag\DIC\LiveVoting\DICStatic;
 
 try {
 	$pin = trim(filter_input(INPUT_GET, ParamManager::PARAM_PIN), "/");

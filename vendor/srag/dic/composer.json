@@ -26,7 +26,7 @@
   },
   "autoload": {
     "psr-4": {
-      "srag\\DIC\\": "src/"
+      "srag\\DIC\\LiveVoting\\": "src/"
     }
   },
   "config": {

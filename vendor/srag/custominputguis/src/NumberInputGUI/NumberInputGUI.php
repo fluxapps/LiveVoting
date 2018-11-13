@@ -1,15 +1,15 @@
 <?php
 
-namespace srag\CustomInputGUIs\NumberInputGUI;
+namespace srag\CustomInputGUIs\LiveVoting\NumberInputGUI;
 
 use ilNumberInputGUI;
 use ilTableFilterItem;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class NumberInputGUI
  *
- * @package srag\CustomInputGUIs\NumberInputGUI
+ * @package srag\CustomInputGUIs\LiveVoting\NumberInputGUI
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

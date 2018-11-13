@@ -5,7 +5,7 @@ namespace LiveVoting\Display\Bar;
 use ilLiveVotingPlugin;
 use ilTemplate;
 use LiveVoting\Utils\LiveVotingTrait;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class xlvoAbstractBarGUI

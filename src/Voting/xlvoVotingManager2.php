@@ -16,7 +16,7 @@ use LiveVoting\Round\xlvoRound;
 use LiveVoting\User\xlvoUser;
 use LiveVoting\Utils\LiveVotingTrait;
 use LiveVoting\Vote\xlvoVote;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class xlvoVotingManager2

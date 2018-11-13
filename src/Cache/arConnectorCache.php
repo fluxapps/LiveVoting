@@ -8,7 +8,7 @@ use arConnector;
 use arException;
 use ilLiveVotingPlugin;
 use LiveVoting\Utils\LiveVotingTrait;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 use stdClass;
 
 /**

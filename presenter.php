@@ -14,7 +14,7 @@ use LiveVoting\Context\InitialisationManager;
 use LiveVoting\Context\xlvoContext;
 use LiveVoting\Pin\xlvoPin;
 use LiveVoting\Voting\xlvoVotingConfig;
-use srag\DIC\DICStatic;
+use srag\DIC\LiveVoting\DICStatic;
 
 try {
 

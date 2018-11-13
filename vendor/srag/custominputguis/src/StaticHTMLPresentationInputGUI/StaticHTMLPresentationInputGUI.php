@@ -1,16 +1,16 @@
 <?php
 
-namespace srag\CustomInputGUIs\StaticHTMLPresentationInputGUI;
+namespace srag\CustomInputGUIs\LiveVoting\StaticHTMLPresentationInputGUI;
 
 use ilFormException;
 use ilFormPropertyGUI;
 use ilTemplate;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class StaticHTMLPresentationInputGUI
  *
- * @package srag\CustomInputGUIs\StaticHTMLPresentationInputGUI
+ * @package srag\CustomInputGUIs\LiveVoting\StaticHTMLPresentationInputGUI
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

@@ -8,7 +8,7 @@ use ilUIPluginRouterGUI;
 use LiveVoting\Pin\xlvoPin;
 use LiveVoting\Utils\LiveVotingTrait;
 use LiveVoting\Voting\xlvoVotingManager2;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class ParamManager

@@ -1,22 +1,22 @@
 <?php
 
-namespace srag\DIC;
+namespace srag\DIC\LiveVoting;
 
 use ilLogLevel;
 use ilPlugin;
 use League\Flysystem\PluginInterface;
-use srag\DIC\DIC\DICInterface;
-use srag\DIC\DIC\LegacyDIC;
-use srag\DIC\DIC\NewDIC;
-use srag\DIC\Exception\DICException;
-use srag\DIC\Plugin\Plugin;
-use srag\DIC\Version\Version;
-use srag\DIC\Version\VersionInterface;
+use srag\DIC\LiveVoting\DIC\DICInterface;
+use srag\DIC\LiveVoting\DIC\LegacyDIC;
+use srag\DIC\LiveVoting\DIC\NewDIC;
+use srag\DIC\LiveVoting\Exception\DICException;
+use srag\DIC\LiveVoting\Plugin\Plugin;
+use srag\DIC\LiveVoting\Version\Version;
+use srag\DIC\LiveVoting\Version\VersionInterface;
 
 /**
  * Class DICStatic
  *
- * @package srag\DIC
+ * @package srag\DIC\LiveVoting
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

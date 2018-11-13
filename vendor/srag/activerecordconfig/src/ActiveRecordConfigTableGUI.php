@@ -1,16 +1,16 @@
 <?php
 
-namespace srag\ActiveRecordConfig;
+namespace srag\ActiveRecordConfig\LiveVoting;
 
 use ilCSVWriter;
 use ilExcel;
 use ilTable2GUI;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class ActiveRecordConfigTableGUI
  *
- * @package srag\ActiveRecordConfig
+ * @package srag\ActiveRecordConfig\LiveVoting
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

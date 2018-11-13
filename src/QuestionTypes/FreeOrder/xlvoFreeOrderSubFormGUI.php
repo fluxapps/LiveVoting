@@ -8,8 +8,8 @@ use ilHiddenInputGUI;
 use LiveVoting\Exceptions\xlvoSubFormGUIHandleFieldException;
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\QuestionTypes\xlvoSubFormGUI;
-use srag\CustomInputGUIs\MultiLineInputGUI\MultiLineInputGUI;
-use srag\CustomInputGUIs\TextInputGUI\TextInputGUI;
+use srag\CustomInputGUIs\LiveVoting\MultiLineInputGUI\MultiLineInputGUI;
+use srag\CustomInputGUIs\LiveVoting\TextInputGUI\TextInputGUI;
 
 /**
  * Class xlvoFreeOrderSubFormGUI

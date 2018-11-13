@@ -17,9 +17,9 @@ use LiveVoting\QuestionTypes\NumberRange\xlvoNumberRangeVotingFormGUI;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\QuestionTypes\xlvoSubFormGUI;
 use LiveVoting\Utils\LiveVotingTrait;
-use srag\CustomInputGUIs\TextAreaInputGUI\TextAreaInputGUI;
-use srag\CustomInputGUIs\TextInputGUI\TextInputGUI;
-use srag\DIC\DICTrait;
+use srag\CustomInputGUIs\LiveVoting\TextAreaInputGUI\TextAreaInputGUI;
+use srag\CustomInputGUIs\LiveVoting\TextInputGUI\TextInputGUI;
+use srag\DIC\LiveVoting\DICTrait;
 use xlvoVotingGUI;
 
 /**

@@ -7,9 +7,9 @@ use LiveVoting\QuestionTypes\FreeInput\xlvoFreeInputSubFormGUI;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\QuestionTypes\xlvoQuestionTypesGUI;
 use LiveVoting\Vote\xlvoVote;
-use srag\CustomInputGUIs\MultiLineInputGUI\MultiLineInputGUI;
-use srag\CustomInputGUIs\TextAreaInputGUI\TextAreaInputGUI;
-use srag\CustomInputGUIs\TextInputGUI\TextInputGUI;
+use srag\CustomInputGUIs\LiveVoting\MultiLineInputGUI\MultiLineInputGUI;
+use srag\CustomInputGUIs\LiveVoting\TextAreaInputGUI\TextAreaInputGUI;
+use srag\CustomInputGUIs\LiveVoting\TextInputGUI\TextInputGUI;
 
 /**
  * Class xlvoFreeInputGUI

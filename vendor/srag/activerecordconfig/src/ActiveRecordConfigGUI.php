@@ -1,16 +1,16 @@
 <?php
 
-namespace srag\ActiveRecordConfig;
+namespace srag\ActiveRecordConfig\LiveVoting;
 
 use ilPluginConfigGUI;
 use ilUtil;
-use srag\ActiveRecordConfig\Exception\ActiveRecordConfigException;
-use srag\DIC\DICTrait;
+use srag\ActiveRecordConfig\LiveVoting\Exception\ActiveRecordConfigException;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class ActiveRecordConfigGUI
  *
- * @package srag\ActiveRecordConfig
+ * @package srag\ActiveRecordConfig\LiveVoting
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

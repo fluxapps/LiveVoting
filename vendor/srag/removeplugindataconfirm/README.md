@@ -20,7 +20,7 @@ Hint: Because of multiple autoloaders of plugins, it could be, that different ve
 First declare your plugin class like follow:
 ```php
 //...
-use srag\RemovePluginDataConfirm\PluginUninstallTrait;
+use srag\RemovePluginDataConfirm\LiveVoting\PluginUninstallTrait;
 //...
 use PluginUninstallTrait;
 //...
@@ -41,7 +41,7 @@ You don't need to use `DICTrait`, it is already in use!
 If your plugin is a RepositoryObject use `RepositoryObjectPluginUninstallTrait` instead:
 ```php
 //...
-use srag\RemovePluginDataConfirm\RepositoryObjectPluginUninstallTrait;
+use srag\RemovePluginDataConfirm\LiveVoting\RepositoryObjectPluginUninstallTrait;
 //...
 use RepositoryObjectPluginUninstallTrait;
 //...
@@ -55,7 +55,7 @@ Then create a class called `XRemoveDataConfirm` in `classes/uninstall/class.XRem
 
 require_once __DIR__ . "/../../vendor/autoload.php";
 
-use srag\RemovePluginDataConfirm\AbstractRemovePluginDataConfirm;
+use srag\RemovePluginDataConfirm\LiveVoting\AbstractRemovePluginDataConfirm;
 
 /**
  * Class XRemoveDataConfirm

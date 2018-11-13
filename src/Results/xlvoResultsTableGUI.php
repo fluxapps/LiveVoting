@@ -6,7 +6,7 @@ use ilLiveVotingPlugin;
 use ilTable2GUI;
 use LiveVoting\QuestionTypes\xlvoResultGUI;
 use LiveVoting\Utils\LiveVotingTrait;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 use xlvoResultsGUI;
 
 /**

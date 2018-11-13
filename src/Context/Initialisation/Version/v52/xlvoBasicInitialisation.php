@@ -47,7 +47,7 @@ use LiveVoting\Context\xlvoRbacReview;
 use LiveVoting\Context\xlvoRbacSystem;
 use LiveVoting\Session\xlvoSessionHandler;
 use LiveVoting\Utils\LiveVotingTrait;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class xlvoBasicInitialisation for ILIAS 5.2 (Experimental)

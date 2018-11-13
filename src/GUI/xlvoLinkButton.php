@@ -5,7 +5,7 @@ namespace LiveVoting\GUI;
 use ilLinkButton;
 use ilLiveVotingPlugin;
 use LiveVoting\Utils\LiveVotingTrait;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class xlvoLinkButton

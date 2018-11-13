@@ -1,28 +1,53 @@
 <?php
 
-namespace srag\RemovePluginDataConfirm;
+namespace srag\RemovePluginDataConfirm\LiveVoting;
 
 use ilAdministrationGUI;
 use ilConfirmationGUI;
 use ilObjComponentSettingsGUI;
 use ilSession;
 use ilUtil;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class AbstractRemovePluginDataConfirm
  *
- * @package srag\RemovePluginDataConfirm
+ * @package srag\RemovePluginDataConfirm\LiveVoting
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 abstract class AbstractRemovePluginDataConfirm {
 
 	use DICTrait;
+	/**
+	 * @var string
+	 *
+	 * @access namespace
+	 */
 	const CMD_CANCEL = "cancel";
+	/**
+	 * @var string
+	 *
+	 * @access namespace
+	 */
 	const CMD_CONFIRM_REMOVE_DATA = "confirmRemoveData";
+	/**
+	 * @var string
+	 *
+	 * @access namespace
+	 */
 	const CMD_DEACTIVATE = "deactivate";
+	/**
+	 * @var string
+	 *
+	 * @access namespace
+	 */
 	const CMD_SET_KEEP_DATA = "setKeepData";
+	/**
+	 * @var string
+	 *
+	 * @access namespace
+	 */
 	const CMD_SET_REMOVE_DATA = "setRemoveData";
 	/**
 	 * @var string
@@ -38,6 +63,8 @@ abstract class AbstractRemovePluginDataConfirm {
 	const LANG_MODULE = "removeplugindataconfirm";
 	/**
 	 * @var AbstractRemovePluginDataConfirm|null
+	 *
+	 * @access namespace
 	 */
 	private static $instance = NULL;
 
@@ -128,6 +155,8 @@ abstract class AbstractRemovePluginDataConfirm {
 
 	/**
 	 * @param string $cmd
+	 *
+	 * @access namespace
 	 */
 	private final function redirectToPlugins(/*string*/
 		$cmd)/*: void*/ {
@@ -141,7 +170,7 @@ abstract class AbstractRemovePluginDataConfirm {
 
 
 	/**
-	 *
+	 * @access namespace
 	 */
 	private final function cancel()/*: void*/ {
 		$this->redirectToPlugins("listPlugins");
@@ -149,7 +178,7 @@ abstract class AbstractRemovePluginDataConfirm {
 
 
 	/**
-	 *
+	 * @access namespace
 	 */
 	private final function confirmRemoveData()/*: void*/ {
 		self::saveParameterByClass();
@@ -172,7 +201,7 @@ abstract class AbstractRemovePluginDataConfirm {
 
 
 	/**
-	 *
+	 * @access namespace
 	 */
 	private final function deactivate()/*: void*/ {
 		$this->redirectToPlugins("deactivatePlugin");
@@ -180,7 +209,7 @@ abstract class AbstractRemovePluginDataConfirm {
 
 
 	/**
-	 *
+	 * @access namespace
 	 */
 	private final function setKeepData()/*: void*/ {
 		$this->setUninstallRemovesData(false);
@@ -192,7 +221,7 @@ abstract class AbstractRemovePluginDataConfirm {
 
 
 	/**
-	 *
+	 * @access namespace
 	 */
 	private final function setRemoveData()/*: void*/ {
 		$this->setUninstallRemovesData(true);
@@ -207,6 +236,8 @@ abstract class AbstractRemovePluginDataConfirm {
 	 * @param string $key
 	 *
 	 * @return string
+	 *
+	 * @access namespace
 	 */
 	private final function txt(/*string*/
 		$key)/*: string*/ {
@@ -216,6 +247,8 @@ abstract class AbstractRemovePluginDataConfirm {
 
 	/**
 	 * @return bool|null
+	 *
+	 * @access namespace
 	 */
 	public final function getUninstallRemovesData()/*: ?bool*/ {
 		return json_decode(ilSession::get(self::KEY_UNINSTALL_REMOVES_DATA));
@@ -224,6 +257,8 @@ abstract class AbstractRemovePluginDataConfirm {
 
 	/**
 	 * @param bool $uninstall_removes_data
+	 *
+	 * @access namespace
 	 */
 	public final function setUninstallRemovesData(/*bool*/
 		$uninstall_removes_data)/*: void*/ {
@@ -232,7 +267,7 @@ abstract class AbstractRemovePluginDataConfirm {
 
 
 	/**
-	 *
+	 * @access namespace
 	 */
 	public final function removeUninstallRemovesData()/*: void*/ {
 		ilSession::clear(self::KEY_UNINSTALL_REMOVES_DATA);

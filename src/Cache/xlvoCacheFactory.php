@@ -7,7 +7,7 @@ use ilLiveVotingPlugin;
 use LiveVoting\Cache\Version\v52\xlvoCache;
 use LiveVoting\Context\ILIASVersionEnum;
 use LiveVoting\Utils\LiveVotingTrait;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class xlvoCacheFactory

@@ -6,7 +6,7 @@ use ilLiveVotingPlugin;
 use ilTemplate;
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\Utils\LiveVotingTrait;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class xlvoMovableBarGUI

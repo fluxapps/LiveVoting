@@ -16,8 +16,8 @@ use LiveVoting\QuestionTypes\xlvoQuestionTypesGUI;
 use LiveVoting\Voter\xlvoVoter;
 use LiveVoting\Voting\xlvoVotingConfig;
 use LiveVoting\Voting\xlvoVotingManager2;
-use srag\CustomInputGUIs\GlyphGUI\GlyphGUI;
-use srag\CustomInputGUIs\TextInputGUI\TextInputGUI;
+use srag\CustomInputGUIs\LiveVoting\GlyphGUI\GlyphGUI;
+use srag\CustomInputGUIs\LiveVoting\TextInputGUI\TextInputGUI;
 
 /**
  * Class xlvoVoter2GUI

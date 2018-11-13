@@ -7,7 +7,7 @@ use arConnector;
 use arConnectorDB;
 use ilLiveVotingPlugin;
 use LiveVoting\Utils\LiveVotingTrait;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class CachingActiveRecord

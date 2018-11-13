@@ -3,7 +3,7 @@
 require_once __DIR__ . "/../../vendor/autoload.php";
 
 use LiveVoting\Utils\LiveVotingTrait;
-use srag\RemovePluginDataConfirm\AbstractRemovePluginDataConfirm;
+use srag\RemovePluginDataConfirm\LiveVoting\AbstractRemovePluginDataConfirm;
 
 /**
  * Class LiveVotingRemoveDataConfirm

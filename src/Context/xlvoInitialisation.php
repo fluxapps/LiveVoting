@@ -12,7 +12,7 @@ use ilUIFramework;
 use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Session\xlvoSessionHandler;
 use LiveVoting\Utils\LiveVotingTrait;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class xlvoInitialisation

@@ -13,8 +13,8 @@ use ilUtil;
 use LiveVoting\Js\xlvoJs;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\Utils\LiveVotingTrait;
-use srag\CustomInputGUIs\TextInputGUI\TextInputGUI;
-use srag\DIC\DICTrait;
+use srag\CustomInputGUIs\LiveVoting\TextInputGUI\TextInputGUI;
+use srag\DIC\LiveVoting\DICTrait;
 use xlvoVotingGUI;
 
 /**

@@ -4,7 +4,7 @@ namespace LiveVoting\Context\Initialisation\Version\v52;
 
 use ilLiveVotingPlugin;
 use LiveVoting\Utils\LiveVotingTrait;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class xlvoStyleDefinition
