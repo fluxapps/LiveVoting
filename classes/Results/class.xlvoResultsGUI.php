@@ -307,7 +307,7 @@ class xlvoResultsGUI extends xlvoGUI {
 	 */
 	public function getShortener($length = self::LENGTH) {
 		return function (&$question) use ($length) {
-			$qs = nl2br($question);
+			$qs = nl2br($question, false);
 			$qs = strip_tags($qs);
 
 			$question = strlen($qs) > $length ? substr($qs, 0, $length) . "..." : $qs;
