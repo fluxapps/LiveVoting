@@ -90,6 +90,23 @@ abstract class ActiveRecordConfig extends ActiveRecord {
 
 	/**
 	 * @param string $name
+	 * @param int    $type
+	 * @param mixed  $default_value
+	 *
+	 * @return mixed
+	 */
+	protected static function getDefaultValue(/*string*/
+		$name, /*int*/
+		$type, $default_value) {
+		switch ($name) {
+			default:
+				return $default_value;
+		}
+	}
+
+
+	/**
+	 * @param string $name
 	 *
 	 * @return mixed
 	 *
@@ -105,7 +122,9 @@ abstract class ActiveRecordConfig extends ActiveRecord {
 			}
 
 			$type = $field[0];
+
 			$default_value = $field[1];
+			$default_value = static::getDefaultValue($name, $type, $default_value);
 
 			switch ($type) {
 				case self::TYPE_STRING:

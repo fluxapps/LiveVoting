@@ -52,8 +52,8 @@ class MultiSelectSearchInputGUI extends ilMultiSelectInputGUI {
 	 * @param string $post_var
 	 */
 	public function __construct(/*string*/
-		$title, /*string*/
-		$post_var) {
+		$title = "", /*string*/
+		$post_var = "") {
 		if (substr($post_var, - 2) != "[]") {
 			$post_var = $post_var . "[]";
 		}
@@ -292,5 +292,17 @@ class MultiSelectSearchInputGUI extends ilMultiSelectInputGUI {
 			$val = explode(",", $val);
 		}
 		$this->setValue($val);
+	}
+
+
+	/**
+	 * @param string $a_postvar
+	 */
+	public function setPostVar(/*string*/
+		$a_postvar)/*: void*/ {
+		if (substr($a_postvar, - 2) != "[]") {
+			$a_postvar = $a_postvar . "[]";
+		}
+		parent::setPostVar($a_postvar);
 	}
 }

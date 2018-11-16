@@ -69,26 +69,27 @@
         },
         {
             "name": "srag/activerecordconfig",
-            "version": "v0.9.4",
+            "version": "v0.11.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/studer-raimann/ActiveRecordConfig.git",
-                "reference": "55d2213f1e0c9d4bd4a9e9dc9d51e5493d03152d"
+                "reference": "6d551c968a550dc2f0b875adbe456838bc497527"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/studer-raimann/ActiveRecordConfig/zipball/55d2213f1e0c9d4bd4a9e9dc9d51e5493d03152d",
-                "reference": "55d2213f1e0c9d4bd4a9e9dc9d51e5493d03152d",
+                "url": "https://api.github.com/repos/studer-raimann/ActiveRecordConfig/zipball/6d551c968a550dc2f0b875adbe456838bc497527",
+                "reference": "6d551c968a550dc2f0b875adbe456838bc497527",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.6",
+                "srag/custominputguis": ">=0.1.0",
                 "srag/dic": ">=0.1.0"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "srag\\ActiveRecordConfig\\": "src/"
+                    "srag\\ActiveRecordConfig\\LiveVoting\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -110,20 +111,20 @@
                 "activerecord",
                 "config"
             ],
-            "time": "2018-11-08T07:41:24+00:00"
+            "time": "2018-11-16T06:38:27+00:00"
         },
         {
             "name": "srag/custominputguis",
-            "version": "v0.10.2",
+            "version": "v0.11.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/studer-raimann/CustomInputGUIs.git",
-                "reference": "a0c9a3ed0f652faec9e8fcd79e8af1c675f6af64"
+                "reference": "b6281196761bc89ec6e973e9ace8fa42fd089ec9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/studer-raimann/CustomInputGUIs/zipball/a0c9a3ed0f652faec9e8fcd79e8af1c675f6af64",
-                "reference": "a0c9a3ed0f652faec9e8fcd79e8af1c675f6af64",
+                "url": "https://api.github.com/repos/studer-raimann/CustomInputGUIs/zipball/b6281196761bc89ec6e973e9ace8fa42fd089ec9",
+                "reference": "b6281196761bc89ec6e973e9ace8fa42fd089ec9",
                 "shasum": ""
             },
             "require": {
@@ -156,7 +157,7 @@
                 "gui",
                 "input"
             ],
-            "time": "2018-11-05T06:38:35+00:00"
+            "time": "2018-11-16T09:15:30+00:00"
         },
         {
             "name": "srag/dic",
@@ -178,7 +179,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "srag\\DIC\\": "src/"
+                    "srag\\DIC\\LiveVoting\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -205,16 +206,16 @@
         },
         {
             "name": "srag/librariesnamespacechanger",
-            "version": "v0.3.2",
+            "version": "v0.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/studer-raimann/LibrariesNamespaceChanger.git",
-                "reference": "60c9c9293acb9a2b9d51b3ce3ce18722c0ac87bb"
+                "reference": "d4acc7bff635ef9126ad350e5efdb8a9c0a2de94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/studer-raimann/LibrariesNamespaceChanger/zipball/60c9c9293acb9a2b9d51b3ce3ce18722c0ac87bb",
-                "reference": "60c9c9293acb9a2b9d51b3ce3ce18722c0ac87bb",
+                "url": "https://api.github.com/repos/studer-raimann/LibrariesNamespaceChanger/zipball/d4acc7bff635ef9126ad350e5efdb8a9c0a2de94",
+                "reference": "d4acc7bff635ef9126ad350e5efdb8a9c0a2de94",
                 "shasum": ""
             },
             "require": {
@@ -244,7 +245,7 @@
                 "ILIAS",
                 "libraries"
             ],
-            "time": "2018-11-13T10:30:02+00:00"
+            "time": "2018-11-14T06:11:41+00:00"
         },
         {
             "name": "srag/removeplugindataconfirm",
@@ -267,7 +268,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "srag\\RemovePluginDataConfirm\\": "src/"
+                    "srag\\RemovePluginDataConfirm\\LiveVoting\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",

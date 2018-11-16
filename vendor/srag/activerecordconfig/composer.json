@@ -22,6 +22,7 @@
   },
   "require": {
     "php": ">=5.6",
+    "srag/custominputguis": ">=0.1.0",
     "srag/dic": ">=0.1.0"
   },
   "autoload": {

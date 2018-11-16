@@ -9,11 +9,11 @@ class ComposerStaticInitf5122d14f0f45dac789bfb6428ff8994
     public static $prefixLengthsPsr4 = array (
         's' => 
         array (
-            'srag\\RemovePluginDataConfirm\\' => 29,
+            'srag\\RemovePluginDataConfirm\\LiveVoting\\' => 40,
             'srag\\LibrariesNamespaceChanger\\' => 31,
-            'srag\\DIC\\' => 9,
+            'srag\\DIC\\LiveVoting\\' => 20,
             'srag\\CustomInputGUIs\\' => 21,
-            'srag\\ActiveRecordConfig\\' => 24,
+            'srag\\ActiveRecordConfig\\LiveVoting\\' => 35,
         ),
         'S' => 
         array (
@@ -30,7 +30,7 @@ class ComposerStaticInitf5122d14f0f45dac789bfb6428ff8994
     );
 
     public static $prefixDirsPsr4 = array (
-        'srag\\RemovePluginDataConfirm\\' => 
+        'srag\\RemovePluginDataConfirm\\LiveVoting\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src',
         ),
@@ -38,7 +38,7 @@ class ComposerStaticInitf5122d14f0f45dac789bfb6428ff8994
         array (
             0 => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src',
         ),
-        'srag\\DIC\\' => 
+        'srag\\DIC\\LiveVoting\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/dic/src',
         ),
@@ -46,7 +46,7 @@ class ComposerStaticInitf5122d14f0f45dac789bfb6428ff8994
         array (
             0 => __DIR__ . '/..' . '/srag/custominputguis/src',
         ),
-        'srag\\ActiveRecordConfig\\' => 
+        'srag\\ActiveRecordConfig\\LiveVoting\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/activerecordconfig/src',
         ),
@@ -283,6 +283,9 @@ class ComposerStaticInitf5122d14f0f45dac789bfb6428ff8994
         'srag\\CustomInputGUIs\\LiveVoting\\MultiSelectSearchInputGUI\\MultiSelectSearchInput2GUI' => __DIR__ . '/..' . '/srag/custominputguis/src/MultiSelectSearchInputGUI/MultiSelectSearchInput2GUI.php',
         'srag\\CustomInputGUIs\\LiveVoting\\MultiSelectSearchInputGUI\\MultiSelectSearchInputGUI' => __DIR__ . '/..' . '/srag/custominputguis/src/MultiSelectSearchInputGUI/MultiSelectSearchInputGUI.php',
         'srag\\CustomInputGUIs\\LiveVoting\\NumberInputGUI\\NumberInputGUI' => __DIR__ . '/..' . '/srag/custominputguis/src/NumberInputGUI/NumberInputGUI.php',
+        'srag\\CustomInputGUIs\\LiveVoting\\PropertyFormGUI\\BasePropertyFormGUI' => __DIR__ . '/..' . '/srag/custominputguis/src/PropertyFormGUI/BasePropertyFormGUI.php',
+        'srag\\CustomInputGUIs\\LiveVoting\\PropertyFormGUI\\Exception\\PropertyFormGUIException' => __DIR__ . '/..' . '/srag/custominputguis/src/PropertyFormGUI/Exception/PropertyFormGUIException.php',
+        'srag\\CustomInputGUIs\\LiveVoting\\PropertyFormGUI\\PropertyFormGUI' => __DIR__ . '/..' . '/srag/custominputguis/src/PropertyFormGUI/PropertyFormGUI.php',
         'srag\\CustomInputGUIs\\LiveVoting\\ScreenshotsInputGUI\\ScreenshotsInputGUI' => __DIR__ . '/..' . '/srag/custominputguis/src/ScreenshotsInputGUI/ScreenshotsInputGUI.php',
         'srag\\CustomInputGUIs\\LiveVoting\\StaticHTMLPresentationInputGUI\\StaticHTMLPresentationInputGUI' => __DIR__ . '/..' . '/srag/custominputguis/src/StaticHTMLPresentationInputGUI/StaticHTMLPresentationInputGUI.php',
         'srag\\CustomInputGUIs\\LiveVoting\\Template\\Template' => __DIR__ . '/..' . '/srag/custominputguis/src/Template/Template.php',

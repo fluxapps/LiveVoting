@@ -84,7 +84,7 @@
 
 				// if date input, configure datetimepicker
 				var $div = $line.find('.date');
-				if (typeof $div !== 'undefined') {
+				if ($div.length > 0) {
 					$div.datetimepicker(options.date_config);
 				}
 
