@@ -299,6 +299,6 @@ removeplugindataconfirm_confirm_remove_data#:#Möchten Sie die %1$s-Daten auch e
 removeplugindataconfirm_deactivate#:#%1$s-Plugin nur deaktivieren
 removeplugindataconfirm_data#:#%1$s-Daten
 removeplugindataconfirm_keep_data#:#%1$s-Daten behalten
-removeplugindataconfirm_msg_kept_data#:#Die %1$s-Daten wurden behalten!
-removeplugindataconfirm_msg_removed_data#:#Die %1$s-Daten wurden auch entfernt!
+removeplugindataconfirm_msg_kept_data#:#Die %1$s-Daten wurden behalten
+removeplugindataconfirm_msg_removed_data#:#Die %1$s-Daten wurden auch entfernt
 removeplugindataconfirm_remove_data#:#Entferne %1$s-Daten
