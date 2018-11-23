@@ -5,7 +5,6 @@ namespace LiveVoting\Cache;
 use ilException;
 use ilLiveVotingPlugin;
 use LiveVoting\Cache\Version\v52\xlvoCache;
-use LiveVoting\Context\ILIASVersionEnum;
 use LiveVoting\Utils\LiveVotingTrait;
 use srag\DIC\LiveVoting\DICTrait;
 
@@ -30,10 +29,9 @@ class xlvoCacheFactory {
 	 */
 	public static function getInstance() {
 		if (self::$cache_instance === NULL) {
-			$subversion = (int)explode('.', self::version()->getILIASVersion())[1];
-			switch ($subversion) {
-				case ILIASVersionEnum::ILIAS_VERSION_5_2:
-				case ILIASVersionEnum::ILIAS_VERSION_5_3:
+			switch (true) {
+				case self::version()->is53():
+				case self::version()->is52():
 					self::$cache_instance = xlvoCache::getInstance('');
 					break;
 				default:

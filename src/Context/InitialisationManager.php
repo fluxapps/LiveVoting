@@ -37,19 +37,18 @@ final class InitialisationManager {
 	 * @throws Exception   Thrown if no compatible ILIAS version could be found.
 	 */
 	public static final function startMinimal() {
-
-		$subversion = (int)explode('.', self::version()->getILIASVersion())[1];
-
-		switch ($subversion) {
-			case ILIASVersionEnum::ILIAS_VERSION_5_2:
-				Initialisation\Version\v52\xlvoBasicInitialisation::init();
-				break;
-			case ILIASVersionEnum::ILIAS_VERSION_5_3:
+		switch (true) {
+			case self::version()->is53():
 				Initialisation\Version\v53\xlvoBasicInitialisation::init();
 				break;
+			case self::version()->is52():
+				Initialisation\Version\v52\xlvoBasicInitialisation::init();
+				break;
+
 			default:
 				throw new Exception("Can't find bootstrap code for the given ILIAS version.");
 		}
+
 		xlvoUser::getInstance()->setIdentifier(session_id())->setType(xlvoUser::TYPE_PIN);
 	}
 

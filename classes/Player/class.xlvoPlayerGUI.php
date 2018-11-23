@@ -2,7 +2,6 @@
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-use LiveVoting\Context\ILIASVersionEnum;
 use LiveVoting\Context\Param\ParamManager;
 use LiveVoting\Exceptions\xlvoPlayerException;
 use LiveVoting\Exceptions\xlvoVotingManagerException;
@@ -507,11 +506,9 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 * @throws xlvoVotingManagerException
 	 */
 	protected function initJSandCss() {
-		$subversion = (int)explode('.', self::version()->getILIASVersion())[1];
-
-		switch ($subversion) {
-			case ILIASVersionEnum::ILIAS_VERSION_5_2:
-			case ILIASVersionEnum::ILIAS_VERSION_5_3:
+		switch (true) {
+			case self::version()->is53():
+			case self::version()->is52():
 				ilMathJax::getInstance()->includeMathJax();
 				break;
 			default:
