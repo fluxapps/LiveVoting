@@ -69,7 +69,7 @@ class TextAreaInputGUI extends ilTextAreaInputGUI {
 		$this->insert($tpl);
 		$tpl->setVariable('INLINE_STYLE', $this->getInlineStyle());
 
-		return $tpl->get();
+		return self::output()->getHTML($tpl);
 	}
 
 

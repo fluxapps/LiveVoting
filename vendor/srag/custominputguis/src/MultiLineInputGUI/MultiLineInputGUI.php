@@ -447,12 +447,12 @@ class MultiLineInputGUI extends ilFormPropertyGUI implements ilTableFilterItem, 
 						if ($input->getRequired()) {
 							$tpl->setVariable("REQUIRED", $required);
 						}
-						$tpl->setVariable('CONTENT', $input->getHTML());
+						$tpl->setVariable('CONTENT', self::output()->getHTML($input));
 						$tpl->parseCurrentBlock();
 						$first_label = false;
 					} else {
 						$tpl->setCurrentBlock('input');
-						$tpl->setVariable('CONTENT', $input->getHTML());
+						$tpl->setVariable('CONTENT', self::output()->getHTML($input));
 					}
 					break;
 				default:
@@ -462,11 +462,11 @@ class MultiLineInputGUI extends ilFormPropertyGUI implements ilTableFilterItem, 
 						if ($input->getRequired()) {
 							$tpl->setVariable("REQUIRED", $required);
 						}
-						$tpl->setVariable('CONTENT', $input->render());
+						$tpl->setVariable('CONTENT', self::output()->getHTML($input));
 						$first_label = false;
 					} else {
 						$tpl->setCurrentBlock('input');
-						$tpl->setVariable('CONTENT', $input->render());
+						$tpl->setVariable('CONTENT', self::output()->getHTML($input));
 					}
 					break;
 			}
@@ -504,7 +504,7 @@ class MultiLineInputGUI extends ilFormPropertyGUI implements ilTableFilterItem, 
 			}
 		}
 
-		return $tpl->get();
+		return self::output()->getHTML($tpl);
 	}
 
 

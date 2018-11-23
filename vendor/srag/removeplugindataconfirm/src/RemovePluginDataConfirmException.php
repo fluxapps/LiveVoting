@@ -19,7 +19,7 @@ class RemovePluginDataConfirmException extends ilException {
 	 * @param string $message
 	 * @param int    $code
 	 *
-	 * @access namespace
+	 * @internal
 	 */
 	public function __construct(/*string*/
 		$message, /*int*/

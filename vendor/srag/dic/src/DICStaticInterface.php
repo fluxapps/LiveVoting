@@ -4,6 +4,7 @@ namespace srag\DIC\LiveVoting;
 
 use srag\DIC\LiveVoting\DIC\DICInterface;
 use srag\DIC\LiveVoting\Exception\DICException;
+use srag\DIC\LiveVoting\Output\OutputInterface;
 use srag\DIC\LiveVoting\Plugin\PluginInterface;
 use srag\DIC\LiveVoting\Version\VersionInterface;
 
@@ -22,6 +23,15 @@ interface DICStaticInterface {
 	 * @return DICInterface DIC interface
 	 */
 	public static function dic()/*: DICInterface*/
+	;
+
+
+	/**
+	 * Get output interface
+	 *
+	 * @return OutputInterface Output interface
+	 */
+	public static function output()/*: OutputInterface*/
 	;
 
 

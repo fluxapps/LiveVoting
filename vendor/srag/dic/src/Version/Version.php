@@ -22,8 +22,53 @@ final class Version implements VersionInterface {
 	/**
 	 * @inheritdoc
 	 */
+	public function isEqual(/*string*/
+		$version)/*: bool*/ {
+		return (version_compare($this->getILIASVersion(), $version) === 0);
+	}
+
+
+	/**
+	 * @inheritdoc
+	 */
+	public function isGreater(/*string*/
+		$version)/*: bool*/ {
+		return (version_compare($this->getILIASVersion(), $version) > 0);
+	}
+
+
+	/**
+	 * @inheritdoc
+	 */
+	public function isLower(/*string*/
+		$version)/*: bool*/ {
+		return (version_compare($this->getILIASVersion(), $version) < 0);
+	}
+
+
+	/**
+	 * @inheritdoc
+	 */
+	public function isMaxVersion(/*string*/
+		$version)/*: bool*/ {
+		return (version_compare($this->getILIASVersion(), $version) <= 0);
+	}
+
+
+	/**
+	 * @inheritdoc
+	 */
+	public function isMinVersion(/*string*/
+		$version)/*: bool*/ {
+		return (version_compare($this->getILIASVersion(), $version) >= 0);
+	}
+
+
+	/**
+	 * @inheritdoc
+	 */
 	public function is52()/*: bool*/ {
-		return ($this->getILIASVersion() >= "5.2");
+		return $this->isMinVersion(self::ILIAS_VERSION_5_2);
 	}
 
 
@@ -31,7 +76,7 @@ final class Version implements VersionInterface {
 	 * @inheritdoc
 	 */
 	public function is53()/*: bool*/ {
-		return ($this->getILIASVersion() >= "5.3");
+		return $this->isMinVersion(self::ILIAS_VERSION_5_3);
 	}
 
 
@@ -39,6 +84,6 @@ final class Version implements VersionInterface {
 	 * @inheritdoc
 	 */
 	public function is54()/*: bool*/ {
-		return ($this->getILIASVersion() >= "5.4");
+		return $this->isMinVersion(self::ILIAS_VERSION_5_4);
 	}
 }

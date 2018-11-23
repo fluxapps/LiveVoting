@@ -1,20 +1,20 @@
 <?php
 
-namespace srag\DIC\LiveVoting\Exception;
+namespace srag\CustomInputGUIs\LiveVoting\TableGUI\Exception;
 
 use ilException;
 
 /**
- * Class DICException
+ * Class TableGUIException
  *
- * @package srag\DIC\LiveVoting\Exception
+ * @package srag\CustomInputGUIs\LiveVoting\TableGUI\Exception
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-final class DICException extends ilException {
+final class TableGUIException extends ilException {
 
 	/**
-	 * DICException constructor
+	 * TableGUIException constructor
 	 *
 	 * @param string $message
 	 * @param int    $code

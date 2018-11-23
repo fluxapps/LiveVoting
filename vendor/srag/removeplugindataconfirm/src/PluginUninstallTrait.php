@@ -18,7 +18,7 @@ trait PluginUninstallTrait {
 	 * @return bool
 	 * @throws RemovePluginDataConfirmException
 	 *
-	 * @access namespace
+	 * @internal
 	 */
 	protected final function beforeUninstall()/*: bool*/ {
 		return $this->pluginUninstall();
@@ -26,7 +26,7 @@ trait PluginUninstallTrait {
 
 
 	/**
-	 * @access namespace
+	 * @internal
 	 */
 	protected final function afterUninstall()/*: void*/ {
 

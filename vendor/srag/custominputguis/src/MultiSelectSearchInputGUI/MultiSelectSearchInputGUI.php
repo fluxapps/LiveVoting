@@ -148,7 +148,7 @@ class MultiSelectSearchInputGUI extends ilMultiSelectInputGUI {
 			}
 		}
 
-		return $tpl->get();
+		return self::output()->getHTML($tpl);
 	}
 
 

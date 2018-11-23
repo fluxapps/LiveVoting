@@ -1,5 +1,26 @@
 # Changelog
 
+## [0.13.2]
+- Some improvments in PropertyFormGUI
+
+## [0.13.1]
+- New OutputInterface
+
+## [0.13.0]
+- TableGUI
+
+## [0.12.2]
+- BaseTableGUI
+
+## [0.12.1]
+- BaseTableGUI
+
+## [0.12.0]
+- BaseTableGUI
+
+## [0.11.6]
+- Fix
+
 ## [0.11.5]
 - Fix
 

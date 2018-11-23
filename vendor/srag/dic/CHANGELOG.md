@@ -1,5 +1,29 @@
 # Changelog
 
+## [0.13.4]
+- New getHTML
+
+## [0.13.3]
+- New getHTML
+
+## [0.13.2]
+- Supports output ilAdvancedSelectionListGUI
+
+## [0.13.1]
+- Supports output ilModalGUI
+
+## [0.13.0]
+- getHTML in OutputInterface
+
+## [0.12.0]
+- Supports output Component
+- Supports new ILIAS 5.4 DIC services
+- Separate DIC implementation for ILIAS versions
+- New methods an constants in VersionInterface
+
+## [0.11.0]
+- New OutputInterface
+
 ## [0.10.3]
 - Fix Pluginable interface
 

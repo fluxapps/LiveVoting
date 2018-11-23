@@ -14,14 +14,12 @@ use srag\CustomInputGUIs\LiveVoting\PropertyFormGUI\PropertyFormGUI;
  */
 abstract class ActiveRecordConfigFormGUI extends PropertyFormGUI {
 
-	/* *
+	/**
 	 * @var string
 	 *
 	 * @abstract
-	 *
-	 * TODO: Implement Constants in Traits in PHP Core
-	 * /
-	const CONFIG_CLASS_NAME = "";*/
+	 */
+	const CONFIG_CLASS_NAME = "";
 	/**
 	 * @var string
 	 */
@@ -40,6 +38,8 @@ abstract class ActiveRecordConfigFormGUI extends PropertyFormGUI {
 	 */
 	public function __construct(ActiveRecordConfigGUI $parent, /*string*/
 		$tab_id) {
+		$this->checkConfigClassNameConst();
+
 		$this->tab_id = $tab_id;
 
 		parent::__construct($parent);
@@ -66,6 +66,14 @@ abstract class ActiveRecordConfigFormGUI extends PropertyFormGUI {
 	/**
 	 * @inheritdoc
 	 */
+	protected function initId()/*: void*/ {
+
+	}
+
+
+	/**
+	 * @inheritdoc
+	 */
 	protected function initTitle()/*: void*/ {
 		$this->setTitle($this->txt($this->tab_id));
 	}
@@ -74,7 +82,7 @@ abstract class ActiveRecordConfigFormGUI extends PropertyFormGUI {
 	/**
 	 * @inheritdoc
 	 */
-	protected function setValue(/*string*/
+	protected function storeValue(/*string*/
 		$key, $value)/*: void*/ {
 		return (static::CONFIG_CLASS_NAME)::setField($key, $value);
 	}

@@ -18,6 +18,8 @@ use srag\DIC\LiveVoting\DICTrait;
  * http://officeopenxml.com/anatomyofOOXML-pptx.php
  *
  * @package LiveVoting\PowerPointExport
+ *
+ * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 class PowerPointExport {
 

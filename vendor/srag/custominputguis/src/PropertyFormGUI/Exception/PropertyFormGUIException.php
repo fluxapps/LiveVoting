@@ -2,7 +2,7 @@
 
 namespace srag\CustomInputGUIs\LiveVoting\PropertyFormGUI\Exception;
 
-use ilException;
+use ilFormException;
 
 /**
  * Class PropertyFormGUIException
@@ -11,7 +11,7 @@ use ilException;
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-final class PropertyFormGUIException extends ilException {
+final class PropertyFormGUIException extends ilFormException {
 
 	/**
 	 * PropertyFormGUIException constructor
@@ -19,7 +19,7 @@ final class PropertyFormGUIException extends ilException {
 	 * @param string $message
 	 * @param int    $code
 	 *
-	 * @access namespace
+	 * @internal
 	 */
 	public function __construct(/*string*/
 		$message, /*int*/

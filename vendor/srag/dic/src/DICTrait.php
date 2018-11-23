@@ -4,6 +4,7 @@ namespace srag\DIC\LiveVoting;
 
 use srag\DIC\LiveVoting\DIC\DICInterface;
 use srag\DIC\LiveVoting\Exception\DICException;
+use srag\DIC\LiveVoting\Output\OutputInterface;
 use srag\DIC\LiveVoting\Plugin\PluginInterface;
 use srag\DIC\LiveVoting\Version\VersionInterface;
 
@@ -32,6 +33,16 @@ trait DICTrait {
 	 */
 	protected static final function dic()/*: DICInterface*/ {
 		return DICStatic::dic();
+	}
+
+
+	/**
+	 * Get output interface
+	 *
+	 * @return OutputInterface Output interface
+	 */
+	protected static final function output()/*: OutputInterface*/ {
+		return DICStatic::output();
 	}
 
 

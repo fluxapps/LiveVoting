@@ -85,7 +85,7 @@ class StaticHTMLPresentationInputGUI extends ilFormPropertyGUI {
 
 		$iframe_tpl->setVariable("URL", $this->getDataUrl());
 
-		return $iframe_tpl->get();
+		return self::output()->getHTML($iframe_tpl);
 	}
 
 

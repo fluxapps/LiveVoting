@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.3.6]
+- Update readme
+
 ## [0.3.5]
 - Fix
 

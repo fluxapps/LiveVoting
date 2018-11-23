@@ -18,7 +18,7 @@ trait RepositoryObjectPluginUninstallTrait {
 	 * @return bool
 	 * @throws RemovePluginDataConfirmException
 	 *
-	 * @access namespace
+	 * @internal
 	 */
 	protected final function beforeUninstallCustom()/*: bool*/ {
 		return $this->pluginUninstall(false); // Remove plugin data after ilRepUtil::deleteObjectType($this->getId() because may data needs for reading ilObject's!
@@ -28,7 +28,7 @@ trait RepositoryObjectPluginUninstallTrait {
 	/**
 	 * @throws RemovePluginDataConfirmException
 	 *
-	 * @access namespace
+	 * @internal
 	 */
 	protected final function uninstallCustom()/*: void*/ {
 		$remove_plugin_data_confirm_class = self::getRemovePluginDataConfirmClass();
@@ -44,7 +44,7 @@ trait RepositoryObjectPluginUninstallTrait {
 
 
 	/**
-	 * @access namespace
+	 * @internal
 	 */
 	protected final function afterUninstall()/*: void*/ {
 

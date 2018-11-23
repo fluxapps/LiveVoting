@@ -2,15 +2,10 @@
 
 namespace srag\DIC\LiveVoting\Plugin;
 
-use ilConfirmationGUI;
 use ilPlugin;
-use ilPropertyFormGUI;
-use ilTable2GUI;
 use ilTemplate;
 use ilTemplateException;
-use JsonSerializable;
 use srag\DIC\LiveVoting\Exception\DICException;
-use stdClass;
 
 /**
  * Interface PluginInterface
@@ -27,20 +22,6 @@ interface PluginInterface {
 	 * @return string Plugin directory
 	 */
 	public function directory()/*: string*/
-	;
-
-
-	/**
-	 * Output HTML, GUI or JSON
-	 *
-	 * @param string|ilTemplate|ilConfirmationGUI|ilPropertyFormGUI|ilTable2GUI|int|double|bool|array|stdClass|null|JsonSerializable $value html, gui instance or json value
-	 * @param bool                                                                                                                   $main  Display main skin?
-	 *
-	 * @throws DICException Class {get_class($value)} is not supported for output!
-	 * @throws ilTemplateException
-	 */
-	public function output($value, /*bool*/
-		$main = true)/*: void*/
 	;
 
 

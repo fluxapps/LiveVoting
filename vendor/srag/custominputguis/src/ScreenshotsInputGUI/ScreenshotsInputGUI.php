@@ -89,7 +89,7 @@ class ScreenshotsInputGUI extends ilFormPropertyGUI implements Pluginable {
 
 		return 'il.ScreenshotsInputGUI.PAGE_SCREENSHOT_NAME = ' . json_encode($this->getPlugin()
 				->translate("page_screenshot", self::LANG_MODULE_SCREENSHOTSINPUTGUI)) . ';
-		il.ScreenshotsInputGUI.SCREENSHOT_TEMPLATE = ' . json_encode($screenshot_tpl->get()) . ';';
+		il.ScreenshotsInputGUI.SCREENSHOT_TEMPLATE = ' . json_encode(self::output()->getHTML($screenshot_tpl)) . ';';
 	}
 
 
@@ -187,7 +187,7 @@ class ScreenshotsInputGUI extends ilFormPropertyGUI implements Pluginable {
 			return "." . $format;
 		}, $this->allowed_formats)));
 
-		return $screenshots_tpl->get();
+		return self::output()->getHTML($screenshots_tpl);
 	}
 
 

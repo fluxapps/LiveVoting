@@ -1,5 +1,71 @@
 # Changelog
 
+## [0.13.18]
+- New getHTML
+
+## [0.13.17]
+- Some improvments in PropertyFormGUI
+
+## [0.13.16]
+- Fix
+
+## [0.13.15]
+- Removed unnecessary BasePropertyFormGUI and BaseTableGUI
+
+## [0.13.14]
+- Fix
+
+## [0.13.13]
+- TableGUI: Auto txt for columns
+
+## [0.13.12]
+- TableGUI: Auto txt for columns
+
+## [0.13.11]
+- Call hasSessionValue
+
+## [0.13.10]
+- hasSessionValue
+
+## [0.13.9]
+- Fix getValue, setValue
+
+## [0.13.8]
+- Fix getValue, setValue
+
+## [0.13.7]
+- Improve TableGUI
+
+## [0.13.6]
+- Improve TableGUI
+
+## [0.13.5]
+- Improve TableGUI
+
+## [0.13.4]
+- Fix ilCustomInputGUI
+
+## [0.13.3]
+- CheckboxInputGUI
+
+## [0.13.2]
+- TableGUI
+
+## [0.13.1]
+- TableGUI
+
+## [0.13.0]
+- TableGUI
+
+## [0.12.2]
+- BaseTableGUI
+
+## [0.12.1]
+- BaseTableGUI
+
+## [0.12.0]
+- BaseTableGUI
+
 ## [0.11.7]
 - Fix MultiLineInputGUI
 

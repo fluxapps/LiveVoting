@@ -8,6 +8,7 @@ use ilAppEventHandler;
 use ilAuthSession;
 use ilBenchmark;
 use ilBrowser;
+use ilConditionService;
 use ilCtrl;
 use ilCtrlStructureReader;
 use ilDBInterface;
@@ -22,6 +23,7 @@ use ILIAS\Filesystem\Filesystems;
 use ILIAS\FileUpload\FileUpload;
 use ilIniFile;
 use ilLanguage;
+use ilLearningHistoryService;
 use ilLocatorGUI;
 use ilLog;
 use ilLoggerFactory;
@@ -29,8 +31,10 @@ use ilMailMimeSenderFactory;
 use ilMailMimeTransportFactory;
 use ilMainMenuGUI;
 use ilNavigationHistory;
+use ilNewsService;
 use ilObjectDataCache;
 use ilObjectDefinition;
+use ilObjectService;
 use ilObjUser;
 use ilPluginAdmin;
 use ilRbacAdmin;
@@ -111,6 +115,17 @@ interface DICInterface {
 	 * @return Collator
 	 */
 	public function collator()/*: Collator*/
+	;
+
+
+	/**
+	 * @return ilConditionService
+	 *
+	 * @throws DICException ilConditionService not exists in ILIAS 5.3 or below!
+	 *
+	 * @since ILIAS 5.4
+	 */
+	public function conditions()/*: ilConditionService*/
 	;
 
 
@@ -200,6 +215,17 @@ interface DICInterface {
 
 
 	/**
+	 * @return ilLearningHistoryService
+	 *
+	 * @throws DICException ilLearningHistoryService not exists in ILIAS 5.3 or below!
+	 *
+	 * @since ILIAS 5.4
+	 */
+	public function learningHistory()/*: ilLearningHistoryService*/
+	;
+
+
+	/**
 	 * @return ilLocatorGUI
 	 */
 	public function locator()/*: ilLocatorGUI*/
@@ -268,6 +294,17 @@ interface DICInterface {
 
 
 	/**
+	 * @return ilNewsService
+	 *
+	 * @throws DICException ilNewsService not exists in ILIAS 5.3 or below!
+	 *
+	 * @since ILIAS 5.4
+	 */
+	public function news()/*: ilNewsService*/
+	;
+
+
+	/**
 	 * @return ilObjectDataCache
 	 */
 	public function objDataCache()/*: ilObjectDataCache*/
@@ -278,6 +315,17 @@ interface DICInterface {
 	 * @return ilObjectDefinition
 	 */
 	public function objDefinition()/*: ilObjectDefinition*/
+	;
+
+
+	/**
+	 * @return ilObjectService
+	 *
+	 * @throws DICException ilObjectService not exists in ILIAS 5.3 or below!
+	 *
+	 * @since ILIAS 5.4
+	 */
+	public function object()/*: ilObjectService*/
 	;
 
 
