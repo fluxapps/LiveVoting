@@ -51,6 +51,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Cursor pointer for QR code button
 - FreeInput enter auto submit
 - Updated de and en languages and remove outdated PluginTranslator
+- Screen-Id-Component
 
 ### Security
 - Improved PIN validation in pin.php
