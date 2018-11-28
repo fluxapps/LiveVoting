@@ -40,6 +40,8 @@ trait RepositoryObjectPluginUninstallTrait {
 		if ($uninstall_removes_data) {
 			$this->deleteData();
 		}
+
+		$remove_plugin_data_confirm_class->removeUninstallRemovesData();
 	}
 
 

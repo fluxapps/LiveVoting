@@ -13,7 +13,7 @@ class ComposerStaticInitf5122d14f0f45dac789bfb6428ff8994
             'srag\\LibrariesNamespaceChanger\\' => 31,
             'srag\\DIC\\' => 9,
             'srag\\CustomInputGUIs\\' => 21,
-            'srag\\ActiveRecordConfig\\' => 24,
+            'srag\\ActiveRecordConfig\\LiveVoting\\' => 35,
         ),
         'S' => 
         array (
@@ -46,7 +46,7 @@ class ComposerStaticInitf5122d14f0f45dac789bfb6428ff8994
         array (
             0 => __DIR__ . '/..' . '/srag/custominputguis/src',
         ),
-        'srag\\ActiveRecordConfig\\' => 
+        'srag\\ActiveRecordConfig\\LiveVoting\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/activerecordconfig/src',
         ),

@@ -18,6 +18,13 @@ use srag\DIC\LiveVoting\Version\VersionInterface;
 interface DICStaticInterface {
 
 	/**
+	 * Clear cache. Needed for instance in unit tests
+	 */
+	public static function clearCache()/*: void*/
+	;
+
+
+	/**
 	 * Get DIC interface
 	 *
 	 * @return DICInterface DIC interface

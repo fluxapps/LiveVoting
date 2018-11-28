@@ -57,7 +57,7 @@ abstract class TableGUI extends ilTable2GUI {
 			|| strpos($parent_cmd, "resetFilter") === 0)) {
 			$this->initTable();
 		} else {
-			// Speed up
+			// Speed up, not init data, only filter
 			$this->initFilter();
 		}
 	}
@@ -70,6 +70,20 @@ abstract class TableGUI extends ilTable2GUI {
 		return array_map(function ($item) {
 			return Items::getValueFromItem($item);
 		}, $this->filter_cache);
+	}
+
+
+	/**
+	 *
+	 */
+	public final function getSelectableColumns() {
+		return array_map(function (array &$column)/*: array*/ {
+			if (!isset($column["txt"])) {
+				$column["txt"] = $this->txt($column["id"]);
+			}
+
+			return $column;
+		}, $this->getSelectableColumns2());
 	}
 
 
@@ -312,12 +326,8 @@ abstract class TableGUI extends ilTable2GUI {
 	/**
 	 * @return array
 	 */
-	public /*abstract*/
-	function getSelectableColumns()/*: array*/ {
-		$columns = [];
-
-		return $columns;
-	}
+	protected abstract function getSelectableColumns2()/*: array*/
+	;
 
 
 	/**
@@ -332,11 +342,7 @@ abstract class TableGUI extends ilTable2GUI {
 	 *
 	 */
 	protected function initColumns()/*: void*/ {
-		foreach ($this->getSelectableColumns() as &$column) {
-			if (!isset($column["txt"])) {
-				$column["txt"] = $this->txt($column["id"]);
-			}
-
+		foreach ($this->getSelectableColumns() as $column) {
 			if ($this->isColumnSelected($column["id"])) {
 				$this->addColumn($column["txt"], ($column["sort"] ? $column["id"] : NULL));
 			}

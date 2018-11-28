@@ -74,13 +74,13 @@ trait AbstractPluginUninstallTrait {
 
 		$uninstall_removes_data = boolval($uninstall_removes_data);
 
-		if ($uninstall_removes_data) {
-			if ($remove_data) {
+		if ($remove_data) {
+			if ($uninstall_removes_data) {
 				$this->deleteData();
 			}
-		}
 
-		$remove_plugin_data_confirm_class->removeUninstallRemovesData();
+			$remove_plugin_data_confirm_class->removeUninstallRemovesData();
+		}
 
 		return true;
 	}

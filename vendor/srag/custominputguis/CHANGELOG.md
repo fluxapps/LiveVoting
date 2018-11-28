@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.13.19]
+- Fix
+
 ## [0.13.18]
 - New getHTML
 
