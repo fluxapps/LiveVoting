@@ -14,7 +14,7 @@ use LiveVoting\Cache\Initialisable;
 use LiveVoting\Cache\xlvoCacheService;
 use LiveVoting\Conf\xlvoConf;
 use RuntimeException;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class xoctCache

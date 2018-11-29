@@ -1,0 +1,21 @@
+{
+  "name": "srag.custominputguis",
+  "description": "",
+  "keywords": [
+    "ILIAS",
+    "PropertyForm",
+    "Input",
+    "GUI"
+  ],
+  "license": "GPL-3.0-only",
+  "contributors": [
+    "srag <support-custom1@studer-raimann.ch> (https://studer-raimann.ch)"
+  ],
+  "dependencies": {
+    "canvas-toBlob": "^1.0.0",
+    "es6-promise": "^4.2.5",
+    "html2canvas": "^1.0.0-alpha.12",
+    "select2": "^4.0.6-rc.1"
+  },
+  "private": true
+}

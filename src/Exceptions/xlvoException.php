@@ -4,7 +4,8 @@ namespace LiveVoting\Exceptions;
 
 use ilException;
 use ilLiveVotingPlugin;
-use srag\DIC\DICTrait;
+use LiveVoting\Utils\LiveVotingTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class xlvoException
@@ -14,6 +15,7 @@ use srag\DIC\DICTrait;
 class xlvoException extends ilException {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 
 

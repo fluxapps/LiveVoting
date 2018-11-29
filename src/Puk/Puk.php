@@ -8,6 +8,8 @@ use LiveVoting\Pin\xlvoPin;
  * Class Puk
  *
  * @package LiveVoting\Puk
+ *
+ * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 class Puk extends xlvoPin {
 

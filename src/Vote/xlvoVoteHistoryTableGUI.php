@@ -5,7 +5,8 @@ namespace LiveVoting\User;
 use ilDateTime;
 use ilLiveVotingPlugin;
 use ilTable2GUI;
-use srag\DIC\DICTrait;
+use LiveVoting\Utils\LiveVotingTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class xlvoVoteHistoryTableGUI
@@ -16,6 +17,7 @@ use srag\DIC\DICTrait;
 class xlvoVoteHistoryTableGUI extends ilTable2GUI {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 
 

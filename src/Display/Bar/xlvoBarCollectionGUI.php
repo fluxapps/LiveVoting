@@ -4,7 +4,8 @@ namespace LiveVoting\Display\Bar;
 
 use ilLiveVotingPlugin;
 use ilTemplate;
-use srag\DIC\DICTrait;
+use LiveVoting\Utils\LiveVotingTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class xlvoBarCollectionGUI
@@ -17,6 +18,7 @@ use srag\DIC\DICTrait;
 class xlvoBarCollectionGUI {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	/**
 	 * @var ilTemplate

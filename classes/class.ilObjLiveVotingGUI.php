@@ -3,14 +3,15 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use LiveVoting\Conf\xlvoConf;
-use LiveVoting\Context\Cookie\CookieManager;
+use LiveVoting\Context\Param\ParamManager;
 use LiveVoting\Context\xlvoContext;
 use LiveVoting\Context\xlvoInitialisation;
-use LiveVoting\GUI\xlvoTextAreaInputGUI;
-use LiveVoting\GUI\xlvoTextInputGUI;
+use LiveVoting\Utils\LiveVotingTrait;
 use LiveVoting\Voting\xlvoVotingConfig;
 use LiveVoting\Voting\xlvoVotingManager2;
-use srag\DIC\DICTrait;
+use srag\CustomInputGUIs\LiveVoting\TextAreaInputGUI\TextAreaInputGUI;
+use srag\CustomInputGUIs\LiveVoting\TextInputGUI\TextInputGUI;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class ilObjLiveVotingGUI
@@ -30,6 +31,7 @@ use srag\DIC\DICTrait;
 class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandling {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	const CMD_STANDARD = self::CMD_SHOW_CONTENT;
 	const CMD_AFTER_CREATION = 'showContentAfterCreation';
@@ -45,7 +47,6 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 	const TAB_LEARNING_PROGRESS = 'learning_progress';
 	const F_TITLE = 'title';
 	const F_DESCRIPTION = 'description';
-	const F_PRESENTER_LINK = 'presenter_link';
 	/**
 	 * @var ilPropertyFormGUI
 	 */
@@ -98,8 +99,8 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 		} else {
 			// show info of parent
 			self::dic()->mainTemplate()->setTitle(ilObject::_lookupTitle(ilObject::_lookupObjId($this->ref_id)));
-			self::dic()->mainTemplate()->setTitleIcon(ilObject::_getIcon(ilObject::_lookupObjId($this->ref_id), 'big'), self::plugin()->translate('obj_'
-				. ilObject::_lookupType($this->ref_id, true)));
+			self::dic()->mainTemplate()->setTitleIcon(ilObject::_getIcon(ilObject::_lookupObjId($this->ref_id), 'big'), self::plugin()
+				->translate('obj_' . ilObject::_lookupType($this->ref_id, true)));
 			$this->setLocator();
 		}
 	}
@@ -211,6 +212,8 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 	 *
 	 */
 	protected function performCommand() {
+		self::dic()->help()->setScreenIdComponent(ilLiveVotingPlugin::PLUGIN_ID);
+
 		$cmd = self::dic()->ctrl()->getCmd(self::CMD_STANDARD);
 		switch ($cmd) {
 			case self::CMD_STANDARD:
@@ -344,10 +347,6 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 	 *
 	 */
 	protected function initPropertiesForm() {
-		/**
-		 * @var xlvoVotingConfig $config
-		 */
-		$config = xlvoVotingConfig::find($this->obj_id);
 
 		if (!ilObjLiveVotingAccess::hasWriteAccess()) {
 			ilUtil::sendFailure(self::plugin()->translate('obj_permission_denied'), true);
@@ -355,10 +354,10 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 			$this->form = new ilPropertyFormGUI();
 			$this->form->setTitle(self::plugin()->translate('obj_edit_properties'));
 
-			$ti = new xlvoTextInputGUI(self::plugin()->translate('obj_title'), self::F_TITLE);
+			$ti = new TextInputGUI(self::plugin()->translate('obj_title'), self::F_TITLE);
 			$ti->setRequired(true);
 			$this->form->addItem($ti);
-			$ta = new xlvoTextAreaInputGUI(self::plugin()->translate('obj_description'), self::F_DESCRIPTION);
+			$ta = new TextAreaInputGUI(self::plugin()->translate('obj_description'), self::F_DESCRIPTION);
 			$this->form->addItem($ta);
 			$cb = new ilCheckboxInputGUI(self::plugin()->translate('obj_online'), xlvoVotingConfig::F_ONLINE);
 			$cb->setInfo(self::plugin()->translate('obj_info_online'));
@@ -409,18 +408,6 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 			$results->addOption($results_reuse);
 
 			$this->form->addItem($results);
-
-			$h = new ilFormSectionHeaderGUI();
-			$h->setTitle("");
-			$this->form->addItem($h);
-
-			$presenter_link = new ilCustomInputGUI(self::plugin()->translate('config_presenter_link'), self::F_PRESENTER_LINK);
-			$presenter_link->setHtml($config->getPresenterLink() . '<br><br><i>' . htmlspecialchars($this->txt("config_"
-					. xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . "_info_manual")) . '</i><ol>' . implode("", array_map(function ($step) {
-					return '<li>' . htmlspecialchars($this->txt("config_" . xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . "_info_manual_" . $step))
-						. '</li>';
-				}, range(1, 4))) . '</ol>'); // TODO: default.css not loaded
-			$this->form->addItem($presenter_link);
 
 			$this->form->addCommandButton('updateProperties', self::plugin()->translate('obj_save'));
 			$this->form->setFormAction(self::dic()->ctrl()->getFormAction($this));
@@ -530,9 +517,11 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 	public static function _goto($a_target) {
 		if (preg_match("/[\\d]*_pin_([\\w]*)/", $a_target[0], $matches)) {
 			xlvoInitialisation::saveContext(xlvoInitialisation::CONTEXT_ILIAS);
-			CookieManager::setCookiePIN($matches[1], true);
 
-			self::dic()->ctrl()->initBaseClass(ilUIPluginRouterGUI::class);
+			$param_manager = ParamManager::getInstance();
+			$param_manager->setPin($matches[1]);
+
+			//self::dic()->ctrl()->initBaseClass(ilUIPluginRouterGUI::class);
 			self::dic()->ctrl()->setTargetScript(ltrim(xlvoConf::getFullApiURL(), './'));
 			self::dic()->ctrl()->redirectByClass(array(
 				ilUIPluginRouterGUI::class,
@@ -549,10 +538,11 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 	 */
 	protected function redirectToPublicVotingMask() {
 		$xlvoVotingManager2 = xlvoVotingManager2::getInstanceFromObjId($this->obj_id);
-		CookieManager::setCookiePIN($xlvoVotingManager2->getVotingConfig()->getPin(), true);
-		CookieManager::setContext(xlvoContext::CONTEXT_ILIAS);
 
-		self::dic()->ctrl()->initBaseClass(ilUIPluginRouterGUI::class);
+		$param_manager = ParamManager::getInstance();
+		$param_manager->setPin($xlvoVotingManager2->getVotingConfig()->getPin());
+		xlvoContext::setContext(xlvoContext::CONTEXT_ILIAS);
+
 		self::dic()->ctrl()->setTargetScript(xlvoConf::getFullApiURL());
 		self::dic()->ctrl()->redirectByClass(array(
 			ilUIPluginRouterGUI::class,

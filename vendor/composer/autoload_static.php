@@ -4,14 +4,16 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit2a9f25cb7db537cf8950f4e268186c34
+class ComposerStaticInitf5122d14f0f45dac789bfb6428ff8994
 {
     public static $prefixLengthsPsr4 = array (
         's' => 
         array (
             'srag\\RemovePluginDataConfirm\\' => 29,
+            'srag\\LibrariesNamespaceChanger\\' => 31,
             'srag\\DIC\\' => 9,
-            'srag\\ActiveRecordConfig\\' => 24,
+            'srag\\CustomInputGUIs\\' => 21,
+            'srag\\ActiveRecordConfig\\LiveVoting\\' => 35,
         ),
         'S' => 
         array (
@@ -32,11 +34,19 @@ class ComposerStaticInit2a9f25cb7db537cf8950f4e268186c34
         array (
             0 => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src',
         ),
+        'srag\\LibrariesNamespaceChanger\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src',
+        ),
         'srag\\DIC\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/dic/src',
         ),
-        'srag\\ActiveRecordConfig\\' => 
+        'srag\\CustomInputGUIs\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/srag/custominputguis/src',
+        ),
+        'srag\\ActiveRecordConfig\\LiveVoting\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/activerecordconfig/src',
         ),
@@ -71,6 +81,8 @@ class ComposerStaticInit2a9f25cb7db537cf8950f4e268186c34
         'Endroid\\QrCode\\Factory\\QrCodeFactory' => __DIR__ . '/..' . '/endroid/qrcode/src/Factory/QrCodeFactory.php',
         'Endroid\\QrCode\\QrCode' => __DIR__ . '/..' . '/endroid/qrcode/src/QrCode.php',
         'LiveVotingRemoveDataConfirm' => __DIR__ . '/../..' . '/classes/uninstall/class.LiveVotingRemoveDataConfirm.php',
+        'LiveVoting\\Access\\Access' => __DIR__ . '/../..' . '/src/Access/Access.php',
+        'LiveVoting\\Access\\Ilias' => __DIR__ . '/../..' . '/src/Access/Ilias.php',
         'LiveVoting\\Api\\xlvoApi' => __DIR__ . '/../..' . '/src/Api/xlvoApi.php',
         'LiveVoting\\Cache\\CachingActiveRecord' => __DIR__ . '/../..' . '/src/Cache/CachingActiveRecord.php',
         'LiveVoting\\Cache\\Initialisable' => __DIR__ . '/../..' . '/src/Cache/Initialisable.php',
@@ -81,13 +93,12 @@ class ComposerStaticInit2a9f25cb7db537cf8950f4e268186c34
         'LiveVoting\\Conf\\xlvoConf' => __DIR__ . '/../..' . '/src/Conf/xlvoConf.php',
         'LiveVoting\\Conf\\xlvoConfFormGUI' => __DIR__ . '/../..' . '/src/Conf/xlvoConfFormGUI.php',
         'LiveVoting\\Conf\\xlvoConfOld' => __DIR__ . '/../..' . '/src/Conf/xlvoConfOld.php',
-        'LiveVoting\\Context\\Cookie\\CookieManager' => __DIR__ . '/../..' . '/src/Context/Cookie/CookieManager.php',
-        'LiveVoting\\Context\\ILIASVersionEnum' => __DIR__ . '/../..' . '/src/Context/ILIASVersionEnum.php',
         'LiveVoting\\Context\\InitialisationManager' => __DIR__ . '/../..' . '/src/Context/InitialisationManager.php',
         'LiveVoting\\Context\\Initialisation\\Version\\v52\\xlvoBasicInitialisation' => __DIR__ . '/../..' . '/src/Context/Initialisation/Version/v52/xlvoBasicInitialisation.php',
         'LiveVoting\\Context\\Initialisation\\Version\\v52\\xlvoSkin' => __DIR__ . '/../..' . '/src/Context/Initialisation/Version/v52/xlvoStyleDefinition.php',
         'LiveVoting\\Context\\Initialisation\\Version\\v52\\xlvoStyleDefinition' => __DIR__ . '/../..' . '/src/Context/Initialisation/Version/v52/xlvoStyleDefinition.php',
         'LiveVoting\\Context\\Initialisation\\Version\\v53\\xlvoBasicInitialisation' => __DIR__ . '/../..' . '/src/Context/Initialisation/Version/v53/xlvoBasicInitialisation.php',
+        'LiveVoting\\Context\\Param\\ParamManager' => __DIR__ . '/../..' . '/src/Context/Param/ParamManager.php',
         'LiveVoting\\Context\\xlvoContext' => __DIR__ . '/../..' . '/src/Context/xlvoContext.php',
         'LiveVoting\\Context\\xlvoContextLiveVoting' => __DIR__ . '/../..' . '/src/Context/xlvoContextLiveVoting.php',
         'LiveVoting\\Context\\xlvoDummyUser' => __DIR__ . '/../..' . '/src/Context/xlvoDummyUser.php',
@@ -112,11 +123,7 @@ class ComposerStaticInit2a9f25cb7db537cf8950f4e268186c34
         'LiveVoting\\Exceptions\\xlvoVoterException' => __DIR__ . '/../..' . '/src/Exceptions/xlvoVoterException.php',
         'LiveVoting\\Exceptions\\xlvoVotingManagerException' => __DIR__ . '/../..' . '/src/Exceptions/xlvoVotingManagerException.php',
         'LiveVoting\\GUI\\xlvoGUI' => __DIR__ . '/../..' . '/src/GUI/xlvoGUI.php',
-        'LiveVoting\\GUI\\xlvoGlyphGUI' => __DIR__ . '/../..' . '/src/GUI/xlvoGlyphGUI.php',
         'LiveVoting\\GUI\\xlvoLinkButton' => __DIR__ . '/../..' . '/src/GUI/xlvoLinkButton.php',
-        'LiveVoting\\GUI\\xlvoMultiLineInputGUI' => __DIR__ . '/../..' . '/src/GUI/xlvoMultiLineInputGUI.php',
-        'LiveVoting\\GUI\\xlvoTextAreaInputGUI' => __DIR__ . '/../..' . '/src/GUI/xlvoTextAreaInputGUI.php',
-        'LiveVoting\\GUI\\xlvoTextInputGUI' => __DIR__ . '/../..' . '/src/GUI/xlvoTextInputGUI.php',
         'LiveVoting\\GUI\\xlvoToolbarGUI' => __DIR__ . '/../..' . '/src/GUI/xlvoToolbarGUI.php',
         'LiveVoting\\Js\\xlvoJs' => __DIR__ . '/../..' . '/src/Js/xlvoJs.php',
         'LiveVoting\\Js\\xlvoJsResponse' => __DIR__ . '/../..' . '/src/Js/xlvoJsResponse.php',
@@ -162,6 +169,7 @@ class ComposerStaticInit2a9f25cb7db537cf8950f4e268186c34
         'LiveVoting\\User\\xlvoUser' => __DIR__ . '/../..' . '/src/User/xlvoUser.php',
         'LiveVoting\\User\\xlvoVoteHistoryObject' => __DIR__ . '/../..' . '/src/Vote/xlvoVoteHistoryObject.php',
         'LiveVoting\\User\\xlvoVoteHistoryTableGUI' => __DIR__ . '/../..' . '/src/Vote/xlvoVoteHistoryTableGUI.php',
+        'LiveVoting\\Utils\\LiveVotingTrait' => __DIR__ . '/../..' . '/src/Utils/LiveVotingTrait.php',
         'LiveVoting\\Vote\\xlvoVote' => __DIR__ . '/../..' . '/src/Vote/xlvoVote.php',
         'LiveVoting\\Vote\\xlvoVoteOld' => __DIR__ . '/../..' . '/src/Vote/xlvoVoteOld.php',
         'LiveVoting\\Voter\\xlvoVoter' => __DIR__ . '/../..' . '/src/Voter/xlvoVoter.php',
@@ -263,27 +271,52 @@ class ComposerStaticInit2a9f25cb7db537cf8950f4e268186c34
         'ilUIFramework' => __DIR__ . '/../..' . '/../../../../../../../Services/UICore/classes/class.ilUIFramework.php',
         'ilUtil' => __DIR__ . '/../..' . '/../../../../../../../Services/Utilities/classes/class.ilUtil.php',
         'iljQueryUtil' => __DIR__ . '/../..' . '/../../../../../../../Services/jQuery/classes/class.iljQueryUtil.php',
-        'srag\\ActiveRecordConfig\\ActiveRecordConfig' => __DIR__ . '/..' . '/srag/activerecordconfig/src/ActiveRecordConfig.php',
-        'srag\\ActiveRecordConfig\\ActiveRecordConfigFormGUI' => __DIR__ . '/..' . '/srag/activerecordconfig/src/ActiveRecordConfigFormGUI.php',
-        'srag\\ActiveRecordConfig\\ActiveRecordConfigGUI' => __DIR__ . '/..' . '/srag/activerecordconfig/src/ActiveRecordConfigGUI.php',
-        'srag\\ActiveRecordConfig\\Exception\\ActiveRecordConfigException' => __DIR__ . '/..' . '/srag/activerecordconfig/src/Exception/ActiveRecordConfigException.php',
-        'srag\\DIC\\DICStatic' => __DIR__ . '/..' . '/srag/dic/src/DICStatic.php',
-        'srag\\DIC\\DICStaticInterface' => __DIR__ . '/..' . '/srag/dic/src/DICStaticInterface.php',
-        'srag\\DIC\\DICTrait' => __DIR__ . '/..' . '/srag/dic/src/DICTrait.php',
-        'srag\\DIC\\DIC\\AbstractDIC' => __DIR__ . '/..' . '/srag/dic/src/DIC/AbstractDIC.php',
-        'srag\\DIC\\DIC\\DICInterface' => __DIR__ . '/..' . '/srag/dic/src/DIC/DICInterface.php',
-        'srag\\DIC\\DIC\\LegacyDIC' => __DIR__ . '/..' . '/srag/dic/src/DIC/LegacyDIC.php',
-        'srag\\DIC\\DIC\\NewDIC' => __DIR__ . '/..' . '/srag/dic/src/DIC/NewDIC.php',
-        'srag\\DIC\\Exception\\DICException' => __DIR__ . '/..' . '/srag/dic/src/Exception/DICException.php',
-        'srag\\DIC\\Plugin\\Plugin' => __DIR__ . '/..' . '/srag/dic/src/Plugin/Plugin.php',
-        'srag\\DIC\\Plugin\\PluginInterface' => __DIR__ . '/..' . '/srag/dic/src/Plugin/PluginInterface.php',
-        'srag\\DIC\\Version\\Version' => __DIR__ . '/..' . '/srag/dic/src/Version/Version.php',
-        'srag\\DIC\\Version\\VersionInterface' => __DIR__ . '/..' . '/srag/dic/src/Version/VersionInterface.php',
-        'srag\\RemovePluginDataConfirm\\AbstractPluginUninstallTrait' => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src/AbstractPluginUninstallTrait.php',
-        'srag\\RemovePluginDataConfirm\\AbstractRemovePluginDataConfirm' => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src/AbstractRemovePluginDataConfirm.php',
-        'srag\\RemovePluginDataConfirm\\PluginUninstallTrait' => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src/PluginUninstallTrait.php',
-        'srag\\RemovePluginDataConfirm\\RemovePluginDataConfirmException' => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src/RemovePluginDataConfirmException.php',
-        'srag\\RemovePluginDataConfirm\\RepositoryObjectPluginUninstallTrait' => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src/RepositoryObjectPluginUninstallTrait.php',
+        'srag\\ActiveRecordConfig\\LiveVoting\\ActiveRecordConfig' => __DIR__ . '/..' . '/srag/activerecordconfig/src/ActiveRecordConfig.php',
+        'srag\\ActiveRecordConfig\\LiveVoting\\ActiveRecordConfigFormGUI' => __DIR__ . '/..' . '/srag/activerecordconfig/src/ActiveRecordConfigFormGUI.php',
+        'srag\\ActiveRecordConfig\\LiveVoting\\ActiveRecordConfigGUI' => __DIR__ . '/..' . '/srag/activerecordconfig/src/ActiveRecordConfigGUI.php',
+        'srag\\ActiveRecordConfig\\LiveVoting\\ActiveRecordConfigTableGUI' => __DIR__ . '/..' . '/srag/activerecordconfig/src/ActiveRecordConfigTableGUI.php',
+        'srag\\ActiveRecordConfig\\LiveVoting\\Exception\\ActiveRecordConfigException' => __DIR__ . '/..' . '/srag/activerecordconfig/src/Exception/ActiveRecordConfigException.php',
+        'srag\\CustomInputGUIs\\LiveVoting\\CheckboxInputGUI\\CheckboxInputGUI' => __DIR__ . '/..' . '/srag/custominputguis/src/CheckboxInputGUI/CheckboxInputGUI.php',
+        'srag\\CustomInputGUIs\\LiveVoting\\DateDurationInputGUI\\DateDurationInputGUI' => __DIR__ . '/..' . '/srag/custominputguis/src/DateDurationInputGUI/DateDurationInputGUI.php',
+        'srag\\CustomInputGUIs\\LiveVoting\\GlyphGUI\\GlyphGUI' => __DIR__ . '/..' . '/srag/custominputguis/src/GlyphGUI/GlyphGUI.php',
+        'srag\\CustomInputGUIs\\LiveVoting\\MultiLineInputGUI\\MultiLineInputGUI' => __DIR__ . '/..' . '/srag/custominputguis/src/MultiLineInputGUI/MultiLineInputGUI.php',
+        'srag\\CustomInputGUIs\\LiveVoting\\MultiSelectSearchInputGUI\\MultiSelectSearchInput2GUI' => __DIR__ . '/..' . '/srag/custominputguis/src/MultiSelectSearchInputGUI/MultiSelectSearchInput2GUI.php',
+        'srag\\CustomInputGUIs\\LiveVoting\\MultiSelectSearchInputGUI\\MultiSelectSearchInputGUI' => __DIR__ . '/..' . '/srag/custominputguis/src/MultiSelectSearchInputGUI/MultiSelectSearchInputGUI.php',
+        'srag\\CustomInputGUIs\\LiveVoting\\NumberInputGUI\\NumberInputGUI' => __DIR__ . '/..' . '/srag/custominputguis/src/NumberInputGUI/NumberInputGUI.php',
+        'srag\\CustomInputGUIs\\LiveVoting\\PropertyFormGUI\\Exception\\PropertyFormGUIException' => __DIR__ . '/..' . '/srag/custominputguis/src/PropertyFormGUI/Exception/PropertyFormGUIException.php',
+        'srag\\CustomInputGUIs\\LiveVoting\\PropertyFormGUI\\Items\\Items' => __DIR__ . '/..' . '/srag/custominputguis/src/PropertyFormGUI/Items/Items.php',
+        'srag\\CustomInputGUIs\\LiveVoting\\PropertyFormGUI\\PropertyFormGUI' => __DIR__ . '/..' . '/srag/custominputguis/src/PropertyFormGUI/PropertyFormGUI.php',
+        'srag\\CustomInputGUIs\\LiveVoting\\ScreenshotsInputGUI\\ScreenshotsInputGUI' => __DIR__ . '/..' . '/srag/custominputguis/src/ScreenshotsInputGUI/ScreenshotsInputGUI.php',
+        'srag\\CustomInputGUIs\\LiveVoting\\StaticHTMLPresentationInputGUI\\StaticHTMLPresentationInputGUI' => __DIR__ . '/..' . '/srag/custominputguis/src/StaticHTMLPresentationInputGUI/StaticHTMLPresentationInputGUI.php',
+        'srag\\CustomInputGUIs\\LiveVoting\\TableGUI\\Exception\\TableGUIException' => __DIR__ . '/..' . '/srag/custominputguis/src/TableGUI/Exception/TableGUIException.php',
+        'srag\\CustomInputGUIs\\LiveVoting\\TableGUI\\TableGUI' => __DIR__ . '/..' . '/srag/custominputguis/src/TableGUI/TableGUI.php',
+        'srag\\CustomInputGUIs\\LiveVoting\\Template\\Template' => __DIR__ . '/..' . '/srag/custominputguis/src/Template/Template.php',
+        'srag\\CustomInputGUIs\\LiveVoting\\TextAreaInputGUI\\TextAreaInputGUI' => __DIR__ . '/..' . '/srag/custominputguis/src/TextAreaInputGUI/TextAreaInputGUI.php',
+        'srag\\CustomInputGUIs\\LiveVoting\\TextInputGUI\\TextInputGUI' => __DIR__ . '/..' . '/srag/custominputguis/src/TextInputGUI/TextInputGUI.php',
+        'srag\\CustomInputGUIs\\LiveVoting\\Waiter\\Waiter' => __DIR__ . '/..' . '/srag/custominputguis/src/Waiter/Waiter.php',
+        'srag\\DIC\\LiveVoting\\DICStatic' => __DIR__ . '/..' . '/srag/dic/src/DICStatic.php',
+        'srag\\DIC\\LiveVoting\\DICStaticInterface' => __DIR__ . '/..' . '/srag/dic/src/DICStaticInterface.php',
+        'srag\\DIC\\LiveVoting\\DICTrait' => __DIR__ . '/..' . '/srag/dic/src/DICTrait.php',
+        'srag\\DIC\\LiveVoting\\DIC\\AbstractDIC' => __DIR__ . '/..' . '/srag/dic/src/DIC/AbstractDIC.php',
+        'srag\\DIC\\LiveVoting\\DIC\\DICInterface' => __DIR__ . '/..' . '/srag/dic/src/DIC/DICInterface.php',
+        'srag\\DIC\\LiveVoting\\DIC\\Implementation\\ILIAS52DIC' => __DIR__ . '/..' . '/srag/dic/src/DIC/Implementation/ILIAS52DIC.php',
+        'srag\\DIC\\LiveVoting\\DIC\\Implementation\\ILIAS53DIC' => __DIR__ . '/..' . '/srag/dic/src/DIC/Implementation/ILIAS53DIC.php',
+        'srag\\DIC\\LiveVoting\\DIC\\Implementation\\ILIAS54DIC' => __DIR__ . '/..' . '/srag/dic/src/DIC/Implementation/ILIAS54DIC.php',
+        'srag\\DIC\\LiveVoting\\DIC\\Implementation\\LegacyDIC' => __DIR__ . '/..' . '/srag/dic/src/DIC/Implementation/LegacyDIC.php',
+        'srag\\DIC\\LiveVoting\\Exception\\DICException' => __DIR__ . '/..' . '/srag/dic/src/Exception/DICException.php',
+        'srag\\DIC\\LiveVoting\\Output\\Output' => __DIR__ . '/..' . '/srag/dic/src/Output/Output.php',
+        'srag\\DIC\\LiveVoting\\Output\\OutputInterface' => __DIR__ . '/..' . '/srag/dic/src/Output/OutputInterface.php',
+        'srag\\DIC\\LiveVoting\\Plugin\\Plugin' => __DIR__ . '/..' . '/srag/dic/src/Plugin/Plugin.php',
+        'srag\\DIC\\LiveVoting\\Plugin\\PluginInterface' => __DIR__ . '/..' . '/srag/dic/src/Plugin/PluginInterface.php',
+        'srag\\DIC\\LiveVoting\\Plugin\\Pluginable' => __DIR__ . '/..' . '/srag/dic/src/Plugin/Pluginable.php',
+        'srag\\DIC\\LiveVoting\\Version\\Version' => __DIR__ . '/..' . '/srag/dic/src/Version/Version.php',
+        'srag\\DIC\\LiveVoting\\Version\\VersionInterface' => __DIR__ . '/..' . '/srag/dic/src/Version/VersionInterface.php',
+        'srag\\LibrariesNamespaceChanger\\LibrariesNamespaceChanger' => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src/LibrariesNamespaceChanger.php',
+        'srag\\RemovePluginDataConfirm\\LiveVoting\\AbstractPluginUninstallTrait' => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src/AbstractPluginUninstallTrait.php',
+        'srag\\RemovePluginDataConfirm\\LiveVoting\\AbstractRemovePluginDataConfirm' => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src/AbstractRemovePluginDataConfirm.php',
+        'srag\\RemovePluginDataConfirm\\LiveVoting\\PluginUninstallTrait' => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src/PluginUninstallTrait.php',
+        'srag\\RemovePluginDataConfirm\\LiveVoting\\RemovePluginDataConfirmException' => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src/RemovePluginDataConfirmException.php',
+        'srag\\RemovePluginDataConfirm\\LiveVoting\\RepositoryObjectPluginUninstallTrait' => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src/RepositoryObjectPluginUninstallTrait.php',
         'xlvoConfGUI' => __DIR__ . '/../..' . '/classes/Conf/class.xlvoConfGUI.php',
         'xlvoCorrectOrderGUI' => __DIR__ . '/../..' . '/classes/QuestionTypes/CorrectOrder/class.xlvoCorrectOrderGUI.php',
         'xlvoFreeInputGUI' => __DIR__ . '/../..' . '/classes/QuestionTypes/FreeInput/class.xlvoFreeInputGUI.php',
@@ -300,9 +333,9 @@ class ComposerStaticInit2a9f25cb7db537cf8950f4e268186c34
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit2a9f25cb7db537cf8950f4e268186c34::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit2a9f25cb7db537cf8950f4e268186c34::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit2a9f25cb7db537cf8950f4e268186c34::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitf5122d14f0f45dac789bfb6428ff8994::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitf5122d14f0f45dac789bfb6428ff8994::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitf5122d14f0f45dac789bfb6428ff8994::$classMap;
 
         }, null, ClassLoader::class);
     }

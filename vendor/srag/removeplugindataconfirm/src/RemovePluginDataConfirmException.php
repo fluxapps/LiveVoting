@@ -1,13 +1,13 @@
 <?php
 
-namespace srag\RemovePluginDataConfirm;
+namespace srag\RemovePluginDataConfirm\LiveVoting;
 
 use ilException;
 
 /**
  * Class RemovePluginDataConfirmException
  *
- * @package srag\RemovePluginDataConfirm
+ * @package srag\RemovePluginDataConfirm\LiveVoting
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
@@ -19,7 +19,7 @@ class RemovePluginDataConfirmException extends ilException {
 	 * @param string $message
 	 * @param int    $code
 	 *
-	 * @access namespace
+	 * @internal
 	 */
 	public function __construct(/*string*/
 		$message, /*int*/

@@ -4,7 +4,8 @@ namespace LiveVoting\GUI;
 
 use ilLiveVotingPlugin;
 use ilToolbarGUI;
-use srag\DIC\DICTrait;
+use LiveVoting\Utils\LiveVotingTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class xlvoToolbarGUI
@@ -15,6 +16,7 @@ use srag\DIC\DICTrait;
 class xlvoToolbarGUI extends ilToolbarGUI {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 
 

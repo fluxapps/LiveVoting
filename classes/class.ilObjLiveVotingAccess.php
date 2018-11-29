@@ -24,8 +24,9 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+use LiveVoting\Utils\LiveVotingTrait;
 use LiveVoting\Voting\xlvoVotingConfig;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  *
@@ -44,6 +45,7 @@ use srag\DIC\DICTrait;
 class ilObjLiveVotingAccess extends ilObjectPluginAccess {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 
 

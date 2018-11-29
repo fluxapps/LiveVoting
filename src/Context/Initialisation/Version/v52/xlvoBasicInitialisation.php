@@ -39,7 +39,6 @@ use ilTree;
 use ilUIFramework;
 use ilUtil;
 use LiveVoting\Conf\xlvoConf;
-use LiveVoting\Context\Cookie\CookieManager;
 use LiveVoting\Context\xlvoContext;
 use LiveVoting\Context\xlvoDummyUser;
 use LiveVoting\Context\xlvoILIAS;
@@ -47,7 +46,8 @@ use LiveVoting\Context\xlvoObjectDefinition;
 use LiveVoting\Context\xlvoRbacReview;
 use LiveVoting\Context\xlvoRbacSystem;
 use LiveVoting\Session\xlvoSessionHandler;
-use srag\DIC\DICTrait;
+use LiveVoting\Utils\LiveVotingTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class xlvoBasicInitialisation for ILIAS 5.2 (Experimental)
@@ -61,6 +61,7 @@ use srag\DIC\DICTrait;
 class xlvoBasicInitialisation {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	/**
 	 * @var ilIniFile
@@ -172,7 +173,7 @@ class xlvoBasicInitialisation {
 
 		$tpl = self::plugin()->template("default/tpl.main.html");
 		$tpl->touchBlock("navbar");
-		$tpl->addCss(self::plugin()->directory() . '/templates/default/default.css');
+		$tpl->addCss(self::plugin()->directory() . '/templates/default/default.min.css');
 		$tpl->addCss('./templates/default/delos.css');
 		$tpl->addBlockFile("CONTENT", "content", "tpl.main_voter.html", self::plugin()->directory());
 		$tpl->setVariable('BASE', xlvoConf::getBaseVoteURL());

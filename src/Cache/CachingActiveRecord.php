@@ -6,7 +6,8 @@ use ActiveRecord;
 use arConnector;
 use arConnectorDB;
 use ilLiveVotingPlugin;
-use srag\DIC\DICTrait;
+use LiveVoting\Utils\LiveVotingTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class CachingActiveRecord
@@ -17,6 +18,7 @@ use srag\DIC\DICTrait;
 abstract class CachingActiveRecord extends ActiveRecord {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 
 

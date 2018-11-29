@@ -25,7 +25,8 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use LiveVoting\Pin\xlvoPin;
-use srag\DIC\DICTrait;
+use LiveVoting\Utils\LiveVotingTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * ListGUI implementation for LiveVoting object plugin. This one
@@ -39,6 +40,7 @@ use srag\DIC\DICTrait;
 class ilObjLiveVotingListGUI extends ilObjectPluginListGUI {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	/**
 	 * @var array

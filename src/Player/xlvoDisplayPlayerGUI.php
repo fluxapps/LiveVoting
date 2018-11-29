@@ -10,11 +10,12 @@ use LiveVoting\Option\xlvoOption;
 use LiveVoting\Pin\xlvoPin;
 use LiveVoting\QuestionTypes\xlvoInputResultsGUI;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
+use LiveVoting\Utils\LiveVotingTrait;
 use LiveVoting\Voter\xlvoVoter;
 use LiveVoting\Voting\xlvoVoting;
 use LiveVoting\Voting\xlvoVotingConfig;
 use LiveVoting\Voting\xlvoVotingManager2;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class xlvoDisplayPlayerGUI
@@ -29,6 +30,7 @@ use srag\DIC\DICTrait;
 class xlvoDisplayPlayerGUI {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	/**
 	 * @var ilTemplate
@@ -89,6 +91,7 @@ class xlvoDisplayPlayerGUI {
 			}
 		}
 
+		$this->tpl->setVariable('VOTING_ID', $this->manager->getVoting()->getId());
 		$this->tpl->setVariable('TITLE', $this->manager->getVoting()->getTitle());
 		$this->tpl->setVariable('QUESTION', $this->manager->getVoting()->getQuestionForPresentation());
 		$this->tpl->setVariable('VOTING_ID', $this->manager->getVoting()->getId());
@@ -127,6 +130,7 @@ class xlvoDisplayPlayerGUI {
 		$this->render();
 		$open = '<div id="xlvo-display-player" class="display-player panel panel-primary">';
 		$close = '</div>';
+
 		if ($inner) {
 			return $this->tpl->get();
 		} else {

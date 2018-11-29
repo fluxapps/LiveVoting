@@ -7,7 +7,8 @@ use ActiveRecordList;
 use arConnector;
 use arException;
 use ilLiveVotingPlugin;
-use srag\DIC\DICTrait;
+use LiveVoting\Utils\LiveVotingTrait;
+use srag\DIC\LiveVoting\DICTrait;
 use stdClass;
 
 /**
@@ -19,6 +20,7 @@ use stdClass;
 class arConnectorCache extends arConnector {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	private $arConnectorDB;
 	private $cache;

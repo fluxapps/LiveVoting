@@ -3,16 +3,18 @@
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 use LiveVoting\Conf\xlvoConf;
-use LiveVoting\GUI\xlvoGlyphGUI;
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\PowerPointExport\PowerPointExport;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\Round\xlvoRound;
+use LiveVoting\Utils\LiveVotingTrait;
 use LiveVoting\Vote\xlvoVote;
 use LiveVoting\Voting\xlvoVoting;
+use LiveVoting\Voting\xlvoVotingConfig;
 use LiveVoting\Voting\xlvoVotingFormGUI;
 use LiveVoting\Voting\xlvoVotingTableGUI;
-use srag\DIC\DICTrait;
+use srag\CustomInputGUIs\LiveVoting\GlyphGUI\GlyphGUI;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  *
@@ -28,6 +30,7 @@ use srag\DIC\DICTrait;
 class xlvoVotingGUI {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	const IDENTIFIER = 'xlvoVot';
 	const CMD_STANDARD = 'content';
@@ -53,6 +56,7 @@ class xlvoVotingGUI {
 	const CMD_POWERPOINT_EXPORT = 'powerPointExport';
 	const F_TYPE = 'type';
 	const CMD_RUN_POWER_POINT_EXPORT = 'runPowerPointExport';
+	const F_PRESENTER_LINK = 'presenter_link';
 	/**
 	 * @var ilObjLiveVotingAccess
 	 */
@@ -242,7 +246,7 @@ class xlvoVotingGUI {
 				self::dic()->ctrl()->setParameter($this, self::IDENTIFIER, $prev_id);
 				$prev = ilLinkButton::getInstance();
 				$prev->setUrl(self::dic()->ctrl()->getLinkTarget($this, self::CMD_EDIT));
-				$prev->setCaption(xlvoGlyphGUI::get(xlvoGlyphGUI::PREVIOUS), false);
+				$prev->setCaption(GlyphGUI::get(GlyphGUI::PREVIOUS), false);
 				self::dic()->toolbar()->addButtonInstance($prev);
 			}
 
@@ -257,12 +261,31 @@ class xlvoVotingGUI {
 				self::dic()->ctrl()->setParameter($this, self::IDENTIFIER, $next_id);
 				$next = ilLinkButton::getInstance();
 				$next->setUrl(self::dic()->ctrl()->getLinkTarget($this, self::CMD_EDIT));
-				$next->setCaption(xlvoGlyphGUI::get(xlvoGlyphGUI::NEXT), false);
+				$next->setCaption(GlyphGUI::get(GlyphGUI::NEXT), false);
 				self::dic()->toolbar()->addButtonInstance($next);
 			}
 			self::dic()->ctrl()->setParameter($this, self::IDENTIFIER, $xlvoVoting->getId());
 			$xlvoVotingFormGUI = xlvoVotingFormGUI::get($this, $xlvoVoting);
 			$xlvoVotingFormGUI->fillForm();
+
+			$h = new ilFormSectionHeaderGUI();
+			$h->setTitle("");
+			$xlvoVotingFormGUI->addItem($h);
+
+			/**
+			 * @var xlvoVotingConfig $config
+			 */
+			$config = xlvoVotingConfig::find($this->obj_id);
+
+			$presenter_link = new ilCustomInputGUI(self::plugin()->translate('config_presenter_link'), self::F_PRESENTER_LINK);
+			$presenter_link->setHtml($config->getPresenterLink($xlvoVoting->getId(), true) . '<br><br><i>' . htmlspecialchars(self::plugin()
+					->translate("config_" . xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . "_info_manual")) . '</i><ol>'
+				. implode("", array_map(function ($step) {
+					return '<li>' . htmlspecialchars(self::plugin()->translate("config_" . xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . "_info_manual_"
+							. $step)) . '</li>';
+				}, range(1, 4))) . '</ol>');
+			$xlvoVotingFormGUI->addItem($presenter_link);
+
 			self::dic()->mainTemplate()->setContent($xlvoVotingFormGUI->getHTML());
 		}
 	}

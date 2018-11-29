@@ -3,8 +3,9 @@
 namespace LiveVoting\User;
 
 use ilLiveVotingPlugin;
+use LiveVoting\Utils\LiveVotingTrait;
 use LiveVoting\Vote\xlvoVote;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class xlvoParticipants
@@ -14,6 +15,7 @@ use srag\DIC\DICTrait;
 class xlvoParticipants {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	/**
 	 * @var xlvoParticipants[]

@@ -1,32 +1,70 @@
 <?php
 
-namespace srag\RemovePluginDataConfirm;
+namespace srag\RemovePluginDataConfirm\LiveVoting;
 
 use ilAdministrationGUI;
 use ilConfirmationGUI;
 use ilObjComponentSettingsGUI;
+use ilSession;
 use ilUtil;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class AbstractRemovePluginDataConfirm
  *
- * @package srag\RemovePluginDataConfirm
+ * @package srag\RemovePluginDataConfirm\LiveVoting
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 abstract class AbstractRemovePluginDataConfirm {
 
 	use DICTrait;
+	/**
+	 * @var string
+	 *
+	 * @internal
+	 */
 	const CMD_CANCEL = "cancel";
+	/**
+	 * @var string
+	 *
+	 * @internal
+	 */
 	const CMD_CONFIRM_REMOVE_DATA = "confirmRemoveData";
+	/**
+	 * @var string
+	 *
+	 * @internal
+	 */
 	const CMD_DEACTIVATE = "deactivate";
+	/**
+	 * @var string
+	 *
+	 * @internal
+	 */
 	const CMD_SET_KEEP_DATA = "setKeepData";
+	/**
+	 * @var string
+	 *
+	 * @internal
+	 */
 	const CMD_SET_REMOVE_DATA = "setRemoveData";
+	/**
+	 * @var string
+	 *
+	 * @internal
+	 */
 	const KEY_UNINSTALL_REMOVES_DATA = "uninstall_removes_data";
-	const DEFAULT_UNINSTALL_REMOVES_DATA = NULL;
+	/**
+	 * @var string
+	 *
+	 * @internal
+	 */
+	const LANG_MODULE = "removeplugindataconfirm";
 	/**
 	 * @var AbstractRemovePluginDataConfirm|null
+	 *
+	 * @internal
 	 */
 	private static $instance = NULL;
 
@@ -34,7 +72,7 @@ abstract class AbstractRemovePluginDataConfirm {
 	/**
 	 * @return AbstractRemovePluginDataConfirm
 	 *
-	 * @access namespace
+	 * @internal
 	 */
 	public static final function getInstance()/*: AbstractRemovePluginDataConfirm*/ {
 		if (self::$instance === NULL) {
@@ -48,7 +86,7 @@ abstract class AbstractRemovePluginDataConfirm {
 	/**
 	 * @param bool $plugin
 	 *
-	 * @access namespace
+	 * @internal
 	 */
 	public static final function saveParameterByClass(/*bool*/
 		$plugin = true)/*: void*/ {
@@ -81,7 +119,7 @@ abstract class AbstractRemovePluginDataConfirm {
 
 
 	/**
-	 * @access namespace
+	 * @internal
 	 */
 	public final function __construct() {
 
@@ -89,7 +127,7 @@ abstract class AbstractRemovePluginDataConfirm {
 
 
 	/**
-	 * @access namespace
+	 * @internal
 	 */
 	public final function executeCommand()/*: void*/ {
 		$next_class = self::dic()->ctrl()->getNextClass($this);
@@ -117,6 +155,8 @@ abstract class AbstractRemovePluginDataConfirm {
 
 	/**
 	 * @param string $cmd
+	 *
+	 * @internal
 	 */
 	private final function redirectToPlugins(/*string*/
 		$cmd)/*: void*/ {
@@ -130,7 +170,7 @@ abstract class AbstractRemovePluginDataConfirm {
 
 
 	/**
-	 *
+	 * @internal
 	 */
 	private final function cancel()/*: void*/ {
 		$this->redirectToPlugins("listPlugins");
@@ -138,7 +178,7 @@ abstract class AbstractRemovePluginDataConfirm {
 
 
 	/**
-	 *
+	 * @internal
 	 */
 	private final function confirmRemoveData()/*: void*/ {
 		self::saveParameterByClass();
@@ -156,12 +196,12 @@ abstract class AbstractRemovePluginDataConfirm {
 		$confirmation->addButton($this->txt("deactivate"), self::CMD_DEACTIVATE);
 		$confirmation->setCancel($this->txt("cancel"), self::CMD_CANCEL);
 
-		self::plugin()->output($confirmation);
+		self::output()->output($confirmation);
 	}
 
 
 	/**
-	 *
+	 * @internal
 	 */
 	private final function deactivate()/*: void*/ {
 		$this->redirectToPlugins("deactivatePlugin");
@@ -169,7 +209,7 @@ abstract class AbstractRemovePluginDataConfirm {
 
 
 	/**
-	 *
+	 * @internal
 	 */
 	private final function setKeepData()/*: void*/ {
 		$this->setUninstallRemovesData(false);
@@ -181,7 +221,7 @@ abstract class AbstractRemovePluginDataConfirm {
 
 
 	/**
-	 *
+	 * @internal
 	 */
 	private final function setRemoveData()/*: void*/ {
 		$this->setUninstallRemovesData(true);
@@ -196,35 +236,40 @@ abstract class AbstractRemovePluginDataConfirm {
 	 * @param string $key
 	 *
 	 * @return string
+	 *
+	 * @internal
 	 */
 	private final function txt(/*string*/
 		$key)/*: string*/ {
-		return self::plugin()->translate($key, "removeplugindataconfirm", [ self::plugin()->getPluginObject()->getPluginName() ]);
+		return self::plugin()->translate($key, self::LANG_MODULE, [ self::plugin()->getPluginObject()->getPluginName() ]);
 	}
 
 
 	/**
-	 * Return from your config database, if the plugin data should be removed on uninstall (bool) or should be confirmed if not exists (null)
-	 *
 	 * @return bool|null
-	 */
-	public abstract function getUninstallRemovesData()/*: ?bool*/
-	;
-
-
-	/**
-	 * Set in your config database, that the plugin data should be removed or not on uninstall
 	 *
-	 * @param bool $uninstall_removes_data
+	 * @internal
 	 */
-	public abstract function setUninstallRemovesData(/*bool*/
-		$uninstall_removes_data)/*: void*/
-	;
+	public final function getUninstallRemovesData()/*: ?bool*/ {
+		return json_decode(ilSession::get(self::KEY_UNINSTALL_REMOVES_DATA));
+	}
 
 
 	/**
-	 * Reset in your config database, that the plugin data should be removed on uninstall. `getUninstallRemovesData` should now return `null`
+	 * @param bool $uninstall_removes_data
+	 *
+	 * @internal
 	 */
-	public abstract function removeUninstallRemovesData()/*: void*/
-	;
+	public final function setUninstallRemovesData(/*bool*/
+		$uninstall_removes_data)/*: void*/ {
+		ilSession::set(self::KEY_UNINSTALL_REMOVES_DATA, json_encode($uninstall_removes_data));
+	}
+
+
+	/**
+	 * @internal
+	 */
+	public final function removeUninstallRemovesData()/*: void*/ {
+		ilSession::clear(self::KEY_UNINSTALL_REMOVES_DATA);
+	}
 }

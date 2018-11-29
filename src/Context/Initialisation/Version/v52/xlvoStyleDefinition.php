@@ -3,7 +3,8 @@
 namespace LiveVoting\Context\Initialisation\Version\v52;
 
 use ilLiveVotingPlugin;
-use srag\DIC\DICTrait;
+use LiveVoting\Utils\LiveVotingTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class xlvoStyleDefinition
@@ -13,6 +14,7 @@ use srag\DIC\DICTrait;
 class xlvoStyleDefinition {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	/**
 	 * @var xlvoSkin

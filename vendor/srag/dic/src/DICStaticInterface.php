@@ -1,20 +1,28 @@
 <?php
 
-namespace srag\DIC;
+namespace srag\DIC\LiveVoting;
 
-use srag\DIC\DIC\DICInterface;
-use srag\DIC\Exception\DICException;
-use srag\DIC\Plugin\PluginInterface;
-use srag\DIC\Version\VersionInterface;
+use srag\DIC\LiveVoting\DIC\DICInterface;
+use srag\DIC\LiveVoting\Exception\DICException;
+use srag\DIC\LiveVoting\Output\OutputInterface;
+use srag\DIC\LiveVoting\Plugin\PluginInterface;
+use srag\DIC\LiveVoting\Version\VersionInterface;
 
 /**
  * Interface DICStaticInterface
  *
- * @package srag\DIC
+ * @package srag\DIC\LiveVoting
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 interface DICStaticInterface {
+
+	/**
+	 * Clear cache. Needed for instance in unit tests
+	 */
+	public static function clearCache()/*: void*/
+	;
+
 
 	/**
 	 * Get DIC interface
@@ -22,6 +30,15 @@ interface DICStaticInterface {
 	 * @return DICInterface DIC interface
 	 */
 	public static function dic()/*: DICInterface*/
+	;
+
+
+	/**
+	 * Get output interface
+	 *
+	 * @return OutputInterface Output interface
+	 */
+	public static function output()/*: OutputInterface*/
 	;
 
 

@@ -1,22 +1,26 @@
 <?php
 
-namespace srag\DIC;
+namespace srag\DIC\LiveVoting;
 
 use ilLogLevel;
 use ilPlugin;
-use League\Flysystem\PluginInterface;
-use srag\DIC\DIC\DICInterface;
-use srag\DIC\DIC\LegacyDIC;
-use srag\DIC\DIC\NewDIC;
-use srag\DIC\Exception\DICException;
-use srag\DIC\Plugin\Plugin;
-use srag\DIC\Version\Version;
-use srag\DIC\Version\VersionInterface;
+use srag\DIC\LiveVoting\DIC\DICInterface;
+use srag\DIC\LiveVoting\DIC\Implementation\ILIAS52DIC;
+use srag\DIC\LiveVoting\DIC\Implementation\ILIAS53DIC;
+use srag\DIC\LiveVoting\DIC\Implementation\ILIAS54DIC;
+use srag\DIC\LiveVoting\DIC\Implementation\LegacyDIC;
+use srag\DIC\LiveVoting\Exception\DICException;
+use srag\DIC\LiveVoting\Output\Output;
+use srag\DIC\LiveVoting\Output\OutputInterface;
+use srag\DIC\LiveVoting\Plugin\Plugin;
+use srag\DIC\LiveVoting\Plugin\PluginInterface;
+use srag\DIC\LiveVoting\Version\Version;
+use srag\DIC\LiveVoting\Version\VersionInterface;
 
 /**
  * Class DICStatic
  *
- * @package srag\DIC
+ * @package srag\DIC\LiveVoting
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
@@ -26,6 +30,10 @@ final class DICStatic implements DICStaticInterface {
 	 * @var DICInterface|null
 	 */
 	private static $dic = NULL;
+	/**
+	 * @var OutputInterface|null
+	 */
+	private static $output = NULL;
 	/**
 	 * @var PluginInterface[]
 	 */
@@ -39,18 +47,55 @@ final class DICStatic implements DICStaticInterface {
 	/**
 	 * @inheritdoc
 	 */
+	public static function clearCache()/*: void*/ {
+		self::$dic = NULL;
+		self::$output = NULL;
+		self::$plugins = [];
+		self::$version = NULL;
+	}
+
+
+	/**
+	 * @inheritdoc
+	 */
 	public static function dic()/*: DICInterface*/ {
 		if (self::$dic === NULL) {
-			if (self::version()->is52()) {
-				global $DIC;
-				self::$dic = new NewDIC($DIC);
-			} else {
-				global $GLOBALS;
-				self::$dic = new LegacyDIC($GLOBALS);
+			switch (true) {
+				case (self::version()->isLower(VersionInterface::ILIAS_VERSION_5_2)):
+					global $GLOBALS;
+					self::$dic = new LegacyDIC($GLOBALS);
+					break;
+
+				case (self::version()->isLower(VersionInterface::ILIAS_VERSION_5_3)):
+					global $DIC;
+					self::$dic = new ILIAS52DIC($DIC);
+					break;
+
+				case (self::version()->isLower(VersionInterface::ILIAS_VERSION_5_4)):
+					global $DIC;
+					self::$dic = new ILIAS53DIC($DIC);
+					break;
+
+				default:
+					global $DIC;
+					self::$dic = new ILIAS54DIC($DIC);
+					break;
 			}
 		}
 
 		return self::$dic;
+	}
+
+
+	/**
+	 * @inheritdoc
+	 */
+	public static function output()/*: OutputInterface*/ {
+		if (self::$output === NULL) {
+			self::$output = new Output();
+		}
+
+		return self::$output;
 	}
 
 

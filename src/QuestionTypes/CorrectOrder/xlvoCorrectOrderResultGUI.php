@@ -28,8 +28,8 @@ class xlvoCorrectOrderResultGUI extends xlvoResultGUI {
 		}
 
 		$correct_order_json = $this->getCorrectOrderJSON();
-		$return = ($correct_order_json
-			== $vote->getFreeInput()) ? self::plugin()->translate("common_correct_order") : self::plugin()->translate("common_incorrect_order");
+		$return = ($correct_order_json == $vote->getFreeInput()) ? self::plugin()->translate("common_correct_order") : self::plugin()
+			->translate("common_incorrect_order");
 		$return .= ": ";
 		foreach (json_decode($vote->getFreeInput()) as $option_id) {
 			$xlvoOption = $this->options[$option_id];
@@ -57,8 +57,8 @@ class xlvoCorrectOrderResultGUI extends xlvoResultGUI {
 			$vote = array_shift($votes);
 		}
 		$correct_order_json = $this->getCorrectOrderJSON();
-		$return = ($correct_order_json
-			== $vote->getFreeInput()) ? self::plugin()->translate("common_correct_order") : self::plugin()->translate("common_incorrect_order");
+		$return = ($correct_order_json == $vote->getFreeInput()) ? self::plugin()->translate("common_correct_order") : self::plugin()
+			->translate("common_incorrect_order");
 		$return .= ": ";
 		foreach (json_decode($vote->getFreeInput()) as $option_id) {
 			$strings[] = $this->options[$option_id]->getText();

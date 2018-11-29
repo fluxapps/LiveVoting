@@ -12,8 +12,9 @@ use LiveVoting\Exceptions\xlvoPlayerException;
 use LiveVoting\Pin\xlvoPin;
 use LiveVoting\Results\xlvoResults;
 use LiveVoting\Round\xlvoRound;
+use LiveVoting\Utils\LiveVotingTrait;
 use LiveVoting\Voting\xlvoVotingManager2;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 use stdClass;
 
 /**
@@ -25,6 +26,7 @@ use stdClass;
 class xlvoApi {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	const TYPE_JSON = 1;
 	const TYPE_XML = 2;

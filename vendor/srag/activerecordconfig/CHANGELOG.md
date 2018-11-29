@@ -1,5 +1,88 @@
 # Changelog
 
+## [0.13.2]
+- Some improvments in PropertyFormGUI
+
+## [0.13.1]
+- New OutputInterface
+
+## [0.13.0]
+- TableGUI
+
+## [0.12.2]
+- BaseTableGUI
+
+## [0.12.1]
+- BaseTableGUI
+
+## [0.12.0]
+- BaseTableGUI
+
+## [0.11.6]
+- Fix
+
+## [0.11.5]
+- Fix
+
+## [0.11.4]
+- Fix
+
+## [0.11.3]
+- Fix
+
+## [0.11.2]
+- Move PropertyFormGUI to CustomInputGUIs
+
+## [0.11.1]
+- Fix and improvment PropertyForm
+
+## [0.11.0]
+- New PropertyForm
+
+## [0.10.0]
+- getDefaultValue
+
+## [0.9.4]
+- Fix on some strange PHP versions
+
+## [0.9.3]
+- Fixes
+
+## [0.9.2]
+- Add missing return in `setField`
+
+## [0.9.1]
+- Easier: Default value is now voluntary
+
+## [0.9.0]
+- Rewrite ActiveRecordConfig for supports easier handling fields: Define your fields in the `$fields` variable and access by `getField`, `setField` and `removeField
+- DateTime datatype
+
+## [0.8.0]
+- getCmdForTab and redirectToTab
+
+## [0.7.5]
+- Fix boolean datatype
+
+## [0.7.4]
+- Fix
+
+## [0.7.3]
+- Fix
+
+## [0.7.2]
+- Fix
+
+## [0.7.1]
+- Fix
+
+## [0.7.0]
+- Correctly store boolean
+- Rename setForm to initForm
+- LANG_MODULE_CONFIG
+- Multiple config tabs support
+- Config table gui support
+
 ## [0.6.4]
 - Update readme
 

@@ -2,14 +2,14 @@
 
 require_once __DIR__ . '/../../../vendor/autoload.php';
 
-use LiveVoting\GUI\xlvoMultiLineInputGUI;
-use LiveVoting\GUI\xlvoTextAreaInputGUI;
-use LiveVoting\GUI\xlvoTextInputGUI;
 use LiveVoting\Js\xlvoJs;
 use LiveVoting\QuestionTypes\FreeInput\xlvoFreeInputSubFormGUI;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\QuestionTypes\xlvoQuestionTypesGUI;
 use LiveVoting\Vote\xlvoVote;
+use srag\CustomInputGUIs\LiveVoting\MultiLineInputGUI\MultiLineInputGUI;
+use srag\CustomInputGUIs\LiveVoting\TextAreaInputGUI\TextAreaInputGUI;
+use srag\CustomInputGUIs\LiveVoting\TextInputGUI\TextInputGUI;
 
 /**
  * Class xlvoFreeInputGUI
@@ -36,7 +36,7 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 	 * @param bool $current
 	 */
 	public function initJS($current = false) {
-		$xlvoMultiLineInputGUI = new xlvoMultiLineInputGUI();
+		$xlvoMultiLineInputGUI = new MultiLineInputGUI();
 		$xlvoMultiLineInputGUI->initCSSandJS();
 		xlvoJs::getInstance()->api($this)->name(xlvoQuestionTypes::FREE_INPUT)->category('QuestionTypes')->init();
 	}
@@ -101,13 +101,13 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 	protected function getTextInputGUI($a_title = "", $a_postvar = "") {
 		switch (intval($this->manager->getVoting()->getAnswerField())) {
 			case xlvoFreeInputSubFormGUI::ANSWER_FIELD_MULTI_LINE:
-				$input_gui = new xlvoTextAreaInputGUI($a_title, $a_postvar);
+				$input_gui = new TextAreaInputGUI($a_title, $a_postvar);
 				$input_gui->setMaxlength(1000);
 				break;
 
 			case xlvoFreeInputSubFormGUI::ANSWER_FIELD_SINGLE_LINE:
 			default:
-				$input_gui = new xlvoTextInputGUI($a_title, $a_postvar);
+				$input_gui = new TextInputGUI($a_title, $a_postvar);
 				$input_gui->setMaxLength(200);
 				break;
 		}
@@ -173,7 +173,7 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 			//$form->addCommandButton(self::CMD_CLEAR, $this->txt('delete_all'));
 		}
 
-		$mli = new xlvoMultiLineInputGUI($this->txt('answers'), self::F_VOTE_MULTI_LINE_INPUT);
+		$mli = new MultiLineInputGUI($this->txt('answers'), self::F_VOTE_MULTI_LINE_INPUT);
 		$te = $this->getTextInputGUI($this->txt('text'), self::F_FREE_INPUT);
 
 		$hi2 = new ilHiddenInputGUI(self::F_VOTE_ID);

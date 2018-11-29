@@ -10,12 +10,13 @@ use LiveVoting\Option\xlvoOptionOld;
 use LiveVoting\Player\xlvoPlayer;
 use LiveVoting\Round\xlvoRound;
 use LiveVoting\User\xlvoVoteHistoryObject;
+use LiveVoting\Utils\LiveVotingTrait;
 use LiveVoting\Vote\xlvoVote;
 use LiveVoting\Vote\xlvoVoteOld;
 use LiveVoting\Voter\xlvoVoter;
 use LiveVoting\Voting\xlvoVoting;
 use LiveVoting\Voting\xlvoVotingConfig;
-use srag\RemovePluginDataConfirm\RepositoryObjectPluginUninstallTrait;
+use srag\RemovePluginDataConfirm\LiveVoting\RepositoryObjectPluginUninstallTrait;
 
 /**
  * LiveVoting repository object plugin
@@ -27,6 +28,7 @@ use srag\RemovePluginDataConfirm\RepositoryObjectPluginUninstallTrait;
 class ilLiveVotingPlugin extends ilRepositoryObjectPlugin {
 
 	use RepositoryObjectPluginUninstallTrait;
+	use LiveVotingTrait;
 	const PLUGIN_ID = 'xlvo';
 	const PLUGIN_NAME = 'LiveVoting';
 	const PLUGIN_CLASS_NAME = self::class;

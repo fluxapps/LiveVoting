@@ -4,8 +4,9 @@ namespace LiveVoting\QuestionTypes;
 
 use ilLiveVotingPlugin;
 use LiveVoting\Exceptions\xlvoVotingManagerException;
+use LiveVoting\Utils\LiveVotingTrait;
 use ReflectionClass;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class xlvoQuestionTypes
@@ -18,6 +19,7 @@ use srag\DIC\DICTrait;
 class xlvoQuestionTypes {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	const TYPE_SINGLE_VOTE = 1;
 	const TYPE_FREE_INPUT = 2;

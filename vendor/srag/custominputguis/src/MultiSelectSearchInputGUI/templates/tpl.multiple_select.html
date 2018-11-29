@@ -1,0 +1,34 @@
+<script>
+	$(document).ready(function () {
+		var sr_id_input = "{ID}";
+		var sr_link_input = "{AJAX_LINK}";
+		var settings = {
+			placeholder: "{PLACEHOLDER}",
+			minimumInputLength: "{MINIMUM_INPUT_LENGTH}"
+		};
+		if (sr_link_input.length > 0) {
+			settings["ajax"] = {
+				url: sr_link_input,
+				dataType: 'json',
+				data: function (term, page) {
+					return {
+						term: term,
+						page_limit: 10
+					}
+				},
+				processResults: function (data, page) {
+					return {
+						results: data.result
+					}
+				}
+			}
+
+		}
+		$("#" + sr_id_input).select2(settings);
+	});
+</script>
+<select style="width:{WIDTH}; display:none;" class="chosen {CSS_CLASS}" data-placeholder="{PLACEHOLDER}" class="sr_multi_select_input" id="{ID}" name="{POST_VAR}" {ALL_DISABLED} multiple>
+	<!-- BEGIN item -->
+	<option value="{VAL}" {SELECTED} {DISABLED}>{TEXT}</option>
+	<!-- END item -->
+</select>

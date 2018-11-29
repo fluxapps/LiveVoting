@@ -21,8 +21,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Removed 'Colums for possible answers' in NumberRange
 - Fix fullscreen background not any more black
 - New behavior for random and non-random correct positions
+- Parameters are not anymore stored more in cookies, but are stored now in GET parameters. So it can support a single session, like the WebViewer-AddIn in PowerPoint are used
 - Full namespaces
 - DIC-Trait
+- CustomInputGUI's
 
 ### Deprecated
 - 
@@ -49,6 +51,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Cursor pointer for QR code button
 - FreeInput enter auto submit
 - Updated de and en languages and remove outdated PluginTranslator
+- Screen-Id-Component
 
 ### Security
 - Improved PIN validation in pin.php

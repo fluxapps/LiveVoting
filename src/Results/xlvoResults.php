@@ -7,9 +7,10 @@ use ilLiveVotingPlugin;
 use LiveVoting\QuestionTypes\xlvoResultGUI;
 use LiveVoting\User\xlvoParticipant;
 use LiveVoting\User\xlvoParticipants;
+use LiveVoting\Utils\LiveVotingTrait;
 use LiveVoting\Vote\xlvoVote;
 use LiveVoting\Voting\xlvoVoting;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class xlvoResults
@@ -20,6 +21,7 @@ use srag\DIC\DICTrait;
 class xlvoResults {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	/**
 	 * @var int

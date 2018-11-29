@@ -4,7 +4,7 @@ namespace LiveVoting\Player\QR;
 
 use Endroid\QrCode\QrCode;
 use ilLiveVotingPlugin;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class xlvoQR

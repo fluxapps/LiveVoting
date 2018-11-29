@@ -3,7 +3,8 @@
 namespace LiveVoting\Context;
 
 use ilLiveVotingPlugin;
-use srag\DIC\DICTrait;
+use LiveVoting\Utils\LiveVotingTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class xlvoRbacSystem
@@ -17,6 +18,7 @@ use srag\DIC\DICTrait;
 class xlvoRbacSystem {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 
 

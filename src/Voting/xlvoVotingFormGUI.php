@@ -12,13 +12,14 @@ use ilRTE;
 use ilSelectInputGUI;
 use ilUtil;
 use LiveVoting\Exceptions\xlvoSubFormGUIHandleFieldException;
-use LiveVoting\GUI\xlvoTextAreaInputGUI;
-use LiveVoting\GUI\xlvoTextInputGUI;
 use LiveVoting\QuestionTypes\FreeInput\xlvoFreeInputVotingFormGUI;
 use LiveVoting\QuestionTypes\NumberRange\xlvoNumberRangeVotingFormGUI;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\QuestionTypes\xlvoSubFormGUI;
-use srag\DIC\DICTrait;
+use LiveVoting\Utils\LiveVotingTrait;
+use srag\CustomInputGUIs\LiveVoting\TextAreaInputGUI\TextAreaInputGUI;
+use srag\CustomInputGUIs\LiveVoting\TextInputGUI\TextInputGUI;
+use srag\DIC\LiveVoting\DICTrait;
 use xlvoVotingGUI;
 
 /**
@@ -32,6 +33,7 @@ use xlvoVotingGUI;
 class xlvoVotingFormGUI extends ilPropertyFormGUI {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	const F_COLUMNS = 'columns';
 	const USE_F_COLUMNS = true;
@@ -110,16 +112,16 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI {
 		$te->setInfo($this->txt('type_' . $this->voting->getVotingType() . "_info"));
 		$this->addItem($te);
 
-		$te = new xlvoTextInputGUI($this->parent_gui->txt('title'), 'title');
+		$te = new TextInputGUI($this->parent_gui->txt('title'), 'title');
 		//		$te->setInfo($this->parent_gui->txt('info_voting_title'));
 		$te->setRequired(true);
 		$this->addItem($te);
 
-		$ta = new xlvoTextAreaInputGUI($this->parent_gui->txt('description'), 'description');
+		$ta = new TextAreaInputGUI($this->parent_gui->txt('description'), 'description');
 		//		$ta->setInfo($this->parent_gui->txt('info_voting_description'));
 		//		$this->addItem($ta);
 
-		$te = new xlvoTextAreaInputGUI($this->parent_gui->txt('question'), 'question');
+		$te = new TextAreaInputGUI($this->parent_gui->txt('question'), 'question');
 		$te->addPlugin('latex');
 		$te->addButton('latex');
 		$te->addButton('pastelatex');

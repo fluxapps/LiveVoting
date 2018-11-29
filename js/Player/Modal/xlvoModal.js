@@ -22,7 +22,6 @@ var xlvoModal = {
 			xlvoModal.autoSizeText();
 		});
 
-
 		ilmodal.on('shown.bs.modal', function () {
 			xlvoModal.autoSizeText();
 		});

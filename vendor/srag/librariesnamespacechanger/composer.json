@@ -1,0 +1,35 @@
+{
+  "name": "srag/librariesnamespacechanger",
+  "description": "Change namespace of libraries to plugin namespace",
+  "type": "library",
+  "keywords": [
+    "ILIAS",
+    "Libraries"
+  ],
+  "homepage": "https://github.com/studer-raimann/LibrariesNamespaceChanger",
+  "license": "GPL-3.0-only",
+  "authors": [
+    {
+      "name": "studer + raimann ag - Team Custom 1",
+      "email": "support-custom1@studer-raimann.ch",
+      "homepage": "https://studer-raimann.ch",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "email": "support-custom1@studer-raimann.ch"
+  },
+  "require": {
+    "php": ">=5.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "srag\\LibrariesNamespaceChanger\\": "src/"
+    }
+  },
+  "config": {
+    "classmap-authoritative": true,
+    "optimize-autoloader": true,
+    "sort-packages": true
+  }
+}

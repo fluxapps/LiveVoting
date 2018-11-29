@@ -35,7 +35,7 @@ Config Rewrite Rule in .htaccess or Apache-Config:
 
 ```apacheconf
 <IfModule mod_rewrite.c>
-	RewriteRule ^vote(/[\w]*|) Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?pin=$1 [L]
+	RewriteRule ^vote(/[\w]*|) Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?xlvo_pin=$1 [L]
 </IfModule>
 ```
 
@@ -47,16 +47,19 @@ For display the exported PowerPoint files you need to install the WebViewer-AddI
 https://appsource.microsoft.com/en-us/product/office/WA104295828?tab=Overview
 You need also to configure your website as HTTPS and allow that your website can be displayed in frames.
 
-Hint: Due a bug in WebViewer-Addin, multiple slides with ILIAS in WebViewer-AddIn not correctly work (Because same session for all slides)
-
 ### Dependencies
 * ILIAS 5.2 or ILIAS 5.3
-* PHP >=5.6
+* PHP >=5.5
 * [composer](https://getcomposer.org)
 * [endroid/qrcode](https://packagist.org/packages/endroid/qrcode)
 * [srag/activerecordconfig](https://packagist.org/packages/srag/activerecordconfig)
+* [srag/custominputguis](https://packagist.org/packages/srag/custominputguis)
 * [srag/dic](https://packagist.org/packages/srag/dic)
+* [srag/librariesnamespacechanger](https://packagist.org/packages/srag/librariesnamespacechanger)
 * [srag/removeplugindataconfirm](https://packagist.org/packages/srag/removeplugindataconfirm)
+* [babel-minify -g](https://www.npmjs.com/package/babel-minify)
+* [clean-css-cli](https://www.npmjs.com/package/clean-css-cli)
+* [less -g](https://www.npmjs.com/package/less)
 
 Please use it for further development!
 
@@ -69,5 +72,5 @@ Setzen Sie eines unserer Plugins professionell ein? Sichern Sie sich mittels SLA
 Bitte beachten Sie, dass wir nur Institutionen, welche ein SLA abschliessen Unterstützung und Release-Pflege garantieren.
 
 ### Contact
-support-core1@studer-raimann.ch  
+support-custom1@studer-raimann.ch  
 https://studer-raimann.ch  

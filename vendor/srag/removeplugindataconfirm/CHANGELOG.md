@@ -1,7 +1,19 @@
 # Changelog
 
+## [0.3.3]
+- Fix repository object uninstaller
+
+## [0.3.2]
+- New OutputInterface
+
+## [0.3.1]
+- Fixes
+
+## [0.3.0]
+- No config class needed anymore. It stores the value temporary in the session
+
 ## [0.2.5]
-Update readme
+- Update readme
 
 ## [0.2.4]
 - Added dependencies to readme

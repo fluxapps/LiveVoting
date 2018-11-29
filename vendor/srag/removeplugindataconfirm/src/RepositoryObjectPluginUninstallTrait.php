@@ -1,11 +1,11 @@
 <?php
 
-namespace srag\RemovePluginDataConfirm;
+namespace srag\RemovePluginDataConfirm\LiveVoting;
 
 /**
  * Trait RepositoryObjectPluginUninstallTrait
  *
- * @package srag\RemovePluginDataConfirm
+ * @package srag\RemovePluginDataConfirm\LiveVoting
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
@@ -18,7 +18,7 @@ trait RepositoryObjectPluginUninstallTrait {
 	 * @return bool
 	 * @throws RemovePluginDataConfirmException
 	 *
-	 * @access namespace
+	 * @internal
 	 */
 	protected final function beforeUninstallCustom()/*: bool*/ {
 		return $this->pluginUninstall(false); // Remove plugin data after ilRepUtil::deleteObjectType($this->getId() because may data needs for reading ilObject's!
@@ -28,7 +28,7 @@ trait RepositoryObjectPluginUninstallTrait {
 	/**
 	 * @throws RemovePluginDataConfirmException
 	 *
-	 * @access namespace
+	 * @internal
 	 */
 	protected final function uninstallCustom()/*: void*/ {
 		$remove_plugin_data_confirm_class = self::getRemovePluginDataConfirmClass();
@@ -40,11 +40,13 @@ trait RepositoryObjectPluginUninstallTrait {
 		if ($uninstall_removes_data) {
 			$this->deleteData();
 		}
+
+		$remove_plugin_data_confirm_class->removeUninstallRemovesData();
 	}
 
 
 	/**
-	 * @access namespace
+	 * @internal
 	 */
 	protected final function afterUninstall()/*: void*/ {
 

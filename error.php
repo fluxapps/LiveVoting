@@ -9,12 +9,11 @@
 require_once __DIR__ . "/vendor/autoload.php";
 require_once "dir.php";
 
-use LiveVoting\Context\Cookie\CookieManager;
 use LiveVoting\Context\InitialisationManager;
 use LiveVoting\Context\xlvoContext;
-use srag\DIC\DICStatic;
+use srag\DIC\LiveVoting\DICStatic;
 
-$context = CookieManager::getContext();
+$context = xlvoContext::getContext();
 switch ($context) {
 	case xlvoContext::CONTEXT_PIN:
 		InitialisationManager::startMinimal();

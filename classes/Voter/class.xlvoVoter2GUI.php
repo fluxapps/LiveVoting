@@ -3,12 +3,10 @@
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 use LiveVoting\Conf\xlvoConf;
-use LiveVoting\Context\Cookie\CookieManager;
+use LiveVoting\Context\Param\ParamManager;
 use LiveVoting\Exceptions\xlvoVoterException;
 use LiveVoting\Exceptions\xlvoVotingManagerException;
-use LiveVoting\GUI\xlvoGlyphGUI;
 use LiveVoting\GUI\xlvoGUI;
-use LiveVoting\GUI\xlvoTextInputGUI;
 use LiveVoting\Js\xlvoJs;
 use LiveVoting\Js\xlvoJsResponse;
 use LiveVoting\Pin\xlvoPin;
@@ -18,6 +16,8 @@ use LiveVoting\QuestionTypes\xlvoQuestionTypesGUI;
 use LiveVoting\Voter\xlvoVoter;
 use LiveVoting\Voting\xlvoVotingConfig;
 use LiveVoting\Voting\xlvoVotingManager2;
+use srag\CustomInputGUIs\LiveVoting\GlyphGUI\GlyphGUI;
+use srag\CustomInputGUIs\LiveVoting\TextInputGUI\TextInputGUI;
 
 /**
  * Class xlvoVoter2GUI
@@ -58,7 +58,10 @@ class xlvoVoter2GUI extends xlvoGUI {
 	 * @throws xlvoVotingManagerException
 	 */
 	public function executeCommand() {
-		$this->pin = CookieManager::getCookiePIN();
+
+		$param_manager = ParamManager::getInstance();
+
+		$this->pin = $param_manager->getPin();
 		$this->manager = new xlvoVotingManager2($this->pin);
 		$nextClass = self::dic()->ctrl()->getNextClass();
 		switch ($nextClass) {
@@ -101,14 +104,14 @@ class xlvoVoter2GUI extends xlvoGUI {
 		}
 
 		$tpl = self::plugin()->template('default/Voter/tpl.pin.html', true, false);
-		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/Voter/pin.css');
+		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/Voter/pin.min.css');
 		$pin_form = new ilPropertyFormGUI();
 		$pin_form->setFormAction(self::dic()->ctrl()->getLinkTarget($this, self::CMD_CHECK_PIN));
 		$pin_form->addCommandButton(self::CMD_CHECK_PIN, $this->txt('send'));
 
 		$xlvoPin = new xlvoPin();
 
-		$te = new xlvoTextInputGUI($this->txt(self::F_PIN_INPUT), self::F_PIN_INPUT);
+		$te = new TextInputGUI($this->txt(self::F_PIN_INPUT), self::F_PIN_INPUT);
 		$te->setMaxLength($xlvoPin->getPinLength());
 		$pin_form->addItem($te);
 
@@ -123,21 +126,18 @@ class xlvoVoter2GUI extends xlvoGUI {
 	 * @throws Exception
 	 */
 	protected function checkPin() {
-		CookieManager::resetCookiePIN();
-		CookieManager::resetCookiePUK();
-		CookieManager::resetCookieVoting();
-		CookieManager::resetCookiePpt();
+		$param_manager = ParamManager::getInstance();
 
 		try {
 			$pin = filter_input(INPUT_POST, self::F_PIN_INPUT);
 
 			xlvoPin::checkPin($pin);
 
-			CookieManager::setCookiePIN($_POST[self::F_PIN_INPUT]);
+			$param_manager->setPin($_POST[self::F_PIN_INPUT]);
 
 			self::dic()->ctrl()->redirect($this, self::CMD_START_VOTER_PLAYER);
 		} catch (xlvoVoterException $e) {
-			CookieManager::resetCookiePIN();
+			$param_manager->setPin('');
 
 			ilUtil::sendFailure($this->txt('msg_validation_error_pin_' . $e->getCode()));
 
@@ -153,11 +153,11 @@ class xlvoVoter2GUI extends xlvoGUI {
 		try {
 			xlvoPin::checkPin($this->pin);
 		} catch (Throwable $e) {
-			throw new ilException("Wrong PIN!");
+			throw new ilException("Voter2GUI Wrong PIN!");
 		}
 
 		$this->initJsAndCss();
-		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/default.css');
+		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/default.min.css');
 		$tpl = self::plugin()->template('default/Voter/tpl.voter_player.html', true, false);
 		self::dic()->mainTemplate()->setContent($tpl->get());
 	}
@@ -183,9 +183,9 @@ class xlvoVoter2GUI extends xlvoGUI {
 	 * @throws ilException
 	 */
 	protected function initJsAndCss() {
-		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/Voter/voter.css');
+		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/Voter/voter.min.css');
 		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/libs/bootstrap-slider.min.css');
-		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/QuestionTypes/NumberRange/number_range.css');
+		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/QuestionTypes/NumberRange/number_range.min.css');
 		iljQueryUtil::initjQueryUI();
 
 		ilMathJax::getInstance()->includeMathJax();
@@ -254,12 +254,12 @@ class xlvoVoter2GUI extends xlvoGUI {
 			case xlvoPlayer::STAT_START_VOTING:
 				$tpl->setVariable('TITLE', $this->txt('header_start'));
 				$tpl->setVariable('DESCRIPTION', $this->txt('info_start'));
-				$tpl->setVariable('GLYPH', xlvoGlyphGUI::get('pause'));
+				$tpl->setVariable('GLYPH', GlyphGUI::get('pause'));
 				break;
 			case xlvoPlayer::STAT_END_VOTING:
 				$tpl->setVariable('TITLE', $this->txt('header_end'));
 				$tpl->setVariable('DESCRIPTION', $this->txt('info_end'));;
-				$tpl->setVariable('GLYPH', xlvoGlyphGUI::get('stop'));
+				$tpl->setVariable('GLYPH', GlyphGUI::get('stop'));
 				break;
 			case xlvoPlayer::STAT_FROZEN:
 				$tpl->setVariable('TITLE', $this->txt('header_frozen'));
@@ -267,7 +267,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 				$tpl->setVariable('COUNT', $this->manager->countVotings());
 				$tpl->setVariable('POSITION', $this->manager->getVotingPosition());
 				$tpl->setVariable('PIN', xlvoPin::formatPin($this->manager->getVotingConfig()->getPin()));
-				$tpl->setVariable('GLYPH', xlvoGlyphGUI::get('pause'));
+				$tpl->setVariable('GLYPH', GlyphGUI::get('pause'));
 				break;
 		}
 		echo $tpl->get();

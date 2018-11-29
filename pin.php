@@ -9,32 +9,27 @@ require_once __DIR__ . "/vendor/autoload.php";
 require_once "dir.php";
 
 use LiveVoting\Conf\xlvoConf;
-use LiveVoting\Context\Cookie\CookieManager;
 use LiveVoting\Context\InitialisationManager;
+use LiveVoting\Context\Param\ParamManager;
 use LiveVoting\Context\xlvoContext;
 use LiveVoting\Pin\xlvoPin;
-use srag\DIC\DICStatic;
+use srag\DIC\LiveVoting\DICStatic;
 
 try {
-	$pin = trim(filter_input(INPUT_GET, "pin"), "/");
+	$pin = trim(filter_input(INPUT_GET, ParamManager::PARAM_PIN), "/");
 
 	InitialisationManager::startMinimal();
 
-	CookieManager::resetCookiePIN();
-	CookieManager::resetCookiePUK();
-	CookieManager::resetCookieVoting();
-	CookieManager::resetCookiePpt();
+	xlvoContext::setContext(xlvoContext::CONTEXT_PIN);
 
-	CookieManager::setContext(xlvoContext::CONTEXT_PIN);
-
-	DICStatic::dic()->ctrl()->initBaseClass(ilUIPluginRouterGUI::class);
+	//DICStatic::dic()->ctrl()->initBaseClass(ilUIPluginRouterGUI::class);
 	DICStatic::dic()->ctrl()->setTargetScript(xlvoConf::getFullApiURL());
 
 	if (!empty($pin)) {
 
 		if (xlvoPin::checkPin($pin)) {
 
-			CookieManager::setCookiePIN($pin);
+			$param_manager = ParamManager::getInstance();
 
 			DICStatic::dic()->ctrl()->redirectByClass([
 				ilUIPluginRouterGUI::class,
@@ -48,5 +43,5 @@ try {
 		], xlvoVoter2GUI::CMD_STANDARD);
 	}
 } catch (Throwable $ex) {
-
+	print_r($ex);
 }

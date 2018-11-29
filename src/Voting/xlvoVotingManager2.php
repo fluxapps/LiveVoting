@@ -4,6 +4,7 @@ namespace LiveVoting\Voting;
 
 use ActiveRecordList;
 use ilLiveVotingPlugin;
+use LiveVoting\Context\Param\ParamManager;
 use LiveVoting\Exceptions\xlvoPlayerException;
 use LiveVoting\Exceptions\xlvoVoterException;
 use LiveVoting\Exceptions\xlvoVotingManagerException;
@@ -13,8 +14,9 @@ use LiveVoting\Player\xlvoPlayer;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\Round\xlvoRound;
 use LiveVoting\User\xlvoUser;
+use LiveVoting\Utils\LiveVotingTrait;
 use LiveVoting\Vote\xlvoVote;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class xlvoVotingManager2
@@ -25,6 +27,7 @@ use srag\DIC\DICTrait;
 class xlvoVotingManager2 {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	/**
 	 * @var xlvoVotingManager2[]
@@ -42,16 +45,27 @@ class xlvoVotingManager2 {
 	 * @var int
 	 */
 	protected $obj_id = 0;
+	/**
+	 * @var ParamManager
+	 */
+	protected $param_manager;
 
 
 	/**
 	 * xlvoVotingManager2 constructor.
 	 *
 	 * @param $pin
+	 * @param $voting_id
 	 */
-	public function __construct($pin) {
-		$obj_id = xlvoPin::checkPin($pin, false);
-		$this->obj_id = $obj_id;
+	public function __construct($pin, $voting_id = 0) {
+
+		if (empty($pin)) {
+			$param_manager = ParamManager::getInstance();
+			$pin = $param_manager->getPin();
+		}
+
+		$this->obj_id = xlvoPin::checkPin($pin, false);
+
 		$this->player = xlvoPlayer::getInstanceForObjId($this->obj_id);
 		$round_id = $this->player->getRoundId();
 		$this->player->setRoundId(xlvoRound::getLatestRoundId($this->obj_id));
@@ -60,7 +74,7 @@ class xlvoVotingManager2 {
 			$this->player->store();
 		}
 
-		$this->initVoting();
+		$this->initVoting($voting_id);
 	}
 
 
@@ -76,17 +90,18 @@ class xlvoVotingManager2 {
 
 	/**
 	 * @param $obj_id
+	 * @param $voting_id
 	 *
 	 * @return xlvoVotingManager2
 	 */
-	public static function getInstanceFromObjId($obj_id) {
+	public static function getInstanceFromObjId($obj_id, $voting_id = 0) {
 		if (!isset(self::$instances[$obj_id])) {
 			/**
 			 * @var xlvoVotingConfig $xlvoVotingConfig
 			 */
 			$xlvoVotingConfig = xlvoVotingConfig::findOrGetInstance($obj_id);
 
-			self::$instances[$obj_id] = new self($xlvoVotingConfig->getPin());
+			self::$instances[$obj_id] = new self($xlvoVotingConfig->getPin(), $voting_id);
 		}
 
 		return self::$instances[$obj_id];
@@ -284,7 +299,7 @@ class xlvoVotingManager2 {
 	 */
 	public function open($voting_id) {
 		if ($this->getVotingsList()->where(array( 'id' => $voting_id ))->hasSets()) {
-			$this->player->setActiveVoting($voting_id);
+			$this->player->setActiveVoting($voting_id);;
 			$this->player->setButtonStates(array());
 			$this->player->resetCountDown(false);
 			$this->player->update();
@@ -464,6 +479,7 @@ class xlvoVotingManager2 {
 		if (!$this->getVotingConfig()->isObjOnline()) {
 			throw new xlvoPlayerException('', xlvoPlayerException::OBJ_OFFLINE);
 		}
+
 		if ($this->canBeStarted()) {
 			$xlvoVoting = $this->getVotingsList()->first();
 			$this->getPlayer()->prepareStart($xlvoVoting->getId());
@@ -657,10 +673,16 @@ class xlvoVotingManager2 {
 
 
 	/**
-	 *
+	 * @param int $voting_id
 	 */
-	protected function initVoting() {
-		$this->voting = xlvoVoting::findOrGetInstance($this->getPlayer()->getActiveVotingId());
+	protected function initVoting($voting_id = 0) {
+
+		//TODO PLLV-272
+		if ($voting_id > 0) {
+			$this->voting = xlvoVoting::findOrGetInstance($voting_id);
+		} else {
+			$this->voting = xlvoVoting::findOrGetInstance($this->getPlayer()->getActiveVotingId());
+		}
 	}
 
 

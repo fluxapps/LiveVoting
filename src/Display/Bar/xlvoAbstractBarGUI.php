@@ -4,7 +4,8 @@ namespace LiveVoting\Display\Bar;
 
 use ilLiveVotingPlugin;
 use ilTemplate;
-use srag\DIC\DICTrait;
+use LiveVoting\Utils\LiveVotingTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class xlvoAbstractBarGUI
@@ -15,6 +16,7 @@ use srag\DIC\DICTrait;
 abstract class xlvoAbstractBarGUI implements xlvoGeneralBarGUI {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	/**
 	 * @var bool
@@ -51,7 +53,7 @@ abstract class xlvoAbstractBarGUI implements xlvoGeneralBarGUI {
 	 */
 	protected function initTemplate() {
 		$this->tpl = self::plugin()->template('default/Display/Bar/tpl.bar_free_input.html');
-		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . "/templates/default/Display/Bar/bar.css");
+		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . "/templates/default/Display/Bar/bar.min.css");
 	}
 
 

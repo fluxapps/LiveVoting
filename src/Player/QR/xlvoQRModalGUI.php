@@ -7,7 +7,7 @@ use ilModalGUI;
 use LiveVoting\Js\xlvoJs;
 use LiveVoting\Pin\xlvoPin;
 use LiveVoting\Voting\xlvoVotingConfig;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class xlvoQRModalGUI

@@ -2,9 +2,9 @@
 
 require_once __DIR__ . '/../../../vendor/autoload.php';
 
-use LiveVoting\GUI\xlvoGlyphGUI;
 use LiveVoting\Js\xlvoJs;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
+use srag\CustomInputGUIs\LiveVoting\GlyphGUI\GlyphGUI;
 
 /**
  * Class xlvoFreeOrderGUI
@@ -59,9 +59,9 @@ class xlvoFreeOrderGUI extends xlvoCorrectOrderGUI {
 		$b = ilLinkButton::getInstance();
 		$b->setId(self::BUTTON_TOTTLE_DISPLAY_CORRECT_ORDER);
 		if ($states[self::BUTTON_TOTTLE_DISPLAY_CORRECT_ORDER]) {
-			$b->setCaption(xlvoGlyphGUI::get('align-left'), false);
+			$b->setCaption(GlyphGUI::get('align-left'), false);
 		} else {
-			$b->setCaption(xlvoGlyphGUI::get('sort-by-attributes-alt'), false);
+			$b->setCaption(GlyphGUI::get('sort-by-attributes-alt'), false);
 		}
 
 		//		$t = ilLinkButton::getInstance();
@@ -69,7 +69,7 @@ class xlvoFreeOrderGUI extends xlvoCorrectOrderGUI {
 		//		if ($states[self::BUTTON_TOGGLE_PERCENTAGE]) {
 		//			$t->setCaption(' %', false);
 		//		} else {
-		//			$t->setCaption(xlvoGlyphGUI::get('user'), false);
+		//			$t->setCaption(GlyphGUI::get('user'), false);
 		//		}
 
 		return array( $b );

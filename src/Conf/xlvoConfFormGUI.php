@@ -11,8 +11,9 @@ use ilNumberInputGUI;
 use ilPropertyFormGUI;
 use ilSelectInputGUI;
 use LiveVoting\Api\xlvoApi;
-use LiveVoting\GUI\xlvoTextInputGUI;
-use srag\DIC\DICTrait;
+use LiveVoting\Utils\LiveVotingTrait;
+use srag\CustomInputGUIs\LiveVoting\TextInputGUI\TextInputGUI;
+use srag\DIC\LiveVoting\DICTrait;
 use xlvoConfGUI;
 
 /**
@@ -25,6 +26,7 @@ use xlvoConfGUI;
 class xlvoConfFormGUI extends ilPropertyFormGUI {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	/**
 	 * @var xlvoConf
@@ -61,11 +63,11 @@ class xlvoConfFormGUI extends ilPropertyFormGUI {
 		$use_shortlink_vote->setInfo($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_VOTE . '_info') . '<br><br><span class="label label-default">'
 			. xlvoConf::REWRITE_RULE_VOTE . '</span><br><br>');
 
-		$shortlink_vote = new xlvoTextInputGUI($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_VOTE_LINK), xlvoConf::F_ALLOW_SHORTLINK_VOTE_LINK);
+		$shortlink_vote = new TextInputGUI($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_VOTE_LINK), xlvoConf::F_ALLOW_SHORTLINK_VOTE_LINK);
 		$shortlink_vote->setInfo($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_VOTE_LINK . '_info'));
 		$use_shortlink_vote->addSubItem($shortlink_vote);
 
-		$base_url_vote = new xlvoTextInputGUI($this->parent_gui->txt(xlvoConf::F_BASE_URL_VOTE), xlvoConf::F_BASE_URL_VOTE);
+		$base_url_vote = new TextInputGUI($this->parent_gui->txt(xlvoConf::F_BASE_URL_VOTE), xlvoConf::F_BASE_URL_VOTE);
 		$base_url_vote->setInfo($this->parent_gui->txt(xlvoConf::F_BASE_URL_VOTE . '_info'));
 		$use_shortlink_vote->addSubItem($base_url_vote);
 
@@ -73,7 +75,7 @@ class xlvoConfFormGUI extends ilPropertyFormGUI {
 		$use_shortlink_presenter->setInfo($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_PRESENTER . '_info')
 			. '<br><br><span class="label label-default">' . xlvoConf::REWRITE_RULE_PRESENTER . '</span><br><br>');
 
-		$shortlink_presenter = new xlvoTextInputGUI($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_PRESENTER_LINK), xlvoConf::F_ALLOW_SHORTLINK_PRESENTER_LINK);
+		$shortlink_presenter = new TextInputGUI($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_PRESENTER_LINK), xlvoConf::F_ALLOW_SHORTLINK_PRESENTER_LINK);
 		$shortlink_presenter->setInfo($this->parent_gui->txt(xlvoConf::F_ALLOW_SHORTLINK_PRESENTER_LINK . '_info'));
 		$use_shortlink_presenter->addSubItem($shortlink_presenter);
 

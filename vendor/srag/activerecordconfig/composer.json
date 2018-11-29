@@ -1,7 +1,6 @@
 {
   "name": "srag/activerecordconfig",
   "description": "Simple ActiveRecord config for ILIAS plugins",
-  "version": "0.6.4",
   "type": "library",
   "keywords": [
     "ILIAS",
@@ -23,11 +22,17 @@
   },
   "require": {
     "php": ">=5.6",
+    "srag/custominputguis": ">=0.1.0",
     "srag/dic": ">=0.1.0"
   },
   "autoload": {
     "psr-4": {
-      "srag\\ActiveRecordConfig\\": "src/"
+      "srag\\ActiveRecordConfig\\LiveVoting\\": "src/"
     }
+  },
+  "config": {
+    "classmap-authoritative": true,
+    "optimize-autoloader": true,
+    "sort-packages": true
   }
 }

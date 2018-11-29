@@ -1,13 +1,13 @@
 <?php
 
-namespace srag\ActiveRecordConfig\Exception;
+namespace srag\ActiveRecordConfig\LiveVoting\Exception;
 
 use ilException;
 
 /**
  * Class ActiveRecordConfigException
  *
- * @package srag\ActiveRecordConfig\Exception
+ * @package srag\ActiveRecordConfig\LiveVoting\Exception
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
@@ -19,7 +19,7 @@ final class ActiveRecordConfigException extends ilException {
 	 * @param string $message
 	 * @param int    $code
 	 *
-	 * @access namespace
+	 * @internal
 	 */
 	public function __construct(/*string*/
 		$message, /*int*/

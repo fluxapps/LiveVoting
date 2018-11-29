@@ -10,10 +10,11 @@ use ilObjLiveVotingAccess;
 use ilSelectInputGUI;
 use ilTable2GUI;
 use ilUtil;
-use LiveVoting\GUI\xlvoTextInputGUI;
 use LiveVoting\Js\xlvoJs;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
-use srag\DIC\DICTrait;
+use LiveVoting\Utils\LiveVotingTrait;
+use srag\CustomInputGUIs\LiveVoting\TextInputGUI\TextInputGUI;
+use srag\DIC\LiveVoting\DICTrait;
 use xlvoVotingGUI;
 
 /**
@@ -27,6 +28,7 @@ use xlvoVotingGUI;
 class xlvoVotingTableGUI extends ilTable2GUI {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	const TBL_ID = 'tbl_xlvo';
 	const LENGTH = 100;
@@ -48,7 +50,7 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 		$this->voting_gui = $a_parent_obj;
 		$this->access = new ilObjLiveVotingAccess();
 
-		xlvoJs::getInstance()->addLibToHeader('sortable.js');
+		xlvoJs::getInstance()->addLibToHeader('sortable.min.js');
 
 		$this->setId(self::TBL_ID);
 		$this->setPrefix(self::TBL_ID);
@@ -80,10 +82,10 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 
 
 	protected function addFilterItems() {
-		$title = new xlvoTextInputGUI($this->txt('title'), 'title');
+		$title = new TextInputGUI($this->txt('title'), 'title');
 		$this->addAndReadFilterItem($title);
 
-		$question = new xlvoTextInputGUI($this->txt('question'), 'question');
+		$question = new TextInputGUI($this->txt('question'), 'question');
 		$this->addAndReadFilterItem($question);
 
 		$status = new ilSelectInputGUI($this->txt('status'), 'voting_status');

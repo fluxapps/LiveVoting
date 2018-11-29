@@ -198,7 +198,10 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 			return $this->getXlvoVoting()->setEndRange($end);
 		}
 
-		throw new xlvoSubFormGUIHandleFieldException(self::plugin()->translate(self::END_RANGE_INVALID_INFO, "", [ self::END_RANGE_MIN, self::END_RANGE_MAX ]));
+		throw new xlvoSubFormGUIHandleFieldException(self::plugin()->translate(self::END_RANGE_INVALID_INFO, "", [
+			self::END_RANGE_MIN,
+			self::END_RANGE_MAX
+		]));
 	}
 
 

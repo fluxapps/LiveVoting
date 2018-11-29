@@ -4,8 +4,10 @@ namespace LiveVoting\GUI;
 
 use ilLiveVotingPlugin;
 use LiveVoting\Conf\xlvoConf;
+use LiveVoting\Context\Param\ParamManager;
 use LiveVoting\Js\xlvoJs;
-use srag\DIC\DICTrait;
+use LiveVoting\Utils\LiveVotingTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class xlvoGUI
@@ -17,6 +19,7 @@ use srag\DIC\DICTrait;
 abstract class xlvoGUI {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	const CMD_STANDARD = 'index';
 	const CMD_ADD = 'add';
@@ -32,12 +35,18 @@ abstract class xlvoGUI {
 	 * @var bool $is_api_call
 	 */
 	protected $is_api_call;
+	/**
+	 * @var ParamManager
+	 */
+	protected $param_manager;
 
 
 	/**
 	 *
 	 */
 	public function __construct() {
+		$this->param_manager = ParamManager::getInstance();
+
 		$this->is_api_call = (self::dic()->ctrl()->getTargetScript() == xlvoConf::getFullApiURL());
 	}
 

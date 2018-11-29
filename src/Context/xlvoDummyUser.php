@@ -3,7 +3,8 @@
 namespace LiveVoting\Context;
 
 use ilLiveVotingPlugin;
-use srag\DIC\DICTrait;
+use LiveVoting\Utils\LiveVotingTrait;
+use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class xlvoDummyUser
@@ -15,6 +16,7 @@ use srag\DIC\DICTrait;
 class xlvoDummyUser {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	const LANGUAGE_CODE = "de";
 

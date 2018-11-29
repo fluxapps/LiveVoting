@@ -8,8 +8,9 @@ use LiveVoting\Cache\xlvoCacheService;
 use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Exceptions\xlvoVoterException;
 use LiveVoting\User\xlvoUser;
+use LiveVoting\Utils\LiveVotingTrait;
 use LiveVoting\Voting\xlvoVotingConfig;
-use srag\DIC\DICTrait;
+use srag\DIC\LiveVoting\DICTrait;
 use stdClass;
 
 /**
@@ -22,6 +23,7 @@ use stdClass;
 class xlvoPin {
 
 	use DICTrait;
+	use LiveVotingTrait;
 	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 	/**
 	 * @var string
