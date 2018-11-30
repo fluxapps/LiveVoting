@@ -11,7 +11,7 @@ class ComposerStaticInitf5122d14f0f45dac789bfb6428ff8994
         array (
             'srag\\RemovePluginDataConfirm\\LiveVoting\\' => 40,
             'srag\\LibrariesNamespaceChanger\\' => 31,
-            'srag\\DIC\\LiveVoting\\' => 20,
+            'srag\\DIC\\' => 9,
             'srag\\CustomInputGUIs\\LiveVoting\\' => 32,
             'srag\\ActiveRecordConfig\\LiveVoting\\' => 35,
         ),
@@ -38,7 +38,7 @@ class ComposerStaticInitf5122d14f0f45dac789bfb6428ff8994
         array (
             0 => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src',
         ),
-        'srag\\DIC\\LiveVoting\\' => 
+        'srag\\DIC\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/dic/src',
         ),

@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.14.1]
+- PHPVersionChecker cache
+
 ## [0.14.0]
 - PHPVersionChecker
 

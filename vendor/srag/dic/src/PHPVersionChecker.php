@@ -34,6 +34,10 @@ final class PHPVersionChecker {
 	 */
 	const VERSION_CHECK_REG_EXP = "/([0-9]+(\.[0-9]+){1,2})/";
 	/**
+	 * @var bool|null
+	 */
+	private static $cache = NULL;
+	/**
 	 * @var string
 	 */
 	private static $current_php_version = "";
@@ -58,35 +62,41 @@ final class PHPVersionChecker {
 	 * @return bool
 	 */
 	private static function checkPHPVersion()/*: bool*/ {
-		try {
-			$composer_file = __DIR__ . "/../../../../composer.json";
+		if (self::$cache !== NULL) {
+			try {
+				$composer_file = __DIR__ . "/../../../../composer.json";
 
-			if (file_exists($composer_file)) {
-				$composer = json_decode(file_get_contents($composer_file));
+				if (file_exists($composer_file)) {
+					$composer = json_decode(file_get_contents($composer_file));
 
-				if (is_object($composer) && is_object($composer->require) && is_string($composer->require->php)) {
-					$php = $composer->require->php;
-
-					$matches = [];
-					preg_match(self::VERSION_CHECK_REG_EXP, $php, $matches);
-					if (is_array($matches) && count($matches) >= 2) {
-						self::$should_php_version = $matches[1];
+					if (is_object($composer) && is_object($composer->require) && is_string($composer->require->php)) {
+						$php = $composer->require->php;
 
 						$matches = [];
-						preg_match(self::VERSION_CHECK_REG_EXP, PHP_VERSION, $matches);
+						preg_match(self::VERSION_CHECK_REG_EXP, $php, $matches);
 						if (is_array($matches) && count($matches) >= 2) {
-							self::$current_php_version = $matches[1];
+							self::$should_php_version = $matches[1];
 
-							return (version_compare(self::$current_php_version, self::$should_php_version, ">=") > 0);
+							$matches = [];
+							preg_match(self::VERSION_CHECK_REG_EXP, PHP_VERSION, $matches);
+							if (is_array($matches) && count($matches) >= 2) {
+								self::$current_php_version = $matches[1];
+
+								self::$cache = (version_compare(self::$current_php_version, self::$should_php_version, ">=") > 0);
+
+								return self::$cache;
+							}
 						}
 					}
 				}
-			}
 
-			return true;
-		} catch (Throwable $ex) {
-			return true;
+				self::$cache = true;
+			} catch (Throwable $ex) {
+				self::$cache = true;
+			}
 		}
+
+		return self::$cache;
 	}
 
 
@@ -108,7 +118,7 @@ final class PHPVersionChecker {
 
 
 	/**
-	 * https://edmondscommerce.github.io/php/php-realpath-for-none-existant-paths.html (Without realpath)
+	 * https://edmondscommerce.github.io/php/php-realpath-for-none-existant-paths.html (Normalize path without using realpath)
 	 *
 	 * @param string $path
 	 *
