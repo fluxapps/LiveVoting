@@ -62,7 +62,7 @@ final class PHPVersionChecker {
 	 * @return bool
 	 */
 	private static function checkPHPVersion()/*: bool*/ {
-		if (self::$cache !== NULL) {
+		if (self::$cache === NULL) {
 			try {
 				$composer_file = __DIR__ . "/../../../../composer.json";
 
