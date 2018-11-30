@@ -134,7 +134,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "srag\\CustomInputGUIs\\": "src/"
+                    "srag\\CustomInputGUIs\\LiveVoting\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -162,16 +162,16 @@
         },
         {
             "name": "srag/dic",
-            "version": "v0.13.5",
+            "version": "v0.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/studer-raimann/DIC.git",
-                "reference": "d6b690529b47e1575e4f2f379fa90804e7a9b621"
+                "reference": "bf91c68bf89438753c90bafe143648601f479c60"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/studer-raimann/DIC/zipball/d6b690529b47e1575e4f2f379fa90804e7a9b621",
-                "reference": "d6b690529b47e1575e4f2f379fa90804e7a9b621",
+                "url": "https://api.github.com/repos/studer-raimann/DIC/zipball/bf91c68bf89438753c90bafe143648601f479c60",
+                "reference": "bf91c68bf89438753c90bafe143648601f479c60",
                 "shasum": ""
             },
             "require": {
@@ -180,7 +180,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "srag\\DIC\\": "src/"
+                    "srag\\DIC\\LiveVoting\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -203,7 +203,7 @@
                 "globals",
                 "trait"
             ],
-            "time": "2018-11-27T10:32:43+00:00"
+            "time": "2018-11-30T07:22:56+00:00"
         },
         {
             "name": "srag/librariesnamespacechanger",
@@ -269,7 +269,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "srag\\RemovePluginDataConfirm\\": "src/"
+                    "srag\\RemovePluginDataConfirm\\LiveVoting\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
