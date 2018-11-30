@@ -52,6 +52,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - FreeInput enter auto submit
 - Updated de and en languages and remove outdated PluginTranslator
 - Screen-Id-Component
+- PHP version checker
 
 ### Security
 - Improved PIN validation in pin.php
