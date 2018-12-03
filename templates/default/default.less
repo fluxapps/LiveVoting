@@ -11,30 +11,30 @@
 @xlvo_btn_qr_modal_border-size: 5px;
 
 img.xlvo_loader {
-  width:   74px;
-  height:  74px;
-  margin:  0 auto;
+  width: 74px;
+  height: 74px;
+  margin: 0 auto;
   display: block;
 }
 
 div.xlvo_pin {
-  font-size:   80px;
-  text-align:  center;
-  height:      @xlvo_pin_height;
+  font-size: 80px;
+  text-align: center;
+  height: @xlvo_pin_height;
   line-height: @xlvo_pin_height;
-  padding:     0;
+  padding: 0;
 }
 
 div.xlvo_shortlink {
-  height:         @xlvo_pin_height/2-10;
-  line-height:    @xlvo_pin_height/2-10;
-  text-align:     center;
+  height: @xlvo_pin_height/2-10;
+  line-height: @xlvo_pin_height/2-10;
+  text-align: center;
 
   vertical-align: middle;
 
   /* Fix no wrap if the URL is too long */
-  white-space:    pre-wrap;
-  word-wrap:      break-word;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
 div.xlvo_pin * {
@@ -42,18 +42,18 @@ div.xlvo_pin * {
 }
 
 button.xlvo_btn-qr-modal {
-  width:    @xlvo_btn_qr_modal_width;
-  height:   @xlvo_btn_qr_modal_height;
+  width: @xlvo_btn_qr_modal_width;
+  height: @xlvo_btn_qr_modal_height;
   position: absolute;
-  top:      calc(~'(@{xlvo_pin_height}/2) - (@{xlvo_btn_qr_modal_height}/2) + (@{xlvo_btn_qr_modal_border-size}*2)');
-  z-index:  100;
-  border:   @xlvo_btn_qr_modal_border-size solid black;
-  left:     calc(~'50% - (@{xlvo_btn_qr_modal_width}/2)');
+  top: calc(~'(@{xlvo_pin_height}/2) - (@{xlvo_btn_qr_modal_height}/2) + (@{xlvo_btn_qr_modal_border-size}*2)');
+  z-index: 100;
+  border: @xlvo_btn_qr_modal_border-size solid black;
+  left: calc(~'50% - (@{xlvo_btn_qr_modal_width}/2)');
 }
 
 /** DELOS FIX */
 .navbar-text {
-  margin-top:    8px !important;
+  margin-top: 8px !important;
   margin-bottom: 8px !important;
 }
 
@@ -66,7 +66,7 @@ li.ilToolbarTextonly button {
 }
 
 .xlvolist-group-fix {
-  height:        42px;
+  height: 42px;
   margin-bottom: 5px;
 }
 
@@ -79,23 +79,23 @@ li.ilToolbarTextonly button {
 }
 
 .xlvo-option {
-  border-bottom:  1px solid #EEEEEE;
+  border-bottom: 1px solid #EEEEEE;
   padding-bottom: 3px;
-  padding-top:    3px;
+  padding-top: 3px;
 }
 
 .xlvo-option_letter {
-  display:     inline-block !important;
-  font-size:   18px !important;
-  height:      25px;
+  display: inline-block !important;
+  font-size: 18px !important;
+  height: 25px;
   line-height: 25px !important;
-  padding:     0px !important;
-  width:       25px;
+  padding: 0px !important;
+  width: 25px;
 }
 
 .xlvo-option_text {
-  display:     inline-block;
-  font-size:   22px;
+  display: inline-block;
+  font-size: 22px;
   line-height: 21px;
 }
 
@@ -106,29 +106,29 @@ li.ilToolbarTextonly button {
 
 // Preview
 iframe.xlvo-preview {
-  width:   100%;
-  margin:  0;
+  width: 100%;
+  margin: 0;
   padding: 0;
-  height:  500px;
-  border:  none;
+  height: 500px;
+  border: none;
 }
 
 div.xlvo-preview-inner {
   @phone-border-top: 50px black solid;
   @phone-border-side: 10px black solid;
-  border:        @phone-border-side;
-  border-top:    @phone-border-top;
+  border: @phone-border-side;
+  border-top: @phone-border-top;
   border-bottom: @phone-border-top;
   border-radius: 20px;
-  margin:        0;
-  padding:       0;
+  margin: 0;
+  padding: 0;
 }
 
 div.xlvo-preview-outer {
-  border:        2px white solid;
+  border: 2px white solid;
   border-radius: 22px;
-  margin:        0;
-  padding:       0;
+  margin: 0;
+  padding: 0;
 }
 
 // Modal
@@ -137,11 +137,11 @@ div.xlvo-preview-outer {
 }
 
 .modal-body #xlvo-modal-qr {
-  width:     auto;
+  width: auto;
   max-width: 100%;
-  height:    100%;
-  margin:    auto;
-  display:   block;
+  height: 100%;
+  margin: auto;
+  display: block;
 }
 
 .ui-sortable-handle {
@@ -154,15 +154,16 @@ span.xlvo-label-url {
 
 #ilAdvSelListTable_xlvo_select {
   width: 220px !important;
+
   li > a {
-	white-space:   nowrap;
-	overflow:      hidden !important;
+	white-space: nowrap;
+	overflow: hidden !important;
 	text-overflow: ellipsis;
   }
 }
 
 .zoom {
-  font-size:   30px;
+  font-size: 30px;
   line-height: 32px;
   //zoom:        4;
 }
@@ -174,4 +175,8 @@ span.xlvo-label-url {
 /* Serif font */
 .serif_font {
   font-family: "Times New Roman", Times, serif;
+}
+
+.hidden-xs {
+  display: none !important;
 }
