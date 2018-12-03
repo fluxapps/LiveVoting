@@ -265,10 +265,10 @@ playplayer_msg_no_start_2#:#MISSING playplayer_msg_no_start_2
 voting_short_link#:#Short URL
 voting_permanent_link#:#Permanent-Link
 config_ppt_export_info_manual#:#Embedding LiveVotings in PowerPoint:
-config_ppt_export_info_manual_1#:#Start PowerPoint
-config_ppt_export_info_manual_2#:#Search for "Web Viewer" in the Office-Add-Ins Store (Insert > Add-Ins > My Add-Ins)
-config_ppt_export_info_manual_3#:#Copy the Presenter link from this LiveVoting and paste the link in the Web Viewer-form in your presentation
-config_ppt_export_info_manual_4#:#IMPORTANT: Please note that after inserting you must remove the https:// at the beginning of the link, as it will already automatically dictate from PowerPoint and thus would not work if it exists twice
+config_ppt_export_info_manual_1#:#Export LiveVoting
+config_ppt_export_info_manual_2#:#Start PowerPoint
+config_ppt_export_info_manual_3#:#Search for "Web Viewer" in the Office AddIn's Store (Insert > AddIns > My AddIns)
+config_ppt_export_info_manual_4#:#Add Web-Viewer AddIn
 config_allow_shortlink_presenter#:#Activate Short URL for Presenter
 config_allow_shortlink_presenter_info#:#For example, a short URL can be created by adding a RewriteRule in the .htaccess, which will trigger on https://ilias.domain.com/presenter:
 config_allow_shortlink_link_presenter#:#Short URL
