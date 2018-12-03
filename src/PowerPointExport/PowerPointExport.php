@@ -251,9 +251,7 @@ class PowerPointExport {
 
 			$guid = $this->guid();
 
-			$presenter_link = $this->config->getPresenterLink($voting->getId(), true, true);
-			$secure = (stripos($presenter_link, "https://") === 0);
-			$link = substr($presenter_link, (stripos($presenter_link, "://") + 3));
+			$presenter_link = $this->config->getPresenterLink($voting->getId(), true, true, false);
 
 			$webextension_tpl = self::plugin()->template($this->temp_folder . "/ppt/webextensions/webextension.xml", false, true, false);
 			$webextension_rels_tpl = self::plugin()->template($this->temp_folder
@@ -264,9 +262,9 @@ class PowerPointExport {
 
 			$webextension_tpl->setVariable("GUID", $guid);
 
-			$webextension_tpl->setVariable("LINK", htmlspecialchars($link));
+			$webextension_tpl->setVariable("LINK", htmlspecialchars($presenter_link));
 
-			$webextension_tpl->setVariable("SECURE", var_export($secure, true));
+			$webextension_tpl->setVariable("SECURE", var_export(true, true));
 
 			file_put_contents($this->temp_folder . "/ppt/webextensions/webextension{$num}.xml", $webextension_tpl->get());
 			file_put_contents($this->temp_folder . "/ppt/webextensions/_rels/webextension{$num}.xml.rels", $webextension_rels_tpl->get());

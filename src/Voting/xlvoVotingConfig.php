@@ -227,10 +227,11 @@ class xlvoVotingConfig extends CachingActiveRecord {
 	 * @param int|null $voting_id
 	 * @param bool     $power_point
 	 * @param bool     $force_not_format
+	 * @param bool     $https
 	 *
 	 * @return string
 	 */
-	public function getPresenterLink($voting_id = NULL, $power_point = false, $force_not_format = false) {
+	public function getPresenterLink($voting_id = NULL, $power_point = false, $force_not_format = false, $https = false) {
 		$url = NULL;
 		$shortLinkEnabled = boolval(xlvoConf::getConfig(xlvoConf::F_ALLOW_SHORTLINK_PRESENTER));
 
@@ -254,6 +255,10 @@ class xlvoVotingConfig extends CachingActiveRecord {
 			if ($power_point) {
 				$url .= "&" . ParamManager::PARAM_PPT . "=1";
 			}
+		}
+
+		if (!$https) {
+			$url = substr($url, (stripos($url, "://") + 3));
 		}
 
 		return $url;
