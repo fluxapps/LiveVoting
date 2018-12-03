@@ -52,10 +52,8 @@ class xlvoVotingGUI {
 	const CMD_BACK = 'back';
 	const CMD_EXPORT = 'export';
 	const CMD_IMPORT = 'import';
-	const CMD_CONFIRM_POWERPOINT_EXPORT = 'confirmPowerPointExport';
 	const CMD_POWERPOINT_EXPORT = 'powerPointExport';
 	const F_TYPE = 'type';
-	const CMD_RUN_POWER_POINT_EXPORT = 'runPowerPointExport';
 	/**
 	 * @var ilObjLiveVotingAccess
 	 */
@@ -752,30 +750,7 @@ class xlvoVotingGUI {
 	 *
 	 */
 	protected function powerPointExport() {
-		$this->content();
-		self::dic()->ctrl()->redirect($this, self::CMD_RUN_POWER_POINT_EXPORT);
-	}
-
-
-	/**
-	 *
-	 */
-	protected function runPowerPointExport() {
 		$powerPointExport = new PowerPointExport($this->obj);
 		$powerPointExport->run();
-	}
-
-
-	/**
-	 *
-	 */
-	protected function confirmPowerPointExport() {
-		$c = new ilConfirmationGUI();
-		$c->setFormAction(self::dic()->ctrl()->getFormAction($this));
-		$c->setHeaderText(self::plugin()->translate('voting_confirm_ppt_export_msg'));
-		$c->setConfirm(self::plugin()->translate('common_ok'), self::CMD_POWERPOINT_EXPORT);
-		$c->setCancel(self::plugin()->translate('common_cancel'), self::CMD_CONTENT);
-
-		self::dic()->mainTemplate()->setContent($c->getHTML());
 	}
 }

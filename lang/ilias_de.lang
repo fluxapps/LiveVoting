@@ -252,7 +252,6 @@ voting_update_and_stay#:#Speichern
 voting_type_6#:#Zahl schätzen
 voting_type_6_info#:#Benutzer können eine Zahl zwischen X und Y schätzen.
 voting_powerpoint_export#:#Als PowerPoint exportieren
-voting_confirm_ppt_export_msg#:#Eine PowerPoint-Präsentation mit einer Folie pro Frage wird erstellt, welche den jeweiligen Presenter-Link nutzen. Bitte beachten Sie, dass das Powepoint-WebView-Plugin installiert sein muss.
 xlvo_add#:#Hinzufügen
 xlvo_delete#:#LiveVoting löschen
 xlvo_edit#:#Bearbeiten

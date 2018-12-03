@@ -250,7 +250,6 @@ voting_update_and_stay#:#Update
 voting_type_6#:#Number Range
 voting_type_6_info#:#Users can guess a number between X and Y.
 voting_powerpoint_export#:#Export as PowerPoint
-voting_confirm_ppt_export_msg#:#A PowerPoint-Slideshow will be created with one slide per voting using the Presenter-Shortlink. Please note that this slides will require the PowerPoint-WebView-Plugin installed.
 vqtype_1_options#:#Options
 xlvo_add#:#Add
 xlvo_delete#:#Delete LiveVoting
