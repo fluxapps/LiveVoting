@@ -158,10 +158,10 @@ class xlvoVotingGUI {
 			$presenter_link = '<br><h3 class="ilHeader">' . htmlspecialchars(self::plugin()->translate('config_presenter_link')) . '</h3><br>'
 				. $config->getPresenterLink(NULL, xlvoConf::getConfig(xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT))
 				. (xlvoConf::getConfig(xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT) ? '<br><br><i>' . htmlspecialchars(self::plugin()->translate("config_"
-						. xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . "_info_manual")) . '</i><ol>' : '' . implode("", array_map(function ($step) {
+						. xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . "_info_manual")) . '</i><ol>' . implode("", array_map(function ($step) {
 						return '<li>' . htmlspecialchars(self::plugin()->translate("config_" . xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT
 								. "_info_manual_" . $step)) . '</li>';
-					}, range(1, 4))) . '</ol>'); // TODO: default.css not loaded
+					}, range(1, 4))) . '</ol>' : ''); // TODO: default.css not loaded
 
 			self::dic()->mainTemplate()->setContent($xlvoVotingTableGUI->getHTML() . $presenter_link);
 		}

@@ -148,17 +148,18 @@ class xlvoDisplayPlayerGUI {
 		}
 
 		//workaround due to the old question design.
+		// TODO: Move to xlvoNumberRangeResultsGUI
 		if ($option->getType() == xlvoQuestionTypes::TYPE_NUMBER_RANGE) {
 			$columnWith = 6; //because of bootstrap grid 12 = 100%, 6 = 50% therefore 2 columns
 			$percentage = (int)$this->manager->getVoting()->getPercentage() === 1 ? ' %' : '';
 
-			$this->tpl->setCurrentBlock('option');
+			$this->tpl->setCurrentBlock('option2');
 			$this->tpl->setVariable('OPTION_LETTER', self::plugin()->translate('qtype_6_range_start'));
 			$this->tpl->setVariable('OPTION_COL', $columnWith);
 			$this->tpl->setVariable('OPTION_TEXT', "{$this->manager->getVoting()->getStartRange()}{$percentage}");
 			$this->tpl->parseCurrentBlock();
 
-			$this->tpl->setCurrentBlock('option');
+			$this->tpl->setCurrentBlock('option2');
 			$this->tpl->setVariable('OPTION_LETTER', self::plugin()->translate('qtype_6_range_end'));
 			$this->tpl->setVariable('OPTION_COL', $columnWith);
 			$this->tpl->setVariable('OPTION_TEXT', "{$this->manager->getVoting()->getEndRange()}{$percentage}");
