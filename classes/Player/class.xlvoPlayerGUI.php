@@ -167,11 +167,9 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 
 	/**
-	 *
 	 * @throws ilException
 	 */
 	protected function startPresenter() {
-
 		try {
 			xlvoPin::checkPin($this->param_manager->getPin());
 		} catch (Throwable $e) {

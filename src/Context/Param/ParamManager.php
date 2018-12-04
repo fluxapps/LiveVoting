@@ -13,7 +13,7 @@ use srag\DIC\LiveVoting\DICTrait;
 /**
  * Class ParamManager
  *
- * @package LiveVoting\Context\ParamManager
+ * @package LiveVoting\Context\Param
  *
  * @author  Martin Studer <ms@studer-raimann.ch>
  */
@@ -64,6 +64,7 @@ final class ParamManager {
 	 */
 	public function __construct() {
 		$this->loadBaseClassIfNecessary();
+
 		$this->loadAndPersistAllParams();
 	}
 
@@ -72,7 +73,6 @@ final class ParamManager {
 	 * @return self
 	 */
 	public static function getInstance() {
-
 		if (!isset(self::$instance)) {
 			self::$instance = new self();
 		}
@@ -85,24 +85,29 @@ final class ParamManager {
 	 *
 	 */
 	private function loadAndPersistAllParams() {
-		if (!empty(trim(filter_input(INPUT_GET, self::PARAM_PIN), "/"))) {
-			$this->setPin(trim(filter_input(INPUT_GET, self::PARAM_PIN), "/"));
+		$pin = trim(filter_input(INPUT_GET, self::PARAM_PIN), "/");
+		if (!empty($pin)) {
+			$this->setPin($pin);
 		}
 
-		if (!empty(trim(filter_input(INPUT_GET, self::PARAM_REF_ID), "/"))) {
-			$this->setRefId(trim(filter_input(INPUT_GET, self::PARAM_REF_ID), "/"));
+		$ref_id = trim(filter_input(INPUT_GET, self::PARAM_REF_ID), "/");
+		if (!empty($ref_id)) {
+			$this->setRefId($ref_id);
 		}
 
-		if (!empty(trim(filter_input(INPUT_GET, self::PARAM_PUK), "/"))) {
-			$this->setPuk(trim(filter_input(INPUT_GET, self::PARAM_PUK), "/"));
+		$puk = trim(filter_input(INPUT_GET, self::PARAM_PUK), "/");
+		if (!empty($puk)) {
+			$this->setPuk($puk);
 		}
 
-		if (!empty(trim(filter_input(INPUT_GET, self::PARAM_VOTING), "/"))) {
-			$this->setVoting(trim(filter_input(INPUT_GET, self::PARAM_VOTING), "/"));
+		$pin = trim(filter_input(INPUT_GET, self::PARAM_VOTING), "/");
+		if (!empty($pin)) {
+			$this->setVoting($pin);
 		}
 
-		if (!empty(trim(filter_input(INPUT_GET, self::PARAM_PPT), "/"))) {
-			$this->setPpt(trim(filter_input(INPUT_GET, self::PARAM_PPT), "/"));
+		$ppt = trim(filter_input(INPUT_GET, self::PARAM_PPT), "/");
+		if (!empty($ppt)) {
+			$this->setPpt($ppt);
 		}
 	}
 
@@ -111,7 +116,9 @@ final class ParamManager {
 	 *
 	 */
 	private function loadBaseClassIfNecessary() {
-		if (empty(filter_input(INPUT_GET, "baseClass"))) {
+		$baseClass = filter_input(INPUT_GET, "baseClass");
+
+		if (empty($baseClass)) {
 			self::dic()->ctrl()->initBaseClass(ilUIPluginRouterGUI::class);
 		}
 	}
@@ -121,12 +128,15 @@ final class ParamManager {
 	 * @return int
 	 */
 	public function getRefId() {
-		if (!empty(trim(filter_input(INPUT_GET, self::PARAM_REF_ID), "/"))) {
-			$this->ref_id = trim(filter_input(INPUT_GET, self::PARAM_REF_ID), "/");
+		$ref_id = trim(filter_input(INPUT_GET, self::PARAM_REF_ID), "/");
+
+		if (!empty($ref_id)) {
+			$this->ref_id = $ref_id;
 		}
 
 		if (empty($this->ref_id)) {
 			$obj_id = xlvoPin::checkPin($this->pin, false);
+
 			$this->ref_id = current(ilObject::_getAllReferences($obj_id));
 		}
 
