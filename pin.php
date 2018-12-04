@@ -43,5 +43,5 @@ try {
 		], xlvoVoter2GUI::CMD_STANDARD);
 	}
 } catch (Throwable $ex) {
-	print_r($ex);
+
 }

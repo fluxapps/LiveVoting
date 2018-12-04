@@ -9,8 +9,8 @@ require_once __DIR__ . "/vendor/autoload.php";
 require_once "dir.php";
 
 use LiveVoting\Conf\xlvoConf;
-use LiveVoting\Context\Param\ParamManager;
 use LiveVoting\Context\InitialisationManager;
+use LiveVoting\Context\Param\ParamManager;
 use LiveVoting\Context\xlvoContext;
 use LiveVoting\Pin\xlvoPin;
 use LiveVoting\Voting\xlvoVotingConfig;
@@ -21,11 +21,10 @@ try {
 	$pin = trim(filter_input(INPUT_GET, ParamManager::PARAM_PIN), "/");
 	$puk = trim(filter_input(INPUT_GET, ParamManager::PARAM_PUK), "/");
 
-
 	if (!empty($pin)) {
 		InitialisationManager::startMinimal();
 
-		if (xlvoPin::checkPin($pin) &&  !empty($puk)) {
+		if (xlvoPin::checkPin($pin) && !empty($puk)) {
 
 			$param_manager = ParamManager::getInstance();
 

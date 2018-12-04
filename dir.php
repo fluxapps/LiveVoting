@@ -14,8 +14,8 @@ chdir($directory);
 switch (false) {
 	case is_dir($directory):
 		throw new Exception('LiveVoting cannot determine correct directory. If your installation isn\'t located at \'' . $directory
-		                    . '\', LiveVoting is currently unable to run');
+			. '\', LiveVoting is currently unable to run');
 	case is_file('./Services/Init/classes/class.ilInitialisation.php'):
 		throw new Exception('LiveVoting cannot find ilInitialisation. If your installation isn\'t located at \'' . $directory
-		                    . '\', LiveVoting is currently unable to run');
+			. '\', LiveVoting is currently unable to run');
 }
