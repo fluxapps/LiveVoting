@@ -139,8 +139,10 @@ class xlvoPlayer extends CachingActiveRecord {
 	 */
 	public function freeze() {
 		$this->setFrozen(true);
-		$this->setStatus(self::STAT_RUNNING);
 		$this->resetCountDown(false);
+		$this->setButtonStates([]);
+		$this->resetCountDown(false);
+		$this->setTimestampRefresh(time() + self::SECONDS_TO_SLEEP);
 		$this->store();
 	}
 
@@ -150,8 +152,10 @@ class xlvoPlayer extends CachingActiveRecord {
 	 */
 	public function unfreeze() {
 		$this->setFrozen(false);
-		$this->setStatus(self::STAT_RUNNING);
 		$this->resetCountDown(false);
+		$this->setButtonStates([]);
+		$this->resetCountDown(false);
+		$this->setTimestampRefresh(time() + self::SECONDS_TO_SLEEP);
 		$this->store();
 	}
 
@@ -160,12 +164,11 @@ class xlvoPlayer extends CachingActiveRecord {
 	 *
 	 */
 	public function toggleFreeze() {
-		$this->setFrozen(!$this->isFrozen());
 		if ($this->isFrozen()) {
-			$this->setCountdown(0);
+			$this->unfreeze();
+		} else {
+			$this->freeze();
 		}
-		$this->setStatus(self::STAT_RUNNING);
-		$this->store();
 	}
 
 
@@ -181,21 +184,21 @@ class xlvoPlayer extends CachingActiveRecord {
 	 * @param $seconds
 	 */
 	public function startCountDown($seconds) {
-		$this->setFrozen(false);
+		$this->unfreeze();
 		$this->setCountdown($seconds);
 		$this->setCountdownStart(time());
-		$this->update();
+		$this->store();
 	}
 
 
 	/**
-	 * @param bool $save
+	 * @param bool $store
 	 */
-	public function resetCountDown($save = true) {
+	public function resetCountDown($store = true) {
 		$this->setCountdown(0);
 		$this->setCountdownStart(0);
-		if ($save) {
-			$this->update();
+		if ($store) {
+			$this->store();
 		}
 	}
 
@@ -220,11 +223,7 @@ class xlvoPlayer extends CachingActiveRecord {
 
 	public function terminate() {
 		$this->setStatus(xlvoPlayer::STAT_END_VOTING);
-		$this->setFrozen(true);
-		$this->resetCountDown();
-		$this->setShowResults(false);
-		$this->setButtonStates(array());
-		$this->update();
+		$this->freeze();
 	}
 
 
@@ -327,10 +326,6 @@ class xlvoPlayer extends CachingActiveRecord {
 	 */
 	public function prepareStart($voting_id) {
 		$this->setStatus(self::STAT_START_VOTING);
-		$this->resetCountDown(false);
-		$this->setFrozen(true);
-		$this->setShowResults(false);
-		$this->setTimestampRefresh(time() + self::SECONDS_TO_SLEEP);
 		$this->setActiveVoting($voting_id);
 		$this->setRoundId(xlvoRound::getLatestRoundId($this->getObjId()));
 		$this->store();
@@ -360,10 +355,8 @@ class xlvoPlayer extends CachingActiveRecord {
 		$this->setStatus(self::STAT_RUNNING);
 		$this->setTimestampRefresh(time());
 		if ($this->remainingCountDown() <= 0 && $this->getCountdownStart() > 0) {
-			$this->resetCountDown(false);
-			$this->setFrozen(true);
+			$this->freeze();
 		}
-		$this->update();
 	}
 
 
@@ -519,7 +512,15 @@ class xlvoPlayer extends CachingActiveRecord {
 	 * @param int $active_voting
 	 */
 	public function setActiveVoting($active_voting) {
+		$should_frozen = ($this->active_voting != $active_voting);
+
 		$this->active_voting = $active_voting;
+
+		if ($should_frozen) {
+			$this->freeze();
+		} else {
+			$this->store();
+		}
 	}
 
 
