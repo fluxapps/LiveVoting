@@ -10,6 +10,7 @@ use LiveVoting\GUI\xlvoLinkButton;
 use LiveVoting\GUI\xlvoToolbarGUI;
 use LiveVoting\Js\xlvoJs;
 use LiveVoting\Js\xlvoJsResponse;
+use LiveVoting\Option\xlvoOption;
 use LiveVoting\Pin\xlvoPin;
 use LiveVoting\Player\QR\xlvoQR;
 use LiveVoting\Player\QR\xlvoQRModalGUI;
@@ -211,6 +212,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 		//TODO: PLLV-272
 		if ($this->param_manager->getVoting() > 0) {
 			$this->manager->getPlayer()->setActiveVoting($this->param_manager->getVoting());
+			$this->manager->getPlayer()->setStatus(xlvoOption::STAT_INACTIVE);
 		}
 
 		$results = array(
@@ -290,6 +292,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 		//TODO: PLLV-272
 		if ($this->param_manager->getVoting() > 0) {
 			$this->manager->getPlayer()->setActiveVoting($this->param_manager->getVoting());
+			$this->manager->getPlayer()->setStatus(xlvoOption::STAT_INACTIVE);
 		}
 
 		$return_value = true;

@@ -194,6 +194,7 @@ class ilObjLiveVoting extends ilObjectPlugin {
 			$player_clone = $player->copy();
 			// reset active Voting in player
 			$player_clone->setActiveVoting(0);
+			$player_clone->setStatus(xlvoOption::STAT_INACTIVE);
 			$player_clone->setObjId($new_obj->getId());
 			$player_clone->create();
 		}

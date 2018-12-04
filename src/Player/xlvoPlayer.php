@@ -4,6 +4,7 @@ namespace LiveVoting\Player;
 
 use LiveVoting\Cache\CachingActiveRecord;
 use LiveVoting\Cache\xlvoCacheFactory;
+use LiveVoting\Option\xlvoOption;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\Round\xlvoRound;
 use LiveVoting\Vote\xlvoVote;
@@ -323,6 +324,7 @@ class xlvoPlayer extends CachingActiveRecord {
 		$this->setShowResults(false);
 		$this->setTimestampRefresh(time() + self::SECONDS_TO_SLEEP);
 		$this->setActiveVoting($voting_id);
+		$this->setStatus(xlvoOption::STAT_INACTIVE);
 		$this->setRoundId(xlvoRound::getLatestRoundId($this->getObjId()));
 		$this->store();
 	}
