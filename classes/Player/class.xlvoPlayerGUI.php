@@ -206,10 +206,9 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 *
 	 */
 	protected function getPlayerData() {
-
 		$this->manager->attend();
 
-		//TODO PLLV-272
+		//TODO: PLLV-272
 		if ($this->param_manager->getVoting() > 0) {
 			$this->manager->getPlayer()->setActiveVoting($this->param_manager->getVoting());
 		}
@@ -288,8 +287,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 * @throws ilException
 	 */
 	protected function apiCall() {
-
-		//TODO PLLV-272
+		//TODO: PLLV-272
 		if ($this->param_manager->getVoting() > 0) {
 			$this->manager->getPlayer()->setActiveVoting($this->param_manager->getVoting());
 		}
