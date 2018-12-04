@@ -155,10 +155,12 @@ class xlvoVotingGUI {
 			 */
 			$config = xlvoVotingConfig::find($this->obj_id);
 
+			$power_point_enabled = xlvoConf::getConfig(xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT);
+
 			$presenter_link = '<br><h3 class="ilHeader">' . htmlspecialchars(self::plugin()->translate('config_presenter_link')) . '</h3><br>'
-				. $config->getPresenterLink(NULL, xlvoConf::getConfig(xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT))
-				. (xlvoConf::getConfig(xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT) ? '<br><br><i>' . htmlspecialchars(self::plugin()->translate("config_"
-						. xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . "_info_manual")) . '</i><ol>' . implode("", array_map(function ($step) {
+				. $config->getPresenterLink(NULL, $power_point_enabled, false, !$power_point_enabled) . ($power_point_enabled ? '<br><br><i>'
+					. htmlspecialchars(self::plugin()->translate("config_" . xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . "_info_manual")) . '</i><ol>'
+					. implode("", array_map(function ($step) {
 						return '<li>' . htmlspecialchars(self::plugin()->translate("config_" . xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT
 								. "_info_manual_" . $step)) . '</li>';
 					}, range(1, 4))) . '</ol>' : ''); // TODO: default.css not loaded
@@ -288,9 +290,11 @@ class xlvoVotingGUI {
 			 */
 			$config = xlvoVotingConfig::find($this->obj_id);
 
+			$power_point_enabled = xlvoConf::getConfig(xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT);
+
 			$presenter_link = new ilCustomInputGUI(self::plugin()->translate('config_presenter_link'));
-			$presenter_link->setHtml($config->getPresenterLink($xlvoVoting->getId(), xlvoConf::getConfig(xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT))
-				. (xlvoConf::getConfig(xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT) ? '<br><br><i>' . htmlspecialchars(self::plugin()->translate("config_"
+			$presenter_link->setHtml($config->getPresenterLink($xlvoVoting->getId(), $power_point_enabled, false, !$power_point_enabled)
+				. ($power_point_enabled ? '<br><br><i>' . htmlspecialchars(self::plugin()->translate("config_"
 						. xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . "_info_manual")) . '</i><ol>' . implode("", array_map(function ($step) {
 						return '<li>' . htmlspecialchars(self::plugin()->translate("config_" . xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT
 								. "_info_manual_" . $step)) . '</li>';

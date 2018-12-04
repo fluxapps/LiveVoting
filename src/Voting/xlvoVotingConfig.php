@@ -231,7 +231,7 @@ class xlvoVotingConfig extends CachingActiveRecord {
 	 *
 	 * @return string
 	 */
-	public function getPresenterLink($voting_id = NULL, $power_point = false, $force_not_format = false, $https = false) {
+	public function getPresenterLink($voting_id = NULL, $power_point = false, $force_not_format = false, $https = true) {
 		$url = NULL;
 		$shortLinkEnabled = boolval(xlvoConf::getConfig(xlvoConf::F_ALLOW_SHORTLINK_PRESENTER));
 
