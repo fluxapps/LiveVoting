@@ -682,6 +682,7 @@ class xlvoVotingManager2 {
 		} else {
 			$this->voting = xlvoVoting::findOrGetInstance($this->getPlayer()->getActiveVotingId());
 		}
+		$this->getPlayer()->freeze();
 	}
 
 
