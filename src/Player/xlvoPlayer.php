@@ -4,7 +4,6 @@ namespace LiveVoting\Player;
 
 use LiveVoting\Cache\CachingActiveRecord;
 use LiveVoting\Cache\xlvoCacheFactory;
-use LiveVoting\Option\xlvoOption;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\Round\xlvoRound;
 use LiveVoting\Vote\xlvoVote;
@@ -135,19 +134,29 @@ class xlvoPlayer extends CachingActiveRecord {
 	}
 
 
+	/**
+	 *
+	 */
 	public function freeze() {
 		$this->setFrozen(true);
-		$this->setStatus(self::STAT_RUNNING);
 		$this->resetCountDown(false);
-		$this->update();
+		$this->setShowResults(false);
+		$this->setTimestampRefresh(time() + self::SECONDS_TO_SLEEP);
+		$this->setButtonStates([]);
+		$this->store();
 	}
 
 
+	/**
+	 *
+	 */
 	public function unfreeze() {
 		$this->setFrozen(false);
-		$this->setStatus(self::STAT_RUNNING);
 		$this->resetCountDown(false);
-		$this->update();
+		$this->setShowResults(false);
+		$this->setTimestampRefresh(time() + self::SECONDS_TO_SLEEP);
+		$this->setButtonStates([]);
+		$this->store();
 	}
 
 
@@ -319,12 +328,8 @@ class xlvoPlayer extends CachingActiveRecord {
 	 */
 	public function prepareStart($voting_id) {
 		$this->setStatus(self::STAT_START_VOTING);
-		$this->resetCountDown(false);
-		$this->setFrozen(true);
-		$this->setShowResults(false);
-		$this->setTimestampRefresh(time() + self::SECONDS_TO_SLEEP);
 		$this->setActiveVoting($voting_id);
-		$this->setStatus(xlvoOption::STAT_INACTIVE);
+		$this->freeze();
 		$this->setRoundId(xlvoRound::getLatestRoundId($this->getObjId()));
 		$this->store();
 	}
