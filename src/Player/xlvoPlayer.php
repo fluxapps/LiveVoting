@@ -521,6 +521,8 @@ class xlvoPlayer extends CachingActiveRecord {
 
 		$this->active_voting = $active_voting;
 
+		//TODO: PLLV-275
+		$should_frozen = false;
 		if ($should_frozen) {
 			$this->freeze($store);
 		} else {
