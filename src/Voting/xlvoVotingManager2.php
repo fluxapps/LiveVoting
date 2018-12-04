@@ -300,6 +300,7 @@ class xlvoVotingManager2 {
 	public function open($voting_id) {
 		if ($this->getVotingsList()->where(array( 'id' => $voting_id ))->hasSets()) {
 			$this->player->setActiveVoting($voting_id);
+			$this->player->setFrozen(true);
 			$this->player->setButtonStates(array());
 			$this->player->resetCountDown(false);
 			$this->player->update();
@@ -682,7 +683,6 @@ class xlvoVotingManager2 {
 		} else {
 			$this->voting = xlvoVoting::findOrGetInstance($this->getPlayer()->getActiveVotingId());
 		}
-		$this->getPlayer()->freeze();
 	}
 
 

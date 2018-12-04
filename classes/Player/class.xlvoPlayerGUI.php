@@ -211,7 +211,6 @@ class xlvoPlayerGUI extends xlvoGUI {
 		//TODO: PLLV-272
 		if ($this->param_manager->getVoting() > 0) {
 			$this->manager->getPlayer()->setActiveVoting($this->param_manager->getVoting());
-			$this->manager->getPlayer()->freeze();
 		}
 
 		$results = array(
@@ -291,7 +290,6 @@ class xlvoPlayerGUI extends xlvoGUI {
 		//TODO: PLLV-272
 		if ($this->param_manager->getVoting() > 0) {
 			$this->manager->getPlayer()->setActiveVoting($this->param_manager->getVoting());
-			$this->manager->getPlayer()->freeze();
 		}
 
 		$return_value = true;
