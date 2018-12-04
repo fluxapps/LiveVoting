@@ -131,7 +131,6 @@ class xlvoVotingManager2 {
 	 */
 	public function prepare() {
 		$this->getVoting()->renegerateOptionSorting();
-		$this->getPlayer()->setStatus(xlvoPlayer::STAT_RUNNING);
 		$this->getPlayer()->freeze();
 	}
 
@@ -301,7 +300,9 @@ class xlvoVotingManager2 {
 	public function open($voting_id) {
 		if ($this->getVotingsList()->where(array( 'id' => $voting_id ))->hasSets()) {
 			$this->player->setActiveVoting($voting_id);
-			$this->player->freeze();
+			$this->player->setButtonStates(array());
+			$this->player->resetCountDown(false);
+			$this->player->update();
 		}
 	}
 
@@ -318,7 +319,9 @@ class xlvoVotingManager2 {
 		$this->handleQuestionSwitching();
 
 		$this->player->setActiveVoting($prev_id);
-		$this->player->freeze();
+		$this->player->setButtonStates(array());
+		$this->player->resetCountDown(false);
+		$this->player->update();
 		$this->getVoting()->renegerateOptionSorting();
 	}
 
@@ -334,7 +337,9 @@ class xlvoVotingManager2 {
 		$next_id = array_shift(array_values($next_id));
 		$this->handleQuestionSwitching();
 		$this->player->setActiveVoting($next_id);
-		$this->player->freeze();
+		$this->player->setButtonStates(array());
+		$this->player->resetCountDown(false);
+		$this->player->update();
 		$this->getVoting()->renegerateOptionSorting();
 	}
 

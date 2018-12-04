@@ -146,7 +146,6 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$this->initJSandCss();
 		$this->initToolbarDuringVoting();
 		$this->manager->prepare();
-		$this->manager->setStatus(xlvoPlayer::STAT_RUNNING);
 		$this->manager->getPlayer()->unfreeze();
 		$modal = xlvoQRModalGUI::getInstanceFromVotingConfig($this->manager->getVotingConfig())->getHTML();
 		self::dic()->mainTemplate()->setContent($modal . $this->getPlayerHTML());
@@ -212,7 +211,6 @@ class xlvoPlayerGUI extends xlvoGUI {
 		//TODO: PLLV-272
 		if ($this->param_manager->getVoting() > 0) {
 			$this->manager->getPlayer()->setActiveVoting($this->param_manager->getVoting());
-			$this->manager->getPlayer()->freeze();
 		}
 
 		$results = array(
@@ -292,7 +290,6 @@ class xlvoPlayerGUI extends xlvoGUI {
 		//TODO: PLLV-272
 		if ($this->param_manager->getVoting() > 0) {
 			$this->manager->getPlayer()->setActiveVoting($this->param_manager->getVoting());
-			$this->manager->getPlayer()->freeze();
 		}
 
 		$return_value = true;
