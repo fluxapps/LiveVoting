@@ -559,7 +559,7 @@ class xlvoVotingGUI {
 					 */
 					$xlvoVoting = xlvoVoting::find($v);
 					$xlvoVoting->setPosition($k + 1);
-					$xlvoVoting->update();
+					$xlvoVoting->store();
 				}
 			}
 			ilUtil::sendSuccess(self::plugin()->translate('voting_msg_sorting_saved'), true);
@@ -719,7 +719,7 @@ class xlvoVotingGUI {
 			$xlvoVoting->setAltResultDisplayMode($alt_result_display_mode);
 			$xlvoVoting->setRandomiseOptionSequence($randomise_option_sequence);
 
-			$xlvoVoting->create();
+			$xlvoVoting->store();
 
 			$options = $node->getElementsByTagName('option');
 			$xlvoOptions = array();
@@ -740,7 +740,7 @@ class xlvoVotingGUI {
 				$xlvoOption->setPosition($position);
 				$xlvoOption->setCorrectPosition($correct_position);
 				$xlvoOption->setVotingId($xlvoVoting->getId());
-				$xlvoOption->create();
+				$xlvoOption->store();
 
 				$xlvoOptions[] = $xlvoOption;
 			}

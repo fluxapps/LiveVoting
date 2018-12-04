@@ -320,11 +320,7 @@ class xlvoConf extends CachingActiveRecord {
 		$obj = new self($name);
 		$obj->setValue(json_encode($value));
 
-		if (self::where(array( 'name' => $name ))->hasSets()) {
-			$obj->update();
-		} else {
-			$obj->create();
-		}
+		$obj->store();
 	}
 
 

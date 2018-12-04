@@ -226,11 +226,7 @@ if (\srag\DIC\LiveVoting\DICStatic::dic()->database()->tableExists(\LiveVoting\O
 		$xlvoVotingConfig->setStartDate(date(\srag\ActiveRecordConfig\LiveVoting\ActiveRecordConfig::SQL_DATE_FORMAT, $resData['start_time']));
 		$xlvoVotingConfig->setEndDate(date(\srag\ActiveRecordConfig\LiveVoting\ActiveRecordConfig::SQL_DATE_FORMAT, $resData['end_time']));
 		$xlvoVotingConfig->setPin($resData['pin']);
-		if (!\LiveVoting\Voting\xlvoVotingConfig::where(array( 'obj_id' => $xlvoVotingConfig->getObjId() ))->hasSets()) {
-			$xlvoVotingConfig->create();
-		} else {
-			$xlvoVotingConfig->update();
-		}
+		$xlvoVotingConfig->store();
 
 		/**
 		 * @var $xlvoVoting \LiveVoting\Voting\xlvoVoting
@@ -249,11 +245,7 @@ if (\srag\DIC\LiveVoting\DICStatic::dic()->database()->tableExists(\LiveVoting\O
 		$xlvoVoting->setVotingType(\LiveVoting\QuestionTypes\xlvoQuestionTypes::TYPE_SINGLE_VOTE);
 		$xlvoVoting->setVotingStatus(\LiveVoting\Voting\xlvoVoting::STAT_ACTIVE);
 		$xlvoVoting->setPosition(1);
-		if ($xlvoVoting->getId()) {
-			$xlvoVoting->update();
-		} else {
-			$xlvoVoting->create();
-		}
+		$xlvoVoting->store();
 	}
 
 	// rep_robj_xlvo_option
@@ -269,11 +261,11 @@ if (\srag\DIC\LiveVoting\DICStatic::dic()->database()->tableExists(\LiveVoting\O
 		$xlvoOption->setVotingId($xlvoVoting->getId());
 		$xlvoOption->setType(\LiveVoting\QuestionTypes\xlvoQuestionTypes::TYPE_SINGLE_VOTE);
 		$xlvoOption->setStatus(\LiveVoting\Option\xlvoOption::STAT_ACTIVE);
-		$xlvoOption->create();
+		$xlvoOption->store();
 
 		// rep_robj_xlvo_vote
-		$setVote = \srag\DIC\LiveVoting\DICStatic::dic()->database()->query("SELECT * FROM " . \LiveVoting\Vote\xlvoVoteOld::TABLE_NAME . " WHERE option_id = "
-			. \srag\DIC\LiveVoting\DICStatic::dic()->database()->quote($resOption['id'], "integer"));
+		$setVote = \srag\DIC\LiveVoting\DICStatic::dic()->database()->query("SELECT * FROM " . \LiveVoting\Vote\xlvoVoteOld::TABLE_NAME
+			. " WHERE option_id = " . \srag\DIC\LiveVoting\DICStatic::dic()->database()->quote($resOption['id'], "integer"));
 		while ($resVote = \srag\DIC\LiveVoting\DICStatic::dic()->database()->fetchAssoc($setVote)) {
 			/**
 			 * @var $xlvoVote \LiveVoting\Vote\xlvoVote
@@ -396,7 +388,7 @@ foreach (\LiveVoting\Voting\xlvoVoting::where(array( 'obj_id' => 0 ), '>')->get(
 		$latestRound = \LiveVoting\Round\xlvoRound::getLatestRound($xlvoVoting->getObjId());
 		foreach ($list->get() as $xlvoVote) {
 			$xlvoVote->setRoundId($latestRound->getId());
-			$xlvoVote->update();
+			$xlvoVote->store();
 		}
 	}
 }
@@ -411,13 +403,16 @@ $configs = \LiveVoting\Voting\xlvoVotingConfig::get();
  */
 foreach ($configs as $config) {
 	$config->setShowAttendees(false);
-	$config->update();
+	$config->store();
 }
 ?>
 <#31>
 <?php
 try {
-	\srag\DIC\LiveVoting\DICStatic::dic()->database()->addIndex(\LiveVoting\Voter\xlvoVoter::TABLE_NAME, array( 'player_id', 'user_identifier' ), 'in1');
+	\srag\DIC\LiveVoting\DICStatic::dic()->database()->addIndex(\LiveVoting\Voter\xlvoVoter::TABLE_NAME, array(
+		'player_id',
+		'user_identifier'
+	), 'in1');
 	\srag\DIC\LiveVoting\DICStatic::dic()->database()->addIndex(\LiveVoting\Round\xlvoRound::TABLE_NAME, array( 'obj_id' ), 'in1');
 	\srag\DIC\LiveVoting\DICStatic::dic()->database()->addIndex(\LiveVoting\Option\xlvoOption::TABLE_NAME, array( 'voting_id' ), 'in1');
 } catch (\PDOException $ex) {
@@ -454,7 +449,7 @@ foreach (\LiveVoting\Voting\xlvoVotingConfig::get() as $xlvoVotingConfig) {
 
 		$xlvoVotingConfig->setPuk($xlvoPuk->getPin());
 
-		$xlvoVotingConfig->update();
+		$xlvoVotingConfig->store();
 	}
 }
 ?>
@@ -472,7 +467,7 @@ foreach (\LiveVoting\Voting\xlvoVotingConfig::get() as $xlvoVotingConfig) {
 	if (empty($xlvoVotingConfig->getPuk()) || strlen($xlvoVotingConfig->getPuk()) < $xlvoPuk->getPinLength()) {
 		$xlvoVotingConfig->setPuk($xlvoPuk->getPin());
 
-		$xlvoVotingConfig->update();
+		$xlvoVotingConfig->store();
 	}
 }
 ?>

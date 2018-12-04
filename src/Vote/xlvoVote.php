@@ -230,7 +230,7 @@ class xlvoVote extends CachingActiveRecord {
 		$votes = $votes->get();
 		$historyObject->setAnswer($gui->getTextRepresentation($votes));
 
-		$historyObject->create();
+		$historyObject->store();
 	}
 
 

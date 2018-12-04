@@ -213,6 +213,6 @@ abstract class xlvoQuestionTypesGUI extends xlvoGUI {
 		$states = $xlvoPlayer->getButtonStates();
 		$states[$button_id] = $state;
 		$xlvoPlayer->setButtonStates($states);
-		$xlvoPlayer->update();
+		$xlvoPlayer->store();
 	}
 }

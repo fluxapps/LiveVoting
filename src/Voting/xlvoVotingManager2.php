@@ -444,7 +444,7 @@ class xlvoVotingManager2 {
 	 */
 	public function reset() {
 		$this->player->setButtonStates(array());
-		$this->player->update();
+		$this->player->store();
 		/**
 		 * @var xlvoVote $xlvoVote
 		 */

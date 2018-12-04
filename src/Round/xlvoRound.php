@@ -78,7 +78,7 @@ class xlvoRound extends CachingActiveRecord {
 		$round = new xlvoRound();
 		$round->setRoundNumber(1);
 		$round->setObjId($obj_id);
-		$round->create();
+		$round->store();
 
 		return $round;
 	}

@@ -154,7 +154,7 @@ class ilObjLiveVoting extends ilObjectPlugin {
 
 		foreach ($votings as $voting) {
 			$voting->setPosition($i);
-			$voting->update();
+			$voting->store();
 			$i ++;
 		}
 	}
@@ -182,7 +182,7 @@ class ilObjLiveVoting extends ilObjectPlugin {
 			$config_clone->setPin($xlvoPin->getPin());
 			$xlvoPuk = new Puk();
 			$config_clone->setPuk($xlvoPuk->getPin());
-			$config_clone->update();
+			$config_clone->store();
 		}
 
 		/**
@@ -193,7 +193,7 @@ class ilObjLiveVoting extends ilObjectPlugin {
 		if ($player instanceof xlvoPlayer) {
 			$player_clone = $player->copy();
 			// reset active Voting in player
-			$player_clone->setActiveVoting(0);
+			$player_clone->setActiveVoting(0, false);
 			$player_clone->setObjId($new_obj->getId());
 			$player_clone->store();
 		}
@@ -210,7 +210,7 @@ class ilObjLiveVoting extends ilObjectPlugin {
 			 */
 			$voting_clone = $voting->fullClone(false, false);
 			$voting_clone->setObjId($new_obj->getId());
-			$voting_clone->update();
+			$voting_clone->store();
 
 			$voting_id = $voting->getId();
 			$voting_id_clone = $voting_clone->getId();
@@ -229,7 +229,7 @@ class ilObjLiveVoting extends ilObjectPlugin {
 				 */
 				$option_clone = $option->copy();
 				$option_clone->setVotingId($voting_id_clone);
-				$option_clone->create();
+				$option_clone->store();
 
 				$option_id_clone = xlvoOption::where(array( 'voting_id' => $voting_id_clone ))->last()->getId();
 
@@ -244,7 +244,7 @@ class ilObjLiveVoting extends ilObjectPlugin {
 					$vote_clone = $vote->copy();
 					$vote_clone->setVotingId($voting_id_clone);
 					$vote_clone->setOptionId($option_id_clone);
-					//					$vote_clone->create(); // CURRENTLY VOTES WILL NOT BE CLONED
+					//					$vote_clone->store(); // CURRENTLY VOTES WILL NOT BE CLONED
 				}
 			}
 		}

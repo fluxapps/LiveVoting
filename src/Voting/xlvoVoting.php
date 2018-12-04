@@ -248,7 +248,7 @@ class xlvoVoting extends CachingActiveRecord {
 		$i = 1;
 		foreach ($this->getVotingOptions() as $votingOption) {
 			$votingOption->setPosition($i);
-			$votingOption->update();
+			$votingOption->store();
 			$i ++;
 		}
 	}
@@ -277,12 +277,12 @@ class xlvoVoting extends CachingActiveRecord {
 
 			$newObj->setTitle($this->getTitle() . ' (' . $count . ')');
 		}
-		$newObj->create();
+		$newObj->store();
 		if ($clone_options) {
 			foreach ($newObj->getVotingOptions() as $votingOption) {
 				$votingOptionNew = $votingOption->copy();
 				$votingOptionNew->setVotingId($newObj->getId());
-				$votingOptionNew->create();
+				$votingOptionNew->store();
 			}
 			$newObj->renegerateOptionSorting();
 		}

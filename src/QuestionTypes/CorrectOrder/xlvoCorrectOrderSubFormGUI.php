@@ -178,11 +178,11 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI {
 		}
 
 		foreach ($this->options as $option) {
-			$option->update();
+			$option->store();
 		}
 
 		$this->getXlvoVoting()->setMultiFreeInput(true);
-		$this->getXlvoVoting()->update();
+		$this->getXlvoVoting()->store();
 	}
 
 

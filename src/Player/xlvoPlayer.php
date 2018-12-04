@@ -137,26 +137,30 @@ class xlvoPlayer extends CachingActiveRecord {
 	/**
 	 *
 	 */
-	public function freeze() {
+	public function freeze($store = true) {
 		$this->setFrozen(true);
 		$this->resetCountDown(false);
 		$this->setButtonStates([]);
 		$this->resetCountDown(false);
 		$this->setTimestampRefresh(time() + self::SECONDS_TO_SLEEP);
-		$this->store();
+		if ($store) {
+			$this->store();
+		}
 	}
 
 
 	/**
 	 *
 	 */
-	public function unfreeze() {
+	public function unfreeze($store = true) {
 		$this->setFrozen(false);
 		$this->resetCountDown(false);
 		$this->setButtonStates([]);
 		$this->resetCountDown(false);
 		$this->setTimestampRefresh(time() + self::SECONDS_TO_SLEEP);
-		$this->store();
+		if ($store) {
+			$this->store();
+		}
 	}
 
 
@@ -205,19 +209,19 @@ class xlvoPlayer extends CachingActiveRecord {
 
 	public function show() {
 		$this->setShowResults(true);
-		$this->update();
+		$this->store();
 	}
 
 
 	public function hide() {
 		$this->setShowResults(false);
-		$this->update();
+		$this->store();
 	}
 
 
 	public function toggleResults() {
 		$this->setShowResults(!$this->isShowResults());
-		$this->update();
+		$this->store();
 	}
 
 
@@ -326,7 +330,7 @@ class xlvoPlayer extends CachingActiveRecord {
 	 */
 	public function prepareStart($voting_id) {
 		$this->setStatus(self::STAT_START_VOTING);
-		$this->setActiveVoting($voting_id);
+		$this->setActiveVoting($voting_id, false);
 		$this->setRoundId(xlvoRound::getLatestRoundId($this->getObjId()));
 		$this->store();
 	}
@@ -338,7 +342,7 @@ class xlvoPlayer extends CachingActiveRecord {
 	public function isUnattended() {
 		if ($this->getStatus() != self::STAT_STOPPED AND ($this->getTimestampRefresh() < (time() - self::SECONDS_TO_SLEEP))) {
 			$this->setStatus(self::STAT_STOPPED);
-			$this->update();
+			$this->store();
 		}
 		if ($this->getStatus() == self::STAT_START_VOTING) {
 			return false;
@@ -509,17 +513,20 @@ class xlvoPlayer extends CachingActiveRecord {
 
 
 	/**
-	 * @param int $active_voting
+	 * @param int  $active_voting
+	 * @param bool $store
 	 */
-	public function setActiveVoting($active_voting) {
-		$should_frozen = ($this->active_voting != $active_voting);
+	public function setActiveVoting($active_voting, $store = true) {
+		$should_frozen = (!empty($this->active_voting) && $this->active_voting != $active_voting);
 
 		$this->active_voting = $active_voting;
 
 		if ($should_frozen) {
-			$this->freeze();
+			$this->freeze($store);
 		} else {
-			$this->store();
+			if ($store) {
+				$this->store();
+			}
 		}
 	}
 

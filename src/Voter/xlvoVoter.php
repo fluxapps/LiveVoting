@@ -52,10 +52,9 @@ class xlvoVoter extends CachingActiveRecord {
 			$obj = new self();
 			$obj->setUserIdentifier(xlvoUser::getInstance()->getIdentifier());
 			$obj->setPlayerId($player_id);
-			$obj->create();
 		}
 		$obj->setLastAccess(new DateTime());
-		$obj->update();
+		$obj->store();
 	}
 
 

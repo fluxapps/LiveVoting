@@ -136,7 +136,7 @@ class xlvoResultsGUI extends xlvoGUI {
 		$newRound = new xlvoRound();
 		$newRound->setRoundNumber($lastRound->getRoundNumber() + 1);
 		$newRound->setObjId($this->obj_id);
-		$newRound->create();
+		$newRound->store();
 		self::dic()->ctrl()->setParameter($this, 'round_id', xlvoRound::getLatestRound($this->obj_id)->getId());
 		ilUtil::sendSuccess(self::plugin()->translate("common_new_round_created"), true);
 		self::dic()->ctrl()->redirect($this, self::CMD_SHOW);

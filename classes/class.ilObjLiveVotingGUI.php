@@ -452,7 +452,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 			if ($this->form->checkInput()) {
 				$this->object->setTitle($this->form->getInput(self::F_TITLE));
 				$this->object->setDescription($this->form->getInput(self::F_DESCRIPTION));
-				$this->object->update();
+				$this->object->store();
 
 				/**
 				 * @var xlvoVotingConfig $config
@@ -476,7 +476,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 				$config->setVotingHistory($this->form->getInput(xlvoVotingConfig::F_VOTING_HISTORY));
 				$config->setShowAttendees($this->form->getInput(xlvoVotingConfig::F_SHOW_ATTENDEES));
 
-				$config->update();
+				$config->store();
 				ilUtil::sendSuccess(self::plugin()->translate('obj_msg_properties_form_saved'), true);
 				self::dic()->ctrl()->redirect($this, self::CMD_EDIT);
 			}
