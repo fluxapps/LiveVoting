@@ -80,7 +80,7 @@ class xlvoBasicInitialisation {
 	 */
 	protected function __construct($context = NULL) {
 		if ($context) {
-			CookieManager::setContext($context);
+			xlvoContext::setContext($context);
 		}
 
 		$this->bootstrapApp();

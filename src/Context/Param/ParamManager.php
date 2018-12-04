@@ -96,9 +96,11 @@ final class ParamManager {
 		if (!empty(trim(filter_input(INPUT_GET, self::PARAM_PUK), "/"))) {
 			$this->setPuk(trim(filter_input(INPUT_GET, self::PARAM_PUK), "/"));
 		}
+
 		if (!empty(trim(filter_input(INPUT_GET, self::PARAM_VOTING), "/"))) {
 			$this->setVoting(trim(filter_input(INPUT_GET, self::PARAM_VOTING), "/"));
 		}
+
 		if (!empty(trim(filter_input(INPUT_GET, self::PARAM_PPT), "/"))) {
 			$this->setPpt(trim(filter_input(INPUT_GET, self::PARAM_PPT), "/"));
 		}
