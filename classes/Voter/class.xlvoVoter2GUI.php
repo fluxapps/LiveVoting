@@ -184,7 +184,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 	 */
 	protected function initJsAndCss() {
 		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/Voter/voter.css');
-		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/libs/bootstrap-slider.css');
+		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/libs/bootstrap-slider.min.css');
 		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/QuestionTypes/NumberRange/number_range.css');
 		iljQueryUtil::initjQueryUI();
 
