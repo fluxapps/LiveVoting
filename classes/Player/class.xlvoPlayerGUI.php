@@ -62,7 +62,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 		$this->manager = xlvoVotingManager2::getInstanceFromObjId(ilObject2::_lookupObjId($param_manager->getRefId()), $param_manager->getVoting());
 
-		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/default.min.css');
+		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/default.css');
 	}
 
 
@@ -545,8 +545,8 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 		//xlvoJs::getInstance()->ilias($this)->name('PPT')->init()->setRunCode();
 
-		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/Player/player.min.css');
-		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/LiveVoting/templates/default/Display/Bar/bar.min.css');
+		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/Player/player.css');
+		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/LiveVoting/templates/default/Display/Bar/bar.css');
 	}
 
 
