@@ -157,7 +157,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 		}
 
 		$this->initJsAndCss();
-		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/default.min.css');
+		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/default.css');
 		$tpl = self::plugin()->template('default/Voter/tpl.voter_player.html', true, false);
 		self::dic()->mainTemplate()->setContent($tpl->get());
 	}
