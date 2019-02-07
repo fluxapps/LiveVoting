@@ -474,6 +474,7 @@ class xlvoVotingManager2 {
 
 		if ($this->canBeStarted()) {
 			$xlvoVoting = $this->getVotingsList()->first();
+			$this->handleQuestionSwitching();
 			$this->getPlayer()->prepareStart($xlvoVoting->getId());
 
 			return true;
@@ -668,6 +669,7 @@ class xlvoVotingManager2 {
 	 * @param int $voting_id
 	 */
 	protected function initVoting($voting_id = 0) {
+
 		//TODO: PLLV-272
 		if ($voting_id > 0) {
 			$this->voting = xlvoVoting::findOrGetInstance($voting_id);

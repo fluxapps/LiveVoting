@@ -4,6 +4,8 @@ namespace LiveVoting\Context\Param;
 
 use ilLiveVotingPlugin;
 use ilObject;
+use ilObject2;
+use ilObjOrgUnit;
 use ilUIPluginRouterGUI;
 use LiveVoting\Pin\xlvoPin;
 use LiveVoting\Utils\LiveVotingTrait;
@@ -95,14 +97,16 @@ final class ParamManager {
 			$this->setRefId($ref_id);
 		}
 
+
+
 		$puk = trim(filter_input(INPUT_GET, self::PARAM_PUK), "/");
 		if (!empty($puk)) {
 			$this->setPuk($puk);
 		}
 
-		$pin = trim(filter_input(INPUT_GET, self::PARAM_VOTING), "/");
-		if (!empty($pin)) {
-			$this->setVoting($pin);
+		$voting = trim(filter_input(INPUT_GET, self::PARAM_VOTING), "/");
+		if (!empty($voting)) {
+			$this->setVoting($voting);
 		}
 
 		$ppt = trim(filter_input(INPUT_GET, self::PARAM_PPT), "/");

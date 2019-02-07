@@ -57,18 +57,31 @@ var xlvoVoter = {
 				}
 
 				var voting_has_changed = (xlvoVoter.player.active_voting_id !== data.active_voting_id), // Voting has changed
+
 					status_has_changed = (xlvoVoter.player.status !== data.status), // Status of player has changed
 					forced_update = (xlvoVoter.counter > xlvoVoter.forced_update), // forced update
 					frozen_changed = (xlvoVoter.player.frozen !== data.frozen), // frozen status has changed
 					show_results_changed = (xlvoVoter.player.show_results !== data.show_results), // Show Results has changed
 					show_correct_order_changed = (xlvoVoter.player.show_correct_order !== data.show_correct_order); // Show Correct Order has changed
 
+
 				xlvoVoter.player = data;
 				if (status_has_changed || voting_has_changed || forced_update || frozen_changed || show_results_changed || show_correct_order_changed) {
+					xlvoVoter.log("Replace HTML & Handle Countdown");
+
+					xlvoVoter.log("status_has_changed:" + status_has_changed);
+					xlvoVoter.log("voting_has_changed:" + voting_has_changed);
+					xlvoVoter.log("forced_update:" + forced_update);
+					xlvoVoter.log("frozen_changed:" + frozen_changed);
+					xlvoVoter.log("show_results_changed:" + show_results_changed);
+					xlvoVoter.log("show_correct_order_changed:" + show_correct_order_changed);
+
 					xlvoVoter.replaceHTML(xlvoVoter.handleCountdown);
 				} else {
+					xlvoVoter.log("handleCountdown");
 					xlvoVoter.handleCountdown();
 				}
+				xlvoVoter.log("Set TimeOut");
 				xlvoVoter.timeout = setTimeout(xlvoVoter.loadVotingData, xlvoVoter.config.delay);
 				xlvoVoter.counter++;
 			}).fail(function () {
@@ -82,6 +95,9 @@ var xlvoVoter = {
 		};
 		$.get(xlvoVoter.config.base_url, {cmd: 'getHTML'}).done(function (data) {
 			if (xlvoVoter.data !== data) { // Only change html if changed (Try prevent blinking images) (Not work because countdown text and/or token links)
+
+				xlvoVoter.log(data);
+
 				xlvoVoter.player_element.replaceWith('<div id="xlvo_voter_player">' + data + '</div>');
 				if (xlvoVoter.config.use_mathjax && !!MathJax) {
 					MathJax.Hub.Queue(
@@ -125,5 +141,11 @@ var xlvoVoter = {
 		if (xlvoVoter.config.debug) {
 			console.log(data);
 		}
+	},
+	debug: function () {
+		this.config.debug = true;
+	},
+	stop: function () {
+		this.config.debug = false;
 	}
 };

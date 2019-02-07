@@ -236,7 +236,7 @@ class xlvoPlayer extends CachingActiveRecord {
 	 */
 	public function getStdClassForVoter() {
 		$obj = new stdClass();
-		$obj->status = (int)$this->getStatus(true);
+		$obj->status = (int)$this->getStatus(false);
 		$obj->force_reload = false;
 		$obj->active_voting_id = (int)$this->getActiveVotingId();
 		$obj->countdown = (int)$this->remainingCountDown();

@@ -257,7 +257,6 @@ var xlvoPlayer = {
 			return;
 		}
 		xlvoPlayer.startRequest();
-
 		$.get(xlvoPlayer.config.base_url, {cmd: 'getPlayerData'}).done(function (data) {
 			xlvoPlayer.counter++;
 			if ((xlvoPlayer.counter > xlvoPlayer.forced_update_interval) // Forced update of HTML

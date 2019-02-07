@@ -248,7 +248,6 @@ class xlvoVoter2GUI extends xlvoGUI {
 					$tpl->setVariable('QUESTION_TEXT', $this->manager->getVoting()->getQuestionForPresentation());
 					$tpl->parseCurrentBlock();
 				}
-
 				$tpl->setVariable('QUESTION', $xlvoQuestionTypesGUI->getMobileHTML());
 				break;
 			case xlvoPlayer::STAT_START_VOTING:

@@ -83,8 +83,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 		try {
 			$this->manager->prepareStart();
 		} catch (xlvoPlayerException $e) {
-			ilUtil::sendFailure($this->txt('msg_no_start_' . $e->getCode()));
-
+			ilUtil::sendFailure($this->txt('msg_no_start_' . $e->getCode()),true);
 			return;
 		}
 
@@ -174,7 +173,11 @@ class xlvoPlayerGUI extends xlvoGUI {
 		try {
 			xlvoPin::checkPin($this->param_manager->getPin());
 		} catch (Throwable $e) {
-			throw new ilException("PlayerGUI startPresenter1 Wrong PIN!");
+			throw new ilException("PlayerGUI startPresenter: Wrong PIN! (1)");
+		}
+
+		if($this->param_manager->getVoting() == 0) {
+			throw new ilException("PlayerGUI startPresenter: No Voting!");
 		}
 
 		$this->manager = new xlvoVotingManager2($this->param_manager->getPin(), $this->param_manager->getVoting());
@@ -186,7 +189,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 		if ($xlvoVotingConfig === NULL) {
 			/* || !ilObjLiveVotingAccess::hasWriteAccess($this->manager->getObjId())*/
-			throw new ilException("PlayerGUI startPresenter2 Wrong PIN!");
+			throw new ilException("PlayerGUI startPresenter: Wrong PIN! (2)");
 		}
 
 		if ($xlvoVotingConfig->getPuk() !== $this->param_manager->getPuk()) {
@@ -207,7 +210,10 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 *
 	 */
 	protected function getPlayerData() {
+
 		$this->manager->attend();
+
+		//self::dic()->log()->write( $this->param_manager->getVoting());
 
 		//TODO: PLLV-272
 		if ($this->param_manager->getVoting() > 0) {
