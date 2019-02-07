@@ -310,6 +310,14 @@ final class ILIAS52DIC extends AbstractDIC {
 	/**
 	 * @inheritdoc
 	 */
+	public function question()/*: AsqFactory*/ {
+		throw new DICException("AsqFactory not exists in ILIAS 5.4 or below!");
+	}
+
+
+	/**
+	 * @inheritdoc
+	 */
 	public function rbacadmin()/*: ilRbacAdmin*/ {
 		return $this->dic->rbac()->admin();
 	}
@@ -343,7 +351,7 @@ final class ILIAS52DIC extends AbstractDIC {
 	 * @inheritdoc
 	 */
 	public function settings()/*: ilSetting*/ {
-		return $this->dic->settings();
+		return $this->dic["ilSetting"];
 	}
 
 

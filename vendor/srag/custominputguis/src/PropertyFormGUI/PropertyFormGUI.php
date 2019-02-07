@@ -10,7 +10,6 @@ use ilRadioOption;
 use srag\CustomInputGUIs\LiveVoting\PropertyFormGUI\Exception\PropertyFormGUIException;
 use srag\CustomInputGUIs\LiveVoting\PropertyFormGUI\Items\Items;
 use srag\DIC\LiveVoting\DICTrait;
-use srag\DIC\LiveVoting\Exception\DICException;
 
 /**
  * Class PropertyFormGUI
@@ -34,6 +33,10 @@ abstract class PropertyFormGUI extends ilPropertyFormGUI {
 	 * @var string
 	 */
 	const PROPERTY_MULTI = "multi";
+	/**
+	 * @var string
+	 */
+	const PROPERTY_NOT_ADD = "not_add";
 	/**
 	 * @var string
 	 */
@@ -95,18 +98,22 @@ abstract class PropertyFormGUI extends ilPropertyFormGUI {
 	 */
 	private final function getFields(array $fields, $parent_item)/*: void*/ {
 		if (!is_array($fields)) {
-			throw new PropertyFormGUIException("\$fields needs to be an array!");
+			throw new PropertyFormGUIException("\$fields needs to be an array!", PropertyFormGUIException::CODE_INVALID_FIELD);
 		}
 
 		foreach ($fields as $key => $field) {
 			if (!is_array($field)) {
-				throw new PropertyFormGUIException("\$fields needs to be an array!");
+				throw new PropertyFormGUIException("\$fields needs to be an array!", PropertyFormGUIException::CODE_INVALID_FIELD);
+			}
+
+			if ($field[self::PROPERTY_NOT_ADD]) {
+				continue;
 			}
 
 			$item = Items::getItem($key, $field, $parent_item, $this);
 
 			if (!($item instanceof ilFormPropertyGUI || $item instanceof ilFormSectionHeaderGUI || $item instanceof ilRadioOption)) {
-				throw new PropertyFormGUIException("\$item must be an instance of ilFormPropertyGUI, ilFormSectionHeaderGUI or ilRadioOption!");
+				throw new PropertyFormGUIException("\$item must be an instance of ilFormPropertyGUI, ilFormSectionHeaderGUI or ilRadioOption!", PropertyFormGUIException::CODE_INVALID_FIELD);
 			}
 
 			$this->items_cache[$key] = $item;
@@ -179,16 +186,18 @@ abstract class PropertyFormGUI extends ilPropertyFormGUI {
 	 */
 	private final function storeFormItems(array $fields)/*: void*/ {
 		foreach ($fields as $key => $field) {
-			$item = $this->items_cache[$key];
+			if (isset($this->items_cache[$key])) {
+				$item = $this->items_cache[$key];
 
-			if ($item instanceof ilFormPropertyGUI) {
-				$value = Items::getValueFromItem($item);
+				if ($item instanceof ilFormPropertyGUI) {
+					$value = Items::getValueFromItem($item);
 
-				$this->storeValue($key, $value);
-			}
+					$this->storeValue($key, $value);
+				}
 
-			if (is_array($field[self::PROPERTY_SUBITEMS])) {
-				$this->storeFormItems($field[self::PROPERTY_SUBITEMS]);
+				if (is_array($field[self::PROPERTY_SUBITEMS])) {
+					$this->storeFormItems($field[self::PROPERTY_SUBITEMS]);
+				}
 			}
 		}
 	}
@@ -204,17 +213,9 @@ abstract class PropertyFormGUI extends ilPropertyFormGUI {
 		$key,/*?string*/
 		$default = NULL)/*: string*/ {
 		if ($default !== NULL) {
-			try {
-				return self::plugin()->translate($key, static::LANG_MODULE, [], true, "", $default);
-			} catch (DICException $ex) {
-				return $default;
-			}
+			return self::plugin()->translate($key, static::LANG_MODULE, [], true, "", $default);
 		} else {
-			try {
-				return self::plugin()->translate($key, static::LANG_MODULE);
-			} catch (DICException $ex) {
-				return "";
-			}
+			return self::plugin()->translate($key, static::LANG_MODULE);
 		}
 	}
 

@@ -32,7 +32,8 @@ final class Items {
 	 */
 	public static final function getItem($key, array $field, $parent_item, $parent) {
 		if (!class_exists($field[PropertyFormGUI::PROPERTY_CLASS])) {
-			throw new PropertyFormGUIException("Class " . $field[PropertyFormGUI::PROPERTY_CLASS] . " not exists!");
+			throw new PropertyFormGUIException("Class " . $field[PropertyFormGUI::PROPERTY_CLASS]
+				. " not exists!", PropertyFormGUIException::CODE_INVALID_PROPERTY_CLASS);
 		}
 
 		/**
@@ -41,20 +42,28 @@ final class Items {
 		$item = new $field[PropertyFormGUI::PROPERTY_CLASS]();
 
 		if ($item instanceof ilFormSectionHeaderGUI) {
-			$item->setTitle($parent->txt($key));
+			if (!$field["setTitle"]) {
+				$item->setTitle($parent->txt($key));
+			}
 		} else {
 			if ($item instanceof ilRadioOption) {
-				$item->setTitle($parent->txt($parent_item->getPostVar() . "_" . $key));
+				if (!$field["setTitle"]) {
+					$item->setTitle($parent->txt($parent_item->getPostVar() . "_" . $key));
+				}
 
 				$item->setValue($key);
 			} else {
-				$item->setTitle($parent->txt($key));
+				if (!$field["setTitle"]) {
+					$item->setTitle($parent->txt($key));
+				}
 
 				$item->setPostVar($key);
 			}
 		}
 
-		$item->setInfo($parent->txt($key . "_info", ""));
+		if (!$field["setInfo"]) {
+			$item->setInfo($parent->txt($key . "_info", ""));
+		}
 
 		self::setPropertiesToItem($item, $field);
 
@@ -82,6 +91,10 @@ final class Items {
 
 		if (method_exists($item, "getDate")) {
 			return $item->getDate();
+		}
+
+		if (method_exists($item, "getImage")) {
+			return $item->getImage();
 		}
 
 		if (method_exists($item, "getValue") && !($item instanceof ilRadioOption)) {
@@ -133,6 +146,7 @@ final class Items {
 					break;
 
 				case PropertyFormGUI::PROPERTY_CLASS:
+				case PropertyFormGUI::PROPERTY_NOT_ADD:
 				case PropertyFormGUI::PROPERTY_SUBITEMS:
 				case PropertyFormGUI::PROPERTY_VALUE:
 					break;
@@ -166,6 +180,12 @@ final class Items {
 
 		if (method_exists($item, "setDate")) {
 			$item->setDate($value);
+
+			return;
+		}
+
+		if (method_exists($item, "setImage")) {
+			$item->setImage($value);
 
 			return;
 		}

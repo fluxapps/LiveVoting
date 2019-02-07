@@ -117,7 +117,7 @@ class ScreenshotsInputGUI extends ilFormPropertyGUI implements Pluginable {
 			self::$init = true;
 
 			$dir = __DIR__;
-			$dir = substr($dir, strpos($dir, "/Customizing/") + 1);
+			$dir = "./" . substr($dir, strpos($dir, "/Customizing/") + 1);
 
 			self::dic()->mainTemplate()->addJavaScript($dir . "/../../node_modules/es6-promise/dist/es6-promise.auto.min.js");
 			self::dic()->mainTemplate()->addJavaScript($dir . "/../../node_modules/canvas-toBlob/canvas-toBlob.js");

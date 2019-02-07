@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.3.6]
+- Fixes
+
+## [0.3.5]
+- Output ...
+
+## [0.3.4]
+- RemovePluginDataConfirmException::CODE_X
+
 ## [0.3.3]
 - Fix repository object uninstaller
 

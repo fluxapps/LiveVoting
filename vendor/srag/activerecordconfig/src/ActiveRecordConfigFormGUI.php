@@ -2,8 +2,7 @@
 
 namespace srag\ActiveRecordConfig\LiveVoting;
 
-use srag\ActiveRecordConfig\LiveVoting\Exception\ActiveRecordConfigException;
-use srag\CustomInputGUIs\LiveVoting\PropertyFormGUI\PropertyFormGUI;
+use srag\CustomInputGUIs\LiveVoting\PropertyFormGUI\ConfigPropertyFormGUI;
 
 /**
  * Class ActiveRecordConfigFormGUI
@@ -12,14 +11,8 @@ use srag\CustomInputGUIs\LiveVoting\PropertyFormGUI\PropertyFormGUI;
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-abstract class ActiveRecordConfigFormGUI extends PropertyFormGUI {
+abstract class ActiveRecordConfigFormGUI extends ConfigPropertyFormGUI {
 
-	/**
-	 * @var string
-	 *
-	 * @abstract
-	 */
-	const CONFIG_CLASS_NAME = "";
 	/**
 	 * @var string
 	 */
@@ -38,20 +31,9 @@ abstract class ActiveRecordConfigFormGUI extends PropertyFormGUI {
 	 */
 	public function __construct(ActiveRecordConfigGUI $parent, /*string*/
 		$tab_id) {
-		$this->checkConfigClassNameConst();
-
 		$this->tab_id = $tab_id;
 
 		parent::__construct($parent);
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	protected function getValue(/*string*/
-		$key) {
-		return (static::CONFIG_CLASS_NAME)::getField($key);
 	}
 
 
@@ -76,24 +58,5 @@ abstract class ActiveRecordConfigFormGUI extends PropertyFormGUI {
 	 */
 	protected function initTitle()/*: void*/ {
 		$this->setTitle($this->txt($this->tab_id));
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	protected function storeValue(/*string*/
-		$key, $value)/*: void*/ {
-		return (static::CONFIG_CLASS_NAME)::setField($key, $value);
-	}
-
-
-	/**
-	 * @throws ActiveRecordConfigException Your class needs to implement the CONFIG_CLASS_NAME constant!
-	 */
-	private final function checkConfigClassNameConst()/*: void*/ {
-		if (!defined("static::CONFIG_CLASS_NAME") || empty(static::CONFIG_CLASS_NAME) || !class_exists(static::CONFIG_CLASS_NAME)) {
-			throw new ActiveRecordConfigException("Your class needs to implement the CONFIG_CLASS_NAME constant!");
-		}
 	}
 }

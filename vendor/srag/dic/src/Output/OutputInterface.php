@@ -33,14 +33,16 @@ interface OutputInterface {
 	/**
 	 * Output HTML or GUI
 	 *
-	 * @param string|object|array $value html or GUI instance
-	 * @param bool                $main  Display main skin?
+	 * @param string|object|array $value         html or GUI instance
+	 * @param bool                $main_template Display main skin?
+	 * @param bool                $show          Show main template?
 	 *
 	 * @throws DICException Class {get_class($value)} is not supported for output!
 	 * @throws ilTemplateException
 	 */
 	public function output($value, /*bool*/
-		$main = true)/*: void*/
+		$show = false, /*bool*/
+		$main_template = true)/*: void*/
 	;
 
 

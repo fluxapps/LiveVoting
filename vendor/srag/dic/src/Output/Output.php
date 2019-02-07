@@ -3,6 +3,7 @@
 namespace srag\DIC\LiveVoting\Output;
 
 use ILIAS\UI\Component\Component;
+use ilTable2GUI;
 use ilTemplate;
 use JsonSerializable;
 use srag\DIC\LiveVoting\DICTrait;
@@ -37,12 +38,23 @@ final class Output implements OutputInterface {
 					$html = $value;
 					break;
 
-				// GUI instance
-				case method_exists($value, "getHTML"):
+				// Component instance
+				case ($value instanceof Component):
+					$html = self::dic()->ui()->renderer()->render($value);
+					break;
+
+				// ilTable2GUI instance
+				case ($value instanceof ilTable2GUI):
+					// Fix stupid broken ilTable2GUI (render has only header without rows)
 					$html = $value->getHTML();
 					break;
+
+				// GUI instance
 				case method_exists($value, "render"):
 					$html = $value->render();
+					break;
+				case method_exists($value, "getHTML"):
+					$html = $value->getHTML();
 					break;
 
 				// Template instance
@@ -50,14 +62,9 @@ final class Output implements OutputInterface {
 					$html = $value->get();
 					break;
 
-				// Component instance
-				case ($value instanceof Component):
-					$html = self::dic()->ui()->renderer()->render($value);
-					break;
-
 				// Not supported!
 				default:
-					throw new DICException("Class " . get_class($value) . " is not supported for output!");
+					throw new DICException("Class " . get_class($value) . " is not supported for output!", DICException::CODE_OUTPUT_INVALID_VALUE);
 					break;
 			}
 		}
@@ -70,20 +77,25 @@ final class Output implements OutputInterface {
 	 * @inheritdoc
 	 */
 	public function output($value, /*bool*/
-		$main = true)/*: void*/ {
+		$show = false, /*bool*/
+		$main_template = true)/*: void*/ {
 		$html = $this->getHTML($value);
 
 		if (self::dic()->ctrl()->isAsynch()) {
 			echo $html;
+
+			exit;
 		} else {
-			if ($main) {
+			if ($main_template) {
 				self::dic()->mainTemplate()->getStandardTemplate();
 			}
-			self::dic()->mainTemplate()->setContent($html);
-			self::dic()->mainTemplate()->show();
-		}
 
-		exit;
+			self::dic()->mainTemplate()->setContent($html);
+
+			if ($show) {
+				self::dic()->mainTemplate()->show();
+			}
+		}
 	}
 
 
@@ -106,13 +118,13 @@ final class Output implements OutputInterface {
 
 				echo $value;
 
+				exit;
+
 				break;
 
 			default:
-				throw new DICException(get_class($value) . " is not a valid JSON value!");
+				throw new DICException(get_class($value) . " is not a valid JSON value!", DICException::CODE_OUTPUT_INVALID_VALUE);
 				break;
 		}
-
-		exit;
 	}
 }
