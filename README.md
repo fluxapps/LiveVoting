@@ -39,8 +39,8 @@ Config Rewrite Rule in .htaccess or Apache-Config:
 </IfModule>
 ```
 
-## Versioning
-We use SemVer for versioning. For the versions available, see the tags on this repository.
+### Some screenshots
+TODO
 
 ## PowerPoint export
 For display the exported PowerPoint files you need to install the WebViewer-AddIn in PowerPoint:
