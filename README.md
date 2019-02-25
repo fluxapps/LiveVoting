@@ -35,7 +35,9 @@ Config Rewrite Rule in .htaccess or Apache-Config:
 
 ```apacheconf
 <IfModule mod_rewrite.c>
-	RewriteRule ^vote(/[\w]*|) Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?xlvo_pin=$1 [L]
+	RewriteEngine On
+	RewriteRule ^/vote(/\w*) /Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/pin.php?xlvo_pin=$1 [L]
+	RewriteRule ^/presenter(/\w*)(/\w*)(/\w*)?(/\w*)? /Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/presenter.php?xlvo_pin=$1&xlvo_puk=$2&xlvo_voting=$3&xlvo_ppt=$4 [L]
 </IfModule>
 ```
 
