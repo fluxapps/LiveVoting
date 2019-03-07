@@ -261,7 +261,7 @@ class xlvoPlayer extends CachingActiveRecord {
 		$obj = new stdClass();
 		$obj->is_first = (bool)$this->getCurrentVotingObject()->isFirst();
 		$obj->is_last = (bool)$this->getCurrentVotingObject()->isLast();
-		$obj->status = (int)$this->getStatus(false);
+		$obj->status = (int)$this->getStatus(true);
 		$obj->active_voting_id = (int)$this->getActiveVotingId();
 		$obj->show_results = (bool)$this->isShowResults();
 		$obj->frozen = (bool)$this->isFrozen();
