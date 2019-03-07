@@ -57,10 +57,15 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 */
 	public function __construct() {
 
+
 		parent::__construct();
 		$param_manager = ParamManager::getInstance();
 
 		$this->manager = xlvoVotingManager2::getInstanceFromObjId(ilObject2::_lookupObjId($param_manager->getRefId()), $param_manager->getVoting());
+
+		if ($voting = trim(filter_input(INPUT_GET, ParamManager::PARAM_VOTING), "/")) {
+			$this->manager->getPlayer()->setActiveVoting($voting, true);
+		}
 
 		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/default.css');
 	}
@@ -83,7 +88,8 @@ class xlvoPlayerGUI extends xlvoGUI {
 		try {
 			$this->manager->prepareStart();
 		} catch (xlvoPlayerException $e) {
-			ilUtil::sendFailure($this->txt('msg_no_start_' . $e->getCode()),true);
+			ilUtil::sendFailure($this->txt('msg_no_start_' . $e->getCode()), true);
+
 			return;
 		}
 
@@ -176,7 +182,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 			throw new ilException("PlayerGUI startPresenter: Wrong PIN! (1)");
 		}
 
-		if($this->param_manager->getVoting() == 0) {
+		if ($this->param_manager->getVoting() == 0) {
 			throw new ilException("PlayerGUI startPresenter: No Voting!");
 		}
 
@@ -212,8 +218,6 @@ class xlvoPlayerGUI extends xlvoGUI {
 	protected function getPlayerData() {
 
 		$this->manager->attend();
-
-		//self::dic()->log()->write( $this->param_manager->getVoting());
 
 		//TODO: PLLV-272
 		if ($this->param_manager->getVoting() > 0) {
@@ -493,6 +497,8 @@ class xlvoPlayerGUI extends xlvoGUI {
 		foreach ($this->manager->getAllVotings() as $voting) {
 			$id = $voting->getId();
 			$t = $voting->getTitle();
+			self::dic()->ctrl()->setParameterByClass(xlvoPlayerGUI::class, ParamManager::PARAM_VOTING, $id);
+
 			$target = self::dic()->ctrl()->getLinkTarget(new xlvoPlayerGUI(), self::CMD_START_PLAYER);
 			if ($async) {
 				$current_selection_list->addItem($t, $id, $target, '', '', '', '', false, 'xlvoPlayer.open(' . $id . ')');
