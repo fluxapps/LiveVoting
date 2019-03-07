@@ -63,7 +63,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 		$this->manager = xlvoVotingManager2::getInstanceFromObjId(ilObject2::_lookupObjId($param_manager->getRefId()), $param_manager->getVoting());
 
-		if ($voting = trim(filter_input(INPUT_GET, ParamManager::PARAM_VOTING), "/")) {
+		if ($voting = trim(filter_input(INPUT_GET, ParamManager::PARAM_VOTING), "/") && empty($puk = trim(filter_input(INPUT_GET, self::PARAM_PUK), "/"))) {
 			$this->manager->getPlayer()->setActiveVoting($voting, true);
 		}
 
