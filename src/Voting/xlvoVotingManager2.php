@@ -70,9 +70,9 @@ class xlvoVotingManager2 {
 		$round_id = $this->player->getRoundId();
 		$this->player->setRoundId(xlvoRound::getLatestRoundId($this->obj_id));
 
-		if ($round_id !== $this->player->getRoundId()) {
+		/*if ($round_id !== $this->player->getRoundId()) {
 			$this->player->store();
-		}
+		}*/
 
 		$this->initVoting($voting_id);
 	}
@@ -132,7 +132,7 @@ class xlvoVotingManager2 {
 	public function prepare() {
 		$this->getVoting()->renegerateOptionSorting();
 		$this->getPlayer()->setStatus(xlvoPlayer::STAT_RUNNING);
-		$this->getPlayer()->freeze();
+		$this->getPlayer()->freeze(true);
 	}
 
 

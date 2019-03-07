@@ -227,6 +227,22 @@ class xlvoVoter2GUI extends xlvoGUI {
 	 */
 	protected function getHTML() {
 		$tpl = self::plugin()->template('default/Voter/tpl.inner_screen.html');
+
+
+
+		if($this->manager->getPlayer()->isFrozen()) {
+			$tpl->setVariable('TITLE', $this->txt('header_frozen'));
+			$tpl->setVariable('DESCRIPTION', $this->txt('info_frozen'));
+			$tpl->setVariable('COUNT', $this->manager->countVotings());
+			$tpl->setVariable('POSITION', $this->manager->getVotingPosition());
+			$tpl->setVariable('PIN', xlvoPin::formatPin($this->manager->getVotingConfig()->getPin()));
+			$tpl->setVariable('GLYPH', GlyphGUI::get('pause'));
+			echo $tpl->get();
+			exit;
+		}
+
+
+
 		switch ($this->manager->getPlayer()->getStatus(false)) {
 			case xlvoPlayer::STAT_STOPPED:
 				$tpl->setVariable('TITLE', $this->txt('header_stopped'));

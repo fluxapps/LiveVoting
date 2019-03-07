@@ -152,7 +152,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$this->initToolbarDuringVoting();
 		$this->manager->prepare();
 		$this->manager->getPlayer()->setStatus(xlvoPlayer::STAT_RUNNING);
-		$this->manager->getPlayer()->unfreeze();
+		$this->manager->getPlayer()->unfreeze(true);
 		$modal = xlvoQRModalGUI::getInstanceFromVotingConfig($this->manager->getVotingConfig())->getHTML();
 		self::dic()->mainTemplate()->setContent($modal . $this->getPlayerHTML());
 		$this->handlePreview();
@@ -306,7 +306,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$return_value = true;
 		switch ($_POST['call']) {
 			case 'toggle_freeze':
-				$this->manager->getPlayer()->setStatus(xlvoPlayer::STAT_RUNNING);
+				//$this->manager->getPlayer()->setStatus(xlvoPlayer::STAT_RUNNING);
 				$this->manager->getPlayer()->toggleFreeze();
 				break;
 			case 'toggle_results':

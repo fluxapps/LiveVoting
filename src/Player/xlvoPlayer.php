@@ -126,9 +126,9 @@ class xlvoPlayer extends CachingActiveRecord {
 	 * @return int
 	 */
 	public function getStatus($simulate_user = false) {
-		if ($simulate_user && $this->isFrozenOrUnattended()) {
+		/*if ($simulate_user && $this->isFrozenOrUnattended()) {
 			return self::STAT_FROZEN;
-		}
+		}*/
 
 		return $this->status;
 	}
@@ -169,9 +169,9 @@ class xlvoPlayer extends CachingActiveRecord {
 	 */
 	public function toggleFreeze() {
 		if ($this->isFrozen()) {
-			$this->unfreeze();
+			$this->unfreeze(true);
 		} else {
-			$this->freeze();
+			$this->freeze(true);
 		}
 	}
 
@@ -227,7 +227,7 @@ class xlvoPlayer extends CachingActiveRecord {
 
 	public function terminate() {
 		$this->setStatus(xlvoPlayer::STAT_END_VOTING);
-		$this->freeze();
+		$this->freeze(true);
 	}
 
 
@@ -359,7 +359,7 @@ class xlvoPlayer extends CachingActiveRecord {
 		$this->setStatus(self::STAT_RUNNING);
 		$this->setTimestampRefresh(time());
 		if ($this->remainingCountDown() <= 0 && $this->getCountdownStart() > 0) {
-			$this->freeze();
+			$this->freeze(true);
 		}
 	}
 
@@ -517,19 +517,19 @@ class xlvoPlayer extends CachingActiveRecord {
 	 * @param bool $store
 	 */
 	public function setActiveVoting($active_voting, $store = true) {
-		$should_frozen = (!empty($this->active_voting) && $this->active_voting != $active_voting);
+		//$should_frozen = (!empty($this->active_voting) && $this->active_voting != $active_voting);
 
 		$this->active_voting = $active_voting;
 
 		//TODO: PLLV-275
-		$should_frozen = false;
-		if ($should_frozen) {
+		//$should_frozen = false;
+		/*if ($should_frozen) {
 			$this->freeze($store);
-		} else {
+		} *///else {
 			if ($store) {
 				$this->store();
 			}
-		}
+		//}
 	}
 
 
