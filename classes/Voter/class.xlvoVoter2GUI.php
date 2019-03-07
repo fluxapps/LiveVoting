@@ -227,7 +227,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 	 */
 	protected function getHTML() {
 		$tpl = self::plugin()->template('default/Voter/tpl.inner_screen.html');
-		switch ($this->manager->getPlayer()->getStatus(false)) {
+		switch ($this->manager->getPlayer()->getStatus(true)) {
 			case xlvoPlayer::STAT_STOPPED:
 				$tpl->setVariable('TITLE', $this->txt('header_stopped'));
 				$tpl->setVariable('DESCRIPTION', $this->txt('info_stopped'));
