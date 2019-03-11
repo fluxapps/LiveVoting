@@ -27,7 +27,7 @@ try {
 
 	if (!empty($pin)) {
 
-		if (xlvoPin::checkPin($pin)) {
+		if (xlvoPin::checkPinAndGetObjId($pin)) {
 
 			$param_manager = ParamManager::getInstance();
 

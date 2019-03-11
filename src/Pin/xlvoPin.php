@@ -88,13 +88,13 @@ class xlvoPin {
 	 * @return int
 	 * @throws xlvoVoterException
 	 */
-	public static function checkPin($pin, $safe_mode = true) {
+	public static function checkPinAndGetObjId($pin, $safe_mode = true) {
 		$cache = xlvoCacheFactory::getInstance();
 
 		if ($cache->isActive()) {
-			return self::checkPinWithCache($pin, $safe_mode);
+			return self::checkPinAndGetObjIdWithCache($pin, $safe_mode);
 		} else {
-			return self::checkPinWithoutCache($pin, $safe_mode);
+			return self::checkPinAndGetObjIdWithoutCache($pin, $safe_mode);
 		}
 	}
 
@@ -106,7 +106,7 @@ class xlvoPin {
 	 * @return int
 	 * @throws xlvoVoterException
 	 */
-	private static function checkPinWithCache($pin, $safe_mode = true) {
+	private static function checkPinAndGetObjIdWithCache($pin, $safe_mode = true) {
 		//use cache to speed up pin fetch operation
 		$key = xlvoVotingConfig::TABLE_NAME . '_pin_' . $pin;
 		$cache = xlvoCacheFactory::getInstance();
@@ -167,7 +167,7 @@ class xlvoPin {
 	 * @return int
 	 * @throws xlvoVoterException
 	 */
-	private static function checkPinWithoutCache($pin, $safe_mode = true) {
+	private static function checkPinAndGetObjIdWithoutCache($pin, $safe_mode = true) {
 		$xlvoVotingConfig = xlvoVotingConfig::where(array( 'pin' => $pin ))->first();
 
 		//check pin

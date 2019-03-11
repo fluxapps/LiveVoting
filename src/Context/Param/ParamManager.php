@@ -139,7 +139,7 @@ final class ParamManager {
 		}
 
 		if (empty($this->ref_id)) {
-			$obj_id = xlvoPin::checkPin($this->pin, false);
+			$obj_id = xlvoPin::checkPinAndGetObjId($this->pin, false);
 
 			$this->ref_id = current(ilObject::_getAllReferences($obj_id));
 		}

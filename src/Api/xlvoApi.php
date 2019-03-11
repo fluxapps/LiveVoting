@@ -95,7 +95,7 @@ class xlvoApi {
 
 
 	protected function check() {
-		xlvoPin::checkPin($this->getPin()->getPin());
+		xlvoPin::checkPinAndGetObjId($this->getPin()->getPin());
 
 		if (!xlvoConf::getConfig(xlvoConf::F_RESULT_API)) {
 			throw new xlvoPlayerException('API not configured', 3);

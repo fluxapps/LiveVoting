@@ -23,7 +23,7 @@ try {
 
 		InitialisationManager::startMinimal();
 
-		if (xlvoPin::checkPin($pin)) {
+		if (xlvoPin::checkPinAndGetObjId($pin)) {
 
 			$param_manager = ParamManager::getInstance();
 			xlvoContext::setContext(xlvoContext::CONTEXT_PIN);

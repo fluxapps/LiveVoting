@@ -131,7 +131,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 		try {
 			$pin = filter_input(INPUT_POST, self::F_PIN_INPUT);
 
-			xlvoPin::checkPin($pin);
+			xlvoPin::checkPinAndGetObjId($pin);
 
 			$param_manager->setPin($_POST[self::F_PIN_INPUT]);
 
@@ -151,7 +151,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 	 */
 	protected function startVoterPlayer() {
 		try {
-			xlvoPin::checkPin($this->pin);
+			xlvoPin::checkPinAndGetObjId($this->pin);
 		} catch (Throwable $e) {
 			throw new ilException("Voter2GUI Wrong PIN!");
 		}

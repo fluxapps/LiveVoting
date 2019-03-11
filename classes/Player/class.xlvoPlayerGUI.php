@@ -56,16 +56,10 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 *
 	 */
 	public function __construct() {
-
-
 		parent::__construct();
 		$param_manager = ParamManager::getInstance();
 
-		$this->manager = xlvoVotingManager2::getInstanceFromObjId(ilObject2::_lookupObjId($param_manager->getRefId()), $param_manager->getVoting());
-
-		if ($voting = trim(filter_input(INPUT_GET, ParamManager::PARAM_VOTING), "/") && empty($puk = trim(filter_input(INPUT_GET, ParamManager::PARAM_PUK), "/"))) {
-			$this->manager->getPlayer()->setActiveVoting($voting, true);
-		}
+		$this->manager = xlvoVotingManager2::getInstanceFromObjId(ilObject2::_lookupObjId($param_manager->getRefId()));
 
 		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/default.css');
 	}
@@ -152,7 +146,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$this->initToolbarDuringVoting();
 		$this->manager->prepare();
 		$this->manager->getPlayer()->setStatus(xlvoPlayer::STAT_RUNNING);
-		$this->manager->getPlayer()->unfreeze(true);
+		$this->manager->getPlayer()->unfreeze(trim(filter_input(INPUT_GET, ParamManager::PARAM_VOTING), "/"));
 		$modal = xlvoQRModalGUI::getInstanceFromVotingConfig($this->manager->getVotingConfig())->getHTML();
 		self::dic()->mainTemplate()->setContent($modal . $this->getPlayerHTML());
 		$this->handlePreview();
@@ -165,6 +159,11 @@ class xlvoPlayerGUI extends xlvoGUI {
 	protected function startPlayer() {
 		$this->initJSandCss();
 		$this->manager->prepare();
+
+		if ($voting_id = trim(filter_input(INPUT_GET, ParamManager::PARAM_VOTING), "/")) {
+			$this->manager->setVoting(xlvoVoting::findOrGetInstance($voting_id));
+		}
+
 		$this->initToolbarDuringVoting();
 		$modal = xlvoQRModalGUI::getInstanceFromVotingConfig($this->manager->getVotingConfig())->getHTML();
 		self::dic()->mainTemplate()->setContent($modal . $this->getPlayerHTML());
@@ -177,7 +176,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 */
 	protected function startPresenter() {
 		try {
-			xlvoPin::checkPin($this->param_manager->getPin());
+			xlvoPin::checkPinAndGetObjId($this->param_manager->getPin());
 		} catch (Throwable $e) {
 			throw new ilException("PlayerGUI startPresenter: Wrong PIN! (1)");
 		}
@@ -219,7 +218,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 		$this->manager->attend();
 
-		//TODO: PLLV-272
+		//Set Active Voting of Presenter via URL - bot don't save it - PLLV-272
 		if ($this->param_manager->getVoting() > 0) {
 			$this->manager->getPlayer()->setActiveVoting($this->param_manager->getVoting());
 		}
@@ -298,16 +297,16 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 * @throws ilException
 	 */
 	protected function apiCall() {
-		//TODO: PLLV-272
-		if ($this->param_manager->getVoting() > 0) {
-			$this->manager->getPlayer()->setActiveVoting($this->param_manager->getVoting());
-		}
+
+		/*if ($_POST['xvi'] > 0) {
+			$this->manager->getPlayer()->setActiveVoting($_POST['xvi']);
+		}*/
 
 		$return_value = true;
 		switch ($_POST['call']) {
 			case 'toggle_freeze':
 				//$this->manager->getPlayer()->setStatus(xlvoPlayer::STAT_RUNNING);
-				$this->manager->getPlayer()->toggleFreeze();
+				$this->manager->getPlayer()->toggleFreeze(trim(filter_input(INPUT_GET, ParamManager::PARAM_VOTING), "/"));
 				break;
 			case 'toggle_results':
 				$this->manager->getPlayer()->toggleResults();
