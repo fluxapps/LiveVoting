@@ -161,7 +161,8 @@ class xlvoPlayerGUI extends xlvoGUI {
 		$this->manager->prepare();
 
 		if ($voting_id = trim(filter_input(INPUT_GET, ParamManager::PARAM_VOTING), "/")) {
-			$this->manager->setVoting(xlvoVoting::findOrGetInstance($voting_id));
+			$this->manager->getPlayer()->setActiveVoting($voting_id);
+			$this->manager->getPlayer()->store();
 		}
 
 		$this->initToolbarDuringVoting();
