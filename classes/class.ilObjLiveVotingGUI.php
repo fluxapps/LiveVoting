@@ -69,6 +69,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 	}
 
 
+
 	/**
 	 *
 	 */

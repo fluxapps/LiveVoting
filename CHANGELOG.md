@@ -4,6 +4,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.1.0] - 2019-03-22
+
+### Added
+- copy LiveVoting objects
+
+### Changed
+- rebuilt communication
+
+### Deprecated
+
+-
+
+### Removed
+
+-
+
+### Fixed
+- Various Bugfixes, mostly in PowerPoint Export
+- Bugfix when saving object settings
+
+### Improved
+- PowerPoint Export
+
+### Security
+
+
+
 ## [4.0.3] - 2018-08-
 
 ### Added
@@ -27,7 +54,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - CustomInputGUI's
 
 ### Deprecated
-- 
+
+-
 
 ### Removed
 - Removed ILIAS 5.1 support
@@ -58,7 +86,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Improved PIN validation in pin.php
 - Improved FreeInput config validation
 
-## [Unreleased] - XXX
+## [4.0.2] - 2018-07-11
 ### Added
 - Added the functionality to pin a voting to the personal workspace
 ### Changed
