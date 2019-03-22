@@ -68,6 +68,14 @@ class ilLiveVotingPlugin extends ilRepositoryObjectPlugin {
 
 
 	/**
+	 * @return bool
+	 */
+	public function allowCopy() {
+		return true;
+	}
+
+
+	/**
 	 * @inheritdoc
 	 */
 	protected function deleteData()/*: void*/ {
@@ -84,13 +92,5 @@ class ilLiveVotingPlugin extends ilRepositoryObjectPlugin {
 		self::dic()->database()->dropTable(xlvoVoting::TABLE_NAME, false);
 		self::dic()->database()->dropTable(xlvoConf::TABLE_NAME, false);
 		self::dic()->database()->dropTable(xlvoVoter::TABLE_NAME, false);
-	}
-
-
-	/**
-	 * @return bool
-	 */
-	public function allowCopy() {
-		return true;
 	}
 }
