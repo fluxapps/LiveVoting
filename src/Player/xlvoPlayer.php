@@ -2,6 +2,7 @@
 
 namespace LiveVoting\Player;
 
+use LiveVoting\Context\Param\ParamManager;
 use LiveVoting\Cache\CachingActiveRecord;
 use LiveVoting\Cache\xlvoCacheFactory;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
@@ -126,9 +127,9 @@ class xlvoPlayer extends CachingActiveRecord {
 	 * @return int
 	 */
 	public function getStatus($simulate_user = false) {
-		if ($simulate_user && $this->isFrozenOrUnattended()) {
+		/*if ($simulate_user && $this->isFrozenOrUnattended()) {
 			return self::STAT_FROZEN;
-		}
+		}*/
 
 		return $this->status;
 	}
@@ -137,39 +138,39 @@ class xlvoPlayer extends CachingActiveRecord {
 	/**
 	 *
 	 */
-	public function freeze($store = true) {
+	public function freeze() {
 		$this->setFrozen(true);
 		$this->resetCountDown(false);
 		$this->setButtonStates([]);
 		$this->resetCountDown(false);
 		$this->setTimestampRefresh(time() + self::SECONDS_TO_SLEEP);
-		if ($store) {
-			$this->store();
-		}
+		$this->store();
 	}
 
 
 	/**
-	 *
+	 * @param int $voting_id
 	 */
-	public function unfreeze($store = true) {
+	public function unfreeze($voting_id = 0) {
+		if($voting_id > 0) {
+			$this->setActiveVoting($voting_id);
+		}
+
 		$this->setFrozen(false);
 		$this->resetCountDown(false);
 		$this->setButtonStates([]);
 		$this->resetCountDown(false);
 		$this->setTimestampRefresh(time() + self::SECONDS_TO_SLEEP);
-		if ($store) {
-			$this->store();
-		}
+		$this->store();
 	}
 
 
 	/**
-	 *
+	 * @param int $voting_id
 	 */
-	public function toggleFreeze() {
+	public function toggleFreeze($voting_id = 0) {
 		if ($this->isFrozen()) {
-			$this->unfreeze();
+			$this->unfreeze($voting_id);
 		} else {
 			$this->freeze();
 		}
@@ -188,7 +189,7 @@ class xlvoPlayer extends CachingActiveRecord {
 	 * @param $seconds
 	 */
 	public function startCountDown($seconds) {
-		$this->unfreeze();
+		$this->unfreeze(trim(filter_input(INPUT_GET, ParamManager::PARAM_VOTING), "/"));
 		$this->setCountdown($seconds);
 		$this->setCountdownStart(time());
 		$this->store();
@@ -236,7 +237,7 @@ class xlvoPlayer extends CachingActiveRecord {
 	 */
 	public function getStdClassForVoter() {
 		$obj = new stdClass();
-		$obj->status = (int)$this->getStatus(true);
+		$obj->status = (int)$this->getStatus(false);
 		$obj->force_reload = false;
 		$obj->active_voting_id = (int)$this->getActiveVotingId();
 		$obj->countdown = (int)$this->remainingCountDown();
@@ -261,7 +262,7 @@ class xlvoPlayer extends CachingActiveRecord {
 		$obj = new stdClass();
 		$obj->is_first = (bool)$this->getCurrentVotingObject()->isFirst();
 		$obj->is_last = (bool)$this->getCurrentVotingObject()->isLast();
-		$obj->status = (int)$this->getStatus(true);
+		$obj->status = (int)$this->getStatus(false);
 		$obj->active_voting_id = (int)$this->getActiveVotingId();
 		$obj->show_results = (bool)$this->isShowResults();
 		$obj->frozen = (bool)$this->isFrozen();
@@ -516,20 +517,8 @@ class xlvoPlayer extends CachingActiveRecord {
 	 * @param int  $active_voting
 	 * @param bool $store
 	 */
-	public function setActiveVoting($active_voting, $store = true) {
-		$should_frozen = (!empty($this->active_voting) && $this->active_voting != $active_voting);
-
+	public function setActiveVoting($active_voting) {
 		$this->active_voting = $active_voting;
-
-		//TODO: PLLV-275
-		$should_frozen = false;
-		if ($should_frozen) {
-			$this->freeze($store);
-		} else {
-			if ($store) {
-				$this->store();
-			}
-		}
 	}
 
 

@@ -11,7 +11,7 @@ use Composer\Script\Event;
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  *
- * @access  package
+ * @internal
  */
 final class LibrariesNamespaceChanger {
 
@@ -26,7 +26,9 @@ final class LibrariesNamespaceChanger {
 		"ActiveRecordConfig" => "ActiveRecordConfig",
 		"BexioCurl" => "BexioCurl",
 		"CustomInputGUIs" => "CustomInputGUIs",
+		"DclExtension" => "DclExtension",
 		"DIC" => "DIC",
+		"GitCurl" => "GitCurl",
 		"JasperReport" => "JasperReport",
 		"JiraCurl" => "JiraCurl",
 		"RemovePluginDataConfirm" => "RemovePluginDataConfirm"
@@ -42,13 +44,13 @@ final class LibrariesNamespaceChanger {
 	/**
 	 * @var string
 	 *
-	 * @access package
+	 * @internal
 	 */
 	const PLUGIN_NAME_REG_EXP = "/\/([A-Za-z0-9_]+)\/vendor\//";
 	/**
 	 * @var string
 	 *
-	 * @access package
+	 * @internal
 	 */
 	const SRAG = "srag";
 
@@ -70,7 +72,7 @@ final class LibrariesNamespaceChanger {
 	/**
 	 * @param Event $event
 	 *
-	 * @access package
+	 * @internal
 	 */
 	public static function rewriteLibrariesNamespaces(Event $event) {
 		self::getInstance($event)->doRewriteLibrariesNamespaces();

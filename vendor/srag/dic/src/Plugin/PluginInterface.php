@@ -72,9 +72,9 @@ interface PluginInterface {
 	/**
 	 * Get ILIAS plugin object instance
 	 *
-	 * @return ilPlugin ILIAS plugin object instance
+	 * Please avoid to use ILIAS plugin object instance and instead use methods in this class!
 	 *
-	 * @deprecated Please avoid to use ILIAS plugin object instance and instead use methods in this class!
+	 * @return ilPlugin ILIAS plugin object instance
 	 */
 	public function getPluginObject()/*: ilPlugin*/
 	;

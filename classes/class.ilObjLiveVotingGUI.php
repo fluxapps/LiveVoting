@@ -69,6 +69,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 	}
 
 
+
 	/**
 	 *
 	 */
@@ -452,7 +453,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
 			if ($this->form->checkInput()) {
 				$this->object->setTitle($this->form->getInput(self::F_TITLE));
 				$this->object->setDescription($this->form->getInput(self::F_DESCRIPTION));
-				$this->object->store();
+				$this->object->update();
 
 				/**
 				 * @var xlvoVotingConfig $config

@@ -196,7 +196,7 @@ abstract class AbstractRemovePluginDataConfirm {
 		$confirmation->addButton($this->txt("deactivate"), self::CMD_DEACTIVATE);
 		$confirmation->setCancel($this->txt("cancel"), self::CMD_CANCEL);
 
-		self::output()->output($confirmation);
+		self::output()->output($confirmation, true);
 	}
 
 

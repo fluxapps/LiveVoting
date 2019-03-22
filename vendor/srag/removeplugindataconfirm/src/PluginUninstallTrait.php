@@ -2,6 +2,8 @@
 
 namespace srag\RemovePluginDataConfirm\LiveVoting;
 
+use srag\RemovePluginDataConfirm\LiveVoting\Exception\RemovePluginDataConfirmException;
+
 /**
  * Trait PluginUninstallTrait
  *

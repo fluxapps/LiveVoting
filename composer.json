@@ -41,7 +41,7 @@
     }
   ],
   "support": {
-    "email": "support-custom1@studer-raimann.ch"
+    "issues": "https://plugins.studer-raimann.ch/goto.php?target=uihk_srsu_PLLV"
   },
   "require": {
     "php": ">=5.5",

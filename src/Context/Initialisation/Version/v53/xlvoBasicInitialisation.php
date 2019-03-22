@@ -181,6 +181,9 @@ class xlvoBasicInitialisation {
 		}
 
 		$tpl->addCss('./templates/default/delos.css');
+		$tpl->addCss(self::plugin()->directory() . '/templates/default/default.css');
+
+
 		$tpl->addBlockFile("CONTENT", "content", "tpl.main_voter.html", 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting');
 		$tpl->setVariable('BASE', xlvoConf::getBaseVoteURL());
 		$this->makeGlobal("tpl", $tpl);

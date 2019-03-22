@@ -24,7 +24,7 @@ try {
 	if (!empty($pin)) {
 		InitialisationManager::startMinimal();
 
-		if (xlvoPin::checkPin($pin) && !empty($puk)) {
+		if (xlvoPin::checkPinAndGetObjId($pin) && !empty($puk)) {
 
 			$param_manager = ParamManager::getInstance();
 

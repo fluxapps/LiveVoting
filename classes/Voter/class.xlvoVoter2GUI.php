@@ -131,7 +131,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 		try {
 			$pin = filter_input(INPUT_POST, self::F_PIN_INPUT);
 
-			xlvoPin::checkPin($pin);
+			xlvoPin::checkPinAndGetObjId($pin);
 
 			$param_manager->setPin($_POST[self::F_PIN_INPUT]);
 
@@ -151,7 +151,7 @@ class xlvoVoter2GUI extends xlvoGUI {
 	 */
 	protected function startVoterPlayer() {
 		try {
-			xlvoPin::checkPin($this->pin);
+			xlvoPin::checkPinAndGetObjId($this->pin);
 		} catch (Throwable $e) {
 			throw new ilException("Voter2GUI Wrong PIN!");
 		}
@@ -227,7 +227,23 @@ class xlvoVoter2GUI extends xlvoGUI {
 	 */
 	protected function getHTML() {
 		$tpl = self::plugin()->template('default/Voter/tpl.inner_screen.html');
-		switch ($this->manager->getPlayer()->getStatus(true)) {
+
+
+
+		if($this->manager->getPlayer()->isFrozen()) {
+			$tpl->setVariable('TITLE', $this->txt('header_frozen'));
+			$tpl->setVariable('DESCRIPTION', $this->txt('info_frozen'));
+			$tpl->setVariable('COUNT', $this->manager->countVotings());
+			$tpl->setVariable('POSITION', $this->manager->getVotingPosition());
+			$tpl->setVariable('PIN', xlvoPin::formatPin($this->manager->getVotingConfig()->getPin()));
+			$tpl->setVariable('GLYPH', GlyphGUI::get('pause'));
+			echo $tpl->get();
+			exit;
+		}
+
+
+
+		switch ($this->manager->getPlayer()->getStatus(false)) {
 			case xlvoPlayer::STAT_STOPPED:
 				$tpl->setVariable('TITLE', $this->txt('header_stopped'));
 				$tpl->setVariable('DESCRIPTION', $this->txt('info_stopped'));
@@ -248,7 +264,6 @@ class xlvoVoter2GUI extends xlvoGUI {
 					$tpl->setVariable('QUESTION_TEXT', $this->manager->getVoting()->getQuestionForPresentation());
 					$tpl->parseCurrentBlock();
 				}
-
 				$tpl->setVariable('QUESTION', $xlvoQuestionTypesGUI->getMobileHTML());
 				break;
 			case xlvoPlayer::STAT_START_VOTING:

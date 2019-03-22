@@ -22,10 +22,12 @@ So I recommand to use [srag/librariesnamespacechanger](https://packagist.org/pac
 * [CheckboxInputGUI](./src/CheckboxInputGUI/doc/CheckboxInputGUI.md)
 * [DateDurationInputGUI](./src/DateDurationInputGUI/doc/DateDurationInputGUI.md)
 * [GlyphGUI](./src/GlyphGUI/doc/GlyphGUI.md)
+* [HiddenInputGUI](./src/HiddenInputGUI/doc/HiddenInputGUI.md)
 * [MultiLineInputGUI](./src/MultiLineInputGUI/doc/MultiLineInputGUI.md)
 * [MultiSelectSearchInputGUI](./src/MultiSelectSearchInputGUI/doc/MultiSelectSearchInputGUI.md)
 * [MultiSelectSearchInput2GUI](./src/MultiSelectSearchInputGUI/doc/MultiSelectSearchInput2GUI.md)
 * [NumberInputGUI](./src/NumberInputGUI/doc/NumberInputGUI.md)
+* [ProgressMeter](./src/ProgressMeter/doc/ProgressMeter.md)
 * [PropertyFormGUI](./src/PropertyFormGUI/doc/PropertyFormGUI.md)
 * [ScreenshotsInputGUI](./src/ScreenshotsInputGUI/doc/ScreenshotsInputGUI.md)
 * [StaticHTMLPresentationInputGUI](./src/StaticHTMLPresentationInputGUI/doc/StaticHTMLPresentationInputGUI.md)
@@ -33,6 +35,7 @@ So I recommand to use [srag/librariesnamespacechanger](https://packagist.org/pac
 * [Template](./src/Template/doc/Template.md)
 * [TextAreaInputGUI](./src/TextAreaInputGUI/doc/TextAreaInputGUI.md)
 * [TextInputGUI](./src/TextInputGUI/doc/TextInputGUI.md)
+* [ViewControlModeGUI](./src/ViewControlModeGUI/doc/ViewControlModeGUI.md)
 * [Waiter](./src/Waiter/doc/Waiter.md)
 
 ### Dependencies

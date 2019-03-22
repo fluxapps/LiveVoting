@@ -7,9 +7,9 @@ use ilExcel;
 use ilFormPropertyGUI;
 use ilTable2GUI;
 use srag\CustomInputGUIs\LiveVoting\PropertyFormGUI\Items\Items;
+use srag\CustomInputGUIs\LiveVoting\PropertyFormGUI\PropertyFormGUI;
 use srag\CustomInputGUIs\LiveVoting\TableGUI\Exception\TableGUIException;
 use srag\DIC\LiveVoting\DICTrait;
-use srag\DIC\LiveVoting\Exception\DICException;
 
 /**
  * Class TableGUI
@@ -111,18 +111,22 @@ abstract class TableGUI extends ilTable2GUI {
 		$this->initFilterFields();
 
 		if (!is_array($this->filter_fields)) {
-			throw new TableGUIException("\$filters needs to be an array!");
+			throw new TableGUIException("\$filters needs to be an array!", TableGUIException::CODE_INVALID_FIELD);
 		}
 
 		foreach ($this->filter_fields as $key => $field) {
 			if (!is_array($field)) {
-				throw new TableGUIException("\$field needs to be an array!");
+				throw new TableGUIException("\$field needs to be an array!", TableGUIException::CODE_INVALID_FIELD);
+			}
+
+			if ($field[PropertyFormGUI::PROPERTY_NOT_ADD]) {
+				continue;
 			}
 
 			$item = Items::getItem($key, $field, $this, $this);
 
 			/*if (!($item instanceof ilTableFilterItem)) {
-				throw new TableGUIException("\$item must be an instance of ilTableFilterItem!");
+				throw new TableGUIException("\$item must be an instance of ilTableFilterItem!", TableGUIException::CODE_INVALID_FIELD);
 			}*/
 
 			$this->filter_cache[$key] = $item;
@@ -144,7 +148,7 @@ abstract class TableGUI extends ilTable2GUI {
 			$this->setRowTemplate(static::ROW_TEMPLATE, self::plugin()->directory());
 		} else {
 			$dir = __DIR__;
-			$dir = substr($dir, strpos($dir, "/Customizing/") + 1);
+			$dir = "./" . substr($dir, strpos($dir, "/Customizing/") + 1);
 			$this->setRowTemplate("table_row.html", $dir);
 		}
 	}
@@ -182,17 +186,9 @@ abstract class TableGUI extends ilTable2GUI {
 		$key,/*?string*/
 		$default = NULL)/*: string*/ {
 		if ($default !== NULL) {
-			try {
-				return self::plugin()->translate($key, static::LANG_MODULE, [], true, "", $default);
-			} catch (DICException $ex) {
-				return $default;
-			}
+			return self::plugin()->translate($key, static::LANG_MODULE, [], true, "", $default);
 		} else {
-			try {
-				return self::plugin()->translate($key, static::LANG_MODULE);
-			} catch (DICException $ex) {
-				return "";
-			}
+			return self::plugin()->translate($key, static::LANG_MODULE);
 		}
 	}
 
