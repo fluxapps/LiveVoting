@@ -26,7 +26,7 @@ class xlvoUser {
 	/**
 	 * @var int
 	 */
-	protected $type = self::TYPE_PIN;
+	protected $type = self::TYPE_ILIAS;
 	/**
 	 * @var string
 	 */
