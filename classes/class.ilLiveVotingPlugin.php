@@ -68,6 +68,14 @@ class ilLiveVotingPlugin extends ilRepositoryObjectPlugin {
 
 
 	/**
+	 * @return bool
+	 */
+	public function allowCopy() {
+		return true;
+	}
+
+
+	/**
 	 * @inheritdoc
 	 */
 	protected function deleteData()/*: void*/ {
