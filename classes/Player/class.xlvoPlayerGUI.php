@@ -110,10 +110,13 @@ class xlvoPlayerGUI extends xlvoGUI {
 		 * @var xlvoVotingConfig $xlvoVotingConfig
 		 */
 		$xlvoVotingConfig = $this->manager->getVotingConfig();
+
 		$template->setVariable('PIN', xlvoPin::formatPin($xlvoVotingConfig->getPin()));
 
-		$template->setVariable('QR-CODE', xlvoQR::getImageDataString($xlvoVotingConfig->getShortLinkURL(true), 180));
-		$template->setVariable('SHORTLINK', $xlvoVotingConfig->getShortLinkURL());
+		$param_manager = ParamManager::getInstance();
+		$template->setVariable('QR-CODE', xlvoQR::getImageDataString($xlvoVotingConfig->getShortLinkURL(true, $param_manager->getRefId()), 180));
+
+		$template->setVariable('SHORTLINK', $xlvoVotingConfig->getShortLinkURL(false, $param_manager->getRefId()));
 		$template->setVariable('MODAL', xlvoQRModalGUI::getInstanceFromVotingConfig($xlvoVotingConfig)->getHTML());
 		$template->setVariable("ONLINE_TEXT", self::plugin()->translate("start_online", "", [ 0 ]));
 		$template->setVariable("ZOOM_TEXT", self::plugin()->translate("start_zoom"));
@@ -568,7 +571,10 @@ class xlvoPlayerGUI extends xlvoGUI {
 	protected function handlePreview() {
 		if ($this->manager->getVotingConfig()->isSelfVote()) {
 			$preview = self::plugin()->template('default/Player/tpl.preview.html', true, false);
-			$preview->setVariable('URL', $this->manager->getVotingConfig()->getShortLinkURL());
+
+			$param_manager = ParamManager::getInstance();
+
+			$preview->setVariable('URL', $this->manager->getVotingConfig()->getShortLinkURL(false, $param_manager->getRefId()));
 			self::dic()->mainTemplate()->setRightContent($preview->get());
 		}
 	}

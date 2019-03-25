@@ -3,7 +3,9 @@
 namespace LiveVoting\Voting;
 
 use ilObject2;
+use ilLink;
 use ilObjectActivation;
+use ilLiveVotingPlugin;
 use LiveVoting\Cache\CachingActiveRecord;
 use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Context\Param\ParamManager;
@@ -203,21 +205,31 @@ class xlvoVotingConfig extends CachingActiveRecord {
 
 	/**
 	 * @param bool $force_not_format
+	 * @param int ref_id
 	 *
 	 * @return string
 	 */
-	public function getShortLinkURL($force_not_format = false) {
+	public function getShortLinkURL($force_not_format = false, $ref_id = 0) {
+		global $DIC;
+
 		$url = NULL;
-		$shortLinkEnabled = boolval(xlvoConf::getConfig(xlvoConf::F_ALLOW_SHORTLINK_VOTE));
 
-		if ($shortLinkEnabled) {
-			$url = xlvoConf::getConfig(xlvoConf::F_ALLOW_SHORTLINK_VOTE_LINK);
-			$url = rtrim($url, "/") . "/";
-		} else {
-			$url = ILIAS_HTTP_PATH . substr(self::plugin()->directory(), 1) . '/pin.php?' . ParamManager::PARAM_PIN . '=';
+		switch ($this->isAnonymous()) {
+			case true:
+				$shortLinkEnabled = boolval(xlvoConf::getConfig(xlvoConf::F_ALLOW_SHORTLINK_VOTE));
+
+				if ($shortLinkEnabled) {
+					$url = xlvoConf::getConfig(xlvoConf::F_ALLOW_SHORTLINK_VOTE_LINK);
+					$url = rtrim($url, "/") . "/";
+				} else {
+					$url = ILIAS_HTTP_PATH . substr(self::plugin()->directory(), 1) . '/pin.php?' . ParamManager::PARAM_PIN . '=';
+				}
+				$url .= xlvoPin::formatPin($this->getPin(), $force_not_format);
+				break;
+			default:
+				$url = ilLink::_getStaticLink($ref_id, ilLiveVotingPlugin::PLUGIN_ID, true);
+				break;
 		}
-
-		$url .= xlvoPin::formatPin($this->getPin(), $force_not_format);
 
 		return $url;
 	}
@@ -233,6 +245,11 @@ class xlvoVotingConfig extends CachingActiveRecord {
 	 */
 	public function getPresenterLink($voting_id = NULL, $power_point = false, $force_not_format = false, $https = true) {
 		$url = NULL;
+
+		if(!$this->isAnonymous()) {
+			return null;
+		}
+
 		$shortLinkEnabled = boolval(xlvoConf::getConfig(xlvoConf::F_ALLOW_SHORTLINK_PRESENTER));
 
 		if ($shortLinkEnabled) {
