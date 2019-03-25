@@ -1,5 +1,8 @@
 # Change Log
 
+## [4.1.1] - 2019-03-25
+- fixed bug direct links for non public LiveVotings - PLLV-314
+
 ## [4.1.0] - 2019-03-22
 
 - allow copy LiveVoting objects

@@ -4,6 +4,7 @@ namespace LiveVoting\Player\QR;
 
 use ilLiveVotingPlugin;
 use ilModalGUI;
+use LiveVoting\Context\Param\ParamManager;
 use LiveVoting\Js\xlvoJs;
 use LiveVoting\Pin\xlvoPin;
 use LiveVoting\Voting\xlvoVotingConfig;
@@ -32,9 +33,12 @@ class xlvoQRModalGUI extends ilModalGUI {
 		$ilModalGUI->setId('QRModal');
 		$ilModalGUI->setHeading(self::plugin()->translate("player_pin", "", [ xlvoPin::formatPin($xlvoVotingConfig->getPin()) ]));
 
-		$modal_body = '<span class="label label-default xlvo-label-url resize">' . $xlvoVotingConfig->getShortLinkURL()
+		$param_manager = ParamManager::getInstance();
+		$modal_body = '<span class="label label-default xlvo-label-url resize">'
+			. $xlvoVotingConfig->getShortLinkURL(false, $param_manager->getRefId())
 			. '</span>'; // TODO: Fix link label shrinks after opem modal animation
-		$modal_body .= '<img id="xlvo-modal-qr" src="' . xlvoQR::getImageDataString($xlvoVotingConfig->getShortLinkURL(true), 1200) . '">';
+		$modal_body .= '<img id="xlvo-modal-qr" src="'
+			. xlvoQR::getImageDataString($xlvoVotingConfig->getShortLinkURL(true, $param_manager->getRefId()), 1200) . '">';
 
 		$ilModalGUI->setBody($modal_body);
 		$ilModalGUI->setType(ilModalGUI::TYPE_LARGE);
