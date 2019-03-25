@@ -49,13 +49,11 @@ class xlvoNumberRangeGUI extends xlvoQuestionTypesGUI {
 	}
 
 
-	/* *
-	 *
-	 * /
+
 	protected function clear() {
 		$this->manager->unvoteAll();
 		$this->afterSubmit();
-	}*/
+	}
 
 	/**
 	 *
