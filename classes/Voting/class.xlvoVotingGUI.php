@@ -292,12 +292,22 @@ class xlvoVotingGUI {
 			$power_point_enabled = xlvoConf::getConfig(xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT);
 
 			$presenter_link = new ilCustomInputGUI(self::plugin()->translate('config_presenter_link'));
-			$presenter_link->setHtml($config->getPresenterLink($xlvoVoting->getId(), $power_point_enabled, false, !$power_point_enabled)
-				. ($power_point_enabled ? '<br><br><i>' . htmlspecialchars(self::plugin()->translate("config_"
-						. xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . "_info_manual")) . '</i><ol>' . implode("", array_map(function ($step) {
-						return '<li>' . htmlspecialchars(self::plugin()->translate("config_" . xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT
-								. "_info_manual_" . $step)) . '</li>';
-					}, range(1, 4))) . '</ol>' : '')); // TODO: default.css not loaded
+
+			if($config->isAnonymous()) {
+				$presenter_link->setHtml($config->getPresenterLink($xlvoVoting->getId(), $power_point_enabled, false, !$power_point_enabled)
+					. ($power_point_enabled ? '<br><br><i>' . htmlspecialchars(self::plugin()->translate("config_"
+							. xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . "_info_manual")) . '</i><ol>' . implode("", array_map(function ($step) {
+							return '<li>' . htmlspecialchars(self::plugin()->translate("config_" . xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT
+									. "_info_manual_" . $step)) . '</li>';
+						}, range(1, 4))) . '</ol>' : ''));
+			} else {
+				$presenter_link->setHtml(self::plugin()->translate("config_presenter_link_non_anonym"));
+			}
+
+
+
+
+
 			$xlvoVotingFormGUI->addItem($presenter_link);
 
 			self::dic()->mainTemplate()->setContent($xlvoVotingFormGUI->getHTML());

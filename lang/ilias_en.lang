@@ -43,6 +43,7 @@ config_open_result_api#:#Open API-Link (with latest Voting)
 config_use_global_cache#:#Activate caching
 config_use_global_cache_info#:#Enables the LiveVoting plugin to use the global caching mechanism, which is provided by ILIAS. The underlying cache must be synchronised within a multi note setup, otherwise the plugin produces unpredictable results.
 config_presenter_link#:#Presenter link
+config_presenter_link_non_anonym#:#Only available with Setting "Vote without Login"
 config_ppt_export#:#PowerPoint-Export
 config_ppt_export_info#:#Activate PowerPoint-Export: This features needs the PowerPoint-WebView-Plugin installed and will only work if you ILIAS runs on HTTPS.
 correct_order#:#Correct Order
