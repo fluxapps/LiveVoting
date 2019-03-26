@@ -51,6 +51,7 @@
 - Screen-Id-Component
 - PHP version checker
 - Improved PIN validation in pin.php
+    - **Updates to RewriteRules might be required**
 - Improved FreeInput config validation
 
 ## [4.0.2] - 2018-07-11
