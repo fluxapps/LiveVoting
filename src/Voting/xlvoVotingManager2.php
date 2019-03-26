@@ -3,6 +3,7 @@
 namespace LiveVoting\Voting;
 
 use ActiveRecordList;
+use ilException;
 use ilLiveVotingPlugin;
 use LiveVoting\Context\Param\ParamManager;
 use LiveVoting\Exceptions\xlvoPlayerException;
