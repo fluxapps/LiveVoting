@@ -1,7 +1,7 @@
 <?php
 
-namespace LiveVoting\Pin;
 
+namespace LiveVoting\Pin;
 use ilLiveVotingPlugin;
 use LiveVoting\Cache\xlvoCacheFactory;
 use LiveVoting\Cache\xlvoCacheService;
@@ -12,6 +12,8 @@ use LiveVoting\Utils\LiveVotingTrait;
 use LiveVoting\Voting\xlvoVotingConfig;
 use srag\DIC\LiveVoting\DICTrait;
 use stdClass;
+use \ilObjLiveVotingAccess;
+use LiveVoting\Context\Param\ParamManager;
 
 /**
  * Class xlvoPin
@@ -107,6 +109,8 @@ class xlvoPin {
 	 * @throws xlvoVoterException
 	 */
 	private static function checkPinAndGetObjIdWithCache($pin, $safe_mode = true) {
+		global $DIC;
+
 		//use cache to speed up pin fetch operation
 		$key = xlvoVotingConfig::TABLE_NAME . '_pin_' . $pin;
 		$cache = xlvoCacheFactory::getInstance();
@@ -131,9 +135,11 @@ class xlvoPin {
 			$xlvoVotingConfig = xlvoVotingConfig::find($config->id); //relay on ar connector cache
 		}
 
+		$param_manager = ParamManager::getInstance();
+
 		//check pin
 		if ($xlvoVotingConfig instanceof xlvoVotingConfig) {
-			if (!$xlvoVotingConfig->isObjOnline()) {
+			if (!$xlvoVotingConfig->isObjOnline() && !ilObjLiveVotingAccess::hasWriteAccess($param_manager->getRefId(),$DIC->user()->getId())) {
 				if ($safe_mode) {
 					throw new xlvoVoterException('The voting is currently offline.', xlvoVoterException::VOTING_OFFLINE);
 				}

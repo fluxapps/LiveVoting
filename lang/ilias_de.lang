@@ -41,7 +41,7 @@ config_regenerate_token#:#Token neu generieren
 config_open_result_api#:#API-Link öffnen (mit neustem Voting)
 config_use_global_cache#:#Cache aktivieren
 config_use_global_cache_info#:#Aktiviert die Verwendung der globalen Cache Mechanik von ILIAS. Der zugrundeliegende cache muss in einem Setup mit mehreren ILIAS installation synchron sein, da das Plugin ansonsten unvorhersehbare Werte produzieren wird.
-config_presenter_link#:#Moderator-Link
+config_presenter_link#:#Moderations-Link
 config_presenter_link_non_anonym#:#Nur im Modus "Abstimmung ohne Login" möglich
 config_ppt_export#:#PowerPoint-Export
 config_ppt_export_info#:#PowerPoint-Export aktivieren: Dieses Feature funktioniert nur mit installierten PowerPoint-WebView-Plugin und wenn die ILIAS Installation unter HTTPS betrieben wird.
@@ -266,11 +266,18 @@ rminable_select_start_time#:#MISSING rminable_select_start_time
 vqtype_1_options#:#MISSING vqtype_1_options
 voting_short_link#:#Kurz-URL
 voting_permanent_link#:#Permanenter-Link
-config_ppt_export_info_manual#:#LiveVotings in PowerPoint einbetten:
-config_ppt_export_info_manual_1#:#LiveVoting exportieren
-config_ppt_export_info_manual_2#:#PowerPoint starten
-config_ppt_export_info_manual_3#:#Nach "Web Viewer" im Office-Add-Ins Store suchen (Einfügen > Add-Ins > Meine Add-Ins)
-config_ppt_export_info_manual_4#:#Web-Viewer Add-In hinzufügen
+config_ppt_export_info_manual#:#LiveVotings in PowerPoint einbetten und nutzen:
+config_ppt_export_info_manual_1#:#Einmalig: In Powerpoint: "Web Viewer" im Office-Add-Ins Store suchen (Einfügen > Add-Ins > Meine Add-Ins) und Web-Viewer Add-In hinzufügen.
+config_ppt_export_info_manual_2#:#LiveVoting exportieren
+config_ppt_export_info_manual_3#:#Präsentation starten
+config_ppt_export_info_manual_4#:#Achtung. Bei Einsatz des LiveVotings in PowerPoint müssen Sie vor jedem Folienwechsel mit LiveVoting das Voting pausieren. Sonst wird das LiveVoting in der Teilnehmendensicht nicht aktualisiert.
+config_ppt_link_info_manual#:#LiveVotings in PowerPoint einbetten und nutzen:
+config_ppt_link_info_manual_1#:#Einmalig: In Powerpoint: "Web Viewer" im Office-Add-Ins Store suchen (Einfügen > Add-Ins > Meine Add-Ins) und Web-Viewer Add-In hinzufügen.
+config_ppt_link_info_manual_2#:#Moderations-Link dieser Frage kopieren
+config_ppt_link_info_manual_3#:#In Präsentation eine leere Folie erstellen und ein Webviewer Element hinzufügen
+config_ppt_link_info_manual_4#:#Moderations-Link einfügen
+config_ppt_link_info_manual_5#:#Präsentation starten
+config_ppt_link_info_manual_6#:#Achtung. Bei Einsatz des LiveVotings in PowerPoint müssen Sie vor jedem Folienwechsel mit LiveVoting das Voting pausieren. Sonst wird das LiveVoting in der Teilnehmendensicht nicht aktualisiert.
 config_allow_shortlink_presenter#:#Kurz-URL für Moderator einschalten
 config_allow_shortlink_presenter_info#:#Eine Kurz-URL kann bspw. durch hinzufügen einer RewriteRule in der .htaccess erstellt werden, dadurch kann auf https://ilias.domain.com/presenter angestimmt werden:
 config_allow_shortlink_link_presenter#:#Kurz-URL
