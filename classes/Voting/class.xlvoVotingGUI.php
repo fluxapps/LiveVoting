@@ -295,11 +295,9 @@ class xlvoVotingGUI {
 
 			if($config->isAnonymous()) {
 				$presenter_link->setHtml($config->getPresenterLink($xlvoVoting->getId(), $power_point_enabled, false, !$power_point_enabled)
-					. ($power_point_enabled ? '<br><br><i>' . htmlspecialchars(self::plugin()->translate("config_"
-							. xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT . "_info_manual")) . '</i><ol>' . implode("", array_map(function ($step) {
-							return '<li>' . htmlspecialchars(self::plugin()->translate("config_" . xlvoConf::F_ACTIVATE_POWERPOINT_EXPORT
-									. "_info_manual_" . $step)) . '</li>';
-						}, range(1, 4))) . '</ol>' : ''));
+					. ($power_point_enabled ? '<br><br><i>' . htmlspecialchars(self::plugin()->translate("config_ppt_link_info_manual")) . '</i><ol>' . implode("", array_map(function ($step) {
+							return '<li>' . htmlspecialchars(self::plugin()->translate("config_ppt_link_info_manual_" . $step)) . '</li>';
+						}, range(1, 6))) . '</ol>' : ''));
 			} else {
 				$presenter_link->setHtml(self::plugin()->translate("config_presenter_link_non_anonym"));
 			}
