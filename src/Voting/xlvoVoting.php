@@ -174,7 +174,7 @@ class xlvoVoting extends CachingActiveRecord {
 	 * @db_fieldtype        integer
 	 * @db_length           8
 	 */
-	protected $end_range = 100;
+	protected $end_range = 10000000;
 	/**
 	 * @var int
 	 *
