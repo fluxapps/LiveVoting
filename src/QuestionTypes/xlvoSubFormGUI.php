@@ -175,6 +175,8 @@ abstract class xlvoSubFormGUI {
 			$value = $ilPropertyFormGUI->getInput($formElement->getPostVar());
 			$this->handleField($formElement, $value);
 		}
+
+		$this->validateForm();
 	}
 
 
@@ -233,4 +235,15 @@ abstract class xlvoSubFormGUI {
 	 * @throws ilException
 	 */
 	protected abstract function getFieldValue(ilFormPropertyGUI $element);
+
+
+	/**
+	 * @param ilPropertyFormGUI $element
+	 *
+	 * @return void
+	 * @throws ilException
+	 */
+	protected function validateForm() {
+		//virtual
+	}
 }
