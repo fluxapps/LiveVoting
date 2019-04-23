@@ -4,19 +4,47 @@
  */
 var xlvoFreeInputCategorize = {
 
+	/**
+	 * dragula object
+	 */
 	drake: null,
 
+	/**
+	 *  init dragula and event listeners
+	 */
 	init: function() {
-		console.log(document.querySelector("#answers"));
-		this.drake = dragula([document.querySelector("#answers")])
-			.on('drag', function(el) {
-				xlvoFreeInputCategorize.recalculatePlayerHeight();
-			}).on('drop', function(el) {
-				xlvoFreeInputCategorize.recalculatePlayerHeight();
-			});
-		console.log('xlvoFreeInputCategorize initialized');
+		console.log('initialize xlvoFreeInputCategorize');
+		this.drake = dragula([document.querySelector("#bars")], {
+			moves: function (el) {
+				return !$(el).is("legend");
+			}
+		})
+		.on('drag', function(el) {
+			xlvoFreeInputCategorize.recalculatePlayerHeight();
+		}).on('drop', function(el) {
+			xlvoFreeInputCategorize.recalculatePlayerHeight();
+		});
+
+		$('#category_input').on("keypress", function(e) {
+			if (e.which == 13) {
+				xlvoFreeInputCategorize.addCategory();
+			}
+		});
+
+		$('#category_button').on("click", xlvoFreeInputCategorize.addCategory);
+
+		$('#answer_input').on("keypress", function(e) {
+			if (e.which == 13) {
+				xlvoFreeInputCategorize.addAnswer();
+			}
+		});
+
+		$('#answer_button').on("click", xlvoFreeInputCategorize.addAnswer);
 	},
 
+	/**
+	 *
+	 */
 	addCategory: function() {
 		// append category
 		categories = $('div#categories').append(
@@ -29,20 +57,23 @@ var xlvoFreeInputCategorize = {
 
 		// add new container to dragula
 		console.log($('div#categories fieldset').last()[0]);
-		this.drake.containers.push($('div#categories fieldset').last()[0]);
+		xlvoFreeInputCategorize.drake.containers.push($('div#categories fieldset').last()[0]);
 
 		// flush input
 		$('#category_input').val('');
 
 		// recalculate height of player
-		this.recalculatePlayerHeight();
+		xlvoFreeInputCategorize.recalculatePlayerHeight();
 	},
 
+	/**
+	 *
+	 */
 	addAnswer: function() {
 		// append answer
 		$('div#bars').append(
-			'<div>' +
-				'<div id="vote_id_" class="col-md-4 xlvo-vote-free-input">' +
+			'<div class="col-md-4">' +
+				'<div id="vote_id_" class="xlvo-vote-free-input">' +
 					'<div class="well well-sm">' +
 						'<span>' + $('#answer_input').val() + '</span>' +
 					'</div>' +
@@ -54,13 +85,14 @@ var xlvoFreeInputCategorize = {
 		$('#answer_input').val('');
 
 		// recalculate height of player
-		this.recalculatePlayerHeight();
+		xlvoFreeInputCategorize.recalculatePlayerHeight();
 	},
 
+	/**
+	 * called in addCategory and addAnswer
+	 */
 	recalculatePlayerHeight: function () {
 		var node = $('#xlvo-display-player').children();
 		$('#xlvo-display-player').css('height', node.css('height'));
 	}
 };
-
-// xlvoFreeInputCategorize.init();

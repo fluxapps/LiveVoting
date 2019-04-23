@@ -1,10 +1,5 @@
-div#categories,
-div#answers {
+.clear-both {
   clear: both;
-}
-.category_dropzone {
-  width: 100%;
-  height: 100%;
 }
 fieldset legend {
   border-bottom: none;
@@ -20,7 +15,7 @@ div.inputs .input-group div.input-group-append {
   width: 30%;
   display: inline-block;
 }
-fieldset.xlvo-category div.xlvo-vote-free-input {
+fieldset.xlvo-category div.col-md-4 {
   width: 100%;
   padding: 0;
 }
