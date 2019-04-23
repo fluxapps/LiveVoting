@@ -268,7 +268,7 @@ var xlvoPlayer = {
 			{
 
 				var playerHtml = data.player_html;
-				if (xlvoPlayer.player_html !== playerHtml) { // Only change html if changed (Try prevent blinking images) (Not work because countdown text and/or token links)
+				if (xlvoPlayer.player_html !== null && xlvoPlayer.player_html !== playerHtml) { // Only change html if changed (Try prevent blinking images) (Not work because countdown text and/or token links)
 					//create new jquery node
 					var node = $(playerHtml);
 					//get list of old childs

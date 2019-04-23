@@ -9,11 +9,11 @@ class ComposerStaticInitf5122d14f0f45dac789bfb6428ff8994
     public static $prefixLengthsPsr4 = array (
         's' => 
         array (
-            'srag\\RemovePluginDataConfirm\\' => 29,
+            'srag\\RemovePluginDataConfirm\\LiveVoting\\' => 40,
             'srag\\LibrariesNamespaceChanger\\' => 31,
-            'srag\\DIC\\' => 9,
-            'srag\\CustomInputGUIs\\' => 21,
-            'srag\\ActiveRecordConfig\\' => 24,
+            'srag\\DIC\\LiveVoting\\' => 20,
+            'srag\\CustomInputGUIs\\LiveVoting\\' => 32,
+            'srag\\ActiveRecordConfig\\LiveVoting\\' => 35,
         ),
         'S' => 
         array (
@@ -30,7 +30,7 @@ class ComposerStaticInitf5122d14f0f45dac789bfb6428ff8994
     );
 
     public static $prefixDirsPsr4 = array (
-        'srag\\RemovePluginDataConfirm\\' => 
+        'srag\\RemovePluginDataConfirm\\LiveVoting\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src',
         ),
@@ -38,15 +38,15 @@ class ComposerStaticInitf5122d14f0f45dac789bfb6428ff8994
         array (
             0 => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src',
         ),
-        'srag\\DIC\\' => 
+        'srag\\DIC\\LiveVoting\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/dic/src',
         ),
-        'srag\\CustomInputGUIs\\' => 
+        'srag\\CustomInputGUIs\\LiveVoting\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/custominputguis/src',
         ),
-        'srag\\ActiveRecordConfig\\' => 
+        'srag\\ActiveRecordConfig\\LiveVoting\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/activerecordconfig/src',
         ),
@@ -141,6 +141,7 @@ class ComposerStaticInitf5122d14f0f45dac789bfb6428ff8994
         'LiveVoting\\QuestionTypes\\CorrectOrder\\xlvoCorrectOrderResultGUI' => __DIR__ . '/../..' . '/src/QuestionTypes/CorrectOrder/xlvoCorrectOrderResultGUI.php',
         'LiveVoting\\QuestionTypes\\CorrectOrder\\xlvoCorrectOrderResultsGUI' => __DIR__ . '/../..' . '/src/QuestionTypes/CorrectOrder/xlvoCorrectOrderResultsGUI.php',
         'LiveVoting\\QuestionTypes\\CorrectOrder\\xlvoCorrectOrderSubFormGUI' => __DIR__ . '/../..' . '/src/QuestionTypes/CorrectOrder/xlvoCorrectOrderSubFormGUI.php',
+        'LiveVoting\\QuestionTypes\\FreeInput\\xlvoFreeInputCategorizeGUI' => __DIR__ . '/../..' . '/src/QuestionTypes/FreeInput/xlvoFreeInputCategorizeGUI.php',
         'LiveVoting\\QuestionTypes\\FreeInput\\xlvoFreeInputResultGUI' => __DIR__ . '/../..' . '/src/QuestionTypes/FreeInput/xlvoFreeInputResultGUI.php',
         'LiveVoting\\QuestionTypes\\FreeInput\\xlvoFreeInputResultsGUI' => __DIR__ . '/../..' . '/src/QuestionTypes/FreeInput/xlvoFreeInputResultsGUI.php',
         'LiveVoting\\QuestionTypes\\FreeInput\\xlvoFreeInputSubFormGUI' => __DIR__ . '/../..' . '/src/QuestionTypes/FreeInput/xlvoFreeInputSubFormGUI.php',
@@ -283,6 +284,11 @@ class ComposerStaticInitf5122d14f0f45dac789bfb6428ff8994
         'srag\\CustomInputGUIs\\LiveVoting\\DateDurationInputGUI\\DateDurationInputGUI' => __DIR__ . '/..' . '/srag/custominputguis/src/DateDurationInputGUI/DateDurationInputGUI.php',
         'srag\\CustomInputGUIs\\LiveVoting\\GlyphGUI\\GlyphGUI' => __DIR__ . '/..' . '/srag/custominputguis/src/GlyphGUI/GlyphGUI.php',
         'srag\\CustomInputGUIs\\LiveVoting\\HiddenInputGUI\\HiddenInputGUI' => __DIR__ . '/..' . '/srag/custominputguis/src/HiddenInputGUI/HiddenInputGUI.php',
+        'srag\\CustomInputGUIs\\LiveVoting\\LearningProgressPieUI\\AbstractLearningProgressPieUI' => __DIR__ . '/..' . '/srag/custominputguis/src/LearningProgressPieUI/AbstractLearningProgressPieUI.php',
+        'srag\\CustomInputGUIs\\LiveVoting\\LearningProgressPieUI\\CountLearningProgressPieUI' => __DIR__ . '/..' . '/srag/custominputguis/src/LearningProgressPieUI/CountLearningProgressPieUI.php',
+        'srag\\CustomInputGUIs\\LiveVoting\\LearningProgressPieUI\\LearningProgressPieUI' => __DIR__ . '/..' . '/srag/custominputguis/src/LearningProgressPieUI/LearningProgressPieUI.php',
+        'srag\\CustomInputGUIs\\LiveVoting\\LearningProgressPieUI\\ObjIdsLearningProgressPieUI' => __DIR__ . '/..' . '/srag/custominputguis/src/LearningProgressPieUI/ObjIdsLearningProgressPieUI.php',
+        'srag\\CustomInputGUIs\\LiveVoting\\LearningProgressPieUI\\UsrIdsLearningProgressPieUI' => __DIR__ . '/..' . '/srag/custominputguis/src/LearningProgressPieUI/UsrIdsLearningProgressPieUI.php',
         'srag\\CustomInputGUIs\\LiveVoting\\MultiLineInputGUI\\MultiLineInputGUI' => __DIR__ . '/..' . '/srag/custominputguis/src/MultiLineInputGUI/MultiLineInputGUI.php',
         'srag\\CustomInputGUIs\\LiveVoting\\MultiSelectSearchInputGUI\\MultiSelectSearchInput2GUI' => __DIR__ . '/..' . '/srag/custominputguis/src/MultiSelectSearchInputGUI/MultiSelectSearchInput2GUI.php',
         'srag\\CustomInputGUIs\\LiveVoting\\MultiSelectSearchInputGUI\\MultiSelectSearchInputGUI' => __DIR__ . '/..' . '/srag/custominputguis/src/MultiSelectSearchInputGUI/MultiSelectSearchInputGUI.php',
@@ -310,7 +316,7 @@ class ComposerStaticInitf5122d14f0f45dac789bfb6428ff8994
         'srag\\CustomInputGUIs\\LiveVoting\\Template\\Template' => __DIR__ . '/..' . '/srag/custominputguis/src/Template/Template.php',
         'srag\\CustomInputGUIs\\LiveVoting\\TextAreaInputGUI\\TextAreaInputGUI' => __DIR__ . '/..' . '/srag/custominputguis/src/TextAreaInputGUI/TextAreaInputGUI.php',
         'srag\\CustomInputGUIs\\LiveVoting\\TextInputGUI\\TextInputGUI' => __DIR__ . '/..' . '/srag/custominputguis/src/TextInputGUI/TextInputGUI.php',
-        'srag\\CustomInputGUIs\\LiveVoting\\ViewControlModeGUI\\ViewControlModeGUI' => __DIR__ . '/..' . '/srag/custominputguis/src/ViewControlModeGUI/ViewControlModeGUI.php',
+        'srag\\CustomInputGUIs\\LiveVoting\\ViewControlModeUI\\ViewControlModeUI' => __DIR__ . '/..' . '/srag/custominputguis/src/ViewControlModeGUI/ViewControlModeUI.php',
         'srag\\CustomInputGUIs\\LiveVoting\\Waiter\\Waiter' => __DIR__ . '/..' . '/srag/custominputguis/src/Waiter/Waiter.php',
         'srag\\DIC\\LiveVoting\\DICStatic' => __DIR__ . '/..' . '/srag/dic/src/DICStatic.php',
         'srag\\DIC\\LiveVoting\\DICStaticInterface' => __DIR__ . '/..' . '/srag/dic/src/DICStaticInterface.php',
@@ -333,7 +339,6 @@ class ComposerStaticInitf5122d14f0f45dac789bfb6428ff8994
         'srag\\LibrariesNamespaceChanger\\LibrariesNamespaceChanger' => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src/LibrariesNamespaceChanger.php',
         'srag\\RemovePluginDataConfirm\\LiveVoting\\AbstractPluginUninstallTrait' => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src/AbstractPluginUninstallTrait.php',
         'srag\\RemovePluginDataConfirm\\LiveVoting\\AbstractRemovePluginDataConfirm' => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src/AbstractRemovePluginDataConfirm.php',
-        'srag\\RemovePluginDataConfirm\\LiveVoting\\Exception\\RemovePluginDataConfirmException' => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src/Exception/RemovePluginDataConfirmException.php',
         'srag\\RemovePluginDataConfirm\\LiveVoting\\PluginUninstallTrait' => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src/PluginUninstallTrait.php',
         'srag\\RemovePluginDataConfirm\\LiveVoting\\RepositoryObjectPluginUninstallTrait' => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src/RepositoryObjectPluginUninstallTrait.php',
         'xlvoConfGUI' => __DIR__ . '/../..' . '/classes/Conf/class.xlvoConfGUI.php',

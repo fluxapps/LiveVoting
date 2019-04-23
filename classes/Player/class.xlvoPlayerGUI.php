@@ -15,6 +15,7 @@ use LiveVoting\Player\QR\xlvoQR;
 use LiveVoting\Player\QR\xlvoQRModalGUI;
 use LiveVoting\Player\xlvoDisplayPlayerGUI;
 use LiveVoting\Player\xlvoPlayer;
+use LiveVoting\QuestionTypes\FreeInput\xlvoFreeInputCategorizeGUI;
 use LiveVoting\QuestionTypes\xlvoQuestionTypesGUI;
 use LiveVoting\Voter\xlvoVoter;
 use LiveVoting\Voting\xlvoVoting;
@@ -45,6 +46,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 	const CMD_END = 'end';
 	const CMD_GET_PLAYER_DATA = 'getPlayerData';
 	const CMD_API_CALL = 'apiCall';
+	const CMD_CATEGORIZE = 'categorize';
 	const DEBUG = false;
 	/**
 	 * @var xlvoVotingManager2
@@ -140,6 +142,11 @@ class xlvoPlayerGUI extends xlvoGUI {
 			->send();
 	}
 
+
+	protected function categorize() {
+		$xlvoFreeInputCategorizeGUI = new xlvoFreeInputCategorizeGUI();
+
+	}
 
 	/**
 	 *
