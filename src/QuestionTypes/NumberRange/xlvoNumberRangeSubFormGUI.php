@@ -6,6 +6,7 @@ use ilCheckboxInputGUI;
 use ilException;
 use ilFormPropertyGUI;
 use ilNumberInputGUI;
+use ilPropertyFormGUI;
 use ilRadioGroupInputGUI;
 use ilRadioOption;
 use LiveVoting\Exceptions\xlvoSubFormGUIHandleFieldException;
@@ -117,13 +118,13 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 				$this->getXlvoVoting()->setPercentage($value === 1 ? 1 : 0); //if the value is 1 set 1 or else 0.
 				break;
 			case self::OPTION_RANGE_START:
-				$this->setStartRange($value);
+				$this->getXlvoVoting()->setStartRange($value);
 				break;
 			case self::OPTION_RANGE_END:
-				$this->setEndRange($value);
+				$this->getXlvoVoting()->setEndRange($value);
 				break;
 			case self::OPTION_RANGE_STEP:
-				$this->setStepRange($value);
+				$this->getXlvoVoting()->setStepRange($value);
 				break;
 			case self::OPTION_ALTERNATIVE_RESULT_DISPLAY_MODE:
 				$this->getXlvoVoting()->setAltResultDisplayMode((int)$value); //if the value is 1 set 1 or else 0.
@@ -162,63 +163,31 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 
 
 	/**
-	 * Validates the start of the range and sets the value if valid.
-	 *
-	 * @param int $start The new start range which should be set.
-	 *
-	 * @return xlvoVoting
+	 * @return void
 	 * @throws xlvoSubFormGUIHandleFieldException
 	 */
-	private function setStartRange($start) {
+	protected function validateForm() {
 		$end = (int)$this->getXlvoVoting()->getEndRange();
+		$start = (int)$this->getXlvoVoting()->getStartRange();
+		$step = (int)$this->getXlvoVoting()->getStepRange();
+		$range = ($end - $start);
 
-		if ($start < $end && $start <= self::START_RANGE_MAX && $start >= self::START_RANGE_MIN) {
-			return $this->getXlvoVoting()->setStartRange($start);
-		}
-
-		throw new xlvoSubFormGUIHandleFieldException(self::plugin()->translate(self::START_RANGE_INVALID_INFO, "" . [
+		if (!($start < $end && $start <= self::START_RANGE_MAX && $start >= self::START_RANGE_MIN)) {
+			throw new xlvoSubFormGUIHandleFieldException(self::plugin()->translate(self::START_RANGE_INVALID_INFO, "", [
 				self::START_RANGE_MIN,
 				self::START_RANGE_MAX
 			]));
-	}
-
-
-	/**
-	 * Validates the end of the range and sets the value if valid.
-	 *
-	 * @param int $end The new end range which should be set.
-	 *
-	 * @return xlvoVoting
-	 * @throws xlvoSubFormGUIHandleFieldException
-	 */
-	private function setEndRange($end) {
-		$start = (int)$this->getXlvoVoting()->getStartRange();
-
-		if ($end > $start && $end <= self::END_RANGE_MAX && $end >= self::END_RANGE_MIN) {
-			return $this->getXlvoVoting()->setEndRange($end);
 		}
 
-		throw new xlvoSubFormGUIHandleFieldException(self::plugin()->translate(self::END_RANGE_INVALID_INFO, "", [
-			self::END_RANGE_MIN,
-			self::END_RANGE_MAX
-		]));
-	}
-
-
-	/**
-	 * @param int $step
-	 *
-	 * @return xlvoVoting
-	 * @throws xlvoSubFormGUIHandleFieldException
-	 */
-	private function setStepRange($step) {
-		$start = (int)$this->getXlvoVoting()->getStartRange();
-		$end = (int)$this->getXlvoVoting()->getEndRange();
-		$range = ($end - $start);
-		if ($step < $range && $range % $step === 0) {
-			return $this->getXlvoVoting()->setStepRange($step);
+		if (!($end > $start && $end <= self::END_RANGE_MAX && $end >= self::END_RANGE_MIN)) {
+			throw new xlvoSubFormGUIHandleFieldException(self::plugin()->translate(self::END_RANGE_INVALID_INFO, "", [
+				self::END_RANGE_MIN,
+				self::END_RANGE_MAX
+			]));
 		}
 
-		throw new xlvoSubFormGUIHandleFieldException(self::plugin()->translate(self::STEP_RANGE_INVALID_INFO));
+		if (!($step < $range && $range % $step === 0)) {
+			throw new xlvoSubFormGUIHandleFieldException(self::plugin()->translate(self::STEP_RANGE_INVALID_INFO));
+		}
 	}
 }

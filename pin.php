@@ -28,7 +28,6 @@ try {
 	if (!empty($pin)) {
 
 		if (xlvoPin::checkPinAndGetObjId($pin)) {
-
 			$param_manager = ParamManager::getInstance();
 
 			DICStatic::dic()->ctrl()->redirectByClass([
@@ -43,5 +42,5 @@ try {
 		], xlvoVoter2GUI::CMD_STANDARD);
 	}
 } catch (Throwable $ex) {
-
+	echo $ex->getMessage() . "<br /><br /><a href='/'>back</a>";
 }

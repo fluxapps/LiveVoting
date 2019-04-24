@@ -47,7 +47,7 @@ abstract class xlvoSubFormGUI {
 
 			$class = xlvoQuestionTypes::getClassName($xlvoVoting->getVotingType());
 
-			$gui = NULL;
+			$gui = null;
 			switch ($class) {
 				case xlvoQuestionTypes::CORRECT_ORDER:
 					$gui = new xlvoCorrectOrderSubFormGUI($xlvoVoting);
@@ -175,6 +175,8 @@ abstract class xlvoSubFormGUI {
 			$value = $ilPropertyFormGUI->getInput($formElement->getPostVar());
 			$this->handleField($formElement, $value);
 		}
+
+		$this->validateForm();
 	}
 
 
@@ -233,4 +235,13 @@ abstract class xlvoSubFormGUI {
 	 * @throws ilException
 	 */
 	protected abstract function getFieldValue(ilFormPropertyGUI $element);
+
+
+	/**
+	 * @return void
+	 * @throws ilException
+	 */
+	protected function validateForm() {
+		//virtual
+	}
 }

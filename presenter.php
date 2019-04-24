@@ -48,5 +48,5 @@ try {
 		}
 	}
 } catch (Throwable $ex) {
-
+	echo $ex->getMessage() . "<br /><br /><a href='/'>back</a>";
 }
