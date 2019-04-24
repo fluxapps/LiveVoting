@@ -163,7 +163,6 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 
 
 	/**
-	 *
 	 * @return void
 	 * @throws xlvoSubFormGUIHandleFieldException
 	 */
