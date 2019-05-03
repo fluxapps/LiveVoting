@@ -19,4 +19,23 @@ fieldset.xlvo-category div.col-md-4 {
   width: 100%;
   padding: 0;
 }
+div.xlvo-vote-free-input button.close,
+fieldset.xlvo-category button.close {
+  padding-right: 3px;
+}
+button.close {
+  position: absolute;
+  right: 20px;
+  top: 15px;
+}
+#categories div.xlvo-vote-free-input button.close {
+  position: absolute;
+  right: 1px;
+  top: 1px;
+}
+div.xlvo-vote-free-input button.close {
+  position: absolute;
+  right: 16px;
+  top: 1px;
+}
 /*# sourceMappingURL=free_input.css.map */

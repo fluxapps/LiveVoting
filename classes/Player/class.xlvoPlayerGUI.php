@@ -144,7 +144,6 @@ class xlvoPlayerGUI extends xlvoGUI {
 
 
 	protected function categorize() {
-		$xlvoFreeInputCategorizeGUI = new xlvoFreeInputCategorizeGUI();
 
 	}
 

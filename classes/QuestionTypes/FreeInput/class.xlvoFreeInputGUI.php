@@ -215,20 +215,27 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 
 		$b = ilLinkButton::getInstance();
 		$b->setId(self::BUTTON_CATEGORIZE);
-		$b->setCaption(GlyphGUI::get('folder-open') . '&nbsp' . self::plugin()->translate('categorize', 'btn'), false);
+
+		if ($this->getButtonsStates()[self::BUTTON_CATEGORIZE] == 'true') {
+			$b->setCaption(GlyphGUI::get('folder-close') . '&nbsp' . self::plugin()->translate('categorize_done', 'btn'), false);
+		} else {
+			$b->setCaption(GlyphGUI::get('folder-open') . '&nbsp' . self::plugin()->translate('categorize', 'btn'), false);
+		}
+
+//		$b->setOnClick('function() {xlvoFreeInputCategorize.init("' . $base_url . '");})');
+//		$b->setOnClick("xlvoFreeInputCategorize.init('');");
 
 		return array( $b );
 	}
 
 
+	/**
+	 * @param $button_id
+	 * @param $data
+	 */
 	public function handleButtonCall($button_id, $data) {
-		switch ($button_id) {
-			case self::BUTTON_CATEGORIZE:
-
-				break;
-			default:
-				break;
-		}
+		$data = $this->getButtonsStates()[self::BUTTON_CATEGORIZE] == 'true' ? 'false' : 'true';
+		$this->saveButtonState($button_id, $data);
 	}
 
 

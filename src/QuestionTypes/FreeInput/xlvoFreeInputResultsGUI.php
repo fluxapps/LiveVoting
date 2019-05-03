@@ -7,6 +7,7 @@ use LiveVoting\Display\Bar\xlvoBarGroupingCollectionGUI;
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\QuestionTypes\xlvoInputResultsGUI;
 use LiveVoting\Vote\xlvoVote;
+use xlvoFreeInputGUI;
 
 /**
  * Class xlvoFreeInputResultsGUI
@@ -16,20 +17,36 @@ use LiveVoting\Vote\xlvoVote;
  */
 class xlvoFreeInputResultsGUI extends xlvoInputResultsGUI {
 
-	const PARAM_CATEGORIZE = 'categorize';
-
-
 	/**
 	 * @return string
 	 * @throws \ilException
 	 */
 	public function getHTML() {
-		$categorize = (bool) filter_input(INPUT_GET, self::PARAM_CATEGORIZE);
-//		if ($categorize) {
+		if (!self::dic()->ctrl()->isAsynch()) {
+			$this->initJSAndCSS();
+		}
+
+		$button_states = $this->manager->getPlayer()->getButtonStates();
+		if ($button_states[xlvoFreeInputGUI::BUTTON_CATEGORIZE] == 'true') {
 			return $this->getCategorizeHTML();
-//		} else {
-//			return $this->getStandardHTML();
-//		}
+		} else {
+			return $this->getStandardHTML();
+		}
+	}
+
+
+	/**
+	 * @throws \srag\DIC\LiveVoting\Exception\DICException
+	 */
+	protected function initJSAndCSS() {
+		//			$base_url = self::dic()->ctrl()->getLinkTarget($this, "", "", true);
+		$base_url = '';
+		self::dic()->mainTemplate()->addJavaScript(self::plugin()->directory() . '/node_modules/dragula/dist/dragula.js');
+		self::dic()->mainTemplate()->addJavaScript(self::plugin()->directory() . '/js/QuestionTypes/FreeInput/xlvoFreeInputCategorize.js');
+//		self::dic()->mainTemplate()->addOnLoadCode('xlvoFreeInputCategorize.init("' . $base_url . '");');
+		self::dic()->mainTemplate()->addOnLoadCode('$("a#btn_categorize").on("click", function() {xlvoFreeInputCategorize.init("' . $base_url . '");});');
+		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/node_modules/dragula/dist/dragula.min.css');
+		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/QuestionTypes/FreeInput/free_input.css');
 	}
 
 
@@ -77,16 +94,11 @@ class xlvoFreeInputResultsGUI extends xlvoInputResultsGUI {
 
 	/**
 	 * @return string
+	 * @throws \ilException
+	 * @throws \ilTemplateException
+	 * @throws \srag\DIC\LiveVoting\Exception\DICException
 	 */
 	protected function getCategorizeHTML() {
-		if (!self::dic()->ctrl()->isAsynch()) {
-			self::dic()->mainTemplate()->addJavaScript(self::plugin()->directory() . '/node_modules/dragula/dist/dragula.js');
-			self::dic()->mainTemplate()->addJavaScript(self::plugin()->directory() . '/js/QuestionTypes/FreeInput/xlvoFreeInputCategorize.js');
-			self::dic()->mainTemplate()->addOnLoadCode('xlvoFreeInputCategorize.init();');
-			self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/node_modules/dragula/dist/dragula.min.css');
-			self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/QuestionTypes/FreeInput/free_input.css');
-		}
-
 		$bars_html = $this->getStandardHTML();
 		$tpl = self::plugin()->template('default/QuestionTypes/FreeInput/tpl.free_input_categorize.html');
 		$tpl->setVariable('ANSWERS', $bars_html);
