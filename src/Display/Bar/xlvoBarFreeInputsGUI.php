@@ -28,6 +28,10 @@ class xlvoBarFreeInputsGUI extends xlvoAbstractBarGUI implements xlvoGeneralBarG
 	/**
 	 * @var bool
 	 */
+	private $removable = false;
+	/**
+	 * @var bool
+	 */
 	private $strong = false;
 	/**
 	 * @var bool
@@ -57,7 +61,11 @@ class xlvoBarFreeInputsGUI extends xlvoAbstractBarGUI implements xlvoGeneralBarG
 	 */
 	protected function render() {
 		$this->tpl->setVariable('FREE_INPUT', nl2br($this->vote->getFreeInput(), false));
+		$this->tpl->setVariable('ID', $this->vote->getId());
 
+		if ($this->isRemovable()) {
+			$this->tpl->touchBlock('remove_button');
+		}
 		if ($this->isCenter()) {
 			$this->tpl->touchBlock('center');
 		}
@@ -161,4 +169,21 @@ class xlvoBarFreeInputsGUI extends xlvoAbstractBarGUI implements xlvoGeneralBarG
 	public function setBig($big) {
 		$this->big = $big;
 	}
+
+
+	/**
+	 * @return bool
+	 */
+	public function isRemovable() {
+		return $this->removable;
+	}
+
+
+	/**
+	 * @param bool $removable
+	 */
+	public function setRemovable($removable) {
+		$this->removable = $removable;
+	}
+
 }

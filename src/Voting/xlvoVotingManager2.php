@@ -149,22 +149,27 @@ class xlvoVotingManager2 {
 
 	/**
 	 * @param array $array ... => (input, vote_id)
+	 * @param bool  $force_create_new
+	 *
+	 * @throws xlvoVotingManagerException
 	 */
-	public function inputAll(array $array) {
+	public function inputAll(array $array, $force_create_new = false) {
 		foreach ($array as $item) {
-			$this->input($item['input'], $item['vote_id']);
+			$this->input($item['input'], $item['vote_id'], $force_create_new);
 		}
 		$this->createHistoryObject();
 	}
 
 
 	/**
-	 * @param $input
-	 * @param $vote_id
+	 * @param      $input
+	 * @param      $vote_id
+	 *
+	 * @param bool $force_create_new
 	 *
 	 * @throws xlvoVotingManagerException
 	 */
-	protected function input($input, $vote_id) {
+	protected function input($input, $vote_id, $force_create_new = false) {
 		$options = $this->getOptions();
 		$option = array_shift(array_values($options));
 		if (!$option instanceof xlvoOption) {
@@ -192,7 +197,7 @@ class xlvoVotingManager2 {
 		$xlvoVote->setFreeInput($input);
 		$xlvoVote->setRoundId(xlvoRound::getLatestRoundId($this->obj_id));
 		$xlvoVote->store();
-		if (!$this->getVoting()->isMultiFreeInput()) {
+		if (!$this->getVoting()->isMultiFreeInput() && !$force_create_new) {
 			$this->unvoteAll($xlvoVote->getId());
 		}
 	}
@@ -675,10 +680,11 @@ class xlvoVotingManager2 {
 
 
 	/**
-	 * @param $array
+	 * @param      $array
+	 * @param bool $force_create_new
 	 */
-	public function inputOne($array) {
-		$this->inputAll(array( $array ));
+	public function inputOne($array, $force_create_new = false) {
+		$this->inputAll(array( $array ), $force_create_new);
 	}
 
 	/**

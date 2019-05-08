@@ -25,6 +25,10 @@ final class xlvoBarGroupingCollectionGUI extends xlvoBarCollectionGUI {
 	 */
 	private $bars = [];
 	/**
+	 * @var bool
+	 */
+	private $removeable = false;
+	/**
 	 * @var bool $rendered
 	 */
 	private $rendered = false;
@@ -47,6 +51,7 @@ final class xlvoBarGroupingCollectionGUI extends xlvoBarCollectionGUI {
 		$this->checkCollectionState();
 
 		if ($bar_gui instanceof xlvoBarFreeInputsGUI) {
+			$bar_gui->setRemovable($this->isRemoveable());
 			$this->bars[] = $bar_gui;
 		} else {
 			throw new ilException('$bar_gui must a type of xlvoBarFreeInputsGUI.');
@@ -60,7 +65,6 @@ final class xlvoBarGroupingCollectionGUI extends xlvoBarCollectionGUI {
 	public function sorted($enabled) {
 		$this->sorted = $enabled;
 	}
-
 
 	/**
 	 * Render the template.
@@ -283,4 +287,24 @@ final class xlvoBarGroupingCollectionGUI extends xlvoBarCollectionGUI {
 
 		return $sortedResult;
 	}
+
+
+	/**
+	 * @return bool
+	 */
+	public function isRemoveable() {
+		return $this->removeable;
+	}
+
+
+	/**
+	 * @param bool $removeable
+	 *
+	 * @return static
+	 */
+	public function setRemoveable($removeable) {
+		$this->removeable = $removeable;
+	}
+
+
 }

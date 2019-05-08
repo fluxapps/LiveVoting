@@ -16,7 +16,10 @@ use LiveVoting\Player\QR\xlvoQRModalGUI;
 use LiveVoting\Player\xlvoDisplayPlayerGUI;
 use LiveVoting\Player\xlvoPlayer;
 use LiveVoting\QuestionTypes\FreeInput\xlvoFreeInputCategorizeGUI;
+use LiveVoting\QuestionTypes\FreeInput\xlvoFreeInputCategory;
 use LiveVoting\QuestionTypes\xlvoQuestionTypesGUI;
+use LiveVoting\User\xlvoUser;
+use LiveVoting\Vote\xlvoVote;
 use LiveVoting\Voter\xlvoVoter;
 use LiveVoting\Voting\xlvoVoting;
 use LiveVoting\Voting\xlvoVotingConfig;
@@ -46,7 +49,6 @@ class xlvoPlayerGUI extends xlvoGUI {
 	const CMD_END = 'end';
 	const CMD_GET_PLAYER_DATA = 'getPlayerData';
 	const CMD_API_CALL = 'apiCall';
-	const CMD_CATEGORIZE = 'categorize';
 	const DEBUG = false;
 	/**
 	 * @var xlvoVotingManager2
@@ -140,11 +142,6 @@ class xlvoPlayerGUI extends xlvoGUI {
 	protected function getAttendees() {
 		xlvoJsResponse::getInstance(self::plugin()->translate("start_online", "", [ xlvoVoter::countVoters($this->manager->getPlayer()->getId()) ]))
 			->send();
-	}
-
-
-	protected function categorize() {
-
 	}
 
 	/**
@@ -335,6 +332,34 @@ class xlvoPlayerGUI extends xlvoGUI {
 				break;
 			case 'countdown':
 				$this->manager->countdown($_POST['seconds']);
+				break;
+			case 'input':
+				xlvoUser::getInstance()->setIdentifier(self::dic()->user()->getId())->setType(xlvoUser::TYPE_ILIAS);
+				$this->manager->inputOne(['input' => $_POST['input']]);
+				break;
+			case 'add_vote':
+				xlvoUser::getInstance()->setIdentifier(self::dic()->user()->getId())->setType(xlvoUser::TYPE_ILIAS);
+				$vote_id = $this->manager->inputOne(['input' => $_POST['input']], true);
+				$return_value = ['vote_id' => $vote_id];
+				break;
+			case 'remove_vote':
+				xlvoVote::find($_POST['vote_id'])->delete();
+				break;
+			case 'add_category':
+				$category = new xlvoFreeInputCategory();
+				$category->setTitle($_POST['title']);
+				$category->setVotingId($this->manager->getVoting()->getId());
+				$category->create();
+				$return_value = ['category_id' => $category->getId()];
+				break;
+			case 'remove_category':
+				xlvoFreeInputCategory::find($_POST['category_id'])->delete();
+				break;
+			case 'change_category':
+				/** @var $vote xlvoVote */
+				$vote = xlvoVote::find($_POST['vote_id']);
+				$vote->setFreeInputCategory($_POST['category_id']);
+				$vote->update();
 				break;
 			case 'button':
 				/**
