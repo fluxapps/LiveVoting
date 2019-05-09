@@ -11,7 +11,7 @@ use LiveVoting\Cache\CachingActiveRecord;
  * @package    LiveVoting\Conf
  * @author     Fabian Schmid <fs@studer-raimann.ch>
  *
- * @deprecated TODO: Use srag\ActiveRecordConfig\LiveVoting
+ * @deprecated Use srag\ActiveRecordConfig\LiveVoting
  */
 class xlvoConf extends CachingActiveRecord {
 

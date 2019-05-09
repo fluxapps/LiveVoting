@@ -173,7 +173,7 @@ var xlvoFreeInputCategorize = {
 			// append answer
 			$('div#bars').append(
 				'<div class="col-md-4">' +
-					'<div id="vote_id_' + data.vote_id + '" class="xlvo-vote-free-input" data-vote-id="' + data.vote_id + '">' + // todo: vote id
+					'<div id="vote_id_' + data.vote_id + '" class="xlvo-vote-free-input" data-vote-id="' + data.vote_id + '">' +
 						'<button type="button" class="close" aria-label="Close" onClick="xlvoFreeInputCategorize.removeAnswer($(this).parent().parent())">' +
 							'<span aria-hidden="true">&times;</span>' +
 						'</button>' +
