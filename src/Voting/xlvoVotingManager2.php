@@ -2,6 +2,7 @@
 
 namespace LiveVoting\Voting;
 
+use ilException;
 use ActiveRecordList;
 use ilLiveVotingPlugin;
 use LiveVoting\Context\Param\ParamManager;

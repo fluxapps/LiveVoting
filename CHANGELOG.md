@@ -1,5 +1,9 @@
 # Change Log
 
+## [4.1.3] - 2019-04-24
+- fixed bug "Zahlen-schätzen Frage Range" PLLV-307
+- fixed bug "Exceptions leiten aur error.php um, geben aber keine Fehlermeldung aus." PLLV-293
+
 ## [4.1.2] - 2019-03-26
 - fixed bug "Fehler beim Zugriff auf Offline-LV" PLLV-315
 - fixed bug "Powerpoint Export verhindern, wenn keine Frage vorhanden ist" PLLV-306
