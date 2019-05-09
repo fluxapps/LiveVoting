@@ -32,6 +32,7 @@ var xlvoFreeInputCategorize = {
 		this.initDragula();
 		this.initButtons();
 		this.initialized = true;
+		$('div.ilTabsContentOuter').append($('#srag_waiter'));
 		console.log('xlvoFreeInputCategorize initialized');
 	},
 
@@ -46,7 +47,8 @@ var xlvoFreeInputCategorize = {
 			},
 			accepts: function (el, target, source) {
 				return target !== source;
-			}
+			},
+			mirrorContainer: $('div.ilTabsContentOuter')[0]
 		})
 			.on('drag', function (el) {
 				xlvoFreeInputCategorize.recalculatePlayerHeight();

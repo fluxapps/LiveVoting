@@ -7,6 +7,8 @@ use LiveVoting\Display\Bar\xlvoBarGroupingCollectionGUI;
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\QuestionTypes\xlvoInputResultsGUI;
 use LiveVoting\Vote\xlvoVote;
+use LiveVoting\Voting\xlvoVoting;
+use LiveVoting\Voting\xlvoVotingManager2;
 use xlvoFreeInputGUI;
 use xlvoPlayerGUI;
 use srag\CustomInputGUIs\LiveVoting\Waiter\Waiter;
@@ -24,16 +26,21 @@ class xlvoFreeInputResultsGUI extends xlvoInputResultsGUI {
 	 */
 	protected $edit_mode = false;
 
+
+	public function __construct(xlvoVotingManager2 $manager, xlvoVoting $voting) {
+		parent::__construct($manager, $voting);
+		if (!self::dic()->ctrl()->isAsynch()) {
+			Waiter::init(Waiter::TYPE_WAITER);
+			$this->initJSAndCSS();
+		}
+	}
+
+
 	/**
 	 * @return string
 	 * @throws \ilException
 	 */
 	public function getHTML() {
-		if (!self::dic()->ctrl()->isAsynch()) {
-			$this->initJSAndCSS();
-			Waiter::init(Waiter::TYPE_WAITER);
-		}
-
 		$button_states = $this->manager->getPlayer()->getButtonStates();
 		$this->edit_mode = ($button_states[xlvoFreeInputGUI::BUTTON_CATEGORIZE] == 'true');
 

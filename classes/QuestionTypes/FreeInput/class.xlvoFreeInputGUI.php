@@ -215,15 +215,13 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 
 		$b = ilLinkButton::getInstance();
 		$b->setId(self::BUTTON_CATEGORIZE);
+		$b->setUrl('#');
 
 		if ($this->getButtonsStates()[self::BUTTON_CATEGORIZE] == 'true') {
 			$b->setCaption(GlyphGUI::get('folder-close') . '&nbsp' . self::plugin()->translate('categorize_done', 'btn'), false);
 		} else {
 			$b->setCaption(GlyphGUI::get('folder-open') . '&nbsp' . self::plugin()->translate('categorize', 'btn'), false);
 		}
-
-//		$b->setOnClick('function() {xlvoFreeInputCategorize.init("' . $base_url . '");})');
-//		$b->setOnClick("xlvoFreeInputCategorize.init('');");
 
 		return array( $b );
 	}

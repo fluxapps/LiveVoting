@@ -59,6 +59,12 @@ abstract class xlvoInputResultsGUI {
 
 
 	/**
+	 * void method to add necessary JS and CSS to maintemplate
+	 */
+	public function addJsAndCss() {
+	}
+
+	/**
 	 * @param xlvoVotingManager2 $manager
 	 *
 	 * @return xlvoInputResultsGUI
@@ -97,4 +103,5 @@ abstract class xlvoInputResultsGUI {
 	 * TODO: Usage?
 	 */
 	public abstract function getTextRepresentationForVotes(array $votes);
+
 }

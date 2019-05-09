@@ -17,6 +17,7 @@ use LiveVoting\Player\xlvoDisplayPlayerGUI;
 use LiveVoting\Player\xlvoPlayer;
 use LiveVoting\QuestionTypes\FreeInput\xlvoFreeInputCategorizeGUI;
 use LiveVoting\QuestionTypes\FreeInput\xlvoFreeInputCategory;
+use LiveVoting\QuestionTypes\xlvoInputResultsGUI;
 use LiveVoting\QuestionTypes\xlvoQuestionTypesGUI;
 use LiveVoting\User\xlvoUser;
 use LiveVoting\Vote\xlvoVote;
@@ -148,7 +149,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 *
 	 */
 	protected function startPlayerAnUnfreeze() {
-		$this->initJSandCss();
+		$this->initJsAndCss();
 		$this->initToolbarDuringVoting();
 		$this->manager->prepare();
 		$this->manager->getPlayer()->setStatus(xlvoPlayer::STAT_RUNNING);
@@ -163,7 +164,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 *
 	 */
 	protected function startPlayer() {
-		$this->initJSandCss();
+		$this->initJsAndCss();
 		$this->manager->prepare();
 
 		if ($voting_id = trim(filter_input(INPUT_GET, ParamManager::PARAM_VOTING), "/")) {
@@ -549,7 +550,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 * @throws ilException
 	 * @throws xlvoVotingManagerException
 	 */
-	protected function initJSandCss() {
+	protected function initJsAndCss() {
 		switch (true) {
 			case self::version()->is53():
 			case self::version()->is52():
@@ -592,7 +593,9 @@ class xlvoPlayerGUI extends xlvoGUI {
 		//xlvoJs::getInstance()->ilias($this)->name('PPT')->init()->setRunCode();
 
 		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/Player/player.css');
-		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/LiveVoting/templates/default/Display/Bar/bar.css');
+		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/Display/Bar/bar.css');
+
+		xlvoInputResultsGUI::getInstance($this->manager)->addJsAndCSS();
 	}
 
 
