@@ -4,6 +4,7 @@ namespace LiveVoting\QuestionTypes\FreeInput;
 
 use ilLiveVotingPlugin;
 use LiveVoting\Display\Bar\xlvoBarFreeInputsGUI;
+use LiveVoting\Display\Bar\xlvoBarGroupingCollectionGUI;
 use LiveVoting\Vote\xlvoVote;
 use LiveVoting\Voting\xlvoVotingManager2;
 use srag\DIC\LiveVoting\DICTrait;
@@ -40,10 +41,11 @@ class xlvoFreeInputCategoriesGUI {
 	 */
 	public function __construct(xlvoVotingManager2 $manager) {
 		/** @var xlvoFreeInputCategory $category */
-		foreach (xlvoFreeInputCategory::where(['voting_id' => $manager->getVoting()->getId(), 'round_id' => $manager->getPlayer()->getRoundId()])->get() as $category) {
+		foreach (xlvoFreeInputCategory::where(['voting_id' => $manager->getVoting()->getId(), 'round_id' => $manager->getPlayer()->getRoundId()])
+			         ->get() as $category) {
 			$this->categories[$category->getId()] = [
 				self::TITLE => $category->getTitle(),
-				self::VOTES => []
+				self::VOTES => new xlvoBarGroupingCollectionGUI()
 			];
 		}
 	}
@@ -55,7 +57,7 @@ class xlvoFreeInputCategoriesGUI {
 	 */
 	public function addBar(xlvoBarFreeInputsGUI $bar_gui, $cat_id) {
 		$bar_gui->setRemovable($this->isRemovable());
-		$this->categories[$cat_id][self::VOTES][] = $bar_gui;
+		$this->categories[$cat_id][self::VOTES]->addBar($bar_gui);
 	}
 
 
@@ -66,6 +68,7 @@ class xlvoFreeInputCategoriesGUI {
 	 */
 	public function getHTML() {
 		$tpl = self::plugin()->template('default/QuestionTypes/FreeInput/tpl.free_input_categories.html');
+		// TODO: xlvoBarGroupingCollection GUI verwenden?
 		foreach ($this->categories as $cat_id => $data) {
 			$cat_tpl = self::plugin()->template('default/QuestionTypes/FreeInput/tpl.free_input_category.html');
 			/** @var xlvoFreeInputCategory $category */
@@ -74,12 +77,14 @@ class xlvoFreeInputCategoriesGUI {
 			if ($this->isRemovable()) {
 				$cat_tpl->touchBlock('remove_button');
 			}
-			/** @var xlvoBarFreeInputsGUI $vote */
-			foreach ($data[self::VOTES] as $vote) {
-				$cat_tpl->setCurrentBlock('vote');
-				$cat_tpl->setVariable('VOTE', $vote->getHTML());
-				$cat_tpl->parseCurrentBlock();
-			}
+
+			$cat_tpl->setVariable('VOTES', $data[self::VOTES]->getHTML());
+//			/** @var xlvoBarFreeInputsGUI $vote */
+//			foreach ($data[self::VOTES] as $vote) {
+//				$cat_tpl->setCurrentBlock('vote');
+//				$cat_tpl->setVariable('VOTE', $vote->getHTML());
+//				$cat_tpl->parseCurrentBlock();
+//			}
 			$tpl->setCurrentBlock('category');
 			$tpl->setVariable('CATEGORY', $cat_tpl->get());
 			$tpl->parseCurrentBlock();

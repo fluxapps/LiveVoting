@@ -41,7 +41,10 @@ var xlvoFreeInputCategorize = {
 	 */
 	initDragula: function () {
 		// the new HTML is added first, then the old one is removed - therefore there are two 'div.bars' atm
-		this.drake = dragula([$("div.bars")[1]], {
+		this.drake = dragula([], {
+			isContainer: function (el) {
+				return $(el).is("div") && $(el).hasClass('bars');
+			},
 			moves: function (el) {
 				return $(el).is("div");
 			},
@@ -53,7 +56,7 @@ var xlvoFreeInputCategorize = {
 			.on('drag', function (el) {
 				xlvoFreeInputCategorize.recalculatePlayerHeight();
 			}).on('drop', function (el, target, source) {
-				xlvoFreeInputCategorize.changeCategory($(el).find('div.xlvo-vote-free-input')[0].getAttribute('data-vote-id'), $(target).attr('data-category-id'));
+				xlvoFreeInputCategorize.changeCategory($(el).find('div.xlvo-vote-free-input')[0].getAttribute('data-vote-id'), $(target).parent().attr('data-category-id'));
 				xlvoFreeInputCategorize.recalculatePlayerHeight();
 			});
 
@@ -232,8 +235,6 @@ var xlvoFreeInputCategorize = {
 
 		xlvoFreeInputCategorize.startRequest();
 
-		console.log(vote_id);
-		console.log(category_id);
 		$.post(xlvoPlayer.config.base_url + '&cmd=apiCall', {
 			call: 'change_category',
 			vote_id: vote_id,

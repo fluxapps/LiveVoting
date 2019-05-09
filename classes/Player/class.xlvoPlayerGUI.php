@@ -365,8 +365,18 @@ class xlvoPlayerGUI extends xlvoGUI {
 			case 'change_category':
 				/** @var $vote xlvoVote */
 				$vote = xlvoVote::find($_POST['vote_id']);
-				$vote->setFreeInputCategory($_POST['category_id']);
-				$vote->update();
+
+				// also change category of all same inputs in the same category
+				foreach (xlvoVote::where([
+					'voting_id' => $vote->getVotingId(),
+					'round_id' => $vote->getRoundId(),
+					'free_input' => $vote->getFreeInput(),
+					'free_input_category' => $vote->getFreeInputCategory()
+				])->get() as $vote) {
+					$vote->setFreeInputCategory($_POST['category_id']);
+					$vote->update();
+				}
+
 				break;
 			case 'button':
 				/**
