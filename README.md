@@ -50,7 +50,7 @@ https://appsource.microsoft.com/en-us/product/office/WA104295828?tab=Overview
 You need also to configure your website as HTTPS and allow that your website can be displayed in frames.
 
 ### Dependencies
-* ILIAS 5.2 or ILIAS 5.3
+* ILIAS 5.3 or ILIAS 5.4
 * PHP >=5.5
 * [composer](https://getcomposer.org)
 * [endroid/qrcode](https://packagist.org/packages/endroid/qrcode)
