@@ -74,7 +74,7 @@ abstract class xlvoInputResultsGUI {
 	/**
 	 * void method to add necessary JS and CSS to maintemplate
 	 */
-	public function addJsAndCss() {
+	public static function addJsAndCss() {
 	}
 
 	/**

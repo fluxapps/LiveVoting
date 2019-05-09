@@ -15,8 +15,13 @@ use LiveVoting\Player\QR\xlvoQR;
 use LiveVoting\Player\QR\xlvoQRModalGUI;
 use LiveVoting\Player\xlvoDisplayPlayerGUI;
 use LiveVoting\Player\xlvoPlayer;
+use LiveVoting\QuestionTypes\CorrectOrder\xlvoCorrectOrderResultsGUI;
 use LiveVoting\QuestionTypes\FreeInput\xlvoFreeInputCategorizeGUI;
 use LiveVoting\QuestionTypes\FreeInput\xlvoFreeInputCategory;
+use LiveVoting\QuestionTypes\FreeInput\xlvoFreeInputResultsGUI;
+use LiveVoting\QuestionTypes\FreeOrder\xlvoFreeOrderResultsGUI;
+use LiveVoting\QuestionTypes\NumberRange\xlvoNumberRangeResultsGUI;
+use LiveVoting\QuestionTypes\SingleVote\xlvoSingleVoteResultsGUI;
 use LiveVoting\QuestionTypes\xlvoInputResultsGUI;
 use LiveVoting\QuestionTypes\xlvoQuestionTypesGUI;
 use LiveVoting\User\xlvoUser;
@@ -340,7 +345,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 				break;
 			case 'add_vote':
 				xlvoUser::getInstance()->setIdentifier(self::dic()->user()->getId())->setType(xlvoUser::TYPE_ILIAS);
-				$vote_id = $this->manager->inputOne(['input' => $_POST['input']], true); // todo no return yet
+				$vote_id = $this->manager->addInput($_POST['input']);
 				$return_value = ['vote_id' => $vote_id];
 				break;
 			case 'remove_vote':
@@ -596,7 +601,11 @@ class xlvoPlayerGUI extends xlvoGUI {
 		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/Player/player.css');
 		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/Display/Bar/bar.css');
 
-		xlvoInputResultsGUI::getInstance($this->manager)->addJsAndCSS();
+		xlvoFreeInputResultsGUI::addJsAndCss();
+		xlvoCorrectOrderResultsGUI::addJsAndCss();
+		xlvoFreeOrderResultsGUI::addJsAndCss();
+		xlvoNumberRangeResultsGUI::addJsAndCss();
+		xlvoSingleVoteResultsGUI::addJsAndCss();
 	}
 
 

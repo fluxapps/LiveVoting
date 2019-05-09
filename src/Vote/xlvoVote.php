@@ -235,7 +235,7 @@ class xlvoVote extends CachingActiveRecord {
 
 
 	/**
-	 * @var string
+	 * @var int
 	 *
 	 * @db_has_field        true
 	 * @db_fieldtype        integer
@@ -335,7 +335,7 @@ class xlvoVote extends CachingActiveRecord {
 
 
 	/**
-	 * @return string
+	 * @return int
 	 */
 	public function getId() {
 		return $this->id;
@@ -343,7 +343,7 @@ class xlvoVote extends CachingActiveRecord {
 
 
 	/**
-	 * @param string $id
+	 * @param int $id
 	 */
 	public function setId($id) {
 		$this->id = $id;

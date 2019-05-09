@@ -151,13 +151,12 @@ class xlvoVotingManager2 {
 
 	/**
 	 * @param array $array ... => (input, vote_id)
-	 * @param bool  $force_create_new
 	 *
 	 * @throws xlvoVotingManagerException
 	 */
-	public function inputAll(array $array, $force_create_new = false) {
+	public function inputAll(array $array) {
 		foreach ($array as $item) {
-			$this->input($item['input'], $item['vote_id'], $force_create_new);
+			$this->input($item['input'], $item['vote_id']);
 		}
 		$this->createHistoryObject();
 	}
@@ -167,11 +166,9 @@ class xlvoVotingManager2 {
 	 * @param      $input
 	 * @param      $vote_id
 	 *
-	 * @param bool $force_create_new
-	 *
 	 * @throws xlvoVotingManagerException
 	 */
-	protected function input($input, $vote_id, $force_create_new = false) {
+	protected function input($input, $vote_id) {
 		$options = $this->getOptions();
 		$option = array_shift(array_values($options));
 		if (!$option instanceof xlvoOption) {
@@ -199,9 +196,43 @@ class xlvoVotingManager2 {
 		$xlvoVote->setFreeInput($input);
 		$xlvoVote->setRoundId(xlvoRound::getLatestRoundId($this->obj_id));
 		$xlvoVote->store();
-		if (!$this->getVoting()->isMultiFreeInput() && !$force_create_new) {
+		if (!$this->getVoting()->isMultiFreeInput()) {
 			$this->unvoteAll($xlvoVote->getId());
 		}
+	}
+
+
+	/**
+	 * This is for when the admin adds a free text input. For normal user input use inputAll oder inputOne
+	 *
+	 * @param $input
+	 *
+	 * @return int
+	 * @throws xlvoVotingManagerException
+	 */
+	public function addInput($input) {
+		$options = $this->getOptions();
+		$option = array_shift(array_values($options));
+		if (!$option instanceof xlvoOption) {
+			throw new xlvoVotingManagerException('No Option given');
+		}
+		$xlvoVote = new xlvoVote();
+		$xlvoUser = xlvoUser::getInstance();
+		if ($xlvoUser->getType() == xlvoUser::TYPE_ILIAS) {
+			$xlvoVote->setUserId($xlvoUser->getIdentifier());
+			$xlvoVote->setUserIdType(xlvoVote::USER_ILIAS);
+		} else {
+			$xlvoVote->setUserIdentifier($xlvoUser->getIdentifier());
+			$xlvoVote->setUserIdType(xlvoVote::USER_ANONYMOUS);
+		}
+		$xlvoVote->setVotingId($this->getVoting()->getId());
+		$xlvoVote->setOptionId($option->getId());
+		$xlvoVote->setType(xlvoQuestionTypes::TYPE_FREE_INPUT);
+		$xlvoVote->setStatus(xlvoVote::STAT_ACTIVE);
+		$xlvoVote->setFreeInput($input);
+		$xlvoVote->setRoundId(xlvoRound::getLatestRoundId($this->obj_id));
+		$xlvoVote->create();
+		return $xlvoVote->getId();
 	}
 
 
@@ -678,10 +709,11 @@ class xlvoVotingManager2 {
 
 	/**
 	 * @param      $array
-	 * @param bool $force_create_new
+	 *
+	 * @throws xlvoVotingManagerException
 	 */
-	public function inputOne($array, $force_create_new = false) {
-		$this->inputAll(array( $array ), $force_create_new);
+	public function inputOne($array) {
+		$this->inputAll(array( $array ));
 	}
 
 	/**

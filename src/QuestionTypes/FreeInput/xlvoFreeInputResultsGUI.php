@@ -29,10 +29,6 @@ class xlvoFreeInputResultsGUI extends xlvoInputResultsGUI {
 
 	public function __construct(xlvoVotingManager2 $manager, xlvoVoting $voting) {
 		parent::__construct($manager, $voting);
-		if (!self::dic()->ctrl()->isAsynch()) {
-			Waiter::init(Waiter::TYPE_WAITER);
-			$this->initJSAndCSS();
-		}
 	}
 
 
@@ -95,7 +91,8 @@ class xlvoFreeInputResultsGUI extends xlvoInputResultsGUI {
 	/**
 	 * @throws \srag\DIC\LiveVoting\Exception\DICException
 	 */
-	protected function initJSAndCSS() {
+	public static function addJsAndCss() {
+		Waiter::init(Waiter::TYPE_WAITER);
 		self::dic()->mainTemplate()->addJavaScript(self::plugin()->directory() . '/node_modules/dragula/dist/dragula.js');
 		self::dic()->mainTemplate()->addJavaScript(self::plugin()->directory() . '/js/QuestionTypes/FreeInput/xlvoFreeInputCategorize.js');
 		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/node_modules/dragula/dist/dragula.min.css');
