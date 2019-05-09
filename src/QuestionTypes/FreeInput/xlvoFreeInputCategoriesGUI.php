@@ -5,6 +5,7 @@ namespace LiveVoting\QuestionTypes\FreeInput;
 use ilLiveVotingPlugin;
 use LiveVoting\Display\Bar\xlvoBarFreeInputsGUI;
 use LiveVoting\Vote\xlvoVote;
+use LiveVoting\Voting\xlvoVotingManager2;
 use srag\DIC\LiveVoting\DICTrait;
 
 /**
@@ -35,10 +36,11 @@ class xlvoFreeInputCategoriesGUI {
 	/**
 	 * xlvoFreeInputCategoriesGUI constructor.
 	 *
+	 * @param xlvoVotingManager2 $manager
 	 */
-	public function __construct($voting_id) {
+	public function __construct(xlvoVotingManager2 $manager) {
 		/** @var xlvoFreeInputCategory $category */
-		foreach (xlvoFreeInputCategory::where(['voting_id' => $voting_id])->get() as $category) {
+		foreach (xlvoFreeInputCategory::where(['voting_id' => $manager->getVoting()->getId(), 'round_id' => $manager->getPlayer()->getRoundId()])->get() as $category) {
 			$this->categories[$category->getId()] = [
 				self::TITLE => $category->getTitle(),
 				self::VOTES => []

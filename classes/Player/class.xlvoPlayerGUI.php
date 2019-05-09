@@ -340,7 +340,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 				break;
 			case 'add_vote':
 				xlvoUser::getInstance()->setIdentifier(self::dic()->user()->getId())->setType(xlvoUser::TYPE_ILIAS);
-				$vote_id = $this->manager->inputOne(['input' => $_POST['input']], true);
+				$vote_id = $this->manager->inputOne(['input' => $_POST['input']], true); // todo no return yet
 				$return_value = ['vote_id' => $vote_id];
 				break;
 			case 'remove_vote':
@@ -350,6 +350,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 				$category = new xlvoFreeInputCategory();
 				$category->setTitle($_POST['title']);
 				$category->setVotingId($this->manager->getVoting()->getId());
+				$category->setRoundId($this->manager->getPlayer()->getRoundId());
 				$category->create();
 				$return_value = ['category_id' => $category->getId()];
 				break;

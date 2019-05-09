@@ -57,6 +57,14 @@ class xlvoFreeInputCategory extends CachingActiveRecord {
 	 * @db_length           8
 	 */
 	protected $voting_id;
+	/**
+	 * @var int
+	 *
+	 * @db_has_field        true
+	 * @db_fieldtype        integer
+	 * @db_length           8
+	 */
+	protected $round_id;
 
 	/**
 	 * @return int
@@ -103,6 +111,22 @@ class xlvoFreeInputCategory extends CachingActiveRecord {
 	 */
 	public function setVotingId($voting_id) {
 		$this->voting_id = $voting_id;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getRoundId() {
+		return $this->round_id;
+	}
+
+
+	/**
+	 * @param int $round_id
+	 */
+	public function setRoundId($round_id) {
+		$this->round_id = $round_id;
 	}
 
 

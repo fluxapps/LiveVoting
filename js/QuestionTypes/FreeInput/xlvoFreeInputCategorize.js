@@ -32,8 +32,8 @@ var xlvoFreeInputCategorize = {
 		this.initDragula();
 		this.initButtons();
 		this.initialized = true;
-		$('div.ilTabsContentOuter').append($('#srag_waiter'));
-		console.log('xlvoFreeInputCategorize initialized');
+		$('div.ilTabsContentOuter').append($('#srag_waiter'));  // necessary for fullscreen mode
+		this.log('xlvoFreeInputCategorize initialized');
 	},
 
 	/**
@@ -48,12 +48,11 @@ var xlvoFreeInputCategorize = {
 			accepts: function (el, target, source) {
 				return target !== source;
 			},
-			mirrorContainer: $('div.ilTabsContentOuter')[0]
+			mirrorContainer: $('div.ilTabsContentOuter')[0]     // necessary for fullscreen mode
 		})
 			.on('drag', function (el) {
 				xlvoFreeInputCategorize.recalculatePlayerHeight();
 			}).on('drop', function (el, target, source) {
-				console.log(el);
 				xlvoFreeInputCategorize.changeCategory($(el).find('div.xlvo-vote-free-input')[0].getAttribute('data-vote-id'), $(target).attr('data-category-id'));
 				xlvoFreeInputCategorize.recalculatePlayerHeight();
 			});

@@ -46,7 +46,7 @@ class xlvoFreeInputResultsGUI extends xlvoInputResultsGUI {
 
 		$tpl = self::plugin()->template('default/QuestionTypes/FreeInput/tpl.free_input_results.html');
 
-		$categories = new xlvoFreeInputCategoriesGUI($this->manager->getVoting()->getId());
+		$categories = new xlvoFreeInputCategoriesGUI($this->manager);
 		$categories->setRemovable($this->edit_mode);
 
 		$bars = new xlvoBarGroupingCollectionGUI();
@@ -79,6 +79,16 @@ class xlvoFreeInputResultsGUI extends xlvoInputResultsGUI {
 		}
 
 		return $tpl->get();
+	}
+
+
+	public function reset() {
+		parent::reset();
+		/** @var xlvoFreeInputCategory $category */
+		foreach (xlvoFreeInputCategory::where(['voting_id' => $this->manager->getVoting()->getId()])
+			         ->get() as $category) {
+			$category->delete();
+		}
 	}
 
 

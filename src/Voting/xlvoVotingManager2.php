@@ -11,6 +11,7 @@ use LiveVoting\Exceptions\xlvoVotingManagerException;
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\Pin\xlvoPin;
 use LiveVoting\Player\xlvoPlayer;
+use LiveVoting\QuestionTypes\xlvoInputResultsGUI;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\Round\xlvoRound;
 use LiveVoting\User\xlvoUser;
@@ -464,13 +465,8 @@ class xlvoVotingManager2 {
 	public function reset() {
 		$this->player->setButtonStates(array());
 		$this->player->store();
-		/**
-		 * @var xlvoVote $xlvoVote
-		 */
-		foreach (xlvoVote::where(array( 'voting_id' => $this->getVoting()->getId(), 'round_id' => $this->getPlayer()->getRoundId() ))
-			         ->get() as $xlvoVote) {
-			$xlvoVote->delete();
-		}
+
+		xlvoInputResultsGUI::getInstance($this)->reset();
 	}
 
 

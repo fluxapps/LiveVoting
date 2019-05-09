@@ -59,6 +59,19 @@ abstract class xlvoInputResultsGUI {
 
 
 	/**
+	 *
+	 */
+	public function reset() {
+		/**
+		 * @var xlvoVote $xlvoVote
+		 */
+		foreach (xlvoVote::where(['voting_id' => $this->manager->getVoting()->getId(), 'round_id' => $this->manager->getPlayer()->getRoundId()])
+			         ->get() as $xlvoVote) {
+			$xlvoVote->delete();
+		}
+	}
+
+	/**
 	 * void method to add necessary JS and CSS to maintemplate
 	 */
 	public function addJsAndCss() {
