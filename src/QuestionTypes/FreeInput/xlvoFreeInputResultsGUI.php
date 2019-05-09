@@ -71,6 +71,10 @@ class xlvoFreeInputResultsGUI extends xlvoInputResultsGUI {
 		$tpl->setVariable('ANSWERS', $bars->getHTML());
 		$tpl->setVariable('CATEGORIES', $categories->getHTML());
 		if ($this->edit_mode) {
+			$tpl->setVariable('LABEL_ADD_CATEGORY', self::plugin()->translate('btn_add_category'));
+			$tpl->setVariable('PLACEHOLDER_ADD_CATEGORY', self::plugin()->translate('category_title'));
+			$tpl->setVariable('LABEL_ADD_ANSWER', self::plugin()->translate('btn_add_answer'));
+			$tpl->setVariable('PLACEHOLDER_ADD_ANSWER', self::plugin()->translate('voter_answer'));
 			$tpl->setVariable('BASE_URL', self::dic()->ctrl()->getLinkTargetByClass(xlvoPlayerGUI::class, xlvoPlayerGUI::CMD_API_CALL, "", true));
 		}
 

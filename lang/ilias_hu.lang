@@ -302,3 +302,6 @@ removeplugindataconfirm_msg_removed_data#:#MISSING removeplugindataconfirm_msg_r
 removeplugindataconfirm_remove_data#:#MISSING removeplugindataconfirm_remove_data
 btn_categorize#:#MISSING
 btn_categorize_done#:#MISSING
+btn_add_category#:#MISSING
+btn_add_answer#:#MISSING
+category_title#:#MISSING
