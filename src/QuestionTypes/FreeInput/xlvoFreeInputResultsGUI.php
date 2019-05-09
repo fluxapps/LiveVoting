@@ -9,6 +9,7 @@ use LiveVoting\QuestionTypes\xlvoInputResultsGUI;
 use LiveVoting\Vote\xlvoVote;
 use xlvoFreeInputGUI;
 use xlvoPlayerGUI;
+use srag\CustomInputGUIs\LiveVoting\Waiter\Waiter;
 
 /**
  * Class xlvoFreeInputResultsGUI
@@ -30,6 +31,7 @@ class xlvoFreeInputResultsGUI extends xlvoInputResultsGUI {
 	public function getHTML() {
 		if (!self::dic()->ctrl()->isAsynch()) {
 			$this->initJSAndCSS();
+			Waiter::init(Waiter::TYPE_WAITER);
 		}
 
 		$button_states = $this->manager->getPlayer()->getButtonStates();

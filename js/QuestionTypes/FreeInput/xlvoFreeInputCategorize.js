@@ -15,6 +15,16 @@ var xlvoFreeInputCategorize = {
 	base_url: '',
 
 	/**
+	 * avoids simultaneous requests
+	 */
+	request_pending: false,
+
+	/**
+	 * activate to see log entries
+	 */
+	debug: false,
+
+	/**
 	 *  init dragula and event listeners
 	 */
 	init: function(base_url) {
@@ -55,7 +65,7 @@ var xlvoFreeInputCategorize = {
 	 *
 	 */
 	initButtons: function() {
-;		$('input.category_input:last').on("keypress", function(e) {
+		$('input.category_input:last').on("keypress", function(e) {
 			if (e.which == 13) {
 				xlvoFreeInputCategorize.addCategory();
 			}
@@ -76,6 +86,13 @@ var xlvoFreeInputCategorize = {
 	 *
 	 */
 	addCategory: function() {
+		if (xlvoFreeInputCategorize.isRequestPending()) {
+			this.log('Request Pending');
+			return;
+		}
+
+		xlvoFreeInputCategorize.startRequest();
+
 		$.post(xlvoPlayer.config.base_url + '&cmd=apiCall', {
 			call: 'add_category',
 			title: $('#category_input').val()
@@ -101,6 +118,8 @@ var xlvoFreeInputCategorize = {
 
 			// recalculate height of player
 			xlvoFreeInputCategorize.recalculatePlayerHeight();
+		}).always(function(){
+			xlvoFreeInputCategorize.endRequest();
 		});
 
 	},
@@ -110,6 +129,13 @@ var xlvoFreeInputCategorize = {
 	 * @param category
 	 */
 	removeCategory: function(category) {
+		if (xlvoFreeInputCategorize.isRequestPending()) {
+			this.log('Request Pending');
+			return;
+		}
+
+		xlvoFreeInputCategorize.startRequest();
+
 		category_id = $(category).attr('data-category-id');
 		$.post(xlvoPlayer.config.base_url + '&cmd=apiCall', {
 			call: 'remove_category',
@@ -122,6 +148,8 @@ var xlvoFreeInputCategorize = {
 			category.remove();
 			// recalculate height of player
 			xlvoFreeInputCategorize.recalculatePlayerHeight();
+		}).always(function(){
+			xlvoFreeInputCategorize.endRequest();
 		});
 
 	},
@@ -130,6 +158,13 @@ var xlvoFreeInputCategorize = {
 	 *
 	 */
 	addAnswer: function() {
+		if (xlvoFreeInputCategorize.isRequestPending()) {
+			this.log('Request Pending');
+			return;
+		}
+
+		xlvoFreeInputCategorize.startRequest();
+
 		$.post(xlvoPlayer.config.base_url + '&cmd=apiCall', {
 			call: 'add_vote',
 			input: $('#answer_input').val()
@@ -153,6 +188,8 @@ var xlvoFreeInputCategorize = {
 
 			// recalculate height of player
 			xlvoFreeInputCategorize.recalculatePlayerHeight();
+		}).always(function(){
+			xlvoFreeInputCategorize.endRequest();
 		});
 
 	},
@@ -161,6 +198,13 @@ var xlvoFreeInputCategorize = {
 	 * @param answer
 	 */
 	removeAnswer: function(answer) {
+		if (xlvoFreeInputCategorize.isRequestPending()) {
+			this.log('Request Pending');
+			return;
+		}
+
+		xlvoFreeInputCategorize.startRequest();
+
 		vote_id = $(answer).find('div.xlvo-vote-free-input')[0].getAttribute('data-vote-id');
 		$.post(xlvoPlayer.config.base_url + '&cmd=apiCall', {
 			call: 'remove_vote',
@@ -170,6 +214,8 @@ var xlvoFreeInputCategorize = {
 
 			// recalculate height of player
 			xlvoFreeInputCategorize.recalculatePlayerHeight();
+		}).always(function(){
+			xlvoFreeInputCategorize.endRequest();
 		});
 	},
 
@@ -178,6 +224,13 @@ var xlvoFreeInputCategorize = {
 	 * @param category_id int
  	 */
 	changeCategory: function(vote_id, category_id) {
+		if (xlvoFreeInputCategorize.isRequestPending()) {
+			this.log('Request Pending');
+			return;
+		}
+
+		xlvoFreeInputCategorize.startRequest();
+
 		console.log(vote_id);
 		console.log(category_id);
 		$.post(xlvoPlayer.config.base_url + '&cmd=apiCall', {
@@ -186,6 +239,8 @@ var xlvoFreeInputCategorize = {
 			category_id: (category_id === 'undefined') ? 0 : category_id
 		}).done(function (data) {
 
+		}).always(function(){
+			xlvoFreeInputCategorize.endRequest();
 		});
 	},
 
@@ -195,5 +250,32 @@ var xlvoFreeInputCategorize = {
 	recalculatePlayerHeight: function () {
 		var node = $('#xlvo-display-player').children();
 		$('#xlvo-display-player').css('height', node.css('height'));
+	},
+
+	startRequest: function () {
+		il.waiter.show();
+		xlvoFreeInputCategorize.request_pending = true;
+	},
+	endRequest: function () {
+		il.waiter.hide();
+		xlvoFreeInputCategorize.request_pending = false;
+	},
+	isRequestPending: function () {
+		return xlvoFreeInputCategorize.request_pending;
+	},
+
+	/**
+	 * @param data
+	 */
+	log: function (data) {
+		if (this.debug) {
+			console.log(data);
+		}
+	},
+	debug: function () {
+		this.debug = true;
+	},
+	stop: function () {
+		this.debug = false;
 	}
 };
