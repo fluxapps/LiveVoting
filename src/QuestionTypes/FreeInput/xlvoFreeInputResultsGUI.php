@@ -4,7 +4,9 @@ namespace LiveVoting\QuestionTypes\FreeInput;
 
 use LiveVoting\Display\Bar\xlvoBarFreeInputsGUI;
 use LiveVoting\Display\Bar\xlvoBarGroupingCollectionGUI;
+use LiveVoting\Exceptions\xlvoPlayerException;
 use LiveVoting\Option\xlvoOption;
+use LiveVoting\Player\xlvoPlayer;
 use LiveVoting\QuestionTypes\xlvoInputResultsGUI;
 use LiveVoting\Vote\xlvoVote;
 use LiveVoting\Voting\xlvoVoting;
@@ -42,11 +44,10 @@ class xlvoFreeInputResultsGUI extends xlvoInputResultsGUI {
 
 		$tpl = self::plugin()->template('default/QuestionTypes/FreeInput/tpl.free_input_results.html');
 
-		$categories = new xlvoFreeInputCategoriesGUI($this->manager);
-		$categories->setRemovable($this->edit_mode);
+		$categories = new xlvoFreeInputCategoriesGUI($this->manager, $this->edit_mode);
 
 		$bars = new xlvoBarGroupingCollectionGUI();
-		$bars->setRemoveable($this->edit_mode);
+		$bars->setRemovable($this->edit_mode);
 		$bars->setShowTotalVotes(true);
 
 		/**
@@ -60,7 +61,13 @@ class xlvoFreeInputResultsGUI extends xlvoInputResultsGUI {
 		$votes = $this->manager->getVotesOfOption($option->getId());
 		foreach ($votes as $vote) {
 			if ($cat_id = $vote->getFreeInputCategory()) {
-				$categories->addBar(new xlvoBarFreeInputsGUI($this->manager->getVoting(), $vote), $cat_id);
+				try {
+					$categories->addBar(new xlvoBarFreeInputsGUI($this->manager->getVoting(), $vote), $cat_id);
+				} catch (xlvoPlayerException $e) {
+					if ($e->getCode() == xlvoPlayerException::CATEGORY_NOT_FOUND) {
+						$bars->addBar(new xlvoBarFreeInputsGUI($this->manager->getVoting(), $vote));
+					}
+				}
 			} else {
 				$bars->addBar(new xlvoBarFreeInputsGUI($this->manager->getVoting(), $vote));
 			}

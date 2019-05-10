@@ -349,7 +349,16 @@ class xlvoPlayerGUI extends xlvoGUI {
 				$return_value = ['vote_id' => $vote_id];
 				break;
 			case 'remove_vote':
-				xlvoVote::find($_POST['vote_id'])->delete();
+				$vote = xlvoVote::find($_POST['vote_id']);
+				// also delete votes with same input in the same category
+				foreach (xlvoVote::where([
+					'voting_id' => $vote->getVotingId(),
+					'round_id' => $vote->getRoundId(),
+					'free_input' => $vote->getFreeInput(),
+					'free_input_category' => $vote->getFreeInputCategory()
+				])->get() as $vote) {
+					$vote->delete();
+				}
 				break;
 			case 'add_category':
 				$category = new xlvoFreeInputCategory();
@@ -360,6 +369,15 @@ class xlvoPlayerGUI extends xlvoGUI {
 				$return_value = ['category_id' => $category->getId()];
 				break;
 			case 'remove_category':
+				/** @var xlvoVote $vote */
+				foreach (xlvoVote::where([
+					'voting_id' => $this->manager->getVoting()->getId(),
+					'round_id' => $this->manager->getplayer()->getRoundId(),
+					'free_input_category' => $_POST['category_id']
+				])->get() as $vote) {
+					$vote->setFreeInputCategory(0);
+					$vote->update();
+				}
 				xlvoFreeInputCategory::find($_POST['category_id'])->delete();
 				break;
 			case 'change_category':

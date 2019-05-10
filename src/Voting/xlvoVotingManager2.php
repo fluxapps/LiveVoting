@@ -525,7 +525,7 @@ class xlvoVotingManager2 {
 
 			return true;
 		} else {
-			throw new xlvoPlayerException('', xlvoPlayerException::NO_VTOTINGS);
+			throw new xlvoPlayerException('', xlvoPlayerException::NO_VOTINGS);
 		}
 	}
 

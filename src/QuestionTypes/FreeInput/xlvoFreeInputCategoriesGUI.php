@@ -5,6 +5,8 @@ namespace LiveVoting\QuestionTypes\FreeInput;
 use ilLiveVotingPlugin;
 use LiveVoting\Display\Bar\xlvoBarFreeInputsGUI;
 use LiveVoting\Display\Bar\xlvoBarGroupingCollectionGUI;
+use LiveVoting\Exceptions\xlvoException;
+use LiveVoting\Exceptions\xlvoPlayerException;
 use LiveVoting\Vote\xlvoVote;
 use LiveVoting\Voting\xlvoVotingManager2;
 use srag\DIC\LiveVoting\DICTrait;
@@ -38,14 +40,19 @@ class xlvoFreeInputCategoriesGUI {
 	 * xlvoFreeInputCategoriesGUI constructor.
 	 *
 	 * @param xlvoVotingManager2 $manager
+	 * @param bool               $edit_mode
 	 */
-	public function __construct(xlvoVotingManager2 $manager) {
+	public function __construct(xlvoVotingManager2 $manager, $edit_mode = false) {
+		$this->setRemovable($edit_mode);
 		/** @var xlvoFreeInputCategory $category */
 		foreach (xlvoFreeInputCategory::where(['voting_id' => $manager->getVoting()->getId(), 'round_id' => $manager->getPlayer()->getRoundId()])
 			         ->get() as $category) {
+			$bar_collection = new xlvoBarGroupingCollectionGUI();
+			$bar_collection->setRemovable($this->isRemovable());
+
 			$this->categories[$category->getId()] = [
 				self::TITLE => $category->getTitle(),
-				self::VOTES => new xlvoBarGroupingCollectionGUI()
+				self::VOTES => $bar_collection
 			];
 		}
 	}
@@ -54,9 +61,14 @@ class xlvoFreeInputCategoriesGUI {
 	/**
 	 * @param xlvoBarFreeInputsGUI $bar_gui
 	 * @param integer              $cat_id
+	 *
+	 * @throws xlvoPlayerException
 	 */
 	public function addBar(xlvoBarFreeInputsGUI $bar_gui, $cat_id) {
 		$bar_gui->setRemovable($this->isRemovable());
+		if (!($this->categories[$cat_id][self::VOTES] instanceof xlvoBarGroupingCollectionGUI)) {
+			throw new xlvoPlayerException('category not found', xlvoPlayerException::CATEGORY_NOT_FOUND);
+		}
 		$this->categories[$cat_id][self::VOTES]->addBar($bar_gui);
 	}
 
@@ -79,12 +91,6 @@ class xlvoFreeInputCategoriesGUI {
 			}
 
 			$cat_tpl->setVariable('VOTES', $data[self::VOTES]->getHTML());
-//			/** @var xlvoBarFreeInputsGUI $vote */
-//			foreach ($data[self::VOTES] as $vote) {
-//				$cat_tpl->setCurrentBlock('vote');
-//				$cat_tpl->setVariable('VOTE', $vote->getHTML());
-//				$cat_tpl->parseCurrentBlock();
-//			}
 			$tpl->setCurrentBlock('category');
 			$tpl->setVariable('CATEGORY', $cat_tpl->get());
 			$tpl->parseCurrentBlock();

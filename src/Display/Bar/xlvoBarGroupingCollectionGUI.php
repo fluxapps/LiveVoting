@@ -27,7 +27,7 @@ final class xlvoBarGroupingCollectionGUI extends xlvoBarCollectionGUI {
 	/**
 	 * @var bool
 	 */
-	private $removeable = false;
+	private $removable = false;
 	/**
 	 * @var bool $rendered
 	 */
@@ -51,7 +51,7 @@ final class xlvoBarGroupingCollectionGUI extends xlvoBarCollectionGUI {
 		$this->checkCollectionState();
 
 		if ($bar_gui instanceof xlvoBarFreeInputsGUI) {
-			$bar_gui->setRemovable($this->isRemoveable());
+			$bar_gui->setRemovable($this->isRemovable());
 			$this->bars[] = $bar_gui;
 		} else {
 			throw new ilException('$bar_gui must a type of xlvoBarFreeInputsGUI.');
@@ -92,6 +92,9 @@ final class xlvoBarGroupingCollectionGUI extends xlvoBarCollectionGUI {
 			$this->renderBar($bar, $count);
 		}
 
+		if (count($this->bars) === 0) {
+			$this->tpl->touchBlock('bar');
+		}
 		unset($this->bars);
 		$this->rendered = true;
 
@@ -292,18 +295,18 @@ final class xlvoBarGroupingCollectionGUI extends xlvoBarCollectionGUI {
 	/**
 	 * @return bool
 	 */
-	public function isRemoveable() {
-		return $this->removeable;
+	public function isRemovable() {
+		return $this->removable;
 	}
 
 
 	/**
-	 * @param bool $removeable
+	 * @param bool $removable
 	 *
 	 * @return static
 	 */
-	public function setRemoveable($removeable) {
-		$this->removeable = $removeable;
+	public function setRemovable($removable) {
+		$this->removable = $removable;
 	}
 
 

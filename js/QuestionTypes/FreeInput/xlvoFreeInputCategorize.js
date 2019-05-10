@@ -41,10 +41,7 @@ var xlvoFreeInputCategorize = {
 	 */
 	initDragula: function () {
 		// the new HTML is added first, then the old one is removed - therefore there are two 'div.bars' atm
-		this.drake = dragula([], {
-			isContainer: function (el) {
-				return $(el).is("div") && $(el).hasClass('bars');
-			},
+		this.drake = dragula($.find('div.bars'), {
 			moves: function (el) {
 				return $(el).is("div");
 			},
@@ -60,9 +57,6 @@ var xlvoFreeInputCategorize = {
 				xlvoFreeInputCategorize.recalculatePlayerHeight();
 			});
 
-		$('div#categories fieldset').each(function(key, element){
-			xlvoFreeInputCategorize.drake.containers.push(element);
-		});
 	},
 
 	/**
@@ -109,13 +103,17 @@ var xlvoFreeInputCategorize = {
 					'</button>' +
 					'<fieldset class="well xlvo-category category_dropzone" data-category-id="' + data.category_id + '">' +
 						'<legend>' + $('#category_input').val() + '</legend>' +
+						'<br>' +
+						'<div id="bars_' + data.category_id + '" class="bars">' +
+							'<div class="col-md-4"></div>' +
+						'</div>' +
 					'</fieldset>' +
 				'</div>'
 			);
 
 			// add new container to dragula
-			console.log($('div#categories fieldset').last()[0]);
-			xlvoFreeInputCategorize.drake.containers.push($('div#categories fieldset').last()[0]);
+			console.log($('#bars_' + data.category_id)[0]);
+			xlvoFreeInputCategorize.drake.containers.push($('#bars_' + data.category_id)[0]);
 
 			// flush input
 			$('#category_input').val('');
@@ -145,10 +143,10 @@ var xlvoFreeInputCategorize = {
 			call: 'remove_category',
 			category_id: category_id
 		}).done(function (data) {
-			$(category).find('div.col-md-4').each(function(key, element) {
-				console.log(element);
-				$('div#bars').append(element);
-			});
+			// $(category).find('div.col-md-4').each(function(key, element) {
+			// 	console.log(element);
+			// 	$('div.bars:last')[0].append(element);
+			// });
 			category.remove();
 			// recalculate height of player
 			xlvoFreeInputCategorize.recalculatePlayerHeight();
@@ -214,7 +212,7 @@ var xlvoFreeInputCategorize = {
 			call: 'remove_vote',
 			vote_id: vote_id
 		}).done(function (data) {
-			$(answer).remove(); // todo: mutliple answers
+			$(answer).remove();
 
 			// recalculate height of player
 			xlvoFreeInputCategorize.recalculatePlayerHeight();
