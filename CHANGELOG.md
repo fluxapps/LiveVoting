@@ -1,5 +1,9 @@
 # Change Log
 
+## [x]
+- ILIAS 5.4 support
+- Remove ILIAS 5.2 support
+
 ## [4.1.3] - 2019-04-24
 - fixed bug "Zahlen-schätzen Frage Range" PLLV-307
 - fixed bug "Exceptions leiten aur error.php um, geben aber keine Fehlermeldung aus." PLLV-293
