@@ -38,13 +38,11 @@ final class InitialisationManager {
 	 */
 	public static final function startMinimal() {
 		switch (true) {
+			case self::version()->is54():
 			case self::version()->is53():
+				// 5.3 and 5.4 work with the same initialisation
 				Initialisation\Version\v53\xlvoBasicInitialisation::init();
 				break;
-			case self::version()->is52():
-				Initialisation\Version\v52\xlvoBasicInitialisation::init();
-				break;
-
 			default:
 				throw new Exception("Can't find bootstrap code for the given ILIAS version.");
 		}

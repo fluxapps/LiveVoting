@@ -1,6 +1,6 @@
 <?php
 
-namespace LiveVoting\Context\Initialisation\Version\v52;
+namespace LiveVoting\Context\Initialisation\Version\v53;
 
 use ilLiveVotingPlugin;
 use ilSkinStyleXML;
@@ -10,7 +10,7 @@ use srag\DIC\LiveVoting\DICTrait;
 /**
  * Class xlvoStyleDefinition
  *
- * @package LiveVoting\Context\Initialisation\Version\v52
+ * @package LiveVoting\Context\Initialisation\Version\v53
  */
 class xlvoStyleDefinition {
 
@@ -42,7 +42,7 @@ class xlvoStyleDefinition {
 /**
  * Class xlvoSkin
  *
- * @package LiveVoting\Context\Initialisation\Version\v52
+ * @package LiveVoting\Context\Initialisation\Version\v53
  */
 class xlvoSkin {
 
