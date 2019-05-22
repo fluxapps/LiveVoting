@@ -49,21 +49,9 @@ For display the exported PowerPoint files you need to install the WebViewer-AddI
 https://appsource.microsoft.com/en-us/product/office/WA104295828?tab=Overview
 You need also to configure your website as HTTPS and allow that your website can be displayed in frames.
 
-### Dependencies
-* ILIAS 5.2 or ILIAS 5.3
+### Requirements
+* ILIAS 5.3 or ILIAS 5.4
 * PHP >=5.5
-* [composer](https://getcomposer.org)
-* [endroid/qrcode](https://packagist.org/packages/endroid/qrcode)
-* [srag/activerecordconfig](https://packagist.org/packages/srag/activerecordconfig)
-* [srag/custominputguis](https://packagist.org/packages/srag/custominputguis)
-* [srag/dic](https://packagist.org/packages/srag/dic)
-* [srag/librariesnamespacechanger](https://packagist.org/packages/srag/librariesnamespacechanger)
-* [srag/removeplugindataconfirm](https://packagist.org/packages/srag/removeplugindataconfirm)
-* [babel-minify -g](https://www.npmjs.com/package/babel-minify)
-* [clean-css-cli](https://www.npmjs.com/package/clean-css-cli)
-* [less -g](https://www.npmjs.com/package/less)
-
-Please use it for further development!
 
 ### Adjustment suggestions
 * Adjustment suggestions by pull requests

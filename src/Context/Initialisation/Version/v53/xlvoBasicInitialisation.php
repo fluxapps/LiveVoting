@@ -39,7 +39,6 @@ use ilTree;
 use ilUIFramework;
 use ilUtil;
 use LiveVoting\Conf\xlvoConf;
-use LiveVoting\Context\Initialisation\Version\v52\xlvoStyleDefinition;
 use LiveVoting\Context\Param\ParamManager;
 use LiveVoting\Context\xlvoContext;
 use LiveVoting\Context\xlvoDummyUser;
@@ -103,7 +102,6 @@ class xlvoBasicInitialisation {
 		//bootstrap ILIAS
 
 		$this->initDependencyInjection();
-		$GLOBALS["DIC"] = new \ILIAS\DI\Container();
 
 		$this->removeUnsafeCharacters();
 		$this->loadIniFile();
