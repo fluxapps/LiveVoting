@@ -1,6 +1,6 @@
 # Change Log
 
-## [x]
+## [4.2.0]
 - ILIAS 5.4 support
 - Remove ILIAS 5.2 support
 
