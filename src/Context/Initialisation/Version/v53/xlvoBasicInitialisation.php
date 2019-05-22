@@ -103,7 +103,6 @@ class xlvoBasicInitialisation {
 		//bootstrap ILIAS
 
 		$this->initDependencyInjection();
-		$GLOBALS["DIC"] = new \ILIAS\DI\Container();
 
 		$this->removeUnsafeCharacters();
 		$this->loadIniFile();
