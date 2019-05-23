@@ -754,7 +754,7 @@ class xlvoVotingGUI {
 				$xlvoOptions[] = $xlvoOption;
 			}
 			$xlvoVoting->setVotingOptions($xlvoOptions);
-			$xlvoVoting->renegerateOptionSorting();
+			$xlvoVoting->regenerateOptionSorting();
 		}
 		$this->cancel();
 	}

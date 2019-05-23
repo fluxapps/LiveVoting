@@ -129,7 +129,7 @@ class xlvoFreeOrderSubFormGUI extends xlvoSubFormGUI {
 			}
 		}
 		$this->getXlvoVoting()->setMultiFreeInput(true);
-		//$this->getXlvoVoting()->renegerateOptionSorting();
+		//$this->getXlvoVoting()->regenerateOptionSorting();
 		$this->getXlvoVoting()->store();
 	}
 }
