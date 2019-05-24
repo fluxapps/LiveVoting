@@ -1,0 +1,23 @@
+<div id="categories" class="clear-both">
+	{CATEGORIES}
+</div>
+<div id="answers" class="clear-both">
+	{ANSWERS}
+</div>
+<!-- BEGIN edit -->
+<div class="inputs">
+	<div class="input-group mb-3 col-md-3">
+		<input id="category_input" type="text" class="form-control category_input" placeholder="{PLACEHOLDER_ADD_CATEGORY}" aria-label="Category Title" aria-describedby="basic-addon2">
+		<div class="input-group-append">
+			<button id="category_button" class="btn btn-outline-secondary category_button" type="button">{LABEL_ADD_CATEGORY}</button>
+		</div>
+	</div>
+	<div class="input-group mb-3 col-md-3">
+		<input id="answer_input" type="text" class="form-control answer_input" placeholder="{PLACEHOLDER_ADD_ANSWER}" aria-label="Answer" aria-describedby="basic-addon2">
+		<div class="input-group-append">
+			<button id="answer_button" class="btn btn-outline-secondary answer_button" type="button">{LABEL_ADD_ANSWER}</button>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">xlvoFreeInputCategorize.init("{BASE_URL}");</script>
+<!-- END edit -->

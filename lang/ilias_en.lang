@@ -309,3 +309,8 @@ removeplugindataconfirm_keep_data#:#Keep %1$s data
 removeplugindataconfirm_msg_kept_data#:#The %1$s data was kept
 removeplugindataconfirm_msg_removed_data#:#The %1$s data was also removed
 removeplugindataconfirm_remove_data#:#Remove %1$s data
+btn_categorize#:#Categorize
+btn_categorize_done#:#Finish Categorizing
+btn_add_category#:#Add Category
+btn_add_answer#:#Add Input
+category_title#:#Category Title

@@ -49,7 +49,10 @@ class xlvoResults {
 	 * @param array|null    $filter
 	 * @param callable|null $formatParticipantCallable
 	 *
+	 * @param callable|null $concatVotesCallable
+	 *
 	 * @return array
+	 * @throws \Exception
 	 */
 	public function getData(array $filter = NULL, callable $formatParticipantCallable = NULL, callable $concatVotesCallable = NULL) {
 		if (!$formatParticipantCallable) {

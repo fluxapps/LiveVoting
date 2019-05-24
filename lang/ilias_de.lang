@@ -311,3 +311,8 @@ removeplugindataconfirm_keep_data#:#%1$s-Daten behalten
 removeplugindataconfirm_msg_kept_data#:#Die %1$s-Daten wurden behalten
 removeplugindataconfirm_msg_removed_data#:#Die %1$s-Daten wurden auch entfernt
 removeplugindataconfirm_remove_data#:#Entferne %1$s-Daten
+btn_categorize#:#Kategorisieren
+btn_categorize_done#:#Kategorisieren beenden
+btn_add_category#:#Kategorie Hinzufügen
+btn_add_answer#:#Eingabe Hinzufügen
+category_title#:#Titel der Kategorie

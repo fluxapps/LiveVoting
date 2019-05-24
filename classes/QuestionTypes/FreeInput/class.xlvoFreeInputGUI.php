@@ -3,10 +3,13 @@
 require_once __DIR__ . '/../../../vendor/autoload.php';
 
 use LiveVoting\Js\xlvoJs;
+use LiveVoting\QuestionTypes\FreeInput\xlvoFreeInputCategorizeGUI;
+use LiveVoting\QuestionTypes\FreeInput\xlvoFreeInputResultsGUI;
 use LiveVoting\QuestionTypes\FreeInput\xlvoFreeInputSubFormGUI;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\QuestionTypes\xlvoQuestionTypesGUI;
 use LiveVoting\Vote\xlvoVote;
+use srag\CustomInputGUIs\LiveVoting\GlyphGUI\GlyphGUI;
 use srag\CustomInputGUIs\LiveVoting\MultiLineInputGUI\MultiLineInputGUI;
 use srag\CustomInputGUIs\LiveVoting\TextAreaInputGUI\TextAreaInputGUI;
 use srag\CustomInputGUIs\LiveVoting\TextInputGUI\TextInputGUI;
@@ -26,6 +29,9 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 	const F_FREE_INPUT = 'free_input';
 	const F_VOTE_ID = 'vote_id';
 	//const CMD_CLEAR = 'clear';
+
+	const BUTTON_CATEGORIZE = 'btn_categorize';
+
 	/**
 	 * @var ilTemplate
 	 */
@@ -195,6 +201,39 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 		$form->addCommandButton(self::CMD_SUBMIT, $this->txt('send'));
 
 		return $form;
+	}
+
+
+	/**
+	 * @return ilButtonBase[]
+	 * @throws \srag\DIC\LiveVoting\Exception\DICException
+	 */
+	public function getButtonInstances() {
+		if (!$this->manager->getPlayer()->isShowResults()) {
+			return array();
+		}
+
+		$b = ilLinkButton::getInstance();
+		$b->setId(self::BUTTON_CATEGORIZE);
+		$b->setUrl('#');
+
+		if ($this->getButtonsStates()[self::BUTTON_CATEGORIZE] == 'true') {
+			$b->setCaption(GlyphGUI::get('folder-close') . '&nbsp' . self::plugin()->translate('categorize_done', 'btn'), false);
+		} else {
+			$b->setCaption(GlyphGUI::get('folder-open') . '&nbsp' . self::plugin()->translate('categorize', 'btn'), false);
+		}
+
+		return array( $b );
+	}
+
+
+	/**
+	 * @param $button_id
+	 * @param $data
+	 */
+	public function handleButtonCall($button_id, $data) {
+		$data = $this->getButtonsStates()[self::BUTTON_CATEGORIZE] == 'true' ? 'false' : 'true';
+		$this->saveButtonState($button_id, $data);
 	}
 
 

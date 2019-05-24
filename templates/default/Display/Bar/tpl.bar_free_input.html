@@ -1,10 +1,14 @@
 
-<div class="col-md-4 xlvo-vote-free-input" id="vote_id_{ID}">
+<div class="xlvo-vote-free-input" id="vote_id_{ID}" data-vote-id="{ID}">
+	<!-- BEGIN remove_button -->
+	<button type="button" class="close" aria-label="Close" onClick="xlvoFreeInputCategorize.removeAnswer($(this).parent().parent())">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<!-- END remove_button -->
 	<div class="well well-sm <!-- BEGIN center -->text-center<!-- END center -->  <!-- BEGIN dark -->well-dark<!-- END dark --> <!-- BEGIN big -->zoom<!-- END big -->">
 		<!-- BEGIN strong -->
 		<strong>
 		<!-- END strong -->
-			<span class="label label-primary">{ID}</span>
 			<span >{FREE_INPUT}</span>
 		<!-- BEGIN strong_end -->
 		</strong>

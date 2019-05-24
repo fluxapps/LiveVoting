@@ -502,3 +502,8 @@ foreach (\LiveVoting\Voting\xlvoVoting::where([ "answer_field" => NULL ])->get()
 	$voting->store();
 }
 ?>
+<#40>
+<?php
+\LiveVoting\Vote\xlvoVote::updateDB();
+\LiveVoting\QuestionTypes\FreeInput\xlvoFreeInputCategory::updateDB();
+?>

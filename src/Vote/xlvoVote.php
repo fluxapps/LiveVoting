@@ -235,7 +235,7 @@ class xlvoVote extends CachingActiveRecord {
 
 
 	/**
-	 * @var string
+	 * @var int
 	 *
 	 * @db_has_field        true
 	 * @db_fieldtype        integer
@@ -324,10 +324,18 @@ class xlvoVote extends CachingActiveRecord {
 	 * @db_length    2000
 	 */
 	protected $free_input;
+	/**
+	 * @var integer
+	 *
+	 * @db_has_field true
+	 * @db_fieldtype integer
+	 * @db_length    8
+	 */
+	protected $free_input_category;
 
 
 	/**
-	 * @return string
+	 * @return int
 	 */
 	public function getId() {
 		return $this->id;
@@ -335,7 +343,7 @@ class xlvoVote extends CachingActiveRecord {
 
 
 	/**
-	 * @param string $id
+	 * @param int $id
 	 */
 	public function setId($id) {
 		$this->id = $id;
@@ -500,4 +508,22 @@ class xlvoVote extends CachingActiveRecord {
 	public function setFreeInput($free_input) {
 		$this->free_input = $free_input;
 	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getFreeInputCategory() {
+		return $this->free_input_category;
+	}
+
+
+	/**
+	 * @param int $free_input_category
+	 */
+	public function setFreeInputCategory($free_input_category) {
+		$this->free_input_category = $free_input_category;
+	}
+
+
 }
