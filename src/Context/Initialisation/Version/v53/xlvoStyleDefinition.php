@@ -1,15 +1,16 @@
 <?php
 
-namespace LiveVoting\Context\Initialisation\Version\v52;
+namespace LiveVoting\Context\Initialisation\Version\v53;
 
 use ilLiveVotingPlugin;
+use ilSkinStyleXML;
 use LiveVoting\Utils\LiveVotingTrait;
 use srag\DIC\LiveVoting\DICTrait;
 
 /**
  * Class xlvoStyleDefinition
  *
- * @package LiveVoting\Context\Initialisation\Version\v52
+ * @package LiveVoting\Context\Initialisation\Version\v53
  */
 class xlvoStyleDefinition {
 
@@ -41,7 +42,7 @@ class xlvoStyleDefinition {
 /**
  * Class xlvoSkin
  *
- * @package LiveVoting\Context\Initialisation\Version\v52
+ * @package LiveVoting\Context\Initialisation\Version\v53
  */
 class xlvoSkin {
 
@@ -70,4 +71,13 @@ class xlvoSkin {
 	public function getName() {
 		return 'Delos';
 	}
+
+	/**
+	 * @return ilSkinStyleXML
+	 */
+	public function getDefaultStyle(){
+		// required with ilias 5.4
+		return new ilSkinStyleXML($this->getId(), $this->getName());
+	}
+
 }
