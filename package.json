@@ -1,0 +1,18 @@
+{
+  "name": "srag.plugins.livevoting",
+  "description": "",
+  "keywords": [
+    "ILIAS",
+    "Plugin",
+    "LiveVoting"
+  ],
+  "license": "GPL-3.0-only",
+  "contributors": [
+    "srag <support-custom1@studer-raimann.ch> (https://studer-raimann.ch)"
+  ],
+  "bugs": {
+    "url": "https://plugins.studer-raimann.ch/goto.php?target=uihk_srsu_PLLV"
+  },
+  "dependencies": {},
+  "private": true
+}

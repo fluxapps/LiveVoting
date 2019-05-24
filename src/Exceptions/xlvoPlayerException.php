@@ -11,7 +11,8 @@ namespace LiveVoting\Exceptions;
 class xlvoPlayerException extends xlvoException {
 
 	const OBJ_OFFLINE = 1;
-	const NO_VTOTINGS = 2;
+	const NO_VOTINGS = 2;
+	const CATEGORY_NOT_FOUND = 3;
 
 
 	/**

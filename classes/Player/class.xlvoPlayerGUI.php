@@ -15,7 +15,17 @@ use LiveVoting\Player\QR\xlvoQR;
 use LiveVoting\Player\QR\xlvoQRModalGUI;
 use LiveVoting\Player\xlvoDisplayPlayerGUI;
 use LiveVoting\Player\xlvoPlayer;
+use LiveVoting\QuestionTypes\CorrectOrder\xlvoCorrectOrderResultsGUI;
+use LiveVoting\QuestionTypes\FreeInput\xlvoFreeInputCategorizeGUI;
+use LiveVoting\QuestionTypes\FreeInput\xlvoFreeInputCategory;
+use LiveVoting\QuestionTypes\FreeInput\xlvoFreeInputResultsGUI;
+use LiveVoting\QuestionTypes\FreeOrder\xlvoFreeOrderResultsGUI;
+use LiveVoting\QuestionTypes\NumberRange\xlvoNumberRangeResultsGUI;
+use LiveVoting\QuestionTypes\SingleVote\xlvoSingleVoteResultsGUI;
+use LiveVoting\QuestionTypes\xlvoInputResultsGUI;
 use LiveVoting\QuestionTypes\xlvoQuestionTypesGUI;
+use LiveVoting\User\xlvoUser;
+use LiveVoting\Vote\xlvoVote;
 use LiveVoting\Voter\xlvoVoter;
 use LiveVoting\Voting\xlvoVoting;
 use LiveVoting\Voting\xlvoVotingConfig;
@@ -140,12 +150,11 @@ class xlvoPlayerGUI extends xlvoGUI {
 			->send();
 	}
 
-
 	/**
 	 *
 	 */
 	protected function startPlayerAnUnfreeze() {
-		$this->initJSandCss();
+		$this->initJsAndCss();
 		$this->initToolbarDuringVoting();
 		$this->manager->prepare();
 		$this->manager->getPlayer()->setStatus(xlvoPlayer::STAT_RUNNING);
@@ -160,7 +169,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 *
 	 */
 	protected function startPlayer() {
-		$this->initJSandCss();
+		$this->initJsAndCss();
 		$this->manager->prepare();
 
 		if ($voting_id = trim(filter_input(INPUT_GET, ParamManager::PARAM_VOTING), "/")) {
@@ -329,6 +338,63 @@ class xlvoPlayerGUI extends xlvoGUI {
 				break;
 			case 'countdown':
 				$this->manager->countdown($_POST['seconds']);
+				break;
+			case 'input':
+				xlvoUser::getInstance()->setIdentifier(self::dic()->user()->getId())->setType(xlvoUser::TYPE_ILIAS);
+				$this->manager->inputOne(['input' => $_POST['input']]);
+				break;
+			case 'add_vote':
+				xlvoUser::getInstance()->setIdentifier(self::dic()->user()->getId())->setType(xlvoUser::TYPE_ILIAS);
+				$vote_id = $this->manager->addInput($_POST['input']);
+				$return_value = ['vote_id' => $vote_id];
+				break;
+			case 'remove_vote':
+				$vote = xlvoVote::find($_POST['vote_id']);
+				// also delete votes with same input in the same category
+				foreach (xlvoVote::where([
+					'voting_id' => $vote->getVotingId(),
+					'round_id' => $vote->getRoundId(),
+					'free_input' => $vote->getFreeInput(),
+					'free_input_category' => $vote->getFreeInputCategory()
+				])->get() as $vote) {
+					$vote->delete();
+				}
+				break;
+			case 'add_category':
+				$category = new xlvoFreeInputCategory();
+				$category->setTitle($_POST['title']);
+				$category->setVotingId($this->manager->getVoting()->getId());
+				$category->setRoundId($this->manager->getPlayer()->getRoundId());
+				$category->create();
+				$return_value = ['category_id' => $category->getId()];
+				break;
+			case 'remove_category':
+				/** @var xlvoVote $vote */
+				foreach (xlvoVote::where([
+					'voting_id' => $this->manager->getVoting()->getId(),
+					'round_id' => $this->manager->getplayer()->getRoundId(),
+					'free_input_category' => $_POST['category_id']
+				])->get() as $vote) {
+					$vote->setFreeInputCategory(0);
+					$vote->update();
+				}
+				xlvoFreeInputCategory::find($_POST['category_id'])->delete();
+				break;
+			case 'change_category':
+				/** @var $vote xlvoVote */
+				$vote = xlvoVote::find($_POST['vote_id']);
+
+				// also change category of all same inputs in the same category
+				foreach (xlvoVote::where([
+					'voting_id' => $vote->getVotingId(),
+					'round_id' => $vote->getRoundId(),
+					'free_input' => $vote->getFreeInput(),
+					'free_input_category' => $vote->getFreeInputCategory()
+				])->get() as $vote) {
+					$vote->setFreeInputCategory($_POST['category_id']);
+					$vote->update();
+				}
+
 				break;
 			case 'button':
 				/**
@@ -518,7 +584,7 @@ class xlvoPlayerGUI extends xlvoGUI {
 	 * @throws ilException
 	 * @throws xlvoVotingManagerException
 	 */
-	protected function initJSandCss() {
+	protected function initJsAndCss() {
 		switch (true) {
 			case self::version()->is53():
 			case self::version()->is52():
@@ -561,7 +627,13 @@ class xlvoPlayerGUI extends xlvoGUI {
 		//xlvoJs::getInstance()->ilias($this)->name('PPT')->init()->setRunCode();
 
 		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/Player/player.css');
-		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/LiveVoting/templates/default/Display/Bar/bar.css');
+		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/Display/Bar/bar.css');
+
+		xlvoFreeInputResultsGUI::addJsAndCss();
+		xlvoCorrectOrderResultsGUI::addJsAndCss();
+		xlvoFreeOrderResultsGUI::addJsAndCss();
+		xlvoNumberRangeResultsGUI::addJsAndCss();
+		xlvoSingleVoteResultsGUI::addJsAndCss();
 	}
 
 

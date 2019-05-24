@@ -12,6 +12,7 @@ use LiveVoting\Exceptions\xlvoVotingManagerException;
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\Pin\xlvoPin;
 use LiveVoting\Player\xlvoPlayer;
+use LiveVoting\QuestionTypes\xlvoInputResultsGUI;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\Round\xlvoRound;
 use LiveVoting\User\xlvoUser;
@@ -150,6 +151,8 @@ class xlvoVotingManager2 {
 
 	/**
 	 * @param array $array ... => (input, vote_id)
+	 *
+	 * @throws xlvoVotingManagerException
 	 */
 	public function inputAll(array $array) {
 		foreach ($array as $item) {
@@ -160,8 +163,8 @@ class xlvoVotingManager2 {
 
 
 	/**
-	 * @param $input
-	 * @param $vote_id
+	 * @param      $input
+	 * @param      $vote_id
 	 *
 	 * @throws xlvoVotingManagerException
 	 */
@@ -196,6 +199,40 @@ class xlvoVotingManager2 {
 		if (!$this->getVoting()->isMultiFreeInput()) {
 			$this->unvoteAll($xlvoVote->getId());
 		}
+	}
+
+
+	/**
+	 * This is for when the admin adds a free text input. For normal user input use inputAll oder inputOne
+	 *
+	 * @param $input
+	 *
+	 * @return int
+	 * @throws xlvoVotingManagerException
+	 */
+	public function addInput($input) {
+		$options = $this->getOptions();
+		$option = array_shift(array_values($options));
+		if (!$option instanceof xlvoOption) {
+			throw new xlvoVotingManagerException('No Option given');
+		}
+		$xlvoVote = new xlvoVote();
+		$xlvoUser = xlvoUser::getInstance();
+		if ($xlvoUser->getType() == xlvoUser::TYPE_ILIAS) {
+			$xlvoVote->setUserId($xlvoUser->getIdentifier());
+			$xlvoVote->setUserIdType(xlvoVote::USER_ILIAS);
+		} else {
+			$xlvoVote->setUserIdentifier($xlvoUser->getIdentifier());
+			$xlvoVote->setUserIdType(xlvoVote::USER_ANONYMOUS);
+		}
+		$xlvoVote->setVotingId($this->getVoting()->getId());
+		$xlvoVote->setOptionId($option->getId());
+		$xlvoVote->setType(xlvoQuestionTypes::TYPE_FREE_INPUT);
+		$xlvoVote->setStatus(xlvoVote::STAT_ACTIVE);
+		$xlvoVote->setFreeInput($input);
+		$xlvoVote->setRoundId(xlvoRound::getLatestRoundId($this->obj_id));
+		$xlvoVote->create();
+		return $xlvoVote->getId();
 	}
 
 
@@ -460,13 +497,8 @@ class xlvoVotingManager2 {
 	public function reset() {
 		$this->player->setButtonStates(array());
 		$this->player->store();
-		/**
-		 * @var xlvoVote $xlvoVote
-		 */
-		foreach (xlvoVote::where(array( 'voting_id' => $this->getVoting()->getId(), 'round_id' => $this->getPlayer()->getRoundId() ))
-			         ->get() as $xlvoVote) {
-			$xlvoVote->delete();
-		}
+
+		xlvoInputResultsGUI::getInstance($this)->reset();
 	}
 
 
@@ -493,7 +525,7 @@ class xlvoVotingManager2 {
 
 			return true;
 		} else {
-			throw new xlvoPlayerException('', xlvoPlayerException::NO_VTOTINGS);
+			throw new xlvoPlayerException('', xlvoPlayerException::NO_VOTINGS);
 		}
 	}
 
@@ -676,7 +708,9 @@ class xlvoVotingManager2 {
 
 
 	/**
-	 * @param $array
+	 * @param      $array
+	 *
+	 * @throws xlvoVotingManagerException
 	 */
 	public function inputOne($array) {
 		$this->inputAll(array( $array ));

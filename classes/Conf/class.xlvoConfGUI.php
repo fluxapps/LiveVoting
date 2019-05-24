@@ -73,26 +73,21 @@ class xlvoConfGUI extends xlvoGUI {
 
 
 	protected function confirmDelete() {
-		// TODO: Implement confirmDelete() method.
 	}
 
 
 	protected function delete() {
-		// TODO: Implement delete() method.
 	}
 
 
 	protected function add() {
-		// TODO: Implement add() method.
 	}
 
 
 	protected function create() {
-		// TODO: Implement create() method.
 	}
 
 
 	protected function edit() {
-		// TODO: Implement edit() method.
 	}
 }
