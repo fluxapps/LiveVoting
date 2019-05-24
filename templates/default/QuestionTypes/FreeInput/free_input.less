@@ -2,8 +2,15 @@
   clear: both;
 }
 
-fieldset legend {
+fieldset.xlvo-category legend {
   border-bottom: none;
+  position: absolute;
+  font-size: 32px;
+  width: 80%;
+}
+
+fieldset.xlvo-category div.bars {
+  margin-top: 20px;
 }
 
 div.inputs div.input-group {
@@ -33,6 +40,7 @@ button.close {
   position: absolute;
   right: 20px;
   top: 15px;
+  z-index: 1000;
 }
 
 #categories div.xlvo-vote-free-input button.close {
