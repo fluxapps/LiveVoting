@@ -110,14 +110,20 @@ var xlvoPlayer = {
 						xlvoPlayer.callPlayer('toggle_results');
 						break;
 					case xlvoPlayer.config.keyboard.toggle_freeze:
-					case 66:
 						xlvoPlayer.callPlayer('toggle_freeze');
 						break;
-					case 33:
+					case 66: // b
+						if ($(':focus').prop('tagName') !== 'INPUT') { // don't use hotkey when an input is focused
+							xlvoPlayer.callPlayer('toggle_freeze');
+						} else {
+							return; // to avoid preventDefault()
+						}
+						break;
+					case 33: // page up
 					case xlvoPlayer.config.keyboard.previous:
 						xlvoPlayer.callPlayer('previous');
 						break;
-					case 34:
+					case 34: // page down
 					case xlvoPlayer.config.keyboard.next:
 						xlvoPlayer.callPlayer('next');
 						break;
