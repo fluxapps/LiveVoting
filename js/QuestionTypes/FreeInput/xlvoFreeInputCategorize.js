@@ -64,7 +64,7 @@ var xlvoFreeInputCategorize = {
 	 */
 	initButtons: function() {
 		$('input.category_input:last').on("keypress", function(e) {
-			if (e.which == 13) {
+			if (e.which == 13) {	// enter
 				xlvoFreeInputCategorize.addCategory();
 			}
 		});
@@ -72,7 +72,7 @@ var xlvoFreeInputCategorize = {
 		$('button.category_button:last').on("click", xlvoFreeInputCategorize.addCategory);
 
 		$('input.answer_input:last').on("keypress", function(e) {
-			if (e.which == 13) {
+			if (e.which == 13) {	// enter
 				xlvoFreeInputCategorize.addAnswer();
 			}
 		});
