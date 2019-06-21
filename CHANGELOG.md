@@ -1,7 +1,7 @@
 # Change Log
 
 ## [x]
-- Hotfix: Working enter ping gui again
+- Hotfix: Working enter pin gui again
 
 ## [4.3.0]
 - feature: clustering/categorizing of free text questions 
