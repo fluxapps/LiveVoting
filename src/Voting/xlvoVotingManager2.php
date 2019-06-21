@@ -63,12 +63,6 @@ class xlvoVotingManager2 {
 	 * @param $pin
 	 */
 	public function __construct($pin) {
-		// TODO: Hotfix! - Removed this to working enter pin gui again
-		/*if (empty($pin)) {
-			throw new ilException("xlvoVotingManager2: Wrong PIN! - 1");
-		}
-
-		$this->initVoting($pin);*/
 		if (!empty($pin)) {
 			$this->initVoting($pin);
 		}
