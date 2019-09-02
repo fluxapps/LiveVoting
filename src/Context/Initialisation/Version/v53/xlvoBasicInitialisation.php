@@ -101,6 +101,7 @@ class xlvoBasicInitialisation {
 		//bootstrap ILIAS
 
 		$this->initDependencyInjection();
+		$this->setCookieParams();
 
 		$this->removeUnsafeCharacters();
 		$this->loadIniFile();
@@ -591,7 +592,8 @@ class xlvoBasicInitialisation {
 			$cookie_path = '/';
 		}
 
-		$cookie_secure = !$this->settings->get('https', 0) && ilHTTPS::getInstance()->isDetected();
+		/*$cookie_secure = !$this->settings->get('https', 0) && ilHTTPS::getInstance()->isDetected();*/
+        $cookie_secure = true;
 
 		define('IL_COOKIE_EXPIRE', 0);
 		define('IL_COOKIE_PATH', $cookie_path);
