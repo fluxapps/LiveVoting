@@ -1,5 +1,8 @@
 # Change Log
 
+##  [4.3.2]
+- Fixed BUG SUPPORT-2161 Use of undefined constant IL_COOKIE_PATH (PHP7.2)"
+
 ## [4.3.1]
 - Hotfix: Working enter pin gui again
 
