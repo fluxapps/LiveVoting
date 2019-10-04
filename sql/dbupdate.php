@@ -342,7 +342,7 @@ $q = "UPDATE {$xlvo_voting_table_name} SET columns = {$default}";
  * @var $xlvoVoting \LiveVoting\Voting\xlvoVoting
  */
 foreach (\LiveVoting\Voting\xlvoVoting::get() as $xlvoVoting) {
-	$xlvoVoting->renegerateOptionSorting();
+	$xlvoVoting->regenerateOptionSorting();
 }
 
 ?>

@@ -244,7 +244,7 @@ class xlvoVoting extends CachingActiveRecord {
 	/**
 	 *
 	 */
-	public function renegerateOptionSorting() {
+	public function regenerateOptionSorting() {
 		$i = 1;
 		foreach ($this->getVotingOptions() as $votingOption) {
 			$votingOption->setPosition($i);
@@ -284,7 +284,7 @@ class xlvoVoting extends CachingActiveRecord {
 				$votingOptionNew->setVotingId($newObj->getId());
 				$votingOptionNew->store();
 			}
-			$newObj->renegerateOptionSorting();
+			$newObj->regenerateOptionSorting();
 		}
 
 		return $newObj;

@@ -37,6 +37,14 @@ class xlvoStyleDefinition {
 	public function getSkin() {
 		return $this->skin;
 	}
+
+	/**
+	 * @return string
+	 */
+	public function getImageDirectory($style_id)
+	{
+		return '';
+	}
 }
 
 /**

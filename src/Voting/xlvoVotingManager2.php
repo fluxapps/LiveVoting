@@ -141,7 +141,7 @@ class xlvoVotingManager2 {
 	 *
 	 */
 	public function prepare() {
-		$this->getVoting()->renegerateOptionSorting();
+		$this->getVoting()->regenerateOptionSorting();
 		$this->getPlayer()->setStatus(xlvoPlayer::STAT_RUNNING);
 		$this->getPlayer()->freeze();
 	}
@@ -366,7 +366,7 @@ class xlvoVotingManager2 {
 
 		$this->player->setActiveVoting($prev_id);
 		$this->player->store();
-		$this->getVoting()->renegerateOptionSorting();
+		$this->getVoting()->regenerateOptionSorting();
 	}
 
 
@@ -382,7 +382,7 @@ class xlvoVotingManager2 {
 		$this->handleQuestionSwitching();
 		$this->player->setActiveVoting($next_id);
 		$this->player->store();
-		$this->getVoting()->renegerateOptionSorting();
+		$this->getVoting()->regenerateOptionSorting();
 	}
 
 

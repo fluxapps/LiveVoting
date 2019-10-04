@@ -40,7 +40,7 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 	const START_RANGE_MAX = 1000000;
 	const END_RANGE_MIN = - 1000000;
 	const END_RANGE_MAX = 1000000;
-	//const STEP_RANGE_MIN = 0;
+	const STEP_RANGE_MIN = 1;
 	//const STEP_RANGE_MAX = 1000000;
 	const STEP_RANGE_DEFAULT_VALUE = 1;
 	const STEP_RANGE_INVALID_INFO = 'qtype_6_invalid_step_range';
@@ -89,7 +89,7 @@ class xlvoNumberRangeSubFormGUI extends xlvoSubFormGUI {
 		//create end range number input
 		$stepRange = new ilNumberInputGUI($this->txt(self::OPTION_RANGE_STEP), self::OPTION_RANGE_STEP);
 		$stepRange->setInfo($this->txt(self::OPTION_RANGE_STEP_INFO));
-		//$stepRange->setMinValue(self::STEP_RANGE_MIN);
+		$stepRange->setMinValue(self::STEP_RANGE_MIN);
 		//$stepRange->setMaxValue(self::STEP_RANGE_MAX);
 		$stepRange->setValue($this->getXlvoVoting()->getStepRange());
 
