@@ -1,4 +1,12 @@
 # Change Log
+## [4.3.3]
+- Fixed Bug PLLV-345 - do not present results in more than one column
+- Fixed issue with other plugins calling ilUtil::getImagePath - thx to mjansen / https://github.com/studer-raimann/LiveVoting/pull/24
+- Fixed Avoid errors with devision by 0 - thx to swiniker / https://github.com/studer-raimann/LiveVoting/pull/23/
+- Fix typo in function name - thx to Rillke / https://github.com/studer-raimann/LiveVoting/pull/22
+- Unbreak delete-an-option thx to Rillke / 
+https://github.com/studer-raimann/LiveVoting/pull/21
+- Fixed Bug Uncommented method to possibly fix a bug with number range inputs - thx to rsheer / https://github.com/studer-raimann/LiveVoting/pull/18
 
 ##  [4.3.2]
 - Fixed BUG SUPPORT-2161 Use of undefined constant IL_COOKIE_PATH (PHP7.2)"
@@ -73,6 +81,7 @@
 - Screen-Id-Component
 - PHP version checker
 - Improved PIN validation in pin.php
+- **Updates to RewriteRules might be required**
 - Improved FreeInput config validation
 
 ## [4.0.2] - 2018-07-11

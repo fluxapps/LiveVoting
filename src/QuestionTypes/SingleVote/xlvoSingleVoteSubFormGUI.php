@@ -148,6 +148,7 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI {
 				$xlvoOption->delete();
 			}
 		}
-		$this->getXlvoVoting()->renegerateOptionSorting();
+        $this->getXlvoVoting()->setVotingOptions($this->options);
+		$this->getXlvoVoting()->regenerateOptionSorting();
 	}
 }
