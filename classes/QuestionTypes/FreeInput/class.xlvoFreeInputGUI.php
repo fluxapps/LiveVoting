@@ -39,14 +39,14 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 			$array = array();
 			foreach ($_POST[self::F_VOTE_MULTI_LINE_INPUT] as $item) {
 				$array[] = array(
-					"input"   => $item[self::F_FREE_INPUT],
+					"input"   => ilUtil::secureString($item[self::F_FREE_INPUT]),
 					"vote_id" => $item[self::F_VOTE_ID],
 				);
 			}
 			$this->manager->inputAll($array);
 		} else {
 			$this->manager->inputOne(array(
-				"input"   => $_POST[self::F_FREE_INPUT],
+				"input"   => ilUtil::secureString($_POST[self::F_FREE_INPUT]),
 				"vote_id" => $_POST[self::F_VOTE_ID],
 			));
 		}
