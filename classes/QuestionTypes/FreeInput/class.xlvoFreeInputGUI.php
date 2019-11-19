@@ -58,7 +58,7 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 		if ($this->manager->getVoting()->isMultiFreeInput()) {
 			$array = array();
 			foreach (filter_input(INPUT_POST, self::F_VOTE_MULTI_LINE_INPUT, FILTER_DEFAULT, FILTER_FORCE_ARRAY) as $item) {
-				$input = $item[self::F_FREE_INPUT];
+				$input = ilUtil::secureString($item[self::F_FREE_INPUT]);
 				if (!empty($input) && strlen($input) <= $input_gui->getMaxLength()) {
 					$array[] = array(
 						"input" => $input,
@@ -68,7 +68,7 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI {
 			}
 			$this->manager->inputAll($array);
 		} else {
-			$input = filter_input(INPUT_POST, self::F_FREE_INPUT);
+			$input = ilUtil::secureString(filter_input(INPUT_POST, self::F_FREE_INPUT));
 			if (!empty($input) && strlen($input) <= $input_gui->getMaxLength()) {
 				$this->manager->inputOne(array(
 					"input" => $input,
