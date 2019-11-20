@@ -1,4 +1,7 @@
 # Change Log
+## [4.3.4]
+- Security Fix: PLLV-361 - Fixed code injection in free text questions
+
 ## [4.3.3]
 - Fixed Bug PLLV-345 - do not present results in more than one column
 - Fixed issue with other plugins calling ilUtil::getImagePath - thx to mjansen / https://github.com/studer-raimann/LiveVoting/pull/24
