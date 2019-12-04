@@ -311,7 +311,7 @@ removeplugindataconfirm_msg_kept_data#:#The %1$s data was kept
 removeplugindataconfirm_msg_removed_data#:#The %1$s data was also removed
 removeplugindataconfirm_remove_data#:#Remove %1$s data
 btn_categorize#:#Categorize
-btn_categorize_done#:#Finish Categorizing
-btn_add_category#:#Add Category
-btn_add_answer#:#Add Input
+btn_categorize_done#:#Finish categorizing
+btn_add_category#:#Add category
+btn_add_answer#:#Add input
 category_title#:#Category Title
