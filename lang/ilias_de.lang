@@ -219,6 +219,7 @@ voting_delete#:#Löschen
 voting_delete_confirm#:#Möchsten Sie die Abstimmung wirklich löschen?
 voting_description#:#Beschreibung
 voting_duplicate#:#Duplizieren
+voting_duplicateToAnotherObject#:#In ein anderes Objekt duplizieren
 voting_edit#:#Bearbeiten
 voting_export#:#Export
 voting_form_title_create#:#Frage

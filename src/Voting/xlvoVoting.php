@@ -256,26 +256,30 @@ class xlvoVoting extends CachingActiveRecord {
 
 	/**
 	 * @param bool $change_name
+     * @param int|null $new_obj_id
 	 *
 	 * @return xlvoVoting
 	 * @throws Exception
 	 * @throws arException
 	 */
-	public function fullClone($change_name = true, $clone_options = true) {
+	public function fullClone($change_name = true, $clone_options = true, $new_obj_id = null) {
 		/**
 		 * @var xlvoVoting $newObj
 		 * @var xlvoOption $votingOptionNew
 		 */
 		$newObj = $this->copy();
+		if ($new_obj_id) {
+		 $newObj->setObjId($new_obj_id);
+        }
 		if ($change_name) {
 
 			$count = 1;
-			while (xlvoVoting::where(array( 'title' => $this->getTitle() . ' (' . $count . ')' ))->where(array( 'obj_id' => $this->getObjId() ))
+			while (xlvoVoting::where(array( 'title' => $newObj->getTitle() . ' (' . $count . ')' ))->where(array( 'obj_id' => $newObj->getObjId() ))
 				->count()) {
 				$count ++;
 			}
 
-			$newObj->setTitle($this->getTitle() . ' (' . $count . ')');
+			$newObj->setTitle($newObj->getTitle() . ' (' . $count . ')');
 		}
 		$newObj->store();
 		if ($clone_options) {

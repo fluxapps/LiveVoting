@@ -9,6 +9,7 @@ use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\Round\xlvoRound;
 use LiveVoting\Utils\LiveVotingTrait;
 use LiveVoting\Vote\xlvoVote;
+use LiveVoting\Voting\DuplicateToAnotherObjectSelectFormGUI;
 use LiveVoting\Voting\xlvoVoting;
 use LiveVoting\Voting\xlvoVotingConfig;
 use LiveVoting\Voting\xlvoVotingFormGUI;
@@ -25,6 +26,7 @@ use srag\DIC\LiveVoting\DICTrait;
  * @version           1.0.0
  *
  * @ilCtrl_Calls      xlvoVotingGUI: xlvoSingleVoteVotingGUI, xlvoFreeInputVotingGUI
+ * @ilCtrl_Calls      xlvoVotingGUI: ilPropertyFormGUI
  *
  */
 class xlvoVotingGUI {
@@ -45,6 +47,8 @@ class xlvoVotingGUI {
 	const CMD_DELETE = 'delete';
 	const CMD_CONFIRM_RESET = 'confirmReset';
 	const CMD_DUPLICATE = 'duplicate';
+    const CMD_DUPLICATE_TO_ANOTHER_OBJECT = 'duplicateToAnotherObject';
+    const CMD_DUPLICATE_TO_ANOTHER_OBJECT_SELECT = 'duplicateToAnotherObjectSelect';
 	const CMD_RESET = 'reset';
 	const CMD_CONFIRM_RESET_ALL = 'confirmResetAll';
 	const CMD_RESET_ALL = 'resetAll';
@@ -544,6 +548,66 @@ class xlvoVotingGUI {
 		ilUtil::sendSuccess(self::plugin()->translate('voting_msg_duplicated'), true);
 		$this->cancel();
 	}
+
+
+    /**
+     * @return DuplicateToAnotherObjectSelectFormGUI
+     */
+    public function getDuplicateToAnotherObjectSelectForm()
+    {
+        self::dic()->ctrl()->setParameter($this, self::IDENTIFIER, $_GET[self::IDENTIFIER]);
+
+        $form = new DuplicateToAnotherObjectSelectFormGUI($this);
+
+        return $form;
+    }
+
+
+    /**
+     *
+     */
+    protected function duplicateToAnotherObjectSelect()
+    {
+        $form = $this->getDuplicateToAnotherObjectSelectForm();
+
+        self::output()->output($form);
+    }
+
+
+    /**
+     *
+     */
+    protected function handleExplorerCommand()
+    {
+        $form = $this->getDuplicateToAnotherObjectSelectForm();
+
+        $form->getItemByPostVar("ref_id")->handleExplorerCommand();
+    }
+
+
+    /**
+     *
+     */
+    protected function duplicateToAnotherObject()
+    {
+        $form = $this->getDuplicateToAnotherObjectSelectForm();
+
+        if (!$form->storeForm()) {
+            self::output()->output($form);
+
+            return;
+        }
+
+        $obj_id = self::dic()->objDataCache()->lookupObjId($form->getInput("ref_id"));
+
+        /**
+         * @var xlvoVoting $xlvoVoting
+         */
+        $xlvoVoting = xlvoVoting::find($_GET[self::IDENTIFIER]);
+        $xlvoVoting->fullClone(true, true, $obj_id);
+        ilUtil::sendSuccess(self::plugin()->translate('voting_msg_duplicated'), true);
+        $this->cancel();
+    }
 
 
 	/**
