@@ -179,6 +179,8 @@ class xlvoVotingTableGUI extends ilTable2GUI {
 				->getLinkTarget($this->voting_gui, xlvoVotingGUI::CMD_CONFIRM_RESET));
 			$current_selection_list->addItem($this->txt(xlvoVotingGUI::CMD_DUPLICATE), xlvoVotingGUI::CMD_DUPLICATE, self::dic()->ctrl()
 				->getLinkTarget($this->voting_gui, xlvoVotingGUI::CMD_DUPLICATE));
+            $current_selection_list->addItem($this->txt(xlvoVotingGUI::CMD_DUPLICATE_TO_ANOTHER_OBJECT), xlvoVotingGUI::CMD_DUPLICATE_TO_ANOTHER_OBJECT_SELECT, self::dic()->ctrl()
+                ->getLinkTarget($this->voting_gui, xlvoVotingGUI::CMD_DUPLICATE_TO_ANOTHER_OBJECT_SELECT));
 			$current_selection_list->addItem($this->txt('delete'), xlvoVotingGUI::CMD_CONFIRM_DELETE, self::dic()->ctrl()
 				->getLinkTarget($this->voting_gui, xlvoVotingGUI::CMD_CONFIRM_DELETE));
 		}

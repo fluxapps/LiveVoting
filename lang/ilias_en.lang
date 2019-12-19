@@ -217,6 +217,7 @@ voting_delete#:#Delete
 voting_delete_confirm#:#Do you really want to delete the Voting?
 voting_description#:#Description
 voting_duplicate#:#Clone
+voting_duplicateToAnotherObject#:#Clone in an other object
 voting_edit#:#Edit
 voting_export#:#Export
 voting_form_title_create#:#Question

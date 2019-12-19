@@ -1,4 +1,8 @@
 # Change Log
+
+## [x]
+- Clone questions in an other object
+
 ## [4.3.4]
 - Security Fix: PLLV-361 - Fixed code injection in free text questions
 
