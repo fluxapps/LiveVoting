@@ -25,72 +25,78 @@ use srag\RemovePluginDataConfirm\LiveVoting\RepositoryObjectPluginUninstallTrait
  * @version $Id$
  *
  */
-class ilLiveVotingPlugin extends ilRepositoryObjectPlugin {
+class ilLiveVotingPlugin extends ilRepositoryObjectPlugin
+{
 
-	use RepositoryObjectPluginUninstallTrait;
-	use LiveVotingTrait;
-	const PLUGIN_ID = 'xlvo';
-	const PLUGIN_NAME = 'LiveVoting';
-	const PLUGIN_CLASS_NAME = self::class;
-	const REMOVE_PLUGIN_DATA_CONFIRM_CLASS_NAME = LiveVotingRemoveDataConfirm::class;
-	/**
-	 * @var ilLiveVotingPlugin
-	 */
-	protected static $instance;
-
-
-	/**
-	 * @return ilLiveVotingPlugin
-	 */
-	public static function getInstance() {
-		if (!isset(self::$instance)) {
-			self::$instance = new self();
-		}
-
-		return self::$instance;
-	}
+    use RepositoryObjectPluginUninstallTrait;
+    use LiveVotingTrait;
+    const PLUGIN_ID = 'xlvo';
+    const PLUGIN_NAME = 'LiveVoting';
+    const PLUGIN_CLASS_NAME = self::class;
+    const REMOVE_PLUGIN_DATA_CONFIRM_CLASS_NAME = LiveVotingRemoveDataConfirm::class;
+    /**
+     * @var ilLiveVotingPlugin
+     */
+    protected static $instance;
 
 
-	/**
-	 *
-	 */
-	public function __construct() {
-		parent::__construct();
-	}
+    /**
+     * @return ilLiveVotingPlugin
+     */
+    public static function getInstance()
+    {
+        if (!isset(self::$instance)) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
+    }
 
 
-	/**
-	 * @return string
-	 */
-	public function getPluginName() {
-		return self::PLUGIN_NAME;
-	}
+    /**
+     *
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
 
-	/**
-	 * @return bool
-	 */
-	public function allowCopy() {
-		return true;
-	}
+    /**
+     * @return string
+     */
+    public function getPluginName()
+    {
+        return self::PLUGIN_NAME;
+    }
 
 
-	/**
-	 * @inheritdoc
-	 */
-	protected function deleteData()/*: void*/ {
-		self::dic()->database()->dropTable(xlvoConfOld::TABLE_NAME, false);
-		self::dic()->database()->dropTable(xlvoVotingConfig::TABLE_NAME, false);
-		self::dic()->database()->dropTable(xlvoData::TABLE_NAME, false);
-		self::dic()->database()->dropTable(xlvoOption::TABLE_NAME, false);
-		self::dic()->database()->dropTable(xlvoOptionOld::TABLE_NAME, false);
-		self::dic()->database()->dropTable(xlvoPlayer::TABLE_NAME, false);
-		self::dic()->database()->dropTable(xlvoRound::TABLE_NAME, false);
-		self::dic()->database()->dropTable(xlvoVote::TABLE_NAME, false);
-		self::dic()->database()->dropTable(xlvoVoteOld::TABLE_NAME, false);
-		self::dic()->database()->dropTable(xlvoVoteHistoryObject::TABLE_NAME, false);
-		self::dic()->database()->dropTable(xlvoVoting::TABLE_NAME, false);
-		self::dic()->database()->dropTable(xlvoConf::TABLE_NAME, false);
-		self::dic()->database()->dropTable(xlvoVoter::TABLE_NAME, false);
-	}
+    /**
+     * @return bool
+     */
+    public function allowCopy()
+    {
+        return true;
+    }
+
+
+    /**
+     * @inheritdoc
+     */
+    protected function deleteData()/*: void*/
+    {
+        self::dic()->database()->dropTable(xlvoConfOld::TABLE_NAME, false);
+        self::dic()->database()->dropTable(xlvoVotingConfig::TABLE_NAME, false);
+        self::dic()->database()->dropTable(xlvoData::TABLE_NAME, false);
+        self::dic()->database()->dropTable(xlvoOption::TABLE_NAME, false);
+        self::dic()->database()->dropTable(xlvoOptionOld::TABLE_NAME, false);
+        self::dic()->database()->dropTable(xlvoPlayer::TABLE_NAME, false);
+        self::dic()->database()->dropTable(xlvoRound::TABLE_NAME, false);
+        self::dic()->database()->dropTable(xlvoVote::TABLE_NAME, false);
+        self::dic()->database()->dropTable(xlvoVoteOld::TABLE_NAME, false);
+        self::dic()->database()->dropTable(xlvoVoteHistoryObject::TABLE_NAME, false);
+        self::dic()->database()->dropTable(xlvoVoting::TABLE_NAME, false);
+        self::dic()->database()->dropTable(xlvoConf::TABLE_NAME, false);
+        self::dic()->database()->dropTable(xlvoVoter::TABLE_NAME, false);
+    }
 }

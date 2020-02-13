@@ -13,12 +13,13 @@ use LiveVoting\Vote\xlvoVote;
  * @version 1.0.0
  * TODO: Usage?
  */
-interface xlvoVotingInterface {
+interface xlvoVotingInterface
+{
 
-	/**
-	 * @param xlvoVote $vote
-	 *
-	 * @return bool
-	 */
-	public function vote(xlvoVote $vote);
+    /**
+     * @param xlvoVote $vote
+     *
+     * @return bool
+     */
+    public function vote(xlvoVote $vote);
 }

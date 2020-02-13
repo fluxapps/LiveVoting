@@ -13,69 +13,76 @@ use srag\DIC\LiveVoting\DICTrait;
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version 1.0.0
  */
-class xlvoSessionHandler {
+class xlvoSessionHandler
+{
 
-	use DICTrait;
-	use LiveVotingTrait;
-	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
-
-
-	/**
-	 * @param string $save_path
-	 * @param string $sessionid
-	 *
-	 * @return bool
-	 */
-	public function open($save_path, $sessionid) {
-		return true;
-	}
+    use DICTrait;
+    use LiveVotingTrait;
+    const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 
 
-	/**
-	 * @return bool
-	 */
-	public function close() {
-		return true;
-	}
+    /**
+     * @param string $save_path
+     * @param string $sessionid
+     *
+     * @return bool
+     */
+    public function open($save_path, $sessionid)
+    {
+        return true;
+    }
 
 
-	/**
-	 * @param string $sessionid
-	 *
-	 * @return string
-	 */
-	public function read($sessionid) {
-		return '';
-	}
+    /**
+     * @return bool
+     */
+    public function close()
+    {
+        return true;
+    }
 
 
-	/**
-	 * @param string $sessionid
-	 * @param string $sessiondata
-	 *
-	 * @return bool|int
-	 */
-	public function write($sessionid, $sessiondata) {
-		return true;
-	}
+    /**
+     * @param string $sessionid
+     *
+     * @return string
+     */
+    public function read($sessionid)
+    {
+        return '';
+    }
 
 
-	/**
-	 * @param int $sessionid
-	 *
-	 * @return bool
-	 */
-	public function destroy($sessionid) {
-		return true;
-	}
+    /**
+     * @param string $sessionid
+     * @param string $sessiondata
+     *
+     * @return bool|int
+     */
+    public function write($sessionid, $sessiondata)
+    {
+        return true;
+    }
 
 
-	/**
-	 * @param int $maxlifetime
-	 *
-	 * @return bool
-	 */
-	public function gc($maxlifetime) {
-		return true;
-	}
+    /**
+     * @param int $sessionid
+     *
+     * @return bool
+     */
+    public function destroy($sessionid)
+    {
+        return true;
+    }
+
+
+    /**
+     * @param int $maxlifetime
+     *
+     * @return bool
+     */
+    public function gc($maxlifetime)
+    {
+        return true;
+    }
 }
