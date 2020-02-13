@@ -14,30 +14,34 @@ use srag\DIC\LiveVoting\DICTrait;
  * @package LiveVoting\Context
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  */
-class xlvoObjectDefinition {
+class xlvoObjectDefinition
+{
 
-	use DICTrait;
-	use LiveVotingTrait;
-	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
-
-
-	/**
-	 * @return bool
-	 */
-	public function isRBACObject() {
-		return false;
-	}
+    use DICTrait;
+    use LiveVotingTrait;
+    const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 
 
-	/**
-	 * @return string
-	 */
-	public function getTranslationType() {
-		return ''; //"sys"
-	}
+    /**
+     * @return bool
+     */
+    public function isRBACObject()
+    {
+        return false;
+    }
 
 
-	public function getOrgUnitPermissionTypes() {
-		return [];
-	}
+    /**
+     * @return string
+     */
+    public function getTranslationType()
+    {
+        return ''; //"sys"
+    }
+
+
+    public function getOrgUnitPermissionTypes()
+    {
+        return [];
+    }
 }

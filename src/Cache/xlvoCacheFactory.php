@@ -14,44 +14,46 @@ use srag\DIC\LiveVoting\DICTrait;
  * @package LiveVoting\Cache
  * @author  nschaefli
  */
-class xlvoCacheFactory {
+class xlvoCacheFactory
+{
 
-	use DICTrait;
-	use LiveVotingTrait;
-	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
-	private static $cache_instance = NULL;
+    use DICTrait;
+    use LiveVotingTrait;
+    const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
+    private static $cache_instance = null;
 
 
-	/**
-	 * Generates an new instance of the live voting service.
-	 *
-	 * @return xlvoCacheService
-	 */
-	public static function getInstance() {
-		if (self::$cache_instance === NULL) {
-			switch (true) {
-				case self::version()->is53():
-				case self::version()->is52():
-					self::$cache_instance = xlvoCache::getInstance('');
-					break;
-				default:
-					throw new ilException('Can not initialise cache for the installed ILIAS version.');
-					break;
-			}
+    /**
+     * Generates an new instance of the live voting service.
+     *
+     * @return xlvoCacheService
+     */
+    public static function getInstance()
+    {
+        if (self::$cache_instance === null) {
+            switch (true) {
+                case self::version()->is53():
+                case self::version()->is52():
+                    self::$cache_instance = xlvoCache::getInstance('');
+                    break;
+                default:
+                    throw new ilException('Can not initialise cache for the installed ILIAS version.');
+                    break;
+            }
 
-			/*
-			 * caching adapter of the xlvoConf will call getInstance again,
-			 * due to that we need to call the init logic after we created the
-			 * cache in an deactivated state.
-			 *
-			 * The xlvoConf call gets the deactivated cache and query the value
-			 * out of the database. afterwards the cache is turned on with this init() call.
-			 *
-			 * This must be considered as workaround and should be probably fixed in the next major release.
-			 */
-			self::$cache_instance->init();
-		}
+            /*
+             * caching adapter of the xlvoConf will call getInstance again,
+             * due to that we need to call the init logic after we created the
+             * cache in an deactivated state.
+             *
+             * The xlvoConf call gets the deactivated cache and query the value
+             * out of the database. afterwards the cache is turned on with this init() call.
+             *
+             * This must be considered as workaround and should be probably fixed in the next major release.
+             */
+            self::$cache_instance->init();
+        }
 
-		return self::$cache_instance;
-	}
+        return self::$cache_instance;
+    }
 }

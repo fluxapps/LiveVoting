@@ -116,6 +116,7 @@ return array(
     'LiveVoting\\Vote\\xlvoVote' => $baseDir . '/src/Vote/xlvoVote.php',
     'LiveVoting\\Vote\\xlvoVoteOld' => $baseDir . '/src/Vote/xlvoVoteOld.php',
     'LiveVoting\\Voter\\xlvoVoter' => $baseDir . '/src/Voter/xlvoVoter.php',
+    'LiveVoting\\Voting\\DuplicateToAnotherObjectSelectFormGUI' => $baseDir . '/src/Voting/DuplicateToAnotherObjectSelectFormGUI.php',
     'LiveVoting\\Voting\\xlvoVoting' => $baseDir . '/src/Voting/xlvoVoting.php',
     'LiveVoting\\Voting\\xlvoVotingConfig' => $baseDir . '/src/Voting/xlvoVotingConfig.php',
     'LiveVoting\\Voting\\xlvoVotingFormGUI' => $baseDir . '/src/Voting/xlvoVotingFormGUI.php',

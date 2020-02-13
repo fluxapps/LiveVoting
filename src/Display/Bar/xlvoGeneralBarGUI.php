@@ -10,10 +10,11 @@ namespace LiveVoting\Display\Bar;
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version 1.0.0
  */
-interface xlvoGeneralBarGUI {
+interface xlvoGeneralBarGUI
+{
 
-	/**
-	 * @return string
-	 */
-	public function getHTML();
+    /**
+     * @return string
+     */
+    public function getHTML();
 }

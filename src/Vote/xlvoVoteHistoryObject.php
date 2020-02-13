@@ -10,220 +10,239 @@ use LiveVoting\Cache\CachingActiveRecord;
  * @package LiveVoting\Vote
  * @author  Oskar Truffer <ot@studer-raimann.ch>
  */
-class xlvoVoteHistoryObject extends CachingActiveRecord {
+class xlvoVoteHistoryObject extends CachingActiveRecord
+{
 
-	const TABLE_NAME = 'rep_robj_xlvo_votehist';
-
-
-	/**
-	 * @return string
-	 */
-	public function getConnectorContainerName() {
-		return self::TABLE_NAME;
-	}
+    const TABLE_NAME = 'rep_robj_xlvo_votehist';
 
 
-	/**
-	 * @return string
-	 * @deprecated
-	 */
-	public static function returnDbTableName() {
-		return self::TABLE_NAME;
-	}
+    /**
+     * @return string
+     */
+    public function getConnectorContainerName()
+    {
+        return self::TABLE_NAME;
+    }
 
 
-	/**
-	 * @var string
-	 *
-	 * @db_has_field        true
-	 * @db_fieldtype        integer
-	 * @db_length           8
-	 * @db_is_primary       true
-	 * @con_sequence        true
-	 */
-	protected $id;
-	/**
-	 * @var int
-	 *
-	 * @db_has_field        true
-	 * @db_fieldtype        integer
-	 * @db_length           4
-	 */
-	protected $user_id_type;
-	/**
-	 * @var int
-	 *
-	 * @db_has_field        true
-	 * @db_fieldtype        integer
-	 * @db_length           8
-	 */
-	protected $user_id;
-	/**
-	 * @var string
-	 *
-	 * @db_has_field        true
-	 * @db_fieldtype        text
-	 * @db_length           256
-	 */
-	protected $user_identifier = 0;
-	/**
-	 * @var int
-	 *
-	 * @db_has_field        true
-	 * @db_fieldtype        integer
-	 * @db_length           8
-	 */
-	protected $voting_id;
-	/**
-	 * @var int
-	 *
-	 * @db_has_field        true
-	 * @db_fieldtype        integer
-	 * @db_length           8
-	 */
-	protected $timestamp;
-	/**
-	 * @var int
-	 *
-	 * @db_has_field        true
-	 * @db_fieldtype        integer
-	 * @db_length           8
-	 */
-	protected $round_id = 0;
-	/**
-	 * @var string
-	 *
-	 * @db_has_field        true
-	 * @db_fieldtype        text
-	 * @db_length           4000
-	 */
-	protected $answer = "";
+    /**
+     * @return string
+     * @deprecated
+     */
+    public static function returnDbTableName()
+    {
+        return self::TABLE_NAME;
+    }
 
 
-	/**
-	 * @return string
-	 */
-	public function getId() {
-		return $this->id;
-	}
+    /**
+     * @var string
+     *
+     * @db_has_field        true
+     * @db_fieldtype        integer
+     * @db_length           8
+     * @db_is_primary       true
+     * @con_sequence        true
+     */
+    protected $id;
+    /**
+     * @var int
+     *
+     * @db_has_field        true
+     * @db_fieldtype        integer
+     * @db_length           4
+     */
+    protected $user_id_type;
+    /**
+     * @var int
+     *
+     * @db_has_field        true
+     * @db_fieldtype        integer
+     * @db_length           8
+     */
+    protected $user_id;
+    /**
+     * @var string
+     *
+     * @db_has_field        true
+     * @db_fieldtype        text
+     * @db_length           256
+     */
+    protected $user_identifier = 0;
+    /**
+     * @var int
+     *
+     * @db_has_field        true
+     * @db_fieldtype        integer
+     * @db_length           8
+     */
+    protected $voting_id;
+    /**
+     * @var int
+     *
+     * @db_has_field        true
+     * @db_fieldtype        integer
+     * @db_length           8
+     */
+    protected $timestamp;
+    /**
+     * @var int
+     *
+     * @db_has_field        true
+     * @db_fieldtype        integer
+     * @db_length           8
+     */
+    protected $round_id = 0;
+    /**
+     * @var string
+     *
+     * @db_has_field        true
+     * @db_fieldtype        text
+     * @db_length           4000
+     */
+    protected $answer = "";
 
 
-	/**
-	 * @param string $id
-	 */
-	public function setId($id) {
-		$this->id = $id;
-	}
+    /**
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
 
-	/**
-	 * @return int
-	 */
-	public function getUserIdType() {
-		return $this->user_id_type;
-	}
+    /**
+     * @param string $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
 
-	/**
-	 * @param int $user_id_type
-	 */
-	public function setUserIdType($user_id_type) {
-		$this->user_id_type = $user_id_type;
-	}
+    /**
+     * @return int
+     */
+    public function getUserIdType()
+    {
+        return $this->user_id_type;
+    }
 
 
-	/**
-	 * @return int
-	 */
-	public function getUserId() {
-		return $this->user_id;
-	}
+    /**
+     * @param int $user_id_type
+     */
+    public function setUserIdType($user_id_type)
+    {
+        $this->user_id_type = $user_id_type;
+    }
 
 
-	/**
-	 * @param int $user_id
-	 */
-	public function setUserId($user_id) {
-		$this->user_id = $user_id;
-	}
+    /**
+     * @return int
+     */
+    public function getUserId()
+    {
+        return $this->user_id;
+    }
 
 
-	/**
-	 * @return string
-	 */
-	public function getUserIdentifier() {
-		return $this->user_identifier;
-	}
+    /**
+     * @param int $user_id
+     */
+    public function setUserId($user_id)
+    {
+        $this->user_id = $user_id;
+    }
 
 
-	/**
-	 * @param string $user_identifier
-	 */
-	public function setUserIdentifier($user_identifier) {
-		$this->user_identifier = $user_identifier;
-	}
+    /**
+     * @return string
+     */
+    public function getUserIdentifier()
+    {
+        return $this->user_identifier;
+    }
 
 
-	/**
-	 * @return int
-	 */
-	public function getVotingId() {
-		return $this->voting_id;
-	}
+    /**
+     * @param string $user_identifier
+     */
+    public function setUserIdentifier($user_identifier)
+    {
+        $this->user_identifier = $user_identifier;
+    }
 
 
-	/**
-	 * @param int $voting_id
-	 */
-	public function setVotingId($voting_id) {
-		$this->voting_id = $voting_id;
-	}
+    /**
+     * @return int
+     */
+    public function getVotingId()
+    {
+        return $this->voting_id;
+    }
 
 
-	/**
-	 * @return int
-	 */
-	public function getTimestamp() {
-		return $this->timestamp;
-	}
+    /**
+     * @param int $voting_id
+     */
+    public function setVotingId($voting_id)
+    {
+        $this->voting_id = $voting_id;
+    }
 
 
-	/**
-	 * @param int $timestamp
-	 */
-	public function setTimestamp($timestamp) {
-		$this->timestamp = $timestamp;
-	}
+    /**
+     * @return int
+     */
+    public function getTimestamp()
+    {
+        return $this->timestamp;
+    }
 
 
-	/**
-	 * @return int
-	 */
-	public function getRoundId() {
-		return $this->round_id;
-	}
+    /**
+     * @param int $timestamp
+     */
+    public function setTimestamp($timestamp)
+    {
+        $this->timestamp = $timestamp;
+    }
 
 
-	/**
-	 * @param int $round_id
-	 */
-	public function setRoundId($round_id) {
-		$this->round_id = $round_id;
-	}
+    /**
+     * @return int
+     */
+    public function getRoundId()
+    {
+        return $this->round_id;
+    }
 
 
-	/**
-	 * @return string
-	 */
-	public function getAnswer() {
-		return $this->answer;
-	}
+    /**
+     * @param int $round_id
+     */
+    public function setRoundId($round_id)
+    {
+        $this->round_id = $round_id;
+    }
 
 
-	/**
-	 * @param string $answer
-	 */
-	public function setAnswer($answer) {
-		$this->answer = $answer;
-	}
+    /**
+     * @return string
+     */
+    public function getAnswer()
+    {
+        return $this->answer;
+    }
+
+
+    /**
+     * @param string $answer
+     */
+    public function setAnswer($answer)
+    {
+        $this->answer = $answer;
+    }
 }

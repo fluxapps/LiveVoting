@@ -175,6 +175,7 @@ class ComposerStaticInitf5122d14f0f45dac789bfb6428ff8994
         'LiveVoting\\Vote\\xlvoVote' => __DIR__ . '/../..' . '/src/Vote/xlvoVote.php',
         'LiveVoting\\Vote\\xlvoVoteOld' => __DIR__ . '/../..' . '/src/Vote/xlvoVoteOld.php',
         'LiveVoting\\Voter\\xlvoVoter' => __DIR__ . '/../..' . '/src/Voter/xlvoVoter.php',
+        'LiveVoting\\Voting\\DuplicateToAnotherObjectSelectFormGUI' => __DIR__ . '/../..' . '/src/Voting/DuplicateToAnotherObjectSelectFormGUI.php',
         'LiveVoting\\Voting\\xlvoVoting' => __DIR__ . '/../..' . '/src/Voting/xlvoVoting.php',
         'LiveVoting\\Voting\\xlvoVotingConfig' => __DIR__ . '/../..' . '/src/Voting/xlvoVotingConfig.php',
         'LiveVoting\\Voting\\xlvoVotingFormGUI' => __DIR__ . '/../..' . '/src/Voting/xlvoVotingFormGUI.php',

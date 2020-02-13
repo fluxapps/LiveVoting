@@ -21,100 +21,109 @@ use srag\DIC\LiveVoting\DICTrait;
  * @package LiveVoting\QuestionTypes
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  */
-abstract class xlvoInputResultsGUI {
+abstract class xlvoInputResultsGUI
+{
 
-	use DICTrait;
-	use LiveVotingTrait;
-	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
-	/**
-	 * @var xlvoVoting
-	 */
-	protected $voting;
-	/**
-	 * @var xlvoVotingManager2
-	 */
-	protected $manager;
-
-
-	/**
-	 * xlvoInputResultsGUI constructor.
-	 *
-	 * @param xlvoVotingManager2 $manager
-	 * @param xlvoVoting         $voting
-	 */
-	public function __construct(xlvoVotingManager2 $manager, xlvoVoting $voting) {
-		$this->manager = $manager;
-		$this->voting = $voting;
-	}
+    use DICTrait;
+    use LiveVotingTrait;
+    const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
+    /**
+     * @var xlvoVoting
+     */
+    protected $voting;
+    /**
+     * @var xlvoVotingManager2
+     */
+    protected $manager;
 
 
-	/**
-	 * @param string $key
-	 *
-	 * @return string
-	 */
-	protected function txt($key) {
-		return self::plugin()->translate($this->manager->getVoting()->getVotingType() . '_' . $key, 'qtype');
-	}
+    /**
+     * xlvoInputResultsGUI constructor.
+     *
+     * @param xlvoVotingManager2 $manager
+     * @param xlvoVoting         $voting
+     */
+    public function __construct(xlvoVotingManager2 $manager, xlvoVoting $voting)
+    {
+        $this->manager = $manager;
+        $this->voting = $voting;
+    }
 
 
-	/**
-	 *
-	 */
-	public function reset() {
-		/**
-		 * @var xlvoVote $xlvoVote
-		 */
-		foreach (xlvoVote::where(['voting_id' => $this->manager->getVoting()->getId(), 'round_id' => $this->manager->getPlayer()->getRoundId()])
-			         ->get() as $xlvoVote) {
-			$xlvoVote->delete();
-		}
-	}
-
-	/**
-	 * void method to add necessary JS and CSS to maintemplate
-	 */
-	public static function addJsAndCss() {
-	}
-
-	/**
-	 * @param xlvoVotingManager2 $manager
-	 *
-	 * @return xlvoInputResultsGUI
-	 * @throws ilException         Throws an ilException if no results gui class was found.
-	 */
-	public static function getInstance(xlvoVotingManager2 $manager) {
-		$class = xlvoQuestionTypes::getClassName($manager->getVoting()->getVotingType());
-		switch ($class) {
-			case xlvoQuestionTypes::CORRECT_ORDER:
-				return new xlvoCorrectOrderResultsGUI($manager, $manager->getVoting());
-			case xlvoQuestionTypes::FREE_INPUT:
-				return new xlvoFreeInputResultsGUI($manager, $manager->getVoting());
-			case xlvoQuestionTypes::FREE_ORDER:
-				return new xlvoFreeOrderResultsGUI($manager, $manager->getVoting());
-			case xlvoQuestionTypes::SINGLE_VOTE:
-				return new xlvoSingleVoteResultsGUI($manager, $manager->getVoting());
-			case xlvoQuestionTypes::NUMBER_RANGE:
-				return new xlvoNumberRangeResultsGUI($manager, $manager->getVoting());
-			default:
-				throw new ilException('Could not find the results gui for the given voting.');
-		}
-	}
+    /**
+     * @param string $key
+     *
+     * @return string
+     */
+    protected function txt($key)
+    {
+        return self::plugin()->translate($this->manager->getVoting()->getVotingType() . '_' . $key, 'qtype');
+    }
 
 
-	/**
-	 * @return string
-	 */
-	public abstract function getHTML();
+    /**
+     *
+     */
+    public function reset()
+    {
+        /**
+         * @var xlvoVote $xlvoVote
+         */
+        foreach (
+            xlvoVote::where(['voting_id' => $this->manager->getVoting()->getId(), 'round_id' => $this->manager->getPlayer()->getRoundId()])
+                ->get() as $xlvoVote
+        ) {
+            $xlvoVote->delete();
+        }
+    }
 
 
-	/**
-	 * @param xlvoVote[] $votes
-	 *
-	 * @return string
-	 *
-	 * TODO: Usage?
-	 */
-	public abstract function getTextRepresentationForVotes(array $votes);
+    /**
+     * void method to add necessary JS and CSS to maintemplate
+     */
+    public static function addJsAndCss()
+    {
+    }
 
+
+    /**
+     * @param xlvoVotingManager2 $manager
+     *
+     * @return xlvoInputResultsGUI
+     * @throws ilException         Throws an ilException if no results gui class was found.
+     */
+    public static function getInstance(xlvoVotingManager2 $manager)
+    {
+        $class = xlvoQuestionTypes::getClassName($manager->getVoting()->getVotingType());
+        switch ($class) {
+            case xlvoQuestionTypes::CORRECT_ORDER:
+                return new xlvoCorrectOrderResultsGUI($manager, $manager->getVoting());
+            case xlvoQuestionTypes::FREE_INPUT:
+                return new xlvoFreeInputResultsGUI($manager, $manager->getVoting());
+            case xlvoQuestionTypes::FREE_ORDER:
+                return new xlvoFreeOrderResultsGUI($manager, $manager->getVoting());
+            case xlvoQuestionTypes::SINGLE_VOTE:
+                return new xlvoSingleVoteResultsGUI($manager, $manager->getVoting());
+            case xlvoQuestionTypes::NUMBER_RANGE:
+                return new xlvoNumberRangeResultsGUI($manager, $manager->getVoting());
+            default:
+                throw new ilException('Could not find the results gui for the given voting.');
+        }
+    }
+
+
+    /**
+     * @return string
+     */
+    public abstract function getHTML();
+
+
+    /**
+     * @param xlvoVote[] $votes
+     *
+     * @return string
+     *
+     * TODO: Usage?
+     */
+    public abstract function getTextRepresentationForVotes(array $votes);
 }

@@ -11,14 +11,16 @@ use LiveVoting\Pin\xlvoPin;
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-class Puk extends xlvoPin {
+class Puk extends xlvoPin
+{
 
-	/**
-	 * @param string $puk
-	 */
-	public function __construct($puk = "") {
-		$this->pin_length = 10;
+    /**
+     * @param string $puk
+     */
+    public function __construct($puk = "")
+    {
+        $this->pin_length = 10;
 
-		parent::__construct($puk);
-	}
+        parent::__construct($puk);
+    }
 }
