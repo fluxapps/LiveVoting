@@ -302,14 +302,6 @@ qtype_6_mean#:#Mean
 qtype_6_median#:#Median
 qtype_6_mode#:#Mode
 qtype_6_mode_not_applicable#:#not applicable
-removeplugindataconfirm_cancel#:#Cancel
-removeplugindataconfirm_confirm_remove_data#:#Do you want to remove the %1$s data as well? At most, you just want to disable the %1$s plugin?
-removeplugindataconfirm_deactivate#:#Just deactivate %1$s plugin
-removeplugindataconfirm_data#:#%1$s data
-removeplugindataconfirm_keep_data#:#Keep %1$s data
-removeplugindataconfirm_msg_kept_data#:#The %1$s data was kept
-removeplugindataconfirm_msg_removed_data#:#The %1$s data was also removed
-removeplugindataconfirm_remove_data#:#Remove %1$s data
 btn_categorize#:#Categorize
 btn_categorize_done#:#Finish Categorizing
 btn_add_category#:#Add Category

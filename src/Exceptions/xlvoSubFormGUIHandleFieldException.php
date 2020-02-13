@@ -7,12 +7,14 @@ namespace LiveVoting\Exceptions;
  *
  * @package LiveVoting\Exceptions
  */
-class xlvoSubFormGUIHandleFieldException extends xlvoException {
+class xlvoSubFormGUIHandleFieldException extends xlvoException
+{
 
-	/**
-	 * @param string $message
-	 */
-	public function __construct($message) {
-		parent::__construct($message);
-	}
+    /**
+     * @param string $message
+     */
+    public function __construct($message)
+    {
+        parent::__construct($message);
+    }
 }

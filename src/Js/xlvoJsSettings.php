@@ -12,59 +12,64 @@ use srag\DIC\LiveVoting\DICTrait;
  * @package LiveVoting\Js
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  */
-class xlvoJsSettings {
+class xlvoJsSettings
+{
 
-	use DICTrait;
-	use LiveVotingTrait;
-	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
-	/**
-	 * @var array
-	 */
-	protected $settings = array();
-	/**
-	 * @var array
-	 */
-	protected $translations = array();
-
-
-	/**
-	 *
-	 */
-	public function __construct() {
-
-	}
+    use DICTrait;
+    use LiveVotingTrait;
+    const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
+    /**
+     * @var array
+     */
+    protected $settings = array();
+    /**
+     * @var array
+     */
+    protected $translations = array();
 
 
-	/**
-	 * @param string $name
-	 * @param mixed  $value
-	 */
-	public function addSetting($name, $value) {
-		$this->settings[$name] = $value;
-	}
+    /**
+     *
+     */
+    public function __construct()
+    {
+
+    }
 
 
-	/**
-	 * @param string $key
-	 */
-	public function addTranslation($key) {
-		$this->translations[$key] = self::plugin()->translate($key);
-	}
+    /**
+     * @param string $name
+     * @param mixed  $value
+     */
+    public function addSetting($name, $value)
+    {
+        $this->settings[$name] = $value;
+    }
 
 
-	/**
-	 * @return string
-	 */
-	public function asJson() {
-		$arr = array();
-		foreach ($this->settings as $name => $value) {
-			$arr[$name] = $value;
-		}
+    /**
+     * @param string $key
+     */
+    public function addTranslation($key)
+    {
+        $this->translations[$key] = self::plugin()->translate($key);
+    }
 
-		foreach ($this->translations as $key => $string) {
-			$arr['lng'][$key] = $string;
-		}
 
-		return json_encode($arr);
-	}
+    /**
+     * @return string
+     */
+    public function asJson()
+    {
+        $arr = array();
+        foreach ($this->settings as $name => $value) {
+            $arr[$name] = $value;
+        }
+
+        foreach ($this->translations as $key => $string) {
+            $arr['lng'][$key] = $string;
+        }
+
+        return json_encode($arr);
+    }
 }

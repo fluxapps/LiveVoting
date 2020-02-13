@@ -13,14 +13,16 @@ use srag\DIC\LiveVoting\DICTrait;
  * @package LiveVoting\GUI
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  */
-class xlvoToolbarGUI extends ilToolbarGUI {
+class xlvoToolbarGUI extends ilToolbarGUI
+{
 
-	use DICTrait;
-	use LiveVotingTrait;
-	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
+    use DICTrait;
+    use LiveVotingTrait;
+    const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 
 
-	protected function applyAutoStickyToSingleElement() {
-		return NULL;
-	}
+    protected function applyAutoStickyToSingleElement()
+    {
+        return null;
+    }
 }

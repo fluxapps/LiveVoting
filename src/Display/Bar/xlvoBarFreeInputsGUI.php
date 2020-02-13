@@ -11,179 +11,193 @@ use LiveVoting\Voting\xlvoVoting;
  * @package LiveVoting\Display\Bar
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  */
-class xlvoBarFreeInputsGUI extends xlvoAbstractBarGUI implements xlvoGeneralBarGUI {
+class xlvoBarFreeInputsGUI extends xlvoAbstractBarGUI implements xlvoGeneralBarGUI
+{
 
-	/**
-	 * @var xlvoVoting
-	 */
-	protected $voting;
-	/**
-	 * @var xlvoVote
-	 */
-	protected $vote;
-	/**
-	 * @var int
-	 */
-	private $occurrences;
-	/**
-	 * @var bool
-	 */
-	private $removable = false;
-	/**
-	 * @var bool
-	 */
-	private $strong = false;
-	/**
-	 * @var bool
-	 */
-	private $center = false;
-	/**
-	 * @var bool
-	 */
-	private $big = false;
-
-
-	/**
-	 * @param xlvoVoting $voting
-	 * @param xlvoVote   $vote
-	 */
-	public function __construct(xlvoVoting $voting, xlvoVote $vote) {
-		parent::__construct();
-		$this->voting = $voting;
-		$this->vote = $vote;
-		$this->tpl = self::plugin()->template('default/Display/Bar/tpl.bar_free_input.html');
-		$this->occurrences = 0;
-	}
+    /**
+     * @var xlvoVoting
+     */
+    protected $voting;
+    /**
+     * @var xlvoVote
+     */
+    protected $vote;
+    /**
+     * @var int
+     */
+    private $occurrences;
+    /**
+     * @var bool
+     */
+    private $removable = false;
+    /**
+     * @var bool
+     */
+    private $strong = false;
+    /**
+     * @var bool
+     */
+    private $center = false;
+    /**
+     * @var bool
+     */
+    private $big = false;
 
 
-	/**
-	 *
-	 */
-	protected function render() {
-		$this->tpl->setVariable('FREE_INPUT', nl2br($this->vote->getFreeInput(), false));
-		$this->tpl->setVariable('ID', $this->vote->getId());
-
-		if ($this->isRemovable()) {
-			$this->tpl->touchBlock('remove_button');
-		}
-		if ($this->isCenter()) {
-			$this->tpl->touchBlock('center');
-		}
-		if ($this->isBig()) {
-			$this->tpl->touchBlock('big');
-		}
-		if ($this->isStrong()) {
-			$this->tpl->touchBlock('strong');
-			$this->tpl->touchBlock('strong_end');
-		}
-
-		if ($this->occurrences > 1) {
-			$this->tpl->setVariable('GROUPED_BARS_COUNT', $this->occurrences);
-		}
-	}
+    /**
+     * @param xlvoVoting $voting
+     * @param xlvoVote   $vote
+     */
+    public function __construct(xlvoVoting $voting, xlvoVote $vote)
+    {
+        parent::__construct();
+        $this->voting = $voting;
+        $this->vote = $vote;
+        $this->tpl = self::plugin()->template('default/Display/Bar/tpl.bar_free_input.html');
+        $this->occurrences = 0;
+    }
 
 
-	/**
-	 * @return string
-	 */
-	public function getHTML() {
-		$this->render();
+    /**
+     *
+     */
+    protected function render()
+    {
+        $this->tpl->setVariable('FREE_INPUT', nl2br($this->vote->getFreeInput(), false));
+        $this->tpl->setVariable('ID', $this->vote->getId());
 
-		return $this->tpl->get();
-	}
+        if ($this->isRemovable()) {
+            $this->tpl->touchBlock('remove_button');
+        }
+        if ($this->isCenter()) {
+            $this->tpl->touchBlock('center');
+        }
+        if ($this->isBig()) {
+            $this->tpl->touchBlock('big');
+        }
+        if ($this->isStrong()) {
+            $this->tpl->touchBlock('strong');
+            $this->tpl->touchBlock('strong_end');
+        }
 
-
-	/**
-	 * @return int
-	 */
-	public function getOccurrences() {
-		return $this->occurrences;
-	}
-
-
-	/**
-	 * Compares the freetext of the current with the given object.
-	 * This function returns true if the free text is case insensitive equal to the
-	 * given one.
-	 *
-	 * @param xlvoBarFreeInputsGUI $bar The object which should be used for the comparison.
-	 *
-	 * @return bool True if the freetext is case insensitive equal to the given one.
-	 */
-	public function equals(xlvoGeneralBarGUI $bar) {
-		return strcasecmp(nl2br($this->vote->getFreeInput(), false), nl2br($bar->vote->getFreeInput(), false)) === 0;
-	}
+        if ($this->occurrences > 1) {
+            $this->tpl->setVariable('GROUPED_BARS_COUNT', $this->occurrences);
+        }
+    }
 
 
-	/**
-	 * @param int $occurrences
-	 */
-	public function setOccurrences($occurrences) {
-		$this->occurrences = $occurrences;
-	}
+    /**
+     * @return string
+     */
+    public function getHTML()
+    {
+        $this->render();
+
+        return $this->tpl->get();
+    }
 
 
-	/**
-	 * @return bool
-	 */
-	public function isStrong() {
-		return $this->strong;
-	}
+    /**
+     * @return int
+     */
+    public function getOccurrences()
+    {
+        return $this->occurrences;
+    }
 
 
-	/**
-	 * @param bool $strong
-	 */
-	public function setStrong($strong) {
-		$this->strong = $strong;
-	}
+    /**
+     * Compares the freetext of the current with the given object.
+     * This function returns true if the free text is case insensitive equal to the
+     * given one.
+     *
+     * @param xlvoBarFreeInputsGUI $bar The object which should be used for the comparison.
+     *
+     * @return bool True if the freetext is case insensitive equal to the given one.
+     */
+    public function equals(xlvoGeneralBarGUI $bar)
+    {
+        return strcasecmp(nl2br($this->vote->getFreeInput(), false), nl2br($bar->vote->getFreeInput(), false)) === 0;
+    }
 
 
-	/**
-	 * @return bool
-	 */
-	public function isCenter() {
-		return $this->center;
-	}
+    /**
+     * @param int $occurrences
+     */
+    public function setOccurrences($occurrences)
+    {
+        $this->occurrences = $occurrences;
+    }
 
 
-	/**
-	 * @param bool $center
-	 */
-	public function setCenter($center) {
-		$this->center = $center;
-	}
+    /**
+     * @return bool
+     */
+    public function isStrong()
+    {
+        return $this->strong;
+    }
 
 
-	/**
-	 * @return bool
-	 */
-	public function isBig() {
-		return $this->big;
-	}
+    /**
+     * @param bool $strong
+     */
+    public function setStrong($strong)
+    {
+        $this->strong = $strong;
+    }
 
 
-	/**
-	 * @param bool $big
-	 */
-	public function setBig($big) {
-		$this->big = $big;
-	}
+    /**
+     * @return bool
+     */
+    public function isCenter()
+    {
+        return $this->center;
+    }
 
 
-	/**
-	 * @return bool
-	 */
-	public function isRemovable() {
-		return $this->removable;
-	}
+    /**
+     * @param bool $center
+     */
+    public function setCenter($center)
+    {
+        $this->center = $center;
+    }
 
 
-	/**
-	 * @param bool $removable
-	 */
-	public function setRemovable($removable) {
-		$this->removable = $removable;
-	}
+    /**
+     * @return bool
+     */
+    public function isBig()
+    {
+        return $this->big;
+    }
 
+
+    /**
+     * @param bool $big
+     */
+    public function setBig($big)
+    {
+        $this->big = $big;
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function isRemovable()
+    {
+        return $this->removable;
+    }
+
+
+    /**
+     * @param bool $removable
+     */
+    public function setRemovable($removable)
+    {
+        $this->removable = $removable;
+    }
 }

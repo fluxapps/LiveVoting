@@ -12,39 +12,43 @@ use srag\DIC\LiveVoting\DICTrait;
  *
  * @package LiveVoting\Context\Initialisation\Version\v53
  */
-class xlvoStyleDefinition {
+class xlvoStyleDefinition
+{
 
-	use DICTrait;
-	use LiveVotingTrait;
-	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
-	/**
-	 * @var xlvoSkin
-	 */
-	protected $skin;
-
-
-	/**
-	 * xlvoStyleDefinition constructor.
-	 */
-	public function __construct() {
-		$this->skin = new xlvoSkin();
-	}
+    use DICTrait;
+    use LiveVotingTrait;
+    const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
+    /**
+     * @var xlvoSkin
+     */
+    protected $skin;
 
 
-	/**
-	 * @return string
-	 */
-	public function getSkin() {
-		return $this->skin;
-	}
+    /**
+     * xlvoStyleDefinition constructor.
+     */
+    public function __construct()
+    {
+        $this->skin = new xlvoSkin();
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getImageDirectory($style_id)
-	{
-		return '';
-	}
+
+    /**
+     * @return string
+     */
+    public function getSkin()
+    {
+        return $this->skin;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getImageDirectory($style_id)
+    {
+        return '';
+    }
 }
 
 /**
@@ -52,40 +56,45 @@ class xlvoStyleDefinition {
  *
  * @package LiveVoting\Context\Initialisation\Version\v53
  */
-class xlvoSkin {
+class xlvoSkin
+{
 
-	use DICTrait;
-
-
-	/**
-	 * @return string
-	 */
-	public function getId() {
-		return 'delos';
-	}
+    use DICTrait;
 
 
-	/**
-	 * @return bool
-	 */
-	public function hasStyle() {
-		return false;
-	}
+    /**
+     * @return string
+     */
+    public function getId()
+    {
+        return 'delos';
+    }
 
 
-	/**
-	 * @return string
-	 */
-	public function getName() {
-		return 'Delos';
-	}
+    /**
+     * @return bool
+     */
+    public function hasStyle()
+    {
+        return false;
+    }
 
-	/**
-	 * @return ilSkinStyleXML
-	 */
-	public function getDefaultStyle(){
-		// required with ilias 5.4
-		return new ilSkinStyleXML($this->getId(), $this->getName());
-	}
 
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return 'Delos';
+    }
+
+
+    /**
+     * @return ilSkinStyleXML
+     */
+    public function getDefaultStyle()
+    {
+        // required with ilias 5.4
+        return new ilSkinStyleXML($this->getId(), $this->getName());
+    }
 }
