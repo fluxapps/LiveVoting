@@ -13,34 +13,38 @@ use srag\DIC\LiveVoting\DICTrait;
  * @package LiveVoting\Context
  * @author  nschaefli
  */
-class xlvoILIAS {
+class xlvoILIAS
+{
 
-	use DICTrait;
-	use LiveVotingTrait;
-	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
-
-
-	public function __construct() {
-
-	}
+    use DICTrait;
+    use LiveVotingTrait;
+    const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 
 
-	/**
-	 * @param $key
-	 *
-	 * @return mixed
-	 */
-	public function getSetting($key) {
-		return self::dic()->settings()->get($key);
-	}
+    public function __construct()
+    {
+
+    }
 
 
-	/**
-	 * wrapper for downward compability
-	 *
-	 * @throws ilException
-	 */
-	public function raiseError($a_msg, $a_err_obj) {
-		throw new ilException($a_msg);
-	}
+    /**
+     * @param $key
+     *
+     * @return mixed
+     */
+    public function getSetting($key)
+    {
+        return self::dic()->settings()->get($key);
+    }
+
+
+    /**
+     * wrapper for downward compability
+     *
+     * @throws ilException
+     */
+    public function raiseError($a_msg, $a_err_obj)
+    {
+        throw new ilException($a_msg);
+    }
 }

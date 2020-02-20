@@ -219,6 +219,7 @@ voting_delete#:#Löschen
 voting_delete_confirm#:#Möchsten Sie die Abstimmung wirklich löschen?
 voting_description#:#Beschreibung
 voting_duplicate#:#Duplizieren
+voting_duplicateToAnotherObject#:#In ein anderes Objekt duplizieren
 voting_edit#:#Bearbeiten
 voting_export#:#Export
 voting_form_title_create#:#Frage
@@ -303,14 +304,6 @@ qtype_6_mean#:#Mittelwert
 qtype_6_median#:#Median
 qtype_6_mode#:#Modus
 qtype_6_mode_not_applicable#:#nicht verfügbar
-removeplugindataconfirm_cancel#:#Abbrechen
-removeplugindataconfirm_confirm_remove_data#:#Möchten Sie die %1$s-Daten auch entfernen? Allenfalls möchten Sie das %1$s-Plugin nur deaktivieren?
-removeplugindataconfirm_deactivate#:#%1$s-Plugin nur deaktivieren
-removeplugindataconfirm_data#:#%1$s-Daten
-removeplugindataconfirm_keep_data#:#%1$s-Daten behalten
-removeplugindataconfirm_msg_kept_data#:#Die %1$s-Daten wurden behalten
-removeplugindataconfirm_msg_removed_data#:#Die %1$s-Daten wurden auch entfernt
-removeplugindataconfirm_remove_data#:#Entferne %1$s-Daten
 btn_categorize#:#Kategorisieren
 btn_categorize_done#:#Kategorisieren beenden
 btn_add_category#:#Kategorie Hinzufügen

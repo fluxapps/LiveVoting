@@ -212,6 +212,7 @@ voting_delete#:#Törlés
 voting_delete_confirm#:#Biztos, hogy törli a szavazatot?
 voting_description#:#Leírás
 voting_duplicate#:#Duplikálás"
+voting_duplicateToAnotherObject#:#MISSING voting_duplicateToAnotherObject
 voting_edit#:#Módosítás
 voting_export#:#Exportálás
 voting_form_title_create#:#Kérdése
@@ -292,14 +293,6 @@ qtype_6_mean#:#MISSING qtype_6_mean
 qtype_6_median#:#MISSING qtype_6_median
 qtype_6_mode#:#MISSING qtype_6_mode
 qtype_6_mode_not_applicable#:#MISSING qtype_6_mode_not_applicable
-removeplugindataconfirm_cancel#:#MISSING removeplugindataconfirm_cancel
-removeplugindataconfirm_confirm_remove_data#:#MISSING removeplugindataconfirm_confirm_remove_data
-removeplugindataconfirm_deactivate#:#MISSING removeplugindataconfirm_deactivate
-removeplugindataconfirm_data#:#MISSING removeplugindataconfirm_data
-removeplugindataconfirm_keep_data#:#MISSING removeplugindataconfirm_keep_data
-removeplugindataconfirm_msg_kept_data#:#MISSING removeplugindataconfirm_msg_kept_data
-removeplugindataconfirm_msg_removed_data#:#MISSING removeplugindataconfirm_msg_removed_data
-removeplugindataconfirm_remove_data#:#MISSING removeplugindataconfirm_remove_data
 btn_categorize#:#MISSING
 btn_categorize_done#:#MISSING
 btn_add_category#:#MISSING

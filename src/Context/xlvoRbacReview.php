@@ -14,43 +14,47 @@ use srag\DIC\LiveVoting\DICTrait;
  * @package LiveVoting\Context
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  */
-class xlvoRbacReview {
+class xlvoRbacReview
+{
 
-	use DICTrait;
-	use LiveVotingTrait;
-	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
-
-
-	/**
-	 * @param $a_rol_id
-	 *
-	 * @return array
-	 */
-	public function assignedUsers($a_rol_id) {
-		return array();
-	}
+    use DICTrait;
+    use LiveVotingTrait;
+    const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 
 
-	/**
-	 * @param $user_id
-	 *
-	 * @return array
-	 */
-	public function assignedGlobalRoles($user_id) {
-		return array();
-	}
+    /**
+     * @param $a_rol_id
+     *
+     * @return array
+     */
+    public function assignedUsers($a_rol_id)
+    {
+        return array();
+    }
 
 
-	/**
-	 * get all assigned roles to a given user
-	 *
-	 * @access    public
-	 *
-	 * @param    integer        usr_id
-	 *
-	 * @return    array        all roles (id) the user have
-	 */
-	public function assignedRoles($a_usr_id) {
-		return [];
-	}
+    /**
+     * @param $user_id
+     *
+     * @return array
+     */
+    public function assignedGlobalRoles($user_id)
+    {
+        return array();
+    }
+
+
+    /**
+     * get all assigned roles to a given user
+     *
+     * @access    public
+     *
+     * @param integer        usr_id
+     *
+     * @return    array        all roles (id) the user have
+     */
+    public function assignedRoles($a_usr_id)
+    {
+        return [];
+    }
 }

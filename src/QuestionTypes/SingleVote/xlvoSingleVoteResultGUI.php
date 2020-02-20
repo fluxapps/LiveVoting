@@ -12,45 +12,48 @@ use LiveVoting\Vote\xlvoVote;
  * @package LiveVoting\QuestionTypes\SingleVote
  * @author  Oskar Truffer <ot@studer-raimann.ch>
  */
-class xlvoSingleVoteResultGUI extends xlvoResultGUI {
+class xlvoSingleVoteResultGUI extends xlvoResultGUI
+{
 
-	/**
-	 * @param xlvoVote[] $votes
-	 *
-	 * @return string
-	 */
-	public function getTextRepresentation(array $votes) {
-		if (!count($votes)) {
-			return "";
-		}
-		$strings = array();
-		foreach ($votes as $vote) {
-			$xlvoOption = $this->options[$vote->getOptionId()];
-			if ($xlvoOption instanceof xlvoOption) {
-				$strings[] = $xlvoOption->getTextForPresentation();
-			} else {
-				$strings[] = self::plugin()->translate("common_option_no_longer_available");
-			}
-		}
+    /**
+     * @param xlvoVote[] $votes
+     *
+     * @return string
+     */
+    public function getTextRepresentation(array $votes)
+    {
+        if (!count($votes)) {
+            return "";
+        }
+        $strings = array();
+        foreach ($votes as $vote) {
+            $xlvoOption = $this->options[$vote->getOptionId()];
+            if ($xlvoOption instanceof xlvoOption) {
+                $strings[] = $xlvoOption->getTextForPresentation();
+            } else {
+                $strings[] = self::plugin()->translate("common_option_no_longer_available");
+            }
+        }
 
-		return implode(", ", $strings);
-	}
+        return implode(", ", $strings);
+    }
 
 
-	/**
-	 * @param xlvoVote[] $votes
-	 *
-	 * @return string
-	 */
-	public function getAPIRepresentation(array $votes) {
-		if (!count($votes)) {
-			return "";
-		}
-		$strings = array();
-		foreach ($votes as $vote) {
-			$strings[] = $this->options[$vote->getOptionId()]->getText();
-		}
+    /**
+     * @param xlvoVote[] $votes
+     *
+     * @return string
+     */
+    public function getAPIRepresentation(array $votes)
+    {
+        if (!count($votes)) {
+            return "";
+        }
+        $strings = array();
+        foreach ($votes as $vote) {
+            $strings[] = $this->options[$vote->getOptionId()]->getText();
+        }
 
-		return implode(", ", $strings);
-	}
+        return implode(", ", $strings);
+    }
 }

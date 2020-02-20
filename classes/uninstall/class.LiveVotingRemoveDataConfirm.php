@@ -10,8 +10,9 @@ use srag\RemovePluginDataConfirm\LiveVoting\AbstractRemovePluginDataConfirm;
  *
  * @ilCtrl_isCalledBy LiveVotingRemoveDataConfirm: ilUIPluginRouterGUI
  */
-class LiveVotingRemoveDataConfirm extends AbstractRemovePluginDataConfirm {
+class LiveVotingRemoveDataConfirm extends AbstractRemovePluginDataConfirm
+{
 
-	use LiveVotingTrait;
-	const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
+    use LiveVotingTrait;
+    const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
 }
