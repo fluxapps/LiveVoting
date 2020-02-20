@@ -27,6 +27,8 @@ use iljQueryUtil;
 use ilLanguage;
 use ilLiveVotingPlugin;
 use ilLoggerFactory;
+use ilMailMimeSenderFactory;
+use ilMailMimeTransportFactory;
 use ilMainMenuGUI;
 use ilNavigationHistory;
 use ilObjectDataCache;
@@ -129,6 +131,7 @@ class xlvoBasicInitialisation
         $this->initPluginAdmin();
         $this->initAccess();
         $this->initTree();
+        $this->initMail();
         $this->initTemplate();
         $this->initTabs();
         $this->initNavigationHistory();
@@ -791,5 +794,19 @@ class xlvoBasicInitialisation
     private function initAppEventHandler()
     {
         $this->makeGlobal("ilAppEventHandler", new ilAppEventHandler());
+    }
+
+
+    /**
+     *
+     */
+    private function initMail() {
+        if (self::version()->is54()) {
+            $this->makeGlobal("mail.mime.transport.factory", new ilMailMimeTransportFactory(self::dic()->settings(), self::dic()->appEventHandler()));
+        } else {
+            $this->makeGlobal("mail.mime.transport.factory", new ilMailMimeTransportFactory(self::dic()->settings()));
+        }
+
+        $this->makeGlobal("mail.mime.sender.factory", new ilMailMimeSenderFactory(self::dic()->settings()));
     }
 }
