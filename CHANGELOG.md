@@ -1,6 +1,6 @@
 # Change Log
 
-## [x]
+## [4.4.0]
 - Clone questions in an other object
 - Fix mail may not init
 
