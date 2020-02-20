@@ -2,6 +2,7 @@
 
 ## [x]
 - Clone questions in an other object
+- Fix mail may not init
 
 ## [4.3.4]
 - Security Fix: PLLV-361 - Fixed code injection in free text questions
