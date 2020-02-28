@@ -1,5 +1,8 @@
 # Change Log
 
+## [4.4.1]
+- Fix may event not init before mail
+
 ## [4.4.0]
 - Clone questions in an other object
 - Fix mail may not init
