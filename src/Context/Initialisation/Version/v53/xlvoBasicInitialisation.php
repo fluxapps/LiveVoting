@@ -131,13 +131,13 @@ class xlvoBasicInitialisation
         $this->initPluginAdmin();
         $this->initAccess();
         $this->initTree();
+        $this->initAppEventHandler();
         $this->initMail();
         $this->initTemplate();
         $this->initTabs();
         $this->initNavigationHistory();
         $this->initHelp();
         $this->initMainMenu();
-        $this->initAppEventHandler();
     }
 
 
