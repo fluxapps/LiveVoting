@@ -1,5 +1,8 @@
 # Change Log
 
+## [4.4.2]
+- Fixed typos
+
 ## [4.4.1]
 - Fix may event not init before mail
 
