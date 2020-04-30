@@ -14,6 +14,7 @@ use ilDBWrapperFactory;
 use ilErrorHandling;
 use ilGlobalCache;
 use ilGlobalCacheSettings;
+use ilGlobalTemplate;
 use ilHelp;
 use ilHTTPS;
 use ILIAS\DI\Container;
@@ -179,7 +180,11 @@ class xlvoBasicInitialisation
         $ilias = new xlvoILIAS();
         $this->makeGlobal("ilias", $ilias);
 
-        $tpl = new \ilTemplate("tpl.main.html", true, true, 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting');
+        if (self::version()->is60()) {
+            $tpl = new ilGlobalTemplate("tpl.main.html", true, true, 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting');
+        } else {
+            $tpl = new \ilTemplate("tpl.main.html", true, true, 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting');
+        }
 
         $param_manager = ParamManager::getInstance();
         //$tpl = self::plugin()->template("default/tpl.main.html");
@@ -380,7 +385,7 @@ class xlvoBasicInitialisation
     private function initDependencyInjection()
     {
         global $DIC;
-        require_once 'libs/composer/vendor/autoload.php';
+        require_once 'libs/composer/vendor/autoload.php';;
         //			require_once 'src/DI/Container.php';
         $DIC = new Container();
         $DIC["ilLoggerFactory"] = function ($c) {

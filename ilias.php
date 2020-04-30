@@ -8,6 +8,7 @@
  * Depending on Context, an ILIAS environment or just the pin context is loaded
  */
 
+require_once __DIR__ . '/../../../../../../../libs/composer/vendor/autoload.php';
 require_once __DIR__ . "/vendor/autoload.php";
 require_once "dir.php";
 

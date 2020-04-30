@@ -79,8 +79,7 @@ class xlvoVoter2GUI extends xlvoGUI
                     $login_target = "{$ilias_base_path}goto.php?target=xlvo_1_pin_" . $this->pin;
 
                     //redirect
-                    self::dic()->mainTemplate()->setContent("<script>window.location.replace('$login_target');</script>");
-                    self::output()->output("", true);
+                    self::dic()->ctrl()->redirectToURL($login_target);
                 } else {
                     parent::executeCommand();
                 }

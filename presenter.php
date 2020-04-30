@@ -5,6 +5,7 @@
  * Presenter starts here. Use a RewriteRule to access this page a bit simpler
  */
 
+require_once __DIR__ . '/../../../../../../../libs/composer/vendor/autoload.php';
 require_once __DIR__ . "/vendor/autoload.php";
 require_once "dir.php";
 
