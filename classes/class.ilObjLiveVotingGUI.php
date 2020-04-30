@@ -78,7 +78,6 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
     protected function initHeaderAndLocator()
     {
         // get standard template (includes main menu and general layout)
-        self::dic()->mainTemplate()->getStandardTemplate();
         $this->setTitleAndDescription();
         // set title
         if (!$this->getCreationMode()) {
@@ -208,10 +207,6 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
                 }
                 break;
         }
-
-        if (!$this->getCreationMode()) {
-            self::dic()->mainTemplate()->show();
-        }
     }
 
 
@@ -325,7 +320,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
             self::dic()->tabs()->activateTab(self::TAB_EDIT);
             $this->initPropertiesForm();
             $this->fillPropertiesForm();
-            self::dic()->mainTemplate()->setContent($this->form->getHTML());
+            self::output()->output($this->form, true);
         }
     }
 
@@ -502,7 +497,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
             }
 
             $this->form->setValuesByPost();
-            self::dic()->mainTemplate()->setContent($this->form->getHtml());
+            self::output()->output($this->form, true);
         }
     }
 

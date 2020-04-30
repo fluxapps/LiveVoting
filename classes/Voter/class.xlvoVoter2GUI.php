@@ -79,8 +79,7 @@ class xlvoVoter2GUI extends xlvoGUI
                     $login_target = "{$ilias_base_path}goto.php?target=xlvo_1_pin_" . $this->pin;
 
                     //redirect
-                    self::dic()->mainTemplate()->setContent("<script>window.location.replace('$login_target');</script>");
-                    self::dic()->mainTemplate()->show("content");
+                    self::output()->output("<script>window.location.replace('$login_target');</script>", true);
                 } else {
                     parent::executeCommand();
                 }
@@ -123,7 +122,7 @@ class xlvoVoter2GUI extends xlvoGUI
         $tpl->setVariable('TITLE', $this->txt('pin_form_title'));
         $tpl->setVariable('FORM', $pin_form->getHTML());
 
-        self::dic()->mainTemplate()->setContent($tpl->get());
+        self::output()->output($tpl, true);
     }
 
 
@@ -166,7 +165,7 @@ class xlvoVoter2GUI extends xlvoGUI
         $this->initJsAndCss();
         self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/default.css');
         $tpl = self::plugin()->template('default/Voter/tpl.voter_player.html', true, false);
-        self::dic()->mainTemplate()->setContent($tpl->get());
+        self::output()->output($tpl, true);
     }
 
 

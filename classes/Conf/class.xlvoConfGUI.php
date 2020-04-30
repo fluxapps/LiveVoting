@@ -53,7 +53,7 @@ class xlvoConfGUI extends xlvoGUI
 
         $xlvoConfFormGUI = new xlvoConfFormGUI($this);
         $xlvoConfFormGUI->fillForm();
-        self::dic()->mainTemplate()->setContent($xlvoConfFormGUI->getHTML());
+        self::output()->output($xlvoConfFormGUI, true);
     }
 
 
@@ -73,7 +73,7 @@ class xlvoConfGUI extends xlvoGUI
             ilUtil::sendSuccess($this->txt('msg_success'), true);
             self::dic()->ctrl()->redirect($this, self::CMD_STANDARD);
         }
-        self::dic()->mainTemplate()->setContent($xlvoConfFormGUI->getHTML());
+        self::output()->output($xlvoConfFormGUI, true);
     }
 
 
