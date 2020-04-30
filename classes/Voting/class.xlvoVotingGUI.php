@@ -583,7 +583,7 @@ class xlvoVotingGUI
     {
         $form = $this->getDuplicateToAnotherObjectSelectForm();
 
-        self::dic()->mainTemplate()->setContent($form->getHTML());
+        self::output()->output($form);
     }
 
 
@@ -606,7 +606,7 @@ class xlvoVotingGUI
         $form = $this->getDuplicateToAnotherObjectSelectForm();
 
         if (!$form->storeForm()) {
-            self::dic()->mainTemplate()->setContent($form->getHTML());
+            self::output()->output($form);
 
             return;
         }
