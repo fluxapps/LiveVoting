@@ -385,7 +385,7 @@ class xlvoBasicInitialisation
     private function initDependencyInjection()
     {
         global $DIC;
-        require_once 'libs/composer/vendor/autoload.php';;
+        require_once 'libs/composer/vendor/autoload.php';
         //			require_once 'src/DI/Container.php';
         $DIC = new Container();
         $DIC["ilLoggerFactory"] = function ($c) {
