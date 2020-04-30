@@ -80,6 +80,7 @@ class xlvoVoter2GUI extends xlvoGUI
 
                     //redirect
                     self::output()->output("<script>window.location.replace('$login_target');</script>", true);
+                    self::output()->output("", true);
                 } else {
                     parent::executeCommand();
                 }

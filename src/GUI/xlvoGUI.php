@@ -66,6 +66,9 @@ abstract class xlvoGUI
                 $this->{$cmd}();
                 break;
         }
+        if ($this->is_api_call) {
+            self::output()->output("", true);
+        }
     }
 
 
