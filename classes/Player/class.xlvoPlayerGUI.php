@@ -141,7 +141,7 @@ class xlvoPlayerGUI extends xlvoGUI
         }
         $js->call('handleStartButton');
 
-        self::output()->output($template, true);
+        self::output()->output($template);
     }
 
 
@@ -166,7 +166,7 @@ class xlvoPlayerGUI extends xlvoGUI
         $this->manager->getPlayer()->setStatus(xlvoPlayer::STAT_RUNNING);
         $this->manager->getPlayer()->unfreeze(trim(filter_input(INPUT_GET, ParamManager::PARAM_VOTING), "/"));
         $modal = xlvoQRModalGUI::getInstanceFromVotingConfig($this->manager->getVotingConfig())->getHTML();
-        self::output()->output($modal . $this->getPlayerHTML(), true);
+        self::output()->output($modal . $this->getPlayerHTML());
         $this->handlePreview();
     }
 
@@ -186,7 +186,7 @@ class xlvoPlayerGUI extends xlvoGUI
 
         $this->initToolbarDuringVoting();
         $modal = xlvoQRModalGUI::getInstanceFromVotingConfig($this->manager->getVotingConfig())->getHTML();
-        self::output()->output($modal . $this->getPlayerHTML(), true);
+        self::output()->output($modal . $this->getPlayerHTML());
         $this->handlePreview();
     }
 

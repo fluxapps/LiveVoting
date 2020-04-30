@@ -167,7 +167,6 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
                 $perm_gui = new ilPermissionGUI($this);
                 self::dic()->tabs()->activateTab(self::TAB_PERMISSIONS);
                 $ret = self::dic()->ctrl()->forwardCommand($perm_gui);
-                self::output()->output("", true);
                 break;
 
             case 'ilobjectcopygui':
@@ -325,7 +324,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
             self::dic()->tabs()->activateTab(self::TAB_EDIT);
             $this->initPropertiesForm();
             $this->fillPropertiesForm();
-            self::output()->output($this->form, true);
+            self::output()->output($this->form);
         }
     }
 
@@ -502,7 +501,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
             }
 
             $this->form->setValuesByPost();
-            self::output()->output($this->form, true);
+            self::output()->output($this->form);
         }
     }
 
@@ -591,15 +590,5 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
     {
         ilDesktopItemGUI::removeFromDesktop();
         ilUtil::sendSuccess(self::dic()->language()->txt("removed_from_desktop"));
-    }
-
-
-    /**
-     * @inheritDoc
-     */
-    public function infoScreen()/*:void*/
-    {
-        parent::infoScreen();
-        self::output()->output("", true);
     }
 }

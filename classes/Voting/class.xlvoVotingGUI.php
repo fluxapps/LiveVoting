@@ -174,7 +174,7 @@ class xlvoVotingGUI
                             . "_info_manual_" . $step)) . '</li>';
                 }, range(1, 4))) . '</ol>' : ''); // TODO: default.css not loaded
 
-            self::output()->output([$xlvoVotingTableGUI, $powerpoint_export], true);
+            self::output()->output([$xlvoVotingTableGUI, $powerpoint_export]);
         }
     }
 
@@ -203,7 +203,7 @@ class xlvoVotingGUI
             }
             $form->addItem($cb);
 
-            self::output()->output($form, true);
+            self::output()->output($form);
         }
     }
 
@@ -221,7 +221,7 @@ class xlvoVotingGUI
             $xlvoVoting->setVotingType($_POST[self::F_TYPE]);
             $xlvoVotingFormGUI = xlvoVotingFormGUI::get($this, $xlvoVoting);
             $xlvoVotingFormGUI->fillForm();
-            self::output()->output($xlvoVotingFormGUI, true);
+            self::output()->output($xlvoVotingFormGUI);
         }
     }
 
@@ -243,7 +243,7 @@ class xlvoVotingGUI
                 ilUtil::sendSuccess(self::plugin()->translate('msg_success_voting_created'), true);
                 self::dic()->ctrl()->redirect($this, self::CMD_STANDARD);
             }
-            self::output()->output($xlvoVotingFormGUI, true);
+            self::output()->output($xlvoVotingFormGUI);
         }
     }
 
@@ -318,7 +318,7 @@ class xlvoVotingGUI
 
             $xlvoVotingFormGUI->addItem($presenter_link);
 
-            self::output()->output($xlvoVotingFormGUI, true);
+            self::output()->output($xlvoVotingFormGUI);
         }
     }
 
@@ -350,7 +350,7 @@ class xlvoVotingGUI
                 ilUtil::sendSuccess(self::plugin()->translate('msg_success_voting_updated'), true);
                 self::dic()->ctrl()->redirect($this, $cmd);
             }
-            self::output()->output($xlvoVotingFormGUI, true);
+            self::output()->output($xlvoVotingFormGUI);
         }
     }
 
@@ -378,7 +378,7 @@ class xlvoVotingGUI
                 $confirm->setCancel($this->txt('cancel'), self::CMD_CANCEL);
                 $confirm->setConfirm($this->txt('delete'), self::CMD_DELETE);
 
-                self::output()->output($confirm, true);
+                self::output()->output($confirm);
             } else {
                 ilUtil::sendFailure(self::plugin()->translate('permission_denied_object'), true);
                 self::dic()->ctrl()->redirect($this, self::CMD_STANDARD);
@@ -450,7 +450,7 @@ class xlvoVotingGUI
                 $confirm->setCancel($this->txt('cancel'), self::CMD_CANCEL);
                 $confirm->setConfirm($this->txt('reset'), self::CMD_RESET);
 
-                self::output()->output($confirm, true);
+                self::output()->output($confirm);
             } else {
                 ilUtil::sendFailure($this->txt('permission_denied_object'), true);
                 self::dic()->ctrl()->redirect($this, self::CMD_STANDARD);
@@ -515,7 +515,7 @@ class xlvoVotingGUI
             $confirm->setCancel($this->txt('cancel'), self::CMD_CANCEL);
             $confirm->setConfirm($this->txt('reset_all'), self::CMD_RESET_ALL);
 
-            self::output()->output($confirm, true);
+            self::output()->output($confirm);
         }
     }
 
@@ -583,7 +583,7 @@ class xlvoVotingGUI
     {
         $form = $this->getDuplicateToAnotherObjectSelectForm();
 
-        self::output()->output($form, true);
+        self::output()->output($form);
     }
 
 
@@ -606,7 +606,7 @@ class xlvoVotingGUI
         $form = $this->getDuplicateToAnotherObjectSelectForm();
 
         if (!$form->storeForm()) {
-            self::output()->output($form, true);
+            self::output()->output($form);
 
             return;
         }
