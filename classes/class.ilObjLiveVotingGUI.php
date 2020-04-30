@@ -129,10 +129,6 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
         } else {
             $this->redirectToPublicVotingMask();
         }
-
-        if (!$this->getCreationMode()) {
-            self::output()->output("", true);
-        }
     }
 
 
@@ -211,6 +207,10 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
                     }
                 }
                 break;
+        }
+
+        if (!$this->getCreationMode()) {
+            self::output()->output("", true);
         }
     }
 
