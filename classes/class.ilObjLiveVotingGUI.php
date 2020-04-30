@@ -501,7 +501,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
             }
 
             $this->form->setValuesByPost();
-            self::dic()->mainTemplate()->setContent($this->form->getHTML());
+            self::dic()->mainTemplate()->setContent($this->form->getHtml());
         }
     }
 
