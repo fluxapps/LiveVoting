@@ -324,7 +324,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
             self::dic()->tabs()->activateTab(self::TAB_EDIT);
             $this->initPropertiesForm();
             $this->fillPropertiesForm();
-            self::output()->output($this->form);
+            self::dic()->mainTemplate()->setContent($this->form->getHTML());
         }
     }
 
@@ -501,7 +501,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
             }
 
             $this->form->setValuesByPost();
-            self::output()->output($this->form);
+            self::dic()->mainTemplate()->setContent($this->form->getHTML());
         }
     }
 
