@@ -610,15 +610,7 @@ class xlvoPlayerGUI extends xlvoGUI
      */
     protected function initJsAndCss()
     {
-        switch (true) {
-            case self::version()->is53():
-            case self::version()->is52():
-                ilMathJax::getInstance()->includeMathJax();
-                break;
-            default:
-                throw new ilException('Can not initialise js and css for the installed ILIAS version.');
-                break;
-        }
+        ilMathJax::getInstance()->includeMathJax();
 
         $mathJaxSetting = new ilSetting("MathJax");
         $settings = array(

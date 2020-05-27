@@ -41,7 +41,6 @@ final class InitialisationManager
     {
         switch (true) {
             case self::version()->is54():
-            case self::version()->is53():
                 // 5.3 and 5.4 work with the same initialisation
                 Initialisation\Version\v53\xlvoBasicInitialisation::init();
                 break;

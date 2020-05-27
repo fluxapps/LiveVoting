@@ -180,7 +180,7 @@ class xlvoBasicInitialisation
         $ilias = new xlvoILIAS();
         $this->makeGlobal("ilias", $ilias);
 
-        if (self::version()->is60()) {
+        if (self::version()->is6()) {
             $tpl = new ilGlobalTemplate("tpl.main.html", true, true, 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting');
         } else {
             $tpl = new \ilTemplate("tpl.main.html", true, true, 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting');
