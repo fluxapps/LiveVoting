@@ -610,16 +610,6 @@ class xlvoPlayerGUI extends xlvoGUI
      */
     protected function initJsAndCss()
     {
-        switch (true) {
-            case self::version()->is53():
-            case self::version()->is52():
-                ilMathJax::getInstance()->includeMathJax();
-                break;
-            default:
-                throw new ilException('Can not initialise js and css for the installed ILIAS version.');
-                break;
-        }
-
         $mathJaxSetting = new ilSetting("MathJax");
         $settings = array(
             'status_running' => xlvoPlayer::STAT_RUNNING,
@@ -627,6 +617,9 @@ class xlvoPlayerGUI extends xlvoGUI
             'use_mathjax'    => (bool) $mathJaxSetting->get("enable"),
             'debug'          => self::DEBUG
         );
+
+        xlvoJs::getInstance()->initMathJax();
+
         $keyboard = new stdClass();
         $keyboard->active = $this->manager->getVotingConfig()->isKeyboardActive();
         if ($keyboard->active) {

@@ -1,5 +1,8 @@
 # Change Log
 
+## [4.4.3]
+- Fixed complication with MathJax v3
+
 ## [4.4.2]
 - Fixed typos
 
