@@ -197,11 +197,9 @@ class xlvoVoter2GUI extends xlvoGUI
         self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/QuestionTypes/NumberRange/number_range.css');
         iljQueryUtil::initjQueryUI();
 
-        ilMathJax::getInstance()->includeMathJax();
-
         $t = array('player_seconds');
 
-        $mathJaxSetting = new ilSetting("MathJax");
+        xlvoJs::getInstance()->initMathJax();
 
         /**
          * @var string $delay
@@ -216,6 +214,7 @@ class xlvoVoter2GUI extends xlvoGUI
         }
         $delay *= 1000;
 
+        $mathJaxSetting = new ilSetting("MathJax");
         $settings = array(
             'use_mathjax' => (bool) $mathJaxSetting->get("enable"),
             'debug'       => self::DEBUG,
