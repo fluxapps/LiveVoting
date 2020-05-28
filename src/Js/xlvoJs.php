@@ -8,6 +8,8 @@ use LiveVoting\Context\Param\ParamManager;
 use LiveVoting\GUI\xlvoGUI;
 use LiveVoting\Utils\LiveVotingTrait;
 use srag\DIC\LiveVoting\DICTrait;
+use ilSetting;
+use ilMathJax;
 
 /**
  * Class xlvoJs
@@ -293,5 +295,18 @@ class xlvoJs
         }
 
         return $this;
+    }
+
+    /**
+     *
+     */
+    public function initMathJax()
+    {
+        $mathJaxSetting = new ilSetting("MathJax");
+        if (strpos($mathJaxSetting->get('path_to_mathjax'), 'mathjax@3') !== false) { // not sure if this check will work with >v3
+            // mathjax v3 needs to be configured differently
+            $this->addLibToHeader('mathjax_config.js');
+        }
+        ilMathJax::getInstance()->includeMathJax();
     }
 }

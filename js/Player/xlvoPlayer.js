@@ -15,8 +15,10 @@ var xlvoPlayer = {
 		var node = $('#xlvo-display-player').children();
 		$('#xlvo-display-player').css('height', node.css('height'));
 
-		if (xlvoPlayer.config.use_mathjax && !!MathJax) {
-			MathJax.Hub.Config(xlvoPlayer.mathjax_config);
+		if (xlvoPlayer.config.use_mathjax && !!MathJax && (MathJax.version.charAt(0) !== '3')) {
+			MathJax.Hub.Config({
+				"HTML-CSS": {scale: 80}
+			});
 		}
 	},
 	mathjax_config: {
@@ -292,7 +294,7 @@ var xlvoPlayer = {
 					}.bind(oldNode));
 
 
-					if (xlvoPlayer.config.use_mathjax && !!MathJax) {
+					if (xlvoPlayer.config.use_mathjax && !!MathJax && (MathJax.version.charAt(0) !== '3')) {
 						xlvoPlayer.log('kick mathjax');
 						MathJax.Hub.Config(xlvoPlayer.mathjax_config);
 						MathJax.Hub.Queue(
