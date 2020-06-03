@@ -14,7 +14,7 @@ use ilObjUser;
  * @package LiveVoting\Context
  * @author  Nicolas Schäfli <ns@studer-raimann.ch>
  */
-class xlvoDummyUser extends ilObjUser
+class xlvoDummyUser54 extends ilObjUser
 {
 
     use DICTrait;

@@ -44,7 +44,7 @@ use ilUtil;
 use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Context\Param\ParamManager;
 use LiveVoting\Context\xlvoContext;
-use LiveVoting\Context\xlvoDummyUser;
+use LiveVoting\Context\xlvoDummyUser54;
 use LiveVoting\Context\xlvoILIAS;
 use LiveVoting\Context\xlvoObjectDefinition;
 use LiveVoting\Context\xlvoRbacReview;
@@ -52,6 +52,7 @@ use LiveVoting\Context\xlvoRbacSystem;
 use LiveVoting\Session\xlvoSessionHandler;
 use LiveVoting\Utils\LiveVotingTrait;
 use srag\DIC\LiveVoting\DICTrait;
+use LiveVoting\Context\xlvoDummyUser6;
 
 /**
  * Class xlvoBasicInitialisation for ILIAS 6
@@ -684,7 +685,7 @@ class xlvoBasicInitialisation
      */
     private function initUser()
     {
-        $this->makeGlobal('ilUser', new xlvoDummyUser());
+        $this->makeGlobal('ilUser', new xlvoDummyUser6());
     }
 
 

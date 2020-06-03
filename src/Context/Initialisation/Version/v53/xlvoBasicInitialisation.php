@@ -44,7 +44,7 @@ use ilUtil;
 use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Context\Param\ParamManager;
 use LiveVoting\Context\xlvoContext;
-use LiveVoting\Context\xlvoDummyUser;
+use LiveVoting\Context\xlvoDummyUser54;
 use LiveVoting\Context\xlvoILIAS;
 use LiveVoting\Context\xlvoObjectDefinition;
 use LiveVoting\Context\xlvoRbacReview;
@@ -684,7 +684,7 @@ class xlvoBasicInitialisation
      */
     private function initUser()
     {
-        $this->makeGlobal('ilUser', new xlvoDummyUser());
+        $this->makeGlobal('ilUser', new xlvoDummyUser54());
     }
 
 
