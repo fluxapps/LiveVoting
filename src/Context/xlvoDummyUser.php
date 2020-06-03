@@ -5,6 +5,7 @@ namespace LiveVoting\Context;
 use ilLiveVotingPlugin;
 use LiveVoting\Utils\LiveVotingTrait;
 use srag\DIC\LiveVoting\DICTrait;
+use ilObjUser;
 
 /**
  * Class xlvoDummyUser
@@ -13,7 +14,7 @@ use srag\DIC\LiveVoting\DICTrait;
  * @package LiveVoting\Context
  * @author  Nicolas Schäfli <ns@studer-raimann.ch>
  */
-class xlvoDummyUser
+class xlvoDummyUser extends ilObjUser
 {
 
     use DICTrait;
@@ -21,6 +22,12 @@ class xlvoDummyUser
     const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
     const LANGUAGE_CODE = "de";
 
+    /**
+     * xlvoDummyUser constructor.
+     */
+    public function __construct()
+    {
+    }
 
     /**
      * Returns the language of the user.
