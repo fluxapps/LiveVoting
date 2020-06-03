@@ -4,6 +4,9 @@
 - ILIAS 6 support
 - Remove ILIAS 5.3 support
 
+## [4.4.3]
+- Fixed complication with MathJax v3
+
 ## [4.4.2]
 - Fixed typos
 
