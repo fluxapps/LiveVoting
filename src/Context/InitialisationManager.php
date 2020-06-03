@@ -64,7 +64,7 @@ final class InitialisationManager
     {
         xlvoInitialisation::init();
 
-        if (self::dic()->user() instanceof ilObjUser && self::dic()->user()->getId()) {
+        if (!(self::dic()->user() instanceof xlvoDummyUser) && self::dic()->user()->getId()) {
             xlvoUser::getInstance()->setIdentifier(self::dic()->user()->getId())->setType(xlvoUser::TYPE_ILIAS);
 
             return;
