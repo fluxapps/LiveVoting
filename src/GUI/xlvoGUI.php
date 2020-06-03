@@ -68,6 +68,9 @@ abstract class xlvoGUI
         }
         if ($this->is_api_call) {
             if (self::version()->is6()) {
+                self::dic()->mainTemplate()->fillJavaScriptFiles();
+                self::dic()->mainTemplate()->fillCssFiles();
+                self::dic()->mainTemplate()->fillOnLoadCode();
                 self::dic()->mainTemplate()->printToStdout(false, false, true);
             } else {
                 self::dic()->mainTemplate()->show();
