@@ -29,34 +29,33 @@ So you have to adjust it's namespaces in your code such in `classes` or `src` fo
 So you can force to use your libraries classes in the `vendor` folder of your plugin and come not in conflict to other plugins with different library versions and you don't need to adjust your plugins to newer library versions until you run `composer update` on your plugin.
 
 It support the follow libraries:
-* [srag/activerecordconfig](https://packagist.org/packages/srag/activerecordconfig)
-* [srag/bexiocurl](https://packagist.org/packages/srag/bexiocurl)
-* [srag/custominputguis](https://packagist.org/packages/srag/custominputguis)
-* [srag/dclextensions](https://packagist.org/packages/srag/dclextension)
-* [srag/dic](https://packagist.org/packages/srag/dic)
-* [srag/gitcurl](https://packagist.org/packages/srag/gitcurl)
-* [srag/jasperreport](https://packagist.org/packages/srag/jasperreport)
-* [srag/jiracurl](https://packagist.org/packages/srag/jiracurl)
-* [srag/removeplugindataconfirm](https://packagist.org/packages/srag/removeplugindataconfirm)
+* [srag libraries](https://packagist.org/packages/srag)
 
-### Dependencies
-* PHP >=5.6
-* [composer](https://getcomposer.org)
+### PHP72Backport
+If your plugin needs a PHP 7.0 compatible of version of a PHP 7.2/7.1 library, you can also add additionally the follow composer script:
+```json
+ "pre-autoload-dump": [
+    ...,
+      "srag\\LibrariesNamespaceChanger\\PHP72Backport::PHP72Backport"
+    ]
+```
 
-Please use it for further development!
+It works with RegExp and affects your whole plugin workspace (`classes`, `src`, `vendor`, ...)
+
+### php7backport
+If your plugin needs a PHP 5.6 compatible of version of a PHP 7.0 library, you can also add additionally the follow composer script:
+```json
+ "post-update-cmd": "srag\\LibrariesNamespaceChanger\\PHP7Backport::PHP7Backport"
+```
+
+It uses the https://github.com/ondrejbouda/php7backport.git repo, but provides it as a composer script and patches it, amongst other things, it fix interfaces
+
+### Requirements
+* PHP >=7.0
 
 ### Adjustment suggestions
-* Adjustment suggestions by pull requests on https://git.studer-raimann.ch/ILIAS/Plugins/LibrariesNamespaceChanger/tree/develop
-* Adjustment suggestions which are not yet worked out in detail by Jira tasks under https://jira.studer-raimann.ch/projects/LNAMESPACECHANGER
-* Bug reports under https://jira.studer-raimann.ch/projects/LNAMESPACECHANGER
-* For external users please send an email to support-custom1@studer-raimann.ch
-
-### Development
-If you want development in this library you should install this library like follow:
-
-Start at your ILIAS root directory
-```bash
-mkdir -p Customizing/global/libraries
-cd Customizing/global/libraries
-git clone -b develop git@git.studer-raimann.ch:ILIAS/Plugins/LibrariesNamespaceChanger.git LibrariesNamespaceChanger
-```
+* External users can report suggestions and bugs at https://plugins.studer-raimann.ch/goto.php?target=uihk_srsu_LNAMESPACECHANGER
+* Adjustment suggestions by pull requests via github
+* Customer of studer + raimann ag: 
+	* Adjustment suggestions which are not yet worked out in detail by Jira tasks under https://jira.studer-raimann.ch/projects/LNAMESPACECHANGER
+	* Bug reports under https://jira.studer-raimann.ch/projects/LNAMESPACECHANGER

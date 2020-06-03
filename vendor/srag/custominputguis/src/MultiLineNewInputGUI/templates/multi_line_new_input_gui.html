@@ -1,0 +1,20 @@
+<div class="multi_line_new_input_gui" data-counter="{COUNTER}" data-remove_first_line="{REMOVE_FIRST_LINE}" data-required="{REQUIRED}" data-show_input_label="{SHOW_INPUT_LABEL}">
+	<!-- BEGIN add_first_line -->
+	<div>
+		<div {HIDE_ADD_FIRST_LINE}>
+			<div data-actions>
+				<span data-action="addFirstLine">{ADD_FIRST_LINE}</span>
+			</div>
+		</div>
+	</div>    <!-- END add_first_line -->
+	<div>
+		<!-- BEGIN line -->
+		<div {HIDE_LINE}> {SORT} {INPUTS}
+			<div data-actions>
+				<span data-action="add">{ADD}</span>
+			</div>
+			<div data-actions>
+				<span data-action="remove" {HIDE_REMOVE}>{REMOVE}</span>
+			</div>
+		</div>        <!-- END line -->    </div>
+</div>

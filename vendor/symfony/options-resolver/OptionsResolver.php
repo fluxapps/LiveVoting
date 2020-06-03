@@ -175,7 +175,7 @@ class OptionsResolver implements Options
         // to resolve options with lazy closures, normalizers or validation
         // rules, none of which can exist for undefined options
         // If the option was resolved before, update the resolved value
-        if (!isset($this->defined[$option]) || array_key_exists($option, $this->resolved)) {
+        if (!isset($this->defined[$option]) || \array_key_exists($option, $this->resolved)) {
             $this->resolved[$option] = $value;
         }
 
@@ -215,7 +215,7 @@ class OptionsResolver implements Options
      */
     public function hasDefault($option)
     {
-        return array_key_exists($option, $this->defaults);
+        return \array_key_exists($option, $this->defaults);
     }
 
     /**
@@ -280,7 +280,7 @@ class OptionsResolver implements Options
      */
     public function isMissing($option)
     {
-        return isset($this->required[$option]) && !array_key_exists($option, $this->defaults);
+        return isset($this->required[$option]) && !\array_key_exists($option, $this->defaults);
     }
 
     /**
@@ -694,12 +694,12 @@ class OptionsResolver implements Options
         }
 
         // Shortcut for resolved options
-        if (array_key_exists($option, $this->resolved)) {
+        if (\array_key_exists($option, $this->resolved)) {
             return $this->resolved[$option];
         }
 
         // Check whether the option is set at all
-        if (!array_key_exists($option, $this->defaults)) {
+        if (!\array_key_exists($option, $this->defaults)) {
             if (!isset($this->defined[$option])) {
                 throw new NoSuchOptionException(sprintf('The option "%s" does not exist. Defined options are: "%s".', $option, implode('", "', array_keys($this->defined))));
             }
@@ -734,7 +734,7 @@ class OptionsResolver implements Options
 
         // Validate the type of the resolved option
         if (isset($this->allowedTypes[$option])) {
-            $valid = false;
+            $valid = true;
             $invalidTypes = [];
 
             foreach ($this->allowedTypes[$option] as $type) {
@@ -746,13 +746,22 @@ class OptionsResolver implements Options
             }
 
             if (!$valid) {
-                $keys = array_keys($invalidTypes);
+                $fmtActualValue = $this->formatValue($value);
+                $fmtAllowedTypes = implode('" or "', $this->allowedTypes[$option]);
+                $fmtProvidedTypes = implode('|', array_keys($invalidTypes));
 
-                if (1 === \count($keys) && '[]' === substr($keys[0], -2)) {
-                    throw new InvalidOptionsException(sprintf('The option "%s" with value %s is expected to be of type "%s", but one of the elements is of type "%s".', $option, $this->formatValue($value), implode('" or "', $this->allowedTypes[$option]), $keys[0]));
+                $allowedContainsArrayType = \count(array_filter(
+                    $this->allowedTypes[$option],
+                    function ($item) {
+                        return '[]' === substr(isset(self::$typeAliases[$item]) ? self::$typeAliases[$item] : $item, -2);
+                    }
+                )) > 0;
+
+                if (\is_array($value) && $allowedContainsArrayType) {
+                    throw new InvalidOptionsException(sprintf('The option "%s" with value %s is expected to be of type "%s", but one of the elements is of type "%s".', $option, $fmtActualValue, $fmtAllowedTypes, $fmtProvidedTypes));
                 }
 
-                throw new InvalidOptionsException(sprintf('The option "%s" with value %s is expected to be of type "%s", but is of type "%s".', $option, $this->formatValue($value), implode('" or "', $this->allowedTypes[$option]), implode('|', array_keys($invalidTypes))));
+                throw new InvalidOptionsException(sprintf('The option "%s" with value %s is expected to be of type "%s", but is of type "%s".', $option, $fmtActualValue, $fmtAllowedTypes, $fmtProvidedTypes));
             }
         }
 
@@ -858,21 +867,14 @@ class OptionsResolver implements Options
     {
         $type = substr($type, 0, -2);
 
-        $suffix = '[]';
-        while (\strlen($suffix) <= $level * 2) {
-            $suffix .= '[]';
-        }
-
         if ('[]' === substr($type, -2)) {
             $success = true;
             foreach ($value as $item) {
                 if (!\is_array($item)) {
-                    $invalidTypes[$this->formatTypeOf($item, null).$suffix] = true;
+                    $invalidTypes[$this->formatTypeOf($item, null)] = true;
 
-                    return false;
-                }
-
-                if (!$this->verifyArrayType($type, $item, $invalidTypes, $level + 1)) {
+                    $success = false;
+                } elseif (!$this->verifyArrayType($type, $item, $invalidTypes, $level + 1)) {
                     $success = false;
                 }
             }
@@ -880,15 +882,17 @@ class OptionsResolver implements Options
             return $success;
         }
 
+        $valid = true;
+
         foreach ($value as $item) {
             if (!self::isValueValidType($type, $item)) {
-                $invalidTypes[$this->formatTypeOf($item, $type).$suffix] = $value;
+                $invalidTypes[$this->formatTypeOf($item, $type)] = $value;
 
-                return false;
+                $valid = false;
             }
         }
 
-        return true;
+        return $valid;
     }
 
     /**
@@ -908,7 +912,7 @@ class OptionsResolver implements Options
             throw new AccessException('Array access is only supported within closures of lazy options and normalizers.');
         }
 
-        return array_key_exists($option, $this->defaults);
+        return \array_key_exists($option, $this->defaults);
     }
 
     /**

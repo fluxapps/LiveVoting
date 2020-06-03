@@ -20,10 +20,10 @@
     }
   ],
   "support": {
-    "email": "support-custom1@studer-raimann.ch"
+    "issues": "https://plugins.studer-raimann.ch/goto.php?target=uihk_srsu_LRPDC"
   },
   "require": {
-    "php": ">=5.6",
+    "php": ">=7.0",
     "srag/dic": ">=0.1.0"
   },
   "autoload": {

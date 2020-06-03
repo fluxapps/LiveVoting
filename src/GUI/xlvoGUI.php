@@ -67,7 +67,11 @@ abstract class xlvoGUI
                 break;
         }
         if ($this->is_api_call) {
-            self::output()->output("", true);
+            if (self::version()->is6()) {
+                self::dic()->mainTemplate()->printToStdout(false, false, true);
+            } else {
+                self::dic()->mainTemplate()->show();
+            }
         }
     }
 
