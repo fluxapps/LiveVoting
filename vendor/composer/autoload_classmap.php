@@ -44,6 +44,7 @@ return array(
     'LiveVoting\\Context\\Param\\ParamManager' => $baseDir . '/src/Context/Param/ParamManager.php',
     'LiveVoting\\Context\\xlvoContext' => $baseDir . '/src/Context/xlvoContext.php',
     'LiveVoting\\Context\\xlvoContextLiveVoting' => $baseDir . '/src/Context/xlvoContextLiveVoting.php',
+    'LiveVoting\\Context\\xlvoDummyUser' => $baseDir . '/src/Context/xlvoDummyUser.php',
     'LiveVoting\\Context\\xlvoDummyUser54' => $baseDir . '/src/Context/xlvoDummyUser54.php',
     'LiveVoting\\Context\\xlvoDummyUser6' => $baseDir . '/src/Context/xlvoDummyUser6.php',
     'LiveVoting\\Context\\xlvoILIAS' => $baseDir . '/src/Context/xlvoILIAS.php',

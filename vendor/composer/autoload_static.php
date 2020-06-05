@@ -103,6 +103,7 @@ class ComposerStaticInitf5122d14f0f45dac789bfb6428ff8994
         'LiveVoting\\Context\\Param\\ParamManager' => __DIR__ . '/../..' . '/src/Context/Param/ParamManager.php',
         'LiveVoting\\Context\\xlvoContext' => __DIR__ . '/../..' . '/src/Context/xlvoContext.php',
         'LiveVoting\\Context\\xlvoContextLiveVoting' => __DIR__ . '/../..' . '/src/Context/xlvoContextLiveVoting.php',
+        'LiveVoting\\Context\\xlvoDummyUser' => __DIR__ . '/../..' . '/src/Context/xlvoDummyUser.php',
         'LiveVoting\\Context\\xlvoDummyUser54' => __DIR__ . '/../..' . '/src/Context/xlvoDummyUser54.php',
         'LiveVoting\\Context\\xlvoDummyUser6' => __DIR__ . '/../..' . '/src/Context/xlvoDummyUser6.php',
         'LiveVoting\\Context\\xlvoILIAS' => __DIR__ . '/../..' . '/src/Context/xlvoILIAS.php',

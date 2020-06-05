@@ -803,11 +803,7 @@ class xlvoBasicInitialisation
      *
      */
     private function initMail() {
-        if (self::version()->is54()) {
-            $this->makeGlobal("mail.mime.transport.factory", new ilMailMimeTransportFactory(self::dic()->settings(), self::dic()->appEventHandler()));
-        } else {
-            $this->makeGlobal("mail.mime.transport.factory", new ilMailMimeTransportFactory(self::dic()->settings()));
-        }
+        $this->makeGlobal("mail.mime.transport.factory", new ilMailMimeTransportFactory(self::dic()->settings(), self::dic()->appEventHandler()));
 
         $this->makeGlobal("mail.mime.sender.factory", new ilMailMimeSenderFactory(self::dic()->settings()));
     }

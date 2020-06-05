@@ -11,7 +11,7 @@ use ilLiveVotingPlugin;
  * @package LiveVoting\Context
  * @author  Theodor Truffer <tt@studer-raimann.ch>
  */
-class xlvoDummyUser6
+class xlvoDummyUser6 implements xlvoDummyUser
 {
 
     use DICTrait;
