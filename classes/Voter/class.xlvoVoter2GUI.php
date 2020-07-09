@@ -79,8 +79,7 @@ class xlvoVoter2GUI extends xlvoGUI
                     $login_target = "{$ilias_base_path}goto.php?target=xlvo_1_pin_" . $this->pin;
 
                     //redirect
-                    self::dic()->mainTemplate()->setContent("<script>window.location.replace('$login_target');</script>");
-                    self::dic()->mainTemplate()->show("content");
+                    self::dic()->ctrl()->redirectToURL($login_target);
                 } else {
                     parent::executeCommand();
                 }
@@ -123,7 +122,11 @@ class xlvoVoter2GUI extends xlvoGUI
         $tpl->setVariable('TITLE', $this->txt('pin_form_title'));
         $tpl->setVariable('FORM', $pin_form->getHTML());
 
-        self::dic()->mainTemplate()->setContent($tpl->get());
+        if (self::version()->is6()) {
+            self::dic()->mainTemplate()->setVariable('PLAYER_CONTENT', $tpl->get());
+        } else {
+            self::dic()->mainTemplate()->setContent($tpl->get());
+        }
     }
 
 
@@ -166,7 +169,11 @@ class xlvoVoter2GUI extends xlvoGUI
         $this->initJsAndCss();
         self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/default.css');
         $tpl = self::plugin()->template('default/Voter/tpl.voter_player.html', true, false);
-        self::dic()->mainTemplate()->setContent($tpl->get());
+        if (self::version()->is6()) {
+            self::dic()->mainTemplate()->setVariable('PLAYER_CONTENT', $tpl->get());
+        } else {
+            self::dic()->mainTemplate()->setContent($tpl->get());
+        }
     }
 
 

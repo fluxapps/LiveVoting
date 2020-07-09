@@ -1,8 +1,10 @@
+# DIC Library for ILIAS Plugins
+
 Use all ILIAS globals in your class
 
-### Usage
+## Usage
 
-#### Composer
+### Composer
 First add the following to your `composer.json` file:
 ```json
 "require": {
@@ -17,7 +19,7 @@ Tip: Because of multiple autoloaders of plugins, it could be, that different ver
 
 So I recommand to use [srag/librariesnamespacechanger](https://packagist.org/packages/srag/librariesnamespacechanger) in your plugin.
 
-#### Use trait
+## Use trait
 Declare your class like follow:
 ```php
 //...
@@ -33,7 +35,7 @@ class x {
 ```
 `ilXPlugin` is the name of your plugin class.
 
-#### Use
+## Use
 You can now access the DIC interface, in instance and in static places:
 ```php
 /**
@@ -41,7 +43,7 @@ You can now access the DIC interface, in instance and in static places:
  * 
  * @return DICInterface DIC interface
  */
-self::dic()/*: DICInterface*/;
+self::dic(): DICInterface;
 ```
 
 For instance you can access the ilCtrl global like:
@@ -49,7 +51,7 @@ For instance you can access the ilCtrl global like:
 /**
  * @return ilCtrl
  */
-self::dic()->ctrl()/*: ilCtrl*/;
+self::dic()->ctrl(): ilCtrl;
 ```
 
 You can access the plugin interface, in instance and in static places:
@@ -61,7 +63,7 @@ You can access the plugin interface, in instance and in static places:
  *
  * @throws DICException
  */
-self::plugin()/*: PluginInterface*/;
+self::plugin(): PluginInterface;
 ```
 
 The plugin interface has the follow methods:
@@ -73,7 +75,7 @@ For plugin dir use:
  * 
  * @return string Plugin directory
  */
-self::plugin()->directory()/*: string*/;
+self::plugin()->directory(): string;
 ```
 
 For output HTML or GUI use:
@@ -87,7 +89,7 @@ For output HTML or GUI use:
  *
  * @throws DICException
  */
-self::output()->output($value, $show = false, $main_template = true)/*: void*/;
+self::output()->output($value, bool $show = false, bool $main_template = true)/*: void*/;
 ```
 
 For output JSON:
@@ -113,7 +115,7 @@ For get HTML of GUI:
  *
  * @throws DICException
  */
-self::output()->getHTML($value)/*: string*/;
+self::output()->getHTML($value): string;
 ```
 
 For get a template use:
@@ -130,7 +132,7 @@ For get a template use:
  *
  * @throws DICException
  */
-self::plugin()->template(/*string*/$template, /*bool*/$remove_unknown_variables = true, /*bool*/$remove_empty_blocks = true, /*bool*/$plugin = true)/*: ilTemplate*/;
+self::plugin()->template(string $template, bool $remove_unknown_variables = true, bool $remove_empty_blocks = true, bool $plugin = true): ilTemplate;
 ```
 
 For translate use:
@@ -149,7 +151,7 @@ For translate use:
  *
  * @throws DICException
  */
-self::plugin()->translate(/*string*/$key, /*string*/$module = "", array $placeholders = [], /*bool*/$plugin = true, /*string*/$lang = "", /*string*/$default = "MISSING %s")/*: string*/;
+self::plugin()->translate(string $key, string $module = "", array $placeholders = [], bool $plugin = true, string $lang = "", string $default = "MISSING %s"): string;
 ```
 Hints:
 - Please use not more manually `sprintf` or `vsprintf`, use the `$placeholders` parameter. Otherwise you will get an appropriate DICException thrown. This because `translate` use always `vsprintf` and if you pass to few palceholders, `vsprintf` will throw an Exception.
@@ -164,7 +166,7 @@ If you really need the ILIAS plugin object use but avoid this:
  *
  * @return ilPlugin ILIAS plugin object instance
  */
-self::plugin()->getPluginObject()/*: ilPlugin*/;
+self::plugin()->getPluginObject(): ilPlugin;
 ```
 
 You can access ILIAS version informations, in instance and in static places:
@@ -174,40 +176,118 @@ You can access ILIAS version informations, in instance and in static places:
  * 
  * @return VersionInterface Version interface
  */
-self::version()/*: VersionInterface*/;
+self::version(): VersionInterface;
 ```
 
 If you really need DICTrait outside a class (For instance in `dbupdate.php`), use `DICStatic::dic()` or `DICStatic::plugin(ilXPlugin::class)`.
 
-#### Clean up
+## Clean up
 You can now remove all usages of ILIAS globals in your class and replace it with this library.
 Please avoid to store in variables or class variables.
 
-#### Other tips
-- Use `__DIR__`
-- Use not `__FILE__`
-- Use not `dirname(dirname(..))`, use `../../`
-- Use also `__DIR__` for `Customizing/..` and use relative paths from your class perspective (Except in `dbupdate.php`)
-- Try to avoid use `$pl`
+## LibraryLanguageInstaller
+Expand you plugin class for installing languages of a library to your plugin
+```php
+...
+	/**
+     * @inheritDoc
+     */
+    public function updateLanguages(/*?array*/ $a_lang_keys = null)/*:void*/ {
+		parent::updateLanguages($a_lang_keys);
 
-### Dependencies
-* PHP >=5.6
-* [composer](https://getcomposer.org)
-
-Please use it for further development!
-
-### Adjustment suggestions
-* Adjustment suggestions by pull requests on https://git.studer-raimann.ch/ILIAS/Plugins/DIC/tree/develop
-* Adjustment suggestions which are not yet worked out in detail by Jira tasks under https://jira.studer-raimann.ch/projects/LDIC
-* Bug reports under https://jira.studer-raimann.ch/projects/LDIC
-* For external users please send an email to support-custom1@studer-raimann.ch
-
-### Development
-If you want development in this library you should install this library like follow:
-
-Start at your ILIAS root directory
-```bash
-mkdir -p Customizing/global/libraries
-cd Customizing/global/libraries
-git clone -b develop git@git.studer-raimann.ch:ILIAS/Plugins/DIC.git DIC
+		LibraryLanguageInstaller::getInstance()->withPlugin(self::plugin())->withLibraryLanguageDirectory(__DIR__ . "/../vendor/srag/x/lang")
+			->updateLanguages($a_lang_keys);
+	}
+...
 ```
+
+## Database
+This library delivers also a custom `ilDB` decorator class with spec. functions, restricted to `PDO` (Because to make access more core functions), access via `self:.dic()->database()`
+
+If you realy need to access to original ILIAS `ilDB` instance, use `self:.dic()->databaseCore()` instead
+
+### Native AutoIncrement (MySQL) / Native Sequence (PostgreSQL)
+Use auto increment on a spec. field (in `dbupdate.php`):
+```php
+\srag\DIC\LiveVoting\x\DICStatic::dic()->database()->createAutoIncrement(\srag\Plugins\x\x\x::TABLE_NAME, "id");
+```
+
+Reset auto increment:
+```php
+self::dic()->database()->resetAutoIncrement(x::TABLE_NAME, "id");
+```
+
+Drop auto increment table (Needed for PostgreSQL) (in `ilXPlugin` uninstaller):
+```php
+self::dic()->database()->dropAutoIncrementTable(x::TABLE_NAME);
+```
+
+### Store (In repository)
+```php
+$x = $this->factory()->newInstance();
+...
+$x->setId(self::dic()->database()->store(x::TABLE_NAME, [
+			"field_1" => [ ilDBConstants::T_TEXT, $x->getField1() ],
+			"field_2" => [ ilDBConstants::T_INTEGER, $x->getField2() ]
+		], "id", $x->getId()));
+```
+
+### Automatic factory (In repository)
+```php
+$array = self::dic()->database()->fetchAllCallback(self::dic()->database()->query('SELECT * FROM ' . self::dic()->database()
+				->quoteIdentifier(x::TABLE_NAME)), [ $this->factory(), "fromDB" ]);
+		
+...
+
+public function fromDB(stdClass $data): x {
+	$x = $this->newInstance();
+
+	$x->setId($data->id);
+	$x->setField1($data->field_1);
+	$x->setField2($data->field_2);
+
+	return $x;
+}
+
+```
+
+### Create or update table
+Same thing like ILIAS `ActiveRecord`:
+If the table not exists, create it, otherwise add missing columns
+
+```php
+self::dic()->database()->createOrUpdateTable($table_name, $columns, $primary_columns)
+```
+
+### Multiple insert
+```php
+ self::dic()->database()->multipleInsert($table_name, ["column1", "column2", "column3"], [
+            [
+                ["value11", ilDBConstants::T_TEXT],
+                ["value12", ilDBConstants::T_INTEGER],
+                ["value13", ilDBConstants::T_TEXT]
+            ],
+            [
+                ["value21", ilDBConstants::T_TEXT],
+                ["value22", ilDBConstants::T_INTEGER],
+                ["value23", ilDBConstants::T_TEXT]
+            ],
+            [
+                ["value31", ilDBConstants::T_TEXT],
+                ["value32", ilDBConstants::T_INTEGER],
+                ["value33", ilDBConstants::T_TEXT]
+            ]
+        ])
+```
+
+## Requirements
+* ILIAS 5.4 or ILIAS 6
+* PHP >=7.0
+* PDO (MySQL or PostgreSQL 9.5)
+
+## Adjustment suggestions
+* External users can report suggestions and bugs at https://plugins.studer-raimann.ch/goto.php?target=uihk_srsu_LDIC
+* Adjustment suggestions by pull requests via github
+* Customer of studer + raimann ag: 
+	* Adjustment suggestions which are not yet worked out in detail by Jira tasks under https://jira.studer-raimann.ch/projects/LDIC
+	* Bug reports under https://jira.studer-raimann.ch/projects/LDIC

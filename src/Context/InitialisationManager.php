@@ -40,8 +40,10 @@ final class InitialisationManager
     public static final function startMinimal()
     {
         switch (true) {
+            case self::version()->is6():
+                Initialisation\Version\v6\xlvoBasicInitialisation::init();
+                break;
             case self::version()->is54():
-            case self::version()->is53():
                 // 5.3 and 5.4 work with the same initialisation
                 Initialisation\Version\v53\xlvoBasicInitialisation::init();
                 break;
@@ -62,7 +64,7 @@ final class InitialisationManager
     {
         xlvoInitialisation::init();
 
-        if (self::dic()->user() instanceof ilObjUser && self::dic()->user()->getId()) {
+        if (!(self::dic()->user() instanceof xlvoDummyUser) && self::dic()->user()->getId()) {
             xlvoUser::getInstance()->setIdentifier(self::dic()->user()->getId())->setType(xlvoUser::TYPE_ILIAS);
 
             return;

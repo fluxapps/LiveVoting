@@ -13,6 +13,12 @@ use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Session\xlvoSessionHandler;
 use LiveVoting\Utils\LiveVotingTrait;
 use srag\DIC\LiveVoting\DICTrait;
+use ilContext;
+use ilGlobalPageTemplate;
+use ilUserRequestTargetAdjustment;
+use ilMainMenuGUI;
+use ilSession;
+use ilGlobalTemplate;
 
 /**
  * Class xlvoInitialisation
@@ -197,9 +203,13 @@ class xlvoInitialisation extends ilInitialisation
         if ($DIC->offsetExists("styleDefinition")) {
             $DIC->offsetUnset("styleDefinition");
         }
-        parent::initHTML();
+        self::initHTML();
         if (self::USE_OWN_GLOBAL_TPL) {
-            $tpl = self::plugin()->template("default/tpl.main.html");
+            if (self::version()->is6()) {
+                $tpl = new ilGlobalTemplate("tpl.main.html", true, true, 'Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting', "DEFAULT", true);
+            } else {
+                $tpl = self::plugin()->template("default/tpl.main.html");
+            }
             $tpl->touchBlock("navbar");
             $tpl->addCss('./templates/default/delos.css');
             $tpl->addBlockFile("CONTENT", "content", "tpl.main_voter.html", self::plugin()->directory());
@@ -221,6 +231,106 @@ class xlvoInitialisation extends ilInitialisation
         }
     }
 
+    /**
+     * copied parent function, commented out the lti section
+     */
+    protected static function initHTML()
+    {
+        if (!self::version()->is6()) {
+            return parent::initHTML();
+        }
+        // copied parent function
+        global $ilUser, $DIC;
+
+        if (ilContext::hasUser()) {
+            // load style definitions
+            // use the init function with plugin hook here, too
+            self::initStyle();
+        }
+
+        self::initUIFramework($GLOBALS["DIC"]);
+        $tpl = new ilGlobalPageTemplate($DIC->globalScreen(), $DIC->ui(), $DIC->http());
+        self::initGlobal("tpl", $tpl);
+
+        if (ilContext::hasUser()) {
+            $request_adjuster = new ilUserRequestTargetAdjustment(
+                $ilUser,
+                $GLOBALS['DIC']['ilCtrl'],
+                $GLOBALS['DIC']->http()->request()
+            );
+            $request_adjuster->adjust();
+        }
+
+        require_once "./Services/UICore/classes/class.ilFrameTargetInfo.php";
+
+        self::initGlobal(
+            "ilNavigationHistory",
+            "ilNavigationHistory",
+            "Services/Navigation/classes/class.ilNavigationHistory.php"
+        );
+
+        self::initGlobal(
+            "ilBrowser",
+            "ilBrowser",
+            "./Services/Utilities/classes/class.ilBrowser.php"
+        );
+
+        self::initGlobal(
+            "ilHelp",
+            "ilHelpGUI",
+            "Services/Help/classes/class.ilHelpGUI.php"
+        );
+
+        self::initGlobal(
+            "ilToolbar",
+            "ilToolbarGUI",
+            "./Services/UIComponent/Toolbar/classes/class.ilToolbarGUI.php"
+        );
+
+        self::initGlobal(
+            "ilLocator",
+            "ilLocatorGUI",
+            "./Services/Locator/classes/class.ilLocatorGUI.php"
+        );
+
+        self::initGlobal(
+            "ilTabs",
+            "ilTabsGUI",
+            "./Services/UIComponent/Tabs/classes/class.ilTabsGUI.php"
+        );
+
+        if (ilContext::hasUser()) {
+            include_once './Services/MainMenu/classes/class.ilMainMenuGUI.php';
+            $ilMainMenu = new ilMainMenuGUI("_top");
+
+            self::initGlobal("ilMainMenu", $ilMainMenu);
+            unset($ilMainMenu);
+
+            // :TODO: tableGUI related
+
+            // set hits per page for all lists using table module
+            $_GET['limit'] = (int) $ilUser->getPref('hits_per_page');
+            ilSession::set('tbl_limit', $_GET['limit']);
+
+            // the next line makes it impossible to save the offset somehow in a session for
+            // a specific table (I tried it for the user administration).
+            // its not posssible to distinguish whether it has been set to page 1 (=offset = 0)
+            // or not set at all (then we want the last offset, e.g. being used from a session var).
+            // So I added the wrapping if statement. Seems to work (hopefully).
+            // Alex April 14th 2006
+            if (isset($_GET['offset']) && $_GET['offset'] != "") {							// added April 14th 2006
+                $_GET['offset'] = (int) $_GET['offset'];		// old code
+            }
+
+            // leads to error in live voting
+//            self::initGlobal("lti", "ilLTIViewGUI", "./Services/LTI/classes/class.ilLTIViewGUI.php");
+//            $GLOBALS["DIC"]["lti"]->init();
+//            self::initKioskMode($GLOBALS["DIC"]);
+        } else {
+            // several code parts rely on ilObjUser being always included
+            include_once "Services/User/classes/class.ilObjUser.php";
+        }
+    }
 
     /**
      *

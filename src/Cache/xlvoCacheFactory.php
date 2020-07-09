@@ -31,15 +31,7 @@ class xlvoCacheFactory
     public static function getInstance()
     {
         if (self::$cache_instance === null) {
-            switch (true) {
-                case self::version()->is53():
-                case self::version()->is52():
-                    self::$cache_instance = xlvoCache::getInstance('');
-                    break;
-                default:
-                    throw new ilException('Can not initialise cache for the installed ILIAS version.');
-                    break;
-            }
+            self::$cache_instance = xlvoCache::getInstance('');
 
             /*
              * caching adapter of the xlvoConf will call getInstance again,

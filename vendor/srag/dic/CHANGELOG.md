@@ -1,5 +1,135 @@
 # Changelog
 
+## [0.24.0]
+- `ilCertificateActiveValidator`
+- `ilObjUseBookDBRepository`
+- `ilBookingReservationDBRepositoryFactory`
+- `ilMMItemRepository`
+
+## [0.23.0]
+- `createOrUpdateTable`
+- `multipleInsert`
+
+## [0.22.0]
+- `ilFavouritesDBRepository`
+
+## [0.21.0]
+- Remove ILIAS 5.3 support
+- Deprecate `self::dic()->tree()` (> `self::dic()->repositoryTree()`)
+
+## [0.20.5]
+- Fix ILIAS 6
+
+## [0.20.4]
+- Fix
+
+## [0.20.3]
+- `rbac` changes
+
+## [0.20.2]
+- Auto replace manually line breaks text in language files to real line breaks
+
+## [0.20.1]
+- Fix
+
+## [0.20.0]
+- Deprecate `self::dic()->mainTemplate()`
+- Switch from `ilTemplate` to `Template`
+
+## [0.19.4]
+- Fix
+
+## [0.19.3]
+- Remove ILIAS 5.2 hints
+
+## [0.19.2]
+- `setLocator` on output
+
+## [0.19.1]
+- Fix
+
+## [0.19.0]
+- Add some new ILIAS 6 methods
+
+## [0.18.5]
+- Fix ILIAS 6 version
+
+## [0.18.4]
+- Add exists `self::dic()->dic()` to interface
+
+## [0.18.3]
+- ILIAS 6.0 `uiServices`
+
+## [0.18.2]
+- Supports output `ilTemplateWrapper`
+
+## [0.18.1]
+- Fix ILIAS 6.0 global template
+
+## [0.18.0]
+- Fix ILIAS 6.0 global template
+
+## [0.17.9]
+- Fix PostgreSQL recall `createAutoIncrement`
+- Update readme
+
+## [0.17.8]
+- `Database::store`
+
+## [0.17.7]
+- `Database::fetchObjectCallable`
+
+## [0.17.6]
+- `Database::fetchObjectClass`
+
+## [0.17.5]
+- DatabaseDetector readme
+
+## [0.17.4]
+- DatabaseDetector readme
+
+## [0.17.3]
+- Fix
+
+## [0.17.2]
+- Fix
+
+## [0.17.1]
+- Supports PostgreSQL
+
+## [0.17.0]
+- Custom DatabaseDetector
+
+## [0.16.1]
+- Fix `self::dic()->log()` is an instance of `ilComponentLogger`
+
+## [0.16.0]
+- PHP7 syntax
+- Min. ILIAS 5.3
+
+## [0.15.6]
+- Fix LoggingServices exists in ILIAS 5.2
+- Pass `$DIC` by reference to prevent `clearCache`, if `$DIC` should be replaced somewhere in ILIAS core ...
+
+## [0.15.4]
+- Fix
+
+## [0.15.3]
+- Allow plugins to modify library languages if needed
+
+## [0.15.2]
+- LibraryLanguageInstaller
+
+## [0.15.1]
+- LibraryLanguageInstaller
+
+## [0.15.0]
+- LibraryLanguageInstaller
+- Changed `setPlugin` to `withPlugin` in `Pluginable`
+
+## [0.14.13]
+- Add GlobalScreen for ILIAS 5.4
+
 ## [0.14.12]
 - Add AsqFactory for ILIAS 6.0
 
