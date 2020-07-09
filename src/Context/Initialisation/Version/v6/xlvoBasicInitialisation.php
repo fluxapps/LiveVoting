@@ -4,6 +4,7 @@ namespace LiveVoting\Context\Initialisation\Version\v6;
 
 require_once './include/inc.ilias_version.php';
 
+use Closure;
 use Collator;
 use Exception;
 use ilAccess;
@@ -24,6 +25,7 @@ use ILIAS\HTTP\Request\RequestFactoryImpl;
 use ILIAS\HTTP\Response\ResponseFactoryImpl;
 use ILIAS\HTTP\Response\Sender\DefaultResponseSenderStrategy;
 use ilIniFile;
+use ilInitialisation;
 use iljQueryUtil;
 use ilLanguage;
 use ilLiveVotingPlugin;
@@ -135,6 +137,8 @@ class xlvoBasicInitialisation
         $this->initTree();
         $this->initAppEventHandler();
         $this->initMail();
+        $this->initFilesystem();
+        $this->initGlobalScreen();
         $this->initTemplate();
         $this->initTabs();
         $this->initNavigationHistory();
@@ -806,5 +810,25 @@ class xlvoBasicInitialisation
         $this->makeGlobal("mail.mime.transport.factory", new ilMailMimeTransportFactory(self::dic()->settings(), self::dic()->appEventHandler()));
 
         $this->makeGlobal("mail.mime.sender.factory", new ilMailMimeSenderFactory(self::dic()->settings()));
+    }
+
+
+    /**
+     *
+     */
+    private function initGlobalScreen() {
+        Closure::bind(function(Container $dic) {
+            self::initGlobalScreen($dic);
+        }, null, ilInitialisation::class)(self::dic()->dic());
+    }
+
+
+    /**
+     *
+     */
+    private function initFilesystem() {
+        Closure::bind(function() {
+            self::bootstrapFilesystems();
+        }, null, ilInitialisation::class)();
     }
 }
