@@ -78,6 +78,9 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
     protected function initHeaderAndLocator()
     {
         // get standard template (includes main menu and general layout)
+        if (!self::version()->is6()) {
+            self::dic()->mainTemplate()->getStandardTemplate();
+        }
         $this->setTitleAndDescription();
         // set title
         if (!$this->getCreationMode()) {
