@@ -1,6 +1,6 @@
 # Change Log
 
-## [x]
+## [5.1.0]
 - Pass `lang` key in `GET` to ajax voting requests
 - Remove hardcoded german language and use current
 
