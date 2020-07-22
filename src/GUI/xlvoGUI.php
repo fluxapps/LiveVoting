@@ -50,6 +50,8 @@ abstract class xlvoGUI
         $this->param_manager = ParamManager::getInstance();
 
         $this->is_api_call = (self::dic()->ctrl()->getTargetScript() == xlvoConf::getFullApiURL());
+
+        self::dic()->ctrl()->saveParameter($this, "lang");
     }
 
 

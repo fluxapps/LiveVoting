@@ -1,5 +1,9 @@
 # Change Log
 
+## [5.1.0]
+- Pass `lang` key in `GET` to ajax voting requests
+- Remove hardcoded german language and use current
+
 ## [5.0.0]
 - ILIAS 6 support
 - Remove ILIAS 5.3 support
