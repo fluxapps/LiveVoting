@@ -12,7 +12,8 @@ use srag\DIC\LiveVoting\DICTrait;
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-class TextInputGUI extends ilTextInputGUI {
+class TextInputGUI extends ilTextInputGUI
+{
 
-	use DICTrait;
+    use DICTrait;
 }

@@ -1,0 +1,72 @@
+.multi_line_new_input_gui {
+  > div {
+	> div {
+	  display: flex;
+	  flex-direction: row;
+	  flex-wrap: wrap;
+
+	  > .input_gui_input {
+		display: flex;
+		flex-basis: 0;
+		flex-direction: column;
+		flex-grow: 1;
+		flex-shrink: 1;
+		padding: 5px;
+
+		> label + *,
+		> label + select + .select2 {
+		  margin-top: auto;
+		}
+	  }
+
+	  > [data-actions] {
+		align-self: center;
+		flex-grow: 0;
+		flex-shrink: 0;
+		padding: 5px;
+		width: 25px;
+	  }
+
+	  &:not(:first-of-type) {
+		border-top: 1px solid #EDEDED;
+	  }
+	}
+  }
+
+  &[data-show_input_label="1"] {
+	> div {
+	  > div {
+		> .input_gui_input {
+		  > label {
+			display: none !important;
+		  }
+		}
+	  }
+	}
+  }
+
+  &[data-show_input_label="2"],
+  &[data-show_input_label="3"] {
+	> div {
+	  > div {
+		> .input_gui_input {
+		  > label {
+			display: block !important;
+		  }
+		}
+	  }
+	}
+  }
+
+  &[data-show_input_label="2"] {
+	> div {
+	  > div + div {
+		> .input_gui_input {
+		  > label {
+			display: none !important;
+		  }
+		}
+	  }
+	}
+  }
+}

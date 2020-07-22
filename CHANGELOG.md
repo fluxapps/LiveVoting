@@ -1,5 +1,9 @@
 # Change Log
 
+## [5.0.0]
+- ILIAS 6 support
+- Remove ILIAS 5.3 support
+
 ## [4.4.3]
 - Fixed complication with MathJax v3
 

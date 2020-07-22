@@ -1,16 +1,401 @@
 # Changelog
 
+## [0.34.18]
+- Fix ILIAS 6
+
+## [0.34.17]
+- Fix ILIAS 6
+
+## [0.34.16]
+- Fix ILIAS 6
+
+## [0.34.15]
+- Fix ILIAS 6
+
+## [0.34.14]
+- Fix ILIAS 6
+
+## [0.34.13]
+- Fix ILIAS 6
+
+## [0.34.12]
+- Fix ILIAS 6
+
+## [0.34.11]
+- Fix ILIAS 6
+
+## [0.34.10]
+- Fix
+
+## [0.34.9]
+- Fix ILIAS 6
+
+## [0.34.8]
+- Fix ILIAS 6
+
+## [0.34.7]
+- Fix
+
+## [0.34.6]
+- Fix
+
+## [0.34.5]
+- Fix
+
+## [0.34.4]
+- Fix
+
+## [0.34.3]
+- Fix
+
+## [0.34.2]
+- Fix
+
+## [0.34.1]
+- Fix
+
+## [0.34.0]
+- `AbstractFormBuilder`
+- Deprecated `PropertyFormGUI`
+
+## [0.33.7]
+- Fix
+
+## [0.33.6]
+- Fix
+
+## [0.33.5]
+- Deprecated `TableGUI`
+
+## [0.33.4]
+- Fix `ilRepositorySelector2InputGUI`
+
+## [0.33.3]
+- `OrgUnitAjaxAutoCompleteCtrl`
+
+## [0.33.2]
+- Fix `MultiSelectSearchNewInputGUI` bottom in `MultiLineNewInputGUI`
+
+## [0.33.1]
+- Fix not merged `PieChart` in ILIAS 6
+
+## [0.33.0]
+- `AjaxCheckbox`
+
+## [0.32.5]
+- Fix
+
+## [0.32.4]
+- Fix
+
+## [0.32.3]
+- Fix
+
+## [0.32.2]
+- Fix
+
+## [0.32.1]
+- Fix
+
+## [0.32.0]
+- MultiSelectSearchNewInputGUI:
+    - New ajax auto complete concept (`AbstractAjaxAutoCompleteCtrl`)
+    - Show whole option text
+
+## [0.31.8]
+- Fix
+
+## [0.31.7]
+- Fix multiple `MultiLineNewInputGUI` on same page
+
+## [0.31.6]
+- Fix
+
+## [0.31.5]
+- Fix
+
+## [0.31.4]
+- `ScreenshotsInputGUI`: fix required alert message
+
+## [0.31.3]
+- Fix
+
+## [0.31.2]
+- Fix
+
+## [0.31.1]
+- Fix
+
+## [0.31.0]
+- `Template::setVariableEscaped`
+
+## [0.30.6]
+- Fix
+
+## [0.30.5]
+- Fix
+
+## [0.30.4]
+- Fix
+
+## [0.30.3]
+- Fix
+
+## [0.30.2]
+- Fix
+
+## [0.30.1]
+- Fix
+
+## [0.30.0]
+- `MultiSelectSearchNewInputGUI`
+- Imrpove `MultiLineNewInputGUI`
+
+## [0.29.1]
+- Fix
+
+## [0.29.0]
+- `MultiLineNewInputGUI`
+    - Move add button to right
+    - Show sort buttons only if it's possible to move
+- `MultiSelectSearchInputGUI`
+    - Add limit count (default `null` which unlimited, like before)
+
+## [0.28.5]
+- Deprecate `ConfigPropertyFormGUI` and `ObjectPropertyFormGUI`
+
+## [0.28.4]
+- Fix `ilCheckboxInputGUI` in `MultiLineNewInputGUI`
+
+## [0.28.3]
+- Revert 'Fix `fields` in `MultiLineNewInputGUI`'
+
+## [0.28.2]
+- Fix `fields` in `MultiLineNewInputGUI`
+
+## [0.28.1]
+- Fix `ilCheckboxInputGUI` in `MultiLineNewInputGUI`
+
+## [0.28.0]
+- Improve `MultiLineNewInputGUI`
+    - Fix input fields with show label once
+    - Supports `ilDateTimeInputGUI`
+    - Hide remove button if only one line
+    - Allow to remove all elements if not required
+    - Fix empty info block in `ilNumberInputGUI`
+
+## [0.27.3]
+- Optimized `MultiSelectSearchInputGUI` ajax
+
+## [0.27.2]
+- `MultiLineNewInputGUI`: Add new line below
+
+## [0.27.1]
+- `MultiLineNewInputGUI`: Possibility to disable sort
+
+## [0.27.0]
+- New `MultiLineNewInputGUI`
+- Optimized `TabsInputGUI` to work with `MultiLineNewInputGUI`
+- Optimized `MultiSelectSearchInputGUI` ajax
+- Deprecated `MultiLineInputGUI`, `MultiSelectSearchInput2GUI` and `GlyphGUI`
+
+## [0.26.4]
+- `MultilangualTabsInputGUI` default language
+
+## [0.26.3]
+- `MultilangualTabsInputGUI` default language
+
+## [0.26.2]
+- `MultilangualTabsInputGUI` default language
+
+## [0.26.1]
+- Fix
+
+## [0.26.0]
+- `InputGUIWrapperUIInputComponent` and `UIInputComponentWrapperInputGUI`
+
+## [0.25.3]
+- `StaticHTMLPresentationInputGUI`: Fix charset
+
+## [0.25.2]
+- `TabsInputGUI`
+
+## [0.25.1]
+- `MultilangualTabsInputGUI`
+
+## [0.25.0]
+- `TabsInputGUI`
+- `MultilangualTabsInputGUI`
+
+## [0.24.1]
+- `getDataOnly` for `LearningProgressPieUI`
+
+## [0.24.0]
+- `getDataOnly` for `LearningProgressPieUI`
+
+## [0.23.6]
+- Make ProgressMeter run again with PHP 7.0
+
+## [0.23.5]
+- MultiLineInputGUI: fix PHP 7.2
+
+## [0.23.4]
+- TextInputGUIWithModernAutoComplete
+
+## [0.23.3]
+- TextInputGUIWithModernAutoComplete
+
+## [0.23.2]
+- TextInputGUIWithModernAutoComplete
+
+## [0.23.1]
+- TextInputGUIWithModernAutoComplete
+
+## [0.23.0]
+- TextInputGUIWithModernAutoComplete
+
+## [0.22.10]
+- Fixes
+
+## [0.22.9]
+- Improve template path
+
+## [0.22.8]
+- Allow `storeForm` multiple in `PropertyFormGUI` (`checkInput`!!!)
+
+## [0.22.7]
+- Supports `ilFormSectionHeaderGUI` as sub item in `PropertyFormGUI`
+
+## [0.22.6]
+- Some improvments
+
+## [0.22.5]
+- Fix render multiple legend entries
+
+## [0.22.4]
+- Remove `checkBoolArg` because not exists in older ILIAS versions
+
+## [0.22.3]
+- Remove PHP 7.1 return `void` syntax
+
+## [0.22.2]
+- Remove PHP 7.1 `null` syntax (`?`)
+
+## [0.22.1]
+- Remove d3 library (Not needed anymore)
+
+## [0.22.0]
+- PieChart
+- Use PieChart in LearningProgressPieUI
+
+## [0.21.0]
+- WeekdayInputGUI
+
+## [0.20.8]
+- NumberInputGUI in toolbar
+
+## [0.20.7]
+- PHPDoc
+
+## [0.20.6]
+- `strToCamelCase`
+
+## [0.20.5]
+- `strToCamelCase` in table
+
+## [0.20.4]
+- Nothing to fix ...
+
+## [0.20.3]
+- Nothing to fix ...
+
+## [0.20.2]
+- Use export format in `getColumnValue`
+
+## [0.20.1]
+- Improvments TableGUI PDF export
+
+## [0.20.0]
+- TableGUI PDF export
+- Fix TableGUI excel export
+
+## [0.19.11]
+- PropertyFormGUI supports MultiLineInputGUI
+
+## [0.19.10]
+- Make `txt` not final
+
+## [0.19.9]
+- Fixes
+
+## [0.19.8]
+- Fixes
+
+## [0.19.7]
+- Fixes
+
+## [0.19.6]
+- Fixes
+
+## [0.19.5]
+- MultiLineInputGUI: Fix date format on public page
+
+## [0.19.4]
+- UsrIdsLearningProgressPie
+
+## [0.19.3]
+- Support MultiSelectSearchInputGUI in table filter and toolbar
+
+## [0.19.2]
+- CountLearningProgressPie
+
+## [0.19.1]
+- CountLearningProgressPie
+
+## [0.19.0]
+- CountLearningProgressPie
+
+## [0.18.7]
+- Increase StaticHTMLPresentationInputGUI height
+
+## [0.18.6]
+- Improvments
+
+## [0.18.5]
+- LearningProgressPie
+
+## [0.18.4]
+- LearningProgressPie
+
+## [0.18.3]
+- LearningProgressPie
+
+## [0.18.2]
+- LearningProgressPie
+
+## [0.18.1]
+- LearningProgressPie
+
+## [0.18.0]
+- LearningProgressPie
+
+## [0.17.5]
+- Fix TableGUI Export Header
+
+## [0.17.4]
+- Fix TableGUI Export Header
+
 ## [0.17.3]
-- ViewControlModeGUI
+- ViewControlModeUI
 
 ## [0.17.2]
-- ViewControlModeGUI
+- ViewControlModeUI
 
 ## [0.17.1]
-- ViewControlModeGUI
+- ViewControlModeUI
 
 ## [0.17.0]
-- ViewControlModeGUI
+- ViewControlModeUI
 
 ## [0.16.10]
 - Fixes

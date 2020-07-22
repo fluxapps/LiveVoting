@@ -14,6 +14,7 @@ use ilDBWrapperFactory;
 use ilErrorHandling;
 use ilGlobalCache;
 use ilGlobalCacheSettings;
+use ilGlobalTemplate;
 use ilHelp;
 use ilHTTPS;
 use ILIAS\DI\Container;
@@ -43,7 +44,7 @@ use ilUtil;
 use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Context\Param\ParamManager;
 use LiveVoting\Context\xlvoContext;
-use LiveVoting\Context\xlvoDummyUser;
+use LiveVoting\Context\xlvoDummyUser54;
 use LiveVoting\Context\xlvoILIAS;
 use LiveVoting\Context\xlvoObjectDefinition;
 use LiveVoting\Context\xlvoRbacReview;
@@ -683,7 +684,7 @@ class xlvoBasicInitialisation
      */
     private function initUser()
     {
-        $this->makeGlobal('ilUser', new xlvoDummyUser());
+        $this->makeGlobal('ilUser', new xlvoDummyUser54());
     }
 
 
@@ -801,11 +802,7 @@ class xlvoBasicInitialisation
      *
      */
     private function initMail() {
-        if (self::version()->is54()) {
-            $this->makeGlobal("mail.mime.transport.factory", new ilMailMimeTransportFactory(self::dic()->settings(), self::dic()->appEventHandler()));
-        } else {
-            $this->makeGlobal("mail.mime.transport.factory", new ilMailMimeTransportFactory(self::dic()->settings()));
-        }
+        $this->makeGlobal("mail.mime.transport.factory", new ilMailMimeTransportFactory(self::dic()->settings(), self::dic()->appEventHandler()));
 
         $this->makeGlobal("mail.mime.sender.factory", new ilMailMimeSenderFactory(self::dic()->settings()));
     }

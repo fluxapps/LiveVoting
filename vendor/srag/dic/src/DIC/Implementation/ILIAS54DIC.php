@@ -2,10 +2,67 @@
 
 namespace srag\DIC\LiveVoting\DIC\Implementation;
 
+use Collator;
+use ilAccessHandler;
+use ilAppEventHandler;
+use ilAsqFactory;
+use ilAuthSession;
+use ilBenchmark;
+use ilBookingManagerService;
+use ilBookingReservationDBRepositoryFactory;
+use ilBrowser;
+use ilCertificateActiveValidator;
+use ilComponentLogger;
+use ilConditionService;
+use ilCtrl;
+use ilCtrlStructureReader;
+use ilDBInterface;
+use ilErrorHandling;
+use ilExerciseFactory;
+use ilFavouritesDBRepository;
+use ilHelpGUI;
+use ILIAS;
+use ILIAS\DI\BackgroundTaskServices;
 use ILIAS\DI\Container;
-use ILIAS\Services\AssessmentQuestion\Factory\AsqFactory;
+use ILIAS\DI\HTTPServices;
+use ILIAS\DI\LoggingServices;
+use ILIAS\DI\RBACServices;
+use ILIAS\DI\UIServices;
+use ILIAS\Filesystem\Filesystems;
+use ILIAS\FileUpload\FileUpload;
+use ILIAS\GlobalScreen\Services as GlobalScreenService;
+use ILIAS\Refinery\Factory as RefineryFactory;
+use ilIniFile;
+use ilLanguage;
+use ilLearningHistoryService;
+use ilLocatorGUI;
+use ilLoggerFactory;
+use ilMailMimeSenderFactory;
+use ilMailMimeTransportFactory;
+use ilMainMenuGUI;
+use ilMMItemRepository;
+use ilNavigationHistory;
+use ilNewsService;
+use ilObjectDataCache;
+use ilObjectDefinition;
+use ilObjectService;
+use ilObjUseBookDBRepository;
+use ilObjUser;
+use ilPluginAdmin;
+use ilRbacAdmin;
+use ilRbacReview;
+use ilRbacSystem;
+use ilSetting;
+use ilStyleDefinition;
+use ilTabsGUI;
+use ilTaskService;
+use ilTemplate;
+use ilToolbarGUI;
+use ilTree;
+use ilUIService;
+use Session;
 use srag\DIC\LiveVoting\DIC\AbstractDIC;
-use srag\DIC\LiveVoting\DICStatic;
+use srag\DIC\LiveVoting\Exception\DICException;
 
 /**
  * Class ILIAS54DIC
@@ -14,412 +71,564 @@ use srag\DIC\LiveVoting\DICStatic;
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-final class ILIAS54DIC extends AbstractDIC {
-
-	/**
-	 * @var Container
-	 */
-	private $dic;
-
-
-	/**
-	 * ILIAS54DIC constructor
-	 *
-	 * @param Container $dic
-	 *
-	 * @internal
-	 */
-	public function __construct(Container $dic) {
-		parent::__construct();
-
-		$this->dic = $dic;
-	}
+final class ILIAS54DIC extends AbstractDIC
+{
+
+    /**
+     * @inheritDoc
+     */
+    public function access() : ilAccessHandler
+    {
+        return $this->dic->access();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function appEventHandler() : ilAppEventHandler
+    {
+        return $this->dic->event();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function authSession() : ilAuthSession
+    {
+        return $this->dic["ilAuthSession"];
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function backgroundTasks() : BackgroundTaskServices
+    {
+        return $this->dic->backgroundTasks();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function benchmark() : ilBenchmark
+    {
+        return $this->dic["ilBench"];
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function bookingManager() : ilBookingManagerService
+    {
+        throw new DICException("ilBookingManagerService not exists in ILIAS 5.4 or below!");
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function bookingObjUseBook() : ilObjUseBookDBRepository
+    {
+        throw new DICException("ilObjUseBookDBRepository not exists in ILIAS 5.4 or below!");
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function bookingReservation() : ilBookingReservationDBRepositoryFactory
+    {
+        throw new DICException("ilBookingReservationDBRepositoryFactory not exists in ILIAS 5.4 or below!");
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function browser() : ilBrowser
+    {
+        return $this->dic["ilBrowser"];
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function certificateActiveValidator() : ilCertificateActiveValidator
+    {
+        return new ilCertificateActiveValidator();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function clientIni() : ilIniFile
+    {
+        return $this->dic->clientIni();
+    }
+
 
-
-	/**
-	 * @inheritdoc
-	 */
-	public function access()/*: ilAccess*/ {
-		return $this->dic->access();
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function appEventHandler()/*: ilAppEventHandler*/ {
-		return $this->dic->event();
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function authSession()/*: ilAuthSession*/ {
-		return $this->dic["ilAuthSession"];
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function backgroundTasks()/*: BackgroundTaskServices*/ {
-		return $this->dic->backgroundTasks();
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function benchmark()/*: ilBenchmark*/ {
-		return $this->dic["ilBench"];
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function browser()/*: ilBrowser*/ {
-		return $this->dic["ilBrowser"];
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function clientIni()/*: ilIniFile*/ {
-		return $this->dic->clientIni();
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function collator()/*: Collator*/ {
-		return $this->dic["ilCollator"];
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function conditions()/*: ilConditionService*/ {
-		return $this->dic->conditions();
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function ctrl()/*: ilCtrl*/ {
-		return $this->dic->ctrl();
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function ctrlStructureReader()/*: ilCtrlStructureReader*/ {
-		return $this->dic["ilCtrlStructureReader"];
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function database()/*: ilDBInterface*/ {
-		return $this->dic->database();
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function error()/*: ilErrorHandling*/ {
-		return $this->dic["ilErr"];
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function filesystem()/*: Filesystems*/ {
-		return $this->dic->filesystem();
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function help()/*: ilHelpGUI*/ {
-		return $this->dic->help();
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function history()/*: ilNavigationHistory*/ {
-		return $this->dic["ilNavigationHistory"];
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function http()/*: HTTPServices*/ {
-		return $this->dic->http();
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function ilias()/*: ILIAS*/ {
-		return $this->dic["ilias"];
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function iliasIni()/*: ilIniFile*/ {
-		return $this->dic->iliasIni();
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function language()/*: ilLanguage*/ {
-		return $this->dic->language();
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function learningHistory()/*: ilLearningHistoryService*/ {
-		return $this->dic->learningHistory();
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function locator()/*: ilLocatorGUI*/ {
-		return $this->dic["ilLocator"];
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function log()/*: ilLog*/ {
-		return $this->dic["ilLog"];
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function logger()/*: LoggingServices*/ {
-		return $this->dic->logger();
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function loggerFactory()/*: ilLoggerFactory*/ {
-		return $this->dic["ilLoggerFactory"];
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function mailMimeSenderFactory()/*: ilMailMimeSenderFactory*/ {
-		return $this->dic["mail.mime.sender.factory"];
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function mailMimeTransportFactory()/*: ilMailMimeTransportFactory*/ {
-		return $this->dic["mail.mime.transport.factory"];
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function mainMenu()/*: ilMainMenuGUI*/ {
-		return $this->dic["ilMainMenu"];
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function mainTemplate()/*: ilTemplate*/ {
-		return $this->dic->ui()->mainTemplate();
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function news()/*: ilNewsService*/ {
-		return $this->dic->news();
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function objDataCache()/*: ilObjectDataCache*/ {
-		return $this->dic["ilObjDataCache"];
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function objDefinition()/*: ilObjectDefinition*/ {
-		return $this->dic["objDefinition"];
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function object()/*: ilObjectService*/ {
-		return $this->dic->object();
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function question()/*: AsqFactory*/ {
-		if (DICStatic::version()->is60()) {
-			return new AsqFactory();
-		} else {
-			throw new DICException("AsqFactory not exists in ILIAS 5.4 or below!");
-		}
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function pluginAdmin()/*: ilPluginAdmin*/ {
-		return $this->dic["ilPluginAdmin"];
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function rbacadmin()/*: ilRbacAdmin*/ {
-		return $this->dic->rbac()->admin();
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function rbacreview()/*: ilRbacReview*/ {
-		return $this->dic->rbac()->review();
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function rbacsystem()/*: ilRbacSystem*/ {
-		return $this->dic->rbac()->system();
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function session()/*: Session*/ {
-		return $this->dic["sess"];
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function settings()/*: ilSetting*/ {
-		return $this->dic->settings();
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function systemStyle()/*: ilStyleDefinition*/ {
-		return $this->dic->systemStyle();
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function tabs()/*: ilTabsGUI*/ {
-		return $this->dic->tabs();
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function toolbar()/*: ilToolbarGUI*/ {
-		return $this->dic->toolbar();
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function tree()/*: ilTree*/ {
-		return $this->dic->repositoryTree();
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function ui()/*: UIServices*/ {
-		return $this->dic->ui();
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function upload()/*: FileUpload*/ {
-		return $this->dic->upload();
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function user()/*: ilObjUser*/ {
-		return $this->dic->user();
-	}
-
-
-	/**
-	 * @return Container
-	 */
-	public function dic()/*: Container*/ {
-		return $this->dic;
-	}
+    /**
+     * @inheritDoc
+     */
+    public function collator() : Collator
+    {
+        return $this->dic["ilCollator"];
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function conditions() : ilConditionService
+    {
+        return $this->dic->conditions();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function ctrl() : ilCtrl
+    {
+        return $this->dic->ctrl();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function ctrlStructureReader() : ilCtrlStructureReader
+    {
+        return $this->dic["ilCtrlStructureReader"];
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function databaseCore() : ilDBInterface
+    {
+        return $this->dic->database();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function error() : ilErrorHandling
+    {
+        return $this->dic["ilErr"];
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function exercise() : ilExerciseFactory
+    {
+        throw new DICException("ilExerciseFactory not exists in ILIAS 5.4 or below!");
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function favourites() : ilFavouritesDBRepository
+    {
+        throw new DICException("ilFavouritesDBRepository not exists in ILIAS 5.4 or below!");
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function filesystem() : Filesystems
+    {
+        return $this->dic->filesystem();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function globalScreen() : GlobalScreenService
+    {
+        return $this->dic->globalScreen();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function help() : ilHelpGUI
+    {
+        return $this->dic->help();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function history() : ilNavigationHistory
+    {
+        return $this->dic["ilNavigationHistory"];
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function http() : HTTPServices
+    {
+        return $this->dic->http();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function ilias() : ILIAS
+    {
+        return $this->dic["ilias"];
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function iliasIni() : ilIniFile
+    {
+        return $this->dic->iliasIni();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function language() : ilLanguage
+    {
+        return $this->dic->language();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function learningHistory() : ilLearningHistoryService
+    {
+        return $this->dic->learningHistory();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function locator() : ilLocatorGUI
+    {
+        return $this->dic["ilLocator"];
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function log() : ilComponentLogger
+    {
+        return $this->dic["ilLog"];
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function logger() : LoggingServices
+    {
+        return $this->dic->logger();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function loggerFactory() : ilLoggerFactory
+    {
+        return $this->dic["ilLoggerFactory"];
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function mailMimeSenderFactory() : ilMailMimeSenderFactory
+    {
+        return $this->dic["mail.mime.sender.factory"];
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function mailMimeTransportFactory() : ilMailMimeTransportFactory
+    {
+        return $this->dic["mail.mime.transport.factory"];
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function mainMenu() : ilMainMenuGUI
+    {
+        return $this->dic["ilMainMenu"];
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function mainMenuItem() : ilMMItemRepository
+    {
+        return new ilMMItemRepository();
+    }
+
+
+    /**
+     * @inheritDoc
+     *
+     * @deprecated Please use `self::dic()->ui()->mainTemplate()`
+     */
+    public function mainTemplate() : ilTemplate
+    {
+        return $this->dic->ui()->mainTemplate();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function news() : ilNewsService
+    {
+        return $this->dic->news();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function objDataCache() : ilObjectDataCache
+    {
+        return $this->dic["ilObjDataCache"];
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function objDefinition() : ilObjectDefinition
+    {
+        return $this->dic["objDefinition"];
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function object() : ilObjectService
+    {
+        return $this->dic->object();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function pluginAdmin() : ilPluginAdmin
+    {
+        return $this->dic["ilPluginAdmin"];
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function question() : ilAsqFactory
+    {
+        throw new DICException("ilAsqFactory not exists in ILIAS 5.4 or below!");
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function rbac() : RBACServices
+    {
+        return $this->dic->rbac();
+    }
+
+
+    /**
+     * @inheritDoc
+     *
+     * @deprecated Please use `self::dic()->rba()->admin()`
+     */
+    public function rbacadmin() : ilRbacAdmin
+    {
+        return $this->rbac()->admin();
+    }
+
+
+    /**
+     * @inheritDoc
+     *
+     * @deprecated Please use `self::dic()->rba()->review()`
+     */
+    public function rbacreview() : ilRbacReview
+    {
+        return $this->rbac()->review();
+    }
+
+
+    /**
+     * @inheritDoc
+     *
+     * @deprecated Please use `self::dic()->rba()->system()`
+     */
+    public function rbacsystem() : ilRbacSystem
+    {
+        return $this->rbac()->system();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function refinery() : RefineryFactory
+    {
+        throw new DICException("RefineryFactory not exists in ILIAS 5.4 or below!");
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function repositoryTree() : ilTree
+    {
+        return $this->dic->repositoryTree();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function session() : Session
+    {
+        return $this->dic["sess"];
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function settings() : ilSetting
+    {
+        return $this->dic->settings();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function systemStyle() : ilStyleDefinition
+    {
+        return $this->dic->systemStyle();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function tabs() : ilTabsGUI
+    {
+        return $this->dic->tabs();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function task() : ilTaskService
+    {
+        throw new DICException("ilTaskService not exists in ILIAS 5.4 or below!");
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function toolbar() : ilToolbarGUI
+    {
+        return $this->dic->toolbar();
+    }
+
+
+    /**
+     * @inheritDoc
+     *
+     * @deprecated Please use `self::dic()->repositoryTree()`
+     */
+    public function tree() : ilTree
+    {
+        return $this->repositoryTree();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function ui() : UIServices
+    {
+        return $this->dic->ui();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function uiService() : ilUIService
+    {
+        throw new DICException("ilUIService not exists in ILIAS 5.4 or below!");
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function upload() : FileUpload
+    {
+        return $this->dic->upload();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function user() : ilObjUser
+    {
+        return $this->dic->user();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function &dic() : Container
+    {
+        return $this->dic;
+    }
 }

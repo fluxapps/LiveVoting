@@ -9,18 +9,19 @@ namespace srag\DIC\LiveVoting\Plugin;
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-interface Pluginable {
+interface Pluginable
+{
 
-	/**
-	 * @return PluginInterface
-	 */
-	public function getPlugin()/*: PluginInterface*/
-	;
+    /**
+     * @return PluginInterface
+     */
+    public function getPlugin() : PluginInterface;
 
 
-	/**
-	 * @param PluginInterface $plugin
-	 */
-	public function setPlugin(PluginInterface $plugin)/*: void*/
-	;
+    /**
+     * @param PluginInterface $plugin
+     *
+     * @return static
+     */
+    public function withPlugin(PluginInterface $plugin)/*: static*/ ;
 }

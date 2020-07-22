@@ -22,28 +22,24 @@ So I recommand to use [srag/librariesnamespacechanger](https://packagist.org/pac
 First declare your plugin class like follow:
 ```php
 //...
-use srag\RemovePluginDataConfirm\LiveVoting\PluginUninstallTrait;
+use srag\RemovePluginDataConfirm\LiveVoting\x\PluginUninstallTrait;
 //...
 use PluginUninstallTrait;
 //...
-const PLUGIN_CLASS_NAME = self::class;
-const REMOVE_PLUGIN_DATA_CONFIRM_CLASS_NAME = XRemoveDataConfirm::class;
-//...
 /**
- * @inheritdoc
+ * @inheritDoc
  */
 protected function deleteData()/*: void*/ {
     // TODO: Delete your plugin data in this method
 }
 //...
 ```
-`XRemoveDataConfirm` is the name of your remove data confirm class.
 You don't need to use `DICTrait`, it is already in use!
 
 If your plugin is a RepositoryObject use `RepositoryObjectPluginUninstallTrait` instead:
 ```php
 //...
-use srag\RemovePluginDataConfirm\LiveVoting\RepositoryObjectPluginUninstallTrait;
+use srag\RemovePluginDataConfirm\LiveVoting\x\RepositoryObjectPluginUninstallTrait;
 //...
 use RepositoryObjectPluginUninstallTrait;
 //...
@@ -51,83 +47,29 @@ use RepositoryObjectPluginUninstallTrait;
 
 Remove also the methods `beforeUninstall`, `afterUninstall`, `beforeUninstallCustom` and `uninstallCustom` in your plugin class.
 
-Then create a class called `XRemoveDataConfirm` in `classes/uninstall/class.XRemoveDataConfirm.php`:
+Expand you plugin class for installing languages of the library to your plugin
 ```php
-<?php
+...
+	/**
+     * @inheritDoc
+     */
+    public function updateLanguages(/*?array*/ $a_lang_keys = null)/*:void*/ {
+		parent::updateLanguages($a_lang_keys);
 
-require_once __DIR__ . "/../../vendor/autoload.php";
-
-use srag\RemovePluginDataConfirm\LiveVoting\AbstractRemovePluginDataConfirm;
-
-/**
- * Class XRemoveDataConfirm
- *
- * @author            studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
- *
- * @ilCtrl_isCalledBy XRemoveDataConfirm: ilUIPluginRouterGUI
- */
-class XRemoveDataConfirm extends AbstractRemovePluginDataConfirm {
-
-    const PLUGIN_CLASS_NAME = ilXPlugin::class;
-}
-
+		$this->installRemovePluginDataConfirmLanguages();
+	}
+...
 ```
-`ilXPlugin` is the name of your plugin class ([DICTrait](https://github.com/studer-raimann/DIC)).
-Replace the `X` in `XRemoveDataConfirm` with your plugin name.
-You don't need to use `DICTrait`, it is already in use!
-
-Then you need to declare some language variables like:
-English:
-```
-removeplugindataconfirm_cancel#:#Cancel
-removeplugindataconfirm_confirm_remove_data#:#Do you want to remove the %1$s data as well? At most, you just want to disable the %1$s plugin?
-removeplugindataconfirm_deactivate#:#Just deactivate %1$s plugin
-removeplugindataconfirm_data#:#%1$s data
-removeplugindataconfirm_keep_data#:#Keep %1$s data
-removeplugindataconfirm_msg_kept_data#:#The %1$s data was kept
-removeplugindataconfirm_msg_removed_data#:#The %1$s data was also removed
-removeplugindataconfirm_remove_data#:#Remove %1$s data
-```
-German:
-```
-removeplugindataconfirm_cancel#:#Abbrechen
-removeplugindataconfirm_confirm_remove_data#:#Möchten Sie die %1$s-Daten auch entfernen? Allenfalls möchten Sie das %1$s-Plugin nur deaktivieren?
-removeplugindataconfirm_deactivate#:#%1$s-Plugin nur deaktivieren
-removeplugindataconfirm_data#:#%1$s-Daten
-removeplugindataconfirm_keep_data#:#%1$s-Daten behalten
-removeplugindataconfirm_msg_kept_data#:#Die %1$s-Daten wurden behalten
-removeplugindataconfirm_msg_removed_data#:#Die %1$s-Daten wurden auch entfernt
-removeplugindataconfirm_remove_data#:#Entferne %1$s-Daten
-```
-If you want you can modify these. The `%1$s` placeholder is the name of your plugin.
 
 Notice to also adjust `dbupdate.php` so it can be reinstalled if the data should already exists!
 
-If you want to use this library, but don't want to confirm to remove data, you can disable it with add the follow to your `ilXPlugin` class:
-```php
-//...
-const REMOVE_PLUGIN_DATA_CONFIRM = false;
-//...
-```
-### Dependencies
-* PHP >=5.6
-* [composer](https://getcomposer.org)
-* [srag/dic](https://packagist.org/packages/srag/dic)
-
-Please use it for further development!
+### Requirements
+* ILIAS 5.3 or ILIAS 5.4
+* PHP >=7.0
 
 ### Adjustment suggestions
-* Adjustment suggestions by pull requests on https://git.studer-raimann.ch/ILIAS/Plugins/RemovePluginDataConfirm/tree/develop
-* Adjustment suggestions which are not yet worked out in detail by Jira tasks under https://jira.studer-raimann.ch/projects/LRPDC
-* Bug reports under https://jira.studer-raimann.ch/projects/LRPDC
-* For external users please send an email to support-custom1@studer-raimann.ch
-
-### Development
-If you want development in this library you should install this library like follow:
-
-Start at your ILIAS root directory
-```bash
-mkdir -p Customizing/global/libraries
-cd Customizing/global/libraries
-git clone -b develop git@git.studer-raimann.ch:ILIAS/Plugins/RemovePluginDataConfirm.git RemovePluginDataConfirm
-```
+* External users can report suggestions and bugs at https://plugins.studer-raimann.ch/goto.php?target=uihk_srsu_LRPDC
+* Adjustment suggestions by pull requests via github
+* Customer of studer + raimann ag: 
+	* Adjustment suggestions which are not yet worked out in detail by Jira tasks under https://jira.studer-raimann.ch/projects/LRPDC
+	* Bug reports under https://jira.studer-raimann.ch/projects/LRPDC

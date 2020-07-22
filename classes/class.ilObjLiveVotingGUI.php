@@ -78,7 +78,9 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
     protected function initHeaderAndLocator()
     {
         // get standard template (includes main menu and general layout)
-        self::dic()->mainTemplate()->getStandardTemplate();
+        if (!self::version()->is6()) {
+            self::dic()->mainTemplate()->getStandardTemplate();
+        }
         $this->setTitleAndDescription();
         // set title
         if (!$this->getCreationMode()) {
@@ -210,7 +212,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
         }
 
         if (!$this->getCreationMode()) {
-            self::dic()->mainTemplate()->show();
+            self::output()->output("", true);
         }
     }
 
