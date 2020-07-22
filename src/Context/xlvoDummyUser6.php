@@ -17,7 +17,6 @@ class xlvoDummyUser6 implements xlvoDummyUser
     use DICTrait;
     use LiveVotingTrait;
     const PLUGIN_CLASS_NAME = ilLiveVotingPlugin::class;
-    const LANGUAGE_CODE = "de";
 
     /**
      * xlvoDummyUser constructor.
@@ -35,7 +34,7 @@ class xlvoDummyUser6 implements xlvoDummyUser
      */
     public function getLanguage()
     {
-        return self::LANGUAGE_CODE;
+        return self::dic()->language()->getLangKey();
     }
 
 
