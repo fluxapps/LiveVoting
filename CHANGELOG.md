@@ -1,4 +1,6 @@
 # Change Log
+## [5.1.1]
+- Fix Freitextfrage
 
 ## [5.1.0]
 - Pass `lang` key in `GET` to ajax voting requests
