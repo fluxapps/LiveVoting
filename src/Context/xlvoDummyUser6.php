@@ -5,13 +5,14 @@ namespace LiveVoting\Context;
 use srag\DIC\LiveVoting\DICTrait;
 use LiveVoting\Utils\LiveVotingTrait;
 use ilLiveVotingPlugin;
+use ilObjUser;
 
 /**
  * Class xlvoDummyUser6
  * @package LiveVoting\Context
  * @author  Theodor Truffer <tt@studer-raimann.ch>
  */
-class xlvoDummyUser6 implements xlvoDummyUser
+class xlvoDummyUser6 extends ilObjUser implements xlvoDummyUser
 {
 
     use DICTrait;
@@ -41,7 +42,7 @@ class xlvoDummyUser6 implements xlvoDummyUser
     /**
      * @return int
      */
-    public function getId()
+    public function getId() : int
     {
         return 13;
     }
