@@ -57,4 +57,8 @@ class xlvoRbacReview
     {
         return [];
     }
+
+    public function isAssignedToAtLeastOneGivenRole(){
+        return false;
+    }
 }
