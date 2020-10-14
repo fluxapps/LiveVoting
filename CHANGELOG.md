@@ -1,4 +1,8 @@
 # Change Log
+
+## [x]
+- Fix voting scroller in ILIAS 6
+
 ## [5.1.1]
 - Fix Freitextfrage
 
