@@ -166,7 +166,7 @@ class xlvoPlayerGUI extends xlvoGUI
         $this->manager->getPlayer()->setStatus(xlvoPlayer::STAT_RUNNING);
         $this->manager->getPlayer()->unfreeze(trim(filter_input(INPUT_GET, ParamManager::PARAM_VOTING), "/"));
         $modal = xlvoQRModalGUI::getInstanceFromVotingConfig($this->manager->getVotingConfig())->getHTML();
-        self::dic()->mainTemplate()->setContent($modal . $this->getPlayerHTML());
+        $this->setContent($modal . $this->getPlayerHTML());
         $this->handlePreview();
     }
 
@@ -186,7 +186,7 @@ class xlvoPlayerGUI extends xlvoGUI
 
         $this->initToolbarDuringVoting();
         $modal = xlvoQRModalGUI::getInstanceFromVotingConfig($this->manager->getVotingConfig())->getHTML();
-        self::dic()->mainTemplate()->setContent($modal . $this->getPlayerHTML());
+        $this->setContent($modal . $this->getPlayerHTML());
         $this->handlePreview();
     }
 
@@ -667,6 +667,18 @@ class xlvoPlayerGUI extends xlvoGUI
 
             $preview->setVariable('URL', $this->manager->getVotingConfig()->getShortLinkURL(false, $param_manager->getRefId()));
             self::dic()->mainTemplate()->setRightContent($preview->get());
+        }
+    }
+
+
+    /**
+     * @param string $content
+     */
+    protected function setContent(string $content)/* : void*/ {
+        if (self::dic()->mainTemplate()->blockExists("xlvo_player_content")) {
+            self::dic()->mainTemplate()->setVariable('PLAYER_CONTENT', $content);
+        } else {
+            self::dic()->mainTemplate()->setContent($content);
         }
     }
 }
