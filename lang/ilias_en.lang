@@ -259,6 +259,7 @@ xlvo_edit#:#Edit
 xlvo_edit_permission#:#Edit Permissions
 xlvo_new#:#Add new LiveVoting
 xlvo_read#:#Read (used only in non-anonymous-mode)
+xlvo_copy#:#Copy LiveVoting
 xlvo_visible#:#LiveVotings visible
 xlvo_write#:#Present and edit LiveVoting
 qtype_1_total_obj_results_alway_on_info#:#MISSING qtype_1_total_obj_results_alway_on_info
