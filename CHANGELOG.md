@@ -1,6 +1,6 @@
 # Change Log
 
-## [x]
+## [5.1.2]
 - Fix voting scroller in ILIAS 6
 - Fix presenter view is empty
 
