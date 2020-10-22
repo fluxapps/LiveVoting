@@ -1,4 +1,6 @@
 # Change Log
+## [5.1.3]
+- css recompiled
 
 ## [5.1.2]
 - Fix voting scroller in ILIAS 6
