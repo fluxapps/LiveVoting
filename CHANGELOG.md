@@ -2,6 +2,7 @@
 
 ## [x]
 - Fix voting scroller in ILIAS 6
+- Fix presenter view is empty
 
 ## [5.1.1]
 - Fix Freitextfrage
