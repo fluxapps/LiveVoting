@@ -57,4 +57,8 @@ class xlvoRbacReview
     {
         return [];
     }
+
+    public function isAssignedToAtLeastOneGivenRole($a_usr_id, $a_role_ids) {
+        return false;
+    }
 }
