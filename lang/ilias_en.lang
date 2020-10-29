@@ -50,6 +50,7 @@ correct_order#:#Correct Order
 crs_create_xlvo#:#Create LiveVoting
 fikd_create_xlvo#:#Create LiveVoting
 grp_create_xlvo#:#Create LiveVoting
+rep_robj_xlvo_fold_create_xlvo#:#Create LiveVoting
 incorrect_order#:#Incorrect Order
 msg_success_voting_created#:#Voting has been created
 msg_success_voting_updated#:#Voting has been udpated
@@ -304,7 +305,7 @@ qtype_6_median#:#Median
 qtype_6_mode#:#Mode
 qtype_6_mode_not_applicable#:#not applicable
 btn_categorize#:#Categorize
-btn_categorize_done#:#Finish Categorizing
-btn_add_category#:#Add Category
-btn_add_answer#:#Add Input
+btn_categorize_done#:#Finish categorizing
+btn_add_category#:#Add category
+btn_add_answer#:#Add input
 category_title#:#Category Title
