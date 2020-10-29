@@ -260,6 +260,7 @@ xlvo_edit#:#Bearbeiten
 xlvo_edit_permission#:#Rechte bearbeiten
 xlvo_new#:#Neues LiveVoting anlegen
 xlvo_read#:#Leserecht (nur im nicht-anonymen Modus verwendet)
+xlvo_copy#:#LiveVoting kopieren
 xlvo_visible#:#LiveVoting sichtbar
 xlvo_write#:#LiveVoting präsentieren und bearbeiten
 cat_create_xlobj_results_behaviour#:#MISSING cat_create_xlobj_results_behaviour
