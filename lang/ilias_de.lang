@@ -49,6 +49,7 @@ correct_order#:#Korrekte Reihenfolge
 crs_create_xlvo#:#LiveVoting erstellen
 fikd_create_xlvo#:#LiveVoting erstellen
 grp_create_xlvo#:#LiveVoting erstellen
+rep_robj_xlvo_fold_create_xlvo#:#LiveVoting erstellen
 incorrect_order#:#Falsche Reihenfolge
 msg_success_voting_created#:#Frage wurde erstellt
 msg_success_voting_updated#:#Frage wurde gespeichert
@@ -260,6 +261,7 @@ xlvo_edit#:#Bearbeiten
 xlvo_edit_permission#:#Rechte bearbeiten
 xlvo_new#:#Neues LiveVoting anlegen
 xlvo_read#:#Leserecht (nur im nicht-anonymen Modus verwendet)
+xlvo_copy#:#LiveVoting kopieren
 xlvo_visible#:#LiveVoting sichtbar
 xlvo_write#:#LiveVoting präsentieren und bearbeiten
 cat_create_xlobj_results_behaviour#:#MISSING cat_create_xlobj_results_behaviour
