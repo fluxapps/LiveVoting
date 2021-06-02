@@ -9,7 +9,7 @@ use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\QuestionTypes\xlvoQuestionTypesGUI;
 use LiveVoting\Vote\xlvoVote;
 use srag\CustomInputGUIs\LiveVoting\GlyphGUI\GlyphGUI;
-use srag\CustomInputGUIs\LiveVoting\MultiLineInputGUI\MultiLineInputGUI;
+use srag\CustomInputGUIs\LiveVoting\MultiLineNewInputGUI\MultiLineNewInputGUI;
 use srag\CustomInputGUIs\LiveVoting\TextAreaInputGUI\TextAreaInputGUI;
 use srag\CustomInputGUIs\LiveVoting\TextInputGUI\TextInputGUI;
 
@@ -41,8 +41,6 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI
      */
     public function initJS($current = false)
     {
-        $xlvoMultiLineInputGUI = new MultiLineInputGUI();
-        $xlvoMultiLineInputGUI->initCSSandJS();
         xlvoJs::getInstance()->api($this)->name(xlvoQuestionTypes::FREE_INPUT)->category('QuestionTypes')->init();
     }
 
@@ -184,7 +182,7 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI
             //$form->addCommandButton(self::CMD_CLEAR, $this->txt('delete_all'));
         }
 
-        $mli = new MultiLineInputGUI($this->txt('answers'), self::F_VOTE_MULTI_LINE_INPUT);
+        $mli = new MultiLineNewInputGUI($this->txt('answers'), self::F_VOTE_MULTI_LINE_INPUT);
         $te = $this->getTextInputGUI($this->txt('text'), self::F_FREE_INPUT);
 
         $hi2 = new ilHiddenInputGUI(self::F_VOTE_ID);
