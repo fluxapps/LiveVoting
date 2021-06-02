@@ -266,7 +266,8 @@ class xlvoVotingGUI
                 'obj_id'        => $xlvoVoting->getObjId(),
                 'voting_status' => xlvoVoting::STAT_ACTIVE,
             ))->orderBy('position', 'DESC')->where(array('position' => $xlvoVoting->getPosition()), '<')->limit(0, 1)->getArray('id', 'id');
-            $prev_id = array_shift(array_values($prev_id));
+            $array1 = array_values($prev_id);
+            $prev_id = array_shift($array1);
 
             if ($prev_id) {
                 self::dic()->ctrl()->setParameter($this, self::IDENTIFIER, $prev_id);
@@ -281,7 +282,8 @@ class xlvoVotingGUI
                 'obj_id'        => $xlvoVoting->getObjId(),
                 'voting_status' => xlvoVoting::STAT_ACTIVE,
             ))->orderBy('position', 'ASC')->where(array('position' => $xlvoVoting->getPosition()), '>')->limit(0, 1)->getArray('id', 'id');
-            $next_id = array_shift(array_values($next_id));
+            $array = array_values($next_id);
+            $next_id = array_shift($array);
 
             if ($next_id) {
                 self::dic()->ctrl()->setParameter($this, self::IDENTIFIER, $next_id);

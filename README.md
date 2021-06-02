@@ -41,17 +41,13 @@ Config Rewrite Rule in .htaccess or Apache-Config:
 </IfModule>
 ```
 
-### Some screenshots
-TODO
-
 ## PowerPoint export
 For display the exported PowerPoint files you need to install the WebViewer-AddIn in PowerPoint:
 https://appsource.microsoft.com/en-us/product/office/WA104295828?tab=Overview
 You need also to configure your website as HTTPS and allow that your website can be displayed in frames.
 
 ### Requirements
-* ILIAS 5.4 or ILIAS 6
-* PHP >=5.5
+* ILIAS 6.x / 7.x
 
 ### Adjustment suggestions
 * Adjustment suggestions by pull requests

@@ -99,4 +99,9 @@ class ilLiveVotingPlugin extends ilRepositoryObjectPlugin
         self::dic()->database()->dropTable(xlvoConf::TABLE_NAME, false);
         self::dic()->database()->dropTable(xlvoVoter::TABLE_NAME, false);
     }
+
+    protected function shouldUseOneUpdateStepOnly() : bool
+    {
+        return false;
+    }
 }

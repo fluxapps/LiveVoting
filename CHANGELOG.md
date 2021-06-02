@@ -1,5 +1,9 @@
 # Change Log
 
+## [5.2.0]
+- Change: ILIAS 7 compatibility
+- Change: dropped ILIAS 5.4 compatibility
+
 ## [5.1.5]
 - Fix: some language variables fixed/added
 

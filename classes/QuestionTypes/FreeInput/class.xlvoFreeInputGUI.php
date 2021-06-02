@@ -28,7 +28,6 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI
     const F_VOTE_MULTI_LINE_INPUT = 'vote_multi_line_input';
     const F_FREE_INPUT = 'free_input';
     const F_VOTE_ID = 'vote_id';
-    //const CMD_CLEAR = 'clear';
 
     const BUTTON_CATEGORIZE = 'btn_categorize';
     /**

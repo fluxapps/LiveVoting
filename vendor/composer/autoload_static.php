@@ -9,12 +9,12 @@ class ComposerStaticInitf5122d14f0f45dac789bfb6428ff8994
     public static $prefixLengthsPsr4 = array (
         's' => 
         array (
-            'srag\\RemovePluginDataConfirm\\' => 29,
-            'srag\\LibraryLanguageInstaller\\' => 30,
+            'srag\\RemovePluginDataConfirm\\LiveVoting\\' => 40,
+            'srag\\LibraryLanguageInstaller\\LiveVoting\\' => 41,
             'srag\\LibrariesNamespaceChanger\\' => 31,
-            'srag\\DIC\\' => 9,
-            'srag\\CustomInputGUIs\\' => 21,
-            'srag\\ActiveRecordConfig\\' => 24,
+            'srag\\DIC\\LiveVoting\\' => 20,
+            'srag\\CustomInputGUIs\\LiveVoting\\' => 32,
+            'srag\\ActiveRecordConfig\\LiveVoting\\' => 35,
         ),
         'S' => 
         array (
@@ -31,11 +31,11 @@ class ComposerStaticInitf5122d14f0f45dac789bfb6428ff8994
     );
 
     public static $prefixDirsPsr4 = array (
-        'srag\\RemovePluginDataConfirm\\' => 
+        'srag\\RemovePluginDataConfirm\\LiveVoting\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src',
         ),
-        'srag\\LibraryLanguageInstaller\\' => 
+        'srag\\LibraryLanguageInstaller\\LiveVoting\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/librarylanguageinstaller/src',
         ),
@@ -43,15 +43,15 @@ class ComposerStaticInitf5122d14f0f45dac789bfb6428ff8994
         array (
             0 => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src',
         ),
-        'srag\\DIC\\' => 
+        'srag\\DIC\\LiveVoting\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/dic/src',
         ),
-        'srag\\CustomInputGUIs\\' => 
+        'srag\\CustomInputGUIs\\LiveVoting\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/custominputguis/src',
         ),
-        'srag\\ActiveRecordConfig\\' => 
+        'srag\\ActiveRecordConfig\\LiveVoting\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/activerecordconfig/src',
         ),
@@ -98,13 +98,14 @@ class ComposerStaticInitf5122d14f0f45dac789bfb6428ff8994
         'LiveVoting\\Conf\\xlvoConfFormGUI' => __DIR__ . '/../..' . '/src/Conf/xlvoConfFormGUI.php',
         'LiveVoting\\Conf\\xlvoConfOld' => __DIR__ . '/../..' . '/src/Conf/xlvoConfOld.php',
         'LiveVoting\\Context\\InitialisationManager' => __DIR__ . '/../..' . '/src/Context/InitialisationManager.php',
-        'LiveVoting\\Context\\Initialisation\\Version\\v53\\xlvoBasicInitialisation' => __DIR__ . '/../..' . '/src/Context/Initialisation/Version/v53/xlvoBasicInitialisation.php',
-        'LiveVoting\\Context\\Initialisation\\Version\\v53\\xlvoSkin' => __DIR__ . '/../..' . '/src/Context/Initialisation/Version/v53/xlvoStyleDefinition.php',
-        'LiveVoting\\Context\\Initialisation\\Version\\v53\\xlvoStyleDefinition' => __DIR__ . '/../..' . '/src/Context/Initialisation/Version/v53/xlvoStyleDefinition.php',
         'LiveVoting\\Context\\Initialisation\\Version\\v6\\GlobalTemplate' => __DIR__ . '/../..' . '/src/Context/Initialisation/Version/v6/GlobalTemplate.php',
         'LiveVoting\\Context\\Initialisation\\Version\\v6\\xlvoBasicInitialisation' => __DIR__ . '/../..' . '/src/Context/Initialisation/Version/v6/xlvoBasicInitialisation.php',
         'LiveVoting\\Context\\Initialisation\\Version\\v6\\xlvoSkin' => __DIR__ . '/../..' . '/src/Context/Initialisation/Version/v6/xlvoStyleDefinition.php',
         'LiveVoting\\Context\\Initialisation\\Version\\v6\\xlvoStyleDefinition' => __DIR__ . '/../..' . '/src/Context/Initialisation/Version/v6/xlvoStyleDefinition.php',
+        'LiveVoting\\Context\\Initialisation\\Version\\v7\\GlobalTemplate' => __DIR__ . '/../..' . '/src/Context/Initialisation/Version/v7/GlobalTemplate.php',
+        'LiveVoting\\Context\\Initialisation\\Version\\v7\\xlvoBasicInitialisation' => __DIR__ . '/../..' . '/src/Context/Initialisation/Version/v7/xlvoBasicInitialisation.php',
+        'LiveVoting\\Context\\Initialisation\\Version\\v7\\xlvoSkin' => __DIR__ . '/../..' . '/src/Context/Initialisation/Version/v7/xlvoStyleDefinition.php',
+        'LiveVoting\\Context\\Initialisation\\Version\\v7\\xlvoStyleDefinition' => __DIR__ . '/../..' . '/src/Context/Initialisation/Version/v7/xlvoStyleDefinition.php',
         'LiveVoting\\Context\\Param\\ParamManager' => __DIR__ . '/../..' . '/src/Context/Param/ParamManager.php',
         'LiveVoting\\Context\\xlvoContext' => __DIR__ . '/../..' . '/src/Context/xlvoContext.php',
         'LiveVoting\\Context\\xlvoContextLiveVoting' => __DIR__ . '/../..' . '/src/Context/xlvoContextLiveVoting.php',
