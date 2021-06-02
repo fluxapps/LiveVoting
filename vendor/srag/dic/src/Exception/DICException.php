@@ -8,8 +8,6 @@ use ilException;
  * Class DICException
  *
  * @package srag\DIC\LiveVoting\Exception
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 final class DICException extends ilException
 {
@@ -17,7 +15,7 @@ final class DICException extends ilException
     /**
      * @var int
      */
-    const CODE_NOT_SUPPORTED_ON_CURRENT_ILIAS_VERSION = 1;
+    const CODE_INVALID_PLUGIN_CLASS = 3;
     /**
      * @var int
      */
@@ -25,11 +23,11 @@ final class DICException extends ilException
     /**
      * @var int
      */
-    const CODE_INVALID_PLUGIN_CLASS = 3;
+    const CODE_MISUSE_TRANSLATE_WITH_SPRINTF = 4;
     /**
      * @var int
      */
-    const CODE_MISUSE_TRANSLATE_WITH_SPRINTF = 4;
+    const CODE_NOT_SUPPORTED_ON_CURRENT_ILIAS_VERSION = 1;
     /**
      * @var int
      */

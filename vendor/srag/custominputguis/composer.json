@@ -1,39 +1,62 @@
 {
   "name": "srag/custominputguis",
   "description": "Custom Input-GUI's",
+  "version": "0.42.7",
+  "extra": {
+    "ilias_plugin": {
+      "ilias_min_version": "5.4.0",
+      "ilias_max_version": "6.999"
+    },
+    "generate_plugin_readme_template": "ILIAS_LIBRARY",
+    "long_description_template": "src/LONG_DESCRIPTION.md"
+  },
   "type": "library",
   "keywords": [
-    "ILIAS",
-    "PropertyForm",
-    "Table",
-    "Input",
-    "GUI"
+    "gui",
+    "ilias",
+    "input",
+    "propertyform",
+    "table"
   ],
-  "homepage": "https://github.com/studer-raimann/CustomInputGUIs",
+  "homepage": "https://github.com/fluxapps/CustomInputGUIs",
   "license": "GPL-3.0-only",
   "authors": [
     {
-      "name": "studer + raimann ag - Team Custom 1",
-      "email": "support-custom1@studer-raimann.ch",
-      "homepage": "https://studer-raimann.ch",
+      "name": "fluxlabs",
+      "email": "support@fluxlabs.ch",
+      "homepage": "https://fluxlabs.ch",
       "role": "Developer"
     }
   ],
-  "support": {
-    "issues": "https://plugins.studer-raimann.ch/goto.php?target=uihk_srsu_LINP"
-  },
   "require": {
     "php": ">=7.0",
     "srag/dic": ">=0.1.0"
   },
+  "require-dev": {
+    "srag/generateplugininfoshelper": ">=0.1.0"
+  },
   "autoload": {
     "psr-4": {
       "srag\\CustomInputGUIs\\LiveVoting\\": "src/"
-    }
+    },
+    "classmap": [
+      "src/MultiSelectSearchNewInputGUI/class.ObjectChildrenAjaxAutoCompleteCtrl.php",
+      "src/MultiSelectSearchNewInputGUI/class.ObjectsAjaxAutoCompleteCtrl.php",
+      "src/MultiSelectSearchNewInputGUI/class.OrgUnitAjaxAutoCompleteCtrl.php",
+      "src/MultiSelectSearchNewInputGUI/class.UsersAjaxAutoCompleteCtrl.php"
+    ]
   },
   "config": {
     "classmap-authoritative": true,
     "optimize-autoloader": true,
     "sort-packages": true
+  },
+  "scripts": {
+    "generate-plugin-readme": [
+      "srag\\GeneratePluginInfosHelper\\GeneratePluginReadme::generatePluginReadme"
+    ],
+    "update-version": [
+      "srag\\GeneratePluginInfosHelper\\UpdateVersion::updateVersion"
+    ]
   }
 }

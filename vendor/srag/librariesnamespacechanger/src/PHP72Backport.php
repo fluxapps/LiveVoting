@@ -2,6 +2,8 @@
 
 namespace srag\LibrariesNamespaceChanger;
 
+use Closure;
+use Composer\Config;
 use Composer\Script\Event;
 
 /**
@@ -9,35 +11,103 @@ use Composer\Script\Event;
  *
  * @package srag\LibrariesNamespaceChanger
  *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
- *
  * @internal
+ *
+ * @deprecated
  */
 final class PHP72Backport
 {
 
-    const REGEXP_EXPRESSION = "[A-Za-z0-9_\":\s\[\]]+";
-    const REGEXP_FUNCTION = "function\s*(" . self::REGEXP_NAME . ")?\s*\((" . self::REGEXP_PARAM . ")?(," . self::REGEXP_PARAM . ")*\)(\s*(\/\*)?\s*:\s*\??" . self::REGEXP_NAME . "\s*(\*\/)?)?";
-    const REGEXP_NAME = "[A-Za-z_][A-Za-z0-9_]*";
-    const REGEXP_PARAM = "\s*(\/\*)?\s*\??\s*(" . self::REGEXP_NAME . ")?\s*(\*\/)?\s*\\$" . self::REGEXP_NAME . "(\s*=\s*" . self::REGEXP_EXPRESSION . ")?\s*";
     /**
-     * @var self|null
+     * @var string
+     *
+     * @deprecated
      */
-    private static $instance = null;
+    const REGEXP_EXPRESSION = "[A-Za-z0-9_\":\s\[\]\(\)]+";
+    /**
+     * @var string
+     *
+     * @deprecated
+     */
+    const REGEXP_FUNCTION = "function\s*(" . self::REGEXP_NAME . ")?\s*\((" . self::REGEXP_PARAM . ")?(," . self::REGEXP_PARAM . ")*\)(\s*(\/\*)?\s*:\s*\??" . self::REGEXP_NAME . "\s*(\*\/)?)?";
+    /**
+     * @var string
+     *
+     * @deprecated
+     */
+    const REGEXP_NAME = "\\\\?[A-Za-z_][A-Za-z0-9_\\\\]*";
+    /**
+     * @var string
+     *
+     * @deprecated
+     */
+    const REGEXP_PARAM = "\s*(\/\*)?\s*\??\s*(\*\/)?\s*(" . self::REGEXP_NAME . ")?\s*(\*\/)?\s*&?\s*?\\$" . self::REGEXP_NAME . "(\s*=\s*" . self::REGEXP_EXPRESSION . ")?\s*";
     /**
      * @var array
+     *
+     * @deprecated
      */
     private static $exts
         = [
             "md",
             "php"
         ];
+    /**
+     * @var self|null
+     *
+     * @deprecated
+     */
+    private static $instance = null;
+    /**
+     * @var string
+     *
+     * @deprecated
+     */
+    private static $plugin_root = "";
+    /**
+     * @var Event
+     *
+     * @deprecated
+     */
+    private $event;
+
+
+    /**
+     * PHP72Backport constructor
+     *
+     * @param Event $event
+     *
+     * @deprecated
+     */
+    private function __construct(Event $event)
+    {
+        $this->event = $event;
+    }
+
+
+    /**
+     * @param Event $event
+     *
+     * @internal
+     *
+     * @deprecated
+     */
+    public static function PHP72Backport(Event $event)/*: void*/
+    {
+        self::$plugin_root = rtrim(Closure::bind(function () : string {
+            return $this->baseDir;
+        }, $event->getComposer()->getConfig(), Config::class)(), "/");
+
+        self::getInstance($event)->doPHP72Backport();
+    }
 
 
     /**
      * @param Event $event
      *
      * @return self
+     *
+     * @deprecated
      */
     private static function getInstance(Event $event) : self
     {
@@ -50,56 +120,11 @@ final class PHP72Backport
 
 
     /**
-     * @param Event $event
-     *
-     * @internal
-     */
-    public static function PHP72Backport(Event $event)/*: void*/
-    {
-        self::getInstance($event)->doPHP72Backport();
-    }
-
-
-    /**
-     * @var Event
-     */
-    private $event;
-
-
-    /**
-     * PHP72Backport constructor
-     *
-     * @param Event $event
-     */
-    private function __construct(Event $event)
-    {
-        $this->event = $event;
-    }
-
-
-    /**
-     *
-     */
-    private function doPHP72Backport()/*: void*/
-    {
-        $files = [];
-
-        $this->getFiles(__DIR__ . "/../../../..", $files);
-
-        foreach ($files as $file) {
-            $code = file_get_contents($file);
-
-            $code = $this->convertPHP72To70($code);
-
-            file_put_contents($file, $code);
-        }
-    }
-
-
-    /**
      * @param string $code
      *
      * @return string
+     *
+     * @deprecated
      */
     protected function convertPHP72To70(string $code) : string
     {
@@ -120,7 +145,7 @@ final class PHP72Backport
             $function = preg_replace("/([(,]\s*)(object)(\s*\\$" . self::REGEXP_NAME . ")/", '$1/*$2*/$3', $function);
 
             // ?type $param
-            $function = preg_replace("/([(,]\s*)(\?\s*" . self::REGEXP_NAME . ")(\s*\\$" . self::REGEXP_NAME . ")/", '$1/*$2*/$3', $function);
+            $function = preg_replace("/([(,]\s*)(\?\s*" . self::REGEXP_NAME . ")(\s*&?\s*?\\$" . self::REGEXP_NAME . ")/", '$1/*$2*/$3', $function);
 
             return $function;
         }, $code);
@@ -135,8 +160,31 @@ final class PHP72Backport
 
 
     /**
+     * @deprecated
+     */
+    private function doPHP72Backport()/*: void*/
+    {
+        echo "PHP72Backport is deprecated and will be removed!\n";
+
+        $files = [];
+
+        $this->getFiles(self::$plugin_root, $files);
+
+        foreach ($files as $file) {
+            $code = file_get_contents($file);
+
+            $code = $this->convertPHP72To70($code);
+
+            file_put_contents($file, $code);
+        }
+    }
+
+
+    /**
      * @param string $folder
      * @param array  $files
+     *
+     * @deprecated
      */
     private function getFiles(string $folder, array &$files = [])/*: void*/
     {
@@ -147,6 +195,10 @@ final class PHP72Backport
                 $path = $folder . "/" . $file;
 
                 if (is_dir($path)) {
+                    if (in_array($file, ["templates"])) {
+                        continue;
+                    }
+
                     $this->getFiles($path, $files);
                 } else {
                     $ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));

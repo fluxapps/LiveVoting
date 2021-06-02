@@ -9,21 +9,13 @@ use Composer\Script\Event;
  *
  * @package    srag\LibrariesNamespaceChanger
  *
- * @author     studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
- *
  * @internal
  *
- * @deprecated Will be removed with the end of ILIAS 5.3 support
+ * @deprecated
  */
 final class PHP7Backport
 {
 
-    /**
-     * @var string
-     *
-     * @deprecated
-     */
-    const PHP7BACKPORT_REPO = "https://github.com/ondrejbouda/php7backport.git";
     /**
      * @var string
      *
@@ -35,7 +27,7 @@ final class PHP7Backport
      *
      * @deprecated
      */
-    const TEMP_FOLDER_PHP7BACKPORT = "/tmp/php7backport";
+    const PHP7BACKPORT_REPO = "https://github.com/ondrejbouda/php7backport.git";
     /**
      * @var string
      *
@@ -43,43 +35,17 @@ final class PHP7Backport
      */
     const TEMP_FOLDER_LIBRARIES = "/tmp/php7backport_srag";
     /**
+     * @var string
+     *
+     * @deprecated
+     */
+    const TEMP_FOLDER_PHP7BACKPORT = "/tmp/php7backport";
+    /**
      * @var self|null
      *
      * @deprecated
      */
     private static $instance = null;
-
-
-    /**
-     * @param Event $event
-     *
-     * @return self
-     *
-     * @deprecated
-     */
-    private static function getInstance(Event $event) : self
-    {
-        if (self::$instance === null) {
-            self::$instance = new self($event);
-        }
-
-        return self::$instance;
-    }
-
-
-    /**
-     * @param Event $event
-     *
-     * @internal
-     *
-     * @deprecated
-     */
-    public static function PHP7Backport(Event $event)/*: void*/
-    {
-        self::getInstance($event)->doPHP7Backport();
-    }
-
-
     /**
      * @var Event
      *
@@ -102,10 +68,42 @@ final class PHP7Backport
 
 
     /**
+     * @param Event $event
+     *
+     * @internal
+     *
+     * @deprecated
+     */
+    public static function PHP7Backport(Event $event)/*: void*/
+    {
+        self::getInstance($event)->doPHP7Backport();
+    }
+
+
+    /**
+     * @param Event $event
+     *
+     * @return self
+     *
+     * @deprecated
+     */
+    private static function getInstance(Event $event) : self
+    {
+        if (self::$instance === null) {
+            self::$instance = new self($event);
+        }
+
+        return self::$instance;
+    }
+
+
+    /**
      * @deprecated
      */
     private function doPHP7Backport()/*: void*/
     {
+        echo "PHP7Backport is deprecated and will be removed!\n";
+
         // First clone or pull the repo
         if (file_exists(self::TEMP_FOLDER_PHP7BACKPORT)) {
             exec("rm -rfd " . escapeshellarg(self::TEMP_FOLDER_PHP7BACKPORT));

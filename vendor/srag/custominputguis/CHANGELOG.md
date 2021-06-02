@@ -1,5 +1,91 @@
 # Changelog
 
+## [0.42.7]
+- Update urls
+
+## [0.42.6]
+- Ignore not supported languages
+
+## [0.42.5]
+- Ignore not supported languages
+
+## [0.42.4]
+- Update readme
+
+## [0.42.3]
+- Use `PluginVersionParameter`
+
+## [0.42.2]
+- Use `PluginVersionParameter`
+- Fix waiter decimals
+
+## [0.42.1]
+- Fix Waiter on ILIAS 6
+- Update project url
+
+## [0.42.0]
+- Add `Waiter.setBytes`
+- Add possibility to pass own tpl to `Waiter.init`
+
+## [0.41.4]
+- Add require compose in ctrl entry classes
+
+## [0.41.3]
+- Load `form` lang module
+
+## [0.41.2]
+- Fix composer 2
+- Move doc/DESCRIPTION.md to src/LONG_DESCRIPTION.md
+
+## [0.41.1]
+- Generate readme
+
+## [0.41.0]
+- Generate readme
+
+## [0.40.0]
+- Custom hooks for `CustomInputGUIsLoaderDetector::getRendererFor`
+
+## [0.39.3]
+- Fix not required `ilDateTimeInputGUI` in `InputGUIWrapperUIInputComponent`
+
+## [0.39.2]
+- Use `DataFactory` from dic
+
+## [0.39.1]
+- Make `cleanValues` static in `MultiSelectSearchNewInputGUI`
+
+## [0.39.0]
+- Support `MultiLineNewInputGUI` in `TableGUI`
+
+## [0.38.0]
+- `AjaxAutoCompleteCtrl` skip ids
+
+## [0.37.0]
+- Move `PieChart` and `LearningProgressPieUI` to seperate libraries
+
+## [0.36.4]
+- Fix
+
+## [0.36.3]
+- `AbstractFormBuilder`: Fix radios in section
+
+## [0.36.2]
+- Fix language select meta bar which current ctrl gui has namespaces (public page)
+
+## [0.36.1]
+- Fix disabled `ilCheckboxInputGUI` in `InputGUIWrapperUIInputComponent` on form error
+
+## [0.36.0]
+- Remove ProgressMeter (For ILIAS 5.3, use from Core for >= ILIAS 5.4)
+- Refactored to PHP 7.0
+
+## [0.35.1]
+- Fix
+
+## [0.35.0]
+- `CustomInputGUIsLoaderDetector`
+
 ## [0.34.18]
 - Fix ILIAS 6
 

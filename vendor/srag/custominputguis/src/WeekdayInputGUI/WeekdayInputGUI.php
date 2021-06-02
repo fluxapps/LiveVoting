@@ -13,9 +13,6 @@ use srag\DIC\LiveVoting\DICTrait;
  * Class WeekdayInputGUI
  *
  * @package srag\CustomInputGUIs\LiveVoting\WeekdayInputGUI
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
- * @author  Theodor Truffer <tt@studer-raimann.ch>
  */
 class WeekdayInputGUI extends ilFormPropertyGUI implements ilTableFilterItem
 {
@@ -35,7 +32,7 @@ class WeekdayInputGUI extends ilFormPropertyGUI implements ilTableFilterItem
      * @param string $a_title
      * @param string $a_postvar
      */
-    public function __construct(/*string*/ $a_title, /*string*/ $a_postvar)
+    public function __construct(string $a_title, string $a_postvar)
     {
         parent::__construct($a_title, $a_postvar);
 
@@ -44,9 +41,9 @@ class WeekdayInputGUI extends ilFormPropertyGUI implements ilTableFilterItem
 
 
     /**
-     * @return bool
+     * @inheritDoc
      */
-    public function checkInput()/*: bool*/
+    public function checkInput() : bool
     {
         return ($_POST[$this->getPostVar()] == null) || (count($_POST[$this->getPostVar()]) <= 7);
     }
@@ -55,7 +52,7 @@ class WeekdayInputGUI extends ilFormPropertyGUI implements ilTableFilterItem
     /**
      * @inheritDoc
      */
-    public function getTableFilterHTML()/*: string*/
+    public function getTableFilterHTML() : string
     {
         $html = $this->render();
 
@@ -64,13 +61,20 @@ class WeekdayInputGUI extends ilFormPropertyGUI implements ilTableFilterItem
 
 
     /**
-     * Get Value.
-     *
-     * @return array Value
+     * @return array
      */
-    public function getValue()/*: array*/
+    public function getValue() : array
     {
         return $this->value;
+    }
+
+
+    /**
+     * @param array $value
+     */
+    public function setValue(/*array*/ $value)/*: void*/
+    {
+        $this->value = $value;
     }
 
 
@@ -90,7 +94,7 @@ class WeekdayInputGUI extends ilFormPropertyGUI implements ilTableFilterItem
     /**
      * @return string
      */
-    public function render()/*: string*/
+    public function render() : string
     {
         $tpl = new Template(__DIR__ . "/templates/tpl.weekday_input.html", true, true);
 
@@ -114,25 +118,10 @@ class WeekdayInputGUI extends ilFormPropertyGUI implements ilTableFilterItem
 
 
     /**
-     * Set Value.
-     *
-     * @param array $a_value Value
+     * @param array $values
      */
-    public function setValue(/*array*/ $a_value)/*: void*/
+    public function setValueByArray(/*array*/ $values)/*: void*/
     {
-        $this->value = $a_value;
-    }
-
-
-    /**
-     * Set value by array
-     *
-     * @param array $a_values
-     *
-     * @internal param object $a_item Item
-     */
-    public function setValueByArray(/*array*/ $a_values)/*: void*/
-    {
-        $this->setValue($a_values[$this->getPostVar()] ? $a_values[$this->getPostVar()] : []);
+        $this->setValue($values[$this->getPostVar()] ? $values[$this->getPostVar()] : []);
     }
 }

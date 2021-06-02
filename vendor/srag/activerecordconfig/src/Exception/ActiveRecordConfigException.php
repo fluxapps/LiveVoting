@@ -9,13 +9,17 @@ use ilException;
  *
  * @package srag\ActiveRecordConfig\LiveVoting\Exception
  *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
- *
  * @deprecated
  */
 final class ActiveRecordConfigException extends ilException
 {
 
+    /**
+     * @var int
+     *
+     * @deprecated
+     */
+    const CODE_INVALID_CONFIG_GUI_CLASS = 3;
     /**
      * @var int
      *
@@ -28,12 +32,6 @@ final class ActiveRecordConfigException extends ilException
      * @deprecated
      */
     const CODE_UNKOWN_COMMAND = 2;
-    /**
-     * @var int
-     *
-     * @deprecated
-     */
-    const CODE_INVALID_CONFIG_GUI_CLASS = 3;
 
 
     /**

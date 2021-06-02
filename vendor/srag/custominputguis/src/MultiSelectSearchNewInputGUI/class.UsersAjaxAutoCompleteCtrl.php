@@ -2,6 +2,8 @@
 
 namespace srag\CustomInputGUIs\LiveVoting\MultiSelectSearchNewInputGUI;
 
+require_once __DIR__ . "/../../../../autoload.php";
+
 use ilDBConstants;
 use ilObjUser;
 
@@ -9,27 +11,18 @@ use ilObjUser;
  * Class UsersAjaxAutoCompleteCtrl
  *
  * @package srag\CustomInputGUIs\LiveVoting\MultiSelectSearchNewInputGUI
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 class UsersAjaxAutoCompleteCtrl extends AbstractAjaxAutoCompleteCtrl
 {
 
     /**
      * UsersAjaxAutoCompleteCtrl constructor
+     *
+     * @param array|null $skip_ids
      */
-    public function __construct()
+    public function __construct(/*?*/ array $skip_ids = null)
     {
-        parent::__construct();
-    }
-
-
-    /**
-     * @inheritDoc
-     */
-    public function searchOptions(string $search = null) : array
-    {
-        return $this->formatUsers(ilObjUser::searchUsers($search));
+        parent::__construct($skip_ids);
     }
 
 
@@ -50,6 +43,15 @@ AND ' . self::dic()
 
 
     /**
+     * @inheritDoc
+     */
+    public function searchOptions(/*?*/ string $search = null) : array
+    {
+        return $this->formatUsers(ilObjUser::searchUsers($search));
+    }
+
+
+    /**
      * @param array $users
      *
      * @return array
@@ -62,6 +64,6 @@ AND ' . self::dic()
             $formatted_users[$user["usr_id"]] = $user["firstname"] . " " . $user["lastname"] . " (" . $user["login"] . ")";
         }
 
-        return $formatted_users;
+        return $this->skipIds($formatted_users);
     }
 }

@@ -23,6 +23,7 @@ use ilFavouritesDBRepository;
 use ilGlobalTemplateInterface;
 use ilHelpGUI;
 use ILIAS;
+use ILIAS\Data\Factory as DataFactory;
 use ILIAS\DI\BackgroundTaskServices;
 use ILIAS\DI\Container;
 use ILIAS\DI\HTTPServices;
@@ -33,6 +34,10 @@ use ILIAS\Filesystem\Filesystems;
 use ILIAS\FileUpload\FileUpload;
 use ILIAS\GlobalScreen\Services as GlobalScreenService;
 use ILIAS\Refinery\Factory as RefineryFactory;
+use ILIAS\UI\Implementation\Render\JavaScriptBinding;
+use ILIAS\UI\Implementation\Render\Loader;
+use ILIAS\UI\Implementation\Render\ResourceRegistry;
+use ILIAS\UI\Implementation\Render\TemplateFactory;
 use ilIniFile;
 use ilLanguage;
 use ilLearningHistoryService;
@@ -69,8 +74,6 @@ use srag\DIC\LiveVoting\Exception\DICException;
  * Interface DICInterface
  *
  * @package srag\DIC\LiveVoting\DIC
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 interface DICInterface
 {
@@ -186,6 +189,12 @@ interface DICInterface
 
 
     /**
+     * @return DataFactory
+     */
+    public function data() : DataFactory;
+
+
+    /**
      * @return DatabaseInterface
      *
      * @throws DICException DatabaseDetector only supports ilDBPdoInterface!
@@ -197,6 +206,12 @@ interface DICInterface
      * @return ilDBInterface
      */
     public function databaseCore() : ilDBInterface;
+
+
+    /**
+     * @return Container
+     */
+    public function &dic() : Container;
 
 
     /**
@@ -268,6 +283,12 @@ interface DICInterface
 
 
     /**
+     * @return JavaScriptBinding
+     */
+    public function javaScriptBinding() : JavaScriptBinding;
+
+
+    /**
      * @return ilLanguage
      */
     public function language() : ilLanguage;
@@ -334,7 +355,8 @@ interface DICInterface
      *
      * @deprecated Please use `self::dic()->ui()->mainTemplate()`
      */
-    public function mainTemplate();/*: ilGlobalTemplateInterface*/
+    public function mainTemplate();
+
 
     /**
      * @return ilNewsService
@@ -361,6 +383,12 @@ interface DICInterface
 
 
     /**
+     * @return ilPluginAdmin
+     */
+    public function pluginAdmin() : ilPluginAdmin;
+
+
+    /**
      * @return ilAsqFactory
      *
      * @throws DICException ilAsqFactory not exists in ILIAS 5.4 or below!
@@ -368,12 +396,6 @@ interface DICInterface
      * @since ILIAS 6
      */
     public function question() : ilAsqFactory;
-
-
-    /**
-     * @return ilPluginAdmin
-     */
-    public function pluginAdmin() : ilPluginAdmin;
 
 
     /**
@@ -417,9 +439,21 @@ interface DICInterface
 
 
     /**
+     * @return Loader
+     */
+    public function rendererLoader() : Loader;
+
+
+    /**
      * @return ilTree
      */
     public function repositoryTree() : ilTree;
+
+
+    /**
+     * @return ResourceRegistry
+     */
+    public function resourceRegistry() : ResourceRegistry;
 
 
     /**
@@ -454,6 +488,12 @@ interface DICInterface
      * @since ILIAS 6
      */
     public function task() : ilTaskService;
+
+
+    /**
+     * @return TemplateFactory
+     */
+    public function templateFactory() : TemplateFactory;
 
 
     /**
@@ -498,10 +538,4 @@ interface DICInterface
      * @return ilObjUser
      */
     public function user() : ilObjUser;
-
-
-    /**
-     * @return Container
-     */
-    public function &dic() : Container;
 }

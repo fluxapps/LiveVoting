@@ -1,0 +1,2 @@
+include:
+  - https://auto-version-tag-ci.fluxlabs.ch/auto_version_tag_ci.yml

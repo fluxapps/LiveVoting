@@ -5,13 +5,13 @@ namespace srag\CustomInputGUIs\LiveVoting\TextInputGUI;
 use iljQueryUtil;
 use ilUtil;
 use srag\CustomInputGUIs\LiveVoting\Template\Template;
+use srag\DIC\LiveVoting\Plugin\PluginInterface;
+use srag\DIC\LiveVoting\Version\PluginVersionParameter;
 
 /**
  * Class TextInputGUIWithModernAutoComplete
  *
  * @package srag\CustomInputGUIs\LiveVoting\TextInputGUI
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 class TextInputGUIWithModernAutoComplete extends TextInputGUI
 {
@@ -20,30 +20,6 @@ class TextInputGUIWithModernAutoComplete extends TextInputGUI
      * @var bool
      */
     protected static $init = false;
-
-
-    /**
-     *
-     */
-    public static function init()/*: void*/
-    {
-        if (self::$init === false) {
-            self::$init = true;
-
-            $dir = __DIR__;
-            $dir = "./" . substr($dir, strpos($dir, "/Customizing/") + 1);
-
-            iljQueryUtil::initjQuery();
-            iljQueryUtil::initjQueryUI();
-
-            self::dic()->ui()->mainTemplate()->addJavaScript($dir . "/../../node_modules/babel-polyfill/dist/polyfill.min.js");
-
-            self::dic()->ui()->mainTemplate()->addJavaScript($dir . "/js/text_input_gui_with_modern_auto_complete.min.js");
-
-            self::dic()->ui()->mainTemplate()->addOnLoadCode("il.textinput_more_txt = " . json_encode(self::dic()->language()->txt('autocomplete_more')
-                    . ";") . ";");
-        }
-    }
 
 
     /**
@@ -56,14 +32,42 @@ class TextInputGUIWithModernAutoComplete extends TextInputGUI
     {
         parent::__construct($a_title, $a_postvar);
 
-        self::init();
+        self::init(); // TODO: Pass $plugin
     }
 
 
     /**
-     * @param string $a_mode
-     *
-     * @return string
+     * @param PluginInterface|null $plugin
+     */
+    public static function init(/*?*/ PluginInterface $plugin = null)/*: void*/
+    {
+        if (self::$init === false) {
+            self::$init = true;
+
+            $version_parameter = PluginVersionParameter::getInstance();
+            if ($plugin !== null) {
+                $version_parameter = $version_parameter->withPlugin($plugin);
+            }
+
+            $dir = __DIR__;
+            $dir = "./" . substr($dir, strpos($dir, "/Customizing/") + 1);
+
+            iljQueryUtil::initjQuery();
+            iljQueryUtil::initjQueryUI();
+
+            self::dic()->ui()->mainTemplate()->addJavaScript($version_parameter->appendToUrl($dir . "/../../node_modules/babel-polyfill/dist/polyfill.min.js"));
+
+            self::dic()->ui()->mainTemplate()->addJavaScript($version_parameter->appendToUrl($dir . "/js/text_input_gui_with_modern_auto_complete.min.js",
+                $dir . "/js/text_input_gui_with_modern_auto_complete.js"));
+
+            self::dic()->ui()->mainTemplate()->addOnLoadCode("il.textinput_more_txt = " . json_encode(self::dic()->language()->txt('autocomplete_more')
+                    . ";") . ";");
+        }
+    }
+
+
+    /**
+     * @inheritDoc
      */
     public function render(/*string*/ $a_mode = "") : string
     {

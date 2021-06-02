@@ -9,8 +9,6 @@ use ilFormException;
  *
  * @package srag\CustomInputGUIs\LiveVoting\PropertyFormGUI\Exception
  *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
- *
  * @deprecated
  */
 final class PropertyFormGUIException extends ilFormException
@@ -21,13 +19,13 @@ final class PropertyFormGUIException extends ilFormException
      *
      * @deprecated
      */
-    const CODE_INVALID_PROPERTY_CLASS = 1;
+    const CODE_INVALID_FIELD = 2;
     /**
      * @var int
      *
      * @deprecated
      */
-    const CODE_INVALID_FIELD = 2;
+    const CODE_INVALID_PROPERTY_CLASS = 1;
     /**
      * @var int
      *
@@ -44,10 +42,8 @@ final class PropertyFormGUIException extends ilFormException
      *
      * @deprecated
      */
-    public function __construct(/*string*/
-        $message, /*int*/
-        $code
-    ) {
+    public function __construct(string $message, int $code)
+    {
         parent::__construct($message, $code);
     }
 }

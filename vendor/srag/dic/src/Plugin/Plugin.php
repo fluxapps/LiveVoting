@@ -2,8 +2,11 @@
 
 namespace srag\DIC\LiveVoting\Plugin;
 
+use Closure;
 use Exception;
+use ilCtrlStructureReader;
 use ilLanguage;
+use ilObjComponentSettingsGUI;
 use ilPlugin;
 use srag\CustomInputGUIs\LiveVoting\Template\Template;
 use srag\DIC\LiveVoting\DICTrait;
@@ -13,8 +16,6 @@ use srag\DIC\LiveVoting\Exception\DICException;
  * Class Plugin
  *
  * @package srag\DIC\LiveVoting\Plugin
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 final class Plugin implements PluginInterface
 {
@@ -43,11 +44,97 @@ final class Plugin implements PluginInterface
 
 
     /**
+     * @param string $lang
+     *
+     * @return ilLanguage
+     */
+    private static final function getLanguage(string $lang) : ilLanguage
+    {
+        if (!isset(self::$languages[$lang])) {
+            self::$languages[$lang] = new ilLanguage($lang);
+        }
+
+        return self::$languages[$lang];
+    }
+
+
+    /**
      * @inheritDoc
      */
     public function directory() : string
     {
         return $this->plugin_object->getDirectory();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function getPluginObject() : ilPlugin
+    {
+        return $this->plugin_object;
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function reloadCtrlStructure()/* : void*/
+    {
+        if (!self::version()->is6()) {
+            // Stupid core, why not in autoload too?!
+            require_once "./setup/classes/class.ilCtrlStructureReader.php";
+        }
+
+        // https://github.com/ILIAS-eLearning/ILIAS/blob/release_6/Services/Component/classes/class.ilPlugin.php#L1078-L1091
+        $structure_reader = new ilCtrlStructureReader();
+        $structure_reader->readStructure(
+            true,
+            "./" . $this->plugin_object->getDirectory(),
+            $this->plugin_object->getPrefix(),
+            $this->plugin_object->getDirectory()
+        );
+        self::dic()->ctrl()->insertCtrlCalls(
+            strtolower(ilObjComponentSettingsGUI::class),
+            ilPlugin::getConfigureClassName(["name" => $this->plugin_object->getPluginName()]),
+            $this->plugin_object->getPrefix()
+        );
+
+        // Clear loaded ctrl cache for force reload new node ids from database
+        /*self::dic()->ctrl()->class_cid = [];
+        self::dic()->ctrl()->cid_class = [];
+        self::dic()->ctrl()->info_read_class = [];
+        self::dic()->ctrl()->info_read_cid = [];
+        self::dic()->ctrl()->initBaseClass(strval(filter_input(INPUT_GET, "baseClass")));*/
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function reloadDatabase()/* : void*/
+    {
+        $this->plugin_object->updateDatabase();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function reloadLanguages()/* : void*/
+    {
+        $this->plugin_object->updateLanguages();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function reloadPluginXml()/* : void*/
+    {
+        Closure::bind(function ()/* : void*/ {
+            $this->readEventListening();
+        }, $this->plugin_object, ilPlugin::class)();
     }
 
 
@@ -120,29 +207,5 @@ final class Plugin implements PluginInterface
         $txt = str_replace("\\n", "\n", $txt);
 
         return $txt;
-    }
-
-
-    /**
-     * @inheritDoc
-     */
-    public function getPluginObject() : ilPlugin
-    {
-        return $this->plugin_object;
-    }
-
-
-    /**
-     * @param string $lang
-     *
-     * @return ilLanguage
-     */
-    private static final function getLanguage(string $lang) : ilLanguage
-    {
-        if (!isset(self::$languages[$lang])) {
-            self::$languages[$lang] = new ilLanguage($lang);
-        }
-
-        return self::$languages[$lang];
     }
 }

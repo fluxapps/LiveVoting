@@ -26,8 +26,8 @@
         }
         $("#" + sr_id_input).select2(settings);
     });
-</script><select style="width:{WIDTH}; display:none;" class="chosen {CSS_CLASS}" data-placeholder="{PLACEHOLDER}" class="sr_multi_select_input" id="{ID}" name="{POST_VAR}" {ALL_DISABLED} multiple>
+</script><select class="chosen {CSS_CLASS}" class="sr_multi_select_input" data-placeholder="{PLACEHOLDER}" id="{ID}" multiple name="{POST_VAR}" style="width:{WIDTH}; display:none;" {ALL_DISABLED}>
 	<!-- BEGIN item -->
-	<option value="{VAL}" {SELECTED} {DISABLED}>{TEXT}</option>
+	<option value="{VAL}" {DISABLED} {SELECTED}>{TEXT}</option>
 	<!-- END item -->
 </select>

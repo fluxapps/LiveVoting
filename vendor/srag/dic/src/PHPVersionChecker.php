@@ -8,8 +8,6 @@ use Throwable;
  * Class PHPVersionChecker
  *
  * @package srag\DIC\LiveVoting
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 final class PHPVersionChecker
 {
@@ -17,7 +15,7 @@ final class PHPVersionChecker
     /**
      * @var string
      */
-    const ERROR_MESSAGE = 'The plugin %1$s could not be used! Because it\'s needed at least PHP version %2$s, but you have only PHP version %3$s<br>Please upgrade your PHP version or delete the plugin directory %4$s';
+    const ERROR_MESSAGE = 'The plugin %1$s could not be used! Because it\'s needed at least PHP version %2$s, but you have only PHP version %3$s<br>Please upgrade your PHP version or delete the plugin directory %4$s for continue';
     /**
      * @var string
      */
@@ -38,6 +36,15 @@ final class PHPVersionChecker
      * @var string
      */
     private static $should_php_version = "";
+
+
+    /**
+     * PHPVersionChecker constructor
+     */
+    private function __construct()
+    {
+
+    }
 
 
     /**
@@ -133,15 +140,6 @@ final class PHPVersionChecker
 
             return preg_replace("/\/+/", "/", "$a/$b");
         }, "/");
-    }
-
-
-    /**
-     * PHPVersionChecker constructor
-     */
-    private function __construct()
-    {
-
     }
 }
 

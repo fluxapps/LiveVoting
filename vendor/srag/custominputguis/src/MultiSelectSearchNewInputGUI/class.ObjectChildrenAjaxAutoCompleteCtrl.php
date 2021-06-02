@@ -2,14 +2,14 @@
 
 namespace srag\CustomInputGUIs\LiveVoting\MultiSelectSearchNewInputGUI;
 
+require_once __DIR__ . "/../../../../autoload.php";
+
 use ilObjOrgUnit;
 
 /**
  * Class ObjectChildrenAjaxAutoCompleteCtrl
  *
  * @package srag\CustomInputGUIs\LiveVoting\MultiSelectSearchNewInputGUI
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 class ObjectChildrenAjaxAutoCompleteCtrl extends ObjectsAjaxAutoCompleteCtrl
 {
@@ -23,12 +23,14 @@ class ObjectChildrenAjaxAutoCompleteCtrl extends ObjectsAjaxAutoCompleteCtrl
     /**
      * ObjectChildrenAjaxAutoCompleteCtrl constructor
      *
-     * @param string   $type
-     * @param int|null $parent_ref_id
+     * @param string     $type
+     * @param int|null   $parent_ref_id
+     *
+     * @param array|null $skip_ids
      */
-    public function __construct(string $type,/*?*/ int $parent_ref_id = null)
+    public function __construct(string $type,/*?*/ int $parent_ref_id = null,/*?*/ array $skip_ids = null)
     {
-        parent::__construct($type, ($type === "orgu"));
+        parent::__construct($type, ($type === "orgu"), $skip_ids);
 
         $this->parent_ref_id = $parent_ref_id ?? ($type === "orgu" ? ilObjOrgUnit::getRootOrgRefId() : 1);
     }
@@ -37,18 +39,18 @@ class ObjectChildrenAjaxAutoCompleteCtrl extends ObjectsAjaxAutoCompleteCtrl
     /**
      * @inheritDoc
      */
-    public function searchOptions(string $search = null) : array
+    public function searchOptions(/*?*/ string $search = null) : array
     {
         $org_units = [];
 
         foreach (
-            array_filter(self::dic()->repositoryTree()->getSubTree(self::dic()->repositoryTree()->getNodeData($this->parent_ref_id)), function (array $item) use ($search): bool {
+            array_filter(self::dic()->repositoryTree()->getSubTree(self::dic()->repositoryTree()->getNodeData($this->parent_ref_id)), function (array $item) use ($search) : bool {
                 return (stripos($item["title"], $search) !== false);
             }) as $item
         ) {
             $org_units[$item["child"]] = $item["title"];
         }
 
-        return $org_units;
+        return $this->skipIds($org_units);
     }
 }

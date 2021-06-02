@@ -11,8 +11,6 @@ use srag\DIC\LiveVoting\Exception\DICException;
  * Interface PluginInterface
  *
  * @package srag\DIC\LiveVoting\Plugin
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 interface PluginInterface
 {
@@ -23,6 +21,40 @@ interface PluginInterface
      * @return string Plugin directory
      */
     public function directory() : string;
+
+
+    /**
+     * Get ILIAS plugin object instance
+     *
+     * Please avoid to use ILIAS plugin object instance and instead use methods in this class!
+     *
+     * @return ilPlugin ILIAS plugin object instance
+     */
+    public function getPluginObject() : ilPlugin;
+
+
+    /**
+     *
+     */
+    public function reloadCtrlStructure()/* : void*/ ;
+
+
+    /**
+     *
+     */
+    public function reloadDatabase()/* : void*/ ;
+
+
+    /**
+     *
+     */
+    public function reloadLanguages()/* : void*/ ;
+
+
+    /**
+     *
+     */
+    public function reloadPluginXml()/* : void*/ ;
 
 
     /**
@@ -56,14 +88,4 @@ interface PluginInterface
      * @throws DICException Please use only one placeholder in the default text for the key!
      */
     public function translate(string $key, string $module = "", array $placeholders = [], bool $plugin = true, string $lang = "", string $default = "MISSING %s") : string;
-
-
-    /**
-     * Get ILIAS plugin object instance
-     *
-     * Please avoid to use ILIAS plugin object instance and instead use methods in this class!
-     *
-     * @return ilPlugin ILIAS plugin object instance
-     */
-    public function getPluginObject() : ilPlugin;
 }

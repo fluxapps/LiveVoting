@@ -1,2 +1,0 @@
-### LearningProgressPieUI
-TODO: 

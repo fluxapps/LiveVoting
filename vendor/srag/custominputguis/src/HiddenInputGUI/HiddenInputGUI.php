@@ -10,8 +10,6 @@ use srag\DIC\LiveVoting\DICTrait;
  * Class HiddenInputGUI
  *
  * @package srag\CustomInputGUIs\LiveVoting\HiddenInputGUI
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 class HiddenInputGUI extends ilHiddenInputGUI
 {
@@ -23,15 +21,14 @@ class HiddenInputGUI extends ilHiddenInputGUI
      *
      * @param string $a_postvar
      */
-    public function __construct(/*string*/
-        $a_postvar = ""
-    ) {
+    public function __construct(string $a_postvar = "")
+    {
         parent::__construct($a_postvar);
     }
 
 
     /**
-     * @inheritDoc
+     * @return string
      */
     public function render() : string
     {

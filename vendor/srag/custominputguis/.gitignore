@@ -1,2 +1,9 @@
-vendor
+.idea
+composer.lock
+**/lang/*
+!**/lang/ilias_de.lang
+!**/lang/ilias_en.lang
 #node_modules
+package-lock.json
+vendor
+#yarn.lock

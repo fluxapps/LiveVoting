@@ -11,14 +11,14 @@ use ilTemplate;
 use ilToolbarItem;
 use srag\CustomInputGUIs\LiveVoting\Template\Template;
 use srag\DIC\LiveVoting\DICTrait;
+use srag\DIC\LiveVoting\Plugin\PluginInterface;
+use srag\DIC\LiveVoting\Version\PluginVersionParameter;
 use Throwable;
 
 /**
  * Class UIInputComponentWrapperInputGUI
  *
  * @package srag\CustomInputGUIs\LiveVoting\UIInputComponentWrapperInputGUI
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 class UIInputComponentWrapperInputGUI extends ilFormPropertyGUI implements ilTableFilterItem, ilToolbarItem
 {
@@ -29,24 +29,6 @@ class UIInputComponentWrapperInputGUI extends ilFormPropertyGUI implements ilTab
      * @var bool
      */
     protected static $init = false;
-
-
-    /**
-     *
-     */
-    public static function init()/*: void*/
-    {
-        if (self::$init === false) {
-            self::$init = true;
-
-            $dir = __DIR__;
-            $dir = "./" . substr($dir, strpos($dir, "/Customizing/") + 1);
-
-            self::dic()->ui()->mainTemplate()->addCss($dir . "/css/UIInputComponentWrapperInputGUI.css");
-        }
-    }
-
-
     /**
      * @var Input
      */
@@ -67,7 +49,28 @@ class UIInputComponentWrapperInputGUI extends ilFormPropertyGUI implements ilTab
 
         //parent::__construct($title, $post_var);
 
-        self::init();
+        self::init(); // TODO: Pass $plugin
+    }
+
+
+    /**
+     * @param PluginInterface|null $plugin
+     */
+    public static function init(/*?*/ PluginInterface $plugin = null)/*: void*/
+    {
+        if (self::$init === false) {
+            self::$init = true;
+
+            $version_parameter = PluginVersionParameter::getInstance();
+            if ($plugin !== null) {
+                $version_parameter = $version_parameter->withPlugin($plugin);
+            }
+
+            $dir = __DIR__;
+            $dir = "./" . substr($dir, strpos($dir, "/Customizing/") + 1);
+
+            self::dic()->ui()->mainTemplate()->addCss($version_parameter->appendToUrl($dir . "/css/UIInputComponentWrapperInputGUI.css"));
+        }
     }
 
 
@@ -129,6 +132,15 @@ class UIInputComponentWrapperInputGUI extends ilFormPropertyGUI implements ilTab
 
 
     /**
+     * @param Input $input
+     */
+    public function setInput(Input $input)/*: void*/
+    {
+        $this->input = $input;
+    }
+
+
+    /**
      * @inheritDoc
      */
     public function getPostVar()/*:string*/
@@ -185,7 +197,7 @@ class UIInputComponentWrapperInputGUI extends ilFormPropertyGUI implements ilTab
     /**
      * @param ilTemplate $tpl
      */
-    public function insert(ilTemplate $tpl) /*: void*/
+    public function insert(ilTemplate $tpl)/*: void*/
     {
         $html = $this->render();
 
@@ -238,15 +250,6 @@ class UIInputComponentWrapperInputGUI extends ilFormPropertyGUI implements ilTab
     public function setInfo(/*string*/ $info)/*: void*/
     {
         $this->input = $this->input->withByline($info);
-    }
-
-
-    /**
-     * @param Input $input
-     */
-    public function setInput(Input $input)/*: void*/
-    {
-        $this->input = $input;
     }
 
 

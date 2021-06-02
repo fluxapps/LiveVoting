@@ -1,5 +1,99 @@
 # Changelog
 
+## [0.15.3]
+- Update urls
+
+## [0.15.2]
+- Update readme
+
+## [0.15.1]
+- Update project url
+
+## [0.15.0]
+- Possibility to run without composer script
+- Deprecate `PHP72Backport`
+
+## [0.14.2]
+- Move doc/DESCRIPTION.md to src/LONG_DESCRIPTION.md
+
+## [0.14.1]
+- Generate readme
+
+## [0.14.0]
+- Generate readme
+
+## [0.13.0]
+- Move GeneratePluginInfosHelper to separate package
+
+## [0.12.2]
+- Auto migrate `ilias_plugin` to `extra`
+
+## [0.12.1]
+- Auto migrate `ilias_plugin` to `extra`
+
+## [0.12.0]
+- `GeneratePluginReadme`
+- Move `composer.json` > `ilias_plugin` to `composer.json` > `extra` > `ilias_plugin` for match composer shema
+- Make `UpdatePluginReadme` depracated
+
+## [0.11.3]
+- auto_version_tag_ci
+
+## [0.11.2]
+- auto_version_tag_ci
+
+## [0.11.1]
+- auto_version_tag_ci
+
+## [0.11.0]
+- auto_version_tag_ci
+
+## [0.10.4]
+- Fix `getOldPluginVar` may contains `"`
+
+## [0.10.3]
+- PHP72Backport fix `&`
+
+## [0.10.2]
+- Remove repository object check
+
+## [0.10.1]
+- Add plugin name to `composer.json`
+
+## [0.10.0]
+- Auto update `LuceneObjectDefinition.xml` for repository objects
+- Auto update slot path in `README.md`
+- Update missing infos in `composer.json` before generate
+- Log changes
+
+## [0.9.7]
+- Add some regexp to `PHP72Backport`
+- Skip some folders
+
+## [0.9.6]
+- `GeneratePluginPhpAndXml`: No empty `<events>`
+
+## [0.9.5]
+- `GeneratePluginPhpAndXml`: `learning_progress` and `supports_export`
+
+## [0.9.4]
+- Fix
+
+## [0.9.3]
+- Fix
+
+## [0.9.2]
+- `UpdatePluginReadme`
+
+## [0.9.1]
+- Fix
+
+## [0.9.0]
+- `GeneratePluginPhpAndXml`
+
+## [0.8.7]
+- Fix
+
 ## [0.8.6]
 - Fix
 

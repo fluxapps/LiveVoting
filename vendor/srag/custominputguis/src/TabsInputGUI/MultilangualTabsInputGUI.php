@@ -10,13 +10,20 @@ use srag\DIC\LiveVoting\DICTrait;
  * Class MultilangualTabsInputGUI
  *
  * @package srag\CustomInputGUIs\LiveVoting\TabsInputGUI
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 class MultilangualTabsInputGUI
 {
 
     use DICTrait;
+
+    /**
+     * MultilangualTabsInputGUI constructor
+     */
+    private function __construct()
+    {
+
+    }
+
 
     /**
      * @param array $items
@@ -160,15 +167,6 @@ class MultilangualTabsInputGUI
         } else {
             $values[$lang_key] = $value;
         }
-    }
-
-
-    /**
-     * MultilangualTabsInputGUI constructor
-     */
-    private function __construct()
-    {
-
     }
 }
 

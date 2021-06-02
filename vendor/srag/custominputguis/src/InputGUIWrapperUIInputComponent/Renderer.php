@@ -15,8 +15,6 @@ if (DICStatic::version()->is6()) {
      * Class Renderer
      *
      * @package srag\CustomInputGUIs\LiveVoting\InputGUIWrapperUIInputComponent
-     *
-     * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
      */
     class Renderer extends AbstractRenderer
     {
@@ -51,8 +49,6 @@ if (DICStatic::version()->is6()) {
      * Class Renderer
      *
      * @package srag\CustomInputGUIs\LiveVoting\InputGUIWrapperUIInputComponent
-     *
-     * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
      */
     class Renderer extends AbstractRenderer
     {
