@@ -5,7 +5,6 @@ namespace LiveVoting\QuestionTypes\CorrectOrder;
 use ilCheckboxInputGUI;
 use ilException;
 use ilFormPropertyGUI;
-use ilHiddenInputGUI;
 use ilNumberInputGUI;
 use InvalidArgumentException;
 use LiveVoting\Exceptions\xlvoSubFormGUIHandleFieldException;
@@ -13,6 +12,7 @@ use LiveVoting\Option\xlvoOption;
 use LiveVoting\QuestionTypes\xlvoSubFormGUI;
 use srag\CustomInputGUIs\LiveVoting\MultiLineNewInputGUI\MultiLineNewInputGUI;
 use srag\CustomInputGUIs\LiveVoting\TextInputGUI\TextInputGUI;
+use srag\CustomInputGUIs\LiveVoting\HiddenInputGUI\HiddenInputGUI;
 
 /**
  * Class xlvoCorrectOrderSubFormGUI
@@ -43,14 +43,15 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI
     {
 
         $xlvoMultiLineInputGUI = new MultiLineNewInputGUI($this->txt(self::F_OPTIONS), self::F_OPTIONS);
-        $xlvoMultiLineInputGUI->setShowInputLabel(true);
+        $xlvoMultiLineInputGUI->setShowInputLabel(false);
+        $xlvoMultiLineInputGUI->setShowSort(false);
 
         $randomiseOptionSequenceAfterSave = new ilCheckboxInputGUI($this->txt(self::OPTION_RANDOMIZE_OPTIONS_AFTER_SAVE), self::OPTION_RANDOMIZE_OPTIONS_AFTER_SAVE);
         $randomiseOptionSequenceAfterSave->setOptionTitle($this->txt(self::OPTION_RANDOMIZE_OPTIONS_AFTER_SAVE_INFO));
         //$xlvoMultiLineInputGUI->setPositionMovable(true); // Allow move position
         $randomiseOptionSequenceAfterSave->setChecked($this->getXlvoVoting()->getRandomiseOptionSequence()); // Should shuffled?
 
-        $h = new ilHiddenInputGUI(self::F_ID);
+        $h = new HiddenInputGUI(self::F_ID);
         $xlvoMultiLineInputGUI->addInput($h);
 
         /*if (!$this->getXlvoVoting()->getRandomiseOptionSequence()) {

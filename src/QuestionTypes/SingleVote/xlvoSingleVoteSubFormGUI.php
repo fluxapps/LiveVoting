@@ -5,13 +5,13 @@ namespace LiveVoting\QuestionTypes\SingleVote;
 use ilCheckboxInputGUI;
 use ilException;
 use ilFormPropertyGUI;
-use ilHiddenInputGUI;
 use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Exceptions\xlvoSubFormGUIHandleFieldException;
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\QuestionTypes\xlvoSubFormGUI;
 use srag\CustomInputGUIs\LiveVoting\MultiLineNewInputGUI\MultiLineNewInputGUI;
 use srag\CustomInputGUIs\LiveVoting\TextInputGUI\TextInputGUI;
+use srag\CustomInputGUIs\LiveVoting\HiddenInputGUI\HiddenInputGUI;
 
 /**
  * Class xlvoSingleVoteSubFormGUI
@@ -55,7 +55,7 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI
         $te->setInfo(xlvoConf::isLatexEnabled() ? $this->txt('info_latex') : '');
         $xlvoMultiLineInputGUI->addInput($te);
 
-        $h = new ilHiddenInputGUI(self::F_ID);
+        $h = new HiddenInputGUI(self::F_ID);
         $xlvoMultiLineInputGUI->addInput($h);
 
         $this->addFormElement($xlvoMultiLineInputGUI);
