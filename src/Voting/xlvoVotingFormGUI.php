@@ -21,6 +21,7 @@ use srag\CustomInputGUIs\LiveVoting\TextAreaInputGUI\TextAreaInputGUI;
 use srag\CustomInputGUIs\LiveVoting\TextInputGUI\TextInputGUI;
 use srag\DIC\LiveVoting\DICTrait;
 use xlvoVotingGUI;
+use ILIAS\DI\Container;
 
 /**
  * Class xlvoVotingFormGUI
@@ -177,7 +178,9 @@ class xlvoVotingFormGUI extends ilPropertyFormGUI
             $this->addItem($columns);
         }
 
-        xlvoSubFormGUI::getInstance($this->getVoting())->appedElementsToForm($this);
+        $xlvoSingleVoteSubFormGUI = xlvoSubFormGUI::getInstance($this->getVoting());
+        $xlvoSingleVoteSubFormGUI->appedElementsToForm($this);
+        $xlvoSingleVoteSubFormGUI->addJsAndCss(self::dic()->ui()->mainTemplate());
     }
 
 

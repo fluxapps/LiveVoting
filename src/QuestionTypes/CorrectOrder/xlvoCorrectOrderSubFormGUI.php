@@ -13,6 +13,8 @@ use LiveVoting\QuestionTypes\xlvoSubFormGUI;
 use srag\CustomInputGUIs\LiveVoting\MultiLineNewInputGUI\MultiLineNewInputGUI;
 use srag\CustomInputGUIs\LiveVoting\TextInputGUI\TextInputGUI;
 use srag\CustomInputGUIs\LiveVoting\HiddenInputGUI\HiddenInputGUI;
+use ilTemplate;
+use ilGlobalPageTemplate;
 
 /**
  * Class xlvoCorrectOrderSubFormGUI
@@ -30,11 +32,17 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI
     const F_CORRECT_POSITION = 'correct_position';
     const OPTION_RANDOMIZE_OPTIONS_AFTER_SAVE = 'option_randomise_option_after_save';
     const OPTION_RANDOMIZE_OPTIONS_AFTER_SAVE_INFO = 'option_randomise_option_after_save_info';
+    const CSS_FILE_PATH = './Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/QuestionTypes/CorrectOrder/correct_order_form.css';
+
     /**
      * @var xlvoOption[]
      */
     protected $options = array();
 
+    public function addJsAndCss(ilGlobalPageTemplate $ilTemplate)
+    {
+        $ilTemplate->addCSS(self::CSS_FILE_PATH);
+    }
 
     /**
      *

@@ -18,6 +18,8 @@ use LiveVoting\QuestionTypes\SingleVote\xlvoSingleVoteSubFormGUI;
 use LiveVoting\Utils\LiveVotingTrait;
 use LiveVoting\Voting\xlvoVoting;
 use srag\DIC\LiveVoting\DICTrait;
+use ilTemplate;
+use ilGlobalPageTemplate;
 
 /**
  * Class xlvoFreeInputSubFormGUI
@@ -216,6 +218,9 @@ abstract class xlvoSubFormGUI
         return $existing;
     }
 
+    public function addJsAndCss(ilGlobalPageTemplate $ilTemplate)
+    {
+    }
 
     /**
      *
