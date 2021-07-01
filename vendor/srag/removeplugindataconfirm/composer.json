@@ -1,7 +1,7 @@
 {
   "name": "srag/removeplugindataconfirm",
   "description": "Demand if plugin data should be removed on uninstall",
-  "version": "0.7.7",
+  "version": "0.7.8",
   "extra": {
     "ilias_plugin": {
       "ilias_min_version": "5.4.0",

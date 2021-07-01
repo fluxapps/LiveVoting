@@ -6,7 +6,10 @@
 	  flex-wrap: wrap;
 
 	  > .input_gui_input {
-		display: flex;
+		&:not([hidden]) {
+		  display: flex;
+		}
+
 		flex-basis: 0;
 		flex-direction: column;
 		flex-grow: 1;

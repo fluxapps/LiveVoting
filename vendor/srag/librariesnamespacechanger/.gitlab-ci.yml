@@ -1,2 +1,7 @@
-include:
-  - https://auto-version-tag-ci.fluxlabs.ch/auto_version_tag_ci.yml
+FluxPublishUtils:
+  stage: build
+  image: docker-registry.fluxpublisher.ch/flux-publish-utils:latest
+  script:
+    - "false"
+  only:
+    - /^master$/

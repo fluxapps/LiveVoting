@@ -9,12 +9,12 @@ class ComposerStaticInitf5122d14f0f45dac789bfb6428ff8994
     public static $prefixLengthsPsr4 = array (
         's' => 
         array (
-            'srag\\RemovePluginDataConfirm\\LiveVoting\\' => 40,
-            'srag\\LibraryLanguageInstaller\\LiveVoting\\' => 41,
+            'srag\\RemovePluginDataConfirm\\' => 29,
+            'srag\\LibraryLanguageInstaller\\' => 30,
             'srag\\LibrariesNamespaceChanger\\' => 31,
-            'srag\\DIC\\LiveVoting\\' => 20,
-            'srag\\CustomInputGUIs\\LiveVoting\\' => 32,
-            'srag\\ActiveRecordConfig\\LiveVoting\\' => 35,
+            'srag\\DIC\\' => 9,
+            'srag\\CustomInputGUIs\\' => 21,
+            'srag\\ActiveRecordConfig\\' => 24,
         ),
         'S' => 
         array (
@@ -31,11 +31,11 @@ class ComposerStaticInitf5122d14f0f45dac789bfb6428ff8994
     );
 
     public static $prefixDirsPsr4 = array (
-        'srag\\RemovePluginDataConfirm\\LiveVoting\\' => 
+        'srag\\RemovePluginDataConfirm\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src',
         ),
-        'srag\\LibraryLanguageInstaller\\LiveVoting\\' => 
+        'srag\\LibraryLanguageInstaller\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/librarylanguageinstaller/src',
         ),
@@ -43,15 +43,15 @@ class ComposerStaticInitf5122d14f0f45dac789bfb6428ff8994
         array (
             0 => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src',
         ),
-        'srag\\DIC\\LiveVoting\\' => 
+        'srag\\DIC\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/dic/src',
         ),
-        'srag\\CustomInputGUIs\\LiveVoting\\' => 
+        'srag\\CustomInputGUIs\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/custominputguis/src',
         ),
-        'srag\\ActiveRecordConfig\\LiveVoting\\' => 
+        'srag\\ActiveRecordConfig\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/activerecordconfig/src',
         ),

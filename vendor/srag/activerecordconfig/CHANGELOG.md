@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.20.7]
+- Change utils url
+
 ## [0.20.6]
 - Test
 

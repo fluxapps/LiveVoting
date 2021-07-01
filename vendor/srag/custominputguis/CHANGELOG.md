@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.42.9]
+- Hide HiddenInputGUI in MultiLineNewInputGUI
+
+## [0.42.8]
+- Change utils url
+
 ## [0.42.7]
 - Update urls
 

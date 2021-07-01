@@ -1,7 +1,7 @@
 {
   "name": "srag/librariesnamespacechanger",
   "description": "Change namespace of libraries to plugin namespace",
-  "version": "0.15.3",
+  "version": "0.15.4",
   "extra": {
     "generate_plugin_readme_template": "LIBRARY",
     "long_description_template": "src/LONG_DESCRIPTION.md"

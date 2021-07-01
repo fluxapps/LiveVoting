@@ -1,7 +1,7 @@
 {
   "name": "srag/librarylanguageinstaller",
   "description": "Install additional and external lang files for a plugin",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "extra": {
     "ilias_plugin": {
       "ilias_min_version": "5.4.0",
