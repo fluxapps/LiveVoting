@@ -277,6 +277,9 @@ config_ppt_link_info_manual#:#LiveVotings in PowerPoint einbetten und nutzen:
 config_ppt_link_info_manual_1#:#Einmalig: In Powerpoint: "Web Viewer" im Office-Add-Ins Store suchen (Einfügen > Add-Ins > Meine Add-Ins) und Web-Viewer Add-In hinzufügen.
 config_ppt_link_info_manual_2#:#Moderations-Link dieser Frage kopieren
 config_ppt_link_info_manual_3#:#In Präsentation eine leere Folie erstellen und ein Webviewer Element hinzufügen
+config_ppt_link_info_manual_4#:#Moderations-Link einfügen
+config_ppt_link_info_manual_5#:#Präsentation starten
+config_ppt_link_info_manual_6#:#Achtung. Bei Einsatz des LiveVotings in PowerPoint müssen Sie vor jedem Folienwechsel mit LiveVoting das Voting pausieren. Sonst wird das LiveVoting in der Teilnehmendensicht nicht aktualisiert.
 config_ppt_export_info_manual_4#:#Moderations-Link einfügen
 config_ppt_export_info_manual_5#:#Präsentation starten
 config_ppt_export_info_manual_6#:#Achtung. Bei Einsatz des LiveVotings in PowerPoint müssen Sie vor jedem Folienwechsel mit LiveVoting das Voting pausieren. Sonst wird das LiveVoting in der Teilnehmendensicht nicht aktualisiert.
