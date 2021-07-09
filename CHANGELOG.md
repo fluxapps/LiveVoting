@@ -3,6 +3,7 @@
 ## [5.2.0]
 - Change: ILIAS 7 compatibility
 - Change: dropped ILIAS 5.4 compatibility
+- Fix: number range slider can not be saved with certain configs (start not divisible by step)
 
 ## [5.1.5]
 - Fix: some language variables fixed/added

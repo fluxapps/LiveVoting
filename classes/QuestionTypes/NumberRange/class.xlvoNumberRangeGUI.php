@@ -189,6 +189,6 @@ class xlvoNumberRangeGUI extends xlvoQuestionTypesGUI
      */
     private function snapToStep($value)
     {
-        return intval(ceil($value / $this->getStep()) * $this->getStep());
+        return intval(ceil(($value - $this->getStart()) / $this->getStep()) * $this->getStep()) + $this->getStart();
     }
 }
