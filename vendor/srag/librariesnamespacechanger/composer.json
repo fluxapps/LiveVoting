@@ -1,7 +1,7 @@
 {
   "name": "srag/librariesnamespacechanger",
   "description": "Change namespace of libraries to plugin namespace",
-  "version": "0.15.4",
+  "version": "0.16.1",
   "extra": {
     "generate_plugin_readme_template": "LIBRARY",
     "long_description_template": "src/LONG_DESCRIPTION.md"
@@ -23,7 +23,7 @@
     }
   ],
   "require": {
-    "php": ">=7.0"
+    "php": ">=7.2"
   },
   "require-dev": {
     "srag/generateplugininfoshelper": ">=0.1.0"
@@ -39,9 +39,6 @@
     "sort-packages": true
   },
   "scripts": {
-    "generate-plugin-readme": [
-      "srag\\GeneratePluginInfosHelper\\GeneratePluginReadme::generatePluginReadme"
-    ],
     "update-version": [
       "srag\\GeneratePluginInfosHelper\\UpdateVersion::updateVersion"
     ]

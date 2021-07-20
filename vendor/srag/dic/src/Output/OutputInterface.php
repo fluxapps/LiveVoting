@@ -38,7 +38,7 @@ interface OutputInterface
      * @throws DICException Class {get_class($value)} is not supported for output!
      * @throws ilTemplateException
      */
-    public function output($value, bool $show = false, bool $main_template = true)/*: void*/ ;
+    public function output($value, bool $show = false, bool $main_template = true) : void;
 
 
     /**
@@ -48,5 +48,5 @@ interface OutputInterface
      *
      * @throws DICException {get_class($value)} is not a valid JSON value!
      */
-    public function outputJSON($value)/*: void*/ ;
+    public function outputJSON($value) : void;
 }

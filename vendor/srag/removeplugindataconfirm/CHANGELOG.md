@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.8.1]
+- Not use GeneratePluginReadme
+
+## [0.8.0]
+- ILIAS 7 support
+- Remove ILIAS 5.4 support
+- Min PHP 7.2
+
 ## [0.7.8]
 - Change utils url
 

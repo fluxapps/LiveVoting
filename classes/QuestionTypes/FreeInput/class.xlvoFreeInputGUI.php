@@ -12,6 +12,7 @@ use srag\CustomInputGUIs\LiveVoting\GlyphGUI\GlyphGUI;
 use srag\CustomInputGUIs\LiveVoting\MultiLineNewInputGUI\MultiLineNewInputGUI;
 use srag\CustomInputGUIs\LiveVoting\TextAreaInputGUI\TextAreaInputGUI;
 use srag\CustomInputGUIs\LiveVoting\TextInputGUI\TextInputGUI;
+use srag\CustomInputGUIs\LiveVoting\HiddenInputGUI\HiddenInputGUI;
 
 /**
  * Class xlvoFreeInputGUI
@@ -41,6 +42,7 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI
      */
     public function initJS($current = false)
     {
+        MultiLineNewInputGUI::init();
         xlvoJs::getInstance()->api($this)->name(xlvoQuestionTypes::FREE_INPUT)->category('QuestionTypes')->init();
     }
 
@@ -144,11 +146,11 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI
         $form->setFormAction(self::dic()->ctrl()->getFormAction($this));
         $form->setId('xlvo_free_input');
 
-        $votes = $this->manager->getVotesOfUser(true);
-        $vote = array_shift(array_values($votes));
+        $votes = array_values($this->manager->getVotesOfUser(true));
+        $vote = array_shift($votes);
 
         $an = $this->getTextInputGUI($this->txt('input'), self::F_FREE_INPUT);
-        $hi2 = new ilHiddenInputGUI(self::F_VOTE_ID);
+        $hi2 = new HiddenInputGUI(self::F_VOTE_ID);
 
         if ($vote instanceof xlvoVote) {
             if ($vote->isActive()) {
@@ -185,7 +187,7 @@ class xlvoFreeInputGUI extends xlvoQuestionTypesGUI
         $mli = new MultiLineNewInputGUI($this->txt('answers'), self::F_VOTE_MULTI_LINE_INPUT);
         $te = $this->getTextInputGUI($this->txt('text'), self::F_FREE_INPUT);
 
-        $hi2 = new ilHiddenInputGUI(self::F_VOTE_ID);
+        $hi2 = new HiddenInputGUI(self::F_VOTE_ID);
         $mli->addInput($te);
         $mli->addInput($hi2);
 

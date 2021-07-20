@@ -101,7 +101,7 @@ class Config extends ActiveRecord
     /**
      * @param string $table_name
      */
-    public static function setTableName(string $table_name)/* : void*/
+    public static function setTableName(string $table_name) : void
     {
         self::$table_name = $table_name;
     }
@@ -139,7 +139,7 @@ class Config extends ActiveRecord
     /**
      * @param string $name
      */
-    public function setName(string $name)/*: void*/
+    public function setName(string $name) : void
     {
         $this->name = $name;
     }
@@ -157,7 +157,7 @@ class Config extends ActiveRecord
     /**
      * @param mixed $value
      */
-    public function setValue($value)/*: void*/
+    public function setValue($value) : void
     {
         $this->value = $value;
     }

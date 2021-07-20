@@ -86,7 +86,7 @@ class xlvoResultsGUI extends xlvoGUI
         $this->buildFilters($table);
         $table->initFilter();
         $table->buildData($this->obj_id, $this->round->getId());
-        self::dic()->mainTemplate()->setContent($table->getHTML());
+        self::dic()->ui()->mainTemplate()->setContent($table->getHTML());
     }
 
 
@@ -211,7 +211,7 @@ class xlvoResultsGUI extends xlvoGUI
 
         $table = new xlvoVoteHistoryTableGUI($this, self::CMD_SHOW_HISTORY);
         $table->parseData($_GET['user_id'], $_GET['user_identifier'], $_GET['voting_id'], $this->round->getId());
-        self::dic()->mainTemplate()->setContent($form->getHTML() . $table->getHTML());
+        self::dic()->ui()->mainTemplate()->setContent($form->getHTML() . $table->getHTML());
     }
 
 
@@ -260,7 +260,7 @@ class xlvoResultsGUI extends xlvoGUI
         $conf->setHeaderText(self::plugin()->translate('common_confirm_new_round'));
         $conf->setConfirm(self::plugin()->translate("common_new_round"), self::CMD_NEW_ROUND);
         $conf->setCancel(self::plugin()->translate('common_cancel'), self::CMD_SHOW);
-        self::dic()->mainTemplate()->setContent($conf->getHTML());
+        self::dic()->ui()->mainTemplate()->setContent($conf->getHTML());
     }
 
 

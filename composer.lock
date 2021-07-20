@@ -69,20 +69,20 @@
         },
         {
             "name": "srag/activerecordconfig",
-            "version": "0.20.7",
+            "version": "0.21.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fluxapps/ActiveRecordConfig.git",
-                "reference": "e05c313e7792d0ce125a0ef854c4c15b5ca9d95d"
+                "reference": "ae19627cf090a784ae1927c3da7bade946e03f3d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fluxapps/ActiveRecordConfig/zipball/e05c313e7792d0ce125a0ef854c4c15b5ca9d95d",
-                "reference": "e05c313e7792d0ce125a0ef854c4c15b5ca9d95d",
+                "url": "https://api.github.com/repos/fluxapps/ActiveRecordConfig/zipball/ae19627cf090a784ae1927c3da7bade946e03f3d",
+                "reference": "ae19627cf090a784ae1927c3da7bade946e03f3d",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.0",
+                "php": ">=7.2",
                 "srag/custominputguis": ">=0.1.0",
                 "srag/dic": ">=0.1.0"
             },
@@ -92,8 +92,8 @@
             "type": "library",
             "extra": {
                 "ilias_plugin": {
-                    "ilias_min_version": "5.4.0",
-                    "ilias_max_version": "6.999"
+                    "ilias_min_version": "6.0",
+                    "ilias_max_version": "7.999"
                 },
                 "generate_plugin_readme_template": "ILIAS_LIBRARY",
                 "long_description_template": "src/LONG_DESCRIPTION.md"
@@ -122,24 +122,24 @@
                 "activerecord",
                 "config"
             ],
-            "time": "2021-06-28T07:02:32+00:00"
+            "time": "2021-07-20T08:06:09+00:00"
         },
         {
             "name": "srag/custominputguis",
-            "version": "0.42.9",
+            "version": "0.43.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fluxapps/CustomInputGUIs.git",
-                "reference": "14967d168c8f62e20e6f0b46b03109063c912541"
+                "reference": "595f6ad76f25a2903d18c704552e39b14aec6afd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fluxapps/CustomInputGUIs/zipball/14967d168c8f62e20e6f0b46b03109063c912541",
-                "reference": "14967d168c8f62e20e6f0b46b03109063c912541",
+                "url": "https://api.github.com/repos/fluxapps/CustomInputGUIs/zipball/595f6ad76f25a2903d18c704552e39b14aec6afd",
+                "reference": "595f6ad76f25a2903d18c704552e39b14aec6afd",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.0",
+                "php": ">=7.2",
                 "srag/dic": ">=0.1.0"
             },
             "require-dev": {
@@ -148,8 +148,8 @@
             "type": "library",
             "extra": {
                 "ilias_plugin": {
-                    "ilias_min_version": "5.4.0",
-                    "ilias_max_version": "6.999"
+                    "ilias_min_version": "6.0",
+                    "ilias_max_version": "7.999"
                 },
                 "generate_plugin_readme_template": "ILIAS_LIBRARY",
                 "long_description_template": "src/LONG_DESCRIPTION.md"
@@ -186,24 +186,24 @@
                 "input",
                 "table"
             ],
-            "time": "2021-06-28T12:12:20+00:00"
+            "time": "2021-07-20T08:07:18+00:00"
         },
         {
             "name": "srag/dic",
-            "version": "0.32.4",
+            "version": "0.33.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fluxapps/DIC.git",
-                "reference": "92b966978ca7327502a65fc9ede718b2f3126bda"
+                "reference": "19a813f1402b0e58e3116ef974c91fba38f2601c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fluxapps/DIC/zipball/92b966978ca7327502a65fc9ede718b2f3126bda",
-                "reference": "92b966978ca7327502a65fc9ede718b2f3126bda",
+                "url": "https://api.github.com/repos/fluxapps/DIC/zipball/19a813f1402b0e58e3116ef974c91fba38f2601c",
+                "reference": "19a813f1402b0e58e3116ef974c91fba38f2601c",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.0"
+                "php": ">=7.2"
             },
             "require-dev": {
                 "srag/generateplugininfoshelper": ">=0.1.0"
@@ -211,8 +211,8 @@
             "type": "library",
             "extra": {
                 "ilias_plugin": {
-                    "ilias_min_version": "5.4.0",
-                    "ilias_max_version": "6.999"
+                    "ilias_min_version": "6.0",
+                    "ilias_max_version": "7.999"
                 },
                 "generate_plugin_readme_template": "ILIAS_LIBRARY",
                 "long_description_template": "src/LONG_DESCRIPTION.md"
@@ -242,24 +242,24 @@
                 "globals",
                 "trait"
             ],
-            "time": "2021-06-28T07:03:18+00:00"
+            "time": "2021-07-20T08:08:53+00:00"
         },
         {
             "name": "srag/librariesnamespacechanger",
-            "version": "0.15.4",
+            "version": "0.16.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fluxapps/LibrariesNamespaceChanger.git",
-                "reference": "41331e03a86ab4f4ae650df70ef2e4cbc5fc4cf9"
+                "reference": "c1641428da5f38562d078ee2698fa2a83500cacb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fluxapps/LibrariesNamespaceChanger/zipball/41331e03a86ab4f4ae650df70ef2e4cbc5fc4cf9",
-                "reference": "41331e03a86ab4f4ae650df70ef2e4cbc5fc4cf9",
+                "url": "https://api.github.com/repos/fluxapps/LibrariesNamespaceChanger/zipball/c1641428da5f38562d078ee2698fa2a83500cacb",
+                "reference": "c1641428da5f38562d078ee2698fa2a83500cacb",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.0"
+                "php": ">=7.2"
             },
             "require-dev": {
                 "srag/generateplugininfoshelper": ">=0.1.0"
@@ -293,24 +293,24 @@
                 "libraries",
                 "namespace"
             ],
-            "time": "2021-06-28T07:04:17+00:00"
+            "time": "2021-07-20T08:10:30+00:00"
         },
         {
             "name": "srag/librarylanguageinstaller",
-            "version": "1.1.6",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fluxapps/LibraryLanguageInstaller.git",
-                "reference": "cfc71ba8cd77ab858d450b69acce37e667aaca5f"
+                "reference": "108a1a859b5be7cf6c655fe438bf60628fe94cf8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fluxapps/LibraryLanguageInstaller/zipball/cfc71ba8cd77ab858d450b69acce37e667aaca5f",
-                "reference": "cfc71ba8cd77ab858d450b69acce37e667aaca5f",
+                "url": "https://api.github.com/repos/fluxapps/LibraryLanguageInstaller/zipball/108a1a859b5be7cf6c655fe438bf60628fe94cf8",
+                "reference": "108a1a859b5be7cf6c655fe438bf60628fe94cf8",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.0",
+                "php": ">=7.2",
                 "srag/dic": ">=0.1.0"
             },
             "require-dev": {
@@ -319,8 +319,8 @@
             "type": "library",
             "extra": {
                 "ilias_plugin": {
-                    "ilias_min_version": "5.4.0",
-                    "ilias_max_version": "6.999"
+                    "ilias_min_version": "6.0",
+                    "ilias_max_version": "7.999"
                 },
                 "generate_plugin_readme_template": "ILIAS_LIBRARY",
                 "long_description_template": "src/LONG_DESCRIPTION.md"
@@ -350,24 +350,24 @@
                 "language",
                 "library"
             ],
-            "time": "2021-06-28T07:04:30+00:00"
+            "time": "2021-07-20T08:11:01+00:00"
         },
         {
             "name": "srag/removeplugindataconfirm",
-            "version": "0.7.8",
+            "version": "0.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fluxapps/RemovePluginDataConfirm.git",
-                "reference": "096515eba3ad0e3d339b72eca382c71ce743da3e"
+                "reference": "89221935503113a89b8dc71a183c4f4123cfb586"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fluxapps/RemovePluginDataConfirm/zipball/096515eba3ad0e3d339b72eca382c71ce743da3e",
-                "reference": "096515eba3ad0e3d339b72eca382c71ce743da3e",
+                "url": "https://api.github.com/repos/fluxapps/RemovePluginDataConfirm/zipball/89221935503113a89b8dc71a183c4f4123cfb586",
+                "reference": "89221935503113a89b8dc71a183c4f4123cfb586",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.0",
+                "php": ">=7.2",
                 "srag/dic": ">=0.1.0",
                 "srag/librarylanguageinstaller": ">=0.1.0"
             },
@@ -377,8 +377,8 @@
             "type": "library",
             "extra": {
                 "ilias_plugin": {
-                    "ilias_min_version": "5.4.0",
-                    "ilias_max_version": "6.999"
+                    "ilias_min_version": "6.0",
+                    "ilias_max_version": "7.999"
                 },
                 "generate_plugin_readme_template": "ILIAS_LIBRARY",
                 "long_description_template": "src/LONG_DESCRIPTION.md"
@@ -412,7 +412,7 @@
                 "plugin",
                 "uninstall"
             ],
-            "time": "2021-06-28T07:04:48+00:00"
+            "time": "2021-07-20T08:11:53+00:00"
         },
         {
             "name": "symfony/options-resolver",

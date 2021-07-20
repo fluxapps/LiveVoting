@@ -1,2 +1,0 @@
-### GlyphGUI
-TODO: 

@@ -59,7 +59,7 @@ final class LibraryLanguageInstaller implements Pluginable
     /**
      * https://github.com/ILIAS-eLearning/ILIAS/blob/da3a38a7c9f2ae0169cb88b485f986deb1c24aaf/Services/Component/classes/class.ilPlugin.php#L409
      */
-    public function updateLanguages()/*: void*/
+    public function updateLanguages() : void
     {
         ilGlobalCache::flushAll();
 

@@ -15,7 +15,7 @@ trait PluginUninstallTrait
     /**
      * @internal
      */
-    protected final function afterUninstall()/*: void*/
+    protected final function afterUninstall() : void
     {
 
     }

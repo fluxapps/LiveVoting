@@ -67,7 +67,7 @@ class MultilangualTabsInputGUI
      * @param bool                $default_language
      * @param bool                $default_required
      */
-    public static function generateLegacy(TabsInputGUI $tabs, array $inputs, bool $default_language = false, bool $default_required = true)/*:void*/
+    public static function generateLegacy(TabsInputGUI $tabs, array $inputs, bool $default_language = false, bool $default_required = true) : void
     {
         foreach (self::getLanguages($default_language) as $lang_key => $lang_title) {
             $tab = new TabsInputGUITab($lang_title, $lang_key);
@@ -157,7 +157,7 @@ class MultilangualTabsInputGUI
      * @param string      $lang_key
      * @param string|null $sub_key
      */
-    public static function setValueForLang(array &$values, $value, string $lang_key, string $sub_key = null)/*:void*/
+    public static function setValueForLang(array &$values, $value, string $lang_key, string $sub_key = null) : void
     {
         if (!empty($sub_key)) {
             if (!is_array($values[$lang_key])) {

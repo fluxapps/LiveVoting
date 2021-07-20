@@ -61,7 +61,7 @@ class ViewControlModeUI
     /**
      *
      */
-    public function handleButtons()/*: void*/
+    public function handleButtons() : void
     {
         $active_id = filter_input(INPUT_GET, self::CMD_HANDLE_BUTTONS);
 

@@ -36,25 +36,25 @@ interface PluginInterface
     /**
      *
      */
-    public function reloadCtrlStructure()/* : void*/ ;
+    public function reloadCtrlStructure() : void;
 
 
     /**
      *
      */
-    public function reloadDatabase()/* : void*/ ;
+    public function reloadDatabase() : void;
 
 
     /**
      *
      */
-    public function reloadLanguages()/* : void*/ ;
+    public function reloadLanguages() : void;
 
 
     /**
      *
      */
-    public function reloadPluginXml()/* : void*/ ;
+    public function reloadPluginXml() : void;
 
 
     /**

@@ -46,7 +46,7 @@ final class Waiter
      * @param ilTemplate|ilGlobalTemplateInterface|null $tpl
      * @param PluginInterface|null                      $plugin
      */
-    public static final function init(string $type, /*?ilGlobalTemplateInterface*/ $tpl = null,/*?*/ PluginInterface $plugin = null)/*: void*/
+    public static final function init(string $type, /*?ilGlobalTemplateInterface*/ $tpl = null,/*?*/ PluginInterface $plugin = null) : void
     {
         $tpl = $tpl ?? self::dic()->ui()->mainTemplate();
 

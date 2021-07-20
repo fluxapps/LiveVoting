@@ -20,7 +20,7 @@ interface DatabaseInterface extends ilDBPdoInterface
      * @param string $table_name
      * @param string $field
      */
-    public function createAutoIncrement(string $table_name, string $field)/*: void*/ ;
+    public function createAutoIncrement(string $table_name, string $field) : void;
 
 
     /**
@@ -28,7 +28,7 @@ interface DatabaseInterface extends ilDBPdoInterface
      * @param array  $columns
      * @param array  $primary_columns
      */
-    public function createOrUpdateTable(string $table_name, array $columns, array $primary_columns)/*: void*/ ;
+    public function createOrUpdateTable(string $table_name, array $columns, array $primary_columns) : void;
 
 
     /**
@@ -36,7 +36,7 @@ interface DatabaseInterface extends ilDBPdoInterface
      *
      * @param string $table_name
      */
-    public function dropAutoIncrementTable(string $table_name)/*: void*/ ;
+    public function dropAutoIncrementTable(string $table_name) : void;
 
 
     /**
@@ -63,7 +63,7 @@ interface DatabaseInterface extends ilDBPdoInterface
      *
      * @return object|null
      */
-    public function fetchObjectCallback(ilDBStatement $stm, callable $callback)/*:?object*/ ;
+    public function fetchObjectCallback(ilDBStatement $stm, callable $callback) : ?object;
 
 
     /**
@@ -72,7 +72,7 @@ interface DatabaseInterface extends ilDBPdoInterface
      *
      * @return object|null
      */
-    public function fetchObjectClass(ilDBStatement $stm, string $class_name)/*:?object*/ ;
+    public function fetchObjectClass(ilDBStatement $stm, string $class_name) : ?object;
 
 
     /**
@@ -80,7 +80,7 @@ interface DatabaseInterface extends ilDBPdoInterface
      * @param array  $columns
      * @param array  $values
      */
-    public function multipleInsert(string $table_name, array $columns, array $values)/*:void*/ ;
+    public function multipleInsert(string $table_name, array $columns, array $values) : void;
 
 
     /**
@@ -89,7 +89,7 @@ interface DatabaseInterface extends ilDBPdoInterface
      * @param string $table_name
      * @param string $field
      */
-    public function resetAutoIncrement(string $table_name, string $field)/*: void*/ ;
+    public function resetAutoIncrement(string $table_name, string $field) : void;
 
 
     /**

@@ -47,7 +47,7 @@ class AjaxCheckbox
     /**
      * @param PluginInterface|null $plugin
      */
-    public static function init(/*?*/ PluginInterface $plugin = null)/*: void*/
+    public static function init(/*?*/ PluginInterface $plugin = null) : void
     {
         if (self::$init === false) {
             self::$init = true;

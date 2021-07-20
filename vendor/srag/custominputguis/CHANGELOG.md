@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.43.1]
+- Not use GeneratePluginReadme
+
+## [0.43.0]
+- ILIAS 7 support
+- Remove ILIAS 5.4 support
+- Min PHP 7.2
+- Remove deprecated MultiLineInputGUI
+- Remove deprecated MultiSelectSearchInputGUI
+- Remove deprecated GlyphGUI
+- Remove deprecated ConfigPropertyFormGUI
+- Remove deprecated ObjectPropertyFormGUI
+
 ## [0.42.9]
 - Hide HiddenInputGUI in MultiLineNewInputGUI
 

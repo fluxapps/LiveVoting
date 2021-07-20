@@ -4,4 +4,4 @@ FluxPublishUtils:
   script:
     - "false"
   only:
-    - /^master$/
+    - /^main$/

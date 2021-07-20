@@ -72,7 +72,7 @@ class xlvoPlayerGUI extends xlvoGUI
 
         $this->manager = xlvoVotingManager2::getInstanceFromObjId(ilObject2::_lookupObjId($param_manager->getRefId()));
 
-        self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/default.css');
+        self::dic()->ui()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/default.css');
     }
 
 
@@ -141,7 +141,7 @@ class xlvoPlayerGUI extends xlvoGUI
         }
         $js->call('handleStartButton');
 
-        self::dic()->mainTemplate()->setContent($template->get());
+        self::dic()->ui()->mainTemplate()->setContent($template->get());
     }
 
 
@@ -634,8 +634,8 @@ class xlvoPlayerGUI extends xlvoGUI
 
         iljQueryUtil::initjQuery();
 
-        //self::dic()->mainTemplate()->addJavaScript("https://appsforoffice.microsoft.com/lib/1/hosted/Office.js");
-        //self::dic()->mainTemplate()->addJavaScript(self::plugin()->directory() . '/js/PPT/xlvoPPT.min.js');
+        //self::dic()->ui()->mainTemplate()->addJavaScript("https://appsforoffice.microsoft.com/lib/1/hosted/Office.js");
+        //self::dic()->ui()->mainTemplate()->addJavaScript(self::plugin()->directory() . '/js/PPT/xlvoPPT.min.js');
 
         xlvoJs::getInstance()->addLibToHeader('screenfull.min.js');
         xlvoJs::getInstance()->ilias($this)->addSettings($settings)->name('Player')->addTranslations(array(
@@ -644,8 +644,8 @@ class xlvoPlayerGUI extends xlvoGUI
 
         //xlvoJs::getInstance()->ilias($this)->name('PPT')->init()->setRunCode();
 
-        self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/Player/player.css');
-        self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/Display/Bar/bar.css');
+        self::dic()->ui()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/Player/player.css');
+        self::dic()->ui()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/Display/Bar/bar.css');
 
         xlvoFreeInputResultsGUI::addJsAndCss();
         xlvoCorrectOrderResultsGUI::addJsAndCss();
@@ -666,7 +666,7 @@ class xlvoPlayerGUI extends xlvoGUI
             $param_manager = ParamManager::getInstance();
 
             $preview->setVariable('URL', $this->manager->getVotingConfig()->getShortLinkURL(false, $param_manager->getRefId()));
-            self::dic()->mainTemplate()->setRightContent($preview->get());
+            self::dic()->ui()->mainTemplate()->setRightContent($preview->get());
         }
     }
 
@@ -675,10 +675,10 @@ class xlvoPlayerGUI extends xlvoGUI
      * @param string $content
      */
     protected function setContent(string $content)/* : void*/ {
-        if (self::dic()->mainTemplate()->blockExists("xlvo_player_content")) {
-            self::dic()->mainTemplate()->setVariable('PLAYER_CONTENT', $content);
+        if (self::dic()->ui()->mainTemplate()->blockExists("xlvo_player_content")) {
+            self::dic()->ui()->mainTemplate()->setVariable('PLAYER_CONTENT', $content);
         } else {
-            self::dic()->mainTemplate()->setContent($content);
+            self::dic()->ui()->mainTemplate()->setContent($content);
         }
     }
 }

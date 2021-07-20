@@ -46,7 +46,7 @@ class Template extends ilTemplate
      * @param string $key
      * @param mixed  $value
      */
-    public function setVariableEscaped(string $key, $value)/*:void*/
+    public function setVariableEscaped(string $key, $value) : void
     {
         $this->setVariable($key, htmlspecialchars($value));
     }

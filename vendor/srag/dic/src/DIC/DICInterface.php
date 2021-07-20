@@ -20,7 +20,6 @@ use ilDBInterface;
 use ilErrorHandling;
 use ilExerciseFactory;
 use ilFavouritesDBRepository;
-use ilGlobalTemplateInterface;
 use ilHelpGUI;
 use ILIAS;
 use ILIAS\Data\Factory as DataFactory;
@@ -34,6 +33,9 @@ use ILIAS\Filesystem\Filesystems;
 use ILIAS\FileUpload\FileUpload;
 use ILIAS\GlobalScreen\Services as GlobalScreenService;
 use ILIAS\Refinery\Factory as RefineryFactory;
+use ILIAS\ResourceStorage\Services as ResourceStorageServices;
+use ILIAS\Skill\Service\SkillService;
+use ILIAS\UI\Implementation\Render\ImagePathResolver;
 use ILIAS\UI\Implementation\Render\JavaScriptBinding;
 use ILIAS\UI\Implementation\Render\Loader;
 use ILIAS\UI\Implementation\Render\ResourceRegistry;
@@ -55,14 +57,10 @@ use ilObjectService;
 use ilObjUseBookDBRepository;
 use ilObjUser;
 use ilPluginAdmin;
-use ilRbacAdmin;
-use ilRbacReview;
-use ilRbacSystem;
 use ilSetting;
 use ilStyleDefinition;
 use ilTabsGUI;
 use ilTaskService;
-use ilTemplate;
 use ilToolbarGUI;
 use ilTree;
 use ilUIService;
@@ -118,30 +116,18 @@ interface DICInterface
 
     /**
      * @return ilBookingManagerService
-     *
-     * @throws DICException ilBookingManagerService not exists in ILIAS 5.4 or below!
-     *
-     * @since ILIAS 6
      */
     public function bookingManager() : ilBookingManagerService;
 
 
     /**
      * @return ilObjUseBookDBRepository
-     *
-     * @throws DICException ilObjUseBookDBRepository not exists in ILIAS 5.4 or below!
-     *
-     * @since ILIAS 6
      */
     public function bookingObjUseBook() : ilObjUseBookDBRepository;
 
 
     /**
      * @return ilBookingReservationDBRepositoryFactory
-     *
-     * @throws DICException ilBookingReservationDBRepositoryFactory not exists in ILIAS 5.4 or below!
-     *
-     * @since ILIAS 6
      */
     public function bookingReservation() : ilBookingReservationDBRepositoryFactory;
 
@@ -222,20 +208,12 @@ interface DICInterface
 
     /**
      * @return ilExerciseFactory
-     *
-     * @throws DICException ilExerciseFactory not exists in ILIAS 5.4 or below!
-     *
-     * @since ILIAS 6
      */
     public function exercise() : ilExerciseFactory;
 
 
     /**
      * @return ilFavouritesDBRepository
-     *
-     * @throws DICException ilExerciseFactory not exists in ILIAS 5.4 or below!
-     *
-     * @since ILIAS 6
      */
     public function favourites() : ilFavouritesDBRepository;
 
@@ -283,6 +261,14 @@ interface DICInterface
 
 
     /**
+     * @return ImagePathResolver
+     *
+     * @throws DICException ImagePathResolver not exists in ILIAS 6 or below!
+     */
+    public function imagePathResolver() : ImagePathResolver;
+
+
+    /**
      * @return JavaScriptBinding
      */
     public function javaScriptBinding() : JavaScriptBinding;
@@ -314,8 +300,6 @@ interface DICInterface
 
     /**
      * @return LoggingServices
-     *
-     * @since ILIAS 5.2
      */
     public function logger() : LoggingServices;
 
@@ -351,14 +335,6 @@ interface DICInterface
 
 
     /**
-     * @return ilTemplate|ilGlobalTemplateInterface
-     *
-     * @deprecated Please use `self::dic()->ui()->mainTemplate()`
-     */
-    public function mainTemplate();
-
-
-    /**
      * @return ilNewsService
      */
     public function news() : ilNewsService;
@@ -390,10 +366,6 @@ interface DICInterface
 
     /**
      * @return ilAsqFactory
-     *
-     * @throws DICException ilAsqFactory not exists in ILIAS 5.4 or below!
-     *
-     * @since ILIAS 6
      */
     public function question() : ilAsqFactory;
 
@@ -405,35 +377,7 @@ interface DICInterface
 
 
     /**
-     * @return ilRbacAdmin
-     *
-     * @deprecated Please use `self::dic()->rba()->admin()`
-     */
-    public function rbacadmin() : ilRbacAdmin;
-
-
-    /**
-     * @return ilRbacReview
-     *
-     * @deprecated Please use `self::dic()->rba()->review()`
-     */
-    public function rbacreview() : ilRbacReview;
-
-
-    /**
-     * @return ilRbacSystem
-     *
-     * @deprecated Please use `self::dic()->rba()->system()`
-     */
-    public function rbacsystem() : ilRbacSystem;
-
-
-    /**
      * @return RefineryFactory
-     *
-     * @throws DICException RefineryFactory not exists in ILIAS 5.4 or below!
-     *
-     * @since ILIAS 6
      */
     public function refinery() : RefineryFactory;
 
@@ -457,6 +401,14 @@ interface DICInterface
 
 
     /**
+     * @return ResourceStorageServices
+     *
+     * @throws DICException ResourceStorageServices not exists in ILIAS 6 or below!
+     */
+    public function resourceStorage() : ResourceStorageServices;
+
+
+    /**
      * @return Session
      */
     public function session() : Session;
@@ -466,6 +418,14 @@ interface DICInterface
      * @return ilSetting
      */
     public function settings() : ilSetting;
+
+
+    /**
+     * @return SkillService
+     *
+     * @throws DICException SkillService not exists in ILIAS 6 or below!"
+     */
+    public function skills() : SkillService;
 
 
     /**
@@ -482,10 +442,6 @@ interface DICInterface
 
     /**
      * @return ilTaskService
-     *
-     * @throws DICException ilTaskService not exists in ILIAS 5.4 or below!
-     *
-     * @since ILIAS 6
      */
     public function task() : ilTaskService;
 
@@ -503,27 +459,13 @@ interface DICInterface
 
 
     /**
-     * @return ilTree
-     *
-     * @deprecated Please use `self::dic()->repositoryTree()`
-     */
-    public function tree() : ilTree;
-
-
-    /**
      * @return UIServices
-     *
-     * @since ILIAS 5.2
      */
     public function ui() : UIServices;
 
 
     /**
      * @return ilUIService
-     *
-     * @throws DICException ilUIService not exists in ILIAS 5.4 or below!
-     *
-     * @since ILIAS 6
      */
     public function uiService() : ilUIService;
 

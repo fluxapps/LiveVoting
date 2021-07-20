@@ -35,7 +35,7 @@ abstract class AbstractAjaxAutoCompleteCtrl
     /**
      *
      */
-    public function executeCommand()/*:void*/
+    public function executeCommand() : void
     {
         $next_class = self::dic()->ctrl()->getNextClass($this);
 
@@ -86,7 +86,7 @@ abstract class AbstractAjaxAutoCompleteCtrl
     /**
      *
      */
-    protected function ajaxAutoComplete()/*:void*/
+    protected function ajaxAutoComplete() : void
     {
         $search = strval(filter_input(INPUT_GET, "term"));
 

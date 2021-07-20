@@ -79,13 +79,13 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
     {
         // get standard template (includes main menu and general layout)
         if (!self::version()->is6()) {
-            self::dic()->mainTemplate()->getStandardTemplate();
+            self::dic()->ui()->mainTemplate()->getStandardTemplate();
         }
         $this->setTitleAndDescription();
         // set title
         if (!$this->getCreationMode()) {
-            self::dic()->mainTemplate()->setTitle($this->object->getTitle());
-            self::dic()->mainTemplate()->setTitleIcon(ilObject::_getIcon($this->object->getId()));
+            self::dic()->ui()->mainTemplate()->setTitle($this->object->getTitle());
+            self::dic()->ui()->mainTemplate()->setTitleIcon(ilObject::_getIcon($this->object->getId()));
             self::dic()->ctrl()->saveParameterByClass(xlvoResultsGUI::class, 'round_id');
 
             // set tabs
@@ -94,7 +94,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
                 $this->setLocator();
             } else {
                 $this->addAdminLocatorItems();
-                self::dic()->mainTemplate()->setLocator();
+                self::dic()->ui()->mainTemplate()->setLocator();
                 $this->setAdminTabs();
             }
 
@@ -104,8 +104,8 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
             }
         } else {
             // show info of parent
-            self::dic()->mainTemplate()->setTitle(ilObject::_lookupTitle(ilObject::_lookupObjId($this->ref_id)));
-            self::dic()->mainTemplate()->setTitleIcon(ilObject::_getIcon(ilObject::_lookupObjId($this->ref_id), 'big'), self::plugin()
+            self::dic()->ui()->mainTemplate()->setTitle(ilObject::_lookupTitle(ilObject::_lookupObjId($this->ref_id)));
+            self::dic()->ui()->mainTemplate()->setTitleIcon(ilObject::_getIcon(ilObject::_lookupObjId($this->ref_id), 'big'), self::plugin()
                 ->translate('obj_' . ilObject::_lookupType($this->ref_id, true)));
             $this->setLocator();
         }
@@ -119,7 +119,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
     {
         $this->initHeaderAndLocator();
 
-        self::dic()->mainTemplate()->setPermanentLink(ilLiveVotingPlugin::PLUGIN_ID, $this->ref_id);
+        self::dic()->ui()->mainTemplate()->setPermanentLink(ilLiveVotingPlugin::PLUGIN_ID, $this->ref_id);
 
         $next_class = self::dic()->ctrl()->getNextClass($this);
         $cmd = self::dic()->ctrl()->getCmd();
@@ -327,7 +327,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
             self::dic()->tabs()->activateTab(self::TAB_EDIT);
             $this->initPropertiesForm();
             $this->fillPropertiesForm();
-            self::dic()->mainTemplate()->setContent($this->form->getHTML());
+            self::dic()->ui()->mainTemplate()->setContent($this->form->getHTML());
         }
     }
 
@@ -504,7 +504,7 @@ class ilObjLiveVotingGUI extends ilObjectPluginGUI implements ilDesktopItemHandl
             }
 
             $this->form->setValuesByPost();
-            self::dic()->mainTemplate()->setContent($this->form->getHtml());
+            self::dic()->ui()->mainTemplate()->setContent($this->form->getHtml());
         }
     }
 

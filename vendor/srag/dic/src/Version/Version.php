@@ -31,15 +31,6 @@ final class Version implements VersionInterface
     /**
      * @inheritDoc
      */
-    public function is54() : bool
-    {
-        return $this->isMinVersion(self::ILIAS_VERSION_5_4);
-    }
-
-
-    /**
-     * @inheritDoc
-     */
     public function is6() : bool
     {
         return $this->isMinVersion(self::ILIAS_VERSION_6);
@@ -52,6 +43,15 @@ final class Version implements VersionInterface
     public function is7() : bool
     {
         return $this->isMinVersion(self::ILIAS_VERSION_7);
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function is8() : bool
+    {
+        return $this->isMinVersion(self::ILIAS_VERSION_8);
     }
 
 

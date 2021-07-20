@@ -1,5 +1,7 @@
 ### DateDurationInputGUI
-TODO: 
+
+TODO:
 
 #### Changes:
+
 - Fix table filters

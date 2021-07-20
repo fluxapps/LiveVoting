@@ -15,7 +15,7 @@ trait RepositoryObjectPluginUninstallTrait
     /**
      * @internal
      */
-    protected final function afterUninstall()/*: void*/
+    protected final function afterUninstall() : void
     {
 
     }
@@ -35,7 +35,7 @@ trait RepositoryObjectPluginUninstallTrait
     /**
      * @internal
      */
-    protected final function uninstallCustom()/*: void*/
+    protected final function uninstallCustom() : void
     {
         $uninstall_removes_data = RemovePluginDataConfirmCtrl::getUninstallRemovesData();
 

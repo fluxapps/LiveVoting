@@ -29,7 +29,7 @@ class TextAreaInputGUI extends ilTextAreaInputGUI
     /**
      *
      */
-    public function customPrepare()/*: void*/
+    public function customPrepare() : void
     {
         $this->addPlugin('latex');
         $this->addButton('latex');
@@ -73,7 +73,7 @@ class TextAreaInputGUI extends ilTextAreaInputGUI
     /**
      * @param string $inline_style
      */
-    public function setInlineStyle(string $inline_style)/*: void*/
+    public function setInlineStyle(string $inline_style) : void
     {
         $this->inline_style = $inline_style;
     }
@@ -91,7 +91,7 @@ class TextAreaInputGUI extends ilTextAreaInputGUI
     /**
      * @param int $maxlength
      */
-    public function setMaxlength(int $maxlength)/*: void*/
+    public function setMaxlength(int $maxlength) : void
     {
         $this->maxlength = $maxlength;
     }

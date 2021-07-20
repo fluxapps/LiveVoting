@@ -15,7 +15,7 @@ trait FixUITemplateInCronContext
     /**
      *
      */
-    protected static function fixUITemplateInCronContext()/*:void*/
+    protected static function fixUITemplateInCronContext() : void
     {
         // Fix missing tpl ui in cron context used in some core object constructor
         if (self::dic()->dic()->offsetExists("tpl")) {

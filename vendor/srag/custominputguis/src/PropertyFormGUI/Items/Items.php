@@ -12,7 +12,6 @@ use ilRadioOption;
 use ilRepositorySelector2InputGUI;
 use ilUtil;
 use srag\CustomInputGUIs\LiveVoting\HiddenInputGUI\HiddenInputGUI;
-use srag\CustomInputGUIs\LiveVoting\MultiLineInputGUI\MultiLineInputGUI;
 use srag\CustomInputGUIs\LiveVoting\PropertyFormGUI\Exception\PropertyFormGUIException;
 use srag\CustomInputGUIs\LiveVoting\PropertyFormGUI\PropertyFormGUI;
 use srag\CustomInputGUIs\LiveVoting\TableGUI\TableGUI;
@@ -139,11 +138,6 @@ final class Items
      */
     public static function getValueFromItem($item)
     {
-        if ($item instanceof MultiLineInputGUI) {
-            //return filter_input(INPUT_POST,$item->getPostVar()); // Not work because MultiLineInputGUI modify $_POST
-            return $_POST[$item->getPostVar()];
-        }
-
         if (method_exists($item, "getChecked")) {
             return boolval($item->getChecked());
         }
@@ -201,7 +195,7 @@ final class Items
     /**
      * @param PluginInterface|null $plugin
      */
-    public static function init(/*?*/ PluginInterface $plugin = null)/*: void*/
+    public static function init(/*?*/ PluginInterface $plugin = null) : void
     {
         if (self::$init === false) {
             self::$init = true;
@@ -276,7 +270,7 @@ final class Items
      *
      * @deprecated
      */
-    public static function setValueToItem($item, $value)/*: void*/
+    public static function setValueToItem($item, $value) : void
     {
         if ($item instanceof MultiLineInputGUI) {
             $item->setValueByArray([
@@ -358,7 +352,7 @@ final class Items
      *
      * @deprecated
      */
-    private static function setPropertiesToItem($item, array $properties)/*: void*/
+    private static function setPropertiesToItem($item, array $properties) : void
     {
         foreach ($properties as $property_key => $property_value) {
             $property = "";

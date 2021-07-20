@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.33.1]
+- Not use GeneratePluginReadme
+
+## [0.33.0]
+- ILIAS 7 support
+  - imagePathResolver
+  - resourceStorage
+  - skills
+- Remove ILIAS 5.4 support
+- Min PHP 7.2
+- Remove deprecated legacy fallback dic methods (mainTemplate, rbacadmin, rbacreview, rbacsystem, tree)
+- Remove deprecated clearCache
+
 ## [0.32.4]
 - Change utils url
 

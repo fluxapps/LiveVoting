@@ -76,7 +76,7 @@ class CustomInputGUIsLoaderDetector extends AbstractLoaderDetector
     /**
      *
      */
-    private static function fixCtrlNamespaceCurrentUrl()/*:void*/
+    private static function fixCtrlNamespaceCurrentUrl() : void
     {
         if (!self::$has_fix_ctrl_namespace_current_url) {
             self::$has_fix_ctrl_namespace_current_url = true;
@@ -105,12 +105,12 @@ class CustomInputGUIsLoaderDetector extends AbstractLoaderDetector
 
         if ($renderer === null) {
             if ($component instanceof InputGUIWrapperUIInputComponent) {
-                if (self::version()->is6()) {
-                    $renderer = new InputGUIWrapperUIInputComponentRenderer(self::dic()->ui()->factory(), self::dic()->templateFactory(), self::dic()->language(),
-                        self::dic()->javaScriptBinding(), self::dic()->refinery());
+                if (self::version()->is7()) {
+                    $renderer = new InputGUIWrapperUIInputComponentRenderer(self::dic()->ui()->factory(), self::dic()->templateFactory(), self::dic()->language(), self::dic()->javaScriptBinding(),
+                        self::dic()->refinery(), self::dic()->imagePathResolver());
                 } else {
-                    $renderer = new InputGUIWrapperUIInputComponentRenderer(self::dic()->ui()->factory(), self::dic()->templateFactory(), self::dic()->language(),
-                        self::dic()->javaScriptBinding());
+                    $renderer = new InputGUIWrapperUIInputComponentRenderer(self::dic()->ui()->factory(), self::dic()->templateFactory(), self::dic()->language(), self::dic()->javaScriptBinding(),
+                        self::dic()->refinery());
                 }
             } else {
                 $renderer = parent::getRendererFor($component, $contexts);
