@@ -675,7 +675,7 @@ class xlvoPlayerGUI extends xlvoGUI
      */
     protected function setContent(string $content)/* : void*/ {
         if (self::dic()->ui()->mainTemplate()->blockExists("xlvo_player_content")) {
-            self::dic()->ui()->mainTemplate()->setVariable('PLAYER_CONTENT', $content);
+            self::dic()->ui()->mainTemplate()->setVariable('PLAYER_CONTENT', self::dic()->toolbar()->getHTML() . $content);
         } else {
             self::dic()->ui()->mainTemplate()->setContent($content);
         }
