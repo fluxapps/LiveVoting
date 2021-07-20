@@ -9,12 +9,12 @@ class ComposerStaticInitf5122d14f0f45dac789bfb6428ff8994
     public static $prefixLengthsPsr4 = array (
         's' => 
         array (
-            'srag\\RemovePluginDataConfirm\\' => 29,
-            'srag\\LibraryLanguageInstaller\\' => 30,
+            'srag\\RemovePluginDataConfirm\\LiveVoting\\' => 40,
+            'srag\\LibraryLanguageInstaller\\LiveVoting\\' => 41,
             'srag\\LibrariesNamespaceChanger\\' => 31,
-            'srag\\DIC\\' => 9,
-            'srag\\CustomInputGUIs\\' => 21,
-            'srag\\ActiveRecordConfig\\' => 24,
+            'srag\\DIC\\LiveVoting\\' => 20,
+            'srag\\CustomInputGUIs\\LiveVoting\\' => 32,
+            'srag\\ActiveRecordConfig\\LiveVoting\\' => 35,
         ),
         'S' => 
         array (
@@ -31,11 +31,11 @@ class ComposerStaticInitf5122d14f0f45dac789bfb6428ff8994
     );
 
     public static $prefixDirsPsr4 = array (
-        'srag\\RemovePluginDataConfirm\\' => 
+        'srag\\RemovePluginDataConfirm\\LiveVoting\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src',
         ),
-        'srag\\LibraryLanguageInstaller\\' => 
+        'srag\\LibraryLanguageInstaller\\LiveVoting\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/librarylanguageinstaller/src',
         ),
@@ -43,15 +43,15 @@ class ComposerStaticInitf5122d14f0f45dac789bfb6428ff8994
         array (
             0 => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src',
         ),
-        'srag\\DIC\\' => 
+        'srag\\DIC\\LiveVoting\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/dic/src',
         ),
-        'srag\\CustomInputGUIs\\' => 
+        'srag\\CustomInputGUIs\\LiveVoting\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/custominputguis/src',
         ),
-        'srag\\ActiveRecordConfig\\' => 
+        'srag\\ActiveRecordConfig\\LiveVoting\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/activerecordconfig/src',
         ),
@@ -176,6 +176,7 @@ class ComposerStaticInitf5122d14f0f45dac789bfb6428ff8994
         'LiveVoting\\Results\\xlvoResultsTableGUI' => __DIR__ . '/../..' . '/src/Results/xlvoResultsTableGUI.php',
         'LiveVoting\\Round\\xlvoRound' => __DIR__ . '/../..' . '/src/Round/xlvoRound.php',
         'LiveVoting\\Session\\xlvoSessionHandler' => __DIR__ . '/../..' . '/src/Session/xlvoSessionHandler.php',
+        'LiveVoting\\UIComponent\\GlyphGUI' => __DIR__ . '/../..' . '/src/UIComponent/GlyphGUI.php',
         'LiveVoting\\User\\xlvoParticipant' => __DIR__ . '/../..' . '/src/User/xlvoParticipant.php',
         'LiveVoting\\User\\xlvoParticipants' => __DIR__ . '/../..' . '/src/User/xlvoParticipants.php',
         'LiveVoting\\User\\xlvoUser' => __DIR__ . '/../..' . '/src/User/xlvoUser.php',

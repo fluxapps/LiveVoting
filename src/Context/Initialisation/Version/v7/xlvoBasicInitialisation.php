@@ -63,6 +63,7 @@ use ILIAS\ResourceStorage\Information\Repository\InformationARRepository;
 use ILIAS\ResourceStorage\Stakeholder\Repository\StakeholderARRepository;
 use ILIAS\ResourceStorage\Lock\LockHandlerilDB;
 use ILIAS\ResourceStorage\Policy\WhiteAndBlacklistedFileNamePolicy;
+use LiveVoting\Context\xlvoInitialisation;
 
 /**
  * Class xlvoBasicInitialisation for ILIAS 7
@@ -153,6 +154,7 @@ class xlvoBasicInitialisation
         $this->initNavigationHistory();
         $this->initHelp();
         $this->initMainMenu();
+        xlvoInitialisation::initUIFramework(self::dic()->dic());
     }
 
 
@@ -856,4 +858,5 @@ class xlvoBasicInitialisation
                 new WhiteAndBlacklistedFileNamePolicy([], [])
             );
         };
-    }}
+    }
+}

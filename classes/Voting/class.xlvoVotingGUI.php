@@ -14,7 +14,7 @@ use LiveVoting\Voting\xlvoVoting;
 use LiveVoting\Voting\xlvoVotingConfig;
 use LiveVoting\Voting\xlvoVotingFormGUI;
 use LiveVoting\Voting\xlvoVotingTableGUI;
-use srag\CustomInputGUIs\LiveVoting\GlyphGUI\GlyphGUI;
+use LiveVoting\UIComponent\GlyphGUI;
 use srag\DIC\LiveVoting\DICTrait;
 
 /**

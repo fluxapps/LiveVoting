@@ -16,7 +16,6 @@ use LiveVoting\Player\QR\xlvoQRModalGUI;
 use LiveVoting\Player\xlvoDisplayPlayerGUI;
 use LiveVoting\Player\xlvoPlayer;
 use LiveVoting\QuestionTypes\CorrectOrder\xlvoCorrectOrderResultsGUI;
-use LiveVoting\QuestionTypes\FreeInput\xlvoFreeInputCategorizeGUI;
 use LiveVoting\QuestionTypes\FreeInput\xlvoFreeInputCategory;
 use LiveVoting\QuestionTypes\FreeInput\xlvoFreeInputResultsGUI;
 use LiveVoting\QuestionTypes\FreeOrder\xlvoFreeOrderResultsGUI;
@@ -29,7 +28,7 @@ use LiveVoting\Voter\xlvoVoter;
 use LiveVoting\Voting\xlvoVoting;
 use LiveVoting\Voting\xlvoVotingConfig;
 use LiveVoting\Voting\xlvoVotingManager2;
-use srag\CustomInputGUIs\LiveVoting\GlyphGUI\GlyphGUI;
+use LiveVoting\UIComponent\GlyphGUI;
 
 /**
  * Class xlvoPlayerGUI

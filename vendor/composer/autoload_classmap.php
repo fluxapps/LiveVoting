@@ -112,6 +112,7 @@ return array(
     'LiveVoting\\Results\\xlvoResultsTableGUI' => $baseDir . '/src/Results/xlvoResultsTableGUI.php',
     'LiveVoting\\Round\\xlvoRound' => $baseDir . '/src/Round/xlvoRound.php',
     'LiveVoting\\Session\\xlvoSessionHandler' => $baseDir . '/src/Session/xlvoSessionHandler.php',
+    'LiveVoting\\UIComponent\\GlyphGUI' => $baseDir . '/src/UIComponent/GlyphGUI.php',
     'LiveVoting\\User\\xlvoParticipant' => $baseDir . '/src/User/xlvoParticipant.php',
     'LiveVoting\\User\\xlvoParticipants' => $baseDir . '/src/User/xlvoParticipants.php',
     'LiveVoting\\User\\xlvoUser' => $baseDir . '/src/User/xlvoUser.php',
