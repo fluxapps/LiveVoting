@@ -73,12 +73,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fluxapps/ActiveRecordConfig.git",
-                "reference": "ae19627cf090a784ae1927c3da7bade946e03f3d"
+                "reference": "a717d2f31140a78e71517a6b8d3972e107f1eacb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fluxapps/ActiveRecordConfig/zipball/ae19627cf090a784ae1927c3da7bade946e03f3d",
-                "reference": "ae19627cf090a784ae1927c3da7bade946e03f3d",
+                "url": "https://api.github.com/repos/fluxapps/ActiveRecordConfig/zipball/a717d2f31140a78e71517a6b8d3972e107f1eacb",
+                "reference": "a717d2f31140a78e71517a6b8d3972e107f1eacb",
                 "shasum": ""
             },
             "require": {
@@ -100,7 +100,7 @@
             },
             "autoload": {
                 "psr-4": {
-                    "srag\\ActiveRecordConfig\\": "src/"
+                    "srag\\ActiveRecordConfig\\LiveVoting\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -130,12 +130,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fluxapps/CustomInputGUIs.git",
-                "reference": "595f6ad76f25a2903d18c704552e39b14aec6afd"
+                "reference": "5e211fb161d3ae77b79c8ce0a5c6be5fe5147c23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fluxapps/CustomInputGUIs/zipball/595f6ad76f25a2903d18c704552e39b14aec6afd",
-                "reference": "595f6ad76f25a2903d18c704552e39b14aec6afd",
+                "url": "https://api.github.com/repos/fluxapps/CustomInputGUIs/zipball/5e211fb161d3ae77b79c8ce0a5c6be5fe5147c23",
+                "reference": "5e211fb161d3ae77b79c8ce0a5c6be5fe5147c23",
                 "shasum": ""
             },
             "require": {
@@ -156,7 +156,7 @@
             },
             "autoload": {
                 "psr-4": {
-                    "srag\\CustomInputGUIs\\": "src/"
+                    "srag\\CustomInputGUIs\\LiveVoting\\": "src/"
                 },
                 "classmap": [
                     "src/MultiSelectSearchNewInputGUI/class.ObjectChildrenAjaxAutoCompleteCtrl.php",
@@ -190,16 +190,16 @@
         },
         {
             "name": "srag/dic",
-            "version": "0.33.1",
+            "version": "0.33.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fluxapps/DIC.git",
-                "reference": "19a813f1402b0e58e3116ef974c91fba38f2601c"
+                "reference": "a3b217ecba4964b7dc71ed332c503d35edfc78fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fluxapps/DIC/zipball/19a813f1402b0e58e3116ef974c91fba38f2601c",
-                "reference": "19a813f1402b0e58e3116ef974c91fba38f2601c",
+                "url": "https://api.github.com/repos/fluxapps/DIC/zipball/a3b217ecba4964b7dc71ed332c503d35edfc78fe",
+                "reference": "a3b217ecba4964b7dc71ed332c503d35edfc78fe",
                 "shasum": ""
             },
             "require": {
@@ -213,9 +213,7 @@
                 "ilias_plugin": {
                     "ilias_min_version": "6.0",
                     "ilias_max_version": "7.999"
-                },
-                "generate_plugin_readme_template": "ILIAS_LIBRARY",
-                "long_description_template": "src/LONG_DESCRIPTION.md"
+                }
             },
             "autoload": {
                 "psr-4": {
@@ -242,7 +240,7 @@
                 "globals",
                 "trait"
             ],
-            "time": "2021-07-20T08:08:53+00:00"
+            "time": "2021-07-20T11:49:07+00:00"
         },
         {
             "name": "srag/librariesnamespacechanger",
@@ -250,12 +248,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fluxapps/LibrariesNamespaceChanger.git",
-                "reference": "c1641428da5f38562d078ee2698fa2a83500cacb"
+                "reference": "186c543c88544ecf3907767e1645d4faf37dede0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fluxapps/LibrariesNamespaceChanger/zipball/c1641428da5f38562d078ee2698fa2a83500cacb",
-                "reference": "c1641428da5f38562d078ee2698fa2a83500cacb",
+                "url": "https://api.github.com/repos/fluxapps/LibrariesNamespaceChanger/zipball/186c543c88544ecf3907767e1645d4faf37dede0",
+                "reference": "186c543c88544ecf3907767e1645d4faf37dede0",
                 "shasum": ""
             },
             "require": {
@@ -301,12 +299,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fluxapps/LibraryLanguageInstaller.git",
-                "reference": "108a1a859b5be7cf6c655fe438bf60628fe94cf8"
+                "reference": "7c0e146d92f66368e9c756bc89e257fc60ea3e59"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fluxapps/LibraryLanguageInstaller/zipball/108a1a859b5be7cf6c655fe438bf60628fe94cf8",
-                "reference": "108a1a859b5be7cf6c655fe438bf60628fe94cf8",
+                "url": "https://api.github.com/repos/fluxapps/LibraryLanguageInstaller/zipball/7c0e146d92f66368e9c756bc89e257fc60ea3e59",
+                "reference": "7c0e146d92f66368e9c756bc89e257fc60ea3e59",
                 "shasum": ""
             },
             "require": {
@@ -327,7 +325,7 @@
             },
             "autoload": {
                 "psr-4": {
-                    "srag\\LibraryLanguageInstaller\\": "src/"
+                    "srag\\LibraryLanguageInstaller\\LiveVoting\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -358,12 +356,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fluxapps/RemovePluginDataConfirm.git",
-                "reference": "89221935503113a89b8dc71a183c4f4123cfb586"
+                "reference": "c2bdd6425e04edc3d49da36b0822ba2b33e21600"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fluxapps/RemovePluginDataConfirm/zipball/89221935503113a89b8dc71a183c4f4123cfb586",
-                "reference": "89221935503113a89b8dc71a183c4f4123cfb586",
+                "url": "https://api.github.com/repos/fluxapps/RemovePluginDataConfirm/zipball/c2bdd6425e04edc3d49da36b0822ba2b33e21600",
+                "reference": "c2bdd6425e04edc3d49da36b0822ba2b33e21600",
                 "shasum": ""
             },
             "require": {
@@ -385,7 +383,7 @@
             },
             "autoload": {
                 "psr-4": {
-                    "srag\\RemovePluginDataConfirm\\": "src/"
+                    "srag\\RemovePluginDataConfirm\\LiveVoting\\": "src/"
                 },
                 "classmap": [
                     "src/class.RemovePluginDataConfirmCtrl.php"

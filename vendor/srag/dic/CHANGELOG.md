@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.33.2]
+- Use renderAsync in async ilCtrl contexts
+
 ## [0.33.1]
 - Not use GeneratePluginReadme
 
