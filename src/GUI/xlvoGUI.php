@@ -75,7 +75,7 @@ abstract class xlvoGUI
                 self::dic()->ui()->mainTemplate()->fillOnLoadCode();
                 self::dic()->ui()->mainTemplate()->printToStdout(false, false, true);
             } else {
-                self::dic()->ui()->mainTemplate()->show();
+                self::dic()->ui()->mainTemplate()->show(false);
             }
         }
     }
