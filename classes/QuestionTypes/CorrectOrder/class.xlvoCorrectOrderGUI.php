@@ -8,7 +8,7 @@ use LiveVoting\Option\xlvoOption;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
 use LiveVoting\QuestionTypes\xlvoQuestionTypesGUI;
 use LiveVoting\Vote\xlvoVote;
-use srag\CustomInputGUIs\LiveVoting\GlyphGUI\GlyphGUI;
+use LiveVoting\UIComponent\GlyphGUI;
 
 /**
  * Class xlvoCorrectOrderGUI
@@ -76,7 +76,8 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI
         $tpl->setVariable('BTN_RESET', self::plugin()->translate('qtype_4_clear'));
         $tpl->setVariable('BTN_SAVE', self::plugin()->translate('qtype_4_save'));
 
-        $vote = array_shift(array_values($this->manager->getVotesOfUser()));
+        $votes = array_values($this->manager->getVotesOfUser());
+        $vote = array_shift($votes);
         $order = array();
         $vote_id = null;
         if ($vote instanceof xlvoVote) {
@@ -86,8 +87,6 @@ class xlvoCorrectOrderGUI extends xlvoQuestionTypesGUI
         if (!$vote_id) {
             $tpl->setVariable('BTN_RESET_DISABLED', 'disabled="disabled"');
         }
-
-        $options = null;
 
         $options = $this->manager->getVoting()->getVotingOptions();
         if ($this->isRandomizeOptions()) {

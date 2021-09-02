@@ -10,7 +10,7 @@ use srag\DIC\LiveVoting\DICTrait;
 /**
  * Class xlvoStyleDefinition
  *
- * @package LiveVoting\Context\Initialisation\Version\v53
+ * @package LiveVoting\Context\Initialisation\Version\v6
  */
 class xlvoStyleDefinition
 {
@@ -54,7 +54,7 @@ class xlvoStyleDefinition
 /**
  * Class xlvoSkin
  *
- * @package LiveVoting\Context\Initialisation\Version\v53
+ * @package LiveVoting\Context\Initialisation\Version\v6
  */
 class xlvoSkin
 {

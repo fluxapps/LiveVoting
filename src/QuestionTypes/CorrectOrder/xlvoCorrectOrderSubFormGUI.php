@@ -5,14 +5,16 @@ namespace LiveVoting\QuestionTypes\CorrectOrder;
 use ilCheckboxInputGUI;
 use ilException;
 use ilFormPropertyGUI;
-use ilHiddenInputGUI;
 use ilNumberInputGUI;
 use InvalidArgumentException;
 use LiveVoting\Exceptions\xlvoSubFormGUIHandleFieldException;
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\QuestionTypes\xlvoSubFormGUI;
-use srag\CustomInputGUIs\LiveVoting\MultiLineInputGUI\MultiLineInputGUI;
+use srag\CustomInputGUIs\LiveVoting\MultiLineNewInputGUI\MultiLineNewInputGUI;
 use srag\CustomInputGUIs\LiveVoting\TextInputGUI\TextInputGUI;
+use srag\CustomInputGUIs\LiveVoting\HiddenInputGUI\HiddenInputGUI;
+use ilTemplate;
+use ilGlobalPageTemplate;
 
 /**
  * Class xlvoCorrectOrderSubFormGUI
@@ -30,11 +32,17 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI
     const F_CORRECT_POSITION = 'correct_position';
     const OPTION_RANDOMIZE_OPTIONS_AFTER_SAVE = 'option_randomise_option_after_save';
     const OPTION_RANDOMIZE_OPTIONS_AFTER_SAVE_INFO = 'option_randomise_option_after_save_info';
+    const CSS_FILE_PATH = './Customizing/global/plugins/Services/Repository/RepositoryObject/LiveVoting/templates/default/QuestionTypes/CorrectOrder/correct_order_form.css';
+
     /**
      * @var xlvoOption[]
      */
     protected $options = array();
 
+    public function addJsAndCss(ilGlobalPageTemplate $ilTemplate)
+    {
+        $ilTemplate->addCSS(self::CSS_FILE_PATH);
+    }
 
     /**
      *
@@ -42,15 +50,16 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI
     protected function initFormElements()
     {
 
-        $xlvoMultiLineInputGUI = new MultiLineInputGUI($this->txt(self::F_OPTIONS), self::F_OPTIONS);
-        $xlvoMultiLineInputGUI->setShowLabel(true);
+        $xlvoMultiLineInputGUI = new MultiLineNewInputGUI($this->txt(self::F_OPTIONS), self::F_OPTIONS);
+        $xlvoMultiLineInputGUI->setShowInputLabel(false);
+        $xlvoMultiLineInputGUI->setShowSort(false);
 
         $randomiseOptionSequenceAfterSave = new ilCheckboxInputGUI($this->txt(self::OPTION_RANDOMIZE_OPTIONS_AFTER_SAVE), self::OPTION_RANDOMIZE_OPTIONS_AFTER_SAVE);
         $randomiseOptionSequenceAfterSave->setOptionTitle($this->txt(self::OPTION_RANDOMIZE_OPTIONS_AFTER_SAVE_INFO));
         //$xlvoMultiLineInputGUI->setPositionMovable(true); // Allow move position
         $randomiseOptionSequenceAfterSave->setChecked($this->getXlvoVoting()->getRandomiseOptionSequence()); // Should shuffled?
 
-        $h = new ilHiddenInputGUI(self::F_ID);
+        $h = new HiddenInputGUI(self::F_ID);
         $xlvoMultiLineInputGUI->addInput($h);
 
         /*if (!$this->getXlvoVoting()->getRandomiseOptionSequence()) {

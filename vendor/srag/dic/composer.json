@@ -1,28 +1,35 @@
 {
   "name": "srag/dic",
   "description": "Use all ILIAS globals in your class",
+  "version": "0.33.2",
+  "extra": {
+    "ilias_plugin": {
+      "ilias_min_version": "6.0",
+      "ilias_max_version": "7.999"
+    }
+  },
   "type": "library",
   "keywords": [
-    "ILIAS",
-    "DIC",
-    "Trait",
-    "globals"
+    "dic",
+    "globals",
+    "ilias",
+    "trait"
   ],
-  "homepage": "https://github.com/studer-raimann/DIC",
+  "homepage": "https://github.com/fluxapps/DIC",
   "license": "GPL-3.0-only",
   "authors": [
     {
-      "name": "studer + raimann ag - Team Custom 1",
-      "email": "support-custom1@studer-raimann.ch",
-      "homepage": "https://studer-raimann.ch",
+      "name": "fluxlabs",
+      "email": "support@fluxlabs.ch",
+      "homepage": "https://fluxlabs.ch",
       "role": "Developer"
     }
   ],
-  "support": {
-    "issues": "https://plugins.studer-raimann.ch/goto.php?target=uihk_srsu_LDIC"
-  },
   "require": {
-    "php": ">=7.0"
+    "php": ">=7.2"
+  },
+  "require-dev": {
+    "srag/generateplugininfoshelper": ">=0.1.0"
   },
   "autoload": {
     "psr-4": {
@@ -33,5 +40,10 @@
     "classmap-authoritative": true,
     "optimize-autoloader": true,
     "sort-packages": true
+  },
+  "scripts": {
+    "update-version": [
+      "srag\\GeneratePluginInfosHelper\\UpdateVersion::updateVersion"
+    ]
   }
 }

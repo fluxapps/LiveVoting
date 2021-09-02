@@ -56,7 +56,7 @@ abstract class xlvoAbstractBarGUI implements xlvoGeneralBarGUI
     protected function initTemplate()
     {
         $this->tpl = self::plugin()->template('default/Display/Bar/tpl.bar_free_input.html');
-        self::dic()->mainTemplate()->addCss(self::plugin()->directory() . "/templates/default/Display/Bar/bar.css");
+        self::dic()->ui()->mainTemplate()->addCss(self::plugin()->directory() . "/templates/default/Display/Bar/bar.css");
     }
 
 

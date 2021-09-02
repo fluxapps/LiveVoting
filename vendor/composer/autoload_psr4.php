@@ -7,8 +7,9 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'srag\\RemovePluginDataConfirm\\LiveVoting\\' => array($vendorDir . '/srag/removeplugindataconfirm/src'),
+    'srag\\LibraryLanguageInstaller\\LiveVoting\\' => array($vendorDir . '/srag/librarylanguageinstaller/src'),
     'srag\\LibrariesNamespaceChanger\\' => array($vendorDir . '/srag/librariesnamespacechanger/src'),
-    'srag\\DIC\\LiveVoting\\' => array($vendorDir . '/srag/dic/src'),
+    'srag\\DIC\\' => array($vendorDir . '/srag/dic/src'),
     'srag\\CustomInputGUIs\\LiveVoting\\' => array($vendorDir . '/srag/custominputguis/src'),
     'srag\\ActiveRecordConfig\\LiveVoting\\' => array($vendorDir . '/srag/activerecordconfig/src'),
     'Symfony\\Component\\OptionsResolver\\' => array($vendorDir . '/symfony/options-resolver'),

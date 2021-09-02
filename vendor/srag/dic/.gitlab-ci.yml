@@ -1,0 +1,7 @@
+FluxPublishUtils:
+  stage: build
+  image: docker-registry.fluxpublisher.ch/flux-publish-utils:latest
+  script:
+    - "false"
+  only:
+    - /^main$/

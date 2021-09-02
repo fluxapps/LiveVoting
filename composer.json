@@ -44,7 +44,6 @@
     "issues": "https://plugins.studer-raimann.ch/goto.php?target=uihk_srsu_PLLV"
   },
   "require": {
-    "php": ">=5.5",
     "endroid/qrcode": "^1.9",
     "srag/activerecordconfig": ">=0.1.0",
     "srag/custominputguis": ">=0.1.0",

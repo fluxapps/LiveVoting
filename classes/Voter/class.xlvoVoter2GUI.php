@@ -16,7 +16,7 @@ use LiveVoting\QuestionTypes\xlvoQuestionTypesGUI;
 use LiveVoting\Voter\xlvoVoter;
 use LiveVoting\Voting\xlvoVotingConfig;
 use LiveVoting\Voting\xlvoVotingManager2;
-use srag\CustomInputGUIs\LiveVoting\GlyphGUI\GlyphGUI;
+use LiveVoting\UIComponent\GlyphGUI;
 use srag\CustomInputGUIs\LiveVoting\TextInputGUI\TextInputGUI;
 
 /**
@@ -108,7 +108,7 @@ class xlvoVoter2GUI extends xlvoGUI
         }
 
         $tpl = self::plugin()->template('default/Voter/tpl.pin.html', true, false);
-        self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/Voter/pin.css');
+        self::dic()->ui()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/Voter/pin.css');
         $pin_form = new ilPropertyFormGUI();
         $pin_form->setFormAction(self::dic()->ctrl()->getLinkTarget($this, self::CMD_CHECK_PIN));
         $pin_form->addCommandButton(self::CMD_CHECK_PIN, $this->txt('send'));
@@ -123,9 +123,9 @@ class xlvoVoter2GUI extends xlvoGUI
         $tpl->setVariable('FORM', $pin_form->getHTML());
 
         if (self::version()->is6()) {
-            self::dic()->mainTemplate()->setVariable('PLAYER_CONTENT', $tpl->get());
+            self::dic()->ui()->mainTemplate()->setVariable('PLAYER_CONTENT', $tpl->get());
         } else {
-            self::dic()->mainTemplate()->setContent($tpl->get());
+            self::dic()->ui()->mainTemplate()->setContent($tpl->get());
         }
     }
 
@@ -167,12 +167,12 @@ class xlvoVoter2GUI extends xlvoGUI
         }
 
         $this->initJsAndCss();
-        self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/default.css');
+        self::dic()->ui()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/default.css');
         $tpl = self::plugin()->template('default/Voter/tpl.voter_player.html', true, false);
         if (self::version()->is6()) {
-            self::dic()->mainTemplate()->setVariable('PLAYER_CONTENT', $tpl->get());
+            self::dic()->ui()->mainTemplate()->setVariable('PLAYER_CONTENT', $tpl->get());
         } else {
-            self::dic()->mainTemplate()->setContent($tpl->get());
+            self::dic()->ui()->mainTemplate()->setContent($tpl->get());
         }
     }
 
@@ -199,9 +199,9 @@ class xlvoVoter2GUI extends xlvoGUI
      */
     protected function initJsAndCss()
     {
-        self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/Voter/voter.css');
-        self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/libs/bootstrap-slider.min.css');
-        self::dic()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/QuestionTypes/NumberRange/number_range.css');
+        self::dic()->ui()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/Voter/voter.css');
+        self::dic()->ui()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/libs/bootstrap-slider.min.css');
+        self::dic()->ui()->mainTemplate()->addCss(self::plugin()->directory() . '/templates/default/QuestionTypes/NumberRange/number_range.css');
         iljQueryUtil::initjQueryUI();
 
         $t = array('player_seconds');

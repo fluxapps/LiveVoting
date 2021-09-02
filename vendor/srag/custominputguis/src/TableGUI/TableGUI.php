@@ -7,6 +7,7 @@ use ilExcel;
 use ilFormPropertyGUI;
 use ilHtmlToPdfTransformerFactory;
 use ilTable2GUI;
+use srag\CustomInputGUIs\LiveVoting\MultiLineNewInputGUI\MultiLineNewInputGUI;
 use srag\CustomInputGUIs\LiveVoting\PropertyFormGUI\Items\Items;
 use srag\CustomInputGUIs\LiveVoting\PropertyFormGUI\PropertyFormGUI;
 use srag\CustomInputGUIs\LiveVoting\TableGUI\Exception\TableGUIException;
@@ -18,8 +19,6 @@ use srag\DIC\LiveVoting\DICTrait;
  *
  * @package    srag\CustomInputGUIs\LiveVoting\TableGUI
  *
- * @author     studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
- *
  * @deprecated Please use "srag/datatable" library (`AbstractTableBuilder`)
  */
 abstract class TableGUI extends ilTable2GUI
@@ -27,20 +26,6 @@ abstract class TableGUI extends ilTable2GUI
 
     use DICTrait;
 
-    /**
-     * @var string
-     *
-     * @abstract
-     *
-     * @deprecated
-     */
-    const ROW_TEMPLATE = "";
-    /**
-     * @var string
-     *
-     * @deprecated
-     */
-    const LANG_MODULE = "";
     /**
      * @var int
      *
@@ -54,23 +39,37 @@ abstract class TableGUI extends ilTable2GUI
      */
     const EXPORT_PDF = 3;
     /**
+     * @var string
+     *
+     * @deprecated
+     */
+    const LANG_MODULE = "";
+    /**
+     * @var string
+     *
+     * @abstract
+     *
+     * @deprecated
+     */
+    const ROW_TEMPLATE = "";
+    /**
      * @var array
      *
      * @deprecated
      */
     protected $filter_fields = [];
     /**
-     * @var ilFormPropertyGUI[]
-     *
-     * @deprecated
-     */
-    private $filter_cache = [];
-    /**
      * @var Template
      *
      * @deprecated
      */
     protected $tpl;
+    /**
+     * @var ilFormPropertyGUI[]
+     *
+     * @deprecated
+     */
+    private $filter_cache = [];
 
 
     /**
@@ -81,7 +80,7 @@ abstract class TableGUI extends ilTable2GUI
      *
      * @deprecated
      */
-    public function __construct(/*object*/ $parent, /*string*/ $parent_cmd)
+    public function __construct(/*object*/ $parent, string $parent_cmd)
     {
         $this->parent_obj = $parent;
         $this->parent_cmd = $parent_cmd;
@@ -95,26 +94,59 @@ abstract class TableGUI extends ilTable2GUI
 
 
     /**
-     * @return array
+     * @inheritDoc
+     *
+     * @param int  $format
+     * @param bool $send
      *
      * @deprecated
      */
-    protected final function getFilterValues()/*: array*/
+    public function exportData(/*int*/ $format, /*bool*/ $send = false) : void
     {
-        return array_map(function ($item) {
-            return Items::getValueFromItem($item);
-        }, $this->filter_cache);
+        switch ($format) {
+            case self::EXPORT_PDF:
+                $this->exportPDF($format);
+                break;
+
+            default:
+                parent::exportData($format, $send);
+                break;
+        }
     }
 
 
     /**
+     * @inheritDoc
+     *
+     * @deprecated
+     */
+    public function fillFooter() : void
+    {
+        parent::fillFooter();
+    }
+
+
+    /**
+     * @inheritDoc
+     *
+     * @deprecated
+     */
+    public function fillHeader() : void
+    {
+        parent::fillHeader();
+    }
+
+
+    /**
+     * @inheritDoc
+     *
      * @return array
      *
      * @deprecated
      */
-    public final function getSelectableColumns()/*: array*/
+    public final function getSelectableColumns() : array
     {
-        return array_map(function (array &$column)/*: array*/ {
+        return array_map(function (array &$column) : array {
             if (!isset($column["txt"])) {
                 $column["txt"] = $this->txt($column["id"]);
             }
@@ -125,26 +157,14 @@ abstract class TableGUI extends ilTable2GUI
 
 
     /**
-     * @param string $field_id
+     * @inheritDoc
      *
-     * @return bool
-     *
-     * @deprecated
-     */
-    protected final function hasSessionValue(/*string*/ $field_id)/*: bool*/
-    {
-        // Not set (null) on first visit, false on reset filter, string if is set
-        return (isset($_SESSION["form_" . $this->getId()][$field_id]) && $_SESSION["form_" . $this->getId()][$field_id] !== false);
-    }
-
-
-    /**
      * @throws TableGUIException $filters needs to be an array!
      * @throws TableGUIException $field needs to be an array!
      *
      * @deprecated
      */
-    public final function initFilter()/*: void*/
+    public final function initFilter() : void
     {
         $this->setDisableFilterHiding(true);
 
@@ -169,6 +189,24 @@ abstract class TableGUI extends ilTable2GUI
                 throw new TableGUIException("\$item must be an instance of ilTableFilterItem!", TableGUIException::CODE_INVALID_FIELD);
             }*/
 
+            if ($item instanceof MultiLineNewInputGUI) {
+                if (is_array($field[PropertyFormGUI::PROPERTY_SUBITEMS])) {
+                    foreach ($field[PropertyFormGUI::PROPERTY_SUBITEMS] as $child_key => $child_field) {
+                        if (!is_array($child_field)) {
+                            throw new TableGUIException("\$fields needs to be an array!", TableGUIException::CODE_INVALID_FIELD);
+                        }
+
+                        if ($child_field[PropertyFormGUI::PROPERTY_NOT_ADD]) {
+                            continue;
+                        }
+
+                        $child_item = Items::getItem($child_key, $child_field, $item, $this);
+
+                        $item->addInput($child_item);
+                    }
+                }
+            }
+
             $this->filter_cache[$key] = $item;
 
             $this->addFilterItem($item);
@@ -181,130 +219,28 @@ abstract class TableGUI extends ilTable2GUI
 
 
     /**
-     * @deprecated
-     */
-    private final function initRowTemplate()/*: void*/
-    {
-        if ($this->checkRowTemplateConst()) {
-            $this->setRowTemplate(static::ROW_TEMPLATE, self::plugin()->directory());
-        } else {
-            $dir = __DIR__;
-            $dir = "./" . substr($dir, strpos($dir, "/Customizing/") + 1);
-            $this->setRowTemplate("table_row.html", $dir);
-        }
-    }
-
-
-    /**
-     * @deprecated
-     */
-    private final function initTable()/*: void*/
-    {
-        if (!(strpos($this->parent_cmd, "applyFilter") === 0
-            || strpos($this->parent_cmd, "resetFilter") === 0)
-        ) {
-            $this->tpl = new Template($this->tpl->lastTemplatefile, $this->tpl->removeUnknownVariables, $this->tpl->removeEmptyBlocks);
-
-            $this->initAction();
-
-            $this->initTitle();
-
-            $this->initFilter();
-
-            $this->initData();
-
-            $this->initColumns();
-
-            $this->initExport();
-
-            $this->initRowTemplate();
-
-            $this->initCommands();
-        } else {
-            // Speed up, not init data on applyFilter or resetFilter, only filter
-            $this->initFilter();
-        }
-    }
-
-
-    /**
-     * @param string      $key
-     * @param string|null $default
+     * @inheritDoc
      *
-     * @return string
+     * @param string $col
      *
-     * @deprecated
-     */
-    public function txt(/*string*/ $key,/*?string*/ $default = null)/*: string*/
-    {
-        if ($default !== null) {
-            return self::plugin()->translate($key, static::LANG_MODULE, [], true, "", $default);
-        } else {
-            return self::plugin()->translate($key, static::LANG_MODULE);
-        }
-    }
-
-
-    /**
      * @return bool
      *
      * @deprecated
      */
-    private final function checkRowTemplateConst()/*: bool*/
+    public function isColumnSelected(/*string*/ $col) : bool
     {
-        return (defined("static::ROW_TEMPLATE") && !empty(static::ROW_TEMPLATE));
+        return parent::isColumnSelected($col);
     }
 
 
     /**
-     * @deprecated
-     */
-    public function fillHeader()/*: void*/
-    {
-        parent::fillHeader();
-    }
-
-
-    /**
-     * @param array|object $row
+     * @inheritDoc
      *
-     * @deprecated
-     */
-    protected function fillRow(/*array*/ $row)/*: void*/
-    {
-        $this->tpl->setCurrentBlock("column");
-
-        foreach ($this->getSelectableColumns() as $column) {
-            if ($this->isColumnSelected($column["id"])) {
-                $column = $this->getColumnValue($column["id"], $row);
-
-                if (!empty($column)) {
-                    $this->tpl->setVariable("COLUMN", $column);
-                } else {
-                    $this->tpl->setVariable("COLUMN", " ");
-                }
-
-                $this->tpl->parseCurrentBlock();
-            }
-        }
-    }
-
-
-    /**
-     * @deprecated
-     */
-    public function fillFooter()/*: void*/
-    {
-        parent::fillFooter();
-    }
-
-
-    /**
      * @param array $formats
      *
      * @deprecated
      */
-    public function setExportFormats(array $formats)/*: void*/
+    public function setExportFormats(array $formats) : void
     {
         parent::setExportFormats($formats);
 
@@ -319,98 +255,19 @@ abstract class TableGUI extends ilTable2GUI
 
 
     /**
-     * @param int  $format
-     * @param bool $send
+     * @param string      $key
+     * @param string|null $default
+     *
+     * @return string
      *
      * @deprecated
      */
-    public function exportData(/*int*/ $format, /*bool*/ $send = false)/*: void*/
+    public function txt(string $key,/*?*/ string $default = null) : string
     {
-        switch ($format) {
-            case self::EXPORT_PDF:
-                $this->exportPDF($format);
-                break;
-
-            default:
-                parent::exportData($format, $send);
-                break;
-        }
-    }
-
-
-    /**
-     * @param ilCSVWriter $csv
-     *
-     * @deprecated
-     */
-    protected function fillHeaderCSV(/*ilCSVWriter*/ $csv)/*: void*/
-    {
-        foreach ($this->getSelectableColumns() as $column) {
-            if ($this->isColumnSelected($column["id"])) {
-                $csv->addColumn($column["txt"]);
-            }
-        }
-
-        $csv->addRow();
-    }
-
-
-    /**
-     * @param ilCSVWriter  $csv
-     * @param array|object $row
-     *
-     * @deprecated
-     */
-    protected function fillRowCSV(/*ilCSVWriter*/ $csv, /*array*/ $row)/*: void*/
-    {
-        foreach ($this->getSelectableColumns() as $column) {
-            if ($this->isColumnSelected($column["id"])) {
-                $csv->addColumn($this->getColumnValue($column["id"], $row, self::EXPORT_CSV));
-            }
-        }
-
-        $csv->addRow();
-    }
-
-
-    /**
-     * @param ilExcel $excel
-     * @param int     $row
-     *
-     * @deprecated
-     */
-    protected function fillHeaderExcel(ilExcel $excel, /*int*/ &$row)/*: void*/
-    {
-        $col = 0;
-
-        foreach ($this->getSelectableColumns() as $column) {
-            if ($this->isColumnSelected($column["id"])) {
-                $excel->setCell($row, $col, $column["txt"]);
-                $col++;
-            }
-        }
-
-        if ($col > 0) {
-            $excel->setBold("A" . $row . ":" . $excel->getColumnCoord($col - 1) . $row);
-        }
-    }
-
-
-    /**
-     * @param ilExcel      $excel
-     * @param int          $row
-     * @param array|object $result
-     *
-     * @deprecated
-     */
-    protected function fillRowExcel(ilExcel $excel, /*int*/ &$row, /*array*/ $result)/*: void*/
-    {
-        $col = 0;
-        foreach ($this->getSelectableColumns() as $column) {
-            if ($this->isColumnSelected($column["id"])) {
-                $excel->setCell($row, $col, $this->getColumnValue($column["id"], $result, self::EXPORT_EXCEL));
-                $col++;
-            }
+        if ($default !== null) {
+            return self::plugin()->translate($key, static::LANG_MODULE, [], true, "", $default);
+        } else {
+            return self::plugin()->translate($key, static::LANG_MODULE);
         }
     }
 
@@ -420,7 +277,7 @@ abstract class TableGUI extends ilTable2GUI
      *
      * @deprecated
      */
-    protected function exportPDF(/*bool*/ $send = false)/*: void*/
+    protected function exportPDF(bool $send = false) : void
     {
 
         $css = file_get_contents(__DIR__ . "/css/table_pdf_export.css");
@@ -461,11 +318,55 @@ abstract class TableGUI extends ilTable2GUI
 
 
     /**
+     * @inheritDoc
+     *
+     * @param ilCSVWriter $csv
+     *
+     * @deprecated
+     */
+    protected function fillHeaderCSV(/*ilCSVWriter*/ $csv) : void
+    {
+        foreach ($this->getSelectableColumns() as $column) {
+            if ($this->isColumnSelected($column["id"])) {
+                $csv->addColumn($column["txt"]);
+            }
+        }
+
+        $csv->addRow();
+    }
+
+
+    /**
+     * @inheritDoc
+     *
+     * @param ilExcel $excel
+     * @param int     $row
+     *
+     * @deprecated
+     */
+    protected function fillHeaderExcel(ilExcel $excel, /*int*/ &$row) : void
+    {
+        $col = 0;
+
+        foreach ($this->getSelectableColumns() as $column) {
+            if ($this->isColumnSelected($column["id"])) {
+                $excel->setCell($row, $col, $column["txt"]);
+                $col++;
+            }
+        }
+
+        if ($col > 0) {
+            $excel->setBold("A" . $row . ":" . $excel->getColumnCoord($col - 1) . $row);
+        }
+    }
+
+
+    /**
      * @return array
      *
      * @deprecated
      */
-    protected function fillHeaderPDF()/*: array*/
+    protected function fillHeaderPDF() : array
     {
         $columns = [];
 
@@ -480,13 +381,81 @@ abstract class TableGUI extends ilTable2GUI
 
 
     /**
+     * @inheritDoc
+     *
+     * @param array|object $row
+     *
+     * @deprecated
+     */
+    protected function fillRow(/*array*/ $row) : void
+    {
+        $this->tpl->setCurrentBlock("column");
+
+        foreach ($this->getSelectableColumns() as $column) {
+            if ($this->isColumnSelected($column["id"])) {
+                $column = $this->getColumnValue($column["id"], $row);
+
+                if (!empty($column)) {
+                    $this->tpl->setVariable("COLUMN", $column);
+                } else {
+                    $this->tpl->setVariable("COLUMN", " ");
+                }
+
+                $this->tpl->parseCurrentBlock();
+            }
+        }
+    }
+
+
+    /**
+     * @inheritDoc
+     *
+     * @param ilCSVWriter  $csv
+     * @param array|object $row
+     *
+     * @deprecated
+     */
+    protected function fillRowCSV(/*ilCSVWriter*/ $csv, /*array*/ $row) : void
+    {
+        foreach ($this->getSelectableColumns() as $column) {
+            if ($this->isColumnSelected($column["id"])) {
+                $csv->addColumn($this->getColumnValue($column["id"], $row, self::EXPORT_CSV));
+            }
+        }
+
+        $csv->addRow();
+    }
+
+
+    /**
+     * @inheritDoc
+     *
+     * @param ilExcel      $excel
+     * @param int          $row
+     * @param array|object $result
+     *
+     * @deprecated
+     */
+    protected function fillRowExcel(ilExcel $excel, /*int*/ &$row, /*array*/ $result) : void
+    {
+        $col = 0;
+        foreach ($this->getSelectableColumns() as $column) {
+            if ($this->isColumnSelected($column["id"])) {
+                $excel->setCell($row, $col, $this->getColumnValue($column["id"], $result, self::EXPORT_EXCEL));
+                $col++;
+            }
+        }
+    }
+
+
+    /**
      * @param array $row
      *
      * @return array
      *
      * @deprecated
      */
-    protected function fillRowPDF(/*array*/ $row)/*: array*/
+    protected function fillRowPDF(/*array*/ $row) : array
     {
         $strings = [];
 
@@ -509,7 +478,7 @@ abstract class TableGUI extends ilTable2GUI
      *
      * @deprecated
      */
-    protected abstract function getColumnValue(/*string*/ $column, /*array*/ $row, /*int*/ $format = self::DEFAULT_FORMAT)/*: string*/ ;
+    protected abstract function getColumnValue(string $column, /*array*/ $row, int $format = self::DEFAULT_FORMAT) : string;
 
 
     /**
@@ -517,13 +486,40 @@ abstract class TableGUI extends ilTable2GUI
      *
      * @deprecated
      */
-    protected abstract function getSelectableColumns2()/*: array*/ ;
+    protected final function getFilterValues() : array
+    {
+        return array_map(function ($item) {
+            return Items::getValueFromItem($item);
+        }, $this->filter_cache);
+    }
+
+
+    /**
+     * @return array
+     *
+     * @deprecated
+     */
+    protected abstract function getSelectableColumns2() : array;
+
+
+    /**
+     * @param string $field_id
+     *
+     * @return bool
+     *
+     * @deprecated
+     */
+    protected final function hasSessionValue(string $field_id) : bool
+    {
+        // Not set (null) on first visit, false on reset filter, string if is set
+        return (isset($_SESSION["form_" . $this->getId()][$field_id]) && $_SESSION["form_" . $this->getId()][$field_id] !== false);
+    }
 
 
     /**
      * @deprecated
      */
-    protected function initAction()/*: void*/
+    protected function initAction() : void
     {
         $this->setFormAction(self::dic()->ctrl()->getFormAction($this->parent_obj));
     }
@@ -532,7 +528,7 @@ abstract class TableGUI extends ilTable2GUI
     /**
      * @deprecated
      */
-    protected function initColumns()/*: void*/
+    protected function initColumns() : void
     {
         foreach ($this->getSelectableColumns() as $column) {
             if ($this->isColumnSelected($column["id"])) {
@@ -545,7 +541,7 @@ abstract class TableGUI extends ilTable2GUI
     /**
      * @deprecated
      */
-    protected function initCommands()/*: void*/
+    protected function initCommands() : void
     {
 
     }
@@ -554,45 +550,90 @@ abstract class TableGUI extends ilTable2GUI
     /**
      * @deprecated
      */
-    protected function initExport()/*: void*/
+    protected abstract function initData() : void ;
+
+
+    /**
+     * @deprecated
+     */
+    protected function initExport() : void
     {
 
     }
 
 
     /**
-     * @param string $col
-     *
+     * @deprecated
+     */
+    protected abstract function initFilterFields() : void ;
+
+
+    /**
+     * @deprecated
+     */
+    protected abstract function initId() : void ;
+
+
+    /**
+     * @deprecated
+     */
+    protected abstract function initTitle() : void ;
+
+
+    /**
      * @return bool
      *
      * @deprecated
      */
-    public function isColumnSelected(/*string*/ $col)/*: bool*/
+    private final function checkRowTemplateConst() : bool
     {
-        return parent::isColumnSelected($col);
+        return (defined("static::ROW_TEMPLATE") && !empty(static::ROW_TEMPLATE));
     }
 
 
     /**
      * @deprecated
      */
-    protected abstract function initData()/*: void*/ ;
+    private final function initRowTemplate() : void
+    {
+        if ($this->checkRowTemplateConst()) {
+            $this->setRowTemplate(static::ROW_TEMPLATE, self::plugin()->directory());
+        } else {
+            $dir = __DIR__;
+            $dir = "./" . substr($dir, strpos($dir, "/Customizing/") + 1);
+            $this->setRowTemplate("table_row.html", $dir);
+        }
+    }
 
 
     /**
      * @deprecated
      */
-    protected abstract function initFilterFields()/*: void*/ ;
+    private final function initTable() : void
+    {
+        if (!(strpos($this->parent_cmd, "applyFilter") === 0
+            || strpos($this->parent_cmd, "resetFilter") === 0)
+        ) {
+            $this->tpl = new Template($this->tpl->lastTemplatefile, $this->tpl->removeUnknownVariables, $this->tpl->removeEmptyBlocks);
 
+            $this->initAction();
 
-    /**
-     * @deprecated
-     */
-    protected abstract function initId()/*: void*/ ;
+            $this->initTitle();
 
+            $this->initFilter();
 
-    /**
-     * @deprecated
-     */
-    protected abstract function initTitle()/*: void*/ ;
+            $this->initData();
+
+            $this->initColumns();
+
+            $this->initExport();
+
+            $this->initRowTemplate();
+
+            $this->initCommands();
+        } else {
+            // Speed up, not init data on applyFilter or resetFilter, only filter
+            $this->initFilter();
+        }
+    }
 }

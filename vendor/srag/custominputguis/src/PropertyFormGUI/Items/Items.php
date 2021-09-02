@@ -11,21 +11,21 @@ use ilPropertyFormGUI;
 use ilRadioOption;
 use ilRepositorySelector2InputGUI;
 use ilUtil;
-use srag\CustomInputGUIs\LiveVoting\MultiLineInputGUI\MultiLineInputGUI;
+use srag\CustomInputGUIs\LiveVoting\HiddenInputGUI\HiddenInputGUI;
 use srag\CustomInputGUIs\LiveVoting\PropertyFormGUI\Exception\PropertyFormGUIException;
 use srag\CustomInputGUIs\LiveVoting\PropertyFormGUI\PropertyFormGUI;
 use srag\CustomInputGUIs\LiveVoting\TableGUI\TableGUI;
 use srag\CustomInputGUIs\LiveVoting\Template\Template;
 use srag\CustomInputGUIs\LiveVoting\UIInputComponentWrapperInputGUI\UIInputComponentWrapperInputGUI;
 use srag\DIC\LiveVoting\DICTrait;
+use srag\DIC\LiveVoting\Plugin\PluginInterface;
+use srag\DIC\LiveVoting\Version\PluginVersionParameter;
 use TypeError;
 
 /**
  * Class Items
  *
  * @package srag\CustomInputGUIs\LiveVoting\PropertyFormGUI\Items
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  *
  * @access  namespace
  */
@@ -41,18 +41,11 @@ final class Items
 
 
     /**
-     *
+     * Items constructor
      */
-    public static function init()/*: void*/
+    private function __construct()
     {
-        if (self::$init === false) {
-            self::$init = true;
 
-            $dir = __DIR__;
-            $dir = "./" . substr($dir, strpos($dir, "/Customizing/") + 1);
-
-            self::dic()->ui()->mainTemplate()->addCss($dir . "/css/input_gui_input.css");
-        }
     }
 
 
@@ -145,11 +138,6 @@ final class Items
      */
     public static function getValueFromItem($item)
     {
-        if ($item instanceof MultiLineInputGUI) {
-            //return filter_input(INPUT_POST,$item->getPostVar()); // Not work because MultiLineInputGUI modify $_POST
-            return $_POST[$item->getPostVar()];
-        }
-
         if (method_exists($item, "getChecked")) {
             return boolval($item->getChecked());
         }
@@ -185,19 +173,64 @@ final class Items
 
 
     /**
+     * @param object $object
+     * @param string $property
+     *
+     * @return mixed
+     */
+    public static function getter(/*object*/ $object, string $property)
+    {
+        if (method_exists($object, $method = "get" . self::strToCamelCase($property))) {
+            return $object->{$method}();
+        }
+
+        if (method_exists($object, $method = "is" . self::strToCamelCase($property))) {
+            return $object->{$method}();
+        }
+
+        return null;
+    }
+
+
+    /**
+     * @param PluginInterface|null $plugin
+     */
+    public static function init(/*?*/ PluginInterface $plugin = null) : void
+    {
+        if (self::$init === false) {
+            self::$init = true;
+
+            $version_parameter = PluginVersionParameter::getInstance();
+            if ($plugin !== null) {
+                $version_parameter = $version_parameter->withPlugin($plugin);
+            }
+
+            $dir = __DIR__;
+            $dir = "./" . substr($dir, strpos($dir, "/Customizing/") + 1);
+
+            self::dic()->ui()->mainTemplate()->addCss($version_parameter->appendToUrl($dir . "/css/input_gui_input.css"));
+        }
+    }
+
+
+    /**
      * @param ilFormPropertyGUI[] $inputs
      *
      * @return string
      */
     public static function renderInputs(array $inputs) : string
     {
-        self::init();
+        self::init(); // TODO: Pass $plugin
 
         $input_tpl = new Template(__DIR__ . "/templates/input_gui_input.html");
 
         $input_tpl->setCurrentBlock("input");
 
         foreach ($inputs as $input) {
+            if ($input instanceof HiddenInputGUI) {
+                $input_tpl->setVariableEscaped("HIDDEN", " hidden");
+            }
+
             $input_tpl->setVariableEscaped("TITLE", $input->getTitle());
 
             if ($input->getRequired()) {
@@ -233,11 +266,93 @@ final class Items
 
     /**
      * @param ilFormPropertyGUI|ilFormSectionHeaderGUI|ilRadioOption $item
+     * @param mixed                                                  $value
+     *
+     * @deprecated
+     */
+    public static function setValueToItem($item, $value) : void
+    {
+        if ($item instanceof MultiLineInputGUI) {
+            $item->setValueByArray([
+                $item->getPostVar() => $value
+            ]);
+
+            return;
+        }
+
+        if (method_exists($item, "setChecked")) {
+            $item->setChecked($value);
+
+            return;
+        }
+
+        if (method_exists($item, "setDate")) {
+            if (is_string($value)) {
+                $value = new ilDateTime($value, IL_CAL_DATE);
+            }
+
+            $item->setDate($value);
+
+            return;
+        }
+
+        if (method_exists($item, "setImage")) {
+            $item->setImage($value);
+
+            return;
+        }
+
+        if (method_exists($item, "setValue") && !($item instanceof ilRadioOption)) {
+            $item->setValue($value);
+        }
+    }
+
+
+    /**
+     * @param object $object
+     * @param string $property
+     * @param mixed  $value
+     *
+     * @return mixed
+     */
+    public static function setter(/*object*/ $object, string $property, $value)
+    {
+        $res = null;
+
+        if (method_exists($object, $method = "with" . self::strToCamelCase($property)) || method_exists($object, $method = "set" . self::strToCamelCase($property))) {
+            try {
+                $res = $object->{$method}($value);
+            } catch (TypeError $ex) {
+                try {
+                    $res = $object->{$method}(intval($value));
+                } catch (TypeError $ex) {
+                    $res = $object->{$method}(boolval($value));
+                }
+            }
+        }
+
+        return $res;
+    }
+
+
+    /**
+     * @param string $string
+     *
+     * @return string
+     */
+    public static function strToCamelCase(string $string) : string
+    {
+        return str_replace("_", "", ucwords($string, "_"));
+    }
+
+
+    /**
+     * @param ilFormPropertyGUI|ilFormSectionHeaderGUI|ilRadioOption $item
      * @param array                                                  $properties
      *
      * @deprecated
      */
-    private static function setPropertiesToItem($item, array $properties)/*: void*/
+    private static function setPropertiesToItem($item, array $properties) : void
     {
         foreach ($properties as $property_key => $property_value) {
             $property = "";
@@ -293,116 +408,5 @@ final class Items
                 }
             }
         }
-    }
-
-
-    /**
-     * @param ilFormPropertyGUI|ilFormSectionHeaderGUI|ilRadioOption $item
-     * @param mixed                                                  $value
-     *
-     * @deprecated
-     */
-    public static function setValueToItem($item, $value)/*: void*/
-    {
-        if ($item instanceof MultiLineInputGUI) {
-            $item->setValueByArray([
-                $item->getPostVar() => $value
-            ]);
-
-            return;
-        }
-
-        if (method_exists($item, "setChecked")) {
-            $item->setChecked($value);
-
-            return;
-        }
-
-        if (method_exists($item, "setDate")) {
-            if (is_string($value)) {
-                $value = new ilDateTime($value, IL_CAL_DATE);
-            }
-
-            $item->setDate($value);
-
-            return;
-        }
-
-        if (method_exists($item, "setImage")) {
-            $item->setImage($value);
-
-            return;
-        }
-
-        if (method_exists($item, "setValue") && !($item instanceof ilRadioOption)) {
-            $item->setValue($value);
-        }
-    }
-
-
-    /**
-     * @param object $object
-     * @param string $property
-     *
-     * @return mixed
-     */
-    public static function getter(/*object*/ $object,/*string*/ $property)
-    {
-        if (method_exists($object, $method = "get" . self::strToCamelCase($property))) {
-            return $object->{$method}();
-        }
-
-        if (method_exists($object, $method = "is" . self::strToCamelCase($property))) {
-            return $object->{$method}();
-        }
-
-        return null;
-    }
-
-
-    /**
-     * @param object $object
-     * @param string $property
-     * @param mixed  $value
-     *
-     * @return mixed
-     */
-    public static function setter(/*object*/ $object,/*string*/ $property, $value)
-    {
-        $res = null;
-
-        if (method_exists($object, $method = "with" . self::strToCamelCase($property)) || method_exists($object, $method = "set" . self::strToCamelCase($property))) {
-            try {
-                $res = $object->{$method}($value);
-            } catch (TypeError $ex) {
-                try {
-                    $res = $object->{$method}(intval($value));
-                } catch (TypeError $ex) {
-                    $res = $object->{$method}(boolval($value));
-                }
-            }
-        }
-
-        return $res;
-    }
-
-
-    /**
-     * @param string $string
-     *
-     * @return string
-     */
-    public static function strToCamelCase($string)
-    {
-        return str_replace("_", "", ucwords($string, "_"));
-    }
-
-
-    /**
-     * Items constructor
-     */
-    private function __construct()
-    {
-
     }
 }

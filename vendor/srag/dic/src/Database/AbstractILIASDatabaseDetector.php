@@ -9,8 +9,6 @@ use ilDBPdoInterface;
  * Class AbstractILIASDatabaseDetector
  *
  * @package srag\DIC\LiveVoting\Database
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 abstract class AbstractILIASDatabaseDetector implements DatabaseInterface
 {

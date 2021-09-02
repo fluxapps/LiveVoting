@@ -2,13 +2,13 @@
 	<ul class="nav nav-tabs" role="tablist">
 		<!-- BEGIN tab -->
 		<li class="nav-item{ACTIVE}">
-			<a class="nav-link" data-toggle="tab" id="{TAB_ID}" href="#{TAB_CONTENT_ID}" role="tab" aria-controls="{TAB_CONTENT_ID}" aria-selected="true">{TITLE}</a>
+			<a aria-controls="{TAB_CONTENT_ID}" aria-selected="true" class="nav-link" data-toggle="tab" href="#{TAB_CONTENT_ID}" id="{TAB_ID}" role="tab">{TITLE}</a>
 		</li>
 		<!-- END tab -->
 	</ul>
 	<div class="tab-content">
 		<!-- BEGIN tab_content -->
-		<div class="tab-pane{ACTIVE}" data-show_input_label="{SHOW_INPUT_LABEL}" id="{TAB_CONTENT_ID}" role="tabpanel" aria-labelledby="{TAB_ID}">
+		<div aria-labelledby="{TAB_ID}" class="tab-pane{ACTIVE}" data-show_input_label="{SHOW_INPUT_LABEL}" id="{TAB_CONTENT_ID}" role="tabpanel">
 			{INPUTS} {INFO}
 		</div>
 		<!-- END tab_content -->

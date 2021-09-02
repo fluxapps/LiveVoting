@@ -9,8 +9,6 @@ use ilException;
  *
  * @package srag\CustomInputGUIs\LiveVoting\TableGUI\Exception
  *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
- *
  * @deprecated
  */
 final class TableGUIException extends ilException
@@ -32,10 +30,8 @@ final class TableGUIException extends ilException
      *
      * @deprecated
      */
-    public function __construct(/*string*/
-        $message, /*int*/
-        $code
-    ) {
+    public function __construct(string $message, int $code)
+    {
         parent::__construct($message, $code);
     }
 }

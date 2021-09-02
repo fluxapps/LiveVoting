@@ -10,22 +10,12 @@ use srag\DIC\LiveVoting\DICTrait;
  * Class TabsInputGUITab
  *
  * @package srag\CustomInputGUIs\LiveVoting\TabsInputGUI
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 class TabsInputGUITab
 {
 
     use DICTrait;
 
-    /**
-     * @var string
-     */
-    protected $title = "";
-    /**
-     * @var string
-     */
-    protected $post_var = "";
     /**
      * @var bool
      */
@@ -42,6 +32,14 @@ class TabsInputGUITab
      * @var ilFormPropertyGUI[]|null
      */
     protected $inputs_generated = null;
+    /**
+     * @var string
+     */
+    protected $post_var = "";
+    /**
+     * @var string
+     */
+    protected $title = "";
 
 
     /**
@@ -58,9 +56,22 @@ class TabsInputGUITab
 
 
     /**
+     *
+     */
+    public function __clone()
+    {
+        if ($this->inputs_generated !== null) {
+            $this->inputs_generated = array_map(function (ilFormPropertyGUI $input) : ilFormPropertyGUI {
+                return clone $input;
+            }, $this->inputs_generated);
+        }
+    }
+
+
+    /**
      * @param ilFormPropertyGUI $input
      */
-    public function addInput(ilFormPropertyGUI $input)/*: void*/
+    public function addInput(ilFormPropertyGUI $input) : void
     {
         $this->inputs[] = $input;
         $this->inputs_generated = null;
@@ -73,6 +84,15 @@ class TabsInputGUITab
     public function getInfo() : string
     {
         return $this->info;
+    }
+
+
+    /**
+     * @param string $info
+     */
+    public function setInfo(string $info) : void
+    {
+        $this->info = $info;
     }
 
 
@@ -107,6 +127,16 @@ class TabsInputGUITab
 
 
     /**
+     * @param ilFormPropertyGUI[] $inputs
+     */
+    public function setInputs(array $inputs) : void
+    {
+        $this->inputs = $inputs;
+        $this->inputs_generated = null;
+    }
+
+
+    /**
      * @return string
      */
     public function getPostVar() : string
@@ -116,11 +146,29 @@ class TabsInputGUITab
 
 
     /**
+     * @param string $post_var
+     */
+    public function setPostVar(string $post_var) : void
+    {
+        $this->post_var = $post_var;
+    }
+
+
+    /**
      * @return string
      */
     public function getTitle() : string
     {
         return $this->title;
+    }
+
+
+    /**
+     * @param string $title
+     */
+    public function setTitle(string $title) : void
+    {
+        $this->title = $title;
     }
 
 
@@ -136,59 +184,9 @@ class TabsInputGUITab
     /**
      * @param bool $active
      */
-    public function setActive(bool $active)/* : void*/
+    public function setActive(bool $active) : void
     {
         $this->active = $active;
-    }
-
-
-    /**
-     * @param string $info
-     */
-    public function setInfo(string $info)/* : void*/
-    {
-        $this->info = $info;
-    }
-
-
-    /**
-     * @param ilFormPropertyGUI[] $inputs
-     */
-    public function setInputs(array $inputs)/* : void*/
-    {
-        $this->inputs = $inputs;
-        $this->inputs_generated = null;
-    }
-
-
-    /**
-     * @param string $post_var
-     */
-    public function setPostVar(string $post_var)/* : void*/
-    {
-        $this->post_var = $post_var;
-    }
-
-
-    /**
-     * @param string $title
-     */
-    public function setTitle(string $title)/* : void*/
-    {
-        $this->title = $title;
-    }
-
-
-    /**
-     *
-     */
-    public function __clone()/*:void*/
-    {
-        if ($this->inputs_generated !== null) {
-            $this->inputs_generated = array_map(function (ilFormPropertyGUI $input) : ilFormPropertyGUI {
-                return clone $input;
-            }, $this->inputs_generated);
-        }
     }
 }
 

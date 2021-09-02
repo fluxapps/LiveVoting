@@ -5,13 +5,13 @@ namespace LiveVoting\QuestionTypes\SingleVote;
 use ilCheckboxInputGUI;
 use ilException;
 use ilFormPropertyGUI;
-use ilHiddenInputGUI;
 use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Exceptions\xlvoSubFormGUIHandleFieldException;
 use LiveVoting\Option\xlvoOption;
 use LiveVoting\QuestionTypes\xlvoSubFormGUI;
-use srag\CustomInputGUIs\LiveVoting\MultiLineInputGUI\MultiLineInputGUI;
+use srag\CustomInputGUIs\LiveVoting\MultiLineNewInputGUI\MultiLineNewInputGUI;
 use srag\CustomInputGUIs\LiveVoting\TextInputGUI\TextInputGUI;
+use srag\CustomInputGUIs\LiveVoting\HiddenInputGUI\HiddenInputGUI;
 
 /**
  * Class xlvoSingleVoteSubFormGUI
@@ -46,17 +46,16 @@ class xlvoSingleVoteSubFormGUI extends xlvoSubFormGUI
         //		$cb->setInfo(self::plugin()->translate('info_singlevote_colors'));
         //		$this->addFormElement($cb);
 
-        $xlvoMultiLineInputGUI = new MultiLineInputGUI($this->txt(self::F_OPTIONS), self::F_OPTIONS);
-        $xlvoMultiLineInputGUI->setShowLabel(false);
-        $xlvoMultiLineInputGUI->setShowInfo(xlvoConf::isLatexEnabled());
+        $xlvoMultiLineInputGUI = new MultiLineNewInputGUI($this->txt(self::F_OPTIONS), self::F_OPTIONS);
+        $xlvoMultiLineInputGUI->setShowInputLabel(false);
 
-        $xlvoMultiLineInputGUI->setPositionMovable(true);
+        $xlvoMultiLineInputGUI->setShowSort(true);
 
         $te = new TextInputGUI($this->txt('option_text'), self::F_TEXT);
-        $te->setInfo($this->txt('info_latex'));
+        $te->setInfo(xlvoConf::isLatexEnabled() ? $this->txt('info_latex') : '');
         $xlvoMultiLineInputGUI->addInput($te);
 
-        $h = new ilHiddenInputGUI(self::F_ID);
+        $h = new HiddenInputGUI(self::F_ID);
         $xlvoMultiLineInputGUI->addInput($h);
 
         $this->addFormElement($xlvoMultiLineInputGUI);

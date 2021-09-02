@@ -15,8 +15,6 @@ use stdClass;
  * Class Output
  *
  * @package srag\DIC\LiveVoting\Output
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 final class Output implements OutputInterface
 {
@@ -51,7 +49,11 @@ final class Output implements OutputInterface
 
                 // Component instance
                 case ($value instanceof Component):
-                    $html = self::dic()->ui()->renderer()->render($value);
+                    if (self::dic()->ctrl()->isAsynch()) {
+                        $html = self::dic()->ui()->renderer()->renderAsync($value);
+                    } else {
+                        $html = self::dic()->ui()->renderer()->render($value);
+                    }
                     break;
 
                 // ilTable2GUI instance
@@ -88,7 +90,7 @@ final class Output implements OutputInterface
     /**
      * @inheritDoc
      */
-    public function output($value, bool $show = false, bool $main_template = true)/*: void*/
+    public function output($value, bool $show = false, bool $main_template = true) : void
     {
         $html = $this->getHTML($value);
 
@@ -98,11 +100,7 @@ final class Output implements OutputInterface
             exit;
         } else {
             if ($main_template) {
-                if (self::version()->is6()) {
-                    self::dic()->ui()->mainTemplate()->loadStandardTemplate();
-                } else {
-                    self::dic()->ui()->mainTemplate()->getStandardTemplate();
-                }
+                self::dic()->ui()->mainTemplate()->loadStandardTemplate();
             }
 
             self::dic()->ui()->mainTemplate()->setLocator();
@@ -112,11 +110,7 @@ final class Output implements OutputInterface
             }
 
             if ($show) {
-                if (self::version()->is6()) {
-                    self::dic()->ui()->mainTemplate()->printToStdout();
-                } else {
-                    self::dic()->ui()->mainTemplate()->show();
-                }
+                self::dic()->ui()->mainTemplate()->printToStdout();
             }
         }
     }
@@ -125,7 +119,7 @@ final class Output implements OutputInterface
     /**
      * @inheritDoc
      */
-    public function outputJSON($value)/*: void*/
+    public function outputJSON($value) : void
     {
         switch (true) {
             case (is_string($value)):

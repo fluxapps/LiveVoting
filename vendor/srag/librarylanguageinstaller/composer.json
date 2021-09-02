@@ -1,0 +1,52 @@
+{
+  "name": "srag/librarylanguageinstaller",
+  "description": "Install additional and external lang files for a plugin",
+  "version": "1.2.1",
+  "extra": {
+    "ilias_plugin": {
+      "ilias_min_version": "6.0",
+      "ilias_max_version": "7.999"
+    },
+    "generate_plugin_readme_template": "ILIAS_LIBRARY",
+    "long_description_template": "src/LONG_DESCRIPTION.md"
+  },
+  "type": "library",
+  "keywords": [
+    "ilias",
+    "installer",
+    "language",
+    "library"
+  ],
+  "homepage": "https://github.com/fluxapps/LibraryLanguageInstaller",
+  "license": "GPL-3.0-only",
+  "authors": [
+    {
+      "name": "fluxlabs",
+      "email": "support@fluxlabs.ch",
+      "homepage": "https://fluxlabs.ch",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=7.2",
+    "srag/dic": ">=0.1.0"
+  },
+  "require-dev": {
+    "srag/generateplugininfoshelper": ">=0.1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "srag\\LibraryLanguageInstaller\\LiveVoting\\": "src/"
+    }
+  },
+  "config": {
+    "classmap-authoritative": true,
+    "optimize-autoloader": true,
+    "sort-packages": true
+  },
+  "scripts": {
+    "update-version": [
+      "srag\\GeneratePluginInfosHelper\\UpdateVersion::updateVersion"
+    ]
+  }
+}

@@ -1,29 +1,38 @@
 {
   "name": "srag/activerecordconfig",
   "description": "Simple ActiveRecord config for ILIAS plugins",
+  "version": "0.21.1",
+  "extra": {
+    "ilias_plugin": {
+      "ilias_min_version": "6.0",
+      "ilias_max_version": "7.999"
+    },
+    "generate_plugin_readme_template": "ILIAS_LIBRARY",
+    "long_description_template": "src/LONG_DESCRIPTION.md"
+  },
   "type": "library",
   "keywords": [
-    "ILIAS",
-    "ActiveRecord",
-    "Config"
+    "activerecord",
+    "config",
+    "ilias"
   ],
-  "homepage": "https://github.com/studer-raimann/ActiveRecordConfig",
+  "homepage": "https://github.com/fluxapps/ActiveRecordConfig",
   "license": "GPL-3.0-only",
   "authors": [
     {
-      "name": "studer + raimann ag - Team Custom 1",
-      "email": "support-custom1@studer-raimann.ch",
-      "homepage": "https://studer-raimann.ch",
+      "name": "fluxlabs",
+      "email": "support@fluxlabs.ch",
+      "homepage": "https://fluxlabs.ch",
       "role": "Developer"
     }
   ],
-  "support": {
-    "issues": "https://plugins.studer-raimann.ch/goto.php?target=uihk_srsu_ACCONF"
-  },
   "require": {
-    "php": ">=7.0",
+    "php": ">=7.2",
     "srag/custominputguis": ">=0.1.0",
     "srag/dic": ">=0.1.0"
+  },
+  "require-dev": {
+    "srag/generateplugininfoshelper": ">=0.1.0"
   },
   "autoload": {
     "psr-4": {
@@ -34,5 +43,10 @@
     "classmap-authoritative": true,
     "optimize-autoloader": true,
     "sort-packages": true
+  },
+  "scripts": {
+    "update-version": [
+      "srag\\GeneratePluginInfosHelper\\UpdateVersion::updateVersion"
+    ]
   }
 }

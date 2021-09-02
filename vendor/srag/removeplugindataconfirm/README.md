@@ -1,9 +1,15 @@
+# srag/removeplugindataconfirm Library for ILIAS Plugins
+
 Demand if plugin data should be removed on uninstall
 
-### Usage
+This project is licensed under the GPL-3.0-only license
 
-#### Composer
+## Usage
+
+### Composer
+
 First add the following to your `composer.json` file:
+
 ```json
 "require": {
   "srag/removeplugindataconfirm": ">=0.1.0"
@@ -18,8 +24,10 @@ Tip: Because of multiple autoloaders of plugins, it could be, that different ver
 
 So I recommand to use [srag/librariesnamespacechanger](https://packagist.org/packages/srag/librariesnamespacechanger) in your plugin.
 
-#### Use
+## Use
+
 First declare your plugin class like follow:
+
 ```php
 //...
 use srag\RemovePluginDataConfirm\LiveVoting\x\PluginUninstallTrait;
@@ -29,14 +37,16 @@ use PluginUninstallTrait;
 /**
  * @inheritDoc
  */
-protected function deleteData()/*: void*/ {
+protected function deleteData() : void {
     // TODO: Delete your plugin data in this method
 }
 //...
 ```
+
 You don't need to use `DICTrait`, it is already in use!
 
 If your plugin is a RepositoryObject use `RepositoryObjectPluginUninstallTrait` instead:
+
 ```php
 //...
 use srag\RemovePluginDataConfirm\LiveVoting\x\RepositoryObjectPluginUninstallTrait;
@@ -48,12 +58,13 @@ use RepositoryObjectPluginUninstallTrait;
 Remove also the methods `beforeUninstall`, `afterUninstall`, `beforeUninstallCustom` and `uninstallCustom` in your plugin class.
 
 Expand you plugin class for installing languages of the library to your plugin
+
 ```php
 ...
 	/**
      * @inheritDoc
      */
-    public function updateLanguages(/*?array*/ $a_lang_keys = null)/*:void*/ {
+    public function updateLanguages(/*?array*/ $a_lang_keys = null) : void {
 		parent::updateLanguages($a_lang_keys);
 
 		$this->installRemovePluginDataConfirmLanguages();
@@ -63,13 +74,7 @@ Expand you plugin class for installing languages of the library to your plugin
 
 Notice to also adjust `dbupdate.php` so it can be reinstalled if the data should already exists!
 
-### Requirements
-* ILIAS 5.3 or ILIAS 5.4
-* PHP >=7.0
+## Requirements
 
-### Adjustment suggestions
-* External users can report suggestions and bugs at https://plugins.studer-raimann.ch/goto.php?target=uihk_srsu_LRPDC
-* Adjustment suggestions by pull requests via github
-* Customer of studer + raimann ag: 
-	* Adjustment suggestions which are not yet worked out in detail by Jira tasks under https://jira.studer-raimann.ch/projects/LRPDC
-	* Bug reports under https://jira.studer-raimann.ch/projects/LRPDC
+* ILIAS 6.0 - 7.999
+* PHP >=7.2

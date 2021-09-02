@@ -4,7 +4,7 @@ require_once __DIR__ . '/../../../vendor/autoload.php';
 
 use LiveVoting\Js\xlvoJs;
 use LiveVoting\QuestionTypes\xlvoQuestionTypes;
-use srag\CustomInputGUIs\LiveVoting\GlyphGUI\GlyphGUI;
+use LiveVoting\UIComponent\GlyphGUI;
 
 /**
  * Class xlvoFreeOrderGUI

@@ -1,5 +1,7 @@
 ### NumberInputGUI
-TODO: 
+
+TODO:
 
 #### Changes:
+
 - Support table filters

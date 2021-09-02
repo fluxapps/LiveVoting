@@ -1,5 +1,50 @@
 # Changelog
 
+## [0.8.1]
+- Not use GeneratePluginReadme
+
+## [0.8.0]
+- ILIAS 7 support
+- Remove ILIAS 5.4 support
+- Min PHP 7.2
+
+## [0.7.8]
+- Change utils url
+
+## [0.7.7]
+- Update urls
+
+## [0.7.6]
+- Ignore not supported languages
+
+## [0.7.5]
+- Ignore not supported languages
+
+## [0.7.4]
+- Update readme
+
+## [0.7.3]
+- Update project url
+
+## [0.7.2]
+- Fix composer 2
+- Move doc/DESCRIPTION.md to src/LONG_DESCRIPTION.md
+
+## [0.7.1]
+- Generate readme
+
+## [0.7.0]
+- Generate readme
+
+## [0.6.6]
+- Move LibraryLanguageInstaller to separate package
+
+## [0.6.5]
+- `shouldUseOneUpdateStepOnly` also for repository plugins
+
+## [0.6.4]
+- `shouldUseOneUpdateStepOnly`
+
 ## [0.6.3]
 - `installRemovePluginDataConfirmLanguages`
 

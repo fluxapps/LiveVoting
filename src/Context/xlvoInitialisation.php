@@ -253,12 +253,17 @@ class xlvoInitialisation extends ilInitialisation
         self::initGlobal("tpl", $tpl);
 
         if (ilContext::hasUser()) {
-            $request_adjuster = new ilUserRequestTargetAdjustment(
-                $ilUser,
-                $GLOBALS['DIC']['ilCtrl'],
-                $GLOBALS['DIC']->http()->request()
-            );
-            $request_adjuster->adjust();
+            if (self::version()->is7()) {
+                $dispatcher = new \ILIAS\Init\StartupSequence\StartUpSequenceDispatcher($DIC);
+                $dispatcher->dispatch();
+            } else {
+                $request_adjuster = new ilUserRequestTargetAdjustment(
+                    $ilUser,
+                    $GLOBALS['DIC']['ilCtrl'],
+                    $GLOBALS['DIC']->http()->request()
+                );
+                $request_adjuster->adjust();
+            }
         }
 
         require_once "./Services/UICore/classes/class.ilFrameTargetInfo.php";
@@ -363,6 +368,11 @@ class xlvoInitialisation extends ilInitialisation
         self::initLog();
     }
 
+    public static function initUIFramework(Container $c)
+    {
+        parent::initUIFramework($c);
+        parent::initRefinery($c);
+    }
 
     /**
      * @return int
