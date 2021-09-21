@@ -1,5 +1,8 @@
 # Change Log
 
+## [5.2.1]
+- Fix: change in ILIAS 7 initialisation led to error when joining voting
+
 ## [5.2.0]
 - Change: ILIAS 7 compatibility
 - Change: dropped ILIAS 5.4 compatibility
