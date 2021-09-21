@@ -20,10 +20,20 @@ use ilHelp;
 use ilHTTPS;
 use ILIAS\DI\Container;
 use ILIAS\DI\HTTPServices;
+use ILIAS\FileUpload\Location;
 use ILIAS\HTTP\Cookies\CookieJarFactoryImpl;
 use ILIAS\HTTP\Request\RequestFactoryImpl;
 use ILIAS\HTTP\Response\ResponseFactoryImpl;
 use ILIAS\HTTP\Response\Sender\DefaultResponseSenderStrategy;
+use ILIAS\ResourceStorage\Information\Repository\InformationARRepository;
+use ILIAS\ResourceStorage\Lock\LockHandlerilDB;
+use ILIAS\ResourceStorage\Policy\WhiteAndBlacklistedFileNamePolicy;
+use ILIAS\ResourceStorage\Resource\Repository\ResourceARRepository;
+use ILIAS\ResourceStorage\Revision\Repository\RevisionARRepository;
+use ILIAS\ResourceStorage\Stakeholder\Repository\StakeholderARRepository;
+use ILIAS\ResourceStorage\StorageHandler\FileSystemBased\FileSystemStorageHandler;
+use ILIAS\ResourceStorage\StorageHandler\FileSystemBased\MaxNestingFileSystemStorageHandler;
+use ILIAS\ResourceStorage\StorageHandler\StorageHandlerFactory;
 use ilIniFile;
 use ilInitialisation;
 use iljQueryUtil;
@@ -46,23 +56,15 @@ use ilUtil;
 use LiveVoting\Conf\xlvoConf;
 use LiveVoting\Context\Param\ParamManager;
 use LiveVoting\Context\xlvoContext;
+use LiveVoting\Context\xlvoDummyUser6;
 use LiveVoting\Context\xlvoILIAS;
+use LiveVoting\Context\xlvoInitialisation;
 use LiveVoting\Context\xlvoObjectDefinition;
 use LiveVoting\Context\xlvoRbacReview;
 use LiveVoting\Context\xlvoRbacSystem;
 use LiveVoting\Session\xlvoSessionHandler;
 use LiveVoting\Utils\LiveVotingTrait;
 use srag\DIC\LiveVoting\DICTrait;
-use LiveVoting\Context\xlvoDummyUser6;
-use ILIAS\ResourceStorage\StorageHandler\FileSystemStorageHandler;
-use ILIAS\FileUpload\Location;
-use ILIAS\ResourceStorage\Revision\Repository\RevisionARRepository;
-use ILIAS\ResourceStorage\Resource\Repository\ResourceARRepository;
-use ILIAS\ResourceStorage\Information\Repository\InformationARRepository;
-use ILIAS\ResourceStorage\Stakeholder\Repository\StakeholderARRepository;
-use ILIAS\ResourceStorage\Lock\LockHandlerilDB;
-use ILIAS\ResourceStorage\Policy\WhiteAndBlacklistedFileNamePolicy;
-use LiveVoting\Context\xlvoInitialisation;
 
 /**
  * Class xlvoBasicInitialisation for ILIAS 7
@@ -810,7 +812,10 @@ class xlvoBasicInitialisation
 
         $DIC['resource_storage'] = static function (Container $c) : \ILIAS\ResourceStorage\Services {
             return new \ILIAS\ResourceStorage\Services(
-                new FileSystemStorageHandler($c['filesystem.storage'], Location::STORAGE),
+                new StorageHandlerFactory([
+                    new MaxNestingFileSystemStorageHandler($c['filesystem.storage'], Location::STORAGE),
+                    new FileSystemStorageHandler($c['filesystem.storage'], Location::STORAGE)
+                ]),
                 new RevisionARRepository(),
                 new ResourceARRepository(),
                 new InformationARRepository(),
