@@ -1,5 +1,8 @@
 # Change Log
 
+## [6.0.1]
+- Version for ILIAS 7
+
 ## [6.0.0]
 - Version for ILIAS 7
 
