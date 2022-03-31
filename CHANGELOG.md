@@ -1,5 +1,8 @@
 # Change Log
 
+## [6.0.2]
+- Changed metadata in composer.json
+
 ## [6.0.1]
 - Version for ILIAS 7
 
