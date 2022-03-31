@@ -1,47 +1,25 @@
 {
   "name": "srag/plugins/livevoting",
+  "version": "6.0.1",
   "description": "ILIAS LiveVoting plugin",
   "type": "project",
   "keywords": [
     "ILIAS",
-    "Plugin",
+    "fluxlabs",
     "LiveVoting"
   ],
-  "homepage": "https://github.com/studer-raimann/LiveVoting",
+  "homepage": "https://github.com/fluxapps/LiveVoting",
   "license": "GPL-3.0+",
   "authors": [
     {
-      "name": "studer + raimann ag - Team Custom 1",
-      "email": "support-custom1@studer-raimann.ch",
-      "homepage": "https://studer-raimann.ch",
-      "role": "Developer"
-    },
-    {
-      "name": "Nicolas Schaefli",
-      "email": "ns@studer-raimann.ch",
-      "homepage": "https://studer-raimann.ch",
-      "role": "Software Engineer"
-    },
-    {
-      "name": "Fabian Schmid",
-      "email": "fs@studer-raimann.ch",
-      "homepage": "https://studer-raimann.ch",
-      "role": "Member of the Executive Board"
-    },
-    {
-      "name": "Oskar Truffer",
-      "email": "ot@studer-raimann.ch",
-      "homepage": "https://studer-raimann.ch",
-      "role": "Project Manager, Software Engineer"
-    },
-    {
-      "name": "Daniel Aemmer",
-      "email": "daniel.aemmer@phbern.ch",
-      "homepage": "https://www.phbern.ch"
+      "name": "fluxlabs ag",
+      "email": "support@fluxlabs.ch",
+      "homepage": "https://fluxlabs.ch",
+      "role": "Developer & Maintainer"
     }
   ],
   "support": {
-    "issues": "https://plugins.studer-raimann.ch/goto.php?target=uihk_srsu_PLLV"
+    "issues": "https://git.fluxlabs.ch"
   },
   "require": {
     "endroid/qrcode": "^1.9",
