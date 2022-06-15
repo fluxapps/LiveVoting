@@ -49,7 +49,7 @@ class DuplicateToAnotherObjectSelectFormGUI extends PropertyFormGUI
     /**
      * @inheritDoc
      */
-    protected function initCommands()/*: void*/
+    protected function initCommands(): void
     {
         $this->addCommandButton(xlvoVotingGUI::CMD_DUPLICATE_TO_ANOTHER_OBJECT, $this->txt("duplicate"));
     }
@@ -58,7 +58,7 @@ class DuplicateToAnotherObjectSelectFormGUI extends PropertyFormGUI
     /**
      * @inheritDoc
      */
-    protected function initFields()/*: void*/
+    protected function initFields(): void
     {
         $this->addItem($this->getRepositorySelector());
     }
@@ -82,7 +82,7 @@ class DuplicateToAnotherObjectSelectFormGUI extends PropertyFormGUI
     /**
      * @inheritDoc
      */
-    protected function initId()/*: void*/
+    protected function initId(): void
     {
 
     }
@@ -91,7 +91,7 @@ class DuplicateToAnotherObjectSelectFormGUI extends PropertyFormGUI
     /**
      * @inheritDoc
      */
-    protected function initTitle()/*: void*/
+    protected function initTitle(): void
     {
         $this->setTitle($this->txt(xlvoVotingGUI::CMD_DUPLICATE_TO_ANOTHER_OBJECT));
     }
@@ -100,7 +100,7 @@ class DuplicateToAnotherObjectSelectFormGUI extends PropertyFormGUI
     /**
      * @inheritDoc
      */
-    protected function storeValue(/*string*/ $key, $value)/*: void*/
+    protected function storeValue(/*string*/ $key, $value): void
     {
         switch ($key) {
             default:
