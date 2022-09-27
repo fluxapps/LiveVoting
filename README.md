@@ -1,5 +1,15 @@
 # LiveVoting
 
+![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/fluxapps/livevoting?style=flat-square)
+![GitHub closed issues](https://img.shields.io/github/issues-closed/fluxapps/livevoting?style=flat-square&color=success)
+[![GitHub issues](https://img.shields.io/github/issues/fluxapps/livevoting?style=flat-square&color=yellow)](https://github.com/fluxapps/livevoting/issues)
+![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/fluxapps/livevoting?style=flat-square&color=success)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/fluxapps/livevoting?style=flat-square&color=yellow)
+[![GitHub forks](https://img.shields.io/github/forks/fluxapps/livevoting?style=flat-square&color=blueviolet)](https://github.com/fluxapps/livevoting/network)
+[![GitHub stars](https://img.shields.io/github/stars/fluxapps/livevoting?style=flat-square&color=blueviolet)](https://github.com/fluxapps/livevoting/stargazers)
+[![GitHub license](https://img.shields.io/github/license/fluxapps/livevoting?style=flat-square)](https://github.com/fluxapps/livevoting/blob/main/LICENSE.md)
+
+
 ## Features
 
 - multiple/single/correct order/priorisation choice vote
