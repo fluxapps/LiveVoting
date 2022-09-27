@@ -55,3 +55,9 @@ Config Rewrite Rule in .htaccess or Apache-Config:
 For display the exported PowerPoint files you need to install the WebViewer-AddIn in PowerPoint:
 https://appsource.microsoft.com/en-us/product/office/WA104295828?tab=Overview
 You need also to configure your website as HTTPS and allow that your website can be displayed in frames.
+
+## Maintenance
+
+fluxlabs ag, support@fluxlabs.ch
+
+This project is maintained by fluxlabs.
