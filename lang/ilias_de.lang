@@ -49,7 +49,7 @@ correct_order#:#Korrekte Reihenfolge
 crs_create_xlvo#:#LiveVoting erstellen
 fikd_create_xlvo#:#LiveVoting erstellen
 grp_create_xlvo#:#LiveVoting erstellen
-rep_robj_xlvo_fold_create_xlvo#:#LiveVoting erstellen
+fold_create_xlvo#:#LiveVoting erstellen
 incorrect_order#:#Falsche Reihenfolge
 msg_success_voting_created#:#Frage wurde erstellt
 msg_success_voting_updated#:#Frage wurde gespeichert
