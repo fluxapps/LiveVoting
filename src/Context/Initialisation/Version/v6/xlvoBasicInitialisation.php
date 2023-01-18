@@ -10,6 +10,7 @@ use Exception;
 use ilAccess;
 use ilAppEventHandler;
 use ilBenchmark;
+use ilCachedComponentData;
 use ilCtrl;
 use ilDBWrapperFactory;
 use ilErrorHandling;
@@ -587,6 +588,11 @@ class xlvoBasicInitialisation
 
     private function initPluginAdmin()
     {
+        Closure::bind(function() : void {
+            $this->il_plugin_by_id = [ilLiveVotingPlugin::PLUGIN_ID => $this->il_plugin_by_id[ilLiveVotingPlugin::PLUGIN_ID]];
+            $this->il_plugin_by_name = [ilLiveVotingPlugin::PLUGIN_NAME => $this->il_plugin_by_name[ilLiveVotingPlugin::PLUGIN_NAME]];
+            $this->il_plugin_active = ["robj" => array_filter($this->il_plugin_active["robj"], function(array $plugin) : bool {return $plugin["plugin_id"] === ilLiveVotingPlugin::PLUGIN_ID;})];
+        }, ilCachedComponentData::getInstance(), ilCachedComponentData::class)();
         $this->makeGlobal("ilPluginAdmin", new ilPluginAdmin());
     }
 
