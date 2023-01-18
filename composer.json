@@ -1,26 +1,8 @@
 {
-  "name": "srag/plugins/livevoting",
-  "version": "6.0.2",
+  "name": "fluxapps/livevoting",
+  "version": "2023.01.12",
   "description": "ILIAS LiveVoting plugin",
   "type": "project",
-  "keywords": [
-    "ilias",
-    "fluxlabs",
-    "live-voting"
-  ],
-  "homepage": "https://fluxlabs.ch",
-  "license": "GPL-3.0+",
-  "authors": [
-    {
-      "name": "fluxlabs ag",
-      "email": "support@fluxlabs.ch",
-      "homepage": "https://fluxlabs.ch",
-      "role": "Developer & Maintainer"
-    }
-  ],
-  "support": {
-    "issues": "https://git.fluxlabs.ch"
-  },
   "require": {
     "endroid/qrcode": "^1.9",
     "srag/activerecordconfig": ">=0.1.0",

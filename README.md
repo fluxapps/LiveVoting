@@ -56,8 +56,17 @@ For display the exported PowerPoint files you need to install the WebViewer-AddI
 https://appsource.microsoft.com/en-us/product/office/WA104295828?tab=Overview
 You need also to configure your website as HTTPS and allow that your website can be displayed in frames.
 
-## Maintenance
-
+## Rebuild & Maintenance
 fluxlabs ag, support@fluxlabs.ch
 
-This project is maintained by fluxlabs.
+This project needs a proof of concept
+
+Would you like to participate?
+Take advantage of the crowdfunding opportunity under [discussions](https://github.com/fluxapps/LiveVoting/discussions/37).
+
+
+## About fluxlabs plugins
+
+Please also have a look at our other key projects and their [MAINTENANCE](https://github.com/fluxapps/docs/blob/8ce4309b0ac64c039d29204c2d5b06723084c64b/assets/MAINTENANCE.png).
+
+The plugins that require a rebuild and the costs are listed here: [REBUILDS](https://github.com/fluxapps/docs/blob/8ce4309b0ac64c039d29204c2d5b06723084c64b/assets/REBUILDS.png)

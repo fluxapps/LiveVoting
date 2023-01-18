@@ -1,4 +1,6 @@
 # Change Log
+## [2023.01.12]
+- Disable other plugins on voter because they may make conflict
 
 ## [6.0.2]
 - Changed metadata in composer.json
