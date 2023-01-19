@@ -2,7 +2,7 @@
 ## [2023.01.19]
 - Fix for ILIAS <= 7.16
 
-## [2023.01.12]
+## [2023.01.18]
 - Disable other plugins on voter because they may make conflict
 
 ## [6.0.2]
