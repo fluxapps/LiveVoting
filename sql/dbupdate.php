@@ -507,3 +507,11 @@ foreach (\LiveVoting\Voting\xlvoVoting::where([ "answer_field" => NULL ])->get()
 \LiveVoting\Vote\xlvoVote::updateDB();
 \LiveVoting\QuestionTypes\FreeInput\xlvoFreeInputCategory::updateDB();
 ?>
+<#41>
+<?php
+$form_element = new \ilTextInputGUI();
+foreach (\LiveVoting\Option\xlvoOption::get() as $option) {
+    $option->setText($form_element->stripSlashesAddSpaceFallback($option->getText()));
+    $option->store();
+}
+?>
