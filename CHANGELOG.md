@@ -1,4 +1,7 @@
 # Change Log
+## [2023.01.26]
+- fix for MultiLineNewInputGUI
+
 ## [2023.01.19]
 - Fix for ILIAS <= 7.16
 
