@@ -99,7 +99,7 @@ class xlvoCorrectOrderSubFormGUI extends xlvoSubFormGUI
                      * @var xlvoOption $xlvoOption
                      */
                     $xlvoOption = xlvoOption::findOrGetInstance($item[self::F_ID]);
-                    $xlvoOption->setText($item[self::F_TEXT]);
+                    $xlvoOption->setText($element->stripSlashesAddSpaceFallback($item[self::F_TEXT]));
                     $xlvoOption->setStatus(xlvoOption::STAT_ACTIVE);
                     $xlvoOption->setVotingId($this->getXlvoVoting()->getId());
                     $xlvoOption->setPosition($pos);
