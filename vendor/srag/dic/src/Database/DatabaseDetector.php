@@ -24,6 +24,22 @@ class DatabaseDetector extends AbstractILIASDatabaseDetector
      */
     protected static $instance = null;
 
+    /**
+    * Implements the primaryExistsByFields method from ilDBInterface.
+    *
+    * This method was added to address compatibility issues with newer versions
+    * of ILIAS, specifically ILIAS8 and ILIAS7
+    * @see https://github.com/ILIAS-eLearning/ILIAS/commit/3d4ccc6a24d5d3e487d9e303a41a7bb12262eb48
+    *
+    * @param string $table_name The name of the table.
+    * @param array $fields An array of fields.
+    * @return bool A stub return. This should be adjusted based on the actual implementation.
+    */    
+    public function primaryExistsByFields(string $table_name, array $fields): bool
+    {
+        // TODO: Implement the actual logic for this method.
+        return false;
+    }
 
     /**
      * @param ilDBInterface $db
